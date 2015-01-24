@@ -5,6 +5,50 @@ module.exports = function (grunt) {
 
     process.env.SLIMERJS_BIN = 'node_modules/.bin/slimerjs';
 
+    var customLaunchers = {
+        slChrome: {
+            base: 'SauceLabs',
+            browserName: 'chrome'
+        },
+        slFirefox: {
+            base: 'SauceLabs',
+            browserName: 'firefox'
+        },
+        slIe11: {
+            base: 'SauceLabs',
+            browserName: 'internet explorer',
+            version: '11'
+        },
+        slIe10: {
+            base: 'SauceLabs',
+            browserName: 'internet explorer',
+            version: '10'
+        },
+        slIe9: {
+            base: 'SauceLabs',
+            browserName: 'internet explorer',
+            version: '9'
+        }/*,
+        slAndroid4: {
+            base: 'SauceLabs',
+            browserName: 'android',
+            version: '4.4'
+        },
+        slAndroid5: {
+            base: 'SauceLabs',
+            browserName: 'android',
+            version: '5.0'
+        },
+        slIPhone: {
+            base: 'SauceLabs',
+            browserName: 'iPhone'
+        },
+        slIPad: {
+            base: 'SauceLabs',
+            browserName: 'iPad'
+        }*/
+    };
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
@@ -69,6 +113,18 @@ module.exports = function (grunt) {
             build: {
                 singleRun: true,
                 autoWatch: false
+            },
+            sauce: {
+                sauceLabs: {
+                    testName: 'Custom Element Builder Test'
+                },
+                // 3 minutes
+                captureTimeout: 3 * 60 * 1000,
+                customLaunchers: customLaunchers,
+                browsers: Object.keys(customLaunchers),
+                reporters: ['dots', 'saucelabs', 'coverage'],
+                singleRun: true,
+                autoWatch: false
             }
         },
 
@@ -131,6 +187,8 @@ module.exports = function (grunt) {
     grunt.registerTask('dev', ['jshint', 'karma:dev']);
 
     grunt.registerTask('build', ['jshint', 'karma:build', 'uglify', 'copy:build', 'sync:build']);
+
+    grunt.registerTask('build-ci', ['jshint', 'karma:sauce', 'uglify', 'copy:build', 'sync:build']);
 
     grunt.registerTask('default', ['serve']);
 
