@@ -317,14 +317,14 @@
     }
     testing.baseStructFactory = baseStructFactory;
 
-    function sanitizeAccessor(accessor) {
-        if (accessor.attribute) {
-            accessor.attName = accessor.attribute.name || fromCamelCaseToHyphenCase(accessor.propName);
+    function sanitizeProperty(property) {
+        if (property.attribute) {
+            property.attName = property.attribute.name || fromCamelCaseToHyphenCase(property.propName);
         }
-        accessor.writable = accessor.hasOwnProperty('writable') ? accessor.writable : true;
-        return accessor;
+        property.writable = property.hasOwnProperty('writable') ? property.writable : true;
+        return property;
     }
-    testing.sanitizeAccessor = sanitizeAccessor;
+    testing.sanitizeProperty = sanitizeProperty;
 
     var builder = function builder(tagName, params) {
         var struct = params && params.struct ? params.struct : baseStructFactory();
@@ -373,7 +373,7 @@
                 return Object.assign(someProperties[propName], {
                     propName: propName
                 });
-            }).map(sanitizeAccessor).reduce(function (previous, current) {
+            }).map(sanitizeProperty).reduce(function (previous, current) {
                 previous[current.propName] = current;
                 return previous;
             }, {});
