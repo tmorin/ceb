@@ -410,7 +410,7 @@
 
     function factory(params) {
         var api = {};
-        api.start = function (tagName) {
+        api.name = function (tagName) {
             return builder(tagName, params);
         };
         return api;

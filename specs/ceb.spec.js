@@ -8,7 +8,7 @@ describe('#ceb', function() {
         describe('WHEN ceb is called', function() {
             var builder;
             beforeEach(function() {
-                builder = ceb().start(tagName);
+                builder = ceb().name(tagName);
             });
             it('THEN the builder should be created', function() {
                 expect(builder).to.be.exist;
