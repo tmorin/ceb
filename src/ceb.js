@@ -367,10 +367,10 @@
             return api;
         };
         // FELDS
-        api.accessors = function (someAccessors) {
+        api.properties = function (someProperties) {
 
-            var sanitizedAccessors = Object.getOwnPropertyNames(someAccessors || {}).map(function (propName) {
-                return Object.assign(someAccessors[propName], {
+            var sanitizedProperties = Object.getOwnPropertyNames(someProperties || {}).map(function (propName) {
+                return Object.assign(someProperties[propName], {
                     propName: propName
                 });
             }).map(sanitizeAccessor).reduce(function (previous, current) {
@@ -378,7 +378,7 @@
                 return previous;
             }, {});
 
-            Object.assign(struct.accessors, sanitizedAccessors);
+            Object.assign(struct.accessors, sanitizedProperties);
 
             return api;
         };
