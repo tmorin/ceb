@@ -28,12 +28,12 @@ module.exports = function (grunt) {
             base: 'SauceLabs',
             browserName: 'internet explorer',
             version: '9'
-        }/*,
+        },
         slAndroid4: {
             base: 'SauceLabs',
             browserName: 'android',
             version: '4.4'
-        },
+        }/*,
         slAndroid5: {
             base: 'SauceLabs',
             browserName: 'android',
