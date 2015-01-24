@@ -117,7 +117,7 @@
         struct.features = struct.features || [];
         struct.interceptors = struct.interceptors || [];
         struct.wrappers = struct.wrappers || [];
-
+        struct.properties = struct.properties || {};
         struct.methods = Object.assign({
             createdCallback: emptyFn(),
             attachedCallback: emptyFn(),
