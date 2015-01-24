@@ -117,7 +117,7 @@
         struct.features = struct.features || [];
         struct.interceptors = struct.interceptors || [];
         struct.wrappers = struct.wrappers || [];
-
+        struct.properties = struct.properties || {};
         struct.methods = Object.assign({
             createdCallback: emptyFn(),
             attachedCallback: emptyFn(),
@@ -410,7 +410,7 @@
 
     function factory(params) {
         var api = {};
-        api.start = function (tagName) {
+        api.name = function (tagName) {
             return builder(tagName, params);
         };
         return api;
