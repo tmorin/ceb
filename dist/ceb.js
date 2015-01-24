@@ -271,8 +271,7 @@
             if (property.attName) {
                 if (el.hasAttribute(property.attName)) {
                     el[property.propName] = property.attribute.boolean ? true : el.getAttribute(property.attName);
-                }
-                if (property.hasOwnProperty('value')) {
+                } else if (property.hasOwnProperty('value')) {
                     applyAttributeValue(el, property.attName, property.value, property.attribute.boolean);
                 }
             } else if (property.value && property.writable) {
