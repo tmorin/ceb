@@ -20,7 +20,7 @@ describe('#builtInFeatures.valueInitializer.createdCallbackWrapper', function() 
             };
         });
 
-        describe('AND an accessor bound to an attribute', function() {
+        describe('AND a property bound to an attribute', function() {
             beforeEach(function() {
                 struct.accessors.prop1.attName = 'prop1';
                 struct.accessors.prop1.attribute = {};
@@ -84,7 +84,7 @@ describe('#builtInFeatures.valueInitializer.createdCallbackWrapper', function() 
         // property
         // -- writable value
         // -- no writable value
-        describe('AND an accessor not bound to an attribute', function() {
+        describe('AND a property not bound to an attribute', function() {
             beforeEach(function() {
             });
             describe('AND a value writable', function() {

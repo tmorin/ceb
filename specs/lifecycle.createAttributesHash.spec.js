@@ -7,7 +7,7 @@ describe('#createAttributesHash', function() {
                 accessors: {}
             };
         });
-        describe('AND an accessor a1 AND accessors a2 and a3 linked to an attribute', function() {
+        describe('AND a property a1 AND properties a2 and a3 linked to them attributes', function() {
             var a1, a2, a3;
             beforeEach(function() {
                 a1 = struct.accessors.a1 = {};

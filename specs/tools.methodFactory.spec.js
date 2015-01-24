@@ -1,7 +1,7 @@
 /*jshint expr:true, strict:false*/
 describe('#methodFactory', function() {
     describe('GIVEN three wrappers list, a wrapper function and an object o1', function() {
-        var wrapper1, wrapper2, wrapper3, wrappers, wrapped, o1, a1,a2, accessor;
+        var wrapper1, wrapper2, wrapper3, wrappers, wrapped, o1, a1,a2, method;
         var dummyWrapper = function (next) {
             return next(arguments);
         };
@@ -18,16 +18,16 @@ describe('#methodFactory', function() {
             a2 = 'value';
             o1 = {};
         });
-        describe('WHEN the accessor is created', function() {
+        describe('WHEN the method is created', function() {
             beforeEach(function() {
-                accessor = ceb._testing.methodFactory(wrappers, wrapped);
+                method = ceb._testing.methodFactory(wrappers, wrapped);
             });
             it('THEN it should return a function', function() {
-                expect(accessor).to.be.an.instanceof(Function);
+                expect(method).to.be.an.instanceof(Function);
             });
-            describe('AND the accessor called with o1 as context and a1 as argument', function() {
+            describe('AND the method called with o1 as context and a1 as argument', function() {
                 beforeEach(function() {
-                    accessor.call(o1, a1, a2);
+                    method.call(o1, a1, a2);
                 });
                 it('THEN the wrappers should be called with o1 as context', function() {
                     wrappers.forEach(function (wrapper) {

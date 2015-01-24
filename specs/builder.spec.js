@@ -195,20 +195,20 @@ describe('#builder', function() {
             beforeEach(function() {
                 builder = ceb._testing.builder(tagName, params);
             });
-            describe('WHEN accessors are set', function() {
+            describe('WHEN some properties are set', function() {
                 beforeEach(function() {
                     builder.properties(someProperties);
                 });
-                it('THEN some accessors should be set', function() {
+                it('THEN some properties should be set', function() {
                     expect(struct.accessors.prop1.propName).to.eq('prop1');
                     expect(struct.accessors.prop1.writable).to.eq(true);
                 });
             });
-            describe('WHEN no accessors are set', function() {
+            describe('WHEN no properties are set', function() {
                 beforeEach(function() {
                     builder.properties(null);
                 });
-                it('THEN the accessors should not be set', function() {
+                it('THEN no properties should be set', function() {
                     expect(struct.accessors).to.eql({});
                 });
             });
