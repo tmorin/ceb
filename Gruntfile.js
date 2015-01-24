@@ -133,17 +133,17 @@ module.exports = function (grunt) {
 
         coveralls: {
             options: {
-                debug: true,
                 coverageDir: 'build/coverage',
-                force: true
+                force: true,
+                recursive: true
             },
             'build-local': {
-                dryRun: true,
-                recursive: true
+                debug: true,
+                dryRun: true
             },
             'build-ci': {
-                dryRun: false,
-                recursive: true
+                debug: false,
+                dryRun: false
             }
         },
 
