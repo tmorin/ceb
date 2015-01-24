@@ -1,5 +1,5 @@
 /*jshint expr:true, strict:false*/
-describe('#createPropertiesHash', function() {
+describe('#createDefinedPropertiesHash', function() {
     describe('GIVEN a sanitized structure struct', function() {
         var struct;
         beforeEach(function() {
@@ -21,7 +21,7 @@ describe('#createPropertiesHash', function() {
             describe('WHEN the properties are created', function() {
                 var result;
                 beforeEach(function() {
-                    result = ceb._testing.createPropertiesHash(struct);
+                    result = ceb._testing.createDefinedPropertiesHash(struct);
                 });
                 it('THEN the result is an object', function() {
                     expect(result).to.be.instanceOf(Object);
@@ -48,7 +48,7 @@ describe('#createPropertiesHash', function() {
             describe('WHEN the properties are created', function() {
                 var result;
                 beforeEach(function() {
-                    result = ceb._testing.createPropertiesHash(struct);
+                    result = ceb._testing.createDefinedPropertiesHash(struct);
                 });
                 it('THEN the result is an object', function() {
                     expect(result).to.be.instanceOf(Object);
@@ -77,7 +77,7 @@ describe('#createPropertiesHash', function() {
                 describe('WHEN the properties are created', function() {
                     var result;
                     beforeEach(function() {
-                        result = ceb._testing.createPropertiesHash(struct);
+                        result = ceb._testing.createDefinedPropertiesHash(struct);
                     });
                     it('THEN the result is an object', function() {
                         expect(result).to.be.instanceOf(Object);
@@ -107,7 +107,7 @@ describe('#createPropertiesHash', function() {
                 describe('WHEN the properties are created', function() {
                     var result;
                     beforeEach(function() {
-                        result = ceb._testing.createPropertiesHash(struct);
+                        result = ceb._testing.createDefinedPropertiesHash(struct);
                     });
                     it('THEN the result is an object', function() {
                         expect(result).to.be.instanceOf(Object);
@@ -140,7 +140,7 @@ describe('#createPropertiesHash', function() {
             describe('WHEN the properties are created', function() {
                 var result;
                 beforeEach(function() {
-                    result = ceb._testing.createPropertiesHash(struct);
+                    result = ceb._testing.createDefinedPropertiesHash(struct);
                 });
                 it('THEN the result is an object', function() {
                     expect(result).to.be.instanceOf(Object);
@@ -171,7 +171,7 @@ describe('#createPropertiesHash', function() {
             describe('WHEN the properties are created', function() {
                 var result;
                 beforeEach(function() {
-                    result = ceb._testing.createPropertiesHash(struct);
+                    result = ceb._testing.createDefinedPropertiesHash(struct);
                 });
                 it('THEN the property is enumerable but not configurable', function() {
                     expect(result.a1).to.eql({

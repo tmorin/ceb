@@ -150,7 +150,7 @@
     }
     testing.createAttributesHash = createAttributesHash;
 
-    function createPropertiesHash(struct) {
+    function createDefinedPropertiesHash(struct) {
         return listValues(struct.accessors).map(function (accessor) {
             // default parameters
             var property = {
@@ -191,7 +191,7 @@
             return previous;
         }, {});
     }
-    testing.createPropertiesHash = createPropertiesHash;
+    testing.createDefinedPropertiesHash = createDefinedPropertiesHash;
 
     function createMethodsHash(struct) {
         return Object.getOwnPropertyNames(struct.methods).map(function (methName) {
@@ -214,11 +214,11 @@
         sanitizeStructure(struct);
         setupFeatures(struct);
 
-        struct.properties = createPropertiesHash(struct);
+        struct.definedProperties = createDefinedPropertiesHash(struct);
         struct.attributes = createAttributesHash(struct);
         struct.methods = createMethodsHash(struct);
 
-        Object.defineProperties(struct.prototype, struct.properties);
+        Object.defineProperties(struct.prototype, struct.definedProperties);
         Object.assign(struct.prototype, struct.methods);
 
         return document.registerElement(struct.tagName, struct);
