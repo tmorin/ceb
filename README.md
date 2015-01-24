@@ -4,4 +4,4 @@
 
 [![Coverage Status](https://coveralls.io/repos/tmorin/custom-element-builder/badge.svg)](https://coveralls.io/r/tmorin/custom-element-builder)
 
-[![Sauce Test Status](https://saucelabs.com/buildstatus/customelementbuilder)](https://saucelabs.com/u/customelementbuilder)
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
