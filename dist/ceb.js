@@ -141,8 +141,8 @@
     testing.setupFeatures = setupFeatures;
 
     function createAttributesHash(struct) {
-        return listValues(struct.accessors).filter(function (accessor) {
-            return accessor.attName;
+        return listValues(struct.properties).filter(function (property) {
+            return property.attName;
         }).reduce(function (previous, current) {
             previous[current.attName] = current;
             return previous;
@@ -150,48 +150,48 @@
     }
     testing.createAttributesHash = createAttributesHash;
 
-    function createPropertiesHash(struct) {
-        return listValues(struct.accessors).map(function (accessor) {
+    function createDefinedPropertiesHash(struct) {
+        return listValues(struct.properties).map(function (property) {
             // default parameters
-            var property = {
+            var definedProperty = {
                 configurable: false,
                 enumerable: true
             };
 
-            if (accessor.attribute) {
-                // handle accessors linked to an attribute
-                var originalSet = accessor.set;
-                var originalGet = accessor.get;
-                accessor.set = attributeAccessorSetFactory(accessor.attName, originalSet, !!accessor.attribute.boolean);
-                accessor.get = attributeAccessorGetFactory(accessor.attName, originalGet, !!accessor.attribute.boolean);
-            } else if (accessor.hasOwnProperty('value')) {
+            if (property.attribute) {
+                // handle properties linked to an attribute
+                var originalSet = property.set;
+                var originalGet = property.get;
+                property.set = attributeAccessorSetFactory(property.attName, originalSet, !!property.attribute.boolean);
+                property.get = attributeAccessorGetFactory(property.attName, originalGet, !!property.attribute.boolean);
+            } else if (property.hasOwnProperty('value')) {
                 // handle constants
-                property.value = accessor.value;
-                property.writable = accessor.hasOwnProperty('writable') ? accessor.writable : true;
+                definedProperty.value = property.value;
+                definedProperty.writable = property.hasOwnProperty('writable') ? property.writable : true;
             }
 
-            if (!property.hasOwnProperty('writable')) {
+            if (!definedProperty.hasOwnProperty('writable')) {
                 // handle setter and getter
-                var interceptors = struct.interceptors[accessor.propName] || {};
-                if (accessor.set) {
+                var interceptors = struct.interceptors[property.propName] || {};
+                if (property.set) {
                     var setStack = interceptors.set || [];
-                    property.set = accessorFactory(setStack, accessor.set);
+                    definedProperty.set = accessorFactory(setStack, property.set);
                 }
-                if (accessor.get) {
+                if (property.get) {
                     var getStack = interceptors.get || [];
-                    property.get = accessorFactory(getStack, accessor.get);
+                    definedProperty.get = accessorFactory(getStack, property.get);
                 }
             }
 
-            return Object.assign(accessor, {
-                property: property
+            return Object.assign(property, {
+                property: definedProperty
             });
         }).reduce(function (previous, current) {
             previous[current.propName] = current.property;
             return previous;
         }, {});
     }
-    testing.createPropertiesHash = createPropertiesHash;
+    testing.createDefinedPropertiesHash = createDefinedPropertiesHash;
 
     function createMethodsHash(struct) {
         return Object.getOwnPropertyNames(struct.methods).map(function (methName) {
@@ -214,11 +214,11 @@
         sanitizeStructure(struct);
         setupFeatures(struct);
 
-        struct.properties = createPropertiesHash(struct);
+        struct.definedProperties = createDefinedPropertiesHash(struct);
         struct.attributes = createAttributesHash(struct);
         struct.methods = createMethodsHash(struct);
 
-        Object.defineProperties(struct.prototype, struct.properties);
+        Object.defineProperties(struct.prototype, struct.definedProperties);
         Object.assign(struct.prototype, struct.methods);
 
         return document.registerElement(struct.tagName, struct);
@@ -231,63 +231,63 @@
     testing.builtInFeatures = builtInFeatures;
 
     builtInFeatures.delegate = emptyFn();
-    builtInFeatures.delegate.delegableAccessorInterceptor = function (accessor, next, el, value) {
+    builtInFeatures.delegate.delegableAccessorInterceptor = function (property, next, el, value) {
         next(value);
-        var target = el.querySelector(accessor.delegate.target);
+        var target = el.querySelector(property.delegate.target);
         /* istanbul ignore else  */
         if (target) {
-            var targetPropName = accessor.delegate.property;
-            var targetAttName = accessor.delegate.attribute;
+            var targetPropName = property.delegate.property;
+            var targetAttName = property.delegate.attribute;
             if (!targetPropName && !targetAttName) {
-                targetPropName = accessor.propName;
-                targetAttName = accessor.attName;
+                targetPropName = property.propName;
+                targetAttName = property.attName;
             }
-            var isBoolean = accessor.attribute && !!accessor.attribute.boolean;
-            if (accessor.delegate.hasOwnProperty('boolean')) {
-                isBoolean = accessor.delegate.boolean;
+            var isBoolean = property.attribute && !!property.attribute.boolean;
+            if (property.delegate.hasOwnProperty('boolean')) {
+                isBoolean = property.delegate.boolean;
             }
             if (targetAttName) {
                 applyAttributeValue(target, targetAttName, value, isBoolean);
             } else {
-                target[targetPropName] = el[accessor.propName];
+                target[targetPropName] = el[property.propName];
             }
         }
     };
     builtInFeatures.delegate.setup = function (struct, builder) {
-        // keep only accessors configured for delegation
-        listValues(struct.accessors).filter(function (accessor) {
-            return accessor.delegate;
-        }).forEach(function (accessor) {
+        // keep only properties configured for delegation
+        listValues(struct.properties).filter(function (property) {
+            return property.delegate;
+        }).forEach(function (property) {
             // intercept the setter
             var delegableAccessorInterceptor = builtInFeatures.delegate.delegableAccessorInterceptor;
-            builder.intercept(accessor.propName, delegableAccessorInterceptor.bind(builtInFeatures.delegate, accessor));
+            builder.intercept(property.propName, delegableAccessorInterceptor.bind(builtInFeatures.delegate, property));
         });
     };
 
     builtInFeatures.valueInitializer = emptyFn();
     builtInFeatures.valueInitializer.createdCallbackWrapper = function (struct, next, el) {
         next(arguments);
-        listValues(struct.accessors).forEach(function (accessor) {
-            if (accessor.attName) {
-                if (el.hasAttribute(accessor.attName)) {
-                    el[accessor.propName] = accessor.attribute.boolean ? true : el.getAttribute(accessor.attName);
+        listValues(struct.properties).forEach(function (property) {
+            if (property.attName) {
+                if (el.hasAttribute(property.attName)) {
+                    el[property.propName] = property.attribute.boolean ? true : el.getAttribute(property.attName);
                 }
-                if (accessor.hasOwnProperty('value')) {
-                    applyAttributeValue(el, accessor.attName, accessor.value, accessor.attribute.boolean);
+                if (property.hasOwnProperty('value')) {
+                    applyAttributeValue(el, property.attName, property.value, property.attribute.boolean);
                 }
-            } else if (accessor.value && accessor.writable) {
-                el[accessor.propName] = accessor.value;
+            } else if (property.value && property.writable) {
+                el[property.propName] = property.value;
             }
         });
     };
     builtInFeatures.valueInitializer.attributeChangedCallbackWrapper = function (struct, next, el, attName, oldVal, newVal) {
-        var accessor = struct.attributes[attName];
-        if (accessor) {
+        var property = struct.attributes[attName];
+        if (property) {
             var value = newVal;
-            if (accessor.attribute.boolean) {
+            if (property.attribute.boolean) {
                 value = typeof newVal === 'string' ? true : false;
             }
-            el[accessor.propName] = value;
+            el[property.propName] = value;
         }
         next(arguments);
     };
@@ -302,7 +302,7 @@
 
     function baseStructFactory() {
         return {
-            accessors: {},
+            properties: {},
             methods: {},
             wrappers: [],
             interceptors: [],
@@ -317,14 +317,14 @@
     }
     testing.baseStructFactory = baseStructFactory;
 
-    function sanitizeAccessor(accessor) {
-        if (accessor.attribute) {
-            accessor.attName = accessor.attribute.name || fromCamelCaseToHyphenCase(accessor.propName);
+    function sanitizeProperty(property) {
+        if (property.attribute) {
+            property.attName = property.attribute.name || fromCamelCaseToHyphenCase(property.propName);
         }
-        accessor.writable = accessor.hasOwnProperty('writable') ? accessor.writable : true;
-        return accessor;
+        property.writable = property.hasOwnProperty('writable') ? property.writable : true;
+        return property;
     }
-    testing.sanitizeAccessor = sanitizeAccessor;
+    testing.sanitizeProperty = sanitizeProperty;
 
     var builder = function builder(tagName, params) {
         var struct = params && params.struct ? params.struct : baseStructFactory();
@@ -367,18 +367,18 @@
             return api;
         };
         // FELDS
-        api.accessors = function (someAccessors) {
+        api.properties = function (someProperties) {
 
-            var sanitizedAccessors = Object.getOwnPropertyNames(someAccessors || {}).map(function (propName) {
-                return Object.assign(someAccessors[propName], {
+            var sanitizedProperties = Object.getOwnPropertyNames(someProperties || {}).map(function (propName) {
+                return Object.assign(someProperties[propName], {
                     propName: propName
                 });
-            }).map(sanitizeAccessor).reduce(function (previous, current) {
+            }).map(sanitizeProperty).reduce(function (previous, current) {
                 previous[current.propName] = current;
                 return previous;
             }, {});
 
-            Object.assign(struct.accessors, sanitizedAccessors);
+            Object.assign(struct.properties, sanitizedProperties);
 
             return api;
         };
