@@ -33,20 +33,21 @@ module.exports = function (grunt) {
             base: 'SauceLabs',
             browserName: 'android',
             version: '4.4'
-        }/*,
-        slAndroid5: {
-            base: 'SauceLabs',
-            browserName: 'android',
-            version: '5.0'
-        },
-        slIPhone: {
-            base: 'SauceLabs',
-            browserName: 'iPhone'
-        },
-        slIPad: {
-            base: 'SauceLabs',
-            browserName: 'iPad'
-        }*/
+        }
+        /*,
+                slAndroid5: {
+                    base: 'SauceLabs',
+                    browserName: 'android',
+                    version: '5.0'
+                },
+                slIPhone: {
+                    base: 'SauceLabs',
+                    browserName: 'iPhone'
+                },
+                slIPad: {
+                    base: 'SauceLabs',
+                    browserName: 'iPad'
+                }*/
     };
 
     grunt.initConfig({
@@ -110,11 +111,11 @@ module.exports = function (grunt) {
                 singleRun: false,
                 autoWatch: true
             },
-            build: {
+            'build-local': {
                 singleRun: true,
                 autoWatch: false
             },
-            sauce: {
+            'build-ci': {
                 sauceLabs: {
                     testName: 'Custom Element Builder Test'
                 },
@@ -125,6 +126,21 @@ module.exports = function (grunt) {
                 reporters: ['dots', 'saucelabs', 'coverage'],
                 singleRun: true,
                 autoWatch: false
+            }
+        },
+
+        coveralls: {
+            options: {
+                debug: true,
+                coverageDir: 'build/coverage',
+                force: true,
+                recursive: true
+            },
+            'build-local': {
+                dryRun: true
+            },
+            'build-ci': {
+                dryRun: false
             }
         },
 
@@ -186,9 +202,9 @@ module.exports = function (grunt) {
 
     grunt.registerTask('dev', ['jshint', 'karma:dev']);
 
-    grunt.registerTask('build', ['jshint', 'karma:build', 'uglify', 'copy:build', 'sync:build']);
+    grunt.registerTask('build', ['jshint', 'karma:build-local', 'uglify', 'copy:build', 'sync:build', 'coveralls:build-local']);
 
-    grunt.registerTask('build-ci', ['jshint', 'karma:sauce', 'uglify', 'copy:build', 'sync:build']);
+    grunt.registerTask('build-ci', ['jshint', 'karma:build-ci', 'uglify', 'copy:build', 'sync:build', 'coveralls:build-ci']);
 
     grunt.registerTask('default', ['serve']);
 
