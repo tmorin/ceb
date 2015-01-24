@@ -1,0 +1,33 @@
+{
+  "name": "ceb",
+  "version": "0.0.1",
+  "description": "Custom Element Builder",
+  "license": "MIT",
+  "main": "dist/ceb.js",
+  "homepage": "https://github.com/tmorin/custom-element-builder",
+  "authors": [
+    {
+      "name": "Thibault Morin",
+      "url": "https://github.com/tmorin"
+    }
+  ],
+  "keywords": [
+    "Web",
+    "Components",
+    "Custom",
+    "Element",
+    "Elements",
+    "DOM",
+    "W3C",
+    "builder",
+    "tools"
+  ],
+  "ignore": [
+    ".jshintrc",
+    ".gitignore",
+    "build",
+    "demos",
+    "specs",
+    "src"
+  ]
+}

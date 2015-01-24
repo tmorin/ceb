@@ -1,0 +1,67 @@
+{
+    "name": "ceb",
+    "version": "0.0.1",
+    "description": "Custom Element Builder",
+    "keywords": [
+        "Web",
+        "Components",
+        "Custom",
+        "Element",
+        "Elements",
+        "DOM",
+        "W3C",
+        "builder",
+        "tools"
+    ],
+    "homepage": "https://github.com/tmorin/custom-element-builder",
+    "bugs": {
+        "url": "https://github.com/tmorin/custom-element-builder/issues"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Thibault Morin",
+        "url": "https://github.com/tmorin"
+    },
+    "authors": [{
+        "name": "Thibault Morin",
+        "homepage": "https://github.com/tmorin"
+    }],
+    "main": "dist/ceb",
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/tmorin/custom-element-builder.git"
+    },
+    "scripts": {
+        "test": "./node_modules/.bin/grunt build"
+    },
+    "engines": {
+        "node": ">=0.10.0"
+    },
+    "devDependencies": {
+        "chai": "^1.10.0",
+        "document-register-element": "^0.1.6",
+        "es6-shim": "^0.22.2",
+        "grunt": "^0.4.5",
+        "grunt-cli": "^0.1.13",
+        "grunt-contrib-connect": "^0.8.0",
+        "grunt-contrib-copy": "^0.7.0",
+        "grunt-contrib-jshint": "^0.10.0",
+        "grunt-contrib-uglify": "^0.7.0",
+        "grunt-contrib-watch": "^0.6.1",
+        "grunt-karma": "^0.9.0",
+        "grunt-npm2bower-sync": "^0.8.1",
+        "grunt-release": "^0.10.0",
+        "jshint-stylish": "^0.4.0",
+        "karma": "^0.12.28",
+        "karma-chai-plugins": "^0.2.4",
+        "karma-chrome-launcher": "^0.1.5",
+        "karma-coverage": "^0.2.6",
+        "karma-firefox-launcher": "^0.1.3",
+        "karma-ie-launcher": "^0.1.5",
+        "karma-mocha": "^0.1.10",
+        "karma-sinon": "^1.0.4",
+        "load-grunt-tasks": "^0.4.0",
+        "normalize-css": "^2.3.1",
+        "sinon": "^1.12.2"
+    }
+}

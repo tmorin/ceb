@@ -1,0 +1,27 @@
+{
+  "node": true,
+  "browser": true,
+  "esnext": true,
+  "bitwise": true,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "immed": true,
+  "indent": 2,
+  "newcap": true,
+  "noarg": true,
+  "quotmark": "single",
+  "undef": true,
+  "unused": "vars",
+  "strict": true,
+    "globals": {
+        "ceb": false,
+        "define": false,
+        "sinon": false,
+        "expect": false,
+        "describe": false,
+        "it": false,
+        "beforeEach": false,
+        "afterEach": false
+    }
+}
