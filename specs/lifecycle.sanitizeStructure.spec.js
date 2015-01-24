@@ -4,7 +4,7 @@ describe('#sanitizeStructure', function() {
         var struct;
         beforeEach(function() {
             struct = {
-                accessors: {},
+                properties: {},
                 prototype: Object.create(HTMLButtonElement.prototype),
                 'extends': 'button',
                 features: [],
@@ -38,7 +38,7 @@ describe('#sanitizeStructure', function() {
         });
         describe('AND no protoype, no extends, no features list, no interceptors list, no wrappers list', function() {
             beforeEach(function() {
-                struct.accessors = {};
+                struct.properties = {};
                 struct.prototype = null;
                 struct['extends'] = null;
                 struct.features = null;

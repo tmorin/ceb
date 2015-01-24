@@ -4,17 +4,17 @@ describe('#createAttributesHash', function() {
         var struct;
         beforeEach(function() {
             struct = {
-                accessors: {}
+                properties: {}
             };
         });
         describe('AND a property a1 AND properties a2 and a3 linked to them attributes', function() {
             var a1, a2, a3;
             beforeEach(function() {
-                a1 = struct.accessors.a1 = {};
-                a2 = struct.accessors.a2 = {
+                a1 = struct.properties.a1 = {};
+                a2 = struct.properties.a2 = {
                     attName: 'att2'
                 };
-                a3 = struct.accessors.a3 = {
+                a3 = struct.properties.a3 = {
                     attName: 'att3'
                 };
             });

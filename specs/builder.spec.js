@@ -27,7 +27,7 @@ describe('#builder', function() {
                 var struct;
                 beforeEach(function() {
                     struct = {
-                        accessors: {}
+                        properties: {}
                     };
                     params.struct = struct;
                 });
@@ -200,8 +200,8 @@ describe('#builder', function() {
                     builder.properties(someProperties);
                 });
                 it('THEN some properties should be set', function() {
-                    expect(struct.accessors.prop1.propName).to.eq('prop1');
-                    expect(struct.accessors.prop1.writable).to.eq(true);
+                    expect(struct.properties.prop1.propName).to.eq('prop1');
+                    expect(struct.properties.prop1.writable).to.eq(true);
                 });
             });
             describe('WHEN no properties are set', function() {
@@ -209,7 +209,7 @@ describe('#builder', function() {
                     builder.properties(null);
                 });
                 it('THEN no properties should be set', function() {
-                    expect(struct.accessors).to.eql({});
+                    expect(struct.properties).to.eql({});
                 });
             });
         });

@@ -4,7 +4,7 @@ describe('#createDefinedPropertiesHash', function() {
         var struct;
         beforeEach(function() {
             struct = {
-                accessors: {},
+                properties: {},
                 interceptors: {}
             };
         });
@@ -12,7 +12,7 @@ describe('#createDefinedPropertiesHash', function() {
         describe('AND a property a1 having a default value not writable', function() {
             var a1;
             beforeEach(function() {
-                a1 = struct.accessors.a1 = {
+                a1 = struct.properties.a1 = {
                     propName: 'a1',
                     value: 'v1',
                     writable: false
@@ -40,7 +40,7 @@ describe('#createDefinedPropertiesHash', function() {
         describe('AND a property a1 having a default value', function() {
             var a1;
             beforeEach(function() {
-                a1 = struct.accessors.a1 = {
+                a1 = struct.properties.a1 = {
                     propName: 'a1',
                     value: 'v1'
                 };
@@ -67,7 +67,7 @@ describe('#createDefinedPropertiesHash', function() {
         describe('AND a property a1 having a setter and a getter', function() {
             var a1;
             beforeEach(function() {
-                a1 = struct.accessors.a1 = {
+                a1 = struct.properties.a1 = {
                     propName: 'a1',
                     set: sinon.spy(),
                     get: sinon.spy()
@@ -132,7 +132,7 @@ describe('#createDefinedPropertiesHash', function() {
         describe('AND a property a1 bound an attribute', function() {
             var a1;
             beforeEach(function() {
-                a1 = struct.accessors.a1 = {
+                a1 = struct.properties.a1 = {
                     propName: 'a1',
                     attribute: true
                 };
@@ -164,7 +164,7 @@ describe('#createDefinedPropertiesHash', function() {
         describe('AND a simply property', function() {
             var a1;
             beforeEach(function() {
-                a1 = struct.accessors.a1 = {
+                a1 = struct.properties.a1 = {
                     propName: 'a1'
                 };
             });

@@ -7,7 +7,7 @@ describe('#builtInFeatures.valueInitializer.setup', function() {
                 wrap: sinon.spy()
             };
             struct = {
-                accessors: {},
+                properties: {},
                 methods: {
                     methods: {
                         createdCallback: sinon.spy(),

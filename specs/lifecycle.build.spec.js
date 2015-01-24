@@ -7,7 +7,7 @@ describe('#build', function() {
             m1 = sinon.spy();
             struct = {
                 tagName: tagName,
-                accessors: {
+                properties: {
                     prop1: {
                         value: 'value1',
                         propName: 'prop1'

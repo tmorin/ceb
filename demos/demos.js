@@ -18,7 +18,7 @@
                 console.log('demoMethod', el.tagName, arg1, arg2);
             }
         });
-        builder.accessors({
+        builder.properties({
             demoAccessor: {
                 attribute: true
             }
@@ -32,7 +32,7 @@
     'use strict';
 
     // RC-ACTION-BUTTON
-    var accessors = {
+    var properties = {
         label: {
             attribute: true,
             delegate: {
@@ -90,7 +90,7 @@
         key1: 'demo feature option'
     }, 1);
 
-    builder.accessors(accessors).methods(methods);
+    builder.properties(properties).methods(methods);
 
     builder.intercept('prop1', function(next, el, value) {
         console.log(el.tagName, 'prop1 1 - interceptor - before', value);

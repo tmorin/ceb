@@ -7,7 +7,7 @@ describe('#builtInFeatures.delegate.setup', function() {
                 intercept: sinon.spy()
             };
             struct = {
-                accessors: {
+                properties: {
                     a1: {
                         propName: 'a1',
                         delegate: {

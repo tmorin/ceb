@@ -141,7 +141,7 @@
     testing.setupFeatures = setupFeatures;
 
     function createAttributesHash(struct) {
-        return listValues(struct.accessors).filter(function (property) {
+        return listValues(struct.properties).filter(function (property) {
             return property.attName;
         }).reduce(function (previous, current) {
             previous[current.attName] = current;
@@ -151,7 +151,7 @@
     testing.createAttributesHash = createAttributesHash;
 
     function createDefinedPropertiesHash(struct) {
-        return listValues(struct.accessors).map(function (property) {
+        return listValues(struct.properties).map(function (property) {
             // default parameters
             var definedProperty = {
                 configurable: false,
@@ -254,8 +254,8 @@
         }
     };
     builtInFeatures.delegate.setup = function (struct, builder) {
-        // keep only accessors configured for delegation
-        listValues(struct.accessors).filter(function (property) {
+        // keep only properties configured for delegation
+        listValues(struct.properties).filter(function (property) {
             return property.delegate;
         }).forEach(function (property) {
             // intercept the setter
@@ -267,7 +267,7 @@
     builtInFeatures.valueInitializer = emptyFn();
     builtInFeatures.valueInitializer.createdCallbackWrapper = function (struct, next, el) {
         next(arguments);
-        listValues(struct.accessors).forEach(function (property) {
+        listValues(struct.properties).forEach(function (property) {
             if (property.attName) {
                 if (el.hasAttribute(property.attName)) {
                     el[property.propName] = property.attribute.boolean ? true : el.getAttribute(property.attName);
@@ -302,7 +302,7 @@
 
     function baseStructFactory() {
         return {
-            accessors: {},
+            properties: {},
             methods: {},
             wrappers: [],
             interceptors: [],
@@ -378,7 +378,7 @@
                 return previous;
             }, {});
 
-            Object.assign(struct.accessors, sanitizedProperties);
+            Object.assign(struct.properties, sanitizedProperties);
 
             return api;
         };
