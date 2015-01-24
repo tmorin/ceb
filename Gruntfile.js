@@ -117,7 +117,9 @@ module.exports = function (grunt) {
             },
             'build-ci': {
                 sauceLabs: {
-                    testName: 'Custom Element Builder Test'
+                    testName: 'Custom Element Builder Test',
+                    recordVideo: false,
+                    recordScreenshots: false
                 },
                 // 3 minutes
                 captureTimeout: 3 * 60 * 1000,
@@ -133,14 +135,15 @@ module.exports = function (grunt) {
             options: {
                 debug: true,
                 coverageDir: 'build/coverage',
-                force: true,
-                recursive: true
+                force: true
             },
             'build-local': {
-                dryRun: true
+                dryRun: true,
+                recursive: true
             },
             'build-ci': {
-                dryRun: false
+                dryRun: false,
+                recursive: true
             }
         },
 
