@@ -13,7 +13,7 @@ module.exports = function (config) {
             'node_modules/es6-shim/es6-shim.js',
             'node_modules/es6-shim/es6-sham.js',
             'src/*.js',
-            'specs/**/*.js'
+            'specs/bdd.js'
         ],
 
         exclude: [],
