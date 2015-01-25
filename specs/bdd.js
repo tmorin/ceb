@@ -15,7 +15,7 @@ describe('a custom element', function () {
         return next(value);
     }
 
-    var sandbox,
+    var sandbox = document.createElement('div'),
         counter = 0,
         tagName, Ce, ce,
         m1, m2,
@@ -31,8 +31,9 @@ describe('a custom element', function () {
         opt1, opt2,
         r;
 
+    document.body.appendChild(sandbox);
+
     beforeEach(function () {
-        sandbox = document.createElement('div');
         tagName = 'tag-name-' + (counter++);
         m1 = sinon.spy();
         m2 = sinon.spy();
@@ -62,9 +63,6 @@ describe('a custom element', function () {
         f3 = sinon.spy();
         opt1 = {};
         opt2 = {};
-    });
-    afterEach(function () {
-        sandbox.innerHTML = '';
     });
 
     it('can be created from scratch', function () {
@@ -107,7 +105,9 @@ describe('a custom element', function () {
         ce = document.createElement(tagName);
         expect(ce.tagName, 'should be created from JavaScript').to.eq(tagName.toUpperCase());
 
-        sandbox.innerHTML = '<' + tagName + '></' + tagName + '>';
+        var div = document.createElement('div');
+        sandbox.appendChild(div);
+        div.innerHTML = '<' + tagName + '></' + tagName + '>';
         expect(sandbox.querySelector(tagName).tagName, 'should be created from HTML').to.eq(tagName.toUpperCase());
 
         expect(ce.m1, 'm1 should be a function').to.be.instanceOf(Function);
@@ -125,7 +125,9 @@ describe('a custom element', function () {
         ce = document.createElement(tagName);
         expect(ce.tagName, 'should be created from JavaScript').to.eq(tagName.toUpperCase());
 
-        sandbox.innerHTML = '<' + tagName + '></' + tagName + '>';
+        var div = document.createElement('div');
+        sandbox.appendChild(div);
+        div.innerHTML = '<' + tagName + '></' + tagName + '>';
         expect(sandbox.querySelector(tagName).tagName, 'should be created from HTML').to.eq(tagName.toUpperCase());
 
         expect(ce.m1, 'm1 should be a function').to.be.instanceOf(Function);
@@ -379,18 +381,25 @@ describe('a custom element', function () {
         expect(ce.p1, 'ce.p1 should be equal to v1').to.eq(v1);
     });
 
-    xit('can have writable properties linked to an attribute having a default value but having already an attribute value', function () {
+    it('can have writable properties linked to an attribute having a default value but having already an attribute value', function (done) {
         Ce = ceb().name(tagName).properties({
             p1: {
                 attribute: true,
                 value: v1
             }
         }).register();
-        sandbox.innerHTML = '<' + tagName + ' p1="' + v2 + '"></' + tagName + '>';
+
+        var div = document.createElement('div');
+        sandbox.appendChild(div);
+        div.innerHTML = '<' + tagName + ' p1="' + v2 + '"></' + tagName + '>';
         ce = sandbox.querySelector(tagName);
 
-        expect(ce.getAttribute('p1'), 'the attribute should be equal to v2').to.eq(v2);
-        expect(ce.p1, 'ce.p1 should be equal to v2').to.eq(v2);
+        setTimeout(function () {
+            // let's time for DOM event processing
+            expect(ce.getAttribute('p1'), 'the attribute should be equal to v2').to.eq(v2);
+            expect(ce.p1, 'ce.p1 should be equal to v2').to.eq(v2);
+            done();
+        }, 0);
     });
 
     it('can have writable properties linked to an attribute having a setter and a getter', function () {
