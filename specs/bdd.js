@@ -379,7 +379,7 @@ describe('a custom element', function () {
         expect(ce.p1, 'ce.p1 should be equal to v1').to.eq(v1);
     });
 
-    it('can have writable properties linked to an attribute having a default value but having already an attribute value', function () {
+    xit('can have writable properties linked to an attribute having a default value but having already an attribute value', function () {
         Ce = ceb().name(tagName).properties({
             p1: {
                 attribute: true,
