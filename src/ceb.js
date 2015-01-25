@@ -41,7 +41,7 @@
     testing.fromCamelCaseToHyphenCase = fromCamelCaseToHyphenCase;
 
     function compareLevels(a, b) {
-        return a.level > b.level;
+        return a.level - b.level;
     }
     testing.compareLevels = compareLevels;
 
