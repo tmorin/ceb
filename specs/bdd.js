@@ -162,16 +162,15 @@ describe('a custom element', function () {
         }).register();
         ce = insertCeAndGet();
 
-        expect('c1' in ce, 'c1 should be in ce').to.true();
         expect(ce.c1, 'ce.c1 should be equal to v1').to.eq(v1);
 
         var error;
         try {
-            ce.c1 = null;
+            ce.c1 = v2;
         } catch (e) {
             error = e;
         }
-        expect(error, 'ce.c1 should not be writable').to.exist();
+        expect(!!error || ce.c1 === v1, 'ce.c1 should not be writable').to.true();
     });
 
     it('can have constant but can not have interceptors get and set', function () {
