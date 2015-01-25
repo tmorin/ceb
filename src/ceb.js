@@ -64,7 +64,7 @@
 
     function accessorFactory(wrappers, wrapped) {
         var stack = wrappers.sort(compareLevels);
-        return function () {
+        return function accessor() {
             var el = this;
             return stack.reduce(function (previous, current) {
                 return current.bind(el, previous, el);
@@ -74,7 +74,7 @@
     testing.accessorFactory = accessorFactory;
 
     function attributeAccessorSetFactory(attName, setter, isBoolean) {
-        return function (el, value) {
+        return function attributeAccessorSet(el, value) {
             var attValue = value;
             if (setter) {
                 attValue = setter.call(el, el, value);
@@ -85,7 +85,7 @@
     testing.attributeAccessorSetFactory = attributeAccessorSetFactory;
 
     function attributeAccessorGetFactory(attName, getter, isBoolean) {
-        return function (el) {
+        return function attributeAccessorGet(el) {
             var value = isBoolean ? el.hasAttribute(attName) : el.getAttribute(attName);
             if (getter) {
                 value = getter.call(el, el, value);
