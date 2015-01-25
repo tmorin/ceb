@@ -1,9 +1,9 @@
-/* istanbul ignore next */
 (function (g, factory) {
     /* globals module:0, define:0 */
 
     'use strict';
 
+    /* istanbul ignore next */
     if (typeof exports === 'object') {
         module.exports = factory();
     } else if (typeof define === 'function' && define.amd) {
@@ -25,8 +25,7 @@
     }
     testing.emptyFn = emptyFn;
 
-    function listValues(object) {
-        var o = object || {};
+    function listValues(o) {
         return Object.getOwnPropertyNames(o).map(function (propName) {
             return o[propName];
         });
@@ -74,22 +73,22 @@
     }
     testing.accessorFactory = accessorFactory;
 
-    function attributeAccessorSetFactory(attName, originalSet, isBoolean) {
+    function attributeAccessorSetFactory(attName, setter, isBoolean) {
         return function (el, value) {
             var attValue = value;
-            if (originalSet) {
-                attValue = originalSet.call(el, el, value);
+            if (setter) {
+                attValue = setter.call(el, el, value);
             }
             applyAttributeValue(el, attName, attValue, isBoolean);
         };
     }
     testing.attributeAccessorSetFactory = attributeAccessorSetFactory;
 
-    function attributeAccessorGetFactory(attName, originalGet, isBoolean) {
+    function attributeAccessorGetFactory(attName, getter, isBoolean) {
         return function (el) {
             var value = isBoolean ? el.hasAttribute(attName) : el.getAttribute(attName);
-            if (originalGet) {
-                value = originalGet.call(el, el, value);
+            if (getter) {
+                value = getter.call(el, el, value);
             }
             return value;
         };
@@ -102,8 +101,7 @@
             var el = this;
             return stack.reduce(function (previous, current) {
                 return current.bind(el, function next(args) {
-                    var a = args || [];
-                    return previous.apply(el, Array.prototype.slice.call(a).slice(2, a.length));
+                    return previous.apply(el, Array.prototype.slice.call(args).slice(2, args.length));
                 }, el);
             }, wrapped.bind(el, el)).apply(el, arguments);
         };
@@ -124,6 +122,7 @@
             detachedCallback: emptyFn(),
             attributeChangedCallback: emptyFn()
         }, struct.methods);
+        return struct;
     }
     testing.sanitizeStructure = sanitizeStructure;
 
@@ -160,14 +159,14 @@
 
             if (property.attribute) {
                 // handle properties linked to an attribute
-                var originalSet = property.set;
-                var originalGet = property.get;
-                property.set = attributeAccessorSetFactory(property.attName, originalSet, !!property.attribute.boolean);
-                property.get = attributeAccessorGetFactory(property.attName, originalGet, !!property.attribute.boolean);
-            } else if (property.hasOwnProperty('value')) {
+                property.set = attributeAccessorSetFactory(property.attName, property.setter, !!property.attribute.boolean);
+                property.get = attributeAccessorGetFactory(property.attName, property.getter, !!property.attribute.boolean);
+            } else if (property.hasOwnProperty('value') && property.hasOwnProperty('writable') && !property.writable) {
                 // handle constants
                 definedProperty.value = property.value;
-                definedProperty.writable = property.hasOwnProperty('writable') ? property.writable : true;
+                definedProperty.writable = false;
+            } else if (!property.set && !property.get) {
+                definedProperty.writable = true;
             }
 
             if (!definedProperty.hasOwnProperty('writable')) {
@@ -231,7 +230,7 @@
     testing.builtInFeatures = builtInFeatures;
 
     builtInFeatures.delegate = emptyFn();
-    builtInFeatures.delegate.delegableAccessorInterceptor = function (property, next, el, value) {
+    builtInFeatures.delegate.delegableSetAccessorInterceptor = function (property, next, el, value) {
         next(value);
         var target = el.querySelector(property.delegate.target);
         /* istanbul ignore else  */
@@ -249,18 +248,50 @@
             if (targetAttName) {
                 applyAttributeValue(target, targetAttName, value, isBoolean);
             } else {
-                target[targetPropName] = el[property.propName];
+                target[targetPropName] = value;
             }
         }
     };
+    builtInFeatures.delegate.delegableGetAccessorInterceptor = function (property, next, el, value) {
+        var result = next(value);
+        var target = el.querySelector(property.delegate.target);
+        /* istanbul ignore else  */
+        if (target) {
+            var targetPropName = property.delegate.property;
+            var targetAttName = property.delegate.attribute;
+            if (!targetPropName && !targetAttName) {
+                targetPropName = property.propName;
+                targetAttName = property.attName;
+            }
+            var isBoolean = property.attribute && !!property.attribute.boolean;
+            if (property.delegate.hasOwnProperty('boolean')) {
+                isBoolean = property.delegate.boolean;
+            }
+            if (targetAttName) {
+                result = isBoolean ? target.hasAttribute(targetAttName) : target.getAttribute(targetAttName);
+            } else {
+                result = target[targetPropName];
+            }
+        }
+        return result;
+    };
     builtInFeatures.delegate.setup = function (struct, builder) {
+        var delegableSetAccessorInterceptor = builtInFeatures.delegate.delegableSetAccessorInterceptor;
+        var delegableGetAccessorInterceptor = builtInFeatures.delegate.delegableGetAccessorInterceptor;
         // keep only properties configured for delegation
         listValues(struct.properties).filter(function (property) {
             return property.delegate;
         }).forEach(function (property) {
             // intercept the setter
-            var delegableAccessorInterceptor = builtInFeatures.delegate.delegableAccessorInterceptor;
-            builder.intercept(property.propName, delegableAccessorInterceptor.bind(builtInFeatures.delegate, property));
+            if (!property.attName) {
+                property.set = property.set || emptyFn();
+                property.get = property.get || emptyFn();
+            }
+            builder.intercept(
+                property.propName,
+                delegableSetAccessorInterceptor.bind(builtInFeatures.delegate, property),
+                delegableGetAccessorInterceptor.bind(builtInFeatures.delegate, property)
+            );
         });
     };
 
@@ -274,7 +305,7 @@
                 } else if (property.hasOwnProperty('value')) {
                     applyAttributeValue(el, property.attName, property.value, property.attribute.boolean);
                 }
-            } else if (property.value && property.writable) {
+            } else if (property.hasOwnProperty('value') && property.writable) {
                 el[property.propName] = property.value;
             }
         });
@@ -326,7 +357,7 @@
     testing.sanitizeProperty = sanitizeProperty;
 
     var builder = function builder(tagName, params) {
-        var struct = params && params.struct ? params.struct : baseStructFactory();
+        var struct = params && params.struct ? sanitizeStructure(params.struct) : baseStructFactory();
         struct.tagName = tagName;
         var registered = params && params.hasOwnProperty('registered') ? params.registered : false;
         var api = {};
@@ -368,7 +399,7 @@
         // FELDS
         api.properties = function (someProperties) {
 
-            var sanitizedProperties = Object.getOwnPropertyNames(someProperties || {}).map(function (propName) {
+            var sanitizedProperties = Object.getOwnPropertyNames(someProperties).map(function (propName) {
                 return Object.assign(someProperties[propName], {
                     propName: propName
                 });
