@@ -1,27 +1,75 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Custom element builder - demos</title>
+    <meta charset="UTF-8">
+    <title>Custom element builder - demos</title>
 
-<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 
-<link rel="stylesheet" href="normalize-css/normalize.css" />
+    <link rel="stylesheet" href="normalize-css/normalize.css" />
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.css" />
 
-<script src="document-register-element/build/document-register-element.js"></script>
+    <script src="document-register-element/build/document-register-element.js"></script>
+    <!--<script src="webcomponents.js/webcomponents-lite.min.js"></script>-->
 
-<script src="es6-shim/es6-sham.min.js"></script>
-<script src="es6-shim/es6-shim.min.js"></script>
+    <script src="es6-shim/es6-sham.min.js"></script>
+    <script src="es6-shim/es6-shim.min.js"></script>
 
-<script src="ceb.js"></script>
+    <script src="ceb.js"></script>
 
-<script src="demos.js"></script>
+    <script src="MySupperButton.js"></script>
+    <script src="MyComposedButton.js"></script>
 
 </head>
-<body >
-    <rc-action-button id="action1" label="an action button"></rc-action-button>
+
+<body>
+
+    <h2>my-supper-button, MySupperButton</h2>
+
+    <button is="my-supper-button" label="created by HTML markup" icon-class="fa fa-check"></button>
+
+    <span id="myBuiltButton1"></span>
     <script>
-        var action1 = document.getElementById('action1');
+        var myBuiltButton1 = document.createElement('button', 'my-supper-button');
+        myBuiltButton1.iconClass = 'fa fa-check';
+        myBuiltButton1.label = 'created from javascript';
+        document.getElementById('myBuiltButton1').appendChild(myBuiltButton1);
     </script>
+
+    <span id="myBuiltButton2"></span>
+    <script>
+        var myBuiltButton2 = document.createElement('button', 'my-supper-button');
+        myBuiltButton2.conf = {
+            iconClass: 'fa fa-check',
+            label: 'created from javascript'
+        };
+        document.getElementById('myBuiltButton2').appendChild(myBuiltButton2);
+    </script>
+
+
+    <h2>my-composed-button, MyComposedButton</h2>
+
+    <my-composed-button label="created by HTML markup" icon-class="fa fa-check"></my-composed-button>
+
+    <span id="myComposedButton1"></span>
+    <script>
+        var myComposedButton1 = document.createElement('my-composed-button');
+        myComposedButton1.iconClass = 'fa fa-check';
+        myComposedButton1.label = 'created from javascript';
+        document.getElementById('myComposedButton1').appendChild(myComposedButton1);
+    </script>
+
+    <span id="myComposedButton2"></span>
+    <script>
+        var myComposedButton2 = document.createElement('button', 'my-supper-button');
+        myComposedButton2.conf = {
+            iconClass: 'fa fa-check',
+            label: 'created from javascript'
+        };
+        document.getElementById('myComposedButton2').appendChild(myComposedButton2);
+    </script>
+
 </body>
+
 </html>
