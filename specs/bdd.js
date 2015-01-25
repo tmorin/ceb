@@ -123,14 +123,7 @@ describe('a custom element', function () {
         }).name(tagName).register();
 
         ce = document.createElement(tagName);
-        expect(ce.tagName, 'should be created from JavaScript').to.eq(tagName.toUpperCase());
-
-        var div = document.createElement('div');
-        sandbox.appendChild(div);
-        div.innerHTML = '<' + tagName + '></' + tagName + '>';
-        expect(sandbox.querySelector(tagName).tagName, 'should be created from HTML').to.eq(tagName.toUpperCase());
-
-        expect(ce.m1, 'm1 should be a function').to.be.instanceOf(Function);
+        expect(ce.tagName, 'should be created').to.eq(tagName.toUpperCase());
     });
 
     it('can have methods', function () {
@@ -169,6 +162,7 @@ describe('a custom element', function () {
         }).register();
         ce = insertCeAndGet();
 
+        expect('c1' in ce, 'c1 should be in ce').to.true();
         expect(ce.c1, 'ce.c1 should be equal to v1').to.eq(v1);
 
         var error;
@@ -381,25 +375,25 @@ describe('a custom element', function () {
         expect(ce.p1, 'ce.p1 should be equal to v1').to.eq(v1);
     });
 
-    it('can have writable properties linked to an attribute having a default value but having already an attribute value', function (done) {
-        Ce = ceb().name(tagName).properties({
-            p1: {
-                attribute: true,
-                value: v1
-            }
-        }).register();
+    describe('can have writable properties linked to an attribute having a default value but having already an attribute value', function () {
+        beforeEach(function (done) {
+            Ce = ceb().name(tagName).properties({
+                p1: {
+                    attribute: true,
+                    value: v1
+                }
+            }).register();
 
-        var div = document.createElement('div');
-        sandbox.appendChild(div);
-        div.innerHTML = '<' + tagName + ' p1="' + v2 + '"></' + tagName + '>';
-        ce = sandbox.querySelector(tagName);
-
-        setTimeout(function () {
-            // let's time for DOM event processing
+            var div = document.createElement('div');
+            sandbox.appendChild(div);
+            div.innerHTML = '<' + tagName + ' p1="' + v2 + '"></' + tagName + '>';
+            ce = sandbox.querySelector(tagName);
+            setTimeout(done, 0);
+        });
+        it('', function () {
             expect(ce.getAttribute('p1'), 'the attribute should be equal to v2').to.eq(v2);
             expect(ce.p1, 'ce.p1 should be equal to v2').to.eq(v2);
-            done();
-        }, 0);
+        });
     });
 
     it('can have writable properties linked to an attribute having a setter and a getter', function () {
