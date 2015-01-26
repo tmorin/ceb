@@ -2,32 +2,27 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Mocha Tests</title>
+    <title>Custom Element Builder - Mocha Tests</title>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <link rel="stylesheet" href="mocha/mocha.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css" />
+
 </head>
 
 <body>
 
-    <script src="document-register-element/build/document-register-element.js"></script>
-    <!--<script src="webcomponents.js/webcomponents-lite.min.js"></script>-->
-
-    <script src="es6-shim/es6-sham.min.js"></script>
-    <script src="es6-shim/es6-shim.min.js"></script>
-
     <div id="mocha"></div>
 
     <!-- testing -->
-    <script src="chai/chai.js"></script>
-    <script src="mocha/mocha.js"></script>
-    <script src="sinon/pkg/sinon-1.12.2.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/chai/1.10.0/chai.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/sinon.js/1.7.3/sinon-min.js"></script>
 
     <script>
         window.expect = chai.expect;
         mocha.setup('bdd');
     </script>
 
-    <script src="ceb.js"></script>
+    <script src="https://raw.githubusercontent.com/tmorin/custom-element-builder/master/dist/ceb.shims.min.js"></script>
     <script src="ceb.spec.js"></script>
 
     <script>
