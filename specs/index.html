@@ -1,10 +1,12 @@
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>Mocha Tests</title>
-<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-<link rel="stylesheet" href="mocha/mocha.css" />
+    <meta charset="utf-8">
+    <title>Mocha Tests</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" href="mocha/mocha.css" />
 </head>
+
 <body>
 
     <script src="document-register-element/build/document-register-element.js"></script>
@@ -17,7 +19,6 @@
 
     <!-- testing -->
     <script src="chai/chai.js"></script>
-    <script src="chai-as-promised/lib/chai-as-promised.js"></script>
     <script src="mocha/mocha.js"></script>
     <script src="sinon/pkg/sinon-1.12.2.js"></script>
 
@@ -27,40 +28,12 @@
     </script>
 
     <script src="ceb.js"></script>
-    <script src="bdd.js"></script>
-<!--
-
-    <script src="builder.sanitizeProperty.spec.js"></script>
-    <script src="builder.spec.js"></script>
-
-    <script src="builtInFeatures.delegate.delegableAccessorInterceptor.spec.js"></script>
-    <script src="builtInFeatures.delegate.setup.spec.js"></script>
-
-    <script src="builtInFeatures.valueInitializer.attributeChangedCallbackWrapper.spec.js"></script>
-    <script src="builtInFeatures.valueInitializer.createdCallbackWrapper.spec.js"></script>
-    <script src="builtInFeatures.valueInitializer.setup.spec.js"></script>
-
-    <script src="lifecycle.build.spec.js"></script>
-    <script src="lifecycle.createDefinedPropertiesHash.spec.js"></script>
-    <script src="lifecycle.createAttributesHash.spec.js"></script>
-    <script src="lifecycle.createMethodsHash.spec.js"></script>
-    <script src="lifecycle.sanitizeStructure.spec.js"></script>
-    <script src="lifecycle.setupFeatures.spec.js"></script>
-
-    <script src="tools.accessorFactory.spec.js"></script>
-    <script src="tools.applyAttributeValue.spec.js"></script>
-    <script src="tools.attributeAccessorGetFactory.spec.js"></script>
-    <script src="tools.attributeAccessorSetFactory.spec.js"></script>
-    <script src="tools.compareLevels.spec.js"></script>
-    <script src="tools.emptyFn.spec.js"></script>
-    <script src="tools.fromCamelCaseToHyphenCase.spec.js"></script>
-    <script src="tools.listValues.spec.js"></script>
-    <script src="tools.methodFactory.spec.js"></script>
--->
+    <script src="ceb.spec.js"></script>
 
     <script>
         mocha.globals([]);
         mocha.run();
     </script>
 </body>
+
 </html>
