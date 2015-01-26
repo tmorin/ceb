@@ -12,8 +12,8 @@ module.exports = function (config) {
             'node_modules/document-register-element/build/document-register-element.js',
             'node_modules/es6-shim/es6-shim.js',
             'node_modules/es6-shim/es6-sham.js',
-            'src/*.js',
-            'specs/bdd.js'
+            'src/**/*.js',
+            'specs/**/*.spec.js'
         ],
 
         exclude: [],
@@ -25,8 +25,14 @@ module.exports = function (config) {
         reporters: ['progress', 'coverage'],
 
         coverageReporter: {
-            type: 'lcov',
-            dir: 'build/coverage'
+            dir: 'build',
+            reporters: [{
+                type: 'lcov',
+                subdir: 'coverage'
+            }, {
+                type: 'html',
+                subdir: 'site/coverage'
+            }]
         },
 
         port: 9876,

@@ -55,13 +55,22 @@ module.exports = function (grunt) {
 
         watch: {
             js: {
-                files: ['Gruntfile.js', 'karma.conf.js', 'src/**/*.js', 'demos/**/*.js'],
+                files: ['Gruntfile.js', 'karma.conf.js', 'src/**/*.js'],
+                tasks: ['jshint'],
+                options: {
+                    livereload: true
+                }
+            },
+            jssite: {
+                files: ['site/**/*.js'],
+                tasks: ['jshint', 'docco'],
                 options: {
                     livereload: true
                 }
             },
             jstest: {
                 files: ['specs/**/*.js'],
+                tasks: ['jshint'],
                 options: {
                     livereload: true
                 }
@@ -88,7 +97,8 @@ module.exports = function (grunt) {
                             connect.static('src'),
                             connect.static('specs'),
                             connect.static('demos'),
-                            connect().use('/', connect.static('./node_modules'))
+                            connect().use('/', connect.static('./node_modules')),
+                            connect().use('/site', connect.static('./build/site'))
                         ];
                     }
                 }
@@ -181,6 +191,15 @@ module.exports = function (grunt) {
             }
         },
 
+        docco: {
+            site: {
+                src: ['site/**/*.js'],
+                options: {
+                    output: 'build/site'
+                }
+            }
+        },
+
         sync: {
             build: {
                 options: {
@@ -205,9 +224,22 @@ module.exports = function (grunt) {
 
     grunt.registerTask('dev', ['jshint', 'karma:dev']);
 
-    grunt.registerTask('build', ['jshint', 'karma:build-local', 'uglify', 'copy:build', 'sync:build', 'coveralls:build-local']);
+    grunt.registerTask('build', [
+        'jshint',
+        'karma:build-local',
+        'uglify',
+        'copy:build',
+        'sync:build',
+        'coveralls:build-local'
+    ]);
 
     grunt.registerTask('build-ci', ['jshint', 'karma:build-ci', 'uglify', 'copy:build', 'sync:build', 'coveralls:build-ci']);
+
+    grunt.registerTask('build-site', [
+        'jshint',
+        'docco',
+        'karma:build-local'
+    ]);
 
     grunt.registerTask('default', ['serve']);
 
