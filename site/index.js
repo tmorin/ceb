@@ -37,7 +37,7 @@ builder.properties({
     }
 }).methods({
     sayHelloTo: function (el, n) {
-        return el.name + ' say hello to '+ n + '!';
+        return el.name + ' say hello to ' + n + '!';
     }
 });
 

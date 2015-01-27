@@ -18,33 +18,40 @@ var builder = ceb().name('demo-custom-element');
 // ## Add stuff to the structure
 
 // [Set extends and prototype values](doc.2.inheritance.html)
-builder.extends(/* the tag to extend*/).prototype(/* the prototype to inherit */);
+builder.extends( /* the tag to extend*/ ).prototype( /* the prototype to inherit */ );
 
 //[Add properties](doc.3.properties.html)
-builder.properties(/* a hash of properties */);
+builder.properties( /* a hash of properties */ );
 
 //[Add interceptors](doc.4.interceptors.html)
 builder.intercept(
-    /* the property's name */,
-    /* [the write callback] */,
-    /* [the read callback] */,
+    /* the property's name */
+    ,
+    /* [the write callback] */
+    ,
+    /* [the read callback] */
+    ,
     /* [the level] */
 );
 
 //[Add methods](doc.5.methods.html)
-builder.methods(/* a hash of methods */);
+builder.methods( /* a hash of methods */ );
 
 //[Add wrappers](doc.6.wrappers.html)
 builder.wrap(
-    /* the method's name */,
-    /* the callback */,
+    /* the method's name */
+    ,
+    /* the callback */
+    ,
     /* [the level] */
 );
 
 //[Add features](doc.7.features.html)
 builder.feature(
-    /* the feature's function */,
-    /* [the feature's options] */,
+    /* the feature's function */
+    ,
+    /* [the feature's options] */
+    ,
     /* [the level] */
 );
 
@@ -64,22 +71,21 @@ ceb().name('proto-demo-custom-element').prototype(Object.create(DemoCustomElemen
 
 // *demo-custom-element* is available from JavaScript as another HTML element.
 var aDemoCustomElementFromJs = document.createElement('demo-custom-element);
-document.body.appendChild(aDemoCustomElementFromJs);
+        document.body.appendChild(aDemoCustomElementFromJs);
 
-// *demo-custom-element* is available from HTML as another HTML element.
-document.body.innerHTML = '<demo-custom-element></demo-custom-element>';
-aDemoCustomElementFromHTML = document.body.querySelector('demo-custom-element');
+        // *demo-custom-element* is available from HTML as another HTML element.
+        document.body.innerHTML = '<demo-custom-element></demo-custom-element>'; aDemoCustomElementFromHTML = document.body.querySelector('demo-custom-element');
 
-// In both cases aDemoCustomElementFromJs and aDemoCustomElementFromHTML are HTML elements.
-assert(aDemoCustomElementFromJs.nodeType === aDemoCustomElementFromHTML.nodeType === HTMLElement.ELEMENT_NODE);
+        // In both cases aDemoCustomElementFromJs and aDemoCustomElementFromHTML are HTML elements.
+        assert(aDemoCustomElementFromJs.nodeType === aDemoCustomElementFromHTML.nodeType === HTMLElement.ELEMENT_NODE);
 
-// ***
-// ## Reuse a structure
+        // ***
+        // ## Reuse a structure
 
-// The builder's structure can be retrieved using the builder's method **get**.
-var aStructure = builder.get();
+        // The builder's structure can be retrieved using the builder's method **get**.
+        var aStructure = builder.get();
 
-// An existing structure can be used as based structure of a future builder.
-ceb({
-    struct: aStructure
-}).name('based-custom-element').register();
+        // An existing structure can be used as based structure of a future builder.
+        ceb({
+            struct: aStructure
+        }).name('based-custom-element').register();

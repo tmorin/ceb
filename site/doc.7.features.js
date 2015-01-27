@@ -86,8 +86,8 @@ placeholderFeature.setup = function (struct, featureBuilder, options) {
             // Display the placeholder using a dedicated jquery plugin,
             // and keep a reference of jquery instance in order to destroy it.
             if (el.placeholderValue) {
-                el.__$placeholderTarget = $(target).placeholder({
-                    value: el.placeholderValue;
+                el.__$placeholderTarget = window.$(target).placeholder({
+                    value: el.placeholderValue
                 });
             }
 
@@ -111,23 +111,23 @@ placeholderFeature.setup = function (struct, featureBuilder, options) {
 
     // When the element is detached, the jquery plugin must be destroy to avoid memory leak.
     featureBuilder.wrap('detachedCallback', function (next, el) {
-            if (el.__$placeholderTarget) {
-                el.__$placeholderTarget.placeholder('destroy');
-                delete el.__$placeholderTarget;
-            }
-            next(arguments);
+        if (el.__$placeholderTarget) {
+            el.__$placeholderTarget.placeholder('destroy');
+            delete el.__$placeholderTarget;
+        }
+        next(arguments);
     });
 
     // So, when the element is attached, the jquery plugin must be created if the element has just been cloned.
     featureBuilder.wrap('attachedCallback', function (next, el) {
-            next(arguments);
-            var target = el.placeholderTarget ? el.querySelector(el.placeholderTarget) : el;
-            if (!native && el.placeholderValue) {
-                el.__$placeholderTarget = $(target).placeholder({
-                    value: el.placeholderValue;
-                });
-            }
-    })
+        next(arguments);
+        var target = el.placeholderTarget ? el.querySelector(el.placeholderTarget) : el;
+        if (!native && el.placeholderValue) {
+            el.__$placeholderTarget = window.$(target).placeholder({
+                value: el.placeholderValue
+            });
+        }
+    });
 
 };
 
