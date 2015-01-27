@@ -36,19 +36,19 @@ module.exports = function (grunt) {
             version: '4.4'
         }
         /*,
-                slAndroid5: {
-                    base: 'SauceLabs',
-                    browserName: 'android',
-                    version: '5.0'
-                },
-                slIPhone: {
-                    base: 'SauceLabs',
-                    browserName: 'iPhone'
-                },
-                slIPad: {
-                    base: 'SauceLabs',
-                    browserName: 'iPad'
-                }*/
+        slAndroid5: {
+            base: 'SauceLabs',
+            browserName: 'android',
+            version: '5.0'
+        },
+        slIPhone: {
+            base: 'SauceLabs',
+            browserName: 'iPhone'
+        },
+        slIPad: {
+            base: 'SauceLabs',
+            browserName: 'iPad'
+        }*/
     };
 
     grunt.initConfig({

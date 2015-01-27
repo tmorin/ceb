@@ -214,8 +214,16 @@ describe('A custom element', function () {
             setTimeout(done, 0);
         });
         describe('when an event occured', function () {
-            var evt = new CustomEvent('anevent');
+            var evt;
             beforeEach(function () {
+                try {
+                    evt = new CustomEvent('anevent', {
+                        'bubbles': true
+                    });
+                } catch (e) {
+                    evt = document.createEvent('CustomEvent');
+                    evt.initCustomEvent('anevent', true, true, {});
+                }
                 child.dispatchEvent(evt);
             });
             it('should be called with the right argumets', function () {
