@@ -1,26 +1,32 @@
-// ceb is a builder to help the development of Custom Elements.
+// **ceb** is a builder to help the development of Custom Elements.
 //
-// The project is hosted on [Github](https://github.com/tmorin/custom-element-builder).
-// Every use cases implemented are tested and validated from theses [specs](./specs)
+// - The project is hosted on [Github](https://github.com/tmorin/custom-element-builder)
+// - Read the [documentation](doc.1.usage.html) for more details
+// - Every use cases are tested and validated from this [test suite](./testsuite)
+// - The source code is continuously built on [Travis](https://travis-ci.org/tmorin/custom-element-builder)
+// - The test suite is automatically executed using [Sauce Labs](https://saucelabs.com/u/customelementbuilder)
+// - The code coverage report is pushed to [coveralls](https://coveralls.io/r/tmorin/custom-element-builder)
+// ***
+// ## Compatibilities
+// [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 //
-// ceb is continuously tested on [Travis](https://travis-ci.org/tmorin/custom-element-builder).
-// The test suite is automatically executed on several devices using [Sauce Labs](https://saucelabs.com/u/customelementbuilder).
-// The code coverage can be found on [coveralls](https://coveralls.io/r/tmorin/custom-element-builder).
-//
-// Documentation can be found [there](doc.html).
-//
-// To execute ceb into none evergreen browsers, you should need of:
-// - Obviously [Custom Elements](http://www.w3.org/TR/custom-elements/)
+// **ceb** should and will work without dependencies on evergreen browsers.
+// To execute it with none evergreen browsers, you should need of:
+// - Obviously [Custom Elements](http://www.w3.org/TR/custom-elements/) polyfill
 //  - webcomponents-lite.js from [webcomponents.org](http://webcomponents.org/polyfills/)
 //  - or [document-register-element](https://github.com/WebReflection/document-register-element)
 // - ES5 and some features from ES6 [es6-shim](https://github.com/paulmillr/es6-shim)
-//
+// ***
+// ## Downloads
 // Distributed files can be found [there](https://github.com/tmorin/custom-element-builder/tree/master/dist)
-// - [ceb.min.js](https://raw.githubusercontent.com/tmorin/custom-element-builder/master/dist/ceb.min.js)
-//  - minificated source code
-// - [ceb.shims.min.js](https://raw.githubusercontent.com/tmorin/custom-element-builder/master/dist/ceb.shims.min.js)
-//  - required Custom Elements polyfill and ES6 shims
-//  - minificated source code
+// - [ceb.min.js](https://raw.githubusercontent.com/tmorin/custom-element-builder/master/dist/ceb.min.js) *minified*
+// - [ceb.legacy.min.js](https://raw.githubusercontent.com/tmorin/custom-element-builder/master/dist/ceb.legacy.min.js) *shims, minified*
+// ***
+// ## Installation
+// - npm: <code>npm install ceb --save</code>
+// - bower: <code>npm bower ceb --save</code>
+// - component <code>component install tmorin/custom-element-builder</code>
+// - amd <code>require(['ceb', ...</code>
 'use strict';
 
 var builder = ceb().name('a-custom-element');
