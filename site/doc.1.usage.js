@@ -70,22 +70,23 @@ ceb().name('proto-demo-custom-element').prototype(Object.create(DemoCustomElemen
 //## Make it alive
 
 // *demo-custom-element* is available from JavaScript as another HTML element.
-var aDemoCustomElementFromJs = document.createElement('demo-custom-element);
-        document.body.appendChild(aDemoCustomElementFromJs);
+var aDemoCustomElementFromJs = document.createElement('demo-custom-element');
+document.body.appendChild(aDemoCustomElementFromJs);
 
-        // *demo-custom-element* is available from HTML as another HTML element.
-        document.body.innerHTML = '<demo-custom-element></demo-custom-element>'; aDemoCustomElementFromHTML = document.body.querySelector('demo-custom-element');
+// *demo-custom-element* is available from HTML as another HTML element.
+document.body.innerHTML = '<demo-custom-element></demo-custom-element>';
+aDemoCustomElementFromHTML = document.body.querySelector('demo-custom-element');
 
-        // In both cases aDemoCustomElementFromJs and aDemoCustomElementFromHTML are HTML elements.
-        assert(aDemoCustomElementFromJs.nodeType === aDemoCustomElementFromHTML.nodeType === HTMLElement.ELEMENT_NODE);
+// In both cases aDemoCustomElementFromJs and aDemoCustomElementFromHTML are HTML elements.
+assert(aDemoCustomElementFromJs.nodeType === aDemoCustomElementFromHTML.nodeType === HTMLElement.ELEMENT_NODE);
 
-        // ***
-        // ## Reuse a structure
+// ***
+// ## Reuse a structure
 
-        // The builder's structure can be retrieved using the builder's method **get**.
-        var aStructure = builder.get();
+// The builder's structure can be retrieved using the builder's method **get**.
+var aStructure = builder.get();
 
-        // An existing structure can be used as based structure of a future builder.
-        ceb({
-            struct: aStructure
-        }).name('based-custom-element').register();
+// An existing structure can be used as based structure of a future builder.
+ceb({
+    struct: aStructure
+}).name('based-custom-element').register();
