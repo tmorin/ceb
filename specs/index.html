@@ -12,6 +12,11 @@
 
     <div id="mocha"></div>
 
+    <!-- polyfills -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/document-register-element/0.1.6/document-register-element.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.22.2/es6-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.22.2/es6-sham.min.js"></script>
+
     <!-- testing -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/chai/1.10.0/chai.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.min.js"></script>
@@ -22,7 +27,9 @@
         mocha.setup('bdd');
     </script>
 
-    <script src="https://raw.githubusercontent.com/tmorin/custom-element-builder/master/dist/ceb.shims.min.js"></script>
+    <!-- source -->
+    <script src="ceb.js"></script>
+    <!-- test suite -->
     <script src="ceb.spec.js"></script>
 
     <script>
