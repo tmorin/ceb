@@ -10,3 +10,25 @@
 ## Presentation
 
 Custom Element Builder (ceb) is ... a builder for Custom Elements.
+
+[Homepage](https://github.com/tmorin/custom-element-builder)
+
+## Grunt tasks
+
+### Editing source code
+
+    grunt serve
+
+    grunt testing
+
+### Building artifacts
+
+    grunt build
+
+    grunt build-ci
+
+    grunt build-site
+
+### Update site
+
+    grunt push-site

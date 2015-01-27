@@ -1,0 +1,21 @@
+{
+    "name": "ceb",
+    "repository": "tmorin/custom-element-builder",
+    "description": "Custom Element Builder",
+    "version": "0.0.0",
+    "keywords": [
+        "Web",
+        "Components",
+        "Custom",
+        "Element",
+        "Elements",
+        "DOM",
+        "W3C",
+        "builder",
+        "tools"
+    ],
+    "main": "dist/ceb.js",
+    "scripts": [
+        "dist/ceb.js"
+    ]
+}

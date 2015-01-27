@@ -1,4 +1,5 @@
 'use strict';
+require('es6-shim');
 module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
@@ -56,21 +57,18 @@ module.exports = function (grunt) {
         watch: {
             js: {
                 files: ['Gruntfile.js', 'karma.conf.js', 'src/**/*.js'],
-                tasks: ['jshint'],
                 options: {
                     livereload: true
                 }
             },
             jssite: {
                 files: ['site/**/*.js'],
-                tasks: ['jshint', 'docco'],
                 options: {
                     livereload: true
                 }
             },
             jstest: {
                 files: ['specs/**/*.js'],
-                tasks: ['jshint'],
                 options: {
                     livereload: true
                 }
@@ -79,7 +77,8 @@ module.exports = function (grunt) {
                 options: {
                     livereload: 35729
                 },
-                files: ['demos/**/*.{html,css}']
+                files: ['Gruntfile.js', 'karma.conf.js', 'src/**/*.js', 'site/**/*.js', 'specs/**/*.js'],
+                tasks: ['jshint', 'copy:build-site', 'docco']
             }
         },
 
@@ -166,12 +165,17 @@ module.exports = function (grunt) {
                     dest: 'dist'
                 }]
             },
-            'specs-to-suite': {
+            'build-site': {
                 files: [{
                     expand: true,
-                    cwd: '.',
-                    src: ['specs/**/*'],
-                    dest: 'build/site'
+                    cwd: 'specs',
+                    src: ['**/*'],
+                    dest: 'build/site/testsuite'
+                }, {
+                    expand: true,
+                    cwd: 'src',
+                    src: ['ceb.js'],
+                    dest: 'build/site/testsuite'
                 }]
             }
         },
@@ -191,7 +195,7 @@ module.exports = function (grunt) {
             },
             shims: {
                 files: {
-                    'dist/ceb.shims.min.js': [
+                    'dist/ceb.legacy.min.js': [
                         'node_modules/document-register-element/build/document-register-element.max.js',
                         'node_modules/es6-shim/es6-shim.js',
                         'src/ceb.js'
@@ -200,17 +204,9 @@ module.exports = function (grunt) {
             }
         },
 
-        sync: {
-            build: {
-                options: {
-                    sync: ['name', 'description', 'keywords', 'homepage', 'authors', 'repository'],
-                }
-            }
-        },
-
         release: {
             options: {
-                additionalFiles: ['bower.json']
+                additionalFiles: ['bower.json', 'component.json']
             }
         },
 
@@ -228,6 +224,91 @@ module.exports = function (grunt) {
                 base: 'build/site'
             },
             src: ['**/*']
+        },
+
+        'sync-json': {
+            bower: {
+                dest: 'bower.json',
+                fields: {
+                    'name': null,
+                    'description': null,
+                    'version': null,
+                    'main': null,
+                    'keywords': null,
+                    'homepage': null,
+                    'repository': null,
+                    'license': null,
+                    'authors': function (src) {
+                        return [src.author];
+                    }
+                }
+            },
+            component: {
+                dest: 'component.json',
+                fields: {
+                    'name': function () {
+                        return 'ceb';
+                    },
+                    'repository': function () {
+                        return 'tmorin/custom-element-builder';
+                    },
+                    description: null,
+                    version: null,
+                    keywords: null,
+                    main: null,
+                    scripts: function (src) {
+                        return [src.main];
+                    }
+                }
+            }
+        }
+
+    });
+
+    grunt.registerTask('sync-json', 'sync an input json file with output json files', function (givenTargetName) {
+        var targets = Object.assign({}, grunt.config.get('sync-json'));
+        if (targets.options) {
+            delete targets.options;
+        }
+
+        var src = grunt.config('sync-json.options.src', 'package.json');
+        var indent = grunt.config('sync-json.options.indent', 4);
+        var originalInput = grunt.file.readJSON(src);
+
+        function syncTarget(targetName) {
+            var target = targets[targetName];
+            var input = target.src && grunt.file.exists(target.src) ? grunt.file.readJSON(target.src) : originalInput;
+            var originalOutput = target.dest && grunt.file.exists(target.dest) && grunt.file.readJSON(target.dest);
+            var output = Object.getOwnPropertyNames(target.fields).map(function (name) {
+                return {
+                    name: name,
+                    value: target.fields[name]
+                };
+            }).map(function (field) {
+                var prop = {
+                    name: field.name,
+                    value: input[field.name]
+                };
+                if (typeof field.value === 'string') {
+                    prop.value = input[field.value];
+                }
+                if (typeof field.value === 'function') {
+                    prop.value = field.value(input);
+                }
+                return prop;
+            }).reduce(function (a, b) {
+                a[b.name] = b.value;
+                return a;
+            }, {});
+            output = Object.assign({}, originalOutput, output);
+            grunt.file.write(target.dest, JSON.stringify(output, null, indent));
+            grunt.log.ok(target.dest, 'written');
+        }
+
+        if (targets.hasOwnProperty(givenTargetName)) {
+            syncTarget(givenTargetName);
+        } else {
+            Object.getOwnPropertyNames(targets).forEach(syncTarget);
         }
     });
 
@@ -235,10 +316,10 @@ module.exports = function (grunt) {
         if (grunt.option('allow-remote')) {
             grunt.config.set('connect.options.hostname', '0.0.0.0');
         }
-        grunt.task.run(['connect:livereload', 'watch']);
+        grunt.task.run(['docco', 'connect:livereload', 'watch']);
     });
 
-    grunt.registerTask('dev', ['clean', 'jshint', 'karma:dev']);
+    grunt.registerTask('testing', ['jshint', 'karma:dev']);
 
     grunt.registerTask('build', [
         'clean',
@@ -246,7 +327,7 @@ module.exports = function (grunt) {
         'karma:build-local',
         'uglify',
         'copy:build',
-        'sync:build',
+        'sync-json',
         'coveralls:build-local'
     ]);
 
@@ -256,7 +337,7 @@ module.exports = function (grunt) {
         'karma:build-ci',
         'uglify',
         'copy:build',
-        'sync:build',
+        'sync-json',
         'coveralls:build-ci'
     ]);
 
@@ -264,12 +345,11 @@ module.exports = function (grunt) {
         'clean',
         'jshint',
         'docco',
-        'copy:specs-to-suite',
+        'copy:build-site',
         'karma:build-local'
     ]);
 
     grunt.registerTask('push-site', [
-        'clean',
         'build-site',
         'gh-pages'
     ]);

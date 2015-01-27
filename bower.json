@@ -1,33 +1,29 @@
 {
-  "name": "ceb",
-  "version": "0.0.0",
-  "description": "Custom Element Builder",
-  "license": "MIT",
-  "main": "dist/ceb.js",
-  "homepage": "https://github.com/tmorin/custom-element-builder",
-  "authors": [
-    {
-      "name": "Thibault Morin",
-      "url": "https://github.com/tmorin"
-    }
-  ],
-  "keywords": [
-    "Web",
-    "Components",
-    "Custom",
-    "Element",
-    "Elements",
-    "DOM",
-    "W3C",
-    "builder",
-    "tools"
-  ],
-  "ignore": [
-    ".jshintrc",
-    ".gitignore",
-    "build",
-    "demos",
-    "specs",
-    "src"
-  ]
+    "name": "ceb",
+    "description": "Custom Element Builder",
+    "version": "0.0.0",
+    "main": "dist/ceb.js",
+    "keywords": [
+        "Web",
+        "Components",
+        "Custom",
+        "Element",
+        "Elements",
+        "DOM",
+        "W3C",
+        "builder",
+        "tools"
+    ],
+    "homepage": "https://tmorin.github.io/custom-element-builder",
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/tmorin/custom-element-builder.git"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thibault Morin",
+            "url": "https://github.com/tmorin"
+        }
+    ]
 }
