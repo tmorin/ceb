@@ -354,6 +354,6 @@ module.exports = function (grunt) {
         'gh-pages'
     ]);
 
-    grunt.registerTask('default', ['serve']);
+    grunt.registerTask('default', ['copy:build-site', 'serve']);
 
 };
