@@ -5,14 +5,13 @@ var builder = ceb().name('featured-tag');
 // ## The needs
 
 // Custom Elements are, at the end, objects.
-// So, they can inherit from another element (i.e. [Extends and prototype]),
+// So, they can inherit from another element (i.e. [Extends and prototype](doc.2.inheritance.html)),
 // This relation is vertical and one element can only inherit from another one.
 
 // Due to the dynamic part of JavaScript, the [mixin way] can be used to share functionalities.
 // This new relation is horizontal and allows one object to be enhanced with others.
 // However, this merging process overrides the properties and methods of the initial object.
 // [mixin way]:https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
-// [Extends and prototype]:doc.2.inheritance.html
 
 // The *interceptors* and *wrappers* provided by **ceb** resolve the side effect of overriding.
 // They act as an horizontal relations keeping alive the originals properties and methods.
