@@ -16,21 +16,17 @@
 
     'use strict';
 
-    var testing = {};
-
     /* TOOLS */
 
     function emptyFn() {
         return function () {};
     }
-    testing.emptyFn = emptyFn;
 
     function listValues(o) {
         return Object.getOwnPropertyNames(o).map(function (propName) {
             return o[propName];
         });
     }
-    testing.listValues = listValues;
 
     // transform property notation to attribute notation
     function fromCamelCaseToHyphenCase(value) {
@@ -38,12 +34,10 @@
             return part.charAt(0).toLowerCase() + part.slice(1);
         }).join('-');
     }
-    testing.fromCamelCaseToHyphenCase = fromCamelCaseToHyphenCase;
 
     function compareLevels(a, b) {
         return a.level - b.level;
     }
-    testing.compareLevels = compareLevels;
 
     function applyAttributeValue(el, attName, value, isBoolean) {
         if (isBoolean) {
@@ -60,7 +54,6 @@
             }
         }
     }
-    testing.applyAttributeValue = applyAttributeValue;
 
     function accessorFactory(wrappers, wrapped) {
         var stack = wrappers.sort(compareLevels);
@@ -71,7 +64,6 @@
             }, wrapped.bind(el, el)).apply(el, arguments);
         };
     }
-    testing.accessorFactory = accessorFactory;
 
     function attributeAccessorSetFactory(attName, setter, isBoolean) {
         return function attributeAccessorSet(el, value) {
@@ -82,7 +74,6 @@
             applyAttributeValue(el, attName, attValue, isBoolean);
         };
     }
-    testing.attributeAccessorSetFactory = attributeAccessorSetFactory;
 
     function attributeAccessorGetFactory(attName, getter, isBoolean) {
         return function attributeAccessorGet(el) {
@@ -93,7 +84,6 @@
             return value;
         };
     }
-    testing.attributeAccessorGetFactory = attributeAccessorGetFactory;
 
     function methodFactory(wrappers, wrapped) {
         var stack = wrappers.sort(compareLevels);
@@ -106,7 +96,6 @@
             }, wrapped.bind(el, el)).apply(el, arguments);
         };
     }
-    testing.methodFactory = methodFactory;
 
     /* BUILD LIFE CYCLE */
 
@@ -115,6 +104,7 @@
         struct.features = struct.features || [];
         struct.interceptors = struct.interceptors || [];
         struct.wrappers = struct.wrappers || [];
+        struct.listeners = struct.listeners || [];
         struct.properties = struct.properties || {};
         struct.methods = Object.assign({
             createdCallback: emptyFn(),
@@ -124,7 +114,6 @@
         }, struct.methods);
         return struct;
     }
-    testing.sanitizeStructure = sanitizeStructure;
 
     function setupFeatures(struct) {
         var b = builder(struct.tagName, {
@@ -137,7 +126,6 @@
             }
         });
     }
-    testing.setupFeatures = setupFeatures;
 
     function createAttributesHash(struct) {
         return listValues(struct.properties).filter(function (property) {
@@ -147,7 +135,6 @@
             return previous;
         }, {});
     }
-    testing.createAttributesHash = createAttributesHash;
 
     function createDefinedPropertiesHash(struct) {
         return listValues(struct.properties).map(function (property) {
@@ -190,7 +177,6 @@
             return previous;
         }, {});
     }
-    testing.createDefinedPropertiesHash = createDefinedPropertiesHash;
 
     function createMethodsHash(struct) {
         return Object.getOwnPropertyNames(struct.methods).map(function (methName) {
@@ -205,7 +191,6 @@
             return previous;
         }, {});
     }
-    testing.createMethodsHash = createMethodsHash;
 
     /* BUILD */
 
@@ -222,15 +207,10 @@
 
         return document.registerElement(struct.tagName, struct);
     };
-    testing.build = build;
 
-    /* FEATURES */
+    /* Built-in feature */
 
-    var builtInFeatures = {};
-    testing.builtInFeatures = builtInFeatures;
-
-    builtInFeatures.delegate = emptyFn();
-    builtInFeatures.delegate.delegableSetAccessorInterceptor = function (property, next, el, value) {
+    function delegableSetAccessorInterceptor(property, next, el, value) {
         next(value);
         var target = el.querySelector(property.delegate.target);
         /* istanbul ignore else  */
@@ -251,8 +231,9 @@
                 target[targetPropName] = value;
             }
         }
-    };
-    builtInFeatures.delegate.delegableGetAccessorInterceptor = function (property, next, el, value) {
+    }
+
+    function delegableGetAccessorInterceptor(property, next, el, value) {
         var result = next(value);
         var target = el.querySelector(property.delegate.target);
         /* istanbul ignore else  */
@@ -274,10 +255,14 @@
             }
         }
         return result;
-    };
-    builtInFeatures.delegate.setup = function (struct, builder) {
-        var delegableSetAccessorInterceptor = builtInFeatures.delegate.delegableSetAccessorInterceptor;
-        var delegableGetAccessorInterceptor = builtInFeatures.delegate.delegableGetAccessorInterceptor;
+    }
+
+    function eventListener(el, fn, evt) {
+        fn(el, evt);
+    }
+
+    var builtInFeature = emptyFn();
+    builtInFeature.setup = function (struct, builder) {
         // keep only properties configured for delegation
         listValues(struct.properties).filter(function (property) {
             return property.delegate;
@@ -289,43 +274,59 @@
             }
             builder.intercept(
                 property.propName,
-                delegableSetAccessorInterceptor.bind(builtInFeatures.delegate, property),
-                delegableGetAccessorInterceptor.bind(builtInFeatures.delegate, property)
+                delegableSetAccessorInterceptor.bind(this, property),
+                delegableGetAccessorInterceptor.bind(this, property)
             );
         });
-    };
-
-    builtInFeatures.valueInitializer = emptyFn();
-    builtInFeatures.valueInitializer.createdCallbackWrapper = function (struct, next, el) {
-        next(arguments);
-        listValues(struct.properties).forEach(function (property) {
-            if (property.attName) {
-                if (el.hasAttribute(property.attName)) {
-                    el[property.propName] = property.attribute.boolean ? true : el.getAttribute(property.attName);
-                } else if (property.hasOwnProperty('value')) {
-                    applyAttributeValue(el, property.attName, property.value, property.attribute.boolean);
+        builder.wrap('createdCallback', function (next, el) {
+            // initialize properties values
+            listValues(struct.properties).forEach(function (property) {
+                if (property.attName) {
+                    if (el.hasAttribute(property.attName)) {
+                        el[property.propName] = property.attribute.boolean ? true : el.getAttribute(property.attName);
+                    } else if (property.hasOwnProperty('value')) {
+                        applyAttributeValue(el, property.attName, property.value, property.attribute.boolean);
+                    }
+                } else if (property.hasOwnProperty('value') && property.writable) {
+                    el[property.propName] = property.value;
                 }
-            } else if (property.hasOwnProperty('value') && property.writable) {
-                el[property.propName] = property.value;
-            }
+            });
+            next(arguments);
         });
-    };
-    builtInFeatures.valueInitializer.attributeChangedCallbackWrapper = function (struct, next, el, attName, oldVal, newVal) {
-        var property = struct.attributes[attName];
-        if (property) {
-            var value = newVal;
-            if (property.attribute.boolean) {
-                value = typeof newVal === 'string' ? true : false;
+        builder.wrap('attachedCallback', function (next, el) {
+            next(arguments);
+            // listen events
+            el.__eventHandlers = struct.listeners.map(function (listener) {
+                var target = listener.target ? el.querySelector(listener.target) : el;
+                var callback = eventListener.bind(el, el, listener.fn);
+                target.addEventListener(listener.event, callback, true);
+                return {
+                    event: listener.event,
+                    target: target,
+                    callback: callback
+                };
+            });
+        });
+        builder.wrap('detachedCallback', function (next, el) {
+            // release event handlers
+            el.__eventHandlers.forEach(function (handler) {
+                handler.target.removeEventListener(handler.event, handler.callback, true);
+            });
+            el.__eventHandlers = null;
+            next(arguments);
+        });
+        builder.wrap('attributeChangedCallback', function (next, el, attName, oldVal, newVal) {
+            // sync the attribute value with the property value
+            var property = struct.attributes[attName];
+            if (property) {
+                var value = newVal;
+                if (property.attribute.boolean) {
+                    value = typeof newVal === 'string' ? true : false;
+                }
+                el[property.propName] = value;
             }
-            el[property.propName] = value;
-        }
-        next(arguments);
-    };
-    builtInFeatures.valueInitializer.setup = function (struct, builder) {
-        var createdCallbackWrapper = builtInFeatures.valueInitializer.createdCallbackWrapper;
-        var attributeChangedCallbackWrapper = builtInFeatures.valueInitializer.attributeChangedCallbackWrapper;
-        builder.wrap('createdCallback', createdCallbackWrapper.bind(builtInFeatures.valueInitializer, struct));
-        builder.wrap('attributeChangedCallback', attributeChangedCallbackWrapper.bind(builtInFeatures.valueInitializer, struct));
+            next(arguments);
+        });
     };
 
     /* BUILDER */
@@ -336,16 +337,12 @@
             methods: {},
             wrappers: [],
             interceptors: [],
+            listeners: [],
             features: [{
-                fn: builtInFeatures.delegate,
-                level: -2
-            }, {
-                fn: builtInFeatures.valueInitializer,
-                level: -1
+                fn: builtInFeature
             }]
         };
     }
-    testing.baseStructFactory = baseStructFactory;
 
     function sanitizeProperty(property) {
         if (property.attribute) {
@@ -354,14 +351,13 @@
         property.writable = property.hasOwnProperty('writable') ? property.writable : true;
         return property;
     }
-    testing.sanitizeProperty = sanitizeProperty;
 
     var builder = function builder(tagName, params) {
         var struct = params && params.struct ? sanitizeStructure(params.struct) : baseStructFactory();
         struct.tagName = tagName;
         var registered = params && params.hasOwnProperty('registered') ? params.registered : false;
         var api = {};
-        // WRAPPER
+        // Wrappers and intercetpors
         api.wrap = function (methName, fn, level) {
             if (!struct.wrappers[methName]) {
                 struct.wrappers[methName] = [];
@@ -416,6 +412,20 @@
             Object.assign(struct.methods, someMethods);
             return api;
         };
+        // Events
+        api.listen = function (queries, fn) {
+            queries.trim().split(',').map(function (query) {
+                var parts = query.trim().split(' ');
+                return {
+                    event: parts[0].trim(),
+                    target: (parts[1] || '').trim(),
+                    fn: fn
+                };
+            }).forEach(function (listener) {
+                struct.listeners.push(listener);
+            });
+            return api;
+        };
         // FEATURES
         api.feature = function (fn, options, level) {
             struct.features.push({
@@ -436,7 +446,6 @@
         };
         return api;
     };
-    testing.builder = builder;
 
     function factory(params) {
         var api = {};
@@ -445,7 +454,6 @@
         };
         return api;
     }
-    factory._testing = testing;
 
     return factory;
 }));

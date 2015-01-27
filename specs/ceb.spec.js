@@ -203,6 +203,39 @@ describe('A custom element', function () {
         });
     });
 
+    describe('can have event listeners which', function () {
+        beforeEach(function (done) {
+            Ce = ceb().name(tagName).listen('anevent, anevent span', m1).register();
+            var div = document.createElement('div');
+            sandbox.appendChild(div);
+            div.innerHTML = '<' + tagName + '><span></span></' + tagName + '>';
+            ce = div.querySelector(tagName);
+            child = ce.querySelector('span');
+            setTimeout(done, 0);
+        });
+        describe('when an event occured', function () {
+            var evt = new CustomEvent('anevent');
+            beforeEach(function () {
+                child.dispatchEvent(evt);
+            });
+            it('should be called with the right argumets', function () {
+                expect(m1.calledWith(ce, evt)).to.eq(true);
+                expect(m1.callCount).to.eq(2);
+            });
+        });
+        describe('when the the element is detached', function () {
+            var detachedCallbackSpy;
+            beforeEach(function (done) {
+                detachedCallbackSpy = sinon.spy(ce, 'detachedCallback');
+                ce.parentNode.removeChild(ce);
+                setTimeout(done, 0);
+            });
+            it('should be removed', function () {
+                expect(ce.__eventHandlers).to.be.null();
+            });
+        });
+    });
+
     describe('can have constants which', function () {
         var error;
         beforeEach(function () {
@@ -408,6 +441,9 @@ describe('A custom element', function () {
         describe('when attributes are updated', function () {
             beforeEach(function () {
                 ce.setAttribute('p1', v1);
+                // set an attribute which is noot know from the structure should ne break something
+                // but up the coverage to 100%
+                ce.setAttribute('p2', v1);
             });
             it('should have properties set', function () {
                 expect(ce.p1).to.eq(v1);
@@ -529,19 +565,27 @@ describe('A custom element', function () {
                 p1: {
                     attribute: true,
                     value: v1
+                },
+                p2: {
+                    attribute: {
+                        boolean: true
+                    },
+                    value: false
                 }
             }).register();
             var div = document.createElement('div');
             sandbox.appendChild(div);
-            div.innerHTML = '<' + tagName + ' p1="' + v2 + '"></' + tagName + '>';
+            div.innerHTML = '<' + tagName + ' p1="' + v2 + '" p2></' + tagName + '>';
             ce = sandbox.querySelector(tagName);
             setTimeout(done, 0);
         });
         it('should have attributes initialized according to their attribute value', function () {
             expect(ce.getAttribute('p1')).to.eq(v2);
+            expect(ce.hasAttribute('p2')).to.be.true();
         });
         it('should have properties initialized according to their attribute value', function () {
             expect(ce.p1).to.eq(v2);
+            expect(ce.p2).to.eq(true);
         });
     });
 

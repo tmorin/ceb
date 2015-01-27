@@ -46,7 +46,14 @@ builder.wrap(
     /* [the level] */
 );
 
-//[Add features](doc.7.features.html)
+//[Add listeners](doc.7.listeners.html)
+builder.listen(
+    /* a mix of html selector and event's name */
+    ,
+    /* the callback */
+);
+
+//[Add features](doc.8.features.html)
 builder.feature(
     /* the feature's function */
     ,
