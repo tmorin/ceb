@@ -54,20 +54,28 @@ module.exports = function (grunt) {
 
         watch: {
             js: {
-                files: ['Gruntfile.js', 'karma.conf.js', 'src/**/*.js'],
+                files: ['Gruntfile.js', 'karma.conf.js', 'src/**/*.js', 'site/pages/**/*.js', 'specs/**/*.js'],
+                tasks: ['jshint'],
                 options: {
                     livereload: true
                 }
             },
-            jssite: {
+            src: {
+                files: ['src/**/*'],
+                tasks: ['copy:build-site', 'docco'],
+                options: {
+                    livereload: true
+                }
+            },
+            site: {
                 files: ['site/**/*'],
                 tasks: ['docco'],
                 options: {
                     livereload: true
                 }
             },
-            jstest: {
-                files: ['specs/**/*.js'],
+            specs: {
+                files: ['specs/**/*'],
                 tasks: ['copy:build-site'],
                 options: {
                     livereload: true
@@ -77,8 +85,7 @@ module.exports = function (grunt) {
                 options: {
                     livereload: 35729
                 },
-                files: ['Gruntfile.js', 'karma.conf.js', 'src/**/*.js', 'site/**/*.js', 'specs/**/*.js'],
-                tasks: ['jshint', 'copy:build-site']
+                files: []
             }
         },
 
@@ -215,7 +222,6 @@ module.exports = function (grunt) {
                 src: ['site/pages/**/*.js', 'src/**/*.js'],
                 options: {
                     layout: '../../../site/template',
-                    // template: '../../../../../site/template/docco',
                     output: 'build/site'
                 }
             }
