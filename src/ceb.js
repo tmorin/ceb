@@ -271,7 +271,7 @@
 
     // ### Interceptors
 
-    // Intercept write access of delegable properties.
+    // Intercept write accesses of delegable properties.
     function delegableSetAccessorInterceptor(property, next, el, value) {
         next(value);
         // Logic should be done after the effective write.
@@ -301,6 +301,7 @@
         }
     }
 
+    // Intercept read accesses of delegable properties.
     function delegableGetAccessorInterceptor(property, next, el, value) {
         var result = next(value);
         // Logic should be done after the effective write.
@@ -415,8 +416,9 @@
         });
     };
 
-    /* BUILDER */
+    // ## ceb
 
+    // Create a base and valid structure;
     function baseStructFactory() {
         return {
             properties: {},
@@ -430,20 +432,27 @@
         };
     }
 
+    // Sanitize the properties on the fly
     function sanitizeProperty(property) {
         if (property.attribute) {
-            property.attName = property.attribute.name || fromCamelCaseToHyphenCase(property.propName);
+            // A property linked to an attribute must have a valid attribute name
+            property.attName = fromCamelCaseToHyphenCase(property.attribute.name || property.propName);
         }
+        // By default a property is writable
         property.writable = property.hasOwnProperty('writable') ? property.writable : true;
         return property;
     }
 
-    var builder = function builder(tagName, params) {
+    // Provides the sugar API of **ceb**.
+    function builder(tagName, params) {
+        // The structure of the builder can be given from the parameters.
         var struct = params && params.struct ? sanitizeStructure(params.struct) : baseStructFactory();
+        // A structure must have a tag name.
         struct.tagName = tagName;
+        // A strucuture which is already registered will not register the custom element twice.
         var registered = params && params.hasOwnProperty('registered') ? params.registered : false;
         var api = {};
-        // Wrappers and intercetpors
+        // Add a wrapper to the structure.
         api.wrap = function (methName, fn, level) {
             if (!struct.wrappers[methName]) {
                 struct.wrappers[methName] = [];
@@ -452,6 +461,7 @@
             struct.wrappers[methName].push(fn);
             return api;
         };
+        // Add an interceptor to the structure.
         api.intercept = function (propName, setFn, getFn, level) {
             if (!struct.interceptors[propName]) {
                 struct.interceptors[propName] = {
@@ -469,18 +479,18 @@
             }
             return api;
         };
-        // INTEGRATION
+        // Set the extends value
         api['extends'] = function (anExtend) {
             struct['extends'] = anExtend;
             return api;
         };
+        // Set the herited prototype
         api.prototype = function (aProto) {
             struct.prototype = aProto;
             return api;
         };
-        // FELDS
+        // Add properties to the structure.
         api.properties = function (someProperties) {
-
             var sanitizedProperties = Object.getOwnPropertyNames(someProperties).map(function (propName) {
                 return Object.assign(someProperties[propName], {
                     propName: propName
@@ -494,11 +504,12 @@
 
             return api;
         };
+        // Add methods to the structure.
         api.methods = function (someMethods) {
             Object.assign(struct.methods, someMethods);
             return api;
         };
-        // Events
+        // Add a listener to the structure.
         api.listen = function (queries, fn) {
             queries.trim().split(',').map(function (query) {
                 var parts = query.trim().split(' ');
@@ -512,7 +523,7 @@
             });
             return api;
         };
-        // FEATURES
+        // Add a feature to the structure.
         api.feature = function (fn, options, level) {
             struct.features.push({
                 fn: fn,
@@ -521,25 +532,29 @@
             });
             return api;
         };
+        // Register the custom element if not already done.
         api.register = function () {
             if (!registered) {
                 registered = true;
                 return build(struct);
             }
         };
+        // Get the current structure.
         api.get = function () {
             return struct;
         };
         return api;
-    };
+    }
 
-    function factory(params) {
+    // The <code>ced()</code> function.
+    function ceb(params) {
         var api = {};
+        // A builder is given when a name is known.
         api.name = function (tagName) {
             return builder(tagName, params);
         };
         return api;
     }
 
-    return factory;
+    return ceb;
 }));
