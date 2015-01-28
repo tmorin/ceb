@@ -1,7 +1,10 @@
+// # Custom Element Builder
+
 // **ceb** is a builder to help the development of Custom Elements.
 //
 // - The project is hosted on [Github](https://github.com/tmorin/custom-element-builder)
 // - Read the [documentation](doc.1.usage.html) for more details
+// - Or the [commented source code](ceb.html)
 // - Every use cases are tested and validated from this [test suite](./testsuite)
 // - The source code is continuously built on [Travis](https://travis-ci.org/tmorin/custom-element-builder)
 // - The test suite is automatically executed using [Sauce Labs](https://saucelabs.com/u/customelementbuilder)
@@ -23,6 +26,7 @@
 // - [ceb.legacy.min.js](https://raw.githubusercontent.com/tmorin/custom-element-builder/master/dist/ceb.legacy.min.js) *shims, minified*
 // ***
 // ## Installation
+// **ceb** is not yet released!
 // - npm: <code>npm install ceb --save</code>
 // - bower: <code>npm bower ceb --save</code>
 // - component <code>component install tmorin/custom-element-builder</code>

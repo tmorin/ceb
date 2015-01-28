@@ -1,3 +1,5 @@
+// # Interceptors
+
 // Get a builder.
 'use strict';
 var builder = ceb().name('properties-intercepted-tag');
