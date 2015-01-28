@@ -4,8 +4,6 @@ module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
 
-    process.env.SLIMERJS_BIN = 'node_modules/.bin/slimerjs';
-
     var customLaunchers = {
         slChrome: {
             base: 'SauceLabs',
@@ -62,13 +60,15 @@ module.exports = function (grunt) {
                 }
             },
             jssite: {
-                files: ['site/**/*.js'],
+                files: ['site/**/*'],
+                tasks: ['docco'],
                 options: {
                     livereload: true
                 }
             },
             jstest: {
                 files: ['specs/**/*.js'],
+                tasks: ['copy:build-site'],
                 options: {
                     livereload: true
                 }
@@ -78,7 +78,7 @@ module.exports = function (grunt) {
                     livereload: 35729
                 },
                 files: ['Gruntfile.js', 'karma.conf.js', 'src/**/*.js', 'site/**/*.js', 'specs/**/*.js'],
-                tasks: ['jshint', 'copy:build-site', 'docco']
+                tasks: ['jshint', 'copy:build-site']
             }
         },
 
@@ -212,8 +212,10 @@ module.exports = function (grunt) {
 
         docco: {
             site: {
-                src: ['site/**/*.js'],
+                src: ['site/pages/**/*.js', 'src/**/*.js'],
                 options: {
+                    layout: '../../../../../site/template',
+                    // template: '../../../../../site/template/docco',
                     output: 'build/site'
                 }
             }
