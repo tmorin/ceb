@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Custom Element Builder - <%= title %></title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="<%= css %>" />
+</head>
+<body>
+
+<%
+    var menu = sources.map(function (source) {
+        var href = path.basename(destination(source));
+        var label = href.replace(/\.\w*$/i, '').replace(/\w*\.[0-9]\./i, '');
+        var menu = href.match(/(\w*)\.[0-9]\./i);
+        var priority = 1;
+        if (source.match(/src\//i)) {
+            label = path.basename(source);
+            priority = 2;
+        } else if (source.match(/index/i)) {
+            priority = 0;
+        }
+        return {
+            href: href,
+            label: label,
+            menu: menu && menu[1],
+            priority: priority
+        };
+    }).sort(function (p1, p2) {
+        return p1.priority - p2.priority;
+    }).reduce(function (map, page) {
+        if (!page.menu) {
+            map[page.label] = page;
+        } else {
+            if (!map[page.menu]) {
+                map[page.menu] = [];
+            }
+            map[page.menu].push(page);
+        }
+        return map;
+    }, {});
+%>
+
+  <div id="container">
+    <div id="background"></div>
+    <% if (sources.length > 1) { %>
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+          <ul class="pages"><%
+            for(var name in menu) {
+                var entry = menu[name];
+                if (entry.href) {
+                    %><li><a href="<%= entry.href %>"><%= entry.label %></a></li><%
+                } else {
+                    %><li><%= name %><%
+                    %><ul><%
+                    entry.forEach(function (page) {
+                        %><li><a href="<%= page.href %>"><%= page.label %></a></li><%
+                    });
+                    %></ul><%
+                    %></li><%
+                }
+            }
+            %></ul>
+          </div>
+          </div>
+        </li>
+      </ul>
+    <% } %>
+    <ul class="sections">
+        <% if (!hasTitle) { %>
+          <li id="title">
+              <div class="annotation">
+                  <h1><%= title %></h1>
+              </div>
+          </li>
+        <% } %>
+        <% for (var i=0, l=sections.length; i<l; i++) { %>
+        <% var section = sections[i]; %>
+        <li id="section-<%= i + 1 %>">
+            <div class="annotation">
+              <% heading = section.docsHtml.match(/^\s*<(h\d)>/) %>
+              <div class="pilwrap <%= heading ? 'for-' + heading[1] : '' %>">
+                <a class="pilcrow" href="#section-<%= i + 1 %>">&#182;</a>
+              </div>
+              <%= section.docsHtml %>
+            </div>
+            <% if (section.codeText.replace(/\s/gm, '') != '') { %>
+            <div class="content"><%= section.codeHtml %></div>
+            <% } %>
+        </li>
+        <% } %>
+    </ul>
+  </div>
+</body>
+</html>
