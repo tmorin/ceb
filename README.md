@@ -11,30 +11,42 @@
 
 Custom Element Builder (ceb) is ... a builder for Custom Elements.
 
-[Homepage](https://github.com/tmorin/custom-element-builder)
+[Home page](http://tmorin.github.io/custom-element-builder/)
 
 ## Grunt tasks
 
 ### Editing source code
 
 Make available specs and site into the brower
-    grunt
+```shell
+grunt
+```
 
 Start karma in watching mode
+```shell
     grunt testing
+```
 
 ### Building artifacts
 
 Check quality and build dist files for local build
+```shell
     grunt build
+```
 
 Check quality and build dist files for continous build
+```shell
     grunt build-ci
+```
 
 Build the web site
+```shell
     grunt build-site
+```
 
 ### Update site
 
 Build and push the site on github
+```shell
     grunt push-site
+```
