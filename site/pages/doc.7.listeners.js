@@ -1,7 +1,6 @@
 // # Listeners
 
 // Get a builder.
-'use strict';
 var builder = ceb().name('listening-tag');
 
 // ## Listeners

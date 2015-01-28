@@ -31,7 +31,6 @@
 // - bower: <code>npm bower ceb --save</code>
 // - component <code>component install tmorin/custom-element-builder</code>
 // - amd <code>require(['ceb', ...</code>
-'use strict';
 
 var builder = ceb().name('a-custom-element');
 

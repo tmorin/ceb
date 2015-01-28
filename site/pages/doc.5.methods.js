@@ -1,7 +1,6 @@
 // # Methods
 
 // Get a builder.
-'use strict';
 var builder = ceb().name('methods-tag');
 
 // ## Methods

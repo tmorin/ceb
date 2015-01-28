@@ -1,7 +1,6 @@
 // # Features
 
 // Get a builder.
-'use strict';
 var builder = ceb().name('featured-tag');
 
 // ## The needs

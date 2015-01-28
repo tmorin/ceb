@@ -1,7 +1,6 @@
 // # Properties
 
 // Get a builder.
-'use strict';
 var builder = ceb().name('properties-tag');
 
 // ## Properties

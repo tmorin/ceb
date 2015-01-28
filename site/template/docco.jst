@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>Custom Element Builder - <%= title %></title>
+  <title><%= title %></title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="<%= css %>" />
@@ -17,6 +17,7 @@
         var priority = 1;
         if (source.match(/src\//i)) {
             label = path.basename(source);
+            menu = [null, 'source'];
             priority = 2;
         } else if (source.match(/index/i)) {
             priority = 0;
@@ -29,7 +30,7 @@
         };
     }).sort(function (p1, p2) {
         return p1.priority - p2.priority;
-    }).reduce(function (map, page) {
+    })/*.reduce(function (map, page) {
         if (!page.menu) {
             map[page.label] = page;
         } else {
@@ -39,11 +40,13 @@
             map[page.menu].push(page);
         }
         return map;
-    }, {});
+    }, {})*/;
+console.log(menu)
 %>
 
   <div id="container">
     <div id="background"></div>
+
     <% if (sources.length > 1) { %>
       <ul id="jump_to">
         <li>
@@ -51,23 +54,12 @@
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
           <div id="jump_page">
-          <ul class="pages"><%
-            for(var name in menu) {
-                var entry = menu[name];
-                if (entry.href) {
-                    %><li><a href="<%= entry.href %>"><%= entry.label %></a></li><%
-                } else {
-                    %><li><%= name %><%
-                    %><ul><%
-                    entry.forEach(function (page) {
-                        %><li><a href="<%= page.href %>"><%= page.label %></a></li><%
-                    });
-                    %></ul><%
-                    %></li><%
-                }
-            }
-            %></ul>
-          </div>
+            <% for (var i=0, l=menu.length; i<l; i++) { %>
+              <% var entry = menu[i]; %>
+              <a class="source" href="<%= entry.href %>">
+                <%= entry.menu ? entry.menu + ' - ' : '' %><%= entry.label %>
+              </a>
+            <% } %>
           </div>
         </li>
       </ul>
@@ -84,7 +76,7 @@
         <% var section = sections[i]; %>
         <li id="section-<%= i + 1 %>">
             <div class="annotation">
-              <% heading = section.docsHtml.match(/^\s*<(h\d)>/) %>
+              <% heading = section.docsHtml.match(/^\s*<(h\d)/i) %>
               <div class="pilwrap <%= heading ? 'for-' + heading[1] : '' %>">
                 <a class="pilcrow" href="#section-<%= i + 1 %>">&#182;</a>
               </div>

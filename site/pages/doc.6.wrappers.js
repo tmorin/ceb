@@ -1,7 +1,6 @@
 // # Wrappers
 
 // Get a builder.
-'use strict';
 var builder = ceb().name('methods-wrapped-tag');
 
 // ## Wrappers

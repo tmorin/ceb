@@ -1,9 +1,11 @@
+// # ceb.js
+//     Custom Elements Builder
+//     http://tmorin.github.io/custom-element-builder
+//     ceb may be freely distributed under the MIT license.
 (function (g, factory) {
-    /* globals module:0, define:0 */
+    'use strict';
 
     // Export the **ceb** function according the detected loader.
-
-    'use strict';
 
     /* istanbul ignore next */
     if (typeof exports === 'object') {
@@ -15,7 +17,6 @@
     }
 
 }(this, function () {
-
     'use strict';
 
     // ## Tools

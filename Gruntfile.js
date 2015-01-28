@@ -214,7 +214,7 @@ module.exports = function (grunt) {
             site: {
                 src: ['site/pages/**/*.js', 'src/**/*.js'],
                 options: {
-                    layout: '../../../../../site/template',
+                    layout: '../../../site/template',
                     // template: '../../../../../site/template/docco',
                     output: 'build/site'
                 }
