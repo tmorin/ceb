@@ -54,15 +54,17 @@
     // Apply a template to an element.
     function apply(tpl, el, isHandleLightDOM, isNodeReferences) {
         var lightChildren = [],
-            bindedNodes = [],
+            refrencedNodes = [],
             newCebContentId,
             template = tpl;
 
         if (isHandleLightDOM) {
             // When a node is cloned the light DOM of the cloned has to be retrived
             var oldCebContentId = el.getAttribute('ceb-old-content-id');
-            // Get the light DOM
-            var lightDomNode = el.querySelector('[' + oldCebContentId + ']') || el;
+            // Get the current root of light DOM nodes,
+            // if the node has been cloned the root is the element binding old content id
+            // else it's the current element.
+            var lightDomNode = (oldCebContentId && el.querySelector('[' + oldCebContentId + ']')) || el;
             // Remove the light DOM nodes from the element
             while (lightDomNode.childNodes.length > 0) {
                 lightChildren.push(lightDomNode.removeChild(lightDomNode.childNodes[0]));
@@ -70,7 +72,7 @@
 
             // Generate the new content's id value
             newCebContentId = 'ceb-' + (counter++) + '-content';
-            // Update the tempate to contains the content's id
+            // Replace the original attribute name by the id
             template = template.replace(' ceb-content', ' ' + newCebContentId);
             // Keep a value of the content's id value if the node is cloned
             el.setAttribute('ceb-old-content-id', newCebContentId);
@@ -80,11 +82,13 @@
             // Update the template to detect the DOM nodes references.
             var result;
             while ((result = nodesRegEx.exec(template)) !== null) {
-                var id = counter++;
                 var property = result[1];
-                var newAtt = 'ceb-' + id + '-ref';
+                // build an id of the reference
+                var newAtt = 'ceb-' + (counter++) + '-ref';
+                // replace the original attribute name by the idenitifer
                 template = template.replace(' ceb-ref', ' ' + newAtt);
-                bindedNodes.push({
+                // push the entry
+                refrencedNodes.push({
                     attribute: newAtt,
                     property: property
                 });
@@ -104,7 +108,7 @@
 
         if (isNodeReferences) {
             // Get the reference nodes.
-            bindedNodes.forEach(function (entry) {
+            refrencedNodes.forEach(function (entry) {
                 feature(el)[entry.property] = el.querySelector('[' + entry.attribute + ']');
             });
         }
