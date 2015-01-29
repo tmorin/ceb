@@ -232,11 +232,9 @@ describe('A custom element', function () {
             });
         });
         describe('when the the element is detached', function () {
-            var detachedCallbackSpy;
             beforeEach(function (done) {
-                detachedCallbackSpy = sinon.spy(ce, 'detachedCallback');
                 ce.parentNode.removeChild(ce);
-                setTimeout(done, 0);
+                setTimeout(done, 10);
             });
             it('should be removed', function () {
                 expect(ce.__eventHandlers).to.be.null();

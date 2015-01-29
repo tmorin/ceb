@@ -1,7 +1,4 @@
 // # ceb.js
-//     Custom Elements Builder
-//     http://tmorin.github.io/custom-element-builder
-//     ceb may be freely distributed under the MIT license.
 (function (g, factory) {
     'use strict';
 
@@ -129,7 +126,7 @@
 
     // ## Life cycle
 
-    // Sanitize a structure to avoid the errors <code>?? not defined</code>
+    // Sanitize a structure to avoid the errors `?? not defined`
     function sanitizeStructure(struct) {
         struct.prototype = struct.prototype || Object.create(HTMLElement.prototype);
         struct.features = struct.features || [];
@@ -208,7 +205,7 @@
                 }
             }
 
-            // Finally add the defined property to the current property
+            // Finally add the defined property to the current property.
             return Object.assign(property, {
                 property: definedProperty
             });
@@ -395,7 +392,7 @@
         // Wrap the method detachedCallback.
         builder.wrap('detachedCallback', function (next, el) {
             // Remove the event listeners before the call of the detachedCallback method.
-            el.__eventHandlers.forEach(function (handler) {
+            (el.__eventHandlers || []).forEach(function (handler) {
                 handler.target.removeEventListener(handler.event, handler.callback, true);
             });
             el.__eventHandlers = null;
@@ -527,7 +524,7 @@
         api.feature = function (fn, options, level) {
             struct.features.push({
                 fn: fn,
-                options: options,
+                options: options || {},
                 level: isNaN(level) ? 0 : level
             });
             return api;
@@ -546,7 +543,7 @@
         return api;
     }
 
-    // The <code>ced()</code> function.
+    // The `ced()` function.
     function ceb(params) {
         var api = {};
         // A builder is given when a name is known.
