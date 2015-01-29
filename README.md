@@ -9,7 +9,7 @@
 
 ## Presentation
 
-Custom Element Builder (ceb) is ... a builder for Custom Elements.
+Custom Elements Builder (ceb) is ... a builder for Custom Elements.
 
 [Home page](http://tmorin.github.io/custom-element-builder/)
 
@@ -19,7 +19,7 @@ Custom Element Builder (ceb) is ... a builder for Custom Elements.
 
 Make available specs and site into the brower
 ```shell
-grunt
+    grunt
 ```
 
 Start karma in watching mode
