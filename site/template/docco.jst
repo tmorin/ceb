@@ -5,6 +5,7 @@
   <title><%= title %></title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
   <link rel="stylesheet" media="all" href="<%= css %>" />
 </head>
 <body>
@@ -14,11 +15,14 @@
         var href = path.basename(destination(source));
         var label = href.replace(/\.\w*$/i, '').replace(/\w*\.[0-9]\./i, '');
         var menu = href.match(/(\w*)\.[0-9]\./i);
-        var priority = 1;
+        var priority = href.match(/\w*\.([0-9]*)\./i);
+        if (priority) {
+            priority = priority[1];
+        }
         if (source.match(/src\//i)) {
             label = path.basename(source);
             menu = [null, 'source'];
-            priority = 2;
+            priority = 100;
         } else if (source.match(/index/i)) {
             priority = 0;
         }
@@ -30,17 +34,7 @@
         };
     }).sort(function (p1, p2) {
         return p1.priority - p2.priority;
-    })/*.reduce(function (map, page) {
-        if (!page.menu) {
-            map[page.label] = page;
-        } else {
-            if (!map[page.menu]) {
-                map[page.menu] = [];
-            }
-            map[page.menu].push(page);
-        }
-        return map;
-    }, {})*/;
+    });
 %>
 
   <div id="container">
@@ -53,12 +47,11 @@
           <a class="small" href="javascript:void(0);">+</a>
           <div id="jump_wrapper">
           <div id="jump_page">
-            <% for (var i=0, l=menu.length; i<l; i++) { %>
-              <% var entry = menu[i]; %>
-              <a class="source" href="<%= entry.href %>">
-                <%= entry.menu ? entry.menu + ' - ' : '' %><%= entry.label %>
+            <% menu.forEach(function (page) { %>
+              <a class="source" href="<%= page.href %>">
+                <%= page.menu ? page.menu + ' - ' : '' %><%= page.label %>
               </a>
-            <% } %>
+            <% }) %>
           </div>
         </li>
       </ul>
