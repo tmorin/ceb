@@ -26,8 +26,11 @@ builder.properties({
 // ### Write callback
 
 // The function *interceptWrite* is a write access callback.
+//
+//> @param next (function) will call the next stacked callback
+//> @param el (HTMLElement) the current element
+//> @param value (*) the value of the previous stacked callback
 function interceptWrite(next, el, value) {
-    // The argument *value* is the value of the previous stacked callback.
 
     // There, logic can be done with the element instance and the given value.
     var processedValue = (value || '').toUpperCase();
@@ -47,8 +50,11 @@ function interceptWrite(next, el, value) {
 // ### Read callback
 
 // The function *interceptRead* is a read access callback.
+//
+//> @param next (function) will call the next stacked callback
+//> @param el (HTMLElement) the current element
+//> @param value (*) the value of the previous stacked callback
 function interceptRead(next, el, value) {
-    // The argument *value* is the value of the previous stacked callback.
     // Usually accessors get and so interceptors dedicated for reading don't have given value.
 
     // There, logic can be done with the element instance and the given value.
@@ -75,4 +81,8 @@ function interceptRead(next, el, value) {
 
 // The write accesses of the property *propIntercepted* will be intercepted by the callback *interceptWrite*.
 // The read accesses of the property *propIntercepted* will be intercepted by the callback *interceptRead*.
+
+//> @param name (string) the name of the property to intercept
+//> @param interceptWrite (function) the callback for write accesses
+//> @param interceptRead (function) the callback for read accesses
 builder.intercept('propIntercepted', interceptWrite, interceptRead);

@@ -1,4 +1,4 @@
-// # Custom Element Builder
+// # Custom Elements Builder
 
 // **ceb** is a builder to help the development of Custom Elements.
 //
@@ -22,39 +22,65 @@
 // ***
 // ## Downloads
 // Distributed files can be found [there](https://github.com/tmorin/custom-element-builder/tree/master/dist)
+// - [ceb.js](https://raw.githubusercontent.com/tmorin/custom-element-builder/master/dist/ceb.js) *commented*
 // - [ceb.min.js](https://raw.githubusercontent.com/tmorin/custom-element-builder/master/dist/ceb.min.js) *minified*
 // - [ceb.legacy.min.js](https://raw.githubusercontent.com/tmorin/custom-element-builder/master/dist/ceb.legacy.min.js) *shims, minified*
+// - [ceb-feature-template.js](https://raw.githubusercontent.com/tmorin/custom-element-builder/master/dist/ceb-feature-template.js) *commented*
+// - [ceb-feature-template.min.js](https://raw.githubusercontent.com/tmorin/custom-element-builder/master/dist/ceb-feature-template.min.js) *minified*
 // ***
 // ## Installation
 // **ceb** is not yet released!
-// - npm: <code>npm install ceb --save</code>
-// - bower: <code>npm bower ceb --save</code>
-// - component <code>component install tmorin/custom-element-builder</code>
-// - amd <code>require(['ceb', ...</code>
+// - npm: `npm install ceb --save`
+// - bower: `npm bower ceb --save`
+// - component `component install tmorin/custom-element-builder`
+// - amd: `require(['ceb', ...`
 
-var builder = ceb().name('a-custom-element');
+var template = '';
+template += '<em ceb-ref="fromNode" class="from"><em> say hello to <em class="to"><em>!';
+template += '<br>';
+template += '<button>or to the world</button>';
 
-builder.properties({
-    name: {
-        attribute: true
-    }
-}).methods({
-    sayHelloTo: function (el, n) {
-        return el.name + ' say hello to ' + n + '!';
-    }
-});
+var builder = ceb()
+    .name('saying-hello')
+    .feature(cebTemplateFeature, {
+        template: template
+    })
+    .properties({
+        from: {
+            attribute: true
+        },
+        to: {
+            attribute: true,
+            delegate: {
+                target: 'em.to'
+            }
+        }
+    })
+    .intercept('from', function (next, el, value) {
+        return next(value.toUpperCase());
+    })
+    .intercept('to', function (next, el, value) {
+        return next(value.toUpperCase());
+    })
+    .methods({
+        sayHello: function (el, to) {
+            return el.from + ' say hello to ' + (to || el.to) + '!';
+        }
+    })
+    .wrap('sayHello', function (next, el, to) {
+        var newArguments = [next, el, (to || '').toUpperCase()];
+        var result = next(newArguments);
+        console.log(result);
+        return result;
+    })
+    .listen('click button', function (el) {
+        el.sayHello('world');
+    })
+    .register();
 
-builder.intercept('name', function (next, el, value) {
-    next(value.toUpperCase());
-}).wrap('sayHelloTo', function (next, el, n) {
-    return next(n.toUpperCase());
-});
+var sayingHello = document.createElement('saying-hello');
+element.setAttribute('from', 'I');
+element.to = 'you';
+document.body.appendChild(sayingHello);
 
-builder.register();
-
-var element = document.createElement('a-custom-element');
-element.setAttribute('name', 'I');
-element.sayHelloTo('you');
-
-element.name = 'Again, I';
-element.sayHelloTo('you');
+element.sayHelloTo('world');

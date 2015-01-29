@@ -12,6 +12,7 @@ var builder = ceb().name('demo-custom-element');
 // - methods
 // - interceptors catching the set and get of properties
 // - wrappers wrapping the call of methods
+// - DOM event listeners
 // - features enhancing the structure with reusable logic
 
 // ## Add stuff to the structure
@@ -63,9 +64,20 @@ console.assert(aDemoCustomElementFromJs.nodeType === aDemoCustomElementFromHTML.
 // ## Reuse a structure
 
 // The builder's structure can be retrieved using the builder's method **get**.
-var aStructure = builder.get();
+// However, the structure object contains objects which are not sharable accross builders.
+// A good way is to implement the creation of the structure into a function.
+// Then call the function each time we need a structure.
+function structureFactory() {
+    var protectedBuilder = ceb().name('base-structure');
+    /* do stuff with protectedBuilder */
+    return protectedBuilder.get();
+}
 
-// An existing structure can be used as based structure of a future builder.
+// *based-custom-element1* and *based-custom-element1* builders share, conceptually, the same base structure.
 ceb({
-    struct: aStructure
-}).name('based-custom-element').register();
+    struct: structureFactory()
+}).name('based-custom-element1').register();
+
+ceb({
+    struct: structureFactory()
+}).name('based-custom-element2').register();
