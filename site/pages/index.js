@@ -42,7 +42,7 @@ template += '<button>or to the world</button>';
 
 var builder = ceb()
     .name('saying-hello')
-    .feature(cebTemplateFeature, {
+    .feature(cebFeatureTemplate, {
         template: template
     })
     .properties({
@@ -79,8 +79,8 @@ var builder = ceb()
     .register();
 
 var sayingHello = document.createElement('saying-hello');
-element.setAttribute('from', 'I');
-element.to = 'you';
+sayingHello.setAttribute('from', 'I');
+sayingHello.to = 'you';
 document.body.appendChild(sayingHello);
 
 element.sayHelloTo('world');
