@@ -133,7 +133,7 @@ module.exports = function (grunt) {
             },
             'build-ci': {
                 sauceLabs: {
-                    testName: 'Custom Element Builder Test',
+                    testName: 'Custom Elements Builder Test',
                     recordVideo: false,
                     recordScreenshots: false
                 },
@@ -164,14 +164,6 @@ module.exports = function (grunt) {
         },
 
         copy: {
-            build: {
-                files: [{
-                    expand: true,
-                    cwd: 'src',
-                    src: ['ceb.js'],
-                    dest: 'dist'
-                }]
-            },
             'build-site': {
                 files: [{
                     expand: true,
@@ -191,16 +183,44 @@ module.exports = function (grunt) {
 
         uglify: {
             options: {
-                banner: '/* <%= pkg.name %> - <%= pkg.description %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> */',
-                sourceMap: true,
-                sourceMapIncludeSources: true
+                banner: [
+                    '/*',
+                    ' * <%= pkg.name %> <%= pkg.version %> http://tmorin.github.io/custom-element-builder',
+                    ' * <%= pkg.description %>',
+                    ' * Buil date: <%= grunt.template.today("yyyy-mm-dd") %>',
+                    ' * Copyright 2015-2015 Thibault Morin',
+                    ' * Available under MIT license',
+                    ' */',
+                    ''
+                ].join('\n')
+            },
+            commented: {
+                options: {
+                    mangle: false,
+                    compress: false,
+                    beautify: true,
+                    preserveComments: true
+                },
+                files: {
+                    'dist/ceb.js': ['src/ceb.js'],
+                    'dist/ceb-feature-template.js': ['src/ceb-feature-template.js']
+                }
             },
             noshims: {
+                options: {
+                    sourceMap: true,
+                    sourceMapIncludeSources: true
+                },
                 files: {
-                    'dist/ceb.min.js': ['src/ceb.js']
+                    'dist/ceb.min.js': ['src/ceb.js'],
+                    'dist/ceb-feature-template.min.js': ['src/ceb-feature-template.js']
                 }
             },
             shims: {
+                options: {
+                    sourceMap: true,
+                    sourceMapIncludeSources: true
+                },
                 files: {
                     'dist/ceb.legacy.min.js': [
                         'node_modules/document-register-element/build/document-register-element.max.js',
@@ -221,8 +241,10 @@ module.exports = function (grunt) {
             site: {
                 src: ['site/pages/**/*.js', 'src/**/*.js'],
                 options: {
-                    layout: '../../../site/template',
-                    output: 'build/site'
+                    'template': __dirname + '/site/template/docco.jst',
+                    'css': __dirname + '/site/template/docco.css',
+                    'public': __dirname + '/site/template/public',
+                    'output': 'build/site'
                 }
             }
         },
@@ -254,10 +276,10 @@ module.exports = function (grunt) {
             component: {
                 dest: 'component.json',
                 fields: {
-                    'name': function () {
+                    name: function () {
                         return 'ceb';
                     },
-                    'repository': function () {
+                    repository: function () {
                         return 'tmorin/custom-element-builder';
                     },
                     description: null,
@@ -324,7 +346,7 @@ module.exports = function (grunt) {
         if (grunt.option('allow-remote')) {
             grunt.config.set('connect.options.hostname', '0.0.0.0');
         }
-        grunt.task.run(['docco', 'connect:livereload', 'watch']);
+        grunt.task.run(['docco', 'copy:build-site', 'connect:livereload', 'watch']);
     });
 
     grunt.registerTask('testing', ['jshint', 'karma:dev']);
@@ -334,7 +356,6 @@ module.exports = function (grunt) {
         'jshint',
         'karma:build-local',
         'uglify',
-        'copy:build',
         'sync-json',
         'coveralls:build-local'
     ]);
@@ -344,7 +365,6 @@ module.exports = function (grunt) {
         'jshint',
         'karma:build-ci',
         'uglify',
-        'copy:build',
         'sync-json',
         'coveralls:build-ci'
     ]);

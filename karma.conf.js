@@ -35,7 +35,7 @@ module.exports = function (config) {
             }]
         },
 
-        port: 9876,
+        port: 9877,
 
         colors: true,
 
@@ -44,6 +44,7 @@ module.exports = function (config) {
 
         autoWatch: false,
 
+        // browsers: ['IE'],
         browsers: ['Firefox'],
 
         singleRun: true,

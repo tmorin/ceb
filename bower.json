@@ -1,6 +1,6 @@
 {
     "name": "ceb",
-    "description": "Custom Element Builder",
+    "description": "Custom Elements Builder (ceb) is ... a builder for Custom Elements.",
     "version": "0.0.0",
     "main": "dist/ceb.js",
     "keywords": [
