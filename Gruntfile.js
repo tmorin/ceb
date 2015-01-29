@@ -141,6 +141,7 @@ module.exports = function (grunt) {
                 captureTimeout: 3 * 60 * 1000,
                 customLaunchers: customLaunchers,
                 browsers: Object.keys(customLaunchers),
+                /*browsers: ['slIe9'],*/
                 reporters: ['dots', 'saucelabs', 'coverage'],
                 singleRun: true,
                 autoWatch: false

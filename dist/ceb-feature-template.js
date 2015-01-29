@@ -36,9 +36,7 @@
     // The template feature's function returns the nodes' reference of the template.
     function feature(el) {
         if (!el.__cebTemplateScope) {
-            el.__cebTemplateScope = {
-                nodes: {}
-            };
+            el.__cebTemplateScope = {};
         }
         return el.__cebTemplateScope;
     }
@@ -50,53 +48,62 @@
     // Regex to detect the *ceb-content* attribute
     var contentRegEx = /ceb\-content/im;
     // Apply a template to an element.
-    function apply(template, el) {
-        // When a node is cloned the light DOM of the cloned has to be retrived
-        var oldCebContentId = el.getAttribute("ceb-content-id");
-        // Get the light DOM
-        var lightDomNode = el.querySelector("[" + oldCebContentId + "]") || el;
-        // Remove the light DOM nodes from the element
-        var lightChildren = [];
-        while (lightDomNode.childNodes.length > 0) {
-            lightChildren.push(lightDomNode.removeChild(lightDomNode.childNodes[0]));
+    function apply(tpl, el, isHandleLightDOM, isNodeReferences) {
+        var lightChildren = [], bindedNodes = [], newCebContentId, template = tpl;
+        if (isHandleLightDOM) {
+            // When a node is cloned the light DOM of the cloned has to be retrived
+            var oldCebContentId = el.getAttribute("ceb-old-content-id");
+            // Get the light DOM
+            var lightDomNode = el.querySelector("[" + oldCebContentId + "]") || el;
+            // Remove the light DOM nodes from the element
+            while (lightDomNode.childNodes.length > 0) {
+                lightChildren.push(lightDomNode.removeChild(lightDomNode.childNodes[0]));
+            }
+            // Generate the new content's id value
+            newCebContentId = "ceb-" + counter++ + "-content";
+            // Update the tempate to contains the content's id
+            template = template.replace(" ceb-content", " " + newCebContentId);
+            // Keep a value of the content's id value if the node is cloned
+            el.setAttribute("ceb-old-content-id", newCebContentId);
         }
-        // Generate the new content's id value
-        var newCebContentId = "tpl-" + counter++ + "-ceb-content";
-        // Update the tempate to contains the content's id
-        template = template.replace(" ceb-content", " " + newCebContentId);
-        // Keep a value of the content's id value if the node is cloned
-        el.setAttribute("ceb-content-id", newCebContentId);
-        // Update the template to detect the DOM nodes references.
-        var bindedNodes = [], result;
-        while ((result = nodesRegEx.exec(template)) !== null) {
-            var id = counter++;
-            var property = result[1];
-            var newAtt = "tpl-" + id + "-ceb-ref";
-            template = template.replace(" ceb-ref", " " + newAtt);
-            bindedNodes.push({
-                attribute: newAtt,
-                property: property
-            });
+        if (isNodeReferences) {
+            // Update the template to detect the DOM nodes references.
+            var result;
+            while ((result = nodesRegEx.exec(template)) !== null) {
+                var id = counter++;
+                var property = result[1];
+                var newAtt = "ceb-" + id + "-ref";
+                template = template.replace(" ceb-ref", " " + newAtt);
+                bindedNodes.push({
+                    attribute: newAtt,
+                    property: property
+                });
+            }
         }
         // Make alive the template.
         el.innerHTML = template;
         // Push the light DOM nodes into the element
-        if (contentRegEx.test(template)) {
+        if (isHandleLightDOM) {
             var contentNode = el.querySelector("[" + newCebContentId + "]");
             lightChildren.forEach(function(node) {
                 contentNode.appendChild(node);
             });
         }
-        // Get the reference nodes.
-        bindedNodes.forEach(function(entry) {
-            feature(el)[entry.property] = el.querySelector("[" + entry.attribute + "]");
-        });
+        if (isNodeReferences) {
+            // Get the reference nodes.
+            bindedNodes.forEach(function(entry) {
+                feature(el)[entry.property] = el.querySelector("[" + entry.attribute + "]");
+            });
+        }
     }
     // ## Setup function
     // The templeting process is done before the call of the `createdCallback` method defined in the structure.
     function setup(struct, builder, options) {
+        var tpl = options.template || "";
+        var isHandleLightDOM = tpl.search(contentRegEx) !== -1;
+        var isNodeReferences = tpl.search(nodesRegEx) !== -1;
         builder.wrap("createdCallback", function(next, el) {
-            apply(options.template || "", el);
+            apply(tpl, el, isHandleLightDOM, isNodeReferences);
             next(arguments);
         });
     }
