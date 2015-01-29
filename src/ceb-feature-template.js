@@ -115,9 +115,8 @@
     // The templeting process is done before the call of the `createdCallback` method defined in the structure.
     function setup(struct, builder, options) {
         var tpl = options.template || '';
-
-        var isHandleLightDOM = tpl.search(contentRegEx);
-        var isNodeReferences = tpl.search(nodesRegEx);
+        var isHandleLightDOM = tpl.search(contentRegEx) !== -1;
+        var isNodeReferences = tpl.search(nodesRegEx) !== -1;
         builder.wrap('createdCallback', function (next, el) {
             apply(tpl, el, isHandleLightDOM, isNodeReferences);
             next(arguments);
