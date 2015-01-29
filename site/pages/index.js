@@ -35,24 +35,32 @@
 // - component `component install tmorin/custom-element-builder`
 // - amd: `require(['ceb', ...`
 
+/* http://jsfiddle.net/tmorin/xce2e756 */
+
 var template = '';
-template += '<em ceb-ref="fromNode" class="from"><em> say hello to <em class="to"><em>!';
+template += '<em ceb-ref="fromNode" class="from"></em> say hello <em class="to"></em>!';
 template += '<br>';
 template += '<button>or to the world</button>';
 
-var builder = ceb()
+ceb()
     .name('saying-hello')
     .feature(cebFeatureTemplate, {
         template: template
     })
     .properties({
         from: {
-            attribute: true
+            attribute: true,
+            setter: function (el, value) {
+                console.log(el);
+                cebFeatureTemplate(el).fromNode.textContent = value;
+                return value;
+            }
         },
         to: {
             attribute: true,
             delegate: {
-                target: 'em.to'
+                target: 'em.to',
+                property: 'textContent'
             }
         }
     })
@@ -64,13 +72,13 @@ var builder = ceb()
     })
     .methods({
         sayHello: function (el, to) {
-            return el.from + ' say hello to ' + (to || el.to) + '!';
+            return el.from + ' say hello ' + (to || el.to) + '!';
         }
     })
     .wrap('sayHello', function (next, el, to) {
         var newArguments = [next, el, (to || '').toUpperCase()];
         var result = next(newArguments);
-        console.log(result);
+        alert(result);
         return result;
     })
     .listen('click button', function (el) {
@@ -81,6 +89,5 @@ var builder = ceb()
 var sayingHello = document.createElement('saying-hello');
 sayingHello.setAttribute('from', 'I');
 sayingHello.to = 'you';
-document.body.appendChild(sayingHello);
 
-element.sayHelloTo('world');
+document.body.appendChild(sayingHello);
