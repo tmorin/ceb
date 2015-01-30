@@ -27,6 +27,8 @@
         "beforeEach": false,
         "afterEach": false,
         "module": true,
-        "define": true
+        "define": true,
+        "chai": true,
+        "mocha": true
     }
 }

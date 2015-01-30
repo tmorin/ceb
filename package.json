@@ -3,16 +3,16 @@
     "version": "0.0.0",
     "description": "Custom Elements Builder (ceb) is ... a builder for Custom Elements.",
     "keywords": [
-    "Web",
-    "Components",
-    "Custom",
-    "Element",
-    "Elements",
-    "DOM",
-    "W3C",
-    "builder",
-    "tools"
-  ],
+        "Web",
+        "Components",
+        "Custom",
+        "Element",
+        "Elements",
+        "DOM",
+        "W3C",
+        "builder",
+        "tools"
+    ],
     "homepage": "https://tmorin.github.io/custom-element-builder",
     "bugs": {
         "url": "https://github.com/tmorin/custom-element-builder/issues"
