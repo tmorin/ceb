@@ -17,7 +17,7 @@
     "homepage": "https://tmorin.github.io/custom-elements-builder",
     "repository": {
         "type": "git",
-        "url": "http://github.com/tmorin/custom-elements-builder.git"
+        "url": "git://github.com/tmorin/custom-elements-builder.git"
     },
     "license": "MIT",
     "authors": [

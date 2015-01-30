@@ -25,7 +25,7 @@
     "main": "dist/ceb.js",
     "repository": {
         "type": "git",
-        "url": "http://github.com/tmorin/custom-elements-builder.git"
+        "url": "git://github.com/tmorin/custom-elements-builder.git"
     },
     "scripts": {
         "test": "./node_modules/.bin/grunt build-ci"
