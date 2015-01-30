@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Custom Element Builder - Demos</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css" />
+</head>
+
+<body>
+
+    <!-- polyfills -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.5.2/webcomponents-lite.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/document-register-element/0.1.6/document-register-element.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.22.2/es6-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.22.2/es6-sham.min.js"></script>
+
+    <!-- source -->
+    <script src="ceb.js"></script>
+    <script src="ceb-feature-template.js"></script>
+
+    <script>
+        ceb().name('x-tag1').feature(cebFeatureTemplate, {
+            template: '<ul> <li>tag1</li> <li>content <x-tag2 ceb-content></x-tag2> </li> </ul>'
+        }).register();
+
+        ceb().name('x-tag2').feature(cebFeatureTemplate, {
+            template: '<ul> <li>tag2</li> <li>content <div ceb-content></div> </li> </ul>'
+        }).register();
+
+        ceb().name('x-tag3').feature(cebFeatureTemplate, {
+            template: '<ul> <li>tag3</li> <li>content <div ceb-content></div> </li> </ul>'
+        }).register();
+    </script>
+
+    <x-tag1>
+        <x-tag3>embeded</x-tag3>
+    </x-tag1>
+</body>
+
+</html>
