@@ -6,7 +6,7 @@ describe('ceb-feature-template', function () {
         tagName, ce, clonedCe,
         tpl,
         div,
-        timeout = 10;
+        timeout = 50;
 
     beforeEach(function (done) {
         div = document.body.appendChild(sandbox).appendChild(document.createElement('div'));
