@@ -35,7 +35,7 @@
 // - component `component install tmorin/custom-element-builder`
 // - amd: `require(['ceb', ...`
 
-/* http://jsfiddle.net/tmorin/xce2e756 */
+/* http://jsfiddle.net/tmorin/xce2e756/ */
 
 var template = '';
 template += '<em ceb-ref="fromNode" class="from"></em> say hello <em class="to"></em>!';

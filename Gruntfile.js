@@ -173,6 +173,11 @@ module.exports = function (grunt) {
                     dest: 'build/site/testsuite'
                 }, {
                     expand: true,
+                    cwd: 'site/template',
+                    src: ['public/**/*'],
+                    dest: 'build/site'
+                }, {
+                    expand: true,
                     cwd: 'src',
                     src: ['ceb.js'],
                     dest: 'build/site/testsuite'
@@ -244,7 +249,6 @@ module.exports = function (grunt) {
                 options: {
                     'template': __dirname + '/site/template/docco.jst',
                     'css': __dirname + '/site/template/docco.css',
-                    'public': __dirname + '/site/template/public',
                     'output': 'build/site'
                 }
             }
