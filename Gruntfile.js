@@ -191,7 +191,7 @@ module.exports = function (grunt) {
             options: {
                 banner: [
                     '/*',
-                    ' * <%= pkg.name %> <%= pkg.version %> http://tmorin.github.io/custom-element-builder',
+                    ' * <%= pkg.name %> <%= pkg.version %> http://tmorin.github.io/custom-elements-builder',
                     ' * <%= pkg.description %>',
                     ' * Buil date: <%= grunt.template.today("yyyy-mm-dd") %>',
                     ' * Copyright 2015-2015 Thibault Morin',

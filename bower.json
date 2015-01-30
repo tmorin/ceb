@@ -14,10 +14,10 @@
         "builder",
         "tools"
     ],
-    "homepage": "https://tmorin.github.io/custom-element-builder",
+    "homepage": "https://tmorin.github.io/custom-elements-builder",
     "repository": {
         "type": "git",
-        "url": "http://github.com/tmorin/custom-element-builder.git"
+        "url": "http://github.com/tmorin/custom-elements-builder.git"
     },
     "license": "MIT",
     "authors": [
