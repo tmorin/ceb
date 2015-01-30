@@ -1,7 +1,7 @@
 /*
  * ceb 0.0.0 http://tmorin.github.io/custom-element-builder
  * Custom Elements Builder (ceb) is ... a builder for Custom Elements.
- * Buil date: 2015-01-29
+ * Buil date: 2015-01-30
  * Copyright 2015-2015 Thibault Morin
  * Available under MIT license
  */
@@ -49,49 +49,49 @@
     var contentRegEx = /ceb\-content/im;
     // Apply a template to an element.
     function apply(tpl, el, isHandleLightDOM, isNodeReferences) {
-        var lightChildren = [], bindedNodes = [], newCebContentId, template = tpl;
-        if (isHandleLightDOM) {
-            // When a node is cloned the light DOM of the cloned has to be retrived
-            var oldCebContentId = el.getAttribute("ceb-old-content-id");
-            // Get the light DOM
-            var lightDomNode = el.querySelector("[" + oldCebContentId + "]") || el;
-            // Remove the light DOM nodes from the element
-            while (lightDomNode.childNodes.length > 0) {
-                lightChildren.push(lightDomNode.removeChild(lightDomNode.childNodes[0]));
-            }
-            // Generate the new content's id value
-            newCebContentId = "ceb-" + counter++ + "-content";
-            // Update the tempate to contains the content's id
-            template = template.replace(" ceb-content", " " + newCebContentId);
-            // Keep a value of the content's id value if the node is cloned
-            el.setAttribute("ceb-old-content-id", newCebContentId);
-        }
+        var lightChildren = [], refrencedNodes = [], oldCebContentId, newCebContentId, template = tpl;
+        // Render template
         if (isNodeReferences) {
             // Update the template to detect the DOM nodes references.
             var result;
             while ((result = nodesRegEx.exec(template)) !== null) {
-                var id = counter++;
                 var property = result[1];
-                var newAtt = "ceb-" + id + "-ref";
+                // build an id of the reference
+                var newAtt = "ceb-" + counter++ + "-ref";
+                // replace the original attribute name by the idenitifer
                 template = template.replace(" ceb-ref", " " + newAtt);
-                bindedNodes.push({
+                // push the entry
+                refrencedNodes.push({
                     attribute: newAtt,
                     property: property
                 });
             }
         }
-        // Make alive the template.
-        el.innerHTML = template;
-        // Push the light DOM nodes into the element
         if (isHandleLightDOM) {
-            var contentNode = el.querySelector("[" + newCebContentId + "]");
-            lightChildren.forEach(function(node) {
-                contentNode.appendChild(node);
-            });
+            // When a node is cloned the light DOM of the cloned has to be retrived
+            oldCebContentId = el.getAttribute("ceb-old-content-id");
+            // Generate the new content's id value
+            newCebContentId = "ceb-" + counter++ + "-content";
+            // Replace the original attribute name by the id
+            template = template.replace(" ceb-content", " " + newCebContentId);
+            // Keep a value of the content's id value if the node is cloned
+            el.setAttribute("ceb-old-content-id", newCebContentId);
+            // Get the current root of light DOM nodes,
+            // if the node has been cloned the root is the element binding old content id
+            // else it's the current element.
+            var lightDomNode = oldCebContentId && el.querySelector("[" + oldCebContentId + "]") || el;
+            while (lightDomNode.childNodes.length > 0) {
+                // work with webcomponent.js
+                // lightChildren.push(lightDomNode.removeChild(lightDomNode.childNodes[0]));
+                // work with both webcomponent.js and document-register-element
+                lightChildren.push(lightDomNode.removeChild(lightDomNode.childNodes[0]).cloneNode(true));
+            }
         }
+        el.innerHTML = template;
+        el.applyLigthDOM(lightChildren);
         if (isNodeReferences) {
             // Get the reference nodes.
-            bindedNodes.forEach(function(entry) {
+            refrencedNodes.forEach(function(entry) {
                 feature(el)[entry.property] = el.querySelector("[" + entry.attribute + "]");
             });
         }
@@ -102,6 +102,22 @@
         var tpl = options.template || "";
         var isHandleLightDOM = tpl.search(contentRegEx) !== -1;
         var isNodeReferences = tpl.search(nodesRegEx) !== -1;
+        builder.methods({
+            applyLigthDOM: function(el, lightChildren) {
+                setTimeout(function() {
+                    var contentNode = el.querySelector("[" + el.getAttribute("ceb-old-content-id") + "]");
+                    if (contentNode) {
+                        if (typeof contentNode.applyLigthDOM === "function") {
+                            contentNode.applyLigthDOM(lightChildren);
+                        } else {
+                            lightChildren.forEach(function(child) {
+                                contentNode.appendChild(child);
+                            });
+                        }
+                    }
+                }, 0);
+            }
+        });
         builder.wrap("createdCallback", function(next, el) {
             apply(tpl, el, isHandleLightDOM, isNodeReferences);
             next(arguments);
