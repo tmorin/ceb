@@ -179,7 +179,7 @@ module.exports = function (grunt) {
                 }, {
                     expand: true,
                     cwd: 'src',
-                    src: ['ceb.js'],
+                    src: ['**/*'],
                     dest: 'build/site/testsuite'
                 }]
             }
@@ -191,7 +191,7 @@ module.exports = function (grunt) {
             options: {
                 banner: [
                     '/*',
-                    ' * <%= pkg.name %> <%= pkg.version %> http://tmorin.github.io/custom-element-builder',
+                    ' * <%= pkg.name %> <%= pkg.version %> http://tmorin.github.io/custom-elements-builder',
                     ' * <%= pkg.description %>',
                     ' * Buil date: <%= grunt.template.today("yyyy-mm-dd") %>',
                     ' * Copyright 2015-2015 Thibault Morin',
@@ -285,7 +285,7 @@ module.exports = function (grunt) {
                         return 'ceb';
                     },
                     repository: function () {
-                        return 'tmorin/custom-element-builder';
+                        return 'tmorin/custom-elements-builder';
                     },
                     description: null,
                     version: null,

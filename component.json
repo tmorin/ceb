@@ -1,6 +1,6 @@
 {
     "name": "ceb",
-    "repository": "tmorin/custom-element-builder",
+    "repository": "tmorin/custom-elements-builder",
     "description": "Custom Elements Builder (ceb) is ... a builder for Custom Elements.",
     "version": "0.0.0",
     "keywords": [

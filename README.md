@@ -1,9 +1,9 @@
-# custom-element-builder
+# custom-elements-builder
 
-[![Build Status](https://travis-ci.org/tmorin/custom-element-builder.svg)](https://travis-ci.org/tmorin/custom-element-builder)
-[![Dependency Status](https://david-dm.org/tmorin/custom-element-builder.png)](https://david-dm.org/tmorin/custom-element-builder)
-[![devDependency Status](https://david-dm.org/tmorin/custom-element-builder/dev-status.png)](https://david-dm.org/tmorin/custom-element-builder#info=devDependencies)
-[![Coverage Status](https://coveralls.io/repos/tmorin/custom-element-builder/badge.svg)](https://coveralls.io/r/tmorin/custom-element-builder)
+[![Build Status](https://travis-ci.org/tmorin/custom-elements-builder.svg)](https://travis-ci.org/tmorin/custom-elements-builder)
+[![Dependency Status](https://david-dm.org/tmorin/custom-elements-builder.png)](https://david-dm.org/tmorin/custom-elements-builder)
+[![devDependency Status](https://david-dm.org/tmorin/custom-elements-builder/dev-status.png)](https://david-dm.org/tmorin/custom-elements-builder#info=devDependencies)
+[![Coverage Status](https://coveralls.io/repos/tmorin/custom-elements-builder/badge.svg)](https://coveralls.io/r/tmorin/custom-elements-builder)
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 
@@ -11,7 +11,7 @@
 
 Custom Elements Builder (ceb) is ... a builder for Custom Elements.
 
-[Home page](http://tmorin.github.io/custom-element-builder/)
+[Home page](http://tmorin.github.io/custom-elements-builder/)
 
 ## Grunt tasks
 
