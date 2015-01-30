@@ -6,7 +6,7 @@ describe('ceb-feature-template', function () {
         tagName, ce, clonedCe,
         tpl,
         div,
-        timeout = 0;
+        timeout = 10;
 
     beforeEach(function (done) {
         div = document.body.appendChild(sandbox).appendChild(document.createElement('div'));
@@ -73,7 +73,7 @@ describe('ceb-feature-template', function () {
             expect(ce.querySelector('footer.child')).to.exist();
         });
         it('should contains the initial light DOM', function () {
-            expect(ce.querySelector('div.child.content > ' + tagName + '.lightDOM')).to.exist();
+            expect(ce.querySelector('div.child.content ' + tagName + '.lightDOM div.child.content span.lightDOM'), 'ce').to.exist();
         });
         it('should have the linked nodes', function () {
             expect(cebFeatureTemplate(ce).button).to.exist();
@@ -83,18 +83,17 @@ describe('ceb-feature-template', function () {
             beforeEach(function (done) {
                 clonedCe = ce.cloneNode(true);
                 div.appendChild(clonedCe);
-                setTimeout(done, timeout);
+                setTimeout(function () {
+                    setTimeout(done, timeout);
+                }, timeout);
             });
             it('should contains the templated nodes', function () {
                 expect(clonedCe.querySelector('button.child')).to.exist();
                 expect(clonedCe.querySelector('div.child.content')).to.exist();
                 expect(clonedCe.querySelector('footer.child')).to.exist();
             });
-            xit('should contains the initial light DOM', function () {
-                console.log(clonedCe.querySelector('div.child.content'));
-                console.log(clonedCe.querySelector('div.child.content > ' + tagName + '.lightDOM'));
-                console.log(clonedCe.querySelector('div.child.content > ' + tagName + '.lightDOM div.child.content'));
-                expect(clonedCe.querySelector('div.child.content > ' + tagName + '.lightDOM > div.child.content > span.lightDOM')).to.exist();
+            it('should contains the initial light DOM', function () {
+                expect(clonedCe.querySelector('div.child.content ' + tagName + '.lightDOM div.child.content span.lightDOM'), 'clonedCe').to.exist();
             });
         });
     });
