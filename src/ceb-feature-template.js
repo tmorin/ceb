@@ -15,7 +15,7 @@
 // That means, if a node has the attribute `ceb-ref="header"`.
 // It will be available via `feature(el).header`.
 
-(function(g, factory) {
+(function (g, factory) {
     'use strict';
 
     /* istanbul ignore next */
@@ -27,7 +27,7 @@
         g.cebFeatureTemplate = factory();
     }
 
-}(this, function() {
+}(this, function () {
     'use strict';
 
     // ## feature function
@@ -109,7 +109,7 @@
 
         if (isNodeReferences) {
             // Get the reference nodes and attach them to the element templating scope.
-            refrencedNodes.forEach(function(entry) {
+            refrencedNodes.forEach(function (entry) {
                 feature(el)[entry.property] = el.querySelector('[' + entry.attribute + ']');
             });
         }
@@ -125,14 +125,14 @@
         var isNodeReferences = tpl.search(nodesRegEx) !== -1;
         // Register a method to handle the light DOM nodes
         builder.methods({
-            applyLigthDOM: function(el, lightChildren) {
-                setTimeout(function() {
+            applyLigthDOM: function (el, lightChildren) {
+                setTimeout(function () {
                     var contentNode = el.querySelector('[' + el.getAttribute('ceb-old-content-id') + ']');
                     if (contentNode) {
                         if (typeof contentNode.applyLigthDOM === 'function') {
                             contentNode.applyLigthDOM(lightChildren);
                         } else {
-                            lightChildren.forEach(function(child) {
+                            lightChildren.forEach(function (child) {
                                 contentNode.appendChild(child);
                             });
                         }
@@ -142,7 +142,7 @@
         });
         // Register a wrapper to the createdCallback callback in order to
         // apply the template before the original call.
-        builder.wrap('createdCallback', function(next, el) {
+        builder.wrap('createdCallback', function (next, el) {
             apply(tpl, el, isHandleLightDOM, isNodeReferences);
             next(arguments);
         });

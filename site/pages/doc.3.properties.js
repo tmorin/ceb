@@ -5,7 +5,6 @@ var builder = ceb().name('properties-tag');
 
 // ## Properties
 
-
 // The builder's method **properties** adds the given hash of properties to the structure.
 //
 //> @param properties (object) a map of properties
