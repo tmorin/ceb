@@ -1,6 +1,7 @@
 // # ceb-feature-template.js
 
-// Presently, this feature does work with IE9 and IE10.
+// Work on ever green browser and IE9/IE10.
+// However the template feature doesn't worl with [document-register-element](https://github.com/WebReflection/document-register-element) on IE9/IE10.
 
 // ## Light DOM
 //
