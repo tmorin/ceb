@@ -20,22 +20,22 @@ var builder = ceb().name('demo-custom-element');
 // [Set extends and prototype values](doc.2.inheritance.html)
 builder.extends( /* the tag to extend*/ ).prototype( /* the prototype to inherit */ );
 
-//[Add properties](doc.3.properties.html)
+// [Add properties](doc.3.properties.html)
 builder.properties( /* a hash of properties */ );
 
-//[Add interceptors](doc.4.interceptors.html)
+// [Add interceptors](doc.4.interceptors.html)
 builder.intercept( /* the property's name, [the write callback], [the read callback], [the level] */ );
 
-//[Add methods](doc.5.methods.html)
+// [Add methods](doc.5.methods.html)
 builder.methods( /* a hash of methods */ );
 
-//[Add wrappers](doc.6.wrappers.html)
+// [Add wrappers](doc.6.wrappers.html)
 builder.wrap( /* the method's name, the callback, [the level] */ );
 
-//[Add listeners](doc.7.listeners.html)
+// [Add listeners](doc.7.listeners.html)
 builder.listen( /* a mix of html selectors and events' name, the callback */ );
 
-//[Add features](doc.8.features.html)
+// [Add features](doc.8.features.html)
 builder.feature( /* the feature's function, [the feature's options], [the level] */ );
 
 // ## Make it works
@@ -44,11 +44,11 @@ builder.feature( /* the feature's function, [the feature's options], [the level]
 // the builder’s method **register** will register the corresponding custom element.
 var DemoCustomElement = builder.register();
 
-//The returned value is the JavaScript class of the registered custom element.
-//It can be used as prototype of another one.
+// The returned value is the JavaScript class of the registered custom element.
+// It can be used as prototype of another one.
 ceb().name('proto-demo-custom-element').prototype(Object.create(DemoCustomElement.prototype));
 
-//## Make it alive
+// ## Make it alive
 
 // *demo-custom-element* is available from JavaScript as another HTML element.
 var aDemoCustomElementFromJs = document.createElement('demo-custom-element');

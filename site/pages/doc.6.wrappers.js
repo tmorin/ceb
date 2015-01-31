@@ -18,6 +18,9 @@ builder.methods({
 // ### Callback
 
 // The function *wrapper* is the wrapper callback.
+// > @param next (function) will call the next stacked callback
+// > @param el (HTMLElement) the current element
+// > @param args... (*) original arugments are append to the two previous arguments
 function wrapper(next, el, firsname, lastname) {
     // The first two arguments are always valuated, however the following are given according tothe method execution.
 
@@ -38,12 +41,14 @@ function wrapper(next, el, firsname, lastname) {
     return processedResult;
 }
 
-//### Wrap
+// ### Wrap
 
-//The builder’s method **wrap** adds to the structure the given wrapper according to the wrapper method.
+// The builder’s method **wrap** adds to the structure the given wrapper according to the wrapper method.
 //
-//The first argument of the method *wrap* is the method name.
-//The second argument is the callback.
+// The first argument of the method *wrap* is the method name.
+// The second argument is the callback.
 
-//The execution of *methodWrapped* will be wrapped with the callback *wrapper*.
+// The execution of *methodWrapped* will be wrapped with the callback *wrapper*.
+// > @param name (string) the name of the method to intercept
+// > @param wrapper (function) the callback
 builder.wrap('methodWrapped', wrapper);

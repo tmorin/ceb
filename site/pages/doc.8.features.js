@@ -132,8 +132,8 @@ placeholderFeature.setup = function (struct, featureBuilder, options) {
 };
 
 // The builder’s method feature adds the given feature to the structure.
-// The first argument is the feature's function.
-// The second argument is the feature's options.
+// > @param feature (function) the feature's funtion
+// > @param options (Object) a hash of options
 builder.feature(placeholderFeature, {
     native: true
 });
