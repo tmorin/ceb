@@ -1,7 +1,7 @@
 // # ceb-feature-template.js
 
-// Work on ever green browser and IE9/IE10.
-// However the template feature doesn't worl with [document-register-element](https://github.com/WebReflection/document-register-element) on IE9/IE10.
+// Works on ever-green browsers and IE9/IE10.
+// However the template feature doesn't work with [document-register-element](https://github.com/WebReflection/document-register-element) on IE9/IE10.
 
 // ## Light DOM
 //
@@ -20,7 +20,7 @@
 
 (function (g, factory) {
     'use strict';
-
+ 
     /* istanbul ignore next */
     if (typeof exports === 'object') {
         module.exports = factory();
