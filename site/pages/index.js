@@ -75,7 +75,7 @@ ceb()
     .wrap('sayHello', function (next, el, to) {
         var newArguments = [next, el, (to || '').toUpperCase()];
         var result = next(newArguments);
-        alert(result);
+        alert('wrapped result: ' + result);
         return result;
     })
     .listen('click button', function (el) {
