@@ -27,7 +27,6 @@
 //
 // ***
 // ## Installation
-// **ceb** is not yet released!
 // - npm: `npm install ceb --save`
 // - bower: `npm bower ceb --save`
 // - component `component install tmorin/custom-elements-builder`
