@@ -14,11 +14,9 @@
 // [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 //
 // **ceb** should and will work without dependencies on evergreen browsers.
-// To execute it with none evergreen browsers, you should need of:
-// - Obviously [Custom Elements](http://www.w3.org/TR/custom-elements/) polyfill
-//  - webcomponents-lite.js from [webcomponents.org](http://webcomponents.org/polyfills/)
-//  - or [document-register-element](https://github.com/WebReflection/document-register-element)
-// - ES5 and some features from ES6 [es6-shim](https://github.com/paulmillr/es6-shim)
+// However for the others like IE9/IE10 you have to use a [Custom Elements](http://www.w3.org/TR/custom-elements/) polyfill like:
+// - webcomponents-lite.js from [webcomponents.org](http://webcomponents.org/polyfills/)
+// - or [document-register-element](https://github.com/WebReflection/document-register-element)
 // ***
 // ## CDN
 // CDN files can be found on [cdnjs](https://cdnjs.com/libraries/custom-elements-builder)
@@ -31,7 +29,6 @@
 // ## Installation
 // - npm: `npm install ceb --save`
 // - bower: `npm bower ceb --save`
-// - component `component install tmorin/custom-elements-builder`
 // - amd: `require(['ceb', ...`
 
 /* http://jsfiddle.net/tmorin/xce2e756/ */
