@@ -10,8 +10,6 @@ module.exports = function (config) {
 
         files: [
             'node_modules/document-register-element/build/document-register-element.js',
-            'node_modules/es6-shim/es6-shim.js',
-            'node_modules/es6-shim/es6-sham.js',
             'src/**/*.js',
             'specs/**/*.spec.js'
         ],
