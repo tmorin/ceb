@@ -1,5 +1,7 @@
 // # ceb-feature-template.js
 
+// Presently, this feature does work with IE9 and IE10.
+
 // ## Light DOM
 //
 // The template can contains a node having the attribute `ceb-content`.
@@ -109,6 +111,7 @@
         el.innerHTML = template;
 
         if (isHandleLightDOM) {
+            // Get the content node to add him the in pending light DOM.
             var newContentNode = findContentNode(el);
             lightChildren.forEach(function (child) {
                 newContentNode.appendChild(child);
