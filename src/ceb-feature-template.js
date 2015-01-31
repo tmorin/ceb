@@ -90,12 +90,14 @@
             // When the node is freshly created, the content node is the element.
             // When the node has been created by clonning, the content node is not anymore the element,
             // but a sub content node linked to one of its descents.
+
             var oldContentNode = findContentNode(el);
 
             // Remove the light DOM to keep it.
             while (oldContentNode.childNodes.length > 0) {
                 lightChildren.push(oldContentNode.removeChild(oldContentNode.childNodes[0]));
             }
+            // lightChildren = Array.prototype.slice.call(oldContentNode.childNodes);
 
             // Generate the new content's id value.
             var newCebContentId = 'ceb-' + (counter++) + '-content';
@@ -115,6 +117,7 @@
             var newContentNode = findContentNode(el);
             lightChildren.forEach(function (child) {
                 newContentNode.appendChild(child);
+                // newContentNode.appendChild(child);
             });
         }
 

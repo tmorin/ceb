@@ -234,7 +234,7 @@ describe('A custom element', function () {
         describe('when the the element is detached', function () {
             beforeEach(function (done) {
                 ce.parentNode.removeChild(ce);
-                setTimeout(done, 10);
+                setTimeout(done, 50);
             });
             it('should be removed', function () {
                 expect(ce.__eventHandlers).to.be.null();

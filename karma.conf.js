@@ -9,7 +9,8 @@ module.exports = function (config) {
         frameworks: ['mocha', 'chai', 'sinon'],
 
         files: [
-            'node_modules/document-register-element/build/document-register-element.js',
+            // 'node_modules/document-register-element/build/document-register-element.js',
+            'node_modules/webcomponents.js/webcomponents-lite.js',
             'src/**/*.js',
             'specs/**/*.spec.js'
         ],
@@ -42,7 +43,7 @@ module.exports = function (config) {
 
         autoWatch: false,
 
-        //  browsers: ['IE'],
+        // browsers: ['IE'],
         browsers: ['Firefox'],
 
         singleRun: true,

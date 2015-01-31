@@ -90,7 +90,7 @@ describe('ceb-feature-template', function () {
                 div.appendChild(clonedCe);
                 setTimeout(done, timeout);
             });
-            xit('should contains the templated nodes', function () {
+            it('should contains the templated nodes', function () {
                 expect(clonedCe.querySelector('ul.tag1 > li.content > ' + tagName2 + ' > ul.tag2 > li.content > div')).to.exist();
             });
             it('should contains the initial light DOM', function () {
