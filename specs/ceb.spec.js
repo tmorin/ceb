@@ -243,14 +243,16 @@ describe('A custom element', function () {
     });
 
     describe('can have constants which', function () {
-        var error;
-        beforeEach(function () {
-            Ce = ceb().name(tagName).properties({
+        var error, builder, struct;
+        beforeEach(function (done) {
+            builder = ceb().name(tagName).properties({
                 c1: {
                     value: v1,
                     writable: false
                 }
-            }).register();
+            });
+            Ce = builder.register();
+            struct = builder.get();
             ce = insertCeAndGet();
 
             try {
@@ -258,10 +260,40 @@ describe('A custom element', function () {
             } catch (e) {
                 error = e;
             }
+            setTimeout(done, 0);
         });
         it('should not be writable', function () {
             expect(ce.c1).to.eq(v1);
             expect(!!error || ce.c1 === v1).to.true();
+        });
+        it('should be enumerated', function () {
+            expect(Object.keys(struct.prototype).indexOf('c1') > -1).to.be.true();
+        });
+    });
+
+    describe('can have constants not enumerable which', function () {
+        var error, builder, struct;
+        beforeEach(function (done) {
+            builder = ceb().name(tagName).properties({
+                c1: {
+                    value: v1,
+                    writable: false,
+                    enumerable: false
+                }
+            });
+            Ce = builder.register();
+            struct = builder.get();
+            ce = insertCeAndGet();
+
+            try {
+                ce.c1 = v2;
+            } catch (e) {
+                error = e;
+            }
+            setTimeout(done, 0);
+        });
+        it('should not be enumerated', function () {
+            expect(Object.keys(struct.prototype).indexOf('c1') > -1).to.be.false();
         });
     });
 

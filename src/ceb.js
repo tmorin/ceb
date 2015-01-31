@@ -18,6 +18,7 @@
 
     // ## Polyfill
 
+    /* istanbul ignore next */
     if (!('assign' in Object)) {
         /* https://github.com/paulmillr/es6-shim/blob/master/es6-shim.js */
         Object.defineProperty(Object, 'assign', {
@@ -206,6 +207,9 @@
                 // A constant has a value which is not writable.
                 definedProperty.value = property.value;
                 definedProperty.writable = false;
+                if (property.hasOwnProperty('enumerable')) {
+                    definedProperty.enumerable = property.enumerable;
+                }
             } else if (!property.set && !property.get) {
                 // A none constant property without accessor must be writable.
                 definedProperty.writable = true;
@@ -270,6 +274,7 @@
 
         // Override the originals methods to create the wrapped ones.
         var wrappedMethods = createMethodsHash(struct);
+
         // Apply the wrapped methods to the custom element prototype.
         Object.assign(struct.prototype, wrappedMethods);
 
