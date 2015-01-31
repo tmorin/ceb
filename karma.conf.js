@@ -23,13 +23,13 @@ module.exports = function (config) {
         reporters: ['progress', 'coverage'],
 
         coverageReporter: {
-            dir: 'build',
+            dir: 'build/cov',
             reporters: [{
                 type: 'lcov',
-                subdir: 'coverage'
+                subdir: 'lcov'
             }, {
                 type: 'html',
-                subdir: 'site/coverage'
+                subdir: 'html'
             }]
         },
 

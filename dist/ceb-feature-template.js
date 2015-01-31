@@ -47,9 +47,17 @@
     var nodesRegEx = /ceb\-ref=\W*(\w*)/gim;
     // Regex to detect the *ceb-content* attribute
     var contentRegEx = /ceb\-content/im;
+    // Find recursively the content's node of the current element.
+    function findContentNode(el) {
+        var oldCebContentId = el.getAttribute("ceb-old-content-id");
+        if (oldCebContentId) {
+            return findContentNode(el.querySelector("[" + oldCebContentId + "]"));
+        }
+        return el;
+    }
     // Apply a template to an element.
     function apply(tpl, el, isHandleLightDOM, isNodeReferences) {
-        var lightChildren = [], refrencedNodes = [], oldCebContentId, newCebContentId, template = tpl;
+        var lightChildren = [], refrencedNodes = [], template = tpl;
         if (isNodeReferences) {
             // Update the template to detect the DOM nodes references.
             var result;
@@ -67,32 +75,30 @@
             }
         }
         if (isHandleLightDOM) {
-            // When a node is cloned the light DOM of the cloned has to be retrived.
-            oldCebContentId = el.getAttribute("ceb-old-content-id");
+            // Get the current content node having the light DOM nodes,
+            // When the node is freshly created, the content node is the element.
+            // When the node has been created by clonning, the content node is not anymore the element,
+            // but a sub content node linked to one of its descents.
+            var oldContentNode = findContentNode(el);
+            // Remove the light DOM to keep it.
+            while (oldContentNode.childNodes.length > 0) {
+                lightChildren.push(oldContentNode.removeChild(oldContentNode.childNodes[0]));
+            }
             // Generate the new content's id value.
-            newCebContentId = "ceb-" + counter++ + "-content";
+            var newCebContentId = "ceb-" + counter++ + "-content";
             // Replace the original attribute name by the id.
             template = template.replace(" ceb-content", " " + newCebContentId);
             // Keep a value of the content's id value if the node is cloned.
             el.setAttribute("ceb-old-content-id", newCebContentId);
-            // Get the current root of light DOM nodes,
-            // if the node has been cloned the root is the element binding the old content id
-            // else it's the current element.
-            var lightDomNode = oldCebContentId && el.querySelector("[" + oldCebContentId + "]") || el;
-            // Iterate over the light DOM nodes in order to removed them from the DOM.
-            // They will re-added into the DOM when the content node of the elementn will be ready.
-            while (lightDomNode.childNodes.length > 0) {
-                // The following line works only with webcomponent.js
-                // lightChildren.push(lightDomNode.removeChild(lightDomNode.childNodes[0]));
-                // The following line works with both webcomponent.js and document-register-element.
-                // But each node have to be cloned :(
-                lightChildren.push(lightDomNode.removeChild(lightDomNode.childNodes[0]).cloneNode(true));
-            }
         }
-        // Transform the template string into alive DOM nodes.
+        // Transform the template string into an alive DOM nodes.
         el.innerHTML = template;
-        // Add the light DOM nodes removed above into the new content node.
-        el.applyLigthDOM(lightChildren);
+        if (isHandleLightDOM) {
+            var newContentNode = findContentNode(el);
+            lightChildren.forEach(function(child) {
+                newContentNode.appendChild(child);
+            });
+        }
         if (isNodeReferences) {
             // Get the reference nodes and attach them to the element templating scope.
             refrencedNodes.forEach(function(entry) {
@@ -106,23 +112,6 @@
         var tpl = options.template || "";
         var isHandleLightDOM = tpl.search(contentRegEx) !== -1;
         var isNodeReferences = tpl.search(nodesRegEx) !== -1;
-        // Register a method to handle the light DOM nodes
-        builder.methods({
-            applyLigthDOM: function(el, lightChildren) {
-                setTimeout(function() {
-                    var contentNode = el.querySelector("[" + el.getAttribute("ceb-old-content-id") + "]");
-                    if (contentNode) {
-                        if (typeof contentNode.applyLigthDOM === "function") {
-                            contentNode.applyLigthDOM(lightChildren);
-                        } else {
-                            lightChildren.forEach(function(child) {
-                                contentNode.appendChild(child);
-                            });
-                        }
-                    }
-                }, 0);
-            }
-        });
         // Register a wrapper to the createdCallback callback in order to
         // apply the template before the original call.
         builder.wrap("createdCallback", function(next, el) {

@@ -104,7 +104,8 @@ module.exports = function (grunt) {
                             connect.static('specs'),
                             connect.static('demos'),
                             connect().use('/', connect.static('./node_modules')),
-                            connect().use('/site', connect.static('./build/site'))
+                            connect().use('/site', connect.static('./build/site')),
+                            connect().use('/cov', connect.static('./build/cov/html'))
                         ];
                     }
                 }
@@ -150,7 +151,7 @@ module.exports = function (grunt) {
 
         coveralls: {
             options: {
-                coverageDir: 'build/coverage',
+                coverageDir: 'build/cov/lcov',
                 force: true,
                 recursive: true
             },

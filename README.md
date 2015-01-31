@@ -23,6 +23,7 @@ Make available specs and site into the browser
 ```
 - the test suite: http://localhost:9000
 - the site: http://localhost:9000/site
+- the coverage: http://localhost:9000/cov
 
 Start karma in watching mode karma
 ```shell
