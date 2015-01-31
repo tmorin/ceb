@@ -25,6 +25,8 @@
 //
 //     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.0/ceb.min.js"></script>
 //
+//     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.0/ceb-feature-template.min.js"></script>
+//
 // ***
 // ## Installation
 // - npm: `npm install ceb --save`
