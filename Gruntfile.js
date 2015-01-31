@@ -154,10 +154,6 @@ module.exports = function (grunt) {
                 force: true,
                 recursive: true
             },
-            'build-local': {
-                debug: true,
-                dryRun: true
-            },
             'build-ci': {
                 debug: false,
                 dryRun: false
@@ -361,8 +357,9 @@ module.exports = function (grunt) {
         'jshint',
         'karma:build-local',
         'uglify',
-        'sync-json',
-        'coveralls:build-local'
+        'docco',
+        'copy:build-site',
+        'sync-json'
     ]);
 
     grunt.registerTask('build-ci', [
@@ -374,16 +371,8 @@ module.exports = function (grunt) {
         'coveralls:build-ci'
     ]);
 
-    grunt.registerTask('build-site', [
-        'clean',
-        'jshint',
-        'docco',
-        'copy:build-site',
-        'karma:build-local'
-    ]);
-
     grunt.registerTask('push-site', [
-        'build-site',
+        'build',
         'gh-pages'
     ]);
 

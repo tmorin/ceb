@@ -17,31 +17,31 @@ Custom Elements Builder (ceb) is ... a builder for Custom Elements.
 
 ### Editing source code
 
-Make available specs and site into the brower
+Make available specs and site into the browser
 ```shell
     grunt
 ```
+- the test suite: http://localhost:9000
+- the site: http://localhost:9000/site
 
-Start karma in watching mode
+Start karma in watching mode karma
 ```shell
     grunt testing
 ```
 
 ### Building artifacts
 
-Check quality and build dist files for local build
+Check quality, build dist files and site
 ```shell
     grunt build
 ```
+- dist: the minified sources
+- build/site: the web site
+- build/coverage: the code coverage result
 
-Check quality and build dist files for continous build
+Check quality and build dist files for continuous build
 ```shell
     grunt build-ci
-```
-
-Build the web site
-```shell
-    grunt build-site
 ```
 
 ### Update site
