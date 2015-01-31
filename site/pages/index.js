@@ -20,13 +20,11 @@
 //  - or [document-register-element](https://github.com/WebReflection/document-register-element)
 // - ES5 and some features from ES6 [es6-shim](https://github.com/paulmillr/es6-shim)
 // ***
-// ## Downloads
-// Distributed files can be found [there](https://github.com/tmorin/custom-elements-builder/tree/master/dist)
-// - [ceb.js](https://raw.githubusercontent.com/tmorin/custom-elements-builder/master/dist/ceb.js) *commented*
-// - [ceb.min.js](https://raw.githubusercontent.com/tmorin/custom-elements-builder/master/dist/ceb.min.js) *minified*
-// - [ceb.legacy.min.js](https://raw.githubusercontent.com/tmorin/custom-elements-builder/master/dist/ceb.legacy.min.js) *shims, minified*
-// - [ceb-feature-template.js](https://raw.githubusercontent.com/tmorin/custom-elements-builder/master/dist/ceb-feature-template.js) *commented*
-// - [ceb-feature-template.min.js](https://raw.githubusercontent.com/tmorin/custom-elements-builder/master/dist/ceb-feature-template.min.js) *minified*
+// ## CDN
+// CDN files can be found on [cdnjs](https://cdnjs.com/libraries/custom-elements-builder)
+//
+//     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.0/ceb.min.js"></script>
+//
 // ***
 // ## Installation
 // **ceb** is not yet released!
