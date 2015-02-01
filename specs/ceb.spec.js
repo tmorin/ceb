@@ -12,7 +12,6 @@ describe('A custom element', function () {
     }
 
     function dumyInterceptor(next, el, propName, value) {
-        console.log(arguments);
         return next(value);
     }
 
