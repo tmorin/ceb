@@ -21,10 +21,10 @@ Custom Elements Builder (ceb) is ... a builder for Custom Elements.
 
 CDN files can be found on [cdnjs](https://cdnjs.com/libraries/custom-elements-builder)
 ```html
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.0/ceb.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.0/ceb.min.js"></script>
 ```
 ```html
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.0/ceb-feature-template.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.0/ceb-feature-template.min.js"></script>
 ```
 
 ## Grunt tasks
@@ -37,39 +37,39 @@ start a connect server watching most of the projects files. The URLs list:
 - the site: http://localhost:9000/site
 - the coverage: http://localhost:9000/cov
 ```shell
-    grunt
+grunt
 ```
 ```shell
-    grunt serve
+grunt serve
 ```
 
 Execute specs with karma on sauce labs.
 ```shell
-    grunt karma:build-ci-ie
-    grunt karma:build-ci-evergreen
-    grunt karma:build-ci-safari
-    grunt karma:build-ci-android
+grunt karma:build-ci-ie
+grunt karma:build-ci-evergreen
+grunt karma:build-ci-safari
+grunt karma:build-ci-android
 ```
 
 ### Building artifacts
 
 Check quality, build dist files and site.
 ```shell
-    grunt build
+grunt build
 ```
 Output:
 - dist: the minified sources
 - build/site: the web site
-- build/coverage: the code coverage result
+- build/cov/html: the code coverage result
 
 Check quality and build dist files for continuous build.
 ```shell
-    grunt build-ci
+grunt build-ci
 ```
 
 ### Update site
 
 Build and push the site on gh-pages.
 ```shell
-    grunt push-site
+grunt push-site
 ```
