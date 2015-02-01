@@ -1,21 +1,21 @@
 {
-  "name": "ceb",
-  "repository": "tmorin/custom-elements-builder",
-  "description": "Custom Elements Builder (ceb) is ... a builder for Custom Elements.",
-  "version": "0.1.1",
-  "keywords": [
-    "Web",
-    "Components",
-    "Custom",
-    "Element",
-    "Elements",
-    "DOM",
-    "W3C",
-    "builder",
-    "tools"
-  ],
-  "main": "dist/ceb.js",
-  "scripts": [
-    "dist/ceb.js"
-  ]
+    "name": "ceb",
+    "repository": "tmorin/custom-elements-builder",
+    "description": "Custom Elements Builder (ceb) is ... a builder for Custom Elements.",
+    "version": "0.2.0-master.0",
+    "keywords": [
+        "Web",
+        "Components",
+        "Custom",
+        "Element",
+        "Elements",
+        "DOM",
+        "W3C",
+        "builder",
+        "tools"
+    ],
+    "main": "dist/ceb.js",
+    "scripts": [
+        "dist/ceb.js"
+    ]
 }
