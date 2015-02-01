@@ -1,53 +1,11 @@
 'use strict';
 require('es6-shim');
+
+var gruntKarmaTargetFactory = require('./Gruntfile.misc.js').gruntKarmaTargetFactory;
+
 module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
-
-    var customLaunchers = {
-        slChrome: {
-            base: 'SauceLabs',
-            browserName: 'chrome'
-        },
-        slFirefox: {
-            base: 'SauceLabs',
-            browserName: 'firefox'
-        },
-        slIe11: {
-            base: 'SauceLabs',
-            browserName: 'internet explorer',
-            version: '11'
-        },
-        slIe10: {
-            base: 'SauceLabs',
-            browserName: 'internet explorer',
-            version: '10'
-        },
-        slIe9: {
-            base: 'SauceLabs',
-            browserName: 'internet explorer',
-            version: '9'
-        },
-        slAndroid4: {
-            base: 'SauceLabs',
-            browserName: 'android',
-            version: '4.4'
-        }
-        /*,
-        slAndroid5: {
-            base: 'SauceLabs',
-            browserName: 'android',
-            version: '5.0'
-        },
-        slIPhone: {
-            base: 'SauceLabs',
-            browserName: 'iPhone'
-        },
-        slIPad: {
-            base: 'SauceLabs',
-            browserName: 'iPad'
-        }*/
-    };
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -132,21 +90,10 @@ module.exports = function (grunt) {
                 singleRun: true,
                 autoWatch: false
             },
-            'build-ci': {
-                sauceLabs: {
-                    testName: 'Custom Elements Builder Test',
-                    recordVideo: false,
-                    recordScreenshots: false
-                },
-                // 3 minutes
-                captureTimeout: 3 * 60 * 1000,
-                customLaunchers: customLaunchers,
-                browsers: Object.keys(customLaunchers),
-                // browsers: ['slIe9'],
-                reporters: ['dots', 'saucelabs', 'coverage'],
-                singleRun: true,
-                autoWatch: false
-            }
+            'build-ci-ie': gruntKarmaTargetFactory(['slIe11', 'slIe10', 'slIe9']),
+            'build-ci-evergreen': gruntKarmaTargetFactory(['slChrome', 'slFirefox']),
+            'build-ci-safari': gruntKarmaTargetFactory(['slSafari7', 'slSafari8']),
+            'build-ci-android': gruntKarmaTargetFactory(['slAndroid4', 'slAndroid5'])
         },
 
         coveralls: {
@@ -366,7 +313,10 @@ module.exports = function (grunt) {
     grunt.registerTask('build-ci', [
         'clean',
         'jshint',
-        'karma:build-ci',
+        'karma:build-ci-ie',
+        'karma:build-ci-evergreen',
+        'karma:build-ci-safari',
+        'karma:build-ci-android',
         'uglify',
         'sync-json',
         'coveralls:build-ci'

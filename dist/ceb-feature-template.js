@@ -1,12 +1,13 @@
 /*
  * custom-elements-builder 0.1.1 http://tmorin.github.io/custom-elements-builder
  * Custom Elements Builder (ceb) is ... a builder for Custom Elements.
- * Buil date: 2015-01-31
+ * Buil date: 2015-02-01
  * Copyright 2015-2015 Thibault Morin
  * Available under MIT license
  */
 // # ceb-feature-template.js
-// Presently, this feature does work with IE9 and IE10.
+// Works on ever-green browsers and IE9/IE10.
+// However the template feature doesn't work with [document-register-element](https://github.com/WebReflection/document-register-element) on IE9/IE10.
 // ## Light DOM
 //
 // The template can contains a node having the attribute `ceb-content`.
@@ -85,6 +86,7 @@
             while (oldContentNode.childNodes.length > 0) {
                 lightChildren.push(oldContentNode.removeChild(oldContentNode.childNodes[0]));
             }
+            // lightChildren = Array.prototype.slice.call(oldContentNode.childNodes);
             // Generate the new content's id value.
             var newCebContentId = "ceb-" + counter++ + "-content";
             // Replace the original attribute name by the id.
