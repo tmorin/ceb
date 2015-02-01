@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ceb - UI</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css" />
+</head>
+
+<body>
+
+    <!-- polyfills -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.5.2/webcomponents-lite.min.js"></script>
+    <!--  <script src="//cdnjs.cloudflare.com/ajax/libs/document-register-element/0.1.6/document-register-element.js"></script> -->
+
+    <!-- source -->
+    <script src="../ceb.js"></script>
+    <script src="../ceb-feature-template.js"></script>
+    <script src="ceb-ui.js"></script>
+
+    <ceb-ui-form>
+        <fieldset>
+            <legend>Identity</legend>
+            <ceb-ui-field label="Firstname">
+                <input type="text" name="identity.firstname">
+            </ceb-ui-field>
+            <ceb-ui-field label="Lastname">
+                <input type="text" name="identity.lastname">
+            </ceb-ui-field>
+            <ceb-ui-field label="birthdate">
+                <input type="text" name="identity.birthdate">
+            </ceb-ui-field>
+        </fieldset>
+        <fieldset>
+            <legend>Address</legend>
+            <ceb-ui-field label="Country">
+                <select name="address.country"></select>
+            </ceb-ui-field>
+            <ceb-ui-field label="City">
+                <input type="text" name="address.city">
+            </ceb-ui-field>
+            <ceb-ui-field label="Postal code">
+                <input type="text" name="address.postalCode">
+            </ceb-ui-field>
+            <ceb-ui-field label="Street">
+                <textarea name="address.street" rows="3"></textarea>
+            </ceb-ui-field>
+        </fieldset>
+        <ceb-ui-action type="reset">reset</ceb-ui-action>
+        <ceb-ui-action type="submit">submit</ceb-ui-action>
+    </ceb-ui-form>
+</body>
+
+</html>
