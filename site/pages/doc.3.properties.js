@@ -18,8 +18,18 @@ builder.properties({
         writable: true
     },
 
+    // **Value factory**
+
+    // The property *propFactory* will be initialized with the result of the valueFactory function.
+    // It can be updated on runtime.
+    propFactory: {
+        valueFactory: function (el) {
+            return el.tagName;
+        }
+    },
+
     // **Read only value**
-    //
+
     // The property *propReadonly* will be initialized with the value *initial value*.
     // It can't be updated on runtime.
     propReadonly: {
@@ -114,4 +124,99 @@ builder.properties({
             return value;
         }
     }
+});
+
+// ***
+// ## Properties and attributes and delegation
+
+// Properties accesses can be applied to a child node.
+// When a property/attribute is written, the property or the attribute of the child node is set.
+// When an property/attribute is read, the property or the attribute of the child node is get.
+builder.properties({
+    // **From property to property**
+
+    // The property *fromPropToProp* will delegate write and read access to
+    // the property *fromPropToProp* of the child node matching the selector target.
+    fromPropToProp: {
+        delegate: {
+            target: 'button'
+        }
+    },
+
+    // **From property to another property**
+
+    // The property *fromPropToProp2* will delegate write and read access to
+    // the property *prop2* of the child node matching the selector target.
+    fromPropToProp2: {
+        delegate: {
+            target: 'button',
+            property: 'prop2'
+        }
+    },
+
+    // **From property to attribute**
+
+    // The property *fromPropToAtt* will delegate write and read access to
+    // the attribute *propDelegate* of the child node matching the selector target.
+    fromPropToAtt: {
+        delegate: {
+            target: 'button',
+            attribute: true
+        }
+    },
+
+    // **From property to attribute**
+
+    // The property *fromPropToAtt2* will delegate write and read access to
+    // the attribute *att2* of the child node matching the selector target.
+    fromPropToAtt2: {
+        delegate: {
+            target: 'button',
+            attribute: 'att2'
+        }
+    },
+
+    // **From attribute to attribute**
+
+    // The attribute *fromAttToAtt* will delegate write and read access to
+    // the attribute *fromAttToAtt* of the child node matching the selector target.
+    fromAttToAtt: {
+        delegate: {
+            target: 'button'
+        }
+    },
+
+    // **From attribute to attribute**
+
+    // The attribute *fromAttToAtt2* will delegate write and read access to
+    // the attribute *att2* of the child node matching the selector target.
+    fromAttToAtt2: {
+        delegate: {
+            target: 'button',
+            attribute: 'att2'
+        }
+    },
+
+    // **From attribute to property**
+
+    // The attribute *fromAttToProp* will delegate write and read access to
+    // the property *fromAttToProp* of the child node matching the selector target.
+    fromAttToProp: {
+        delegate: {
+            target: 'button',
+            property: true
+        }
+    },
+
+    // **From property to another property**
+
+    // The attribute *fromPropToProp2* will delegate write and read access to
+    // the property *prop2* of the child node matching the selector target.
+    fromAttToProp2: {
+        delegate: {
+            target: 'button',
+            property: 'prop2'
+        }
+    }
+
 });
