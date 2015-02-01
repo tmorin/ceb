@@ -386,17 +386,24 @@
         builder.wrap('createdCallback', function (next, el) {
             next(arguments);
             // Initialize the properties' value after the call of the createdCallback method.
-            listValues(struct.properties).forEach(function (property) {
-                if (property.attName) {
-                    if (el.hasAttribute(property.attName)) {
-                        el[property.propName] = property.attribute.boolean ? true : el.getAttribute(property.attName);
-                    } else if (property.hasOwnProperty('value')) {
-                        applyAttributeValue(el, property.attName, property.value, property.attribute.boolean);
-                    }
-                } else if (property.hasOwnProperty('value') && property.writable) {
+            listValues(struct.properties).filter(function (property) {
+                return !property.attName;
+            }).forEach(function (property) {
+                if (property.hasOwnProperty('value') && property.writable) {
                     el[property.propName] = property.value;
                 } else if (property.valueFactory) {
                     el[property.propName] = property.valueFactory(el);
+                }
+            });
+
+            // Initialize the attributes' value after the call of the createdCallback method.
+            listValues(struct.properties).filter(function (property) {
+                return property.attName;
+            }).forEach(function (property) {
+                if (el.hasAttribute(property.attName)) {
+                    el[property.propName] = property.attribute.boolean ? true : el.getAttribute(property.attName);
+                } else if (property.hasOwnProperty('value')) {
+                    applyAttributeValue(el, property.attName, property.value, property.attribute.boolean);
                 }
             });
         });
