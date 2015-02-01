@@ -13,7 +13,14 @@ module.exports = function (grunt) {
 
         watch: {
             js: {
-                files: ['Gruntfile.js', 'karma.conf.js', 'src/**/*.js', 'site/pages/**/*.js', 'specs/**/*.js'],
+                files: [
+                    'Gruntfile.js',
+                    'karma.conf.js',
+                    'src/**/*.js',
+                    'site/pages/**/*.js',
+                    'specs/**/*.js',
+                    'demos/**/*.js'
+                ],
                 tasks: ['jshint'],
                 options: {
                     livereload: true
@@ -44,7 +51,7 @@ module.exports = function (grunt) {
                 options: {
                     livereload: 35729
                 },
-                files: []
+                files: ['demos/**/*.html']
             }
         },
 
@@ -61,8 +68,8 @@ module.exports = function (grunt) {
                         return [
                             connect.static('src'),
                             connect.static('specs'),
-                            connect.static('demos'),
                             connect().use('/', connect.static('./node_modules')),
+                            connect().use('/demos', connect.static('./demos')),
                             connect().use('/site', connect.static('./build/site')),
                             connect().use('/cov', connect.static('./build/cov/html'))
                         ];
