@@ -11,7 +11,8 @@ describe('A custom element', function () {
         return next(arguments);
     }
 
-    function dumyInterceptor(next, el, value) {
+    function dumyInterceptor(next, el, propName, value) {
+        console.log(arguments);
         return next(value);
     }
 
@@ -54,8 +55,8 @@ describe('A custom element', function () {
         iGet2 = sinon.spy(dumyInterceptor);
         set1 = sinon.stub();
         get1 = sinon.stub().returns(v1);
-        setter1 = sinon.stub().returnsArg(1);
-        getter1 = sinon.stub().returnsArg(1);
+        setter1 = sinon.stub().returnsArg(2);
+        getter1 = sinon.stub().returnsArg(2);
         f1 = sinon.spy();
         f1.setup = sinon.spy();
         f2 = sinon.spy();
@@ -389,11 +390,11 @@ describe('A custom element', function () {
         });
         it('should be called on set', function () {
             ce.p1 = v1;
-            expect(set1.calledWith(ce, v1)).to.be.true();
+            expect(set1.calledWith(ce, 'p1', v1)).to.be.true();
         });
         it('should be called on get', function () {
             r = ce.p1;
-            expect(get1.calledWith(ce)).to.be.true();
+            expect(get1.calledWith(ce, 'p1')).to.be.true();
         });
     });
 
@@ -446,9 +447,9 @@ describe('A custom element', function () {
                 ce.p1 = v1;
             });
             it('should be called', function () {
-                expect(set1.calledWith(ce, v1)).to.be.true();
-                expect(iSet1.calledWith(sinon.match.func, ce, v1)).to.be.true();
-                expect(iSet2.calledWith(sinon.match.func, ce, v1)).to.be.true();
+                expect(set1.calledWith(ce, sinon.match.string, v1)).to.be.true();
+                expect(iSet1.calledWith(sinon.match.func, ce, sinon.match.string, v1)).to.be.true();
+                expect(iSet2.calledWith(sinon.match.func, ce, sinon.match.string, v1)).to.be.true();
             });
         });
         describe('when properties are get', function () {
@@ -457,9 +458,9 @@ describe('A custom element', function () {
                 r = ce.p1;
             });
             it('should be called', function () {
-                expect(get1.calledWith(ce)).to.be.true();
-                expect(iGet1.calledWith(sinon.match.func, ce)).to.be.true();
-                expect(iGet2.calledWith(sinon.match.func, ce)).to.be.true();
+                expect(get1.calledWith(ce, sinon.match.string)).to.be.true();
+                expect(iGet1.calledWith(sinon.match.func, ce, sinon.match.string)).to.be.true();
+                expect(iGet2.calledWith(sinon.match.func, ce, sinon.match.string)).to.be.true();
             });
             it('should return values', function () {
                 expect(r).to.eq(v1);
@@ -663,14 +664,14 @@ describe('A custom element', function () {
                 ce.p1 = v1;
             });
             it('should be called when properties are set', function () {
-                expect(setter1.calledWith(ce, v1)).to.be.true();
+                expect(setter1.calledWith(ce, 'p1', v1)).to.be.true();
             });
             describe('', function () {
                 beforeEach(function () {
                     r = ce.p1;
                 });
                 it('should be called when properties are get', function () {
-                    expect(getter1.calledWith(ce, v1)).to.be.true();
+                    expect(getter1.calledWith(ce, 'p1', v1)).to.be.true();
                 });
             });
         });
@@ -690,16 +691,16 @@ describe('A custom element', function () {
                 ce.p1 = v1;
             });
             it('should be call', function () {
-                expect(iSet1.calledWith(sinon.match.func, ce, v1), 'iSet1 should be called').to.be.true();
-                expect(iSet2.calledWith(sinon.match.func, ce, v1), 'iSet2 should be called').to.be.true();
+                expect(iSet1.calledWith(sinon.match.func, ce, sinon.match.string, v1), 'iSet1 should be called').to.be.true();
+                expect(iSet2.calledWith(sinon.match.func, ce, sinon.match.string, v1), 'iSet2 should be called').to.be.true();
             });
             describe('when properties are get', function () {
                 beforeEach(function () {
                     r = ce.p1;
                 });
                 it('should be call', function () {
-                    expect(iGet1.calledWith(sinon.match.func, ce), 'iGet1 should be called').to.be.true();
-                    expect(iGet2.calledWith(sinon.match.func, ce), 'iGet2 should be called').to.be.true();
+                    expect(iGet1.calledWith(sinon.match.func, ce, sinon.match.string), 'iGet1 should be called').to.be.true();
+                    expect(iGet2.calledWith(sinon.match.func, ce, sinon.match.string), 'iGet2 should be called').to.be.true();
                 });
             });
         });
@@ -721,19 +722,19 @@ describe('A custom element', function () {
                 ce.p1 = v1;
             });
             it('should be called', function () {
-                expect(setter1.calledWith(ce, v1), 'setter1 should be called').to.be.true();
-                expect(iSet1.calledWith(sinon.match.func, ce, v1), 'iSet1 should be called').to.be.true();
-                expect(iSet2.calledWith(sinon.match.func, ce, v1), 'iSet2 should be called').to.be.true();
+                expect(setter1.calledWith(ce, 'p1', v1), 'setter1 should be called').to.be.true();
+                expect(iSet1.calledWith(sinon.match.func, ce, 'p1', v1), 'iSet1 should be called').to.be.true();
+                expect(iSet2.calledWith(sinon.match.func, ce, 'p1', v1), 'iSet2 should be called').to.be.true();
             });
             describe('when properties are get', function () {
                 beforeEach(function () {
                     r = ce.p1;
                 });
                 it('should be called', function () {
-                    expect(getter1.calledWith(ce), 'getter1 should be called').to.be.true();
+                    expect(getter1.calledWith(ce, 'p1'), 'getter1 should be called').to.be.true();
                     expect(r, 'get value should be v1').to.eq(v1);
-                    expect(iGet1.calledWith(sinon.match.func, ce), 'iGet1 should be called').to.be.true();
-                    expect(iGet2.calledWith(sinon.match.func, ce), 'iGet2 should be called').to.be.true();
+                    expect(iGet1.calledWith(sinon.match.func, ce, 'p1'), 'iGet1 should be called').to.be.true();
+                    expect(iGet2.calledWith(sinon.match.func, ce, 'p1'), 'iGet2 should be called').to.be.true();
                 });
             });
         });

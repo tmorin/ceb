@@ -14,7 +14,7 @@ var builder = ceb().name('properties-intercepted-tag');
 // The property *propIntercepted* has accesors, so accesses can be intercetped.
 builder.properties({
     propIntercepted: {
-        set: function (el, value) {
+        set: function (el, propName, value) {
             el._propIntercepted = value;
         },
         get: function (el) {
@@ -29,8 +29,9 @@ builder.properties({
 //
 // > @param next (function) will call the next stacked callback
 // > @param el (HTMLElement) the current element
+// > @param propName (string) the property name
 // > @param value (*) the value of the previous stacked callback
-function interceptWrite(next, el, value) {
+function interceptWrite(next, el, propName, value) {
 
     // There, logic can be done with the element instance and the given value.
     var processedValue = (value || '').toUpperCase();
@@ -53,8 +54,9 @@ function interceptWrite(next, el, value) {
 //
 // > @param next (function) will call the next stacked callback
 // > @param el (HTMLElement) the current element
+// > @param propName (string) the property name
 // > @param value (*) the value of the previous stacked callback
-function interceptRead(next, el, value) {
+function interceptRead(next, el, propName, value) {
     // Usually accessors get and so interceptors dedicated for reading don't have given value.
 
     // There, logic can be done with the element instance and the given value.
