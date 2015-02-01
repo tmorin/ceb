@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ceb - frp</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css" />
+</head>
+
+<body>
+
+    <!-- polyfills -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.5.2/webcomponents-lite.min.js"></script>
+    <!--  <script src="//cdnjs.cloudflare.com/ajax/libs/document-register-element/0.1.6/document-register-element.js"></script> -->
+
+    <!-- dependencies -->
+    <script src="//raw.githubusercontent.com/Reactive-Extensions/RxJS/v2.3.24/dist/rx.all.min.js"></script>
+    <script src="//raw.githubusercontent.com/Reactive-Extensions/RxJS-DOM/v4.0.4/dist/rx.dom.min.js"></script>
+
+    <!-- source -->
+    <script src="../ceb.js"></script>
+    <script src="../ceb-feature-template.js"></script>
+    <script src="../ceb-feature-frp.js"></script>
+    <script src="ceb-frp.js"></script>
+
+    <ceb-ui-input value="initial value"></ceb-ui-input>
+
+    <script>
+        var cebUiInput = document.querySelector('ceb-ui-input');
+        setTimeout(function() {
+            cebUiInput.valueObserver.distinctUntilChanged().subscribe(function(value) {
+                console.log('on valueObserver', value);
+            });
+        }, 200);
+    </script>
+</body>
+
+</html>

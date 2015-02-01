@@ -162,7 +162,8 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'dist/ceb.js': ['src/ceb.js'],
-                    'dist/ceb-feature-template.js': ['src/ceb-feature-template.js']
+                    'dist/ceb-feature-template.js': ['src/ceb-feature-template.js'],
+                    'dist/ceb-feature-frp.js': ['src/ceb-feature-frp.js']
                 }
             },
             noshims: {
@@ -172,7 +173,8 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'dist/ceb.min.js': ['src/ceb.js'],
-                    'dist/ceb-feature-template.min.js': ['src/ceb-feature-template.js']
+                    'dist/ceb-feature-template.min.js': ['src/ceb-feature-template.js'],
+                    'dist/ceb-feature-frp.min.js': ['src/ceb-feature-frp.js']
                 }
             },
             shims: {
