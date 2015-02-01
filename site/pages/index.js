@@ -9,6 +9,7 @@
 // - The source code is continuously built on [Travis](https://travis-ci.org/tmorin/custom-elements-builder)
 // - The test suite is automatically executed using [Sauce Labs](https://saucelabs.com/u/customelementbuilder)
 // - The code coverage report is pushed to [coveralls](https://coveralls.io/r/tmorin/custom-elements-builder)
+// - [Change logs](changelogs.html)
 // ***
 // ## Compatibilities
 // [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
@@ -21,9 +22,9 @@
 // ## CDN
 // CDN files can be found on [cdnjs](https://cdnjs.com/libraries/custom-elements-builder)
 //
-//     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.0/ceb.min.js"></script>
+//     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.1/ceb.min.js"></script>
 //
-//     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.0/ceb-feature-template.min.js"></script>
+//     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.1/ceb-feature-template.min.js"></script>
 //
 // ***
 // ## Installation

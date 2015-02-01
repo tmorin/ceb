@@ -16,15 +16,16 @@
         var label = href.replace(/\.\w*$/i, '').replace(/\w*\.[0-9]\./i, '');
         var menu = href.match(/(\w*)\.[0-9]\./i);
         var priority = href.match(/\w*\.([0-9]*)\./i);
-        if (priority) {
-            priority = priority[1];
-        }
         if (source.match(/src\//i)) {
             label = path.basename(source);
             menu = [null, 'source'];
             priority = 100;
+        } else if (path.basename(source).match(/doc\./i)) {
+            priority = parseInt(priority[1]) + 50;
         } else if (source.match(/index/i)) {
             priority = 0;
+        } else {
+            priority = 1;
         }
         return {
             href: href,

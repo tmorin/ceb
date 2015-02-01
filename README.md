@@ -21,10 +21,10 @@ Custom Elements Builder (ceb) is ... a builder for Custom Elements.
 
 CDN files can be found on [cdnjs](https://cdnjs.com/libraries/custom-elements-builder)
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.0/ceb.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.2.0/ceb.min.js"></script>
 ```
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.0/ceb-feature-template.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.2.0/ceb-feature-template.min.js"></script>
 ```
 
 ## Grunt tasks

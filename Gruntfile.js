@@ -9,6 +9,7 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        nextVersion: '0.1.1',
 
         watch: {
             js: {
@@ -136,7 +137,7 @@ module.exports = function (grunt) {
             options: {
                 banner: [
                     '/*',
-                    ' * <%= pkg.name %> <%= pkg.version %> http://tmorin.github.io/custom-elements-builder',
+                    ' * <%= pkg.name %> <%= nextVersion %> http://tmorin.github.io/custom-elements-builder',
                     ' * <%= pkg.description %>',
                     ' * Buil date: <%= grunt.template.today("yyyy-mm-dd") %>',
                     ' * Copyright 2015-2015 Thibault Morin',
