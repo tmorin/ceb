@@ -7,47 +7,69 @@
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 
-## Presentation
-
 Custom Elements Builder (ceb) is ... a builder for Custom Elements.
 
-[Home page](http://tmorin.github.io/custom-elements-builder/)
+- [Home page](http://tmorin.github.io/custom-elements-builder/)
+
+## Installation
+
+- npm: `npm install ceb --save`
+- bower: `npm bower ceb --save`
+- amd: `require(['ceb', ...`
+
+## CDN
+
+CDN files can be found on [cdnjs](https://cdnjs.com/libraries/custom-elements-builder)
+```html
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.0/ceb.min.js"></script>
+```
+```html
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.1.0/ceb-feature-template.min.js"></script>
+```
 
 ## Grunt tasks
 
 ### Editing source code
 
-Make available specs and site into the browser
+Start karma in background, watching sources and specs then
+start a connect server watching most of the projects files. The URLs list:
+- the specs: http://localhost:9000
+- the site: http://localhost:9000/site
+- the coverage: http://localhost:9000/cov
 ```shell
     grunt
 ```
-- the test suite: http://localhost:9000
-- the site: http://localhost:9000/site
-- the coverage: http://localhost:9000/cov
-
-Start karma in watching mode karma
 ```shell
-    grunt testing
+    grunt serve
+```
+
+Execute specs with karma on sauce labs.
+```shell
+    grunt karma:build-ci-ie
+    grunt karma:build-ci-evergreen
+    grunt karma:build-ci-safari
+    grunt karma:build-ci-android
 ```
 
 ### Building artifacts
 
-Check quality, build dist files and site
+Check quality, build dist files and site.
 ```shell
     grunt build
 ```
+Output:
 - dist: the minified sources
 - build/site: the web site
 - build/coverage: the code coverage result
 
-Check quality and build dist files for continuous build
+Check quality and build dist files for continuous build.
 ```shell
     grunt build-ci
 ```
 
 ### Update site
 
-Build and push the site on github
+Build and push the site on gh-pages.
 ```shell
     grunt push-site
 ```

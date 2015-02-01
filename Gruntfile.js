@@ -20,7 +20,7 @@ module.exports = function (grunt) {
             },
             src: {
                 files: ['src/**/*'],
-                tasks: ['copy:build-site', 'docco'],
+                tasks: ['karma:dev:run', 'copy:build-site', 'docco'],
                 options: {
                     livereload: true
                 }
@@ -34,7 +34,7 @@ module.exports = function (grunt) {
             },
             specs: {
                 files: ['specs/**/*'],
-                tasks: ['copy:build-site'],
+                tasks: ['karma:dev:run', 'copy:build-site'],
                 options: {
                     livereload: true
                 }
@@ -84,7 +84,8 @@ module.exports = function (grunt) {
             },
             dev: {
                 singleRun: false,
-                autoWatch: true
+                autoWatch: true,
+                background: true
             },
             'build-local': {
                 singleRun: true,
@@ -295,10 +296,8 @@ module.exports = function (grunt) {
         if (grunt.option('allow-remote')) {
             grunt.config.set('connect.options.hostname', '0.0.0.0');
         }
-        grunt.task.run(['docco', 'copy:build-site', 'connect:livereload', 'watch']);
+        grunt.task.run(['karma:dev:start watch', 'docco', 'copy:build-site', 'connect:livereload', 'watch']);
     });
-
-    grunt.registerTask('testing', ['jshint', 'karma:dev']);
 
     grunt.registerTask('build', [
         'clean',
@@ -327,6 +326,6 @@ module.exports = function (grunt) {
         'gh-pages'
     ]);
 
-    grunt.registerTask('default', ['copy:build-site', 'serve']);
+    grunt.registerTask('default', ['serve']);
 
 };
