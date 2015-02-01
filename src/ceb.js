@@ -230,10 +230,10 @@
 
             // Finally add the defined property to the current property.
             return Object.assign(property, {
-                property: definedProperty
+                definedProperty: definedProperty
             });
         }).reduce(function (previous, current) {
-            previous[current.propName] = current.property;
+            previous[current.propName] = current.definedProperty;
             return previous;
         }, {});
     }
@@ -395,6 +395,8 @@
                     }
                 } else if (property.hasOwnProperty('value') && property.writable) {
                     el[property.propName] = property.value;
+                } else if (property.valueFactory) {
+                    el[property.propName] = property.valueFactory(el);
                 }
             });
         });

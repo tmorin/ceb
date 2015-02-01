@@ -357,6 +357,26 @@ describe('A custom element', function () {
         });
     });
 
+    describe('can have writable properties having a value factory which', function () {
+        beforeEach(function () {
+            Ce = ceb().name(tagName).properties({
+                p1: {
+                    valueFactory: function (el) {
+                        return el.tagName;
+                    }
+                }
+            }).register();
+            ce = insertCeAndGet();
+        });
+        it('should initialized', function () {
+            expect(ce.p1).to.eq(tagName.toUpperCase());
+        });
+        it('should be writable', function () {
+            ce.p1 = v2;
+            expect(ce.p1).to.eq(v2);
+        });
+    });
+
     describe('can have writable properties having accessors set and get which', function () {
         beforeEach(function () {
             Ce = ceb().name(tagName).properties({
