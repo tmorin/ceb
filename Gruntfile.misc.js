@@ -3,11 +3,13 @@ require('es6-shim');
 var customLaunchers = {
     slChrome: {
         base: 'SauceLabs',
-        browserName: 'chrome'
+        browserName: 'chrome',
+        version: ''
     },
     slFirefox: {
         base: 'SauceLabs',
-        browserName: 'firefox'
+        browserName: 'firefox',
+        version: ''
     },
     slIe11: {
         base: 'SauceLabs',
