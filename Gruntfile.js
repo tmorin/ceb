@@ -20,7 +20,7 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        nextVersion: '0.2.0-master.0',
+        nextVersion: '0.2.0',
 
         watch: {
             js: {
@@ -88,7 +88,7 @@ module.exports = function (grunt) {
                 }
             }
         },
-    
+
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
