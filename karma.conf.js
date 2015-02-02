@@ -10,7 +10,8 @@ module.exports = function (config) {
 
         files: [
             // 'node_modules/document-register-element/build/document-register-element.js',
-            'node_modules/webcomponents.js/webcomponents-lite.js',
+            'node_modules/webcomponents.js/webcomponents-lite.min.js',
+            'node_modules/rx/dist/rx.all.min.js',
             'src/**/*.js',
             'specs/**/*.spec.js'
         ],

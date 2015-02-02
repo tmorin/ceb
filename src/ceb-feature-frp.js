@@ -1,58 +1,19 @@
-// # ceb-feature-frp.js
-//
-// **NOT YET RELEASED**
-//
-// This feature gets Functional Reactive Programming to custom elements.
-// Presently, properties can be observed and observers can be created from scratch.
-//
-// ## Integration
-//
-// Due too the number of good libraries implementing the FRP paradigm
-// and because Custom Elements Builder is just a builder,
-// this feature is not locked to an external dependencies.
-//
-// So, some functions should be overridden to handle the targetted FRP librairy.
-// By default their implementation is locked to `window.Rx`.
-//
-// The functions can be overridden from the function feature:
-// - cebFeatureFrp.defaultPropertyObserverFactory
-// - cebFeatureFrp.defaultPropertyObservableInterceptor
-// - cebFeatureFrp.defaultDisposeObserver
-//
-// Or from the feature's options:
-// - options.propertyObserverFactory
-// - options.propertyObservableInterceptor
-// - options.disposeObserver
-//
-// ## Observed properties
-//
-// The observers of observed properties can be get from `myPropObserver`.
-//
-// To enable it, the property's structure must have the boolean **observable** to true.
-//
-// ## Observers
-//
-// Factory functions can be given as options in order to create observers from the current elements.
-//
-//     options.observer = [observerFactory]
-//
-// Where observerFactory is a function having the element as arguement.
 (function (g, factory) {
     'use strict';
 
     /* istanbul ignore next */
     if (typeof exports === 'object') {
-        module.exports = factory(require('ceb'));
+        module.exports = factory();
     } else if (typeof define === 'function' && define.amd) {
-        define('ceb-feature-template', ['ceb'], factory);
+        define('ceb-feature-frp', [], factory);
     } else {
-        g.cebFeatureFrp = factory(g.ceb);
+        g.cebFeatureFrp = factory();
     }
 
-}(this, function (ceb) {
+}(this, function () {
     'use strict';
 
-    // ## feature function
+    // ## Feature function
 
     // The FRP feature's function returns nothing for public API.
     function feature(el) {
@@ -61,6 +22,22 @@
         }
         return el.__cebFrpScope;
     }
+
+    // ## Observer factory
+
+    feature.disposable = function (disposableFactory) {
+        disposableFactory.handlers = function (handlersFactory) {
+            return function (el) {
+                var disposable = disposableFactory(el);
+                var anotherDisposable = handlersFactory(el, disposable);
+                if (anotherDisposable) {
+                    return anotherDisposable;
+                }
+                return disposable;
+            };
+        };
+        return disposableFactory;
+    };
 
     // ## Default functions
 
@@ -80,13 +57,18 @@
         el[propName + 'Observer'].onNext(value);
     };
 
-    // This function must clear the observer instance given as argument.
+    // This function must clear the observers instances given as argument.
     // > @param observer (object) the observer to kick
-    feature.defaultDisposeObserver = function defaultDisposeObserver(observer) {
+    feature.defaultDisposeDisposable = function defaultDisposeDisposable(observer) {
         observer.dispose();
     };
 
     // ## Setup
+
+    // Return a new empty function.
+    function emptyFn() {
+        return function () {};
+    }
 
     feature.setup = function (struct, builder, options) {
         var observerProperties = {};
@@ -94,7 +76,7 @@
         // Resolve the locked functions.
         var propertyObserverFactory = options.propertyObserverFactory || feature.defaultPropertyObserverFactory;
         var propertyObservableInterceptor = options.propertyObservableInterceptor || feature.defaultPropertyObservableInterceptor;
-        var disposeObserver = options.disposeObserver || feature.defaultDisposeObserver;
+        var disposeDisposable = options.disposeDisposable || feature.defaultDisposeDisposable;
 
         // Iterate over the structure's properties in order to detect the observable properties.
         Object.keys(struct.properties).map(function (propName) {
@@ -109,6 +91,10 @@
             observerProperties[entry.propName + 'Observer'] = {
                 valueFactory: propertyObserverFactory
             };
+            // Set is required for interception
+            if (!entry.attName && !entry.property.set) {
+                entry.property.set = emptyFn();
+            }
             // Register the interceptor which will sync the observer with the property's value.
             builder.intercept(entry.propName, propertyObservableInterceptor);
         });
@@ -119,11 +105,9 @@
         builder.wrap('createdCallback', function (next, el) {
             next(arguments);
             // When the element is created the observers must created.
-            if (!feature(el).observers) {
-                feature(el).observers = (options.observers || []).map(function (observerFactory) {
-                    return observerFactory(el);
-                });
-            }
+            feature(el).disposables = (options.disposables || []).map(function (disposableFactory) {
+                return disposableFactory(el);
+            });
         });
 
         builder.wrap('attachedCallback', function (next, el) {
@@ -134,9 +118,9 @@
                 }
             });
             // ... and the others observers too.
-            if (!feature(el).observers) {
-                feature(el).observers = (options.observers || []).map(function (observerFactory) {
-                    return observerFactory(el);
+            if (!feature(el).disposables) {
+                feature(el).disposables = (options.disposables || []).map(function (disposableFactory) {
+                    return disposableFactory(el);
                 });
             }
             next(arguments);
@@ -146,12 +130,12 @@
             next(arguments);
             // When the element is detached the observers of properties must be disposed ...
             Object.keys(observerProperties).forEach(function (propName) {
-                disposeObserver(el[propName]);
+                disposeDisposable(el[propName]);
                 el[propName] = undefined;
             });
             // ... and the others observers too.
-            feature(el).observers.forEach(disposeObserver);
-            feature(el).observers = null;
+            feature(el).disposables.forEach(disposeDisposable);
+            feature(el).disposables = null;
         });
     };
 
