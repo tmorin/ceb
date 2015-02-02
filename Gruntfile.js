@@ -3,6 +3,17 @@ require('es6-shim');
 
 var gruntKarmaTargetFactory = require('./Gruntfile.misc.js').gruntKarmaTargetFactory;
 
+var banner = [
+     '//',
+     '//     <%= pkg.name %> <%= nextVersion %> http://tmorin.github.io/custom-elements-builder',
+     '//     <%= pkg.description %>',
+     '//     Buil date: <%= grunt.template.today("yyyy-mm-dd") %>',
+     '//     Copyright 2015-2015 Thibault Morin',
+     '//     Available under MIT license',
+     '//',
+     ''
+ ].join('\n');
+
 module.exports = function (grunt) {
 
     require('load-grunt-tasks')(grunt);
@@ -28,21 +39,21 @@ module.exports = function (grunt) {
             },
             src: {
                 files: ['src/**/*'],
-                tasks: ['karma:dev:run', 'copy:build-site', 'docco'],
+                tasks: ['karma:dev:run', 'concat', 'docco'],
                 options: {
                     livereload: true
                 }
             },
             site: {
                 files: ['site/**/*'],
-                tasks: ['docco'],
+                tasks: ['docco', 'copy'],
                 options: {
                     livereload: true
                 }
             },
             specs: {
                 files: ['specs/**/*'],
-                tasks: ['karma:dev:run', 'copy:build-site'],
+                tasks: ['karma:dev:run', 'copy'],
                 options: {
                     livereload: true
                 }
@@ -77,13 +88,18 @@ module.exports = function (grunt) {
                 }
             }
         },
-
+    
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
                 reporter: require('jshint-stylish')
             },
-            all: ['Gruntfile.js', 'karma.conf.js', 'src/**/*.js', 'specs/**/*.js', 'demos/**/*.js']
+            all: ['Gruntfile.js', 'karma.conf.js', 'src/**/*.js', 'specs/**/*.js', 'demos/**/*.js'],
+            site: {
+                files: {
+                    src: ['site/**/*.js']
+                }
+            }
         },
 
         karma: {
@@ -118,23 +134,38 @@ module.exports = function (grunt) {
         },
 
         copy: {
-            'build-site': {
+            'site': {
                 files: [{
-                    expand: true,
-                    cwd: 'specs',
-                    src: ['**/*'],
-                    dest: 'build/site/testsuite'
-                }, {
                     expand: true,
                     cwd: 'site/template',
                     src: ['public/**/*'],
                     dest: 'build/site'
                 }, {
                     expand: true,
-                    cwd: 'src',
+                    cwd: 'specs',
                     src: ['**/*'],
                     dest: 'build/site/testsuite'
                 }]
+            }
+        },
+
+        concat: {
+            options: {
+                banner: banner
+            },
+            site: {
+                files: {
+                    'build/site/testsuite/ceb.js': ['src/ceb.js'],
+                    'build/site/testsuite/ceb-feature-template.js': ['src/ceb-feature-template.js'],
+                    'build/site/testsuite/ceb-feature-frp.js': ['src/ceb-feature-frp.js']
+                }
+            },
+            dist: {
+                files: {
+                    'dist/ceb.js': ['src/ceb.js'],
+                    'dist/ceb-feature-template.js': ['src/ceb-feature-template.js'],
+                    'dist/ceb-feature-frp.js': ['src/ceb-feature-frp.js']
+                }
             }
         },
 
@@ -142,29 +173,7 @@ module.exports = function (grunt) {
 
         uglify: {
             options: {
-                banner: [
-                    '/*',
-                    ' * <%= pkg.name %> <%= nextVersion %> http://tmorin.github.io/custom-elements-builder',
-                    ' * <%= pkg.description %>',
-                    ' * Buil date: <%= grunt.template.today("yyyy-mm-dd") %>',
-                    ' * Copyright 2015-2015 Thibault Morin',
-                    ' * Available under MIT license',
-                    ' */',
-                    ''
-                ].join('\n')
-            },
-            commented: {
-                options: {
-                    mangle: false,
-                    compress: false,
-                    beautify: true,
-                    preserveComments: true
-                },
-                files: {
-                    'dist/ceb.js': ['src/ceb.js'],
-                    'dist/ceb-feature-template.js': ['src/ceb-feature-template.js'],
-                    'dist/ceb-feature-frp.js': ['src/ceb-feature-frp.js']
-                }
+                banner: banner
             },
             noshims: {
                 options: {
@@ -200,11 +209,31 @@ module.exports = function (grunt) {
 
         docco: {
             site: {
-                src: ['site/pages/**/*.js', 'src/**/*.js'],
+                src: [
+                    'site/pages/**/*.js',
+                    'build/site/testsuite/*.js',
+                    '!build/site/testsuite/*.spec.js'
+                ],
                 options: {
-                    'template': __dirname + '/site/template/docco.jst',
-                    'css': __dirname + '/site/template/docco.css',
+                    'template': __dirname + '/site/template/page.jst',
+                    'css': __dirname + '/site/template/page.css',
                     'output': 'build/site'
+                }
+            },
+            '0.1.x': {
+                src: ['site/0.1.x/**/*.js'],
+                options: {
+                    'template': __dirname + '/site/template/doc.jst',
+                    'css': __dirname + '/site/template/doc.css',
+                    'output': 'build/site/0.1.x'
+                }
+            },
+            '0.2.x': {
+                src: ['site/0.2.x/**/*.js'],
+                options: {
+                    'template': __dirname + '/site/template/doc.jst',
+                    'css': __dirname + '/site/template/doc.css',
+                    'output': 'build/site/0.2.x'
                 }
             }
         },
@@ -306,7 +335,16 @@ module.exports = function (grunt) {
         if (grunt.option('allow-remote')) {
             grunt.config.set('connect.options.hostname', '0.0.0.0');
         }
-        grunt.task.run(['karma:dev:start watch', 'docco', 'copy:build-site', 'connect:livereload', 'watch']);
+        grunt.task.run([
+            'clean',
+            'jshint',
+            'concat',
+            'copy',
+            'docco',
+            'karma:dev:start watch',
+            'connect:livereload',
+            'watch'
+        ]);
     });
 
     grunt.registerTask('build', [
@@ -314,8 +352,9 @@ module.exports = function (grunt) {
         'jshint',
         'karma:build-local',
         'uglify',
+        'concat',
+        'copy',
         'docco',
-        'copy:build-site',
         'sync-json'
     ]);
 
@@ -327,6 +366,9 @@ module.exports = function (grunt) {
         'karma:build-ci-safari',
         'karma:build-ci-android',
         'uglify',
+        'concat',
+        'copy',
+        'docco',
         'sync-json',
         'coveralls:build-ci'
     ]);
