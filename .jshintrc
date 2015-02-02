@@ -17,6 +17,7 @@
     "globals": {
         "ceb": false,
         "cebFeatureTemplate": false,
+        "cebFeatureFrp": false,
         "define": false,
         "sinon": false,
         "expect": false,
