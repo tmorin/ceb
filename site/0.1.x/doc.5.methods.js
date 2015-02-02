@@ -1,5 +1,3 @@
-// # Methods
-
 // Get a builder.
 var builder = ceb().name('methods-tag');
 

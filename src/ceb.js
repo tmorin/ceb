@@ -1,4 +1,3 @@
-// # ceb.js
 (function (g, factory) {
     'use strict';
 

@@ -1,5 +1,3 @@
-// # Features
-
 // Get a builder.
 var builder = ceb().name('featured-tag');
 

@@ -1,5 +1,3 @@
-// # Wrappers
-
 // Get a builder.
 var builder = ceb().name('methods-wrapped-tag');
 

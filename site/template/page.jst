@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title><%= title %></title>
+  <title>ceb - <%= title %></title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
@@ -14,14 +14,11 @@
     var menu = sources.map(function (source) {
         var href = path.basename(destination(source));
         var label = href.replace(/\.\w*$/i, '').replace(/\w*\.[0-9]\./i, '');
-        var menu = href.match(/(\w*)\.[0-9]\./i);
         var priority = href.match(/\w*\.([0-9]*)\./i);
-        if (source.match(/src\//i)) {
+        if (source.match(/\/testsuite\//i)) {
             label = path.basename(source);
-            menu = [null, 'source'];
+            menu = 'source';
             priority = 100;
-        } else if (path.basename(source).match(/doc\./i)) {
-            priority = parseInt(priority[1]) + 50;
         } else if (source.match(/index/i)) {
             priority = 0;
         } else {
@@ -30,10 +27,20 @@
         return {
             href: href,
             label: label,
-            menu: menu && menu[1],
+            menu: menu,
             priority: priority
         };
-    }).sort(function (p1, p2) {
+    }).concat([ {
+        href: '0.2.x/doc.1.usage.html',
+        label: '0.2.x',
+        menu: 'doc',
+        priority: 50
+    }, {
+        href: '0.1.x/doc.1.usage.html',
+        label: '0.1.x',
+        menu: 'doc',
+        priority: 50
+    }]).sort(function (p1, p2) {
         return p1.priority - p2.priority;
     });
 %>

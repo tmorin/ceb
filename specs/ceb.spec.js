@@ -1,3 +1,4 @@
+/*globals ceb:false */
 describe('A custom element', function () {
     'use strict';
 

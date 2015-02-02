@@ -1,22 +1,3 @@
-// # ceb-feature-template.js
-
-// Becarefull, the template feature doesn't work with [document-register-element](https://github.com/WebReflection/document-register-element) on IE9/IE10!
-
-// ## Light DOM
-//
-// The template can contains a node having the attribute `ceb-content`.
-// The marked node is intend to host the light DOM of the current element at the end of the templating process.
-//
-// If the template doesn't contain this node, the light DOM will be lost.
-//
-// ## DOM nodes references
-//
-// The template can contains nodes having the attribute `ceb-ref`.
-// The marked nodes will be available at the end of the templating process from the feature function (`feature(el)`).
-//
-// That means, if a node has the attribute `ceb-ref="header"`.
-// It will be available via `feature(el).header`.
-
 (function (g, factory) {
     'use strict';
 
@@ -143,6 +124,15 @@
             apply(tpl, el, isHandleLightDOM, isNodeReferences);
             next(arguments);
         });
+        if (isHandleLightDOM) {
+            builder.properties({
+                contentNode: {
+                    get: function (el) {
+                        return findContentNode(el);
+                    }
+                }
+            });
+        }
     }
     feature.setup = setup;
 

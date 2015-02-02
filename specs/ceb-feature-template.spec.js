@@ -1,3 +1,4 @@
+/*globals ceb:false, cebFeatureTemplate:false */
 describe('ceb-feature-template', function () {
     'use strict';
 
@@ -95,6 +96,9 @@ describe('ceb-feature-template', function () {
             });
             it('should contains the initial light DOM', function () {
                 expect(clonedCe.querySelector('ul.tag1 > li.content > ' + tagName2 + ' > ul.tag2 > li.content > div >' + tagName3 + ' > ul.tag3 > li.content > div > .lightDOM')).to.exist();
+            });
+            it('should get the right contentNode', function () {
+                expect(clonedCe.contentNode).to.be.eq(clonedCe.querySelector('ul.tag1 > li.content > ' + tagName2 + ' > ul.tag2 > li.content > div'));
             });
         });
     });

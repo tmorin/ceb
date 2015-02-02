@@ -1,15 +1,17 @@
 // # Custom Elements Builder
-
+//
 // **ceb** is a builder to help the development of Custom Elements.
 //
 // - The project is hosted on [Github](https://github.com/tmorin/custom-elements-builder)
-// - Read the [documentation](doc.1.usage.html) for more details
-// - Or the [commented source code](ceb.html)
 // - Every use cases are tested and validated from this [test suite](./testsuite)
 // - The source code is continuously built on [Travis](https://travis-ci.org/tmorin/custom-elements-builder)
 // - The test suite is automatically executed using [Sauce Labs](https://saucelabs.com/u/customelementbuilder)
 // - The code coverage report is pushed to [coveralls](https://coveralls.io/r/tmorin/custom-elements-builder)
 // - [Change logs](changelogs.html)
+// ***
+// ## Documentation
+// - [0.2.x](0.2.x/doc.1.usage.html)
+// - [0.1.x](0.1.x/doc.1.usage.html)
 // ***
 // ## Compatibilities
 // [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
@@ -33,7 +35,7 @@
 // - amd: `require(['ceb', ...`
 
 /* http://jsfiddle.net/tmorin/xce2e756/ */
-
+/*globals ceb:false, cebFeatureTemplate:false*/
 var template = '';
 template += '<em ceb-ref="fromNode" class="from"></em> say hello <em class="to"></em>!';
 template += '<br>';
@@ -47,7 +49,7 @@ ceb()
     .properties({
         from: {
             attribute: true,
-            setter: function (el, value) {
+            setter: function (el, propName, value) {
                 console.log(el);
                 cebFeatureTemplate(el).fromNode.textContent = value;
                 return value;
@@ -61,10 +63,10 @@ ceb()
             }
         }
     })
-    .intercept('from', function (next, el, value) {
+    .intercept('from', function (next, el, propName, value) {
         return next(value.toUpperCase());
     })
-    .intercept('to', function (next, el, value) {
+    .intercept('to', function (next, el, propName, value) {
         return next(value.toUpperCase());
     })
     .methods({
@@ -75,7 +77,7 @@ ceb()
     .wrap('sayHello', function (next, el, to) {
         var newArguments = [next, el, (to || '').toUpperCase()];
         var result = next(newArguments);
-        alert('wrapped result: ' + result);
+        window.alert('wrapped result: ' + result);
         return result;
     })
     .listen('click button', function (el) {

@@ -1,7 +1,3 @@
-// # Usage
-
-// ## Get a builder
-
 // The builder's method **name**, taking the name of the future custom element's name, returned a builder.
 var builder = ceb().name('demo-custom-element');
 

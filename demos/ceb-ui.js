@@ -1,3 +1,4 @@
+/*globals ceb:false, cebFeatureTemplate:false*/
 ceb()
     .name('ceb-ui-field')
     .feature(cebFeatureTemplate, {

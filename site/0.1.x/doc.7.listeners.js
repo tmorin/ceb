@@ -1,5 +1,3 @@
-// # Listeners
-
 // Get a builder.
 var builder = ceb().name('listening-tag');
 
