@@ -11,8 +11,11 @@
         "Elements",
         "DOM",
         "W3C",
-        "builder",
-        "tools"
+        "FRP",
+        "functional",
+        "reactive",
+        "template",
+        "builder"
     ],
     "homepage": "https://tmorin.github.io/custom-elements-builder",
     "repository": {

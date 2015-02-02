@@ -11,8 +11,11 @@
         "Elements",
         "DOM",
         "W3C",
-        "builder",
-        "tools"
+        "FRP",
+        "functional",
+        "reactive",
+        "template",
+        "builder"
     ],
     "main": "dist/ceb.js",
     "scripts": [
