@@ -15,6 +15,7 @@
         var href = path.basename(destination(source));
         var label = href.replace(/\.\w*$/i, '').replace(/\w*\.[0-9]\./i, '');
         var priority = href.match(/\w*\.([0-9]*)\./i);
+        var menu = '';
         if (source.match(/\/testsuite\//i)) {
             label = path.basename(source);
             menu = 'source';

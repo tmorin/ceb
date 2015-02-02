@@ -12,6 +12,10 @@
 // ## Documentation
 // - [0.2.x](0.2.x/doc.1.usage.html)
 // - [0.1.x](0.1.x/doc.1.usage.html)
+//
+// - [ceb.js](ceb.html)
+// - [ceb-feature-template.js](ceb-feature-template.html)
+// - [ceb-feature-frp.js](ceb-feature-frp.html)
 // ***
 // ## Compatibilities
 // [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
@@ -35,7 +39,7 @@
 // - amd: `require(['ceb', ...`
 
 /* http://jsfiddle.net/tmorin/xce2e756/ */
-/*globals ceb:false, cebFeatureTemplate:false*/
+
 var template = '';
 template += '<em ceb-ref="fromNode" class="from"></em> say hello <em class="to"></em>!';
 template += '<br>';

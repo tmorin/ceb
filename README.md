@@ -39,6 +39,7 @@ start a connect server watching most of the projects files. The URLs list:
 ```shell
 grunt
 ```
+or
 ```shell
 grunt serve
 ```
