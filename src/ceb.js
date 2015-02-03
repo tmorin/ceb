@@ -439,7 +439,9 @@
                 if (property.attribute.boolean) {
                     value = typeof newVal === 'string' ? true : false;
                 }
-                el[property.propName] = value;
+                if (el[property.propName] !== value) {
+                    el[property.propName] = value;
+                }
             }
             next(arguments);
         });
