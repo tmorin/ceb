@@ -1,12 +1,14 @@
 //
 //     custom-elements-builder 0.2.1-alpha.0 http://tmorin.github.io/custom-elements-builder
 //     Custom Elements Builder (ceb) is ... a builder for Custom Elements.
-//     Buil date: 2015-02-02
+//     Buil date: 2015-02-03
 //     Copyright 2015-2015 Thibault Morin
 //     Available under MIT license
 //
 (function (g, factory) {
     'use strict';
+
+    // Export the **ceb-feature-template** function according the detected loader.
 
     /* istanbul ignore next */
     if (typeof exports === 'object') {
@@ -20,7 +22,7 @@
 }(this, function () {
     'use strict';
 
-    // ## feature function
+    // ## Feature function
 
     // The template feature's function returns the nodes' reference of the template.
     function feature(el) {

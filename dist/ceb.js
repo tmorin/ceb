@@ -1,7 +1,7 @@
 //
 //     custom-elements-builder 0.2.1-alpha.0 http://tmorin.github.io/custom-elements-builder
 //     Custom Elements Builder (ceb) is ... a builder for Custom Elements.
-//     Buil date: 2015-02-02
+//     Buil date: 2015-02-03
 //     Copyright 2015-2015 Thibault Morin
 //     Available under MIT license
 //
@@ -446,7 +446,9 @@
                 if (property.attribute.boolean) {
                     value = typeof newVal === 'string' ? true : false;
                 }
-                el[property.propName] = value;
+                if (el[property.propName] !== value) {
+                    el[property.propName] = value;
+                }
             }
             next(arguments);
         });
