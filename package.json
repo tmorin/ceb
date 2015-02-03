@@ -55,6 +55,7 @@
     "grunt-karma": "^0.10.1",
     "grunt-karma-coveralls": "^2.5.3",
     "grunt-release": "^0.10.0",
+    "grunt-sitemap": "^1.2.1",
     "jshint-stylish": "^1.0.0",
     "karma": "^0.12.28",
     "karma-chai-plugins": "^0.2.4",

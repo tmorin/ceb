@@ -2,17 +2,7 @@
 require('es6-shim');
 
 var gruntKarmaTargetFactory = require('./Gruntfile.misc.js').gruntKarmaTargetFactory;
-
-var banner = [
-     '//',
-     '//     <%= pkg.name %> <%= nextVersion %> http://tmorin.github.io/custom-elements-builder',
-     '//     <%= pkg.description %>',
-     '//     Buil date: <%= grunt.template.today("yyyy-mm-dd") %>',
-     '//     Copyright 2015-2015 Thibault Morin',
-     '//     Available under MIT license',
-     '//',
-     ''
- ].join('\n');
+var banner = require('./Gruntfile.misc.js').banner;
 
 module.exports = function (grunt) {
 
@@ -39,7 +29,7 @@ module.exports = function (grunt) {
             },
             src: {
                 files: ['src/**/*'],
-                tasks: ['karma:dev:run', 'concat', 'docco'],
+                tasks: ['karma:serve:run', 'concat', 'docco'],
                 options: {
                     livereload: true
                 }
@@ -53,7 +43,7 @@ module.exports = function (grunt) {
             },
             specs: {
                 files: ['specs/**/*'],
-                tasks: ['karma:dev:run', 'copy'],
+                tasks: ['karma:serve:run', 'copy'],
                 options: {
                     livereload: true
                 }
@@ -106,14 +96,15 @@ module.exports = function (grunt) {
             options: {
                 configFile: 'karma.conf.js'
             },
-            dev: {
+            serve: {
                 singleRun: false,
-                autoWatch: true,
+                autoWatch: false,
                 background: true
             },
             'build-local': {
                 singleRun: true,
-                autoWatch: false
+                autoWatch: false,
+                background: false
             },
             'build-ci-ie': gruntKarmaTargetFactory(['slIe11', 'slIe10', 'slIe9']),
             'build-ci-evergreen': gruntKarmaTargetFactory(['slChrome', 'slFirefox']),
@@ -125,16 +116,14 @@ module.exports = function (grunt) {
             options: {
                 coverageDir: 'build/cov/lcov',
                 force: true,
-                recursive: true
-            },
-            'build-ci': {
+                recursive: true,
                 debug: false,
                 dryRun: false
             }
         },
 
         copy: {
-            'site': {
+            site: {
                 files: [{
                     expand: true,
                     cwd: 'site/template',
@@ -193,8 +182,7 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'dist/ceb.legacy.min.js': [
-                        'node_modules/document-register-element/build/document-register-element.max.js',
-                        'node_modules/es6-shim/es6-shim.js',
+                        'node_modules/webcomponents.js/webcomponents-lite.js',
                         'src/ceb.js'
                     ]
                 }
@@ -235,6 +223,12 @@ module.exports = function (grunt) {
                     'css': __dirname + '/site/template/doc.css',
                     'output': 'build/site/0.2.x'
                 }
+            }
+        },
+
+        sitemap: {
+            site: {
+                siteRoot: 'build/site'
             }
         },
 
@@ -341,7 +335,7 @@ module.exports = function (grunt) {
             'concat',
             'copy',
             'docco',
-            'karma:dev:start watch',
+            'karma:serve:start watch',
             'connect:livereload',
             'watch'
         ]);
@@ -355,6 +349,7 @@ module.exports = function (grunt) {
         'concat',
         'copy',
         'docco',
+        'sitemap',
         'sync-json'
     ]);
 
@@ -369,8 +364,9 @@ module.exports = function (grunt) {
         'concat',
         'copy',
         'docco',
+        'sitemap',
         'sync-json',
-        'coveralls:build-ci'
+        'coveralls'
     ]);
 
     grunt.registerTask('push-site', [
