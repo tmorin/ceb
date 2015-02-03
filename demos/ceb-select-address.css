@@ -1,0 +1,25 @@
+place-finder {
+    height: 20em;
+}
+
+place-finder nav {
+    width: 33%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+place-finder nav input {
+    display: block;
+    width: 100%;
+}
+
+place-finder nav select {
+    display: block;
+    width: 100%;
+}
+
+place-finder section {
+    width: 67%;
+    display: inline-block;
+    vertical-align: top;
+}

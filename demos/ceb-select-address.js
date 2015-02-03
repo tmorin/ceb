@@ -1,46 +1,3 @@
-// # Custom Elements Builder
-//
-// **ceb** is a builder to help the development of Custom Elements.
-//
-// - The project is hosted on [Github](https://github.com/tmorin/custom-elements-builder)
-// - Every use cases are tested and validated from this [test suite](./testsuite)
-// - The source code is continuously built on [Travis](https://travis-ci.org/tmorin/custom-elements-builder)
-// - The test suite is automatically executed using [Sauce Labs](https://saucelabs.com/u/customelementbuilder)
-// - The code coverage report is pushed to [coveralls](https://coveralls.io/r/tmorin/custom-elements-builder)
-// - [Change logs](changelogs.html)
-// ***
-// ## Documentation
-// - [0.2.x](0.2.x/doc.1.usage.html)
-// - [0.1.x](0.1.x/doc.1.usage.html)
-//
-// - [ceb.js](ceb.html)
-// - [ceb-feature-template.js](ceb-feature-template.html)
-// - [ceb-feature-frp.js](ceb-feature-frp.html)
-// ***
-// ## Compatibilities
-// [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
-//
-// **ceb** should and will work without dependencies on evergreen browsers.
-// However for the others like IE9/IE10 you have to use a [Custom Elements](http://www.w3.org/TR/custom-elements/) polyfill like:
-// - webcomponents-lite.js from [webcomponents.org](http://webcomponents.org/polyfills/)
-// - or [document-register-element](https://github.com/WebReflection/document-register-element)
-// ***
-// ## CDN
-// CDN files can be found on [cdnjs](https://cdnjs.com/libraries/custom-elements-builder)
-//
-//     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.2.0/ceb.min.js"></script>
-//
-//     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.2.0/ceb-feature-template.min.js"></script>
-//
-// ***
-// ## Installation
-// - npm: `npm install ceb --save`
-// - bower: `npm bower ceb --save`
-// - amd: `require(['ceb', ...`
-// - amd: `require(['ceb-feature-template', ...`
-// - amd: `require(['ceb-feature-frp', ...`
-
-/* http://jsfiddle.net/tmorin/xce2e756 */
 /*globals ceb:false, cebFeatureTemplate:false*/
 /*jshint -W106*/
 (function (g) {
@@ -75,7 +32,7 @@
         }).flatMapLatest(function (query) {
             el.map.setView(new ol.View({
                 center: [0, 0],
-                zoom: 1
+                zoom: 2
             }));
             if (el.markersLayer) {
                 el.map.removeLayer(el.markersLayer);
@@ -174,7 +131,7 @@
         observer.subscribe(function (coord) {
             el.map.setView(new ol.View({
                 center: [0, 0],
-                zoom: 1
+                zoom: 2
             }));
             if (el.valueLayer) {
                 el.map.removeLayer(el.valueLayer);
@@ -247,7 +204,7 @@
                     layers: [osmLayer],
                     view: new ol.View({
                         center: [0, 0],
-                        zoom: 1
+                        zoom: 2
                     })
                 });
             },
