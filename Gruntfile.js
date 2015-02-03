@@ -329,16 +329,23 @@ module.exports = function (grunt) {
         if (grunt.option('allow-remote')) {
             grunt.config.set('connect.options.hostname', '0.0.0.0');
         }
-        grunt.task.run([
-            'clean',
-            'jshint',
-            'concat',
-            'copy',
-            'docco',
-            'karma:serve:start watch',
-            'connect:livereload',
-            'watch'
-        ]);
+        if (grunt.option('demos')) {
+            grunt.task.run([
+                'connect:livereload',
+                'watch'
+            ]);
+        } else {
+            grunt.task.run([
+                'clean',
+                'jshint',
+                'concat',
+                'copy',
+                'docco',
+                'karma:serve:start watch',
+                'connect:livereload',
+                'watch'
+            ]);
+        }
     });
 
     grunt.registerTask('build', [
