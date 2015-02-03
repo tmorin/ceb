@@ -32,7 +32,7 @@
         }).flatMapLatest(function (query) {
             el.map.setView(new ol.View({
                 center: [0, 0],
-                zoom: 2
+                zoom: 1
             }));
             if (el.markersLayer) {
                 el.map.removeLayer(el.markersLayer);
@@ -131,7 +131,7 @@
         observer.subscribe(function (coord) {
             el.map.setView(new ol.View({
                 center: [0, 0],
-                zoom: 2
+                zoom: 1
             }));
             if (el.valueLayer) {
                 el.map.removeLayer(el.valueLayer);
@@ -204,7 +204,7 @@
                     layers: [osmLayer],
                     view: new ol.View({
                         center: [0, 0],
-                        zoom: 2
+                        zoom: 1
                     })
                 });
             },
