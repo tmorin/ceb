@@ -37,6 +37,8 @@
 // - npm: `npm install ceb --save`
 // - bower: `npm bower ceb --save`
 // - amd: `require(['ceb', ...`
+// - amd: `require(['ceb-feature-template', ...`
+// - amd: `require(['ceb-feature-frp', ...`
 
 /* http://jsfiddle.net/tmorin/xce2e756 */
 

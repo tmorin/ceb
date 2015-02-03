@@ -1,6 +1,8 @@
 (function (g, factory) {
     'use strict';
 
+    // Export the **ceb-feature-frp** function according the detected loader.
+
     /* istanbul ignore next */
     if (typeof exports === 'object') {
         module.exports = factory();

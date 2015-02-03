@@ -1,6 +1,8 @@
 (function (g, factory) {
     'use strict';
 
+    // Export the **ceb-feature-template** function according the detected loader.
+
     /* istanbul ignore next */
     if (typeof exports === 'object') {
         module.exports = factory();
@@ -13,7 +15,7 @@
 }(this, function () {
     'use strict';
 
-    // ## feature function
+    // ## Feature function
 
     // The template feature's function returns the nodes' reference of the template.
     function feature(el) {

@@ -1,5 +1,13 @@
 // # Change logs
 
+// ## 0.x.x
+// - ceb
+// - Template feature
+// - FRP feature
+// - site
+//  - add meta tag
+//  - add sitemap
+
 // ## 0.2.0
 // - ceb
 //  - add valueFactory for properties
