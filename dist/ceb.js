@@ -388,12 +388,12 @@
                 delegableGetAccessorInterceptor.bind(this, property)
             );
         });
-        // Wrap the method createdCallback.
+        // Apply initial values to properties.
         builder.wrap('createdCallback', function (next, el) {
             next(arguments);
-            // Initialize the properties' value after the call of the createdCallback method.
             listValues(struct.properties).filter(function (property) {
-                return !property.attName;
+                // Skip only properties having an attribute's value set.
+                return !el.hasAttribute(property.attName);
             }).forEach(function (property) {
                 if (property.hasOwnProperty('value') && property.writable) {
                     el[property.propName] = property.value;
@@ -401,18 +401,18 @@
                     el[property.propName] = property.valueFactory(el);
                 }
             });
-
+        });
+        // Apply attributes' values to properties.
+        builder.wrap('createdCallback', function (next, el) {
+            next(arguments);
             // Initialize the attributes' value after the call of the createdCallback method.
             listValues(struct.properties).filter(function (property) {
-                return property.attName;
+                // Keep only properties having an attribute's value set.
+                return el.hasAttribute(property.attName);
             }).forEach(function (property) {
-                if (el.hasAttribute(property.attName)) {
-                    el[property.propName] = property.attribute.boolean ? true : el.getAttribute(property.attName);
-                } else if (property.hasOwnProperty('value')) {
-                    applyAttributeValue(el, property.attName, property.value, property.attribute.boolean);
-                }
+                el[property.propName] = property.attribute.boolean ? true : el.getAttribute(property.attName);
             });
-        });
+        }, Number.MAX_VALUE);
         // Wrap the method attachedCallback.
         builder.wrap('attachedCallback', function (next, el) {
             next(arguments);

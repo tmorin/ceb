@@ -2,6 +2,8 @@
 
 // ## 0.x.x
 // - ceb
+//  - fix double set when poperty linked to an attribute is set
+//  - fix property initialization when linked to a valuated attribute
 // - Template feature
 // - FRP feature
 // - site
