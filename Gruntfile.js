@@ -329,7 +329,7 @@ module.exports = function (grunt) {
         if (grunt.option('allow-remote')) {
             grunt.config.set('connect.options.hostname', '0.0.0.0');
         }
-        if (grunt.option('demos')) {
+        if (grunt.option('livereload-only')) {
             grunt.task.run([
                 'connect:livereload',
                 'watch'

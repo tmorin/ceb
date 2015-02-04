@@ -32,16 +32,22 @@ CDN files can be found on [cdnjs](https://cdnjs.com/libraries/custom-elements-bu
 ### Editing source code
 
 Start karma in background, watching sources and specs then
-start a connect server watching most of the projects files. The URLs list:
+start a connect server watching most of the projects files.
+The URLs list:
 - the specs: http://localhost:9000
 - the site: http://localhost:9000/site
+- the site: http://localhost:9000/demos
 - the coverage: http://localhost:9000/cov
 ```shell
 grunt
 ```
-or
+Or
 ```shell
 grunt serve
+```
+To only activate live reload, add the parameter `--livereload-only`:
+```shell
+grunt --watch
 ```
 
 Execute specs with karma on sauce labs.
