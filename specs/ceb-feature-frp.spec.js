@@ -1,4 +1,3 @@
-/*globals ceb:false, cebFeatureFrp:false */
 describe('ceb-feature-frp', function() {
     'use strict';
 
@@ -129,7 +128,7 @@ describe('ceb-feature-frp', function() {
 
         describe('can have observers which', function() {
             beforeEach(function(done) {
-                
+
                 ceb().name(tagName).feature(cebFeatureFrp, {
                     disposables: [
                         aDisposableFactory1,

@@ -1,4 +1,3 @@
-/*globals ceb:false, cebFeatureTemplate:false */
 describe('ceb-feature-template', function () {
     'use strict';
 

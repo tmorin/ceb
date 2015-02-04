@@ -52,8 +52,8 @@
 
     // This function must returns the instance to the property observer.
     // > @param el (HTMLElement) the current element
-    feature.defaultPropertyObserverFactory = function defaultPropertyObserverFactory() {
-        return new window.Rx.Subject();
+    feature.propertyObserverFactory = function defaultPropertyObserverFactory() {
+        throw new Error('not implemented!');
     };
 
     // When the observed property is set, the value must be pushed into the stream.
@@ -61,15 +61,14 @@
     // > @param el (HTMLElement) the current element
     // > @param propName (string) the name of the observed property
     // > @param value (*) the value of the previous stacked callback
-    feature.defaultPropertyObservableInterceptor = function defaultPropertyObservableInterceptor(next, el, propName, value) {
-        next(value);
-        el[propName + 'Observer'].onNext(value);
+    feature.propertyObservableInterceptor = function defaultPropertyObservableInterceptor(next, el, propName, value) {
+        throw new Error('not implemented!');
     };
 
     // This function must clear the observers instances given as argument.
     // > @param observer (object) the observer to kick
-    feature.defaultDisposeDisposable = function defaultDisposeDisposable(observer) {
-        observer.dispose();
+    feature.disposeDisposable = function defaultDisposeDisposable(observer) {
+        throw new Error('not implemented!');
     };
 
     // ## Setup
@@ -83,9 +82,9 @@
         var observerProperties = {};
 
         // Resolve the locked functions.
-        var propertyObserverFactory = options.propertyObserverFactory || feature.defaultPropertyObserverFactory;
-        var propertyObservableInterceptor = options.propertyObservableInterceptor || feature.defaultPropertyObservableInterceptor;
-        var disposeDisposable = options.disposeDisposable || feature.defaultDisposeDisposable;
+        var propertyObserverFactory = options.propertyObserverFactory || feature.propertyObserverFactory;
+        var propertyObservableInterceptor = options.propertyObservableInterceptor || feature.propertyObservableInterceptor;
+        var disposeDisposable = options.disposeDisposable || feature.disposeDisposable;
 
         // Iterate over the structure's properties in order to detect the observable properties.
         Object.keys(struct.properties).map(function (propName) {
@@ -101,7 +100,7 @@
                 valueFactory: propertyObserverFactory
             };
             // Set is required for interception
-            if (!entry.attName && !entry.property.set) {
+            if (!entry.property.attName && !entry.property.set) {
                 entry.property.set = emptyFn();
             }
             // Register the interceptor which will sync the observer with the property's value.
