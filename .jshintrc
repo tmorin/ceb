@@ -18,6 +18,7 @@
         "ceb": false,
         "cebFeatureTemplate": false,
         "cebFeatureFrp": false,
+        "cebFeatureBind": false,
         "define": false,
         "sinon": false,
         "expect": false,
