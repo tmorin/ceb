@@ -2,8 +2,9 @@
 
 // ## 0.x.x
 // - ceb
-//  - fix double set when poperty linked to an attribute is set
+//  - fix double set when property linked to an attribute is set
 //  - fix property initialization when linked to a valuated attribute
+//  - add real use case example with the place-finder element
 // - Template feature
 // - FRP feature
 // - site
