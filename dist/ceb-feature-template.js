@@ -1,7 +1,7 @@
 //
 //     custom-elements-builder 0.2.1-alpha.0 http://tmorin.github.io/custom-elements-builder
 //     Custom Elements Builder (ceb) is ... a builder for Custom Elements.
-//     Buil date: 2015-02-04
+//     Buil date: 2015-02-06
 //     Copyright 2015-2015 Thibault Morin
 //     Available under MIT license
 //
@@ -52,8 +52,14 @@
         return el;
     }
 
+    // Render the template into the DOM
+    function renderTemplate(el, template) {
+        el.innerHTML = template;
+    }
+    feature.renderTemplate = renderTemplate;
+
     // Apply a template to an element.
-    function apply(tpl, el, isHandleLightDOM, isNodeReferences) {
+    function apply(el, tpl, options, isHandleLightDOM, isNodeReferences) {
         var lightChildren = [],
             refrencedNodes = [],
             template = tpl;
@@ -100,14 +106,14 @@
         }
 
         // Transform the template string into an alive DOM nodes.
-        el.innerHTML = template;
+        var renderTemplate = options.renderTemplate || feature.renderTemplate;
+        renderTemplate(el, template);
 
         if (isHandleLightDOM) {
             // Get the content node to add him the in pending light DOM.
             var newContentNode = findContentNode(el);
             lightChildren.forEach(function (child) {
                 newContentNode.appendChild(child);
-                // newContentNode.appendChild(child);
             });
         }
 
@@ -127,12 +133,14 @@
         var tpl = options.template || '';
         var isHandleLightDOM = tpl.search(contentRegEx) !== -1;
         var isNodeReferences = tpl.search(nodesRegEx) !== -1;
+
         // Register a wrapper to the createdCallback callback in order to
         // apply the template before the original call.
         builder.wrap('createdCallback', function (next, el) {
-            apply(tpl, el, isHandleLightDOM, isNodeReferences);
+            apply(el, tpl, options, isHandleLightDOM, isNodeReferences);
             next(arguments);
         });
+
         if (isHandleLightDOM) {
             builder.properties({
                 contentNode: {
