@@ -173,14 +173,16 @@ module.exports = function (grunt) {
                 files: {
                     'build/site/ceb.js': ['src/ceb.js'],
                     'build/site/ceb-feature-template.js': ['src/ceb-feature-template.js'],
-                    'build/site/ceb-feature-frp.js': ['src/ceb-feature-frp.js']
+                    'build/site/ceb-feature-frp.js': ['src/ceb-feature-frp.js'],
+                    'build/site/ceb-feature-frp-rx.js': ['src/ceb-feature-frp-rx.js']
                 }
             },
             dist: {
                 files: {
                     'dist/ceb.js': ['src/ceb.js'],
                     'dist/ceb-feature-template.js': ['src/ceb-feature-template.js'],
-                    'dist/ceb-feature-frp.js': ['src/ceb-feature-frp.js']
+                    'dist/ceb-feature-frp.js': ['src/ceb-feature-frp.js'],
+                    'dist/ceb-feature-frp-rx.js': ['src/ceb-feature-frp-rx.js']
                 }
             }
         },
@@ -199,7 +201,8 @@ module.exports = function (grunt) {
                 files: {
                     'dist/ceb.min.js': ['src/ceb.js'],
                     'dist/ceb-feature-template.min.js': ['src/ceb-feature-template.js'],
-                    'dist/ceb-feature-frp.min.js': ['src/ceb-feature-frp.js']
+                    'dist/ceb-feature-frp.min.js': ['src/ceb-feature-frp.js'],
+                    'dist/ceb-feature-frp-rx.min.js': ['src/ceb-feature-frp-rx.js']
                 }
             },
             shims: {
