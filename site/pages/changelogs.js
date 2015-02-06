@@ -1,5 +1,11 @@
 // # Change logs
 
+// ## 0.2.2
+// - ceb
+// - Template feature
+// - FRP feature
+//  - add missing dist files for Rx
+
 // ## 0.2.1
 // - ceb
 //  - fix double set when property linked to an attribute is set
