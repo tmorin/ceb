@@ -12,7 +12,7 @@
     <meta name="author" content="Custom Elements Builder">
 
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.css" />
+    <link rel="stylesheet" href="../deps/mocha.css" />
 </head>
 
 <body>
@@ -20,16 +20,16 @@
     <div id="mocha"></div>
 
     <!-- polyfills -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.5.2/webcomponents-lite.min.js"></script>
-    <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/document-register-element/0.1.6/document-register-element.js"></script> -->
+    <script src="../deps/webcomponents-lite.min.js"></script>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/rxjs/2.3.24/rx.all.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/rivets/0.7.2/rivets.bundled.min.js"></script>
+    <!-- libraries -->
+    <script src="../deps/rx.lite.min.js"></script>
+    <script src="../deps/rivets.bundled.min.js"></script>
 
     <!-- testing -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/chai/1.10.0/chai.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/mocha/2.1.0/mocha.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/sinon.js/1.7.3/sinon-min.js"></script>
+    <script src="../deps/chai.js"></script>
+    <script src="../deps/mocha.js"></script>
+    <script src="../deps/sinon-1.12.2.js"></script>
 
     <script>
         window.expect = chai.expect;
@@ -37,12 +37,12 @@
     </script>
 
     <!-- source -->
-    <script src="ceb.js"></script>
-    <script src="ceb-feature-template.js"></script>
-    <script src="ceb-feature-frp.js"></script>
-    <script src="ceb-feature-frp-rx.js"></script>
-    <script src="ceb-feature-bind.js"></script>
-    <script src="ceb-feature-bind-rivets.js"></script>
+    <script src="../ceb.js"></script>
+    <script src="../ceb-feature-template.js"></script>
+    <script src="../ceb-feature-frp.js"></script>
+    <script src="../ceb-feature-frp-rx.js"></script>
+    <script src="../ceb-feature-bind.js"></script>
+    <script src="../ceb-feature-bind-rivets.js"></script>
     <!-- test suite -->
     <script src="ceb.spec.js"></script>
     <script src="ceb-feature-template.spec.js"></script>

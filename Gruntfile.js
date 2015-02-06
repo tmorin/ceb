@@ -41,6 +41,13 @@ module.exports = function (grunt) {
                     livereload: true
                 }
             },
+            demos: {
+                files: ['demos/**/*'],
+                tasks: ['copy'],
+                options: {
+                    livereload: true
+                }
+            },
             specs: {
                 files: ['specs/**/*'],
                 tasks: ['karma:serve:run', 'copy'],
@@ -68,10 +75,10 @@ module.exports = function (grunt) {
                     middleware: function (connect) {
                         return [
                             connect.static('src'),
-                            connect.static('specs'),
-                            connect().use('/', connect.static('./node_modules')),
+                            connect().use('/specs', connect.static('./specs')),
                             connect().use('/demos', connect.static('./demos')),
                             connect().use('/site', connect.static('./build/site')),
+                            connect().use('/deps', connect.static('./build/site/deps')),
                             connect().use('/cov', connect.static('./build/cov/html'))
                         ];
                     }
@@ -126,9 +133,29 @@ module.exports = function (grunt) {
             site: {
                 files: [{
                     expand: true,
+                    flatten: true,
+                    cwd: 'node_modules',
+                    src: [
+                        'webcomponents.js/webcomponents-lite.min.js',
+                        'rx/dist/rx.lite.min.js',
+                        'rx/dist/rx.lite.map',
+                        'ractive/ractive.min.js',
+                        'chai/chai.js',
+                        'sinon/pkg/sinon-1.12.2.js',
+                        'mocha/mocha.css',
+                        'mocha/mocha.js',
+                    ],
+                    dest: 'build/site/deps'
+                }, {
+                    expand: true,
                     cwd: 'site/template',
                     src: ['public/**/*'],
                     dest: 'build/site'
+                }, {
+                    expand: true,
+                    cwd: 'demos',
+                    src: ['**/*'],
+                    dest: 'build/site/demos'
                 }, {
                     expand: true,
                     cwd: 'specs',
@@ -144,9 +171,9 @@ module.exports = function (grunt) {
             },
             site: {
                 files: {
-                    'build/site/testsuite/ceb.js': ['src/ceb.js'],
-                    'build/site/testsuite/ceb-feature-template.js': ['src/ceb-feature-template.js'],
-                    'build/site/testsuite/ceb-feature-frp.js': ['src/ceb-feature-frp.js']
+                    'build/site/ceb.js': ['src/ceb.js'],
+                    'build/site/ceb-feature-template.js': ['src/ceb-feature-template.js'],
+                    'build/site/ceb-feature-frp.js': ['src/ceb-feature-frp.js']
                 }
             },
             dist: {
@@ -199,8 +226,7 @@ module.exports = function (grunt) {
             site: {
                 src: [
                     'site/pages/**/*.js',
-                    'build/site/testsuite/*.js',
-                    '!build/site/testsuite/*.spec.js'
+                    'build/site/*.js'
                 ],
                 options: {
                     'template': __dirname + '/site/template/page.jst',
@@ -331,6 +357,10 @@ module.exports = function (grunt) {
         }
         if (grunt.option('livereload-only')) {
             grunt.task.run([
+                'clean',
+                'concat',
+                'copy',
+                'docco',
                 'connect:livereload',
                 'watch'
             ]);

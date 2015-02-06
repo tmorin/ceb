@@ -34,9 +34,9 @@ CDN files can be found on [cdnjs](https://cdnjs.com/libraries/custom-elements-bu
 Start karma in background, watching sources and specs then
 start a connect server watching most of the projects files.
 The URLs list:
-- the specs: http://localhost:9000
+- the specs: http://localhost:9000/specs
 - the site: http://localhost:9000/site
-- the site: http://localhost:9000/demos
+- the demos: http://localhost:9000/demos
 - the coverage: http://localhost:9000/cov
 ```shell
 grunt
