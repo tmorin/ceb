@@ -27,7 +27,7 @@ ceb()
             }
         }
     })
-    .listen('click', function(el, evt) {
+    .listen('click', function (el, evt) {
         evt.preventDefault();
         evt.stopPropagation();
         // el.sendCommand('action-');

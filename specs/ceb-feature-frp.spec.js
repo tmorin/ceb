@@ -1,4 +1,4 @@
-describe('ceb-feature-frp', function() {
+describe('ceb-feature-frp', function () {
     'use strict';
 
     function insertCeAndGet() {
@@ -24,7 +24,7 @@ describe('ceb-feature-frp', function() {
         callback3,
         spiedSet;
 
-    beforeEach(function() {
+    beforeEach(function () {
         div = document.body.appendChild(sandbox).appendChild(document.createElement('div'));
         tagName = 'tag-ceb-feature-frp-' + (counter++);
 
@@ -42,14 +42,14 @@ describe('ceb-feature-frp', function() {
         sinon.spy(disposable3, 'dispose');
         aDisposableFactory3 = sinon.stub().returns(disposable3);
         callback3 = sinon.spy();
-        spiedSet =  sinon.spy();
+        spiedSet = sinon.spy();
 
     });
 
-    describe('A custom element', function() {
+    describe('A custom element', function () {
 
-        describe('having an observable properties', function() {
-            beforeEach(function(done) {
+        describe('having an observable properties', function () {
+            beforeEach(function (done) {
                 ceb().name(tagName).properties({
                     p1: {
                         observable: true
@@ -66,13 +66,13 @@ describe('ceb-feature-frp', function() {
                 ce = insertCeAndGet();
                 setTimeout(done, timeout);
             });
-            it('should be have an observer', function() {
+            it('should be have an observer', function () {
                 expect(ce.p1Observer).to.exist();
                 expect(ce.p2Observer).to.exist();
                 expect(ce.p3Observer).to.exist();
             });
-            describe('when the property is set', function() {
-                beforeEach(function(done) {
+            describe('when the property is set', function () {
+                beforeEach(function (done) {
                     ce.p1Observer.subscribe(callback1);
                     ce.p1 = 'test';
                     ce.p2Observer.subscribe(callback2);
@@ -81,83 +81,89 @@ describe('ceb-feature-frp', function() {
                     ce.p3 = 'test';
                     setTimeout(done, timeout);
                 });
-                it('should be observed', function() {
+                it('should be observed', function () {
                     expect(callback1.calledWith('test')).to.exist();
                     expect(callback2.calledWith('test')).to.exist();
                     expect(callback3.calledWith('test')).to.exist();
                 });
-                describe('when the element is cloned', function() {
-                    beforeEach(function(done) {
+                describe('when the element is cloned', function () {
+                    beforeEach(function (done) {
                         ceCloned = ce.cloneNode(true);
                         sandbox.appendChild(ceCloned);
                         setTimeout(done, timeout);
                     });
-                    describe('and the property is set', function() {
+                    describe('and the property is set', function () {
                         var callback2;
-                        beforeEach(function(done) {
+                        beforeEach(function (done) {
                             callback2 = sinon.spy();
                             ceCloned.p1Observer.subscribe(callback2);
                             ceCloned.p1 = 'test';
                             setTimeout(done, timeout);
                         });
-                        it('should be observed', function() {
+                        it('should be observed', function () {
                             expect(callback2.calledWith('test')).to.exist();
                         });
                     });
                 });
             });
-            describe('when the element is detached', function() {
-                beforeEach(function(done) {
+            describe('when the element is detached', function () {
+                beforeEach(function (done) {
                     ce.parentNode.removeChild(ce);
                     setTimeout(done, timeout);
                 });
-                it('should not have observer', function() {
+                it('should not have observer', function () {
                     expect(ce.p1Observer).to.not.exist();
                 });
-                describe('when the element is attached', function() {
-                    beforeEach(function(done) {
+                describe('when the element is attached', function () {
+                    beforeEach(function (done) {
                         sandbox.appendChild(ce);
                         setTimeout(done, timeout);
                     });
-                    it('should have observer', function() {
+                    it('should have observer', function () {
                         expect(ce.p1Observer).to.exist();
                     });
                 });
             });
         });
 
-        describe('can have observers which', function() {
-            beforeEach(function(done) {
+        describe('can have observers which', function () {
+            beforeEach(function (done) {
 
                 ceb().name(tagName).feature(cebFeatureFrp, {
                     disposables: [
                         aDisposableFactory1,
-                        cebFeatureFrp.disposable(function () { return disposable2; }).handlers(function () {}),
-                        cebFeatureFrp.disposable(function () { return {}; }).handlers(function () { return disposable3; })
+                        cebFeatureFrp.disposable(function () {
+                            return disposable2;
+                        }).handlers(function () {}),
+                        cebFeatureFrp.disposable(function () {
+                            return {};
+                        }).handlers(function () {
+                            return disposable3;
+                        })
                     ]
                 }).register();
                 ce = insertCeAndGet();
                 setTimeout(done, timeout);
             });
-            it('should be created', function() {
+            it('should be created', function () {
                 expect(aDisposableFactory1.calledWith(ce)).to.exist();
             });
-            describe('when the element is detached', function() {
-                beforeEach(function(done) {
+            describe('when the element is detached', function () {
+                beforeEach(function (done) {
                     ce.parentNode.removeChild(ce);
                     setTimeout(done, timeout);
                 });
-                it('should be disposed', function() {
+                it('should be disposed', function () {
                     expect(disposable1.dispose.called).to.be.true();
                     expect(disposable3.dispose.called).to.be.true();
                     expect(disposable3.dispose.called).to.be.true();
                 });
-                describe('when the element is attached', function() {
-                    beforeEach(function(done) {
+                describe('when the element is attached', function () {
+                    beforeEach(function (done) {
                         sandbox.appendChild(ce);
                         setTimeout(done, timeout);
                     });
-                    it('should be disposed', function() {
+                    it('should be disposed', function () {
                         expect(aDisposableFactory1.calledWith(ce)).to.exist();
                     });
                 });

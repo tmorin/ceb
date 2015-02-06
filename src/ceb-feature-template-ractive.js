@@ -1,4 +1,4 @@
-(function(g, factory) {
+(function (g, factory) {
     'use strict';
 
     // Export the **ceb-feature-template-ractive** function according the detected loader.
@@ -12,7 +12,7 @@
         g.cebFeatureTemplate = factory(g.cebFeatureTemplate, g.Ractive);
     }
 
-}(this, function(cebFeatureTemplate, Ractive) {
+}(this, function (cebFeatureTemplate, Ractive) {
     'use strict';
 
     cebFeatureTemplate.renderTemplate = function renderTemplate(el, template, boundProperties) {

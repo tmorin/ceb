@@ -1,14 +1,14 @@
 require('es6-shim');
 
 exports.banner = [
-     '//',
-     '//     <%= pkg.name %> <%= nextVersion %> http://tmorin.github.io/custom-elements-builder',
-     '//     <%= pkg.description %>',
-     '//     Buil date: <%= grunt.template.today("yyyy-mm-dd") %>',
-     '//     Copyright 2015-2015 Thibault Morin',
-     '//     Available under MIT license',
-     '//',
-     ''
+    '//',
+    '//     <%= pkg.name %> <%= nextVersion %> http://tmorin.github.io/custom-elements-builder',
+    '//     <%= pkg.description %>',
+    '//     Buil date: <%= grunt.template.today("yyyy-mm-dd") %>',
+    '//     Copyright 2015-2015 Thibault Morin',
+    '//     Available under MIT license',
+    '//',
+    ''
  ].join('\n');
 
 var customLaunchers = {
