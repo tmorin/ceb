@@ -1,11 +1,12 @@
 // # Change logs
 
-// ## 0.x.x
+// ## 0.2.1
 // - ceb
 //  - fix double set when property linked to an attribute is set
 //  - fix property initialization when linked to a valuated attribute
 //  - add real use case example with the place-finder element
 // - Template feature
+//  - renderTemplate is customizable
 // - FRP feature
 // - site
 //  - add meta tag
