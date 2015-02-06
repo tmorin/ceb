@@ -36,6 +36,10 @@ cebFeatureTemplate(xForm).submitBtn.click();
 // Will create and append the element `span` into the content node of xForm.
 xForm.contentNode.appendChild(document.createElement('span'));
 
+// ## Customization
+
+// The function `cebFeatureTemplate.renderTemplate(el, template)` can be overriden or given as feature option's.
+
 // ## Light DOM
 
 // The template can contains a node having the attribute `ceb-content`.

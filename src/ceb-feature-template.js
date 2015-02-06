@@ -44,7 +44,6 @@
         }
         return el;
     }
-    feature.findContentNode = findContentNode;
 
     // Render the template into the DOM
     function renderTemplate(el, template) {
@@ -53,7 +52,7 @@
     feature.renderTemplate = renderTemplate;
 
     // Apply a template to an element.
-    function apply(el, tpl, isHandleLightDOM, isNodeReferences) {
+    function apply(el, tpl, options, isHandleLightDOM, isNodeReferences) {
         var lightChildren = [],
             refrencedNodes = [],
             template = tpl;
@@ -100,7 +99,8 @@
         }
 
         // Transform the template string into an alive DOM nodes.
-        cebFeatureTemplate.renderTemplate(el, template);
+        var renderTemplate = options.renderTemplate || feature.renderTemplate;
+        renderTemplate(el, template);
 
         if (isHandleLightDOM) {
             // Get the content node to add him the in pending light DOM.
@@ -130,7 +130,7 @@
         // Register a wrapper to the createdCallback callback in order to
         // apply the template before the original call.
         builder.wrap('createdCallback', function (next, el) {
-            apply(el, tpl, isHandleLightDOM, isNodeReferences);
+            apply(el, tpl, options, isHandleLightDOM, isNodeReferences);
             next(arguments);
         });
 
