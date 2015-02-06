@@ -11,12 +11,9 @@ module.exports = function (config) {
         files: [
             // 'node_modules/document-register-element/build/document-register-element.js',
             'node_modules/webcomponents.js/webcomponents-lite.min.js',
-            'node_modules/rx/dist/rx.all.min.js',
-            'node_modules/rivets/dist/rivets.bundled.min.js',
+            'node_modules/rx/dist/rx.lite.min.js',
             'src/ceb.js',
             'src/ceb-feature-template.js',
-            'src/ceb-feature-bind.js',
-            'src/ceb-feature-bind-rivets.js',
             'src/ceb-feature-frp.js',
             'src/ceb-feature-frp-rx.js',
             'specs/**/*.spec.js'
