@@ -52,6 +52,7 @@
 
     // This function must returns the instance to the property observer.
     // > @param el (HTMLElement) the current element
+    /* istanbul ignore next */
     feature.propertyObserverFactory = function defaultPropertyObserverFactory() {
         throw new Error('not implemented!');
     };
@@ -61,12 +62,14 @@
     // > @param el (HTMLElement) the current element
     // > @param propName (string) the name of the observed property
     // > @param value (*) the value of the previous stacked callback
+    /* istanbul ignore next */
     feature.propertyObservableInterceptor = function defaultPropertyObservableInterceptor(next, el, propName, value) {
         throw new Error('not implemented!');
     };
 
     // This function must clear the observers instances given as argument.
     // > @param observer (object) the observer to kick
+    /* istanbul ignore next */
     feature.disposeDisposable = function defaultDisposeDisposable(observer) {
         throw new Error('not implemented!');
     };
