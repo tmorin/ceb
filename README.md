@@ -11,22 +11,6 @@ Custom Elements Builder (ceb) is ... a builder for Custom Elements.
 
 - [Home page](http://tmorin.github.io/custom-elements-builder/)
 
-## Installation
-
-- npm: `npm install ceb --save`
-- bower: `npm bower ceb --save`
-- amd: `require(['ceb', ...`
-
-## CDN
-
-CDN files can be found on [cdnjs](https://cdnjs.com/libraries/custom-elements-builder)
-```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.2.0/ceb.min.js"></script>
-```
-```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.2.0/ceb-feature-template.min.js"></script>
-```
-
 ## Grunt tasks
 
 ### Editing source code
