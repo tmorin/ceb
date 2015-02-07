@@ -22,7 +22,7 @@
         var label = href.replace(/\.\w*$/i, '').replace(/\w*\.[0-9]\./i, '');
         var priority = href.match(/\w*\.([0-9]*)\./i);
         var menu = '';
-        if (source.match(/\/testsuite\//i)) {
+        if (source.match(/build\/site/i)) {
             label = path.basename(source);
             menu = 'source';
             priority = 100;

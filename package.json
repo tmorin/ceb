@@ -67,9 +67,7 @@
     "karma-sauce-launcher": "^0.2.10",
     "karma-sinon": "^1.0.4",
     "load-grunt-tasks": "^3.0.0",
-    "ractive": "^0.6.1",
     "rx": "^2.3.24",
-    "rx-dom": "^4.0.4",
     "sinon": "^1.12.2",
     "webcomponents.js": "^0.5.3"
   }

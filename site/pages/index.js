@@ -28,9 +28,13 @@
 // ## CDN
 // CDN files can be found on [cdnjs](https://cdnjs.com/libraries/custom-elements-builder)
 //
-//     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.2.0/ceb.min.js"></script>
+//     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.2.2/ceb.min.js"></script>
 //
-//     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.2.0/ceb-feature-template.min.js"></script>
+//     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.2.2/ceb-feature-template.min.js"></script>
+//
+//     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.2.2/ceb-feature-frp.min.js"></script>
+//
+//     <script src="https://cdnjs.cloudflare.com/ajax/libs/custom-elements-builder/0.2.2/ceb-feature-frp-rx.min.js"></script>
 //
 // ***
 // ## Installation

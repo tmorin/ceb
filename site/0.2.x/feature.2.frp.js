@@ -8,12 +8,13 @@
 // this feature is not locked to an external dependencies.
 //
 // So, some functions must be overridden to handle the targeted FRP library.
-// By default their implementation are locked to `window.Rx`, [RxJS](http://reactive-extensions.github.io/RxJS).
+// By default their implementation throw *not implemented*.
+// Include [ceb-feature-frp-rx.js](../ceb-feature-frp-rx.html) to get an implementation based on Rx.
 //
-// The functions can be overridden from the function feature:
-// - cebFeatureFrp.defaultPropertyObserverFactory
-// - cebFeatureFrp.defaultPropertyObservableInterceptor
-// - cebFeatureFrp.defaultDisposeDisposable
+// The functions can be overridden from the feature's function:
+// - cebFeatureFrp.propertyObserverFactory
+// - cebFeatureFrp.propertyObservableInterceptor
+// - cebFeatureFrp.disposeDisposable
 //
 // Or from the feature's options:
 // - options.propertyObserverFactory
