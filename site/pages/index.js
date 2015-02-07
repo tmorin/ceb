@@ -43,6 +43,7 @@
 // - amd: `require(['ceb', ...`
 // - amd: `require(['ceb-feature-template', ...`
 // - amd: `require(['ceb-feature-frp', ...`
+// - amd: `require(['ceb-feature-frp-rx', ...`
 
 /*
  * The place-finder element is used to find a place.
