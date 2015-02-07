@@ -91,10 +91,19 @@ module.exports = function (grunt) {
                 jshintrc: '.jshintrc',
                 reporter: require('jshint-stylish')
             },
-            all: ['Gruntfile.js', 'karma.conf.js', 'src/**/*.js', 'specs/**/*.js', 'demos/**/*.js'],
+            all: [
+                'Gruntfile.js',
+                'karma.conf.js',
+                'src/**/*.js',
+                'specs/**/*.js',
+                'demos/**/*.js'
+            ],
             site: {
                 files: {
-                    src: ['site/**/*.js']
+                    src: [
+                        'site/**/*.js',
+                        '!site/pages/index.js'
+                    ]
                 }
             }
         },
