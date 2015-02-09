@@ -18,7 +18,6 @@ module.exports = function (grunt) {
                     'Gruntfile.js',
                     'karma.conf.js',
                     'src/**/*.js',
-                    'site/pages/**/*.js',
                     'specs/**/*.js',
                     'demos/**/*.js'
                 ],
@@ -29,14 +28,7 @@ module.exports = function (grunt) {
             },
             src: {
                 files: ['src/**/*'],
-                tasks: ['karma:serve:run', 'concat', 'docco'],
-                options: {
-                    livereload: true
-                }
-            },
-            site: {
-                files: ['site/**/*'],
-                tasks: ['docco', 'copy'],
+                tasks: ['karma:serve:run', 'concat'],
                 options: {
                     livereload: true
                 }
@@ -66,7 +58,7 @@ module.exports = function (grunt) {
         connect: {
             options: {
                 port: 9000,
-                open: 'http://localhost:9000/site',
+                open: 'http://localhost:9000/specs',
                 livereload: 35729,
                 hostname: '*'
             },
@@ -77,9 +69,8 @@ module.exports = function (grunt) {
                             connect.static('src'),
                             connect().use('/specs', connect.static('./specs')),
                             connect().use('/demos', connect.static('./demos')),
-                            connect().use('/site', connect.static('./build/site')),
-                            connect().use('/deps', connect.static('./build/site/deps')),
-                            connect().use('/cov', connect.static('./build/cov/html'))
+                            connect().use('/deps', connect.static('./.tmp/deps')),
+                            connect().use('/cov', connect.static('./.tmp/cov/html'))
                         ];
                     }
                 }
@@ -97,15 +88,7 @@ module.exports = function (grunt) {
                 'src/**/*.js',
                 'specs/**/*.js',
                 'demos/**/*.js'
-            ],
-            site: {
-                files: {
-                    src: [
-                        'site/**/*.js',
-                        '!site/pages/index.js'
-                    ]
-                }
-            }
+            ]
         },
 
         karma: {
@@ -130,7 +113,7 @@ module.exports = function (grunt) {
 
         coveralls: {
             options: {
-                coverageDir: 'build/cov/lcov',
+                coverageDir: '.tmp/cov/lcov',
                 force: true,
                 recursive: true,
                 debug: false,
@@ -148,28 +131,12 @@ module.exports = function (grunt) {
                         'webcomponents.js/webcomponents-lite.min.js',
                         'rx/dist/rx.lite.min.js',
                         'rx/dist/rx.lite.map',
-                        'ractive/ractive.min.js',
                         'chai/chai.js',
                         'sinon/pkg/sinon-1.12.2.js',
                         'mocha/mocha.css',
                         'mocha/mocha.js',
                     ],
-                    dest: 'build/site/deps'
-                }, {
-                    expand: true,
-                    cwd: 'site/template',
-                    src: ['public/**/*'],
-                    dest: 'build/site'
-                }, {
-                    expand: true,
-                    cwd: 'demos',
-                    src: ['**/*'],
-                    dest: 'build/site/demos'
-                }, {
-                    expand: true,
-                    cwd: 'specs',
-                    src: ['**/*'],
-                    dest: 'build/site/testsuite'
+                    dest: '.tmp/deps'
                 }]
             }
         },
@@ -177,14 +144,6 @@ module.exports = function (grunt) {
         concat: {
             options: {
                 banner: banner
-            },
-            site: {
-                files: {
-                    'build/site/ceb.js': ['src/ceb.js'],
-                    'build/site/ceb-feature-template.js': ['src/ceb-feature-template.js'],
-                    'build/site/ceb-feature-frp.js': ['src/ceb-feature-frp.js'],
-                    'build/site/ceb-feature-frp-rx.js': ['src/ceb-feature-frp-rx.js']
-                }
             },
             dist: {
                 files: {
@@ -196,13 +155,13 @@ module.exports = function (grunt) {
             }
         },
 
-        clean: ['build'],
+        clean: ['.tmp'],
 
         uglify: {
             options: {
                 banner: banner
             },
-            noshims: {
+            dist: {
                 options: {
                     sourceMap: true,
                     sourceMapIncludeSources: true
@@ -213,68 +172,13 @@ module.exports = function (grunt) {
                     'dist/ceb-feature-frp.min.js': ['src/ceb-feature-frp.js'],
                     'dist/ceb-feature-frp-rx.min.js': ['src/ceb-feature-frp-rx.js']
                 }
-            },
-            shims: {
-                options: {
-                    sourceMap: true,
-                    sourceMapIncludeSources: true
-                },
-                files: {
-                    'dist/ceb.legacy.min.js': [
-                        'node_modules/webcomponents.js/webcomponents-lite.js',
-                        'src/ceb.js'
-                    ]
-                }
             }
         },
 
         release: {
             options: {
-                additionalFiles: ['bower.json', 'component.json']
+                additionalFiles: ['bower.json']
             }
-        },
-
-        docco: {
-            site: {
-                src: [
-                    'site/pages/**/*.js',
-                    'build/site/*.js'
-                ],
-                options: {
-                    'template': __dirname + '/site/template/page.jst',
-                    'css': __dirname + '/site/template/page.css',
-                    'output': 'build/site'
-                }
-            },
-            '0.1.x': {
-                src: ['site/0.1.x/**/*.js'],
-                options: {
-                    'template': __dirname + '/site/template/doc.jst',
-                    'css': __dirname + '/site/template/doc.css',
-                    'output': 'build/site/0.1.x'
-                }
-            },
-            '0.2.x': {
-                src: ['site/0.2.x/**/*.js'],
-                options: {
-                    'template': __dirname + '/site/template/doc.jst',
-                    'css': __dirname + '/site/template/doc.css',
-                    'output': 'build/site/0.2.x'
-                }
-            }
-        },
-
-        sitemap: {
-            site: {
-                siteRoot: 'build/site'
-            }
-        },
-
-        'gh-pages': {
-            options: {
-                base: 'build/site'
-            },
-            src: ['**/*']
         },
 
         'sync-json': {
@@ -291,24 +195,6 @@ module.exports = function (grunt) {
                     'license': null,
                     'authors': function (src) {
                         return [src.author];
-                    }
-                }
-            },
-            component: {
-                dest: 'component.json',
-                fields: {
-                    name: function () {
-                        return 'ceb';
-                    },
-                    repository: function () {
-                        return 'tmorin/custom-elements-builder';
-                    },
-                    description: null,
-                    version: null,
-                    keywords: null,
-                    main: null,
-                    scripts: function (src) {
-                        return [src.main];
                     }
                 }
             }
@@ -372,7 +258,6 @@ module.exports = function (grunt) {
                 'clean',
                 'concat',
                 'copy',
-                'docco',
                 'connect:livereload',
                 'watch'
             ]);
@@ -382,7 +267,6 @@ module.exports = function (grunt) {
                 'jshint',
                 'concat',
                 'copy',
-                'docco',
                 'karma:serve:start watch',
                 'connect:livereload',
                 'watch'
@@ -394,11 +278,9 @@ module.exports = function (grunt) {
         'clean',
         'jshint',
         'karma:build-local',
-        'uglify',
         'concat',
+        'uglify',
         'copy',
-        'docco',
-        'sitemap',
         'sync-json'
     ]);
 
@@ -409,18 +291,11 @@ module.exports = function (grunt) {
         'karma:build-ci-evergreen',
         'karma:build-ci-safari',
         'karma:build-ci-android',
-        'uglify',
         'concat',
+        'uglify',
         'copy',
-        'docco',
-        'sitemap',
         'sync-json',
         'coveralls'
-    ]);
-
-    grunt.registerTask('push-site', [
-        'build',
-        'gh-pages'
     ]);
 
     grunt.registerTask('default', ['serve']);

@@ -1,7 +1,7 @@
 //
 //     custom-elements-builder 0.2.3-alpha.0 http://tmorin.github.io/custom-elements-builder
 //     Custom Elements Builder (ceb) is ... a builder for Custom Elements.
-//     Buil date: 2015-02-07
+//     Buil date: 2015-02-09
 //     Copyright 2015-2015 Thibault Morin
 //     Available under MIT license
 //
@@ -530,16 +530,16 @@
         // Add properties to the structure.
         api.properties = function (someProperties) {
             var sanitizedProperties = Object.keys(someProperties).map(function (propName) {
-                return Object.assign(someProperties[propName], {
-                    propName: propName
-                });
+                var givenValue = someProperties[propName];
+                var currentValue = struct.properties[propName];
+                return Object.assign({
+                    propName:propName
+                }, givenValue, currentValue || {});
             }).map(sanitizeProperty).reduce(function (previous, current) {
                 previous[current.propName] = current;
                 return previous;
             }, {});
-
             Object.assign(struct.properties, sanitizedProperties);
-
             return api;
         };
         // Add methods to the structure.
