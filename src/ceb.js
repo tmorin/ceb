@@ -523,16 +523,16 @@
         // Add properties to the structure.
         api.properties = function (someProperties) {
             var sanitizedProperties = Object.keys(someProperties).map(function (propName) {
-                return Object.assign(someProperties[propName], {
-                    propName: propName
-                });
+                var givenValue = someProperties[propName];
+                var currentValue = struct.properties[propName];
+                return Object.assign({
+                    propName:propName
+                }, givenValue, currentValue || {});
             }).map(sanitizeProperty).reduce(function (previous, current) {
                 previous[current.propName] = current;
                 return previous;
             }, {});
-
             Object.assign(struct.properties, sanitizedProperties);
-
             return api;
         };
         // Add methods to the structure.
