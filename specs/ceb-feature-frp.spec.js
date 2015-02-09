@@ -1,6 +1,8 @@
 describe('ceb-feature-frp', function () {
     'use strict';
 
+    cebFeatureFrp.defaultLibrary = 'Rx';
+
     function insertCeAndGet() {
         var ce = document.createElement(tagName);
         sandbox.appendChild(ce);

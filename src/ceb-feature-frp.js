@@ -41,12 +41,18 @@
         return disposableFactory;
     };
 
-    // ## Default functions
+    // ## Default library
+
+    feature.defaultLibraries = 'none';
+
+    feature.libraries = {
+         none: {}
+    };
 
     // This function must returns the instance to the property observer.
     // > @param el (HTMLElement) the current element
     /* istanbul ignore next */
-    feature.propertyObserverFactory = function defaultPropertyObserverFactory() {
+    feature.libraries.none.propertyObserverFactory = function defaultPropertyObserverFactory() {
         throw new Error('not implemented!');
     };
 
@@ -56,14 +62,14 @@
     // > @param propName (string) the name of the observed property
     // > @param value (*) the value of the previous stacked callback
     /* istanbul ignore next */
-    feature.propertyObservableInterceptor = function defaultPropertyObservableInterceptor(next, el, propName, value) {
+    feature.libraries.none.propertyObservableInterceptor = function defaultPropertyObservableInterceptor(next, el, propName, value) {
         throw new Error('not implemented!');
     };
 
     // This function must clear the observers instances given as argument.
     // > @param observer (object) the observer to kick
     /* istanbul ignore next */
-    feature.disposeDisposable = function defaultDisposeDisposable(observer) {
+    feature.libraries.none.disposeDisposable = function defaultDisposeDisposable(observer) {
         throw new Error('not implemented!');
     };
 
@@ -76,11 +82,11 @@
 
     feature.setup = function (struct, builder, options) {
         var observerProperties = {};
-
+        var defaultLibrary = feature.libraries[options.library || feature.defaultLibrary];
         // Resolve the locked functions.
-        var propertyObserverFactory = options.propertyObserverFactory || feature.propertyObserverFactory;
-        var propertyObservableInterceptor = options.propertyObservableInterceptor || feature.propertyObservableInterceptor;
-        var disposeDisposable = options.disposeDisposable || feature.disposeDisposable;
+        var propertyObserverFactory = options.propertyObserverFactory || defaultLibrary.propertyObserverFactory;
+        var propertyObservableInterceptor = options.propertyObservableInterceptor || defaultLibrary.propertyObservableInterceptor;
+        var disposeDisposable = options.disposeDisposable || defaultLibrary.disposeDisposable;
 
         // Iterate over the structure's properties in order to detect the observable properties.
         Object.keys(struct.properties).map(function (propName) {

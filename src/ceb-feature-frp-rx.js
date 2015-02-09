@@ -15,16 +15,18 @@
 }(this, function (cebFeatureFrp, Rx) {
     'use strict';
 
-    cebFeatureFrp.propertyObserverFactory = function rxPropertyObserverFactory() {
+    cebFeatureFrp.libraries.Rx = {};
+
+    cebFeatureFrp.libraries.Rx.propertyObserverFactory = function rxPropertyObserverFactory() {
         return new Rx.Subject();
     };
 
-    cebFeatureFrp.propertyObservableInterceptor = function rxPropertyObservableInterceptor(next, el, propName, value) {
+    cebFeatureFrp.libraries.Rx.propertyObservableInterceptor = function rxPropertyObservableInterceptor(next, el, propName, value) {
         next(value);
         el[propName + 'Observer'].onNext(value);
     };
 
-    cebFeatureFrp.disposeDisposable = function rxDisposeDisposable(observer) {
+    cebFeatureFrp.libraries.Rx.disposeDisposable = function rxDisposeDisposable(observer) {
         observer.dispose();
     };
 
