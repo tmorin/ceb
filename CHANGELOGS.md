@@ -1,5 +1,10 @@
 # Change logs
 
+## latest
+- ceb
+- Template feature
+- FRP feature
+
 ## 0.2.3
 - ceb
  - move site to another repository
