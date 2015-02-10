@@ -7,7 +7,7 @@
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 
-Custom Elements Builder (ceb) is ... a builder for Custom Elements.
+ceb is just a builder, natively scalable and designed for FRP.
 
 - [Home page](http://tmorin.github.io/custom-elements-builder/)
 
@@ -19,7 +19,6 @@ Start karma in background, watching sources and specs then
 start a connect server watching most of the projects files.
 The URLs list:
 - the specs: http://localhost:9000/specs
-- the site: http://localhost:9000/site
 - the demos: http://localhost:9000/demos
 - the coverage: http://localhost:9000/cov
 ```shell
@@ -50,17 +49,10 @@ grunt build
 ```
 Output:
 - dist: the minified sources
-- build/site: the web site
-- build/cov/html: the code coverage result
+- .tmp/site: the web site
+- .tmp/cov/html: the code coverage result
 
 Check quality and build dist files for continuous build.
 ```shell
 grunt build-ci
-```
-
-### Update site
-
-Build and push the site on gh-pages.
-```shell
-grunt push-site
 ```

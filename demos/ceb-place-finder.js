@@ -5,6 +5,8 @@
     var Rx = g.Rx;
     var $ = g.$;
 
+    g.cebFeatureFrp.defaultLibrary = 'Rx';
+
     function setupMap(el) {
         if (!el.map) {
             var osmLayer = new ol.layer.Tile({

@@ -1,6 +1,6 @@
 # Change logs
 
-## latest
+## 0.2.3
 - ceb
  - move site to another repository
  - review `builder.properties` in order to handle overrides
