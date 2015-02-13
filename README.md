@@ -30,7 +30,7 @@ grunt serve
 ```
 To only activate live reload, add the parameter `--livereload-only`:
 ```shell
-grunt --watch
+grunt --livereload-only
 ```
 
 Execute specs with karma on sauce labs.
