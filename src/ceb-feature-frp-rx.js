@@ -27,7 +27,9 @@
     };
 
     cebFeatureFrp.libraries.Rx.disposeDisposable = function rxDisposeDisposable(observer) {
-        observer.dispose();
+        if (observer.dispose) {
+            observer.dispose();
+        }
     };
 
     return cebFeatureFrp;
