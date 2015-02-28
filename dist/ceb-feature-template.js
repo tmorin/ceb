@@ -1,7 +1,7 @@
 //
 //     custom-elements-builder 0.2.5-alpha1 http://tmorin.github.io/custom-elements-builder
 //     Custom Elements Builder (ceb) is ... a builder for Custom Elements.
-//     Buil date: 2015-02-22
+//     Buil date: 2015-02-28
 //     Copyright 2015-2015 Thibault Morin
 //     Available under MIT license
 //
@@ -11,9 +11,9 @@
     // Export the **ceb-feature-template** function according the detected loader.
 
     /* istanbul ignore next */
-    if (typeof exports === 'object') {
+    if(typeof exports === 'object') {
         module.exports = factory();
-    } else if (typeof define === 'function' && define.amd) {
+    } else if(typeof define === 'function' && define.amd) {
         define('ceb-feature-template', [], factory);
     } else {
         g.cebFeatureTemplate = factory();
@@ -26,7 +26,7 @@
 
     // The template feature's function returns the nodes' reference of the template.
     function feature(el) {
-        if (!el.__cebTemplateScope) {
+        if(!el.__cebTemplateScope) {
             el.__cebTemplateScope = {};
         }
         return el.__cebTemplateScope;
@@ -46,7 +46,7 @@
     // Find recursively the content's node of the current element.
     function findContentNode(el) {
         var oldCebContentId = el.getAttribute('ceb-old-content-id');
-        if (oldCebContentId) {
+        if(oldCebContentId) {
             return findContentNode(el.querySelector('[' + oldCebContentId + ']'));
         }
         return el;
@@ -64,10 +64,10 @@
             refrencedNodes = [],
             template = tpl;
 
-        if (isNodeReferences) {
+        if(isNodeReferences) {
             // Update the template to detect the DOM nodes references.
             var result;
-            while ((result = nodesRegEx.exec(template)) !== null) {
+            while((result = nodesRegEx.exec(template)) !== null) {
                 var property = result[1];
                 // build an id of the reference
                 var newAtt = 'ceb-' + (counter++) + '-ref';
@@ -81,7 +81,7 @@
             }
         }
 
-        if (isHandleLightDOM) {
+        if(isHandleLightDOM) {
             // Get the current content node having the light DOM nodes,
             // When the node is freshly created, the content node is the element.
             // When the node has been created by clonning, the content node is not anymore the element,
@@ -90,7 +90,7 @@
             var oldContentNode = findContentNode(el);
 
             // Remove the light DOM to keep it.
-            while (oldContentNode.childNodes.length > 0) {
+            while(oldContentNode.childNodes.length > 0) {
                 lightChildren.push(oldContentNode.removeChild(oldContentNode.childNodes[0]));
             }
             // lightChildren = Array.prototype.slice.call(oldContentNode.childNodes);
@@ -109,7 +109,7 @@
         var renderTemplate = options.renderTemplate || feature.renderTemplate;
         renderTemplate(el, template);
 
-        if (isHandleLightDOM) {
+        if(isHandleLightDOM) {
             // Get the content node to add him the in pending light DOM.
             var newContentNode = findContentNode(el);
             lightChildren.forEach(function (child) {
@@ -117,7 +117,7 @@
             });
         }
 
-        if (isNodeReferences) {
+        if(isNodeReferences) {
             // Get the reference nodes and attach them to the element templating scope.
             refrencedNodes.forEach(function (entry) {
                 feature(el)[entry.property] = el.querySelector('[' + entry.attribute + ']');
@@ -141,7 +141,7 @@
             next(arguments);
         });
 
-        if (isHandleLightDOM) {
+        if(isHandleLightDOM) {
             builder.properties({
                 contentNode: {
                     get: function (el) {
