@@ -1,12 +1,11 @@
 # Change logs
 
-## latest
+## 0.3.0
 - ceb
  - improve coverage
-- Template feature
 - FRP feature
  - improve coverage
-- CAQ feature
+- CQRS feature
  - add feature
 
 ## 0.2.4
