@@ -150,7 +150,9 @@ module.exports = function (grunt) {
                     'dist/ceb.js': ['src/ceb.js'],
                     'dist/ceb-feature-template.js': ['src/ceb-feature-template.js'],
                     'dist/ceb-feature-frp.js': ['src/ceb-feature-frp.js'],
-                    'dist/ceb-feature-frp-rx.js': ['src/ceb-feature-frp-rx.js']
+                    'dist/ceb-feature-frp-rx.js': ['src/ceb-feature-frp-rx.js'],
+                    'dist/ceb-feature-cqrs.js': ['src/ceb-feature-cqrs.js'],
+                    'dist/ceb-feature-cqrs-rx.js': ['src/ceb-feature-cqrs-rx.js']
                 }
             }
         },
@@ -170,7 +172,9 @@ module.exports = function (grunt) {
                     'dist/ceb.min.js': ['src/ceb.js'],
                     'dist/ceb-feature-template.min.js': ['src/ceb-feature-template.js'],
                     'dist/ceb-feature-frp.min.js': ['src/ceb-feature-frp.js'],
-                    'dist/ceb-feature-frp-rx.min.js': ['src/ceb-feature-frp-rx.js']
+                    'dist/ceb-feature-frp-rx.min.js': ['src/ceb-feature-frp-rx.js'],
+                    'dist/ceb-feature-cqrs.min.js': ['src/ceb-feature-cqrs.js'],
+                    'dist/ceb-feature-cqrs-rx.min.js': ['src/ceb-feature-cqrs-rx.js']
                 }
             }
         },
@@ -204,7 +208,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('sync-json', 'sync an input json file with output json files', function (givenTargetName) {
         var targets = Object.assign({}, grunt.config.get('sync-json'));
-        if (targets.options) {
+        if(targets.options) {
             delete targets.options;
         }
 
@@ -226,10 +230,10 @@ module.exports = function (grunt) {
                     name: field.name,
                     value: input[field.name]
                 };
-                if (typeof field.value === 'string') {
+                if(typeof field.value === 'string') {
                     prop.value = input[field.value];
                 }
-                if (typeof field.value === 'function') {
+                if(typeof field.value === 'function') {
                     prop.value = field.value(input);
                 }
                 return prop;
@@ -242,7 +246,7 @@ module.exports = function (grunt) {
             grunt.log.ok(target.dest, 'written');
         }
 
-        if (targets.hasOwnProperty(givenTargetName)) {
+        if(targets.hasOwnProperty(givenTargetName)) {
             syncTarget(givenTargetName);
         } else {
             Object.getOwnPropertyNames(targets).forEach(syncTarget);
@@ -250,10 +254,10 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('serve', 'start the server and preview your app, --allow-remote for remote access', function () {
-        if (grunt.option('allow-remote')) {
+        if(grunt.option('allow-remote')) {
             grunt.config.set('connect.options.hostname', '0.0.0.0');
         }
-        if (grunt.option('livereload-only')) {
+        if(grunt.option('livereload-only')) {
             grunt.task.run([
                 'clean',
                 'concat',

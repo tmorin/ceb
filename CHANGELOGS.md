@@ -2,8 +2,18 @@
 
 ## latest
 - ceb
+ - improve coverage
 - Template feature
 - FRP feature
+ - improve coverage
+- CAQ feature
+ - add feature
+
+## 0.2.4
+- ceb
+ - fix dist directory is missing
+- FRP feature
+ - fix none disposable stream
 
 ## 0.2.3
 - ceb

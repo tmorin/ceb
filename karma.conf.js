@@ -16,6 +16,8 @@ module.exports = function (config) {
             'src/ceb-feature-template.js',
             'src/ceb-feature-frp.js',
             'src/ceb-feature-frp-rx.js',
+            'src/ceb-feature-cqrs.js',
+            'src/ceb-feature-cqrs-rx.js',
             'specs/**/*.spec.js'
         ],
 
@@ -47,7 +49,7 @@ module.exports = function (config) {
 
         autoWatch: false,
 
-        // browsers: ['IE'],
+        //  browsers: ['IE'],
         browsers: ['Firefox'],
 
         singleRun: true,
