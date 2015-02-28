@@ -4,9 +4,9 @@
     // Export the **ceb** function according the detected loader.
 
     /* istanbul ignore next */
-    if (typeof exports === 'object') {
+    if(typeof exports === 'object') {
         module.exports = factory();
-    } else if (typeof define === 'function' && define.amd) {
+    } else if(typeof define === 'function' && define.amd) {
         define('ceb', [], factory);
     } else {
         g.ceb = factory();
@@ -18,7 +18,7 @@
     // ## Polyfill
 
     /* istanbul ignore next */
-    if (!('assign' in Object)) {
+    if(!('assign' in Object)) {
         /* https://github.com/paulmillr/es6-shim/blob/master/es6-shim.js */
         Object.defineProperty(Object, 'assign', {
             configurable: true,
@@ -63,21 +63,21 @@
 
     // Apply an attribute value to an element.
     function applyAttributeValue(el, attName, value, isBoolean) {
-        if (isBoolean) {
+        if(isBoolean) {
             // Handle boolean value
-            if (value && !el.hasAttribute(attName)) {
+            if(value && !el.hasAttribute(attName)) {
                 // Set attribute only if the attribute is not preset
                 el.setAttribute(attName, '');
-            } else if (!value && el.hasAttribute(attName)) {
+            } else if(!value && el.hasAttribute(attName)) {
                 // The value is false so the attribute must be removed
                 el.removeAttribute(attName);
             }
         } else {
             // Handle none boolean value
-            if ((value === null || value === undefined) && el.hasAttribute(attName)) {
+            if((value === null || value === undefined) && el.hasAttribute(attName)) {
                 // There is no value, so the attribute must be removed
                 el.removeAttribute(attName);
-            } else if ((value !== null && value !== undefined) && el.getAttribute(attName) !== value) {
+            } else if((value !== null && value !== undefined) && el.getAttribute(attName) !== value) {
                 // Sync the attribute value with value
                 el.setAttribute(attName, value);
             }
@@ -104,7 +104,7 @@
         return function attributeAccessorSet(el, propName, value) {
             // By default, the attribute value is the set value.
             var attValue = value;
-            if (setter) {
+            if(setter) {
                 // The default value can be overridden by a given setter.
                 attValue = setter.call(el, el, propName, value);
             }
@@ -118,7 +118,7 @@
         return function attributeAccessorGet(el, propName) {
             // By default, the returned value is the attribute value.
             var value = isBoolean ? el.hasAttribute(attName) : el.getAttribute(attName);
-            if (getter) {
+            if(getter) {
                 // The returned value can be overridden by a given getter.
                 value = getter.call(el, el, propName, value);
             }
@@ -171,7 +171,7 @@
         });
         // Call setup functions according their features's levels.
         struct.features.sort(compareLevels).forEach(function (feature) {
-            if (feature.fn && feature.fn.setup) {
+            if(feature.fn && feature.fn.setup) {
                 feature.fn.setup(struct, b, feature.options);
             }
         });
@@ -198,30 +198,30 @@
                 enumerable: true
             };
 
-            if (property.attribute) {
+            if(property.attribute) {
                 // Create attribute accessors.
                 property.set = attributeAccessorSetFactory(property.attName, property.setter, !!property.attribute.boolean);
                 property.get = attributeAccessorGetFactory(property.attName, property.getter, !!property.attribute.boolean);
-            } else if (property.hasOwnProperty('value') && property.hasOwnProperty('writable') && !property.writable) {
+            } else if(property.hasOwnProperty('value') && property.hasOwnProperty('writable') && !property.writable) {
                 // A constant has a value which is not writable.
                 definedProperty.value = property.value;
                 definedProperty.writable = false;
-                if (property.hasOwnProperty('enumerable')) {
+                if(property.hasOwnProperty('enumerable')) {
                     definedProperty.enumerable = property.enumerable;
                 }
-            } else if (!property.set && !property.get) {
+            } else if(!property.set && !property.get) {
                 // A none constant property without accessor must be writable.
                 definedProperty.writable = true;
             }
 
-            if (!definedProperty.hasOwnProperty('writable')) {
+            if(!definedProperty.hasOwnProperty('writable')) {
                 // Create the property's function set and get according to their interceptors.
                 var interceptors = struct.interceptors[property.propName] || {};
-                if (property.set) {
+                if(property.set) {
                     var setStack = interceptors.set || [];
                     definedProperty.set = accessorFactory(setStack, property.set, property.propName);
                 }
-                if (property.get) {
+                if(property.get) {
                     var getStack = interceptors.get || [];
                     definedProperty.get = accessorFactory(getStack, property.get, property.propName);
                 }
@@ -297,21 +297,21 @@
         // Logic should be done after the effective write.
         var target = el.querySelector(property.delegate.target);
         /* istanbul ignore else  */
-        if (target) {
+        if(target) {
             // Resolve the eventual targeted property's name or attribute's name.
             var targetPropName = property.delegate.property;
             var targetAttName = property.delegate.attribute;
-            if (!targetPropName && !targetAttName) {
+            if(!targetPropName && !targetAttName) {
                 targetPropName = property.propName;
                 targetAttName = property.attName;
             }
             // Check the boolean nature of the value.
             var isBoolean = property.attribute && !!property.attribute.boolean;
-            if (property.delegate.hasOwnProperty('boolean')) {
+            if(property.delegate.hasOwnProperty('boolean')) {
                 isBoolean = property.delegate.boolean;
             }
             // Apply change to the child.
-            if (targetAttName) {
+            if(targetAttName) {
                 // Update the child's attribute value.
                 applyAttributeValue(target, targetAttName, value, isBoolean);
             } else {
@@ -327,21 +327,21 @@
         // Logic should be done after the effective write.
         var target = el.querySelector(property.delegate.target);
         /* istanbul ignore else  */
-        if (target) {
+        if(target) {
             // Resolve the eventual targeted property's name or attribute's name.
             var targetPropName = property.delegate.property;
             var targetAttName = property.delegate.attribute;
-            if (!targetPropName && !targetAttName) {
+            if(!targetPropName && !targetAttName) {
                 targetPropName = property.propName;
                 targetAttName = property.attName;
             }
             // Check the boolean nature of the value.
             var isBoolean = property.attribute && !!property.attribute.boolean;
-            if (property.delegate.hasOwnProperty('boolean')) {
+            if(property.delegate.hasOwnProperty('boolean')) {
                 isBoolean = property.delegate.boolean;
             }
             // Get value from the child.
-            if (targetAttName) {
+            if(targetAttName) {
                 // Get the child's attribute value.
                 result = isBoolean ? target.hasAttribute(targetAttName) : target.getAttribute(targetAttName);
             } else {
@@ -369,7 +369,7 @@
         listValues(struct.properties).filter(function (property) {
             return property.delegate;
         }).forEach(function (property) {
-            if (!property.attName) {
+            if(!property.attName) {
                 // Force the existence of getter and setter to handle interception.
                 property.set = property.set || emptyFn();
                 property.get = property.get || emptyFn();
@@ -388,9 +388,9 @@
                 // Skip only properties having an attribute's value set.
                 return !el.hasAttribute(property.attName);
             }).forEach(function (property) {
-                if (property.hasOwnProperty('value') && property.writable) {
+                if(property.hasOwnProperty('value') && property.writable) {
                     el[property.propName] = property.value;
-                } else if (property.valueFactory) {
+                } else if(property.valueFactory) {
                     el[property.propName] = property.valueFactory(el);
                 }
             });
@@ -424,7 +424,7 @@
         // Wrap the method detachedCallback.
         builder.wrap('detachedCallback', function (next, el) {
             // Remove the event listeners before the call of the detachedCallback method.
-            (el.__eventHandlers || []).forEach(function (handler) {
+            el.__eventHandlers.forEach(function (handler) {
                 handler.target.removeEventListener(handler.event, handler.callback, true);
             });
             el.__eventHandlers = null;
@@ -434,12 +434,12 @@
         builder.wrap('attributeChangedCallback', function (next, el, attName, oldVal, newVal) {
             // Synchronize the attributes' values with their properties
             var property = struct.attributes[attName];
-            if (property) {
+            if(property) {
                 var value = newVal;
-                if (property.attribute.boolean) {
+                if(property.attribute.boolean) {
                     value = typeof newVal === 'string' ? true : false;
                 }
-                if (el[property.propName] !== value) {
+                if(el[property.propName] !== value) {
                     el[property.propName] = value;
                 }
             }
@@ -465,7 +465,7 @@
 
     // Sanitize the properties on the fly
     function sanitizeProperty(property) {
-        if (property.attribute) {
+        if(property.attribute) {
             // A property linked to an attribute must have a valid attribute name
             property.attName = fromCamelCaseToHyphenCase(property.attribute.name || property.propName);
         }
@@ -485,7 +485,7 @@
         var api = {};
         // Add a wrapper to the structure.
         api.wrap = function (methName, fn, level) {
-            if (!struct.wrappers[methName]) {
+            if(!struct.wrappers[methName]) {
                 struct.wrappers[methName] = [];
             }
             fn.level = isNaN(level) ? 0 : level;
@@ -494,17 +494,17 @@
         };
         // Add an interceptor to the structure.
         api.intercept = function (propName, setFn, getFn, level) {
-            if (!struct.interceptors[propName]) {
+            if(!struct.interceptors[propName]) {
                 struct.interceptors[propName] = {
                     set: [],
                     get: []
                 };
             }
-            if (setFn) {
+            if(setFn) {
                 setFn.level = isNaN(level) ? 0 : level;
                 struct.interceptors[propName].set.push(setFn);
             }
-            if (getFn) {
+            if(getFn) {
                 getFn.level = isNaN(level) ? 0 : level;
                 struct.interceptors[propName].get.push(getFn);
             }
@@ -526,7 +526,7 @@
                 var givenValue = someProperties[propName];
                 var currentValue = struct.properties[propName];
                 return Object.assign({
-                    propName:propName
+                    propName: propName
                 }, givenValue, currentValue || {});
             }).map(sanitizeProperty).reduce(function (previous, current) {
                 previous[current.propName] = current;
@@ -565,7 +565,7 @@
         };
         // Register the custom element if not already done.
         api.register = function () {
-            if (!registered) {
+            if(!registered) {
                 registered = true;
                 return build(struct);
             }

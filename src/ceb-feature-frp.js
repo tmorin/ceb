@@ -4,9 +4,9 @@
     // Export the **ceb-feature-frp** function according the detected loader.
 
     /* istanbul ignore next */
-    if (typeof exports === 'object') {
+    if(typeof exports === 'object') {
         module.exports = factory();
-    } else if (typeof define === 'function' && define.amd) {
+    } else if(typeof define === 'function' && define.amd) {
         define('ceb-feature-frp', [], factory);
     } else {
         g.cebFeatureFrp = factory();
@@ -19,34 +19,18 @@
 
     // The FRP feature's function returns nothing for public API.
     function feature(el) {
-        if (!el.__cebFrpScope) {
+        if(!el.__cebFrpScope) {
             el.__cebFrpScope = {};
         }
         return el.__cebFrpScope;
     }
 
-    // ## Observer factory
-
-    feature.disposable = function (disposableFactory) {
-        disposableFactory.handlers = function (handlersFactory) {
-            return function (el) {
-                var disposable = disposableFactory(el);
-                var anotherDisposable = handlersFactory(el, disposable);
-                if (anotherDisposable) {
-                    return anotherDisposable;
-                }
-                return disposable;
-            };
-        };
-        return disposableFactory;
-    };
-
     // ## Default library
 
-    feature.defaultLibraries = 'none';
+    feature.defaultLibrary = 'none';
 
     feature.libraries = {
-         none: {}
+        none: {}
     };
 
     // This function must returns the instance to the property observer.
@@ -71,6 +55,22 @@
     /* istanbul ignore next */
     feature.libraries.none.disposeDisposable = function defaultDisposeDisposable(observer) {
         throw new Error('not implemented!');
+    };
+
+    // ## Observer factory
+
+    feature.disposable = function (disposableFactory) {
+        disposableFactory.handlers = function (handlersFactory) {
+            return function (el) {
+                var disposable = disposableFactory(el);
+                var anotherDisposable = handlersFactory(el, disposable);
+                if(anotherDisposable) {
+                    return anotherDisposable;
+                }
+                return disposable;
+            };
+        };
+        return disposableFactory;
     };
 
     // ## Setup
@@ -102,7 +102,7 @@
                 valueFactory: propertyObserverFactory
             };
             // Set is required for interception
-            if (!entry.property.attName && !entry.property.set) {
+            if(!entry.property.attName && !entry.property.set) {
                 entry.property.set = emptyFn();
             }
             // Register the interceptor which will sync the observer with the property's value.
@@ -123,12 +123,12 @@
         builder.wrap('attachedCallback', function (next, el) {
             // When the element is attached the observers of properties must be available ...
             Object.keys(observerProperties).forEach(function (propName) {
-                if (!el[propName]) {
+                if(!el[propName]) {
                     el[propName] = propertyObserverFactory(el);
                 }
             });
             // ... and the others observers too.
-            if (!feature(el).disposables) {
+            if(!feature(el).disposables) {
                 feature(el).disposables = (options.disposables || []).map(function (disposableFactory) {
                     return disposableFactory(el);
                 });
