@@ -1,6 +1,6 @@
 {
   "name": "custom-elements-builder",
-  "version": "0.3.0",
+  "version": "0.3.1-alpha.0",
   "description": "Custom Elements Builder (ceb) is ... a builder for Custom Elements.",
   "keywords": [
     "Web",
