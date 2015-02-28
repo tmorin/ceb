@@ -141,6 +141,11 @@ describe('ceb-feature-frp', function () {
                             return {};
                         }).handlers(function () {
                             return disposable3;
+                        }),
+                        cebFeatureFrp.disposable(function () {
+                            return {};
+                        }).handlers(function () {
+                            return {};
                         })
                     ]
                 }).register();
