@@ -1,7 +1,7 @@
 //
 //     custom-elements-builder 0.3.1-alpha.0 http://tmorin.github.io/custom-elements-builder
 //     Custom Elements Builder (ceb) is ... a builder for Custom Elements.
-//     Buil date: 2015-02-28
+//     Buil date: 2015-03-03
 //     Copyright 2015-2015 Thibault Morin
 //     Available under MIT license
 //
@@ -65,7 +65,7 @@
             return evt.name === evtName;
         });
         return evtStream.subscribe(function (evt) {
-            var stream = prepareFn ? prepareFn(el, Rx.Observable.just(evt)) : evtStream;
+            var stream = prepareFn ? prepareFn(el, Rx.Observable.just(evt)) : Rx.Observable.just(evt);
             stream.subscribe(function (value) {
                 processFn(el, evt, value);
             });
