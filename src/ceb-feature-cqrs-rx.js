@@ -58,7 +58,7 @@
             return evt.name === evtName;
         });
         return evtStream.subscribe(function (evt) {
-            var stream = prepareFn ? prepareFn(el, Rx.Observable.just(evt)) : evtStream;
+            var stream = prepareFn ? prepareFn(el, Rx.Observable.just(evt)) : Rx.Observable.just(evt);
             stream.subscribe(function (value) {
                 processFn(el, evt, value);
             });
