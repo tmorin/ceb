@@ -1,5 +1,5 @@
 //
-//     custom-elements-builder 0.3.1 http://tmorin.github.io/custom-elements-builder
+//     custom-elements-builder 0.3.2-alpha.0 http://tmorin.github.io/custom-elements-builder
 //     Custom Elements Builder (ceb) is ... a builder for Custom Elements.
 //     Buil date: 2015-03-03
 //     Copyright 2015-2015 Thibault Morin

@@ -10,7 +10,7 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        nextVersion: '0.3.1',
+        nextVersion: '0.3.2-alpha.0',
 
         watch: {
             js: {
