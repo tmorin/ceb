@@ -1,5 +1,9 @@
 # Change logs
 
+## 0.3.1
+- CQRS feature
+ - fix event listener builder
+
 ## 0.3.0
 - ceb
  - improve coverage
