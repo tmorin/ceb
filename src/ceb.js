@@ -455,7 +455,7 @@
             properties: {},
             methods: {},
             wrappers: [],
-            interceptors: [],
+            interceptors: {},
             listeners: [],
             features: [{
                 fn: builtInFeature

@@ -1,5 +1,9 @@
 # Change logs
 
+## 0.3.2
+- ceb
+ - fix delegate properties registration
+
 ## 0.3.1
 - CQRS feature
  - fix event listener builder
