@@ -1,5 +1,10 @@
 # Change logs
 
+## 0.3.3
+- ceb
+ - downgrade webcomponents.js
+ - add multiple target for properties delegation
+
 ## 0.3.2
 - ceb
  - fix delegate properties registration
