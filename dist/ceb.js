@@ -1,7 +1,7 @@
 //
-//     custom-elements-builder 0.3.2 http://tmorin.github.io/custom-elements-builder
+//     custom-elements-builder 0.3.3 http://tmorin.github.io/custom-elements-builder
 //     Custom Elements Builder (ceb) is ... a builder for Custom Elements.
-//     Buil date: 2015-03-04
+//     Buil date: 2015-03-06
 //     Copyright 2015-2015 Thibault Morin
 //     Available under MIT license
 //
@@ -302,9 +302,8 @@
     function delegableSetAccessorInterceptor(property, next, el, propName, value) {
         next(value);
         // Logic should be done after the effective write.
-        var target = el.querySelector(property.delegate.target);
-        /* istanbul ignore else  */
-        if(target) {
+        var targets = [].slice.call(el.querySelectorAll(property.delegate.target));
+        targets.forEach(function (target) {
             // Resolve the eventual targeted property's name or attribute's name.
             var targetPropName = property.delegate.property;
             var targetAttName = property.delegate.attribute;
@@ -325,7 +324,7 @@
                 // Update the child's property value.
                 target[targetPropName] = value;
             }
-        }
+        });
     }
 
     // Intercept read accesses of delegable properties.
