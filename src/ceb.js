@@ -295,9 +295,8 @@
     function delegableSetAccessorInterceptor(property, next, el, propName, value) {
         next(value);
         // Logic should be done after the effective write.
-        var target = el.querySelector(property.delegate.target);
-        /* istanbul ignore else  */
-        if(target) {
+        var targets = [].slice.call(el.querySelectorAll(property.delegate.target));
+        targets.forEach(function (target) {
             // Resolve the eventual targeted property's name or attribute's name.
             var targetPropName = property.delegate.property;
             var targetAttName = property.delegate.attribute;
@@ -318,7 +317,7 @@
                 // Update the child's property value.
                 target[targetPropName] = value;
             }
-        }
+        });
     }
 
     // Intercept read accesses of delegable properties.
