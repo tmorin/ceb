@@ -1,7 +1,7 @@
 {
     "name": "custom-elements-builder",
     "version": "0.3.3",
-    "description": "Custom Elements Builder (ceb) is ... a builder for Custom Elements.",
+    "description": "Just a Custom Elements builder, natively scalable and designed for FRP.",
     "keywords": [
         "Web",
         "Components",
