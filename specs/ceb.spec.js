@@ -220,7 +220,7 @@ describe('A custom element', function () {
                     evt = new CustomEvent('anevent', {
                         'bubbles': true
                     });
-                } catch (e) {
+                } catch(e) {
                     evt = document.createEvent('CustomEvent');
                     evt.initCustomEvent('anevent', true, true, {});
                 }
@@ -257,7 +257,7 @@ describe('A custom element', function () {
 
             try {
                 ce.c1 = v2;
-            } catch (e) {
+            } catch(e) {
                 error = e;
             }
             setTimeout(done, 0);
@@ -287,7 +287,7 @@ describe('A custom element', function () {
 
             try {
                 ce.c1 = v2;
-            } catch (e) {
+            } catch(e) {
                 error = e;
             }
             setTimeout(done, 0);
@@ -308,7 +308,7 @@ describe('A custom element', function () {
             ce = insertCeAndGet();
             try {
                 ce.c1 = null;
-            } catch (e) {} finally {
+            } catch(e) {} finally {
                 expect(iSet1.called && iSet1.called).to.false();
             }
             r = ce.c1;
@@ -328,7 +328,7 @@ describe('A custom element', function () {
         });
         it('should exist', function () {
             /* jshint -W103 */
-            if (ce.__proto__) {
+            if(ce.__proto__) {
                 expect(ce.__proto__).to.have.ownProperty('p1');
             }
             /* jshint +W103 */
@@ -936,6 +936,7 @@ describe('A custom element', function () {
                     m1: m1,
                     m2: m2
                 });
+                builder.feature(f2, opt2, 2);
             };
             Ce = ceb().name(tagName).feature(f1, opt1).register();
             ce = insertCeAndGet();
@@ -943,6 +944,10 @@ describe('A custom element', function () {
         it('should create functions', function () {
             expect(ce.m1).to.be.instanceOf(Function);
             expect(ce.m2).to.be.instanceOf(Function);
+        });
+        it('should execute setup method', function () {
+            expect(f2.setup.calledWith(sinon.match.object, sinon.match.object, opt1)).to.be.true();
+            expect(f2.setup.callCount).to.be.eq(1);
         });
     });
 

@@ -1,7 +1,7 @@
 {
     "name": "custom-elements-builder",
     "description": "Custom Elements Builder (ceb) is ... a builder for Custom Elements.",
-    "version": "0.3.4.alpha.0",
+    "version": "0.3.3",
     "main": "dist/ceb.js",
     "keywords": [
         "Web",
@@ -26,7 +26,7 @@
     "authors": [
         {
             "name": "Thibault Morin",
-            "url": "https://github.com/tmorin"
+            "url": "https://tmorin.github.io"
         }
     ]
 }

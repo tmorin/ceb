@@ -163,14 +163,15 @@
     }
 
     // Call the setup's method of features.
-    function setupFeatures(struct) {
+    function setupFeatures(struct, features) {
         // Create a builder from the current structure.
         var b = builder(struct.tagName, {
             struct: struct,
-            registered: true
+            registered: true,
+            executeFeature: true
         });
         // Call setup functions according their features's levels.
-        struct.features.sort(compareLevels).forEach(function (feature) {
+        (features ||struct.features).sort(compareLevels).forEach(function (feature) {
             if(feature.fn && feature.fn.setup) {
                 feature.fn.setup(struct, b, feature.options);
             }
@@ -481,6 +482,7 @@
         struct.tagName = tagName;
         // A strucuture which is already registered will not register the custom element twice.
         var registered = params && params.hasOwnProperty('registered') ? params.registered : false;
+        var executeFeature = params && params.hasOwnProperty('executeFeature') ? params.executeFeature : false;
         var api = {};
         // Add a wrapper to the structure.
         api.wrap = function (methName, fn, level) {
@@ -555,11 +557,15 @@
         };
         // Add a feature to the structure.
         api.feature = function (fn, options, level) {
-            struct.features.push({
+            var feature = {
                 fn: fn,
                 options: options || {},
                 level: isNaN(level) ? 0 : level
-            });
+            };
+            struct.features.push(feature);
+            if (executeFeature) {
+                setupFeatures(struct, [feature]);
+            }
             return api;
         };
         // Register the custom element if not already done.

@@ -10,7 +10,7 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        nextVersion: '0.3.4.alpha.0',
+        nextVersion: '0.3.3',
 
         watch: {
             js: {
@@ -135,6 +135,7 @@ module.exports = function (grunt) {
                         'sinon/pkg/sinon-1.12.2.js',
                         'mocha/mocha.css',
                         'mocha/mocha.js',
+                        'sinon/pkg/sinon.js',
                     ],
                     dest: '.tmp/deps'
                 }]
