@@ -1,5 +1,9 @@
 # Change logs
 
+## 0.3.4
+- ceb
+ - fix features calling features
+
 ## 0.3.3
 - ceb
  - downgrade webcomponents.js
