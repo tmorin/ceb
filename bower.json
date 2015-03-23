@@ -1,32 +1,32 @@
 {
-  "name": "custom-elements-builder",
-  "description": "Just a Custom Elements builder, natively scalable and designed for FRP.",
-  "version": "0.3.4",
-  "main": "dist/ceb.js",
-  "keywords": [
-    "Web",
-    "Components",
-    "Custom",
-    "Element",
-    "Elements",
-    "DOM",
-    "W3C",
-    "FRP",
-    "functional",
-    "reactive",
-    "template",
-    "builder"
-  ],
-  "homepage": "https://tmorin.github.io/custom-elements-builder",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/tmorin/custom-elements-builder.git"
-  },
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Thibault Morin",
-      "url": "https://tmorin.github.io"
-    }
-  ]
+    "name": "custom-elements-builder",
+    "description": "Just a Custom Elements builder, natively scalable and designed for FRP.",
+    "version": "0.3.4",
+    "main": "dist/ceb.js",
+    "keywords": [
+        "Web",
+        "Components",
+        "Custom",
+        "Element",
+        "Elements",
+        "DOM",
+        "W3C",
+        "FRP",
+        "functional",
+        "reactive",
+        "template",
+        "builder"
+    ],
+    "homepage": "https://tmorin.github.io/custom-elements-builder",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/tmorin/custom-elements-builder.git"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thibault Morin",
+            "url": "https://tmorin.github.io"
+        }
+    ]
 }

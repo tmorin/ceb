@@ -1,5 +1,5 @@
 //
-//     custom-elements-builder 0.3.4 http://tmorin.github.io/custom-elements-builder
+//     custom-elements-builder 0.3.5 http://tmorin.github.io/custom-elements-builder
 //     Just a Custom Elements builder, natively scalable and designed for FRP.
 //     Buil date: 2015-03-23
 //     Copyright 2015-2015 Thibault Morin
