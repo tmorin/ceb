@@ -38,7 +38,7 @@
     },
     "devDependencies": {
         "chai": "^1.10.0",
-        "document-register-element": "^0.1.6",
+        "document-register-element": "^0.2.1",
         "es6-shim": "^0.27.1  ",
         "grunt": "^0.4.5",
         "grunt-cli": "^0.1.13",
@@ -51,7 +51,7 @@
         "grunt-contrib-watch": "^0.6.1",
         "grunt-karma": "^0.10.1",
         "grunt-karma-coveralls": "^2.5.3",
-        "grunt-release": "^0.11.0",
+        "grunt-release": "^0.12.0",
         "jshint-stylish": "^1.0.0",
         "karma": "^0.12.28",
         "karma-chai-plugins": "^0.2.4",
