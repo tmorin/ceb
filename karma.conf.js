@@ -6,28 +6,28 @@ module.exports = function (config) {
 
         basePath: '',
 
-        frameworks: ['mocha', 'chai', 'sinon'],
+        frameworks: ['mocha', 'chai', 'sinon', 'browserify'],
 
         files: [
-            // 'node_modules/document-register-element/build/document-register-element.js',
+            'node_modules/babel/node_modules/babel-core/browser-polyfill.js',
+//            'node_modules/document-register-element/build/document-register-element.js',
             'node_modules/webcomponents.js/webcomponents-lite.min.js',
-            'node_modules/rx/dist/rx.lite.min.js',
-            'src/ceb.js',
-            'src/ceb-feature-template.js',
-            'src/ceb-feature-frp.js',
-            'src/ceb-feature-frp-rx.js',
-            'src/ceb-feature-cqrs.js',
-            'src/ceb-feature-cqrs-rx.js',
-            'specs/**/*.spec.js'
+            'src/lib/**/*.js',
+            'src/test/**/*.spec.js'
         ],
 
         exclude: [],
 
         preprocessors: {
-            'src/**/*.js': ['coverage']
+            'src/lib/**/*.js': ['browserify'/*, 'coverage'*/],
+            'src/test/**/*.spec.js': ['browserify'/*, 'coverage'*/],
         },
 
-        reporters: ['progress', 'coverage'],
+        browserify: {
+            transform: ['babelify']
+        },
+
+        reporters: ['progress'/*, 'coverage'*/],
 
         coverageReporter: {
             dir: './.tmp/cov',
@@ -49,15 +49,15 @@ module.exports = function (config) {
 
         autoWatch: false,
 
-        // browsers: ['IE'],
+        //browsers: ['IE'],
+//        browsers: ['Chrome'],
         browsers: ['Firefox'],
 
         singleRun: true,
 
         client: {
             mocha: {
-                reporter: 'html',
-                ui: 'tdd'
+                reporter: 'html'
             }
         }
 

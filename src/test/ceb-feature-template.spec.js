@@ -1,5 +1,8 @@
+import ceb from '../lib/ceb';
+import cebFeatureTemplate from '../lib/ceb-feature-template';
+
 describe('ceb-feature-template', function () {
-    'use strict';
+    /*jshint -W030 */
 
     var sandbox = document.createElement('div'),
         counter = 0,
@@ -31,16 +34,16 @@ describe('ceb-feature-template', function () {
             setTimeout(done, timeout);
         });
         it('should contains the templated nodes', function () {
-            expect(ce.querySelector('button.child')).to.exist();
-            expect(ce.querySelector('div.child.content')).to.exist();
-            expect(ce.querySelector('footer.child')).to.exist();
+            expect(ce.querySelector('button.child')).to.exist;
+            expect(ce.querySelector('div.child.content')).to.exist;
+            expect(ce.querySelector('footer.child')).to.exist;
         });
         it('should contains the initial light DOM', function () {
-            expect(ce.querySelector('div.child.content > span.lightDOM')).to.exist();
+            expect(ce.querySelector('div.child.content > span.lightDOM')).to.exist;
         });
         it('should have the linked nodes', function () {
-            expect(cebFeatureTemplate(ce).button).to.exist();
-            expect(cebFeatureTemplate(ce).footer).to.exist();
+            expect(cebFeatureTemplate(ce).button).to.exist;
+            expect(cebFeatureTemplate(ce).footer).to.exist;
         });
         describe('when the custom element is deeply cloned', function () {
             beforeEach(function (done) {
@@ -49,12 +52,12 @@ describe('ceb-feature-template', function () {
                 setTimeout(done, timeout);
             });
             it('should contains the templated nodes', function () {
-                expect(clonedCe.querySelector('button.child')).to.exist();
-                expect(clonedCe.querySelector('div.child.content')).to.exist();
-                expect(clonedCe.querySelector('footer.child')).to.exist();
+                expect(clonedCe.querySelector('button.child')).to.exist;
+                expect(clonedCe.querySelector('div.child.content')).to.exist;
+                expect(clonedCe.querySelector('footer.child')).to.exist;
             });
             it('should contains the initial light DOM', function () {
-                expect(clonedCe.querySelector('div.child.content > span.lightDOM')).to.exist();
+                expect(clonedCe.querySelector('div.child.content > span.lightDOM')).to.exist;
                 expect(clonedCe.querySelector('div.child.content > span.lightDOM').children.length).to.be.eq(0);
             });
         });
@@ -79,10 +82,10 @@ describe('ceb-feature-template', function () {
             setTimeout(done, timeout);
         });
         it('should contains the templated nodes', function () {
-            expect(ce.querySelector('ul.tag1 > li.content >' + tagName2 + ' > ul.tag2 > li.content > div')).to.exist();
+            expect(ce.querySelector('ul.tag1 > li.content >' + tagName2 + ' > ul.tag2 > li.content > div')).to.exist;
         });
         it('should contains the initial light DOM', function () {
-            expect(ce.querySelector('ul.tag1 > li.content >' + tagName2 + ' > ul.tag2 > li.content > div > ' + tagName3 + ' > ul.tag3 > li.content > div > .lightDOM')).to.exist();
+            expect(ce.querySelector('ul.tag1 > li.content >' + tagName2 + ' > ul.tag2 > li.content > div > ' + tagName3 + ' > ul.tag3 > li.content > div > .lightDOM')).to.exist;
         });
         describe('when the custom element is deeply cloned', function () {
             beforeEach(function (done) {
@@ -91,10 +94,10 @@ describe('ceb-feature-template', function () {
                 setTimeout(done, timeout);
             });
             it('should contains the templated nodes', function () {
-                expect(clonedCe.querySelector('ul.tag1 > li.content > ' + tagName2 + ' > ul.tag2 > li.content > div')).to.exist();
+                expect(clonedCe.querySelector('ul.tag1 > li.content > ' + tagName2 + ' > ul.tag2 > li.content > div')).to.exist;
             });
             it('should contains the initial light DOM', function () {
-                expect(clonedCe.querySelector('ul.tag1 > li.content > ' + tagName2 + ' > ul.tag2 > li.content > div >' + tagName3 + ' > ul.tag3 > li.content > div > .lightDOM')).to.exist();
+                expect(clonedCe.querySelector('ul.tag1 > li.content > ' + tagName2 + ' > ul.tag2 > li.content > div >' + tagName3 + ' > ul.tag3 > li.content > div > .lightDOM')).to.exist;
             });
             it('should get the right contentNode', function () {
                 expect(clonedCe.contentNode).to.be.eq(clonedCe.querySelector('ul.tag1 > li.content > ' + tagName2 + ' > ul.tag2 > li.content > div'));
@@ -110,7 +113,7 @@ describe('ceb-feature-template', function () {
             setTimeout(done, timeout);
         });
         it('should contains light DOM', function () {
-            expect(ce.querySelector('span.lightDOM')).to.not.exist();
+            expect(ce.querySelector('span.lightDOM')).to.not.exist;
         });
     });
 

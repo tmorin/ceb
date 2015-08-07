@@ -1,5 +1,8 @@
+import ceb from '../lib/ceb';
+import cebFeatureCqrs from '../lib/ceb-feature-cqrs-rx';
+
 describe('ceb-feature-cqrs', function() {
-    'use strict';
+    /*jshint -W030 */
 
     cebFeatureCqrs.defaultLibrary = 'Rx';
 
@@ -60,7 +63,7 @@ describe('ceb-feature-cqrs', function() {
                         setTimeout(done, timeout);
                     });
                     it('should be disposed', function () {
-                        expect(cebFeatureCqrs(ce).handlers).to.be.null();
+                        expect(cebFeatureCqrs(ce).handlers).to.be.null;
                     });
                     describe('when the element is attached', function () {
                         beforeEach(function (done) {
@@ -68,7 +71,7 @@ describe('ceb-feature-cqrs', function() {
                             setTimeout(done, timeout);
                         });
                         it('should be disposed', function () {
-                            expect(cebFeatureCqrs(ce).handlers).to.be.not.null();
+                            expect(cebFeatureCqrs(ce).handlers).to.be.not.null;
                         });
                     });
                 });
@@ -111,7 +114,7 @@ describe('ceb-feature-cqrs', function() {
                         setTimeout(done, timeout);
                     });
                     it('should be disposed', function () {
-                        expect(cebFeatureCqrs(ce).listeners).to.be.null();
+                        expect(cebFeatureCqrs(ce).listeners).to.be.null;
                     });
                     describe('when the element is attached', function () {
                         beforeEach(function (done) {
@@ -119,7 +122,7 @@ describe('ceb-feature-cqrs', function() {
                             setTimeout(done, timeout);
                         });
                         it('should be disposed', function () {
-                            expect(cebFeatureCqrs(ce).listeners).to.be.not.null();
+                            expect(cebFeatureCqrs(ce).listeners).to.be.not.null;
                         });
                     });
                 });

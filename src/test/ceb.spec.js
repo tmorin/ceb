@@ -1,5 +1,7 @@
+import ceb from '../lib/ceb.js';
+
 describe('A custom element', function () {
-    'use strict';
+    /*jshint -W030 */
 
     function insertCeAndGet() {
         var ce = document.createElement(tagName);
@@ -116,10 +118,10 @@ describe('A custom element', function () {
             second = builder.register();
         });
         it('should be regsitered the first time', function () {
-            expect(first).to.exist();
+            expect(first).to.exist;
         });
         it('should not be registered the second time', function () {
-            expect(second).to.not.exist();
+            expect(second).to.not.exist;
         });
     });
 
@@ -194,12 +196,12 @@ describe('A custom element', function () {
             ce.m1(arg1, arg2, arg3);
         });
         it('should be called with the rights arguments', function () {
-            expect(w1.calledWith(sinon.match.func, ce, arg1, arg2, arg3)).to.true();
-            expect(w2.calledWith(sinon.match.func, ce, arg1, arg2, arg3)).to.true();
+            expect(w1.calledWith(sinon.match.func, ce, arg1, arg2, arg3)).to.true;
+            expect(w2.calledWith(sinon.match.func, ce, arg1, arg2, arg3)).to.true;
         });
         it('should be called with the right order', function () {
-            expect(w2.getCall(0).callId < w1.getCall(0).callId).to.true();
-            expect(w1.getCall(0).callId < m1.getCall(0).callId).to.true();
+            expect(w2.getCall(0).callId < w1.getCall(0).callId).to.true;
+            expect(w1.getCall(0).callId < m1.getCall(0).callId).to.true;
         });
     });
 
@@ -237,7 +239,7 @@ describe('A custom element', function () {
                 setTimeout(done, 50);
             });
             it('should be removed', function () {
-                expect(ce.__eventHandlers).to.be.null();
+                expect(ce.__eventHandlers).to.be.null;
             });
         });
     });
@@ -264,10 +266,10 @@ describe('A custom element', function () {
         });
         it('should not be writable', function () {
             expect(ce.c1).to.eq(v1);
-            expect(!!error || ce.c1 === v1).to.true();
+            expect(!!error || ce.c1 === v1).to.true;
         });
         it('should be enumerated', function () {
-            expect(Object.keys(struct.prototype).indexOf('c1') > -1).to.be.true();
+            expect(Object.keys(struct.prototype).indexOf('c1') > -1).to.be.true;
         });
     });
 
@@ -293,7 +295,7 @@ describe('A custom element', function () {
             setTimeout(done, 0);
         });
         it('should not be enumerated', function () {
-            expect(Object.keys(struct.prototype).indexOf('c1') > -1).to.be.false();
+            expect(Object.keys(struct.prototype).indexOf('c1') > -1).to.be.false;
         });
     });
 
@@ -309,13 +311,13 @@ describe('A custom element', function () {
             try {
                 ce.c1 = null;
             } catch(e) {} finally {
-                expect(iSet1.called && iSet1.called).to.false();
+                expect(iSet1.called && iSet1.called).to.false;
             }
             r = ce.c1;
         });
         it('should not be called', function () {
-            expect(iGet1.called && iGet2.called).to.false();
-            expect(iGet1.called && iGet2.called).to.false();
+            expect(iGet1.called && iGet2.called).to.false;
+            expect(iGet1.called && iGet2.called).to.false;
         });
     });
 
@@ -389,11 +391,11 @@ describe('A custom element', function () {
         });
         it('should be called on set', function () {
             ce.p1 = v1;
-            expect(set1.calledWith(ce, 'p1', v1)).to.be.true();
+            expect(set1.calledWith(ce, 'p1', v1)).to.be.true;
         });
         it('should be called on get', function () {
             r = ce.p1;
-            expect(get1.calledWith(ce, 'p1')).to.be.true();
+            expect(get1.calledWith(ce, 'p1')).to.be.true;
         });
     });
 
@@ -409,8 +411,8 @@ describe('A custom element', function () {
                 ce.p1 = v1;
             });
             it('should not be called when the properties are set', function () {
-                expect(iSet1.called).to.be.false();
-                expect(iSet2.called).to.be.false();
+                expect(iSet1.called).to.be.false;
+                expect(iSet2.called).to.be.false;
             });
         });
         describe('', function () {
@@ -419,8 +421,8 @@ describe('A custom element', function () {
                 r = ce.p1;
             });
             it('should not be called when the properties are get', function () {
-                expect(iGet1.called).to.be.false();
-                expect(iGet1.called).to.be.false();
+                expect(iGet1.called).to.be.false;
+                expect(iGet1.called).to.be.false;
             });
         });
     });
@@ -446,9 +448,9 @@ describe('A custom element', function () {
                 ce.p1 = v1;
             });
             it('should be called', function () {
-                expect(set1.calledWith(ce, sinon.match.string, v1)).to.be.true();
-                expect(iSet1.calledWith(sinon.match.func, ce, sinon.match.string, v1)).to.be.true();
-                expect(iSet2.calledWith(sinon.match.func, ce, sinon.match.string, v1)).to.be.true();
+                expect(set1.calledWith(ce, sinon.match.string, v1)).to.be.true;
+                expect(iSet1.calledWith(sinon.match.func, ce, sinon.match.string, v1)).to.be.true;
+                expect(iSet2.calledWith(sinon.match.func, ce, sinon.match.string, v1)).to.be.true;
             });
         });
         describe('when properties are get', function () {
@@ -457,9 +459,9 @@ describe('A custom element', function () {
                 r = ce.p1;
             });
             it('should be called', function () {
-                expect(get1.calledWith(ce, sinon.match.string)).to.be.true();
-                expect(iGet1.calledWith(sinon.match.func, ce, sinon.match.string)).to.be.true();
-                expect(iGet2.calledWith(sinon.match.func, ce, sinon.match.string)).to.be.true();
+                expect(get1.calledWith(ce, sinon.match.string)).to.be.true;
+                expect(iGet1.calledWith(sinon.match.func, ce, sinon.match.string)).to.be.true;
+                expect(iGet2.calledWith(sinon.match.func, ce, sinon.match.string)).to.be.true;
             });
             it('should return values', function () {
                 expect(r).to.eq(v1);
@@ -492,7 +494,7 @@ describe('A custom element', function () {
                     ce.p1 = null;
                 });
                 it('should have attributes removed', function () {
-                    expect(ce.hasAttribute('p1')).to.be.false();
+                    expect(ce.hasAttribute('p1')).to.be.false;
                 });
             });
         });
@@ -511,7 +513,7 @@ describe('A custom element', function () {
                     ce.removeAttribute('p1');
                 });
                 it('should have properties set to null', function () {
-                    expect(ce.p1).to.be.null();
+                    expect(ce.p1).to.be.null;
                 });
             });
         });
@@ -533,14 +535,14 @@ describe('A custom element', function () {
                 ce.p1 = true;
             });
             it('should have attributes updated', function () {
-                expect(ce.hasAttribute('p1')).to.be.true();
+                expect(ce.hasAttribute('p1')).to.be.true;
             });
             describe('when properties are set to false', function () {
                 beforeEach(function () {
                     ce.p1 = false;
                 });
                 it('should have attributes removed', function () {
-                    expect(ce.hasAttribute('p1')).to.be.false();
+                    expect(ce.hasAttribute('p1')).to.be.false;
                 });
             });
         });
@@ -549,14 +551,14 @@ describe('A custom element', function () {
                 ce.setAttribute('p1', '');
             });
             it('should have properties set to true', function () {
-                expect(ce.p1).to.be.true();
+                expect(ce.p1).to.be.true;
             });
             describe('when properties are removed', function () {
                 beforeEach(function () {
                     ce.removeAttribute('p1');
                 });
                 it('should have properties set to false', function () {
-                    expect(ce.p1).to.be.false();
+                    expect(ce.p1).to.be.false;
                 });
             });
         });
@@ -593,7 +595,7 @@ describe('A custom element', function () {
                     ce.removeAttribute(a1bis);
                 });
                 it('should have properties set to null', function () {
-                    expect(ce.p1).to.be.null();
+                    expect(ce.p1).to.be.null;
                 });
             });
         });
@@ -639,7 +641,7 @@ describe('A custom element', function () {
         });
         it('should have attributes initialized according to their attribute value', function () {
             expect(ce.getAttribute('p1')).to.eq(v2);
-            expect(ce.hasAttribute('p2')).to.be.true();
+            expect(ce.hasAttribute('p2')).to.be.true;
         });
         it('should have properties initialized according to their attribute value', function () {
             expect(ce.p1).to.eq(v2);
@@ -663,14 +665,14 @@ describe('A custom element', function () {
                 ce.p1 = v1;
             });
             it('should be called when properties are set', function () {
-                expect(setter1.calledWith(ce, 'p1', v1)).to.be.true();
+                expect(setter1.calledWith(ce, 'p1', v1)).to.be.true;
             });
             describe('', function () {
                 beforeEach(function () {
                     r = ce.p1;
                 });
                 it('should be called when properties are get', function () {
-                    expect(getter1.calledWith(ce, 'p1', v1)).to.be.true();
+                    expect(getter1.calledWith(ce, 'p1', v1)).to.be.true;
                 });
             });
         });
@@ -690,16 +692,16 @@ describe('A custom element', function () {
                 ce.p1 = v1;
             });
             it('should be call', function () {
-                expect(iSet1.calledWith(sinon.match.func, ce, sinon.match.string, v1), 'iSet1 should be called').to.be.true();
-                expect(iSet2.calledWith(sinon.match.func, ce, sinon.match.string, v1), 'iSet2 should be called').to.be.true();
+                expect(iSet1.calledWith(sinon.match.func, ce, sinon.match.string, v1), 'iSet1 should be called').to.be.true;
+                expect(iSet2.calledWith(sinon.match.func, ce, sinon.match.string, v1), 'iSet2 should be called').to.be.true;
             });
             describe('when properties are get', function () {
                 beforeEach(function () {
                     r = ce.p1;
                 });
                 it('should be call', function () {
-                    expect(iGet1.calledWith(sinon.match.func, ce, sinon.match.string), 'iGet1 should be called').to.be.true();
-                    expect(iGet2.calledWith(sinon.match.func, ce, sinon.match.string), 'iGet2 should be called').to.be.true();
+                    expect(iGet1.calledWith(sinon.match.func, ce, sinon.match.string), 'iGet1 should be called').to.be.true;
+                    expect(iGet2.calledWith(sinon.match.func, ce, sinon.match.string), 'iGet2 should be called').to.be.true;
                 });
             });
         });
@@ -721,19 +723,19 @@ describe('A custom element', function () {
                 ce.p1 = v1;
             });
             it('should be called', function () {
-                expect(setter1.calledWith(ce, 'p1', v1), 'setter1 should be called').to.be.true();
-                expect(iSet1.calledWith(sinon.match.func, ce, 'p1', v1), 'iSet1 should be called').to.be.true();
-                expect(iSet2.calledWith(sinon.match.func, ce, 'p1', v1), 'iSet2 should be called').to.be.true();
+                expect(setter1.calledWith(ce, 'p1', v1), 'setter1 should be called').to.be.true;
+                expect(iSet1.calledWith(sinon.match.func, ce, 'p1', v1), 'iSet1 should be called').to.be.true;
+                expect(iSet2.calledWith(sinon.match.func, ce, 'p1', v1), 'iSet2 should be called').to.be.true;
             });
             describe('when properties are get', function () {
                 beforeEach(function () {
                     r = ce.p1;
                 });
                 it('should be called', function () {
-                    expect(getter1.calledWith(ce, 'p1'), 'getter1 should be called').to.be.true();
+                    expect(getter1.calledWith(ce, 'p1'), 'getter1 should be called').to.be.true;
                     expect(r, 'get value should be v1').to.eq(v1);
-                    expect(iGet1.calledWith(sinon.match.func, ce, 'p1'), 'iGet1 should be called').to.be.true();
-                    expect(iGet2.calledWith(sinon.match.func, ce, 'p1'), 'iGet2 should be called').to.be.true();
+                    expect(iGet1.calledWith(sinon.match.func, ce, 'p1'), 'iGet1 should be called').to.be.true;
+                    expect(iGet2.calledWith(sinon.match.func, ce, 'p1'), 'iGet2 should be called').to.be.true;
                 });
             });
         });
@@ -899,8 +901,8 @@ describe('A custom element', function () {
                 setTimeout(done, 0);
             });
             it('should delegate to the child', function () {
-                expect(child.hasAttribute('p4'), 'child attribute p4 should exist').to.be.true();
-                expect(ce.p4, 'ce.p4 should be true').to.be.true();
+                expect(child.hasAttribute('p4'), 'child attribute p4 should exist').to.be.true;
+                expect(ce.p4, 'ce.p4 should be true').to.be.true;
             });
             describe('when boolean attributes are removed delegating to other childs attributes', function () {
                 beforeEach(function (done) {
@@ -908,8 +910,8 @@ describe('A custom element', function () {
                     setTimeout(done, 0);
                 });
                 it('should delegate to the child', function () {
-                    expect(child.hasAttribute('p4'), 'child attribute p4 should not exist').to.be.false();
-                    expect(ce.p4, 'ce.p4 should be false').to.be.false();
+                    expect(child.hasAttribute('p4'), 'child attribute p4 should not exist').to.be.false;
+                    expect(ce.p4, 'ce.p4 should be false').to.be.false;
                 });
             });
         });
@@ -921,11 +923,11 @@ describe('A custom element', function () {
             ce = insertCeAndGet();
         });
         it('should be setup with the good arguments', function () {
-            expect(f1.setup.calledWith(sinon.match.object, sinon.match.object, opt1)).to.be.true();
-            expect(f2.setup.calledWith(sinon.match.object, sinon.match.object, opt1)).to.be.true();
+            expect(f1.setup.calledWith(sinon.match.object, sinon.match.object, opt1)).to.be.true;
+            expect(f2.setup.calledWith(sinon.match.object, sinon.match.object, opt1)).to.be.true;
         });
         it('should be setup according to their levels', function () {
-            expect(f2.setup.firstCall.callId > f1.setup.firstCall.callId).to.be.true();
+            expect(f2.setup.firstCall.callId > f1.setup.firstCall.callId).to.be.true;
         });
     });
 
@@ -946,7 +948,7 @@ describe('A custom element', function () {
             expect(ce.m2).to.be.instanceOf(Function);
         });
         it('should execute setup method', function () {
-            expect(f2.setup.calledWith(sinon.match.object, sinon.match.object, opt1)).to.be.true();
+            expect(f2.setup.calledWith(sinon.match.object, sinon.match.object, opt1)).to.be.true;
             expect(f2.setup.callCount).to.be.eq(1);
         });
     });

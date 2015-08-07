@@ -1,5 +1,9 @@
+import Rx from 'rx';
+import ceb from '../lib/ceb';
+import cebFeatureFrp from '../lib/ceb-feature-frp-rx';
+
 describe('ceb-feature-frp', function () {
-    'use strict';
+    /*jshint -W030 */
 
     cebFeatureFrp.defaultLibrary = 'Rx';
 
@@ -30,17 +34,17 @@ describe('ceb-feature-frp', function () {
         div = document.body.appendChild(sandbox).appendChild(document.createElement('div'));
         tagName = 'tag-ceb-feature-frp-' + (counter++);
 
-        disposable1 = new window.Rx.Subject();
+        disposable1 = new Rx.Subject();
         sinon.spy(disposable1, 'dispose');
         aDisposableFactory1 = sinon.stub().returns(disposable1);
         callback1 = sinon.spy();
 
-        disposable2 = new window.Rx.Subject();
+        disposable2 = new Rx.Subject();
         sinon.spy(disposable2, 'dispose');
         aDisposableFactory2 = sinon.stub().returns(disposable2);
         callback2 = sinon.spy();
 
-        disposable3 = new window.Rx.Subject();
+        disposable3 = new Rx.Subject();
         sinon.spy(disposable3, 'dispose');
         aDisposableFactory3 = sinon.stub().returns(disposable3);
         callback3 = sinon.spy();
@@ -69,9 +73,9 @@ describe('ceb-feature-frp', function () {
                 setTimeout(done, timeout);
             });
             it('should be have an observer', function () {
-                expect(ce.p1Observer).to.exist();
-                expect(ce.p2Observer).to.exist();
-                expect(ce.p3Observer).to.exist();
+                expect(ce.p1Observer).to.exist;
+                expect(ce.p2Observer).to.exist;
+                expect(ce.p3Observer).to.exist;
             });
             describe('when the property is set', function () {
                 beforeEach(function (done) {
@@ -84,9 +88,9 @@ describe('ceb-feature-frp', function () {
                     setTimeout(done, timeout);
                 });
                 it('should be observed', function () {
-                    expect(callback1.calledWith('test')).to.exist();
-                    expect(callback2.calledWith('test')).to.exist();
-                    expect(callback3.calledWith('test')).to.exist();
+                    expect(callback1.calledWith('test')).to.exist;
+                    expect(callback2.calledWith('test')).to.exist;
+                    expect(callback3.calledWith('test')).to.exist;
                 });
                 describe('when the element is cloned', function () {
                     beforeEach(function (done) {
@@ -103,7 +107,7 @@ describe('ceb-feature-frp', function () {
                             setTimeout(done, timeout);
                         });
                         it('should be observed', function () {
-                            expect(callback2.calledWith('test')).to.exist();
+                            expect(callback2.calledWith('test')).to.exist;
                         });
                     });
                 });
@@ -114,7 +118,7 @@ describe('ceb-feature-frp', function () {
                     setTimeout(done, timeout);
                 });
                 it('should not have observer', function () {
-                    expect(ce.p1Observer).to.not.exist();
+                    expect(ce.p1Observer).to.not.exist;
                 });
                 describe('when the element is attached', function () {
                     beforeEach(function (done) {
@@ -122,7 +126,7 @@ describe('ceb-feature-frp', function () {
                         setTimeout(done, timeout);
                     });
                     it('should have observer', function () {
-                        expect(ce.p1Observer).to.exist();
+                        expect(ce.p1Observer).to.exist;
                     });
                 });
             });
@@ -153,7 +157,7 @@ describe('ceb-feature-frp', function () {
                 setTimeout(done, timeout);
             });
             it('should be created', function () {
-                expect(aDisposableFactory1.calledWith(ce)).to.exist();
+                expect(aDisposableFactory1.calledWith(ce)).to.exist;
             });
             describe('when the element is detached', function () {
                 beforeEach(function (done) {
@@ -161,9 +165,9 @@ describe('ceb-feature-frp', function () {
                     setTimeout(done, timeout);
                 });
                 it('should be disposed', function () {
-                    expect(disposable1.dispose.called).to.be.true();
-                    expect(disposable3.dispose.called).to.be.true();
-                    expect(disposable3.dispose.called).to.be.true();
+                    expect(disposable1.dispose.called).to.be.true;
+                    expect(disposable3.dispose.called).to.be.true;
+                    expect(disposable3.dispose.called).to.be.true;
                 });
                 describe('when the element is attached', function () {
                     beforeEach(function (done) {
@@ -171,7 +175,7 @@ describe('ceb-feature-frp', function () {
                         setTimeout(done, timeout);
                     });
                     it('should be disposed', function () {
-                        expect(aDisposableFactory1.calledWith(ce)).to.exist();
+                        expect(aDisposableFactory1.calledWith(ce)).to.exist;
                     });
                 });
             });
