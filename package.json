@@ -31,7 +31,7 @@
     "url": "git://github.com/tmorin/custom-elements-builder.git"
   },
   "scripts": {
-    "test": "./node_modules/.bin/gulp karma",
+    "test": "./node_modules/.bin/gulp karma:sauce",
     "prepublish": "./node_modules/.bin/gulp"
   },
   "engines": {
