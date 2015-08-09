@@ -1,5 +1,6 @@
 /node_modules
 /lib
+/example
 /test
 /public
 /.idea

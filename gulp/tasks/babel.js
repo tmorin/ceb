@@ -15,4 +15,10 @@ gulp.task('babel:test', ['lint'], function() {
         .pipe(gulp.dest('test'));
 });
 
-gulp.task('babel', ['babel:lib', 'babel:test']);
+gulp.task('babel:example', ['lint'], function() {
+    return gulp.src(config.paths.example)
+        .pipe(babel())
+        .pipe(gulp.dest('example'));
+});
+
+gulp.task('babel', ['babel:lib', 'babel:test', 'babel:example']);

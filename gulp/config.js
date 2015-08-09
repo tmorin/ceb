@@ -6,7 +6,7 @@ module.exports = {
         entry: 'lib/ceb.js',
         distName: 'ceb',
         distPath: 'public'
-    }, {
+    }/*, {
         entry: [
             'lib/ceb.js',
             'lib/ceb-feature-cqrs.js',
@@ -18,19 +18,19 @@ module.exports = {
         exclude: ['rx'],
         distName: 'ceb-full',
         distPath: 'public'
-    }],
+    }*/],
     paths: {
         lib: 'src/lib/**/*.js',
         test: 'src/test/**/*.js',
-        example: 'example/**/*.js',
+        example: 'src/example/**/*.js',
         gulp: 'gulp/**/*.js',
-        clean: ['./lib', './test', './public']
+        clean: ['./lib', './test', './example', './public', './.tmp']
     },
     sauceTasks: {
         ie: ['slIe11', 'slIe10', 'slIe9'],
         evergreen: ['slChrome', 'slFirefox'],
         safari: ['slSafari7', 'slSafari8'],
-        android: ['slAndroid4', 'slAndroid5'],
+        android: ['slAndroid4', 'slAndroid5']
     },
     customLaunchers: {
         slChrome: {
@@ -71,12 +71,12 @@ module.exports = {
         slSafari7: {
             base: 'SauceLabs',
             browserName: 'safari',
-            version: '7',
+            version: '7'
         },
         slSafari8: {
             base: 'SauceLabs',
             browserName: 'safari',
-            version: '8',
+            version: '8'
         },
         slIPhone: {
             base: 'SauceLabs',

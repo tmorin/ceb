@@ -19,15 +19,15 @@ module.exports = function (config) {
         exclude: [],
 
         preprocessors: {
-            'src/lib/**/*.js': ['browserify'/*, 'coverage'*/],
-            'src/test/**/*.spec.js': ['browserify'/*, 'coverage'*/],
+            'src/lib/**/*.js': ['browserify', 'coverage'],
+            'src/test/**/*.spec.js': ['browserify', 'coverage'],
         },
 
         browserify: {
             transform: ['babelify']
         },
 
-        reporters: ['progress'/*, 'coverage'*/],
+        reporters: ['progress', 'coverage'],
 
         coverageReporter: {
             dir: './.tmp/cov',
