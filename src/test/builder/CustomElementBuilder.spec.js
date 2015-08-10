@@ -1,6 +1,9 @@
+/*jshint -W030 */
+
 import customElement from '../../lib/builder/CustomElementBuilder';
 
 describe('CustomElementBuilder', () => {
+
     var sandbox, builder, before, after;
     beforeEach(() => {
         if (sandbox) {

@@ -1,3 +1,5 @@
+/*jshint -W030 */
+
 import {ceb, attribute} from '../lib/ceb.js';
 
 describe('ceb.attribute()', function () {

@@ -46,7 +46,8 @@ export class CustomElementBuilder {
     }
 
     augment() {
-        toArray(arguments).forEach(builder => this.data.builders.push(builder));
+        var builders = this.data.builders;
+        toArray(arguments).forEach(builder => builders.push(builder));
         return this;
     }
 

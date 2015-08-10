@@ -30,7 +30,9 @@ module.exports = {
         ie: ['slIe11', 'slIe10', 'slIe9'],
         evergreen: ['slChrome', 'slFirefox'],
         safari: ['slSafari7', 'slSafari8'],
-        android: ['slAndroid4', 'slAndroid5']
+        android: ['slAndroid4', 'slAndroid5'],
+        //iphone: ['slIPhone7', 'slIPhone8'],
+        //ipad: ['slIPad7', 'slIPad8']
     },
     customLaunchers: {
         slChrome: {
@@ -78,19 +80,35 @@ module.exports = {
             browserName: 'safari',
             version: '8'
         },
-        slIPhone: {
+        slIPhone7: {
             base: 'SauceLabs',
             browserName: 'iphone',
-            deviceName: 'iPhone',
+            deviceName: 'iPhone Simulator',
             version: '7.1',
             platform: 'OS X 10.10',
             'device-orientation': 'portrait'
         },
-        slIPad: {
+        slIPhone8: {
             base: 'SauceLabs',
-            browserName: 'ipad',
-            deviceName: 'iPad',
+            browserName: 'iphone',
+            deviceName: 'iPhone Simulator',
+            version: '8.4',
+            platform: 'OS X 10.10',
+            'device-orientation': 'portrait'
+        },
+        slIPad7: {
+            base: 'SauceLabs',
+            browserName: 'iphone',
+            deviceName: 'iPad Simulator',
             version: '7.1',
+            platform: 'OS X 10.10',
+            'device-orientation': 'portrait'
+        },
+        slIPad8: {
+            base: 'SauceLabs',
+            browserName: 'iphone',
+            deviceName: 'iPad Simulator',
+            version: '8.4',
             platform: 'OS X 10.10',
             'device-orientation': 'portrait'
         }

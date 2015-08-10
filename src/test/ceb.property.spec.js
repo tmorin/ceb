@@ -1,3 +1,5 @@
+/*jshint -W030 */
+
 import {ceb, property} from '../lib/ceb.js';
 
 describe('ceb.property()', function () {
