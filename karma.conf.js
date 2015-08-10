@@ -6,12 +6,12 @@ module.exports = function (config) {
 
         basePath: '',
 
-        frameworks: ['mocha', 'chai', 'sinon', 'browserify'],
+        frameworks: ['mocha', 'sinon-chai', 'browserify'],
 
         files: [
             'node_modules/babel/node_modules/babel-core/browser-polyfill.js',
-//            'node_modules/document-register-element/build/document-register-element.js',
-            'node_modules/webcomponents.js/webcomponents-lite.min.js',
+            'node_modules/document-register-element/build/document-register-element.js',
+            //'node_modules/webcomponents.js/webcomponents-lite.min.js',
             'src/lib/**/*.js',
             'src/test/**/*.spec.js'
         ],
@@ -19,15 +19,15 @@ module.exports = function (config) {
         exclude: [],
 
         preprocessors: {
-            'src/lib/**/*.js': ['browserify', 'coverage'],
-            'src/test/**/*.spec.js': ['browserify', 'coverage'],
+            'src/lib/**/*.js': ['browserify'/*, 'coverage'*/],
+            'src/test/**/*.spec.js': ['browserify'/*, 'coverage'*/],
         },
 
         browserify: {
             transform: ['babelify']
         },
 
-        reporters: ['progress', 'coverage'],
+        reporters: ['progress'/*, 'coverage'*/],
 
         coverageReporter: {
             dir: './.tmp/cov',
@@ -49,8 +49,8 @@ module.exports = function (config) {
 
         autoWatch: false,
 
-        //browsers: ['IE'],
-//        browsers: ['Chrome'],
+        // browsers: ['IE'],
+        // browsers: ['Chrome'],
         browsers: ['Firefox'],
 
         singleRun: true,

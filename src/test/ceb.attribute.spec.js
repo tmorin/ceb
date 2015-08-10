@@ -1,0 +1,71 @@
+import {ceb, attribute} from '../lib/ceb.js';
+
+describe('ceb.attribute()', function () {
+    var sandbox, builder;
+    beforeEach(() => {
+        if (sandbox) {
+            sandbox.parentNode.removeChild(sandbox);
+        }
+        document.body.appendChild((sandbox = document.createElement('div')));
+        builder = ceb();
+    });
+
+    it('should define an attribute with a default value', () => {
+        builder.augment(attribute('att1').value('default')).register('test-attribute-default');
+        var el = document.createElement('test-attribute-default');
+        expect(el.att1).to.be.eq('default');
+        expect(el.getAttribute('att1')).to.be.eq('default');
+    });
+
+    it('should define an attribute binded to the same property name', () => {
+        builder.augment(attribute('att1')).register('test-binded-attribute');
+        var el = document.createElement('test-binded-attribute');
+        el.att1 = 'fromProp';
+        expect(el.att1).to.be.eq('fromProp');
+        expect(el.getAttribute('att1')).to.be.eq('fromProp');
+        el.setAttribute('att1', 'fromAtt');
+        expect(el.att1).to.be.eq('fromAtt');
+        expect(el.getAttribute('att1')).to.be.eq('fromAtt');
+    });
+
+    it('should define setter for attribute', () => {
+        var setter = (el, value) => value + '1';
+        builder.augment(attribute('att1').setter(setter)).register('test-setter-attribute');
+        var el = document.createElement('test-setter-attribute');
+
+        el.att1 = 'fromProp';
+        expect(el.att1).to.be.eq('fromProp1');
+        expect(el.getAttribute('att1')).to.be.eq('fromProp1');
+
+        el.setAttribute('att1', 'fromAtt');
+        expect(el.att1).to.be.eq('fromAtt');
+        expect(el.getAttribute('att1')).to.be.eq('fromAtt');
+    });
+
+    it('should define getter for attribute', () => {
+        var getter = (el, value) => value + '1';
+        builder.augment(attribute('att1').getter(getter)).register('test-getter-attribute');
+        var el = document.createElement('test-getter-attribute');
+
+        el.att1 = 'fromProp';
+        expect(el.att1).to.be.eq('fromProp1');
+        expect(el.getAttribute('att1')).to.be.eq('fromProp');
+
+        el.setAttribute('att1', 'fromAtt');
+        expect(el.att1).to.be.eq('fromAtt1');
+        expect(el.getAttribute('att1')).to.be.eq('fromAtt');
+    });
+
+    it('should define an attribute binded to another property name', () => {
+        builder.augment(attribute('att1').delegate('prop1')).register('test-alt-binded-attribute');
+        var el = document.createElement('test-alt-binded-attribute');
+        el.prop1 = 'fromProp';
+        expect(el.prop1).to.be.eq('fromProp');
+        expect(el.getAttribute('att1')).to.be.eq('fromProp');
+        el.setAttribute('att1', 'fromAtt');
+        expect(el.prop1).to.be.eq('fromAtt');
+        expect(el.getAttribute('att1')).to.be.eq('fromAtt');
+    });
+
+});
+

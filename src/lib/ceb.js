@@ -1,15 +1,17 @@
-import MethodBuilder from './builder/MethodBuilder';
-import PropertyBuilder from './builder/PropertyBuilder';
-import CustomElementBuilder from './builder/CustomElementBuilder';
+import customElementBuilder from './builder/CustomElementBuilder';
+import propertyBuilder from './builder/PropertyBuilder';
+import attributeBuilder from './builder/AttributeBuilder';
 
-export function ceb() {
-    return new CustomElementBuilder();
+export function ceb(data) {
+    return customElementBuilder(name);
+}
+export default ceb;
+
+export function property(propName) {
+    return propertyBuilder(propName);
 }
 
-export function property(name) {
-    return new PropertyBuilder(name);
+export function attribute(attName) {
+    return attributeBuilder(attName);
 }
 
-export function method(name) {
-    return new MethodBuilder(name);
-}

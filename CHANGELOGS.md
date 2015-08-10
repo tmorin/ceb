@@ -15,7 +15,7 @@
 
 ## 0.3.1
 - CQRS feature
- - fix event listener builder
+ - fix event listener builder.js
 
 ## 0.3.0
 - ceb
@@ -34,7 +34,7 @@
 ## 0.2.3
 - ceb
  - move site to another repository
- - review `builder.properties` in order to handle overrides
+ - review `builder.js.properties` in order to handle overrides
 - Template feature
 - FRP feature
  - improve support for external libraries

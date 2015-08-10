@@ -1,77 +1,85 @@
-import {isUndefined} from 'lodash/lang';
+import isFunction from 'lodash/lang/isFunction';
+import result from 'lodash/object/result';
+import assign from 'lodash/object/assign';
 
-export default class PropertyBuilder {
+const DEFAULT_DATA = {
+    enumerable: true,
+    immutable: false,
+    descriptorValue: true
+};
+
+export class PropertyBuilder {
 
     constructor(propName) {
-        this.property = {
-            propName
-        };
+        this.data = assign({propName}, DEFAULT_DATA);
     }
 
-    configurable(value) {
-        this.property.configurable = !!value;
+    immutable() {
+        this.data.immutable = true;
+        return this;
     }
 
-    enumerable(value) {
-        this.property.enumerable = !!value;
-    }
-
-    writable(value) {
-        this.property.writable = !!value;
-    }
-
-    factory(cb) {
-        this.property.factory = cb;
+    hidden() {
+        this.data.enumerable = false;
+        return this;
     }
 
     value(value) {
-        this.property.value = value;
+        this.data.value = value;
+        return this;
     }
 
     getter(fn) {
-        this.property.getter = fn;
+        this.data.descriptorValue = false;
+        this.data.getter = fn;
+        return this;
     }
 
     setter(fn) {
-        this.property.setter = fn;
+        this.data.descriptorValue = false;
+        this.data.setter = fn;
+        return this;
     }
 
     build(proto, on) {
-        var data = {};
+        var data = this.data;
 
-        if (!isUndefined(this.property.configurable)) {
-            data.configurable = this.property.configurable;
+        var descriptor = {
+            enumerable: this.data.enumerable
+        };
+
+        if (this.data.immutable) {
+            descriptor.configurable = false;
+            descriptor.writable = false;
+        } else if (isFunction(this.data.getter) || isFunction(this.data.setter)) {
+            descriptor.configurable = false;
+            descriptor.get = function () {
+                return data.getter.call(this, this);
+            };
+            descriptor.set = function (value) {
+                return data.setter.call(this, this, value);
+            };
+        } else {
+            descriptor.configurable = true;
+            descriptor.writable = true;
         }
 
-        if (!isUndefined(this.property.enumerable)) {
-            data.enumerable = this.property.enumerable;
+        if (this.data.descriptorValue) {
+            descriptor.value = result(this.data, 'value');
         }
 
-        if (!isUndefined(this.property.value)) {
-            data.value = this.property.value;
-        }
+        Object.defineProperty(proto, this.data.propName, descriptor);
 
-        if (!isUndefined(this.property.writable)) {
-            data.writable = this.property.writable;
-        }
-
-        if (!isUndefined(this.property.getter)) {
-            data.get = this.property.getter;
-        }
-
-        if (!isUndefined(this.property.setter)) {
-            data.set = this.property.setter;
-        }
-
-        Object.defineProperty(proto, this.property.propName, data);
-
-        on('before:createdCallback', el => {
-
-            if (!isUndefined(this.property.factory)) {
-                el[this.property.propName] = this.property.factory(el);
+        on('before:createdCallback').invoke(el => {
+            if (!this.data.descriptorValue) {
+                el[this.data.propName] = result(this.data, 'value');
             }
-
         });
     }
 
 }
+
+export default function property(propName) {
+    return new PropertyBuilder(propName);
+}
+

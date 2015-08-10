@@ -3,12 +3,12 @@ module.exports = {
     pkg: JSON.parse(fs.readFileSync('package.json')),
     isProduction: process.env.NODE_ENV === 'production',
     browserify: [{
-        entry: 'lib/ceb.js',
+        entry: 'lib/ceb.property.spec.js',
         distName: 'ceb',
         distPath: 'public'
     }/*, {
         entry: [
-            'lib/ceb.js',
+            'lib/ceb.property.spec.js',
             'lib/ceb-feature-cqrs.js',
             'lib/ceb-feature-frp.js',
             'lib/ceb-feature-template.js',
