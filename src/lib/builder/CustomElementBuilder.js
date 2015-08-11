@@ -103,7 +103,7 @@ export function applyLifecycle(data, name) {
     };
 }
 
-export default function customElement(data) {
+export default function (data) {
     return new CustomElementBuilder(data);
 }
 

@@ -1,8 +1,8 @@
 /*jshint -W030 */
 
-import customElement from '../../lib/builder/CustomElementBuilder';
+import {ceb} from '../lib/ceb';
 
-describe('CustomElementBuilder', () => {
+describe('ceb()', () => {
 
     var sandbox, builder, before, after;
     beforeEach(() => {
@@ -10,7 +10,7 @@ describe('CustomElementBuilder', () => {
             sandbox.parentNode.removeChild(sandbox);
         }
         document.body.appendChild((sandbox = document.createElement('div')));
-        builder = customElement();
+        builder = ceb();
         before = sinon.spy();
         after = sinon.spy();
     });
@@ -47,7 +47,7 @@ describe('CustomElementBuilder', () => {
     });
 
     it('should handle before:createdCallback and after:createdCallback', () => {
-        customElement()
+        builder
             .on('before:createdCallback').invoke(before)
             .on('after:createdCallback').invoke(after)
             .register('test-createdCallback');

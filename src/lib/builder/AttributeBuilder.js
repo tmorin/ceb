@@ -4,37 +4,42 @@ import isUndefined from 'lodash/lang/isUndefined';
 import isNull from 'lodash/lang/isNull';
 import assign from 'lodash/object/assign';
 
-import property from './PropertyBuilder';
+import {PropertyBuilder}from './PropertyBuilder';
 
-function getAttValue(el, attName, isBoolean) {
-    return isBoolean ? el.hasAttribute(attName) : el.getAttribute(attName);
+function getAttValue(el, attrName, isBoolean) {
+    return isBoolean ? el.hasAttribute(attrName) : el.getAttribute(attrName);
 }
 
-function setAttValue(el, attName, isBoolean, value) {
+function setAttValue(el, attrName, isBoolean, value) {
     if (isBoolean) {
         // Handle boolean value
-        if (value && !el.hasAttribute(attName)) {
-            el.setAttribute(attName, '');
-        } else if (!value && el.hasAttribute(attName)) {
-            el.removeAttribute(attName);
+        if (value && !el.hasAttribute(attrName)) {
+            el.setAttribute(attrName, '');
+        } else if (!value && el.hasAttribute(attrName)) {
+            el.removeAttribute(attrName);
         }
     } else {
         // Handle none boolean value
-        if ((isUndefined(value) || isNull(value)) && el.hasAttribute(attName)) {
+        if ((isUndefined(value) || isNull(value)) && el.hasAttribute(attrName)) {
             // There is no value, so the attribute must be removed
-            el.removeAttribute(attName);
-        } else if (!isUndefined(value) && !isNull(value) && el.getAttribute(attName) !== value) {
+            el.removeAttribute(attrName);
+        } else if (!isUndefined(value) && !isNull(value) && el.getAttribute(attrName) !== value) {
             // Sync the attribute value with value
-            el.setAttribute(attName, value);
+            el.setAttribute(attrName, value);
         }
     }
 }
 
-export class AttributeBuilder {
+export class AttributeBuilder extends PropertyBuilder {
 
-    constructor(attName) {
-        var propName = camelCase(attName);
-        this.data = assign({attName, propName});
+    constructor(attrName) {
+        super(camelCase(attrName));
+        assign(this.data, {
+            attrName,
+            descriptorValue: false,
+            getAttValue: getAttValue,
+            setAttValue: setAttValue
+        });
     }
 
     boolean() {
@@ -42,44 +47,41 @@ export class AttributeBuilder {
         return this;
     }
 
-    value(value) {
-        this.data.value = value;
-        return this;
-    }
-
     getter(fn) {
-        this.data.getter = fn;
-        return this;
+        return super.getter(fn);
     }
 
     setter(fn) {
-        this.data.setter = fn;
-        return this;
+        return super.setter(fn);
     }
 
-    delegate(propName) {
+    prop(propName) {
         this.data.propName = propName;
         return this;
     }
 
     build(proto, on) {
         var data = this.data;
+        var attGetter = this.data.getter;
+        var attSetter = this.data.setter;
+        var getAttValue = this.data.getAttValue;
+        var setAttValue = this.data.setAttValue;
 
-        property(this.data.propName)
-            .value(this.data.value)
-            .getter((el) => {
-                var attValue = getAttValue(el, data.attName, data.boolean);
-                return isFunction(data.getter) ? data.getter(this, attValue) : attValue;
-            })
-            .setter((el, value) => {
-                var attValue = isFunction(data.setter) ? data.setter(this, value) : value;
-                setAttValue(el, data.attName, data.boolean, attValue);
-            })
-            .build(proto, on);
+        this.data.getter = (el) => {
+            var attValue = getAttValue(el, data.attrName, data.boolean);
+            return isFunction(attGetter) ? attGetter.call(el, el, attValue) : attValue;
+        };
+
+        this.data.setter = (el, value) => {
+            var attValue = isFunction(attSetter) ? attSetter.call(el, el, value) : value;
+            return setAttValue(el, data.attrName, data.boolean, attValue);
+        };
+
+        super.build(proto, on);
 
         on('before:attributeChangedCallback').invoke((el, attName, oldVal, newVal) => {
             // Synchronize the attribute value with its properties
-            if (attName === this.data.attName) {
+            if (attName === this.data.attrName) {
                 if (el[this.data.propName] !== newVal) {
                     el[this.data.propName] = newVal;
                 }
@@ -89,7 +91,7 @@ export class AttributeBuilder {
 
 }
 
-export default function attribute(attName) {
+export default function (attName) {
     return new AttributeBuilder(attName);
 }
 

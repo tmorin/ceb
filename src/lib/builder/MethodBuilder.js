@@ -3,15 +3,12 @@ import toArray from 'lodash/lang/toArray';
 
 import noop from 'lodash/utility/noop';
 
-import partial from 'lodash/function/partial';
-import flow from 'lodash/function/flow';
+import wrap from 'lodash/function/wrap';
 
-import property from './PropertyBuilder';
+export class MethodBuilder {
 
-class MethodBuilder {
-
-    constructor(name) {
-        this.data = {name, invoke: noop, wrappers: []};
+    constructor(methName) {
+        this.data = {methName, invoke: noop, wrappers: []};
     }
 
     invoke(fn) {
@@ -21,32 +18,26 @@ class MethodBuilder {
         return this;
     }
 
-    wrap(fn) {
-        this.wrappers.push(fn);
+    wrap() {
+        this.data.wrappers = this.data.wrappers.concat(toArray(arguments));
         return this;
     }
 
     build(proto, on) {
+        var data = this.data;
 
-        property(this.data.name).hidden().value(function () {
-            this.data.invoke.apply(this, toArray(arguments));
-        }).build(proto, on);
+        proto[data.methName] = function () {
+            data.invoke.apply(this, [this].concat(toArray(arguments)));
+        };
 
-        on('after:build').invoke(proto => {
-            /*var args = [this].concat(toArray(arguments));
-            var fn = this[this.data.propName];
-
-            this.data.wrappers.forEach(wrapper => {
-                fn = flow(fn, wrapper);
+        on('after:builders').invoke(proto => {
+            data.wrappers.forEach(wrapper => {
+                data.invoke = wrap(data.invoke, wrapper);
             });
-
-            proto[this.data.name] = function () {};*/
         });
     }
 }
 
-export function method(name) {
-    return new MethodBuilder(name);
+export default function (methName) {
+    return new MethodBuilder(methName);
 }
-
-export default MethodBuilder;

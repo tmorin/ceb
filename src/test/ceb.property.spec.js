@@ -1,8 +1,8 @@
 /*jshint -W030 */
 
-import {ceb, property} from '../lib/ceb.js';
+import {ceb, property} from '../lib/ceb';
 
-describe('ceb.property()', function () {
+describe('property()', function () {
     var sandbox, builder;
     beforeEach(() => {
         if (sandbox) {

@@ -1,4 +1,5 @@
 import isFunction from 'lodash/lang/isFunction';
+import isUndefined from 'lodash/lang/isUndefined';
 import result from 'lodash/object/result';
 import assign from 'lodash/object/assign';
 
@@ -72,14 +73,17 @@ export class PropertyBuilder {
 
         on('before:createdCallback').invoke(el => {
             if (!this.data.descriptorValue) {
-                el[this.data.propName] = result(this.data, 'value');
+                var value = result(this.data, 'value');
+                if (!isUndefined(value)) {
+                    el[this.data.propName] = value;
+                }
             }
         });
     }
 
 }
 
-export default function property(propName) {
+export default function (propName) {
     return new PropertyBuilder(propName);
 }
 

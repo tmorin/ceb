@@ -1,8 +1,8 @@
 /*jshint -W030 */
 
-import {ceb, attribute} from '../lib/ceb.js';
+import {ceb, attribute} from '../lib/ceb';
 
-describe('ceb.attribute()', function () {
+describe('attribute()', function () {
     var sandbox, builder;
     beforeEach(() => {
         if (sandbox) {
@@ -10,6 +10,14 @@ describe('ceb.attribute()', function () {
         }
         document.body.appendChild((sandbox = document.createElement('div')));
         builder = ceb();
+    });
+
+    it('should define an attribute', () => {
+        builder.augment(attribute('att1')).register('test-attribute');
+        var el = document.createElement('test-attribute');
+        el.setAttribute('att1', 'value');
+        expect(el.att1).to.be.eq('value');
+        expect(el.getAttribute('att1')).to.be.eq('value');
     });
 
     it('should define an attribute with a default value', () => {
@@ -27,6 +35,17 @@ describe('ceb.attribute()', function () {
         expect(el.getAttribute('att1')).to.be.eq('fromProp');
         el.setAttribute('att1', 'fromAtt');
         expect(el.att1).to.be.eq('fromAtt');
+        expect(el.getAttribute('att1')).to.be.eq('fromAtt');
+    });
+
+    it('should define an attribute binded to another property name', () => {
+        builder.augment(attribute('att1').prop('prop1')).register('test-alt-binded-attribute');
+        var el = document.createElement('test-alt-binded-attribute');
+        el.prop1 = 'fromProp';
+        expect(el.prop1).to.be.eq('fromProp');
+        expect(el.getAttribute('att1')).to.be.eq('fromProp');
+        el.setAttribute('att1', 'fromAtt');
+        expect(el.prop1).to.be.eq('fromAtt');
         expect(el.getAttribute('att1')).to.be.eq('fromAtt');
     });
 
@@ -55,17 +74,6 @@ describe('ceb.attribute()', function () {
 
         el.setAttribute('att1', 'fromAtt');
         expect(el.att1).to.be.eq('fromAtt1');
-        expect(el.getAttribute('att1')).to.be.eq('fromAtt');
-    });
-
-    it('should define an attribute binded to another property name', () => {
-        builder.augment(attribute('att1').delegate('prop1')).register('test-alt-binded-attribute');
-        var el = document.createElement('test-alt-binded-attribute');
-        el.prop1 = 'fromProp';
-        expect(el.prop1).to.be.eq('fromProp');
-        expect(el.getAttribute('att1')).to.be.eq('fromProp');
-        el.setAttribute('att1', 'fromAtt');
-        expect(el.prop1).to.be.eq('fromAtt');
         expect(el.getAttribute('att1')).to.be.eq('fromAtt');
     });
 
