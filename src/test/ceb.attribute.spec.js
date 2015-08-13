@@ -63,17 +63,17 @@ describe('attribute()', function () {
         expect(el.getAttribute('att1')).to.be.eq('fromAtt');
     });
 
-    it('should define getter for attribute', () => {
+    it('should not define getter for attribute', () => {
         var getter = (el, value) => value + '1';
         builder.augment(attribute('att1').getter(getter)).register('test-getter-attribute');
         var el = document.createElement('test-getter-attribute');
 
         el.att1 = 'fromProp';
-        expect(el.att1).to.be.eq('fromProp1');
+        expect(el.att1).to.be.eq('fromProp');
         expect(el.getAttribute('att1')).to.be.eq('fromProp');
 
         el.setAttribute('att1', 'fromAtt');
-        expect(el.att1).to.be.eq('fromAtt1');
+        expect(el.att1).to.be.eq('fromAtt');
         expect(el.getAttribute('att1')).to.be.eq('fromAtt');
     });
 

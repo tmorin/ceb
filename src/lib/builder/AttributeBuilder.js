@@ -4,13 +4,13 @@ import isUndefined from 'lodash/lang/isUndefined';
 import isNull from 'lodash/lang/isNull';
 import assign from 'lodash/object/assign';
 
-import {PropertyBuilder}from './PropertyBuilder';
+import {PropertyBuilder} from './PropertyBuilder';
 
-function getAttValue(el, attrName, isBoolean) {
+export function getAttValue(el, attrName, isBoolean) {
     return isBoolean ? el.hasAttribute(attrName) : el.getAttribute(attrName);
 }
 
-function setAttValue(el, attrName, isBoolean, value) {
+export function setAttValue(el, attrName, isBoolean, value) {
     if (isBoolean) {
         // Handle boolean value
         if (value && !el.hasAttribute(attrName)) {
@@ -30,12 +30,27 @@ function setAttValue(el, attrName, isBoolean, value) {
     }
 }
 
+function getterFactory(attrName, isBoolean) {
+    return (el) => {
+        return getAttValue(el, attrName, isBoolean);
+    };
+}
+
+function setterFactory(attrName, isBoolean, attSetter) {
+    return (el, value) => {
+        var attValue = isFunction(attSetter) ? attSetter.call(el, el, value) : value;
+        return setAttValue(el, attrName, isBoolean, attValue);
+    };
+}
+
 export class AttributeBuilder extends PropertyBuilder {
 
     constructor(attrName) {
         super(camelCase(attrName));
         assign(this.data, {
             attrName,
+            getterFactory,
+            setterFactory,
             descriptorValue: false,
             getAttValue: getAttValue,
             setAttValue: setAttValue
@@ -47,35 +62,17 @@ export class AttributeBuilder extends PropertyBuilder {
         return this;
     }
 
-    getter(fn) {
-        return super.getter(fn);
-    }
-
-    setter(fn) {
-        return super.setter(fn);
-    }
-
     prop(propName) {
         this.data.propName = propName;
         return this;
     }
 
     build(proto, on) {
-        var data = this.data;
         var attGetter = this.data.getter;
         var attSetter = this.data.setter;
-        var getAttValue = this.data.getAttValue;
-        var setAttValue = this.data.setAttValue;
 
-        this.data.getter = (el) => {
-            var attValue = getAttValue(el, data.attrName, data.boolean);
-            return isFunction(attGetter) ? attGetter.call(el, el, attValue) : attValue;
-        };
-
-        this.data.setter = (el, value) => {
-            var attValue = isFunction(attSetter) ? attSetter.call(el, el, value) : value;
-            return setAttValue(el, data.attrName, data.boolean, attValue);
-        };
+        this.data.getter = this.data.getterFactory(this.data.attrName, this.data.boolean, attGetter);
+        this.data.setter = this.data.setterFactory(this.data.attrName, this.data.boolean, attSetter);
 
         super.build(proto, on);
 
