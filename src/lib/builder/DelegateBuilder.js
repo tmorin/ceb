@@ -1,6 +1,7 @@
 import isFunction from 'lodash/lang/isFunction';
 import isUndefined from 'lodash/lang/isUndefined';
-import wrap from 'lodash/function/wrap';
+
+import {getAttValue, setAttValue} from './AttributeBuilder';
 
 export class DelegateBuilder {
 
@@ -46,11 +47,30 @@ export class DelegateBuilder {
         var targetedPropName = this.data.propName;
         var targetedAttrName = this.data.attrName;
 
-        fieldBuilderData.descriptorValue = false;
         var fieldGetter = fieldBuilderData.getter;
         var fieldSetter = fieldBuilderData.setter;
 
-        if (!fieldBuilderData.attrName) {
+        if (fieldBuilderData.attrName) {
+            fieldBuilderData.getterFactory = (attrName, isBoolean) => {
+                return (el) => {
+                    var target = el.querySelector(data.selector);
+                    return targetedAttrName ? getAttValue(target, targetedAttrName, isBoolean) : target[targetedPropName];
+                };
+            };
+            fieldBuilderData.setterFactory = (attrName, isBoolean, attSetter) => {
+                return (el, value) => {
+                    var target = el.querySelector(data.selector);
+                    var attrValue = isFunction(attSetter) ? attSetter.call(el, el, value) : value;
+                    if (targetedAttrName) {
+                        setAttValue(target, targetedAttrName, isBoolean, attrValue);
+                    } else {
+                        target[targetedPropName] = attrValue;
+                    }
+                    setAttValue(el, attrName, isBoolean, attrValue);
+                };
+            };
+        } else if (fieldBuilderData.propName) {
+            fieldBuilderData.descriptorValue = false;
             fieldBuilderData.getter = (el) => {
                 var target = el.querySelector(data.selector);
                 var targetValue;
@@ -61,7 +81,6 @@ export class DelegateBuilder {
                 }
                 return isFunction(fieldGetter) ? fieldGetter.call(this, this, targetValue) : targetValue;
             };
-
             fieldBuilderData.setter = (el, value) => {
                 var target = el.querySelector(data.selector);
                 var targetValue = isFunction(fieldSetter) ? fieldSetter.call(this, this, value) : value;
