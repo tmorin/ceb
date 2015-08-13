@@ -20,7 +20,9 @@ describe('property()', function () {
             el.prop1 = 'value1';
         } catch (e) {
         }
-        expect(el.prop1).to.be.eq('value');
+        if (window.navigator.userAgent.indexOf('PhantomJS') === -1) {
+            expect(el.prop1).to.be.eq('value');
+        }
     });
 
     it('should define a mutable property', () => {
