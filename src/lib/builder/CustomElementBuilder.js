@@ -20,7 +20,7 @@ const LIFECYCLE_EVENTS = flatten(LIFECYCLE_CALLBACKS.map(name => [`before:${name
 
 export class CustomElementBuilder {
 
-    constructor(data) {
+    constructor() {
         var proto = Object.create(HTMLElement.prototype);
         var builders = [];
         var events = LIFECYCLE_EVENTS.reduce((a, b) => {
@@ -32,7 +32,7 @@ export class CustomElementBuilder {
             'before:registerElement': [],
             'after:registerElement': []
         });
-        this.data = data || {proto, builders, events};
+        this.data = {proto, builders, events};
     }
 
     extends(value) {
