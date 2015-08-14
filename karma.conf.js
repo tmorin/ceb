@@ -19,15 +19,15 @@ module.exports = function (config) {
         exclude: [],
 
         preprocessors: {
-            'src/lib/**/*.js': ['browserify'/*, 'coverage'*/],
-            'src/test/**/*.spec.js': ['browserify'/*, 'coverage'*/],
+            'src/lib/**/*.js': ['browserify'],
+            'src/test/**/*.spec.js': ['browserify']
         },
 
         browserify: {
             transform: ['babelify']
         },
 
-        reporters: ['progress'/*, 'coverage'*/],
+        reporters: ['progress'],
 
         coverageReporter: {
             dir: './.tmp/cov',
@@ -49,10 +49,10 @@ module.exports = function (config) {
 
         autoWatch: false,
 
-        // browsers: ['IE', 'PhantomJS'],
-        // browsers: ['Chrome', 'PhantomJS'],
-        browsers: ['Firefox', 'PhantomJS'],
-        //browsers: ['PhantomJS'],
+        //browsers: ['IE', 'PhantomJS'],
+        //browsers: ['Chrome', 'PhantomJS'],
+        //browsers: ['Firefox', 'PhantomJS'],
+        browsers: ['PhantomJS'],
 
         singleRun: true,
 
