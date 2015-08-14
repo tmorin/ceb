@@ -30,9 +30,9 @@ describe('ceb()', () => {
             .on('after:builders').invoke(after)
             .register('test-builders');
         expect(before).to.have.been.calledOnce;
-        expect(before).to.have.been.calledWith(builder.data);
+        expect(before).to.have.been.calledWith(builder.context);
         expect(after).to.have.been.calledOnce;
-        expect(after).to.have.been.calledWith(builder.data);
+        expect(after).to.have.been.calledWith(builder.context);
     });
 
     it('should handle before:registerElement and after:registerElement', () => {
@@ -41,7 +41,7 @@ describe('ceb()', () => {
             .on('after:registerElement').invoke(after)
             .register('test-registerElement');
         expect(before).to.have.been.calledOnce;
-        expect(before).to.have.been.calledWith(builder.data);
+        expect(before).to.have.been.calledWith(builder.context);
         expect(after).to.have.been.calledOnce;
         expect(after).to.have.been.calledWith(CustomElement);
     });
@@ -113,7 +113,7 @@ describe('ceb()', () => {
         builder.augment({build}).register('test-augment');
         setTimeout(() => {
             expect(build).to.have.been.calledOnce;
-            expect(build).to.have.been.calledWith(sinon.match(builder.data.proto), sinon.match(builder.on));
+            expect(build).to.have.been.calledWith(sinon.match(builder.context.proto), sinon.match(builder.on));
             done();
         }, 10);
     });

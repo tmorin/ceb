@@ -43,6 +43,11 @@ function setterFactory(attrName, isBoolean, attSetter) {
     };
 }
 
+/**
+ * The attribute builder.
+ * Its goal is to provide a user friendly way to define an attribute.
+ * @extends {PropertyBuilder}
+ */
 export class AttributeBuilder extends PropertyBuilder {
 
     constructor(attrName) {
@@ -88,7 +93,10 @@ export class AttributeBuilder extends PropertyBuilder {
 
 }
 
-export default function (attName) {
+/**
+ * @ignore
+ */
+export default function helper(attName) {
     return new AttributeBuilder(attName);
 }
 

@@ -5,9 +5,17 @@ import noop from 'lodash/utility/noop';
 
 import wrap from 'lodash/function/wrap';
 
-export class MethodBuilder {
+import Builder from './Builder';
+
+/**
+ * The method builder.
+ * Its goal is to provide a user friendly way to define a method.
+ * @extends {Builder}
+ */
+export class MethodBuilder extends Builder {
 
     constructor(methName) {
+        super();
         this.data = {methName, invoke: noop, wrappers: []};
     }
 
@@ -30,7 +38,7 @@ export class MethodBuilder {
             data.invoke.apply(this, [this].concat(toArray(arguments)));
         };
 
-        on('after:builders').invoke(proto => {
+        on('after:builders').invoke(() => {
             data.wrappers.forEach(wrapper => {
                 data.invoke = wrap(data.invoke, wrapper);
             });
@@ -38,6 +46,9 @@ export class MethodBuilder {
     }
 }
 
-export default function (methName) {
+/**
+ * @ignore
+ */
+export default function helper(methName) {
     return new MethodBuilder(methName);
 }

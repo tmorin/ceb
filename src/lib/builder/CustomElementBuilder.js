@@ -18,6 +18,10 @@ const LIFECYCLE_CALLBACKS = [
 
 const LIFECYCLE_EVENTS = flatten(LIFECYCLE_CALLBACKS.map(name => [`before:${name}`, `after:${name}`]));
 
+/**
+ * The custom element builder.
+ * Its goal is to provide a user friendly way to do it by some else (i.e. dedicated builders).
+ */
 export class CustomElementBuilder {
 
     constructor() {
@@ -32,63 +36,94 @@ export class CustomElementBuilder {
             'before:registerElement': [],
             'after:registerElement': []
         });
-        this.data = {proto, builders, events};
+        /**
+         * @type {Object}
+         * @property {!Object} proto - the prototype
+         * @property {!string} extends - the name of a native element
+         * @desc the context of the builder
+         */
+        this.context = {proto, builders, events};
     }
 
+    /**
+     * To extend a native element.
+     * @param {!string} value the name of the element
+     * @returns {CustomElementBuilder} the builder
+     */
     extends(value) {
-        this.data.extends = value;
+        this.context.extends = value;
         return this;
     }
 
+    /**
+     * To override the default prototype.
+     * @param {!Object} value the prototype
+     * @returns {CustomElementBuilder} the builder
+     */
     proto(value) {
-        this.data.proto = value;
+        this.context.proto = value;
         return this;
     }
 
-    augment() {
-        var builders = this.data.builders;
-        toArray(arguments).forEach(builder => builders.push(builder));
+    /**
+     * To apply the given builders during the build process.
+     * @param {...Builder} builders the builders
+     * @returns {CustomElementBuilder} the builder
+     */
+    augment(...builders) {
+        builders.forEach(builder => this.context.builders.push(builder));
         return this;
     }
 
+    /**
+     * To register call back on events.
+     * @param {!string} event the event name
+     * @returns {Object} the on builder.
+     * @property {function(callback: function)} invoke - to register the callback
+     */
     on(event) {
-        var invoke = fn => {
-            this.data.events[event].push(fn);
+        var invoke = cb => {
+            this.context.events[event].push(cb);
             return this;
         };
         return {invoke};
     }
 
+    /**
+     * To register the custom element.
+     * @param {!string} name the name of the cutsom element
+     * @returns {Element} the custom element Type
+     */
     register(name) {
-        this.data.events['before:builders'].forEach(fn => fn(this.data));
+        this.context.events['before:builders'].forEach(fn => fn(this.context));
 
-        invoke(this.data.builders, 'build', this.data.proto, bind(this.on, this));
+        invoke(this.context.builders, 'build', this.context.proto, bind(this.on, this));
 
-        this.data.events['after:builders'].forEach(fn => fn(this.data));
+        this.context.events['after:builders'].forEach(fn => fn(this.context));
 
-        LIFECYCLE_CALLBACKS.forEach(partial(applyLifecycle, this.data));
+        LIFECYCLE_CALLBACKS.forEach(partial(applyLifecycle, this.context));
 
-        var options = {prototype: this.data.proto};
+        var options = {prototype: this.context.proto};
 
-        if (isString(this.data.extends)) {
-            options.extends = this.data.extends;
+        if (isString(this.context.extends)) {
+            options.extends = this.context.extends;
         }
 
-        this.data.events['before:registerElement'].forEach(fn => fn(this.data));
+        this.context.events['before:registerElement'].forEach(fn => fn(this.context));
 
         var CustomElement = document.registerElement(name, options);
 
-        this.data.events['after:registerElement'].forEach(fn => fn(CustomElement));
+        this.context.events['after:registerElement'].forEach(fn => fn(CustomElement));
 
         return CustomElement;
     }
 }
 
-export function applyLifecycle(data, name) {
-    var proto = data.proto,
+function applyLifecycle(context, name) {
+    var proto = context.proto,
         original = proto[name],
-        beforeFns = data.events['before:' + name],
-        afterFns = data.events['after:' + name];
+        beforeFns = context.events['before:' + name],
+        afterFns = context.events['after:' + name];
 
     proto[name] = function () {
         var args = [this].concat(toArray(arguments));
@@ -103,7 +138,10 @@ export function applyLifecycle(data, name) {
     };
 }
 
-export default function (data) {
-    return new CustomElementBuilder(data);
+/**
+ * @ignore
+ */
+export default function helper() {
+    return new CustomElementBuilder();
 }
 

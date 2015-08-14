@@ -3,9 +3,17 @@ import isUndefined from 'lodash/lang/isUndefined';
 
 import {getAttValue, setAttValue} from './AttributeBuilder';
 
-export class DelegateBuilder {
+import Builder from './Builder';
+
+/**
+ * The method builder.
+ * Its goal is to provide a user friendly way to proxy properties and attributes.
+ * @extends {Builder}
+ */
+export class DelegateBuilder extends Builder {
 
     constructor(fieldBuilder) {
+        super();
         this.fieldBuilder = fieldBuilder;
         this.data = {};
         if (fieldBuilder.data.attrName) {
@@ -97,6 +105,9 @@ export class DelegateBuilder {
 
 }
 
-export default function (attName) {
+/**
+ * @ignore
+ */
+export default function helper(attName) {
     return new DelegateBuilder(attName);
 }
