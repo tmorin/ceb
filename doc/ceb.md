@@ -44,7 +44,7 @@ See the [specification](http://w3c.github.io/webcomponents/spec/custom/#api-elem
 import ceb from 'custom-element-builder';
 var MyCustomButton = ceb()
     .prototype(Object.create(HTMLButtonElement.prototype))
-    .exetnds('button')
+    .extends('button')
     .register('my-custom-button');
 ```
 
