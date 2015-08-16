@@ -6,15 +6,24 @@ import {getAttValue, setAttValue} from './AttributeBuilder';
 import Builder from './Builder';
 
 /**
- * The method builder.
+ * The proxy builder.
  * Its goal is to provide a user friendly way to proxy properties and attributes.
  * @extends {Builder}
  */
-export class DelegateBuilder extends Builder {
+export class ProxyBuilder extends Builder {
 
+    /**
+     * @param {!PropertyBuilder|AttributeBuilder} fieldBuilder the field builder
+     */
     constructor(fieldBuilder) {
         super();
+        /**
+         * @ignore
+         */
         this.fieldBuilder = fieldBuilder;
+        /**
+         * @ignore
+         */
         this.data = {};
         if (fieldBuilder.data.attrName) {
             this.data.attrName = fieldBuilder.data.attrName;
@@ -23,11 +32,21 @@ export class DelegateBuilder extends Builder {
         }
     }
 
+    /**
+     * The target of the proxy.
+     * @param {!string} selector a valid css query
+     * @returns {ProxyBuilder} the builder
+     */
     to(selector) {
         this.data.selector = selector;
         return this;
     }
 
+    /**
+     * To force a proxy to a property.
+     * @param {string} [propName] the name of the property
+     * @returns {ProxyBuilder} the builder
+     */
     property(propName) {
         this.data.attrName = null;
         if (!isUndefined(propName)) {
@@ -38,6 +57,11 @@ export class DelegateBuilder extends Builder {
         return this;
     }
 
+    /**
+     * To force the proxy to an attribute.
+     * @param {string} [attrName] the name of the attribute
+     * @returns {ProxyBuilder} the builder
+     */
     attribute(attrName) {
         this.data.propName = null;
         if (!isUndefined(attrName)) {
@@ -48,6 +72,9 @@ export class DelegateBuilder extends Builder {
         return this;
     }
 
+    /**
+     * @override
+     */
     build(proto, on) {
         var data = this.data;
         var fieldBuilderData = this.fieldBuilder.data;
@@ -109,5 +136,5 @@ export class DelegateBuilder extends Builder {
  * @ignore
  */
 export default function helper(attName) {
-    return new DelegateBuilder(attName);
+    return new ProxyBuilder(attName);
 }
