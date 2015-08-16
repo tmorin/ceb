@@ -53,7 +53,7 @@ Now the custom element can be used like another regular `HTMLButtonElement`.
 However to create a custom element extending a native one, the syntax is different. 
 
 ```javascript
-document.createElement('my-custom-button', 'button');
+document.createElement('button', 'my-custom-button');
 ```
 
 ```html
@@ -123,7 +123,7 @@ The events `before:attributeChangedCallback` and `after:attributeChangedCallback
 
 ## Provide dedicated builders
 
-From `register()`, a dedicated builder is an object having a method `build()`, otherwise the builder will be ignored.
+In `register()`, a dedicated builder is an object having a method `build()`, otherwise the builder will be ignored.
 
 The methods `build()` are called with the following arguments:
 
