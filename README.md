@@ -1,8 +1,8 @@
 # custom-elements-builder.js
 
-[![Circle CI](https://circleci.com/gh/tmorin/custom-elements-builder.js/tree/development.svg?style=svg)](https://circleci.com/gh/tmorin/custom-elements-builder.js/tree/development)
-[![Dependency Status](https://david-dm.org/tmorin/custom-elements-builder.js/development.svg)](https://david-dm.org/tmorin/custom-elements-builder.js/development)
-[![devDependency Status](https://david-dm.org/tmorin/custom-elements-builder.js/development/dev-status.svg)](https://david-dm.org/tmorin/custom-elements-builder.js/development#info=devDependencies)
+[![Circle CI](https://circleci.com/gh/tmorin/custom-elements-builder/tree/development.svg?style=svg)](https://circleci.com/gh/tmorin/custom-elements-builder/tree/development)
+[![Dependency Status](https://david-dm.org/tmorin/custom-elements-builder/development.svg)](https://david-dm.org/tmorin/custom-elements-builder/development)
+[![devDependency Status](https://david-dm.org/tmorin/custom-elements-builder/development/dev-status.svg)](https://david-dm.org/tmorin/custom-elements-builder/development#info=devDependencies)
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 
@@ -27,7 +27,7 @@ Start karma in watching mode handling babel and browserify.
 gulp karma:watch
 ```
 
-Single run of karma with saucelab browsers.
+Single run of karma with saucelabs browsers.
 ```shell
 gulp karma:sauce
 ```
