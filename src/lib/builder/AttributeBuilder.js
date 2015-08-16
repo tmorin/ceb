@@ -6,10 +6,24 @@ import assign from 'lodash/object/assign';
 
 import {PropertyBuilder} from './PropertyBuilder';
 
+/**
+ * Get the value from an attribute.
+ * @param {!HTMLElement} el an HTML element
+ * @param {!string} attrName the name of the attribute
+ * @param {!boolean} isBoolean true is the returned value should be a boolean
+ * @returns {string|boolean}
+ */
 export function getAttValue(el, attrName, isBoolean) {
     return isBoolean ? el.hasAttribute(attrName) : el.getAttribute(attrName);
 }
 
+/**
+ * Set the value of an attribute.
+ * @param {!HTMLElement} el an HTML element
+ * @param {!string} attrName the name of the attribute
+ * @param {!boolean} isBoolean true is the value should be a boolean
+ * @param {string|boolean} value the value to set
+ */
 export function setAttValue(el, attrName, isBoolean, value) {
     if (isBoolean) {
         // Handle boolean value
@@ -50,8 +64,14 @@ function setterFactory(attrName, isBoolean, attSetter) {
  */
 export class AttributeBuilder extends PropertyBuilder {
 
+    /**
+     * @param {!string} attrName the name of the attribute
+     */
     constructor(attrName) {
         super(camelCase(attrName));
+        /**
+         * @ignore
+         */
         assign(this.data, {
             attrName,
             getterFactory,
@@ -62,16 +82,29 @@ export class AttributeBuilder extends PropertyBuilder {
         });
     }
 
+    /**
+     * To handle the attribute/property value as a boolean:
+     * Attribute is present when true and missing when false.
+     * @returns {AttributeBuilder} the builder
+     */
     boolean() {
         this.data.boolean = true;
         return this;
     }
 
-    prop(propName) {
+    /**
+     * To override the property name.
+     * @param {!string} propName the property name
+     * @returns {AttributeBuilder}
+     */
+    property(propName) {
         this.data.propName = propName;
         return this;
     }
 
+    /**
+     * @override
+     */
     build(proto, on) {
         var attGetter = this.data.getter;
         var attSetter = this.data.setter;

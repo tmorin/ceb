@@ -39,7 +39,7 @@ describe('attribute()', function () {
     });
 
     it('should define an attribute binded to another property name', () => {
-        builder.augment(attribute('att1').prop('prop1')).register('test-alt-binded-attribute');
+        builder.augment(attribute('att1').property('prop1')).register('test-alt-binded-attribute');
         var el = document.createElement('test-alt-binded-attribute');
         el.prop1 = 'fromProp';
         expect(el.prop1).to.be.eq('fromProp');
