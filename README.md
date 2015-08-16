@@ -1,4 +1,4 @@
-# custom-elements-builder.js
+# custom-elements-builder
 
 [![Circle CI](https://circleci.com/gh/tmorin/custom-elements-builder/tree/development.svg?style=svg)](https://circleci.com/gh/tmorin/custom-elements-builder/tree/development)
 [![Dependency Status](https://david-dm.org/tmorin/custom-elements-builder/development.svg)](https://david-dm.org/tmorin/custom-elements-builder/development)
