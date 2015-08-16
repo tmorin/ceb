@@ -79,6 +79,9 @@ export class PropertyBuilder extends Builder {
         return this;
     }
 
+    /**
+     * @override
+     */
     build(proto, on) {
         var data = this.data;
 

@@ -7,24 +7,24 @@ module.exports = {
         distName: 'ceb',
         distPath: 'public'
     }/*, {
-        entry: [
-            'lib/ceb.property.spec.js',
-            'lib/ceb-feature-cqrs.js',
-            'lib/ceb-feature-frp.js',
-            'lib/ceb-feature-template.js',
-            'lib/ceb-feature-cqrs-rx.js',
-            'lib/ceb-feature-frp-rx.js'
-        ],
-        exclude: ['rx'],
-        distName: 'ceb-full',
-        distPath: 'public'
-    }*/],
+     entry: [
+     'lib/ceb.property.spec.js',
+     'lib/ceb-feature-cqrs.js',
+     'lib/ceb-feature-frp.js',
+     'lib/ceb-feature-template.js',
+     'lib/ceb-feature-cqrs-rx.js',
+     'lib/ceb-feature-frp-rx.js'
+     ],
+     exclude: ['rx'],
+     distName: 'ceb-full',
+     distPath: 'public'
+     }*/],
     paths: {
         lib: 'src/lib/**/*.js',
         test: 'src/test/**/*.js',
         example: 'src/example/**/*.js',
         gulp: 'gulp/**/*.js',
-        clean: ['./lib', './test', './example', './public', './.tmp']
+        clean: ['./api', './lib', './test', './example', './public', './.tmp']
     },
     sauceTasks: {
         ie: ['slIe11', 'slIe10', 'slIe9'],

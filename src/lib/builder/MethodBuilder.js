@@ -14,11 +14,22 @@ import Builder from './Builder';
  */
 export class MethodBuilder extends Builder {
 
+    /**
+     * @param {!string} methName the name of the method
+     */
     constructor(methName) {
         super();
+        /**
+         * @ignore
+         */
         this.data = {methName, invoke: noop, wrappers: []};
     }
 
+    /**
+     * To do something when invoked.
+     * @param {!function(el: HTMLElement, args: ...*)} fn the method's logic
+     * @returns {MethodBuilder} the builder
+     */
     invoke(fn) {
         if (isFunction(fn)) {
             this.data.invoke = fn;
@@ -26,11 +37,19 @@ export class MethodBuilder extends Builder {
         return this;
     }
 
-    wrap() {
-        this.data.wrappers = this.data.wrappers.concat(toArray(arguments));
+    /**
+     * To do something around the invocation.
+     * @param {...function(el: HTMLElement, args: ...*)} wrappers a set of wrappers
+     * @returns {MethodBuilder} the builder
+     */
+    wrap(...wrappers) {
+        this.data.wrappers = this.data.wrappers.concat(wrappers);
         return this;
     }
 
+    /**
+     * @override
+     */
     build(proto, on) {
         var data = this.data;
 
