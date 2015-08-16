@@ -1,15 +1,14 @@
 import customElementBuilder from './builder/CustomElementBuilder';
 import propertyBuilder from './builder/PropertyBuilder';
 import attributeBuilder from './builder/AttributeBuilder';
-import delegateBuilder from './builder/DelegateBuilder';
+import delegateBuilder from './builder/ProxyBuilder';
 import methodBuilder from './builder/MethodBuilder';
-import BuilderType from './builder/Builder';
 
 /**
  * The base builder type
  * @type {Builder} the builder
  */
-export const Builder = BuilderType;
+export * from './builder/Builder';
 
 /**
  * Get a new custom element builder.
@@ -55,7 +54,7 @@ export function method(methName) {
 /**
  * Get a new delegate builder.
  * @param {!PropertyBuilder|AttributeBuilder} builder the delegate builder
- * @returns {DelegateBuilder} the delegate builder
+ * @returns {ProxyBuilder} the delegate builder
  */
 export function delegate(builder) {
     return delegateBuilder(builder);
