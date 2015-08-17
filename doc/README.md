@@ -17,3 +17,7 @@ The second one being based on the first one.
 Obviously, ceb exposes dedicated builders to handle the common needs.
 
 - [Define and register a custom element with ceb()](ceb.md)
+- [Add properties with property()](property.md)
+- [Add attributes with attribute()](attribute.md)
+- [Add methods with method()](method.md)
+- [Properties or attributes delegation with delegate()](proxy.md)

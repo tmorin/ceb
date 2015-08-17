@@ -6,11 +6,11 @@ import {getAttValue, setAttValue} from './AttributeBuilder';
 import Builder from './Builder';
 
 /**
- * The proxy builder.
- * Its goal is to provide a user friendly way to proxy properties and attributes.
+ * The delegate builder.
+ * Its goal is to provide a user friendly way to delegate properties and attributes.
  * @extends {Builder}
  */
-export class ProxyBuilder extends Builder {
+export class DelegateBuilder extends Builder {
 
     /**
      * @param {!PropertyBuilder|AttributeBuilder} fieldBuilder the field builder
@@ -33,9 +33,9 @@ export class ProxyBuilder extends Builder {
     }
 
     /**
-     * The target of the proxy.
+     * The target of the delegate.
      * @param {!string} selector a valid css query
-     * @returns {ProxyBuilder} the builder
+     * @returns {DelegateBuilder} the builder
      */
     to(selector) {
         this.data.selector = selector;
@@ -43,9 +43,9 @@ export class ProxyBuilder extends Builder {
     }
 
     /**
-     * To force a proxy to a property.
+     * To force a delegate to a property.
      * @param {string} [propName] the name of the property
-     * @returns {ProxyBuilder} the builder
+     * @returns {DelegateBuilder} the builder
      */
     property(propName) {
         this.data.attrName = null;
@@ -58,9 +58,9 @@ export class ProxyBuilder extends Builder {
     }
 
     /**
-     * To force the proxy to an attribute.
+     * To force the delegate to an attribute.
      * @param {string} [attrName] the name of the attribute
-     * @returns {ProxyBuilder} the builder
+     * @returns {DelegateBuilder} the builder
      */
     attribute(attrName) {
         this.data.propName = null;
@@ -136,5 +136,5 @@ export class ProxyBuilder extends Builder {
  * @ignore
  */
 export default function helper(attName) {
-    return new ProxyBuilder(attName);
+    return new DelegateBuilder(attName);
 }

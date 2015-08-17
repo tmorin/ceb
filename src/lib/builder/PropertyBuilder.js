@@ -80,7 +80,7 @@ export class PropertyBuilder extends Builder {
     }
 
     /**
-     * @override
+     * @ignore
      */
     build(proto, on) {
         var data = this.data;

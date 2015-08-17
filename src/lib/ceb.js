@@ -1,7 +1,7 @@
 import customElementBuilder from './builder/CustomElementBuilder';
 import propertyBuilder from './builder/PropertyBuilder';
 import attributeBuilder from './builder/AttributeBuilder';
-import proxyBuilder from './builder/ProxyBuilder';
+import delegateBuilder from './builder/DelegateBuilder';
 import methodBuilder from './builder/MethodBuilder';
 
 /**
@@ -52,10 +52,10 @@ export function method(methName) {
 }
 
 /**
- * Get a new proxy builder.
- * @param {!PropertyBuilder|AttributeBuilder} builder the proxy builder
- * @returns {ProxyBuilder} the proxy builder
+ * Get a new delegate builder.
+ * @param {!PropertyBuilder|AttributeBuilder} builder the property or attribute builder
+ * @returns {DelegateBuilder} the delegate builder
  */
-export function proxy(builder) {
-    return proxyBuilder(builder);
+export function delegate(builder) {
+    return delegateBuilder(builder);
 }

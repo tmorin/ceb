@@ -24,6 +24,8 @@ const LIFECYCLE_EVENTS = flatten(LIFECYCLE_CALLBACKS.map(name => [`before:${name
  */
 export class CustomElementBuilder {
 
+    /**
+     */
     constructor() {
         var proto = Object.create(HTMLElement.prototype);
         var builders = [];

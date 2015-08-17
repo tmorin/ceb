@@ -1,5 +1,8 @@
 # Change logs
 
+## 0.5.0
+- keep concepts breaking API
+
 ## 0.3.4
 - ceb
  - fix features calling features

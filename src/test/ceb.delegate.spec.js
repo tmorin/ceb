@@ -1,8 +1,8 @@
 /*jshint -W030 */
 
-import {ceb, property, attribute, proxy} from '../lib/ceb';
+import {ceb, property, attribute, delegate} from '../lib/ceb';
 
-describe('proxy()', function () {
+describe('delegate()', function () {
     var sandbox, builder;
     beforeEach(() => {
         if (sandbox) {
@@ -17,52 +17,52 @@ describe('proxy()', function () {
 
     /* PROPERTY */
 
-    it('should proxy a property to the target matching property', () => {
+    it('should delegate a property to the target matching property', () => {
         var setter = (el, value) => value + '1';
         var getter = (el, value) => value.toUpperCase();
         builder.augment(
-            proxy(property('prop1').setter(setter).getter(getter)).to('button')
-        ).register('test-proxy-prop-to-prop');
-        var el = document.createElement('test-proxy-prop-to-prop');
+            delegate(property('prop1').setter(setter).getter(getter)).to('button')
+        ).register('test-delegate-prop-to-prop');
+        var el = document.createElement('test-delegate-prop-to-prop');
         sandbox.appendChild(el);
         el.prop1 = 'value';
         expect(el.prop1, 'el.prop1').to.be.eq('VALUE1');
         expect(el.querySelector('button').prop1, 'el>button.prop1').to.be.eq('value1');
     });
 
-    it('should proxy a property to another target property', () => {
+    it('should delegate a property to another target property', () => {
         var setter = (el, value) => value + '1';
         var getter = (el, value) => value.toUpperCase();
         builder.augment(
-            proxy(property('prop1').setter(setter).getter(getter)).to('button').property('prop1bis')
-        ).register('test-proxy-prop-to-alt-prop');
-        var el = document.createElement('test-proxy-prop-to-alt-prop');
+            delegate(property('prop1').setter(setter).getter(getter)).to('button').property('prop1bis')
+        ).register('test-delegate-prop-to-alt-prop');
+        var el = document.createElement('test-delegate-prop-to-alt-prop');
         sandbox.appendChild(el);
         el.prop1 = 'value';
         expect(el.prop1, 'el.prop1').to.be.eq('VALUE1');
         expect(el.querySelector('button').prop1bis, 'el>button.prop1bis').to.be.eq('value1');
     });
 
-    it('should proxy a property to the target matching attribute', () => {
+    it('should delegate a property to the target matching attribute', () => {
         var setter = (el, value) => value + '1';
         var getter = (el, value) => value.toUpperCase();
         builder.augment(
-            proxy(property('prop1').setter(setter).getter(getter)).to('button').attribute()
-        ).register('test-proxy-prop-to-attr');
-        var el = document.createElement('test-proxy-prop-to-attr');
+            delegate(property('prop1').setter(setter).getter(getter)).to('button').attribute()
+        ).register('test-delegate-prop-to-attr');
+        var el = document.createElement('test-delegate-prop-to-attr');
         sandbox.appendChild(el);
         el.prop1 = 'value';
         expect(el.prop1, 'el.prop1').to.be.eq('VALUE1');
         expect(el.querySelector('button').getAttribute('prop1'), 'el>button@prop1').to.be.eq('value1');
     });
 
-    it('should proxy a property to another target attribute', () => {
+    it('should delegate a property to another target attribute', () => {
         var setter = (el, value) => value + '1';
         var getter = (el, value) => value.toUpperCase();
         builder.augment(
-            proxy(property('prop1').setter(setter).getter(getter)).to('button').attribute('att1')
-        ).register('test-proxy-prop-to-alt-attr');
-        var el = document.createElement('test-proxy-prop-to-alt-attr');
+            delegate(property('prop1').setter(setter).getter(getter)).to('button').attribute('att1')
+        ).register('test-delegate-prop-to-alt-attr');
+        var el = document.createElement('test-delegate-prop-to-alt-attr');
         sandbox.appendChild(el);
         el.prop1 = 'value';
         expect(el.prop1, 'el.prop1').to.be.eq('VALUE1');
@@ -71,11 +71,11 @@ describe('proxy()', function () {
 
     /* ATTRIBUTE */
 
-    it('should proxy an attribute to the target matching attribute', (done) => {
+    it('should delegate an attribute to the target matching attribute', (done) => {
         builder.augment(
-            proxy(attribute('att1')).to('button')
-        ).register('test-proxy-attr-to-attr');
-        var el = document.createElement('test-proxy-attr-to-attr');
+            delegate(attribute('att1')).to('button')
+        ).register('test-delegate-attr-to-attr');
+        var el = document.createElement('test-delegate-attr-to-attr');
         sandbox.appendChild(el);
         el.setAttribute('att1', 'value');
         setTimeout(() => {
@@ -85,11 +85,11 @@ describe('proxy()', function () {
         }, 10);
     });
 
-    it('should proxy an attribute to another target attribute', (done) => {
+    it('should delegate an attribute to another target attribute', (done) => {
         builder.augment(
-            proxy(attribute('att1')).to('button').attribute('att2')
-        ).register('test-proxy-attr-to-alt-attr');
-        var el = document.createElement('test-proxy-attr-to-alt-attr');
+            delegate(attribute('att1')).to('button').attribute('att2')
+        ).register('test-delegate-attr-to-alt-attr');
+        var el = document.createElement('test-delegate-attr-to-alt-attr');
         sandbox.appendChild(el);
         el.setAttribute('att1', 'value');
         setTimeout(() => {
@@ -99,11 +99,11 @@ describe('proxy()', function () {
         }, 10);
     });
 
-    it('should proxy an attribute to the target matching property', (done) => {
+    it('should delegate an attribute to the target matching property', (done) => {
         builder.augment(
-            proxy(attribute('att1')).to('button').property()
-        ).register('test-proxy-attr-to-prop');
-        var el = document.createElement('test-proxy-attr-to-prop');
+            delegate(attribute('att1')).to('button').property()
+        ).register('test-delegate-attr-to-prop');
+        var el = document.createElement('test-delegate-attr-to-prop');
         sandbox.appendChild(el);
         el.setAttribute('att1', 'value');
         setTimeout(() => {
@@ -113,11 +113,11 @@ describe('proxy()', function () {
         }, 10);
     });
 
-    it('should proxy an attribute to another target property', (done) => {
+    it('should delegate an attribute to another target property', (done) => {
         builder.augment(
-            proxy(attribute('att1')).to('button').property('prop1')
-        ).register('test-proxy-attr-to-alt-prop');
-        var el = document.createElement('test-proxy-attr-to-alt-prop');
+            delegate(attribute('att1')).to('button').property('prop1')
+        ).register('test-delegate-attr-to-alt-prop');
+        var el = document.createElement('test-delegate-attr-to-alt-prop');
         sandbox.appendChild(el);
         el.setAttribute('att1', 'value');
         setTimeout(() => {
@@ -127,12 +127,12 @@ describe('proxy()', function () {
         }, 10);
     });
 
-    it('should proxy an attribute to the target matching attribute with a setter', (done) => {
+    it('should delegate an attribute to the target matching attribute with a setter', (done) => {
         var setter = (el, value) => value + '1';
         builder.augment(
-            proxy(attribute('att1').setter(setter)).to('button')
-        ).register('test-proxy-attr-to-attr-setter');
-        var el = document.createElement('test-proxy-attr-to-attr-setter');
+            delegate(attribute('att1').setter(setter)).to('button')
+        ).register('test-delegate-attr-to-attr-setter');
+        var el = document.createElement('test-delegate-attr-to-attr-setter');
         sandbox.appendChild(el);
         el.setAttribute('att1', 'value');
         setTimeout(() => {
