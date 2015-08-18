@@ -50,8 +50,8 @@ module.exports = function (config) {
         //browsers: ['IE', 'PhantomJS'],
         //browsers: ['IE'],
         //browsers: ['Firefox', 'PhantomJS'],
-        browsers: ['Firefox'],
-        //browsers: ['PhantomJS'],
+        //browsers: ['Firefox'],
+        browsers: ['PhantomJS'],
 
         singleRun: true,
 

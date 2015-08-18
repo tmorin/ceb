@@ -1,7 +1,7 @@
-import isFunction from 'lodash/lang/isFunction';
-import isString from 'lodash/lang/isString';
+import isFunction from 'lodash/lang/isFunction.js';
+import isString from 'lodash/lang/isString.js';
 
-import Builder from './Builder';
+import Builder from './Builder.js';
 
 /**
  * The template builder.

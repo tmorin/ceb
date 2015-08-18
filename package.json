@@ -48,6 +48,7 @@
     "chai": "^3.2.0",
     "del": "^1.2.0",
     "document-register-element": "^0.4.5",
+    "es6-module-loader": "^0.17.6",
     "esdoc": "^0.2.1",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.2.0",

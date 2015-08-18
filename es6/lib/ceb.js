@@ -1,11 +1,11 @@
-import customElementBuilder from './builder/CustomElementBuilder';
-import propertyBuilder from './builder/PropertyBuilder';
-import attributeBuilder from './builder/AttributeBuilder';
-import delegateBuilder from './builder/DelegateBuilder';
-import methodBuilder from './builder/MethodBuilder';
-import templateBuilder from './builder/TemplateBuilder';
-import onBuilder from './builder/OnBuilder';
-import BuilderType from './builder/Builder';
+import customElementBuilder from './builder/CustomElementBuilder.js';
+import propertyBuilder from './builder/PropertyBuilder.js';
+import attributeBuilder from './builder/AttributeBuilder.js';
+import delegateBuilder from './builder/DelegateBuilder.js';
+import methodBuilder from './builder/MethodBuilder.js';
+import templateBuilder from './builder/TemplateBuilder.js';
+import onBuilder from './builder/OnBuilder.js';
+import BuilderType from './builder/Builder.js';
 
 /**
  * The base builder type

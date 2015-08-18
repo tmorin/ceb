@@ -1,11 +1,11 @@
-import isFunction from 'lodash/lang/isFunction';
-import toArray from 'lodash/lang/toArray';
+import isFunction from 'lodash/lang/isFunction.js';
+import toArray from 'lodash/lang/toArray.js';
 
-import noop from 'lodash/utility/noop';
+import noop from 'lodash/utility/noop.js';
 
-import wrap from 'lodash/function/wrap';
+import wrap from 'lodash/function/wrap.js';
 
-import Builder from './Builder';
+import Builder from './Builder.js';
 
 /**
  * The method builder.

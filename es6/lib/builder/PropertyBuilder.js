@@ -1,9 +1,9 @@
-import isFunction from 'lodash/lang/isFunction';
-import isUndefined from 'lodash/lang/isUndefined';
-import result from 'lodash/object/result';
-import assign from 'lodash/object/assign';
+import isFunction from 'lodash/lang/isFunction.js';
+import isUndefined from 'lodash/lang/isUndefined.js';
+import result from 'lodash/object/result.js';
+import assign from 'lodash/object/assign.js';
 
-import Builder from './Builder';
+import Builder from './Builder.js';
 
 const DEFAULT_DATA = {
     enumerable: true,

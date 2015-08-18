@@ -1,4 +1,4 @@
-import {ceb, attribute, delegate, template, on} from '../lib/ceb';
+import {ceb, attribute, delegate, template, on} from '../lib/ceb.js';
 
 export default ceb().augment(
     template(`

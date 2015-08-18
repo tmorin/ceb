@@ -1,10 +1,10 @@
-import camelCase from 'lodash/string/camelCase';
-import isFunction from 'lodash/lang/isFunction';
-import isUndefined from 'lodash/lang/isUndefined';
-import isNull from 'lodash/lang/isNull';
-import assign from 'lodash/object/assign';
+import camelCase from 'lodash/string/camelCase.js';
+import isFunction from 'lodash/lang/isFunction.js';
+import isUndefined from 'lodash/lang/isUndefined.js';
+import isNull from 'lodash/lang/isNull.js';
+import assign from 'lodash/object/assign.js';
 
-import {PropertyBuilder} from './PropertyBuilder';
+import {PropertyBuilder} from './PropertyBuilder.js';
 
 /**
  * Get the value from an attribute.

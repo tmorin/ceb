@@ -1,9 +1,9 @@
-import isFunction from 'lodash/lang/isFunction';
-import isUndefined from 'lodash/lang/isUndefined';
+import isFunction from 'lodash/lang/isFunction.js';
+import isUndefined from 'lodash/lang/isUndefined.js';
 
-import {getAttValue, setAttValue} from './AttributeBuilder';
+import {getAttValue, setAttValue} from './AttributeBuilder.js';
 
-import Builder from './Builder';
+import Builder from './Builder.js';
 
 /**
  * The delegate builder.

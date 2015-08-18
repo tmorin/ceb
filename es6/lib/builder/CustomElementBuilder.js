@@ -1,13 +1,13 @@
-import isString from 'lodash/lang/isString';
-import isFunction from 'lodash/lang/isFunction';
-import toArray from 'lodash/lang/toArray';
+import isString from 'lodash/lang/isString.js';
+import isFunction from 'lodash/lang/isFunction.js';
+import toArray from 'lodash/lang/toArray.js';
 
-import flatten from 'lodash/array/flatten';
+import flatten from 'lodash/array/flatten.js';
 
-import invoke from 'lodash/collection/invoke';
+import invoke from 'lodash/collection/invoke.js';
 
-import partial from 'lodash/function/partial';
-import bind from 'lodash/function/bind';
+import partial from 'lodash/function/partial.js';
+import bind from 'lodash/function/bind.js';
 
 const LIFECYCLE_CALLBACKS = [
     'createdCallback',

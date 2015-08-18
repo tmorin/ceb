@@ -1,9 +1,9 @@
-import isFunction from 'lodash/lang/isFunction';
-import toArray from 'lodash/lang/toArray';
-import find from 'lodash/collection/find';
-import noop from 'lodash/utility/noop';
+import isFunction from 'lodash/lang/isFunction.js';
+import toArray from 'lodash/lang/toArray.js';
+import find from 'lodash/collection/find.js';
+import noop from 'lodash/utility/noop.js';
 
-import Builder from './Builder';
+import Builder from './Builder.js';
 
 /**
  * The on builder.
