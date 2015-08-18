@@ -13,7 +13,15 @@ function isFirefox() {
     return navigator.userAgent.indexOf('Firefox') > -1;
 }
 
+// Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:40.0) Gecko/20100101 Firefox/40.0
+function isAndroid4() {
+    return navigator.userAgent.indexOf('Firefox') > -1;
+}
+
 export function canClick() {
+    try {
+        console.log(navigator.userAgent);
+    } catch(e) {}
     return !(isIe9() || isPhantom() || isFirefox());
 }
 
