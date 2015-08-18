@@ -58,7 +58,6 @@
     "gulp-util": "^3.0.6",
     "gulp-zip": "^3.0.2",
     "jshint-stylish": "^2.0.1",
-    "jspm": "^0.15.7",
     "karma": "^0.13.8",
     "karma-browserify": "^4.3.0",
     "karma-chrome-launcher": "^0.2.0",
