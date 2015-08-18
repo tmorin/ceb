@@ -13,7 +13,7 @@ const DEFAULT_DATA = {
 
 /**
  * The property builder.
- * Its goal is to provide a user friendly way to define a property.
+ * Its goal is to provide a way to define a property.
  * @extends {Builder}
  */
 export class PropertyBuilder extends Builder {
@@ -111,7 +111,7 @@ export class PropertyBuilder extends Builder {
 
         Object.defineProperty(proto, this.data.propName, descriptor);
 
-        on('before:createdCallback').invoke(el => {
+        on('after:createdCallback').invoke(el => {
             if (!this.data.descriptorValue) {
                 var value = result(this.data, 'value');
                 if (!isUndefined(value)) {

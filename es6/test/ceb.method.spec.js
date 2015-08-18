@@ -2,7 +2,7 @@
 
 import {ceb, method} from '../lib/ceb';
 
-describe('method()', function () {
+describe('ceb.method()', function () {
     var sandbox, builder;
     beforeEach(() => {
         if (sandbox) {
@@ -10,6 +10,10 @@ describe('method()', function () {
         }
         document.body.appendChild((sandbox = document.createElement('div')));
         builder = ceb();
+    });
+
+    afterEach(() => {
+        sandbox.innerHTML = '';
     });
 
     it('should define a method', () => {

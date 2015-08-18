@@ -9,7 +9,7 @@ import Builder from './Builder';
 
 /**
  * The method builder.
- * Its goal is to provide a user friendly way to define a method.
+ * Its goal is to provide a way to define a method.
  * @extends {Builder}
  */
 export class MethodBuilder extends Builder {

@@ -12,11 +12,11 @@ var buffer = require('vinyl-buffer');
 
 var config = require('../config');
 
-var minify = lazypipe().pipe(buffer).pipe(function() {
+var minify = lazypipe().pipe(buffer).pipe(function () {
     return sourcemaps.init({
         loadMaps: true
     });
-}).pipe(uglify).pipe(function() {
+}).pipe(uglify).pipe(function () {
     return sourcemaps.write('./');
 });
 
@@ -33,21 +33,23 @@ function setup(conf, min) {
     var distName = (min ? conf.distName + '.min' : conf.distName) + '.js';
     return browserifies(browserify(conf.entry, {
         standalone: 'ceb'
-    }).exclude('rx'), distName, conf.distPath, min);
+    }), distName, conf.distPath, min);
 }
 
 var minTaskNames = [];
 var plainTaskNames = [];
 
-config.browserify.forEach(function(conf) {
-    var minTaskName = conf.distName + ':min';
-    minTaskNames.push(minTaskName);
-    gulp.task(minTaskName, ['babel:lib'], function() {
-        return setup(conf, true);
-    });
+config.browserify.forEach(function (conf) {
+    if (conf.min) {
+        var minTaskName = conf.distPath + '/' + conf.distName + ':min';
+        minTaskNames.push(minTaskName);
+        gulp.task(minTaskName, ['babel:lib'], function () {
+            return setup(conf, true);
+        });
+    }
 
-    var plainTaskName = conf.distName + ':plain';
-    gulp.task(plainTaskName, ['babel:lib'], function() {
+    var plainTaskName = conf.distPath + '/' +conf.distName + ':plain';
+    gulp.task(plainTaskName, ['babel:lib'], function () {
         return setup(conf, false);
     });
     plainTaskNames.push(plainTaskName);

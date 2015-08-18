@@ -3,12 +3,15 @@ import propertyBuilder from './builder/PropertyBuilder';
 import attributeBuilder from './builder/AttributeBuilder';
 import delegateBuilder from './builder/DelegateBuilder';
 import methodBuilder from './builder/MethodBuilder';
+import templateBuilder from './builder/TemplateBuilder';
+import onBuilder from './builder/OnBuilder';
+import BuilderType from './builder/Builder';
 
 /**
  * The base builder type
  * @type {Builder} the builder
  */
-export * from './builder/Builder';
+export var Builder = BuilderType;
 
 /**
  * Get a new custom element builder.
@@ -58,4 +61,22 @@ export function method(methName) {
  */
 export function delegate(builder) {
     return delegateBuilder(builder);
+}
+
+/**
+ * Get a new template builder.
+ * @param {!string|Function} tpl the string or function template
+ * @returns {TemplateBuilder} the template builder
+ */
+export function template(tpl) {
+    return templateBuilder(tpl);
+}
+
+/**
+ * Get a new on builder.
+ * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
+ * @returns {OnBuilder} the on builder
+ */
+export function on(events) {
+    return onBuilder(events);
 }

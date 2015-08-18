@@ -4,7 +4,7 @@ var publisher = require('esdoc/out/src/Publisher/publish');
 
 gulp.task('esdoc', ['lint'], function() {
     esdoc.generate({
-        source: 'src/lib',
+        source: 'es6/lib',
         destination: 'api'
     }, publisher);
 });

@@ -2,7 +2,7 @@
 
 import {ceb, attribute} from '../lib/ceb';
 
-describe('attribute()', function () {
+describe('ceb.attribute()', function () {
     var sandbox, builder;
     beforeEach(() => {
         if (sandbox) {
@@ -10,6 +10,10 @@ describe('attribute()', function () {
         }
         document.body.appendChild((sandbox = document.createElement('div')));
         builder = ceb();
+    });
+
+    afterEach(() => {
+        sandbox.innerHTML = '';
     });
 
     it('should define an attribute', () => {

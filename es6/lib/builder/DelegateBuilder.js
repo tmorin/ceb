@@ -7,7 +7,7 @@ import Builder from './Builder';
 
 /**
  * The delegate builder.
- * Its goal is to provide a user friendly way to delegate properties and attributes.
+ * Its goal is to provide a way to delegate properties and attributes.
  * @extends {Builder}
  */
 export class DelegateBuilder extends Builder {

@@ -9,18 +9,15 @@ module.exports = function (config) {
         frameworks: ['mocha', 'sinon-chai', 'browserify'],
 
         files: [
-            'node_modules/babel/node_modules/babel-core/browser-polyfill.js',
             'node_modules/document-register-element/build/document-register-element.js',
             //'node_modules/webcomponents.js/webcomponents-lite.min.js',
-            'src/lib/**/*.js',
-            'src/test/**/*.spec.js'
+            'es6/test/**/*.spec.js'
         ],
 
         exclude: [],
 
         preprocessors: {
-            'src/lib/**/*.js': ['browserify'],
-            'src/test/**/*.spec.js': ['browserify']
+            'es6/**/*.js': ['browserify']
         },
 
         browserify: {
@@ -49,10 +46,12 @@ module.exports = function (config) {
 
         autoWatch: false,
 
+        //browsers: ['Chrome'],
         //browsers: ['IE', 'PhantomJS'],
-        //browsers: ['Chrome', 'PhantomJS'],
+        //browsers: ['IE'],
         //browsers: ['Firefox', 'PhantomJS'],
-        browsers: ['PhantomJS'],
+        browsers: ['Firefox'],
+        //browsers: ['PhantomJS'],
 
         singleRun: true,
 

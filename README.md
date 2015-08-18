@@ -10,6 +10,52 @@ ceb is just a builder, natively scalable and designed for FRP.
 
 - [Home page](http://tmorin.github.io/custom-elements-builder/)
 
+## Dependencies
+
+Even if _custom-element-builder_ is transpilled from es6 to es5 with babel, the babel polyfill is not necessary. 
+
+However, _lodash_ is required for both AMD and UMD distributions.
+
+About, not evergreen browsers (those not implementing `document.registerElement()`) the following polyfill can be used:
+ - webcomponents.js
+ - document-register-element
+
+## Install
+
+From es6;
+```javascript
+import {ceb} from 'custom-element-builder/es6/ceb'
+// or
+var ceb = require('custom-element-builder');
+```
+
+From es5:
+```javascript
+var ceb = require('custom-element-builder');
+```
+
+From AMD:
+```javascript
+require(['pathOfPublicDir/amd/ceb'], function (ceb) {
+    // ...
+});
+```
+
+From System:
+```javascript
+System.import('pathOfPublicDir/system/ceb.js'); 
+```
+
+From global:
+
+```html
+<script src="pathOfPublicDir/umd/ceb.js"></script>
+```
+```javascript
+(function (global) {
+    var ceb = global.ceb;
+}(this));
+```
 ## Gulp tasks
 
 Launch babel and browserify.

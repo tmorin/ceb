@@ -1,30 +1,24 @@
 var fs = require('fs');
 module.exports = {
     pkg: JSON.parse(fs.readFileSync('package.json')),
-    isProduction: process.env.NODE_ENV === 'production',
     browserify: [{
         entry: 'lib/ceb.js',
+        min: true,
         distName: 'ceb',
-        distPath: 'public'
-    }/*, {
-     entry: [
-     'lib/ceb.property.spec.js',
-     'lib/ceb-feature-cqrs.js',
-     'lib/ceb-feature-frp.js',
-     'lib/ceb-feature-template.js',
-     'lib/ceb-feature-cqrs-rx.js',
-     'lib/ceb-feature-frp-rx.js'
-     ],
-     exclude: ['rx'],
-     distName: 'ceb-full',
-     distPath: 'public'
-     }*/],
+        standalone: 'ceb',
+        distPath: 'public/standalone'
+    }, {
+        entry: 'lib/ceb.js',
+        distName: 'ceb',
+        standalone: 'ceb',
+        distPath: 'public/browserify'
+    }],
     paths: {
-        lib: 'src/lib/**/*.js',
-        test: 'src/test/**/*.js',
-        example: 'src/example/**/*.js',
+        lib: 'es6/lib/**/*.js',
+        test: 'es6/test/**/*.js',
+        example: 'es6/example/**/*.js',
         gulp: 'gulp/**/*.js',
-        clean: ['./api', './lib', './test', './example', './public', './.tmp']
+        clean: ['./api', './example', './lib', './public', './test']
     },
     sauceTasks: {
         ie: ['slIe11', 'slIe10', 'slIe9'],

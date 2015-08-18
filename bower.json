@@ -2,7 +2,7 @@
     "name": "custom-elements-builder",
     "description": "Just a Custom Elements builder, natively scalable and designed for FRP.",
     "version": "0.5.0",
-    "main": "lib/ceb.js",
+    "main": "public/ceb.js",
     "keywords": [
         "Web",
         "Components",

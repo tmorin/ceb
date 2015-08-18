@@ -2,8 +2,7 @@
 
 import {ceb} from '../lib/ceb';
 
-describe('ceb()', () => {
-
+describe('ceb.ceb()', () => {
     var sandbox, builder, before, after;
     beforeEach(() => {
         if (sandbox) {
@@ -13,6 +12,10 @@ describe('ceb()', () => {
         builder = ceb();
         before = sinon.spy();
         after = sinon.spy();
+    });
+
+    afterEach(() => {
+        sandbox.innerHTML = '';
     });
 
     it('should handle the extends and prototype', () => {
@@ -59,22 +62,6 @@ describe('ceb()', () => {
 
     });
 
-    it('should handle before:attachedCallback and after:attachedCallback', done => {
-        builder
-            .on('before:attachedCallback').invoke(before)
-            .on('after:attachedCallback').invoke(after)
-            .register('test-attachedCallback');
-        var el = document.createElement('test-attachedCallback');
-        sandbox.appendChild(el);
-        setTimeout(() => {
-            expect(before).to.have.been.calledOnce;
-            expect(before).to.have.been.calledWith(sinon.match(el));
-            expect(after).to.have.been.calledOnce;
-            expect(after).to.have.been.calledWith(sinon.match(el));
-            done();
-        }, 10);
-    });
-
     it('should handle before:detachedCallback and after:detachedCallback', done => {
         builder
             .on('before:detachedCallback').invoke(before)
@@ -82,7 +69,25 @@ describe('ceb()', () => {
             .register('test-detachedCallback');
         var el = document.createElement('test-detachedCallback');
         sandbox.appendChild(el);
-        el.parentNode.removeChild(el);
+        setTimeout(() => {
+            sandbox.removeChild(el);
+            setTimeout(() => {
+                expect(before).to.have.been.calledOnce;
+                expect(before).to.have.been.calledWith(sinon.match(el));
+                expect(after).to.have.been.calledOnce;
+                expect(after).to.have.been.calledWith(sinon.match(el));
+                done();
+            }, 20);
+        }, 0);
+    });
+
+    it('should handle before:attachedCallback and after:attachedCallback', done => {
+        builder
+            .on('before:attachedCallback').invoke(before)
+            .on('after:attachedCallback').invoke(after)
+            .register('test-attachedCallback');
+        var el = document.createElement('test-attachedCallback');
+        sandbox.appendChild(el);
         setTimeout(() => {
             expect(before).to.have.been.calledOnce;
             expect(before).to.have.been.calledWith(sinon.match(el));
@@ -110,10 +115,10 @@ describe('ceb()', () => {
 
     it('should handle augment', done => {
         var build = sinon.spy();
-        builder.augment({build}).register('test-augment');
+        builder.augment({build: build}).register('test-augment');
         setTimeout(() => {
             expect(build).to.have.been.calledOnce;
-            expect(build).to.have.been.calledWith(sinon.match(builder.context.proto), sinon.match(builder.on));
+            expect(build).to.have.been.calledWith(sinon.match(Object), sinon.match(builder.on));
             done();
         }, 10);
     });

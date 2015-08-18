@@ -59,7 +59,7 @@ function setterFactory(attrName, isBoolean, attSetter) {
 
 /**
  * The attribute builder.
- * Its goal is to provide a user friendly way to define an attribute.
+ * Its goal is to provide a way to define an attribute.
  * @extends {PropertyBuilder}
  */
 export class AttributeBuilder extends PropertyBuilder {
@@ -114,11 +114,19 @@ export class AttributeBuilder extends PropertyBuilder {
 
         super.build(proto, on);
 
+        on('before:createdCallback').invoke(el => {
+            var attrValue = getAttValue(el, this.data.attrName, this.data.boolean);
+            if (!isNull(attrValue) && !isUndefined(attrValue)) {
+                this.data.value = attrValue;
+            }
+        });
+
         on('before:attributeChangedCallback').invoke((el, attName, oldVal, newVal) => {
             // Synchronize the attribute value with its properties
             if (attName === this.data.attrName) {
-                if (el[this.data.propName] !== newVal) {
-                    el[this.data.propName] = newVal;
+                var value = this.data.boolean ? newVal === '' : newVal;
+                if (el[this.data.propName] !== value) {
+                    el[this.data.propName] = value;
                 }
             }
         });

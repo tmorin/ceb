@@ -1,8 +1,6 @@
-/node_modules
-/api
-/lib
-/example
-/test
-/public
 /.idea
-/.tmp
+/api
+/example
+/lib
+/node_modules
+/public

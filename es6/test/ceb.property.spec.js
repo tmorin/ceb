@@ -2,7 +2,7 @@
 
 import {ceb, property} from '../lib/ceb';
 
-describe('property()', function () {
+describe('ceb.property()', function () {
     var sandbox, builder;
     beforeEach(() => {
         if (sandbox) {
@@ -10,6 +10,10 @@ describe('property()', function () {
         }
         document.body.appendChild((sandbox = document.createElement('div')));
         builder = ceb();
+    });
+
+    afterEach(() => {
+        sandbox.innerHTML = '';
     });
 
     it('should define an immutable property', () => {

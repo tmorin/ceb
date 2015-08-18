@@ -2,7 +2,7 @@
 
 import {ceb, property, attribute, delegate} from '../lib/ceb';
 
-describe('delegate()', function () {
+describe('ceb.delegate()', function () {
     var sandbox, builder;
     beforeEach(() => {
         if (sandbox) {
@@ -13,6 +13,10 @@ describe('delegate()', function () {
         builder.on('before:createdCallback').invoke(el => {
             el.innerHTML = '<button></button>';
         });
+    });
+
+    afterEach(() => {
+        sandbox.innerHTML = '';
     });
 
     /* PROPERTY */
