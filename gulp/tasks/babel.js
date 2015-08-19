@@ -1,44 +1,42 @@
 var gulp = require('gulp');
 var babel = require('gulp-babel');
+var gulpif = require('gulp-if');
 
+var minify = require('../minify');
 var config = require('../config');
 
-gulp.task('babel:lib', ['lint'], function () {
-    return gulp.src(config.paths.lib)
-        .pipe(babel())
-        .pipe(gulp.dest('lib'));
-});
-
-gulp.task('babel:umd', ['lint'], function () {
-    return gulp.src(config.paths.lib)
+function build(src, modules, dest, min) {
+    return gulp.src(src)
         .pipe(babel({
-            modules: 'umd'
+            modules: modules
         }))
-        .pipe(gulp.dest('public/umd'));
-});
+        .pipe(gulpif(min, minify()))
+        .pipe(gulp.dest(dest));
+}
 
-gulp.task('babel:system', ['lint'], function () {
-    return gulp.src(config.paths.lib)
-        .pipe(babel({
-            modules: 'system'
-        }))
-        .pipe(gulp.dest('public/system'));
-});
 
-gulp.task('babel:amd', ['lint'], function () {
-    return gulp.src(config.paths.lib)
-        .pipe(babel({
-            modules: 'amd'
-        }))
-        .pipe(gulp.dest('public/amd'));
-});
+var taskNames = config.babelify.map(function (item) {
+    var taskNames = [];
 
-gulp.task('babel:example', ['lint'], function () {
-    return gulp.src(config.paths.example)
-        .pipe(babel({
-            modules: 'umd'
-        }))
-        .pipe(gulp.dest('example'));
-});
+    var baseTaskName = 'babel:' + item.dest;
 
-gulp.task('babel', ['babel:lib', 'babel:umd', 'babel:amd', 'babel:system', 'babel:example']);
+    if (item.min) {
+        var minTaskName = baseTaskName + ':min';
+        taskNames.push(minTaskName);
+        gulp.task(minTaskName, ['lint'], function () {
+            return build(item.src, item.modules, item.dest, true);
+        });
+    }
+
+    var plainTaskName = baseTaskName;
+    taskNames.push(plainTaskName);
+    gulp.task(plainTaskName, ['lint'], function () {
+        return build(item.src, item.modules, item.dest, false);
+    });
+
+    return taskNames;
+}).reduce(function (a, b) {
+    return a.concat(b);
+}, []);
+
+gulp.task('babel', taskNames);

@@ -22,45 +22,57 @@ About, not evergreen browsers (those not implementing `document.registerElement(
 
 ## Install
 
-From es6;
+From ES6;
 ```javascript
 import {ceb} from 'custom-element-builder/es6/ceb'
+// or
+import ceb from 'custom-element-builder/es6/ceb'
 // or
 var ceb = require('custom-element-builder');
 ```
 
-From es5:
+From ES5:
 ```javascript
 var ceb = require('custom-element-builder');
 ```
 
 From AMD:
 ```javascript
-require(['pathOfPublicDir/amd/ceb'], function (ceb) {
+require(['pathOfPublicDir/umd/lib/ceb'], function (ceb) {
+    // ...
+});
+// or
+require(['pathOfPublicDir/umd/lib/ceb.min'], function (ceb) {
     // ...
 });
 ```
 
 From System:
 ```javascript
-System.import('pathOfPublicDir/system/ceb.js'); 
+System.import('pathOfPublicDir/system/lib/ceb.js'); 
+// or
+System.import('pathOfPublicDir/system/lib/ceb.min.js'); 
 ```
 
 From global:
 
 ```html
-<script src="pathOfPublicDir/umd/ceb.js"></script>
+<script src="pathOfPublicDir/umd/lib/ceb.js"></script>
+<!-- or -->
+<script src="pathOfPublicDir/umd/lib/ceb.min.js"></script>
 ```
+
 ```javascript
 (function (global) {
     var ceb = global.ceb;
 }(this));
 ```
+
 ## Gulp tasks
 
-Launch babel and browserify.
+Clean built artifacts and check, test, build and generate everything.
 ```shell
-gulp karma
+gulp 
 ```
 
 Single run of karma.
@@ -68,7 +80,7 @@ Single run of karma.
 gulp karma
 ```
 
-Start karma in watching mode handling babel and browserify.
+Start karma in watching mode handling browserify and babelify.
 ```shell
 gulp karma:watch
 ```
@@ -77,4 +89,3 @@ Single run of karma with saucelabs browsers.
 ```shell
 gulp karma:sauce
 ```
-

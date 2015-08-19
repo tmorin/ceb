@@ -1,61 +1,69 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var gulpif = require('gulp-if');
-var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
 
 var browserify = require('browserify');
+var babelify = require('babelify');
 
-var lazypipe = require('lazypipe');
 var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
 
 var config = require('../config');
+var minify = require('../minify');
+var assign = require('lodash/object/assign');
 
-var minify = lazypipe().pipe(buffer).pipe(function () {
-    return sourcemaps.init({
-        loadMaps: true
-    });
-}).pipe(uglify).pipe(function () {
-    return sourcemaps.write('./');
-});
+function bundlelify(entry, standalone, modules, args) {
+    var options = {
+        entries: [entry],
+        standalone: standalone
+    };
+    if (args) {
+        assign({}, args, options);
+    }
+    var bundler = browserify(options);
+    bundler.transform(babelify.configure({
+        modules: modules
+    }));
+    return bundler;
+}
+exports.bundlelify = bundlelify;
 
-function browserifies(bundler, src, dest, min) {
+function streamify(bundler, distName, distPath, min) {
     return bundler.bundle()
         .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-        .pipe(source(src))
+        .pipe(source(distName))
         .pipe(gulpif(min, minify()))
-        .pipe(gulp.dest(dest));
+        .pipe(gulp.dest(distPath));
 }
-exports.browserifies = browserifies;
+exports.streamify = streamify;
 
-function setup(conf, min) {
-    var distName = (min ? conf.distName + '.min' : conf.distName) + '.js';
-    return browserifies(browserify(conf.entry, {
-        standalone: 'ceb'
-    }), distName, conf.distPath, min);
+function build(entry, standalone, modules, distName, distPath, min) {
+    var bundler = bundlelify(entry, standalone, modules);
+    return streamify(bundler, distName, distPath, min);
 }
+exports.build = build;
 
-var minTaskNames = [];
-var plainTaskNames = [];
+var taskNames = config.browserify.map(function (item) {
+    var taskNames = [];
 
-config.browserify.forEach(function (conf) {
-    if (conf.min) {
-        var minTaskName = conf.distPath + '/' + conf.distName + ':min';
-        minTaskNames.push(minTaskName);
-        gulp.task(minTaskName, ['babel:lib'], function () {
-            return setup(conf, true);
+    var baseTaskName = 'browserify:' + item.distPath + '/' + item.distName;
+
+    if (item.min) {
+        var minTaskName = baseTaskName + ':min';
+        taskNames.push(minTaskName);
+        gulp.task(minTaskName, ['lint'], function () {
+            return build(item.entry, item.standalone, item.modules, item.distName, item.distPath, item.min);
         });
     }
 
-    var plainTaskName = conf.distPath + '/' +conf.distName + ':plain';
-    gulp.task(plainTaskName, ['babel:lib'], function () {
-        return setup(conf, false);
+    var plainTaskName = baseTaskName;
+    taskNames.push(plainTaskName);
+    gulp.task(plainTaskName, ['lint'], function () {
+        return build(item.entry, item.standalone, item.modules, item.distName, item.distPath);
     });
-    plainTaskNames.push(plainTaskName);
-});
 
-gulp.task('browserify:min', minTaskNames);
-gulp.task('browserify:plain', plainTaskNames);
+    return taskNames;
+}).reduce(function (a, b) {
+    return a.concat(b);
+}, []);
 
-gulp.task('browserify', ['browserify:min', 'browserify:plain']);
+gulp.task('browserify', taskNames);

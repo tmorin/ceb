@@ -1,25 +1,40 @@
 var fs = require('fs');
+
+var paths = {
+    es6: 'es6/**/*.js',
+    lib: 'es6/lib/**/*.js',
+    test: 'es6/test/**/*.js',
+    example: 'es6/example/**/*.js',
+    gulp: 'gulp/**/*.js',
+    clean: ['./api', './lib', './public', './test']
+};
+
 module.exports = {
     pkg: JSON.parse(fs.readFileSync('package.json')),
     browserify: [{
-        entry: 'lib/ceb.js',
-        min: true,
-        distName: 'ceb',
+        entry: 'es6/lib/ceb.js',
         standalone: 'ceb',
-        distPath: 'public/standalone'
-    }, {
-        entry: 'lib/ceb.js',
-        distName: 'ceb',
-        standalone: 'ceb',
-        distPath: 'public/browserify'
+        modules: 'umd',
+        distName: 'ceb.js',
+        distPath: 'public/umd/lib',
+        min: true
     }],
-    paths: {
-        lib: 'es6/lib/**/*.js',
-        test: 'es6/test/**/*.js',
-        example: 'es6/example/**/*.js',
-        gulp: 'gulp/**/*.js',
-        clean: ['./api', './example', './lib', './public', './test']
-    },
+    babelify: [{
+        src: paths.lib,
+        modules: 'common',
+        dest: 'lib'
+    }, {
+        src: paths.example,
+        modules: 'umd',
+        dest: 'public/umd/example',
+        min: true
+    }, {
+        src: [paths.es6, '!' + paths.test],
+        modules: 'system',
+        dest: 'public/system',
+        min: true
+    }],
+    paths: paths,
     sauceTasks: {
         ie: ['slIe11', 'slIe10', 'slIe9'],
         evergreen: ['slChrome', 'slFirefox'],

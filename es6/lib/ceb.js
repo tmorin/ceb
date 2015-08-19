@@ -11,7 +11,7 @@ import BuilderType from './builder/Builder.js';
  * The base builder type
  * @type {Builder} the builder
  */
-export var Builder = BuilderType;
+export let Builder = BuilderType;
 
 /**
  * Get a new custom element builder.

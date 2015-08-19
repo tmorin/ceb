@@ -4,8 +4,8 @@ var zip = require('gulp-zip');
 gulp.task('zip:source', function () {
     return gulp.src([
         '**/*',
-        '!{.idea,.git,.tmp,example,lib,node_modules,public,test}/**/*',
-        '!{.idea,.git,.tmp,example,lib,node_modules,public,test}',
+        '!{.idea,.git,api,lib,node_modules,public}/**/*',
+        '!{.idea,.git,api,lib,node_modules,public}',
         '!{.project,ceb-source.zip}'
     ], {
         dot: true

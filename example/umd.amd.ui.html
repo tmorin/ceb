@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>umd with amd</title>
+    <script src="../node_modules/document-register-element/build/document-register-element.js"></script>
+    <script src="../node_modules/requirejs/require.js"></script>
+    <script>
+        require([
+            '../public/umd/example/ui/ceb-ui-action.js',
+            '../public/umd/example/ui/ceb-ui-actions.js',
+            '../public/umd/example/ui/ceb-ui-app.js',
+            '../public/umd/example/ui/ceb-ui-content.js',
+            '../public/umd/example/ui/ceb-ui-form.js',
+            '../public/umd/example/ui/ceb-ui-header.js',
+            '../public/umd/example/ui/ceb-ui-list.js',
+            '../public/umd/example/ui/ceb-ui-page.js'
+        ], function () {
+        });
+    </script>
+</head>
+<body>
+
+<ceb-ui-app start-page="homePage">
+
+    <!-- actions -->
+    <ceb-ui-actions>
+        <ceb-ui-action id="backAction">
+            <button>Back</button>
+        </ceb-ui-action>
+        <ceb-ui-action id="showAddCardAction">
+            <button>+</button>
+        </ceb-ui-action>
+        <ceb-ui-action id="addCardAction">
+            <button>Ok</button>
+        </ceb-ui-action>
+        <ceb-ui-action id="removeCardAction">
+            <button>Remove</button>
+        </ceb-ui-action>
+        <ceb-ui-action id="editCardAction">
+            <button>Edit</button>
+        </ceb-ui-action>
+    </ceb-ui-actions>
+
+    <!-- home page -->
+    <ceb-ui-page id="homePage">
+        <ceb-ui-header ui-title="Home">
+            <ceb-ui-action ref="showAddCardAction"></ceb-ui-action>
+        </ceb-ui-header>
+        <ceb-ui-content>
+            <p>click on add, to add a card</p>
+            <ceb-ui-list id="cardList"></ceb-ui-list>
+        </ceb-ui-content>
+    </ceb-ui-page>
+
+    <!-- add page -->
+    <ceb-ui-page id="addPage">
+        <ceb-ui-header ui-title="Add">
+            <ceb-ui-action ref="backAction" primary></ceb-ui-action>
+            <ceb-ui-action ref="addCardAction" form="addCardForm"></ceb-ui-action>
+        </ceb-ui-header>
+        <ceb-ui-content>
+            <ceb-ui-form id="addCardForm">
+                <input name="content" type="text" required>
+            </ceb-ui-form>
+        </ceb-ui-content>
+    </ceb-ui-page>
+
+    <!-- edit page -->
+    <ceb-ui-page id="editPage">
+        <ceb-ui-header ui-title="Edit">
+            <ceb-ui-action ref="backAction" primary></ceb-ui-action>
+            <ceb-ui-action ref="editCardAction" form="editCardForm"></ceb-ui-action>
+        </ceb-ui-header>
+        <ceb-ui-content>
+            <ceb-ui-form id="editCardForm">
+                <input name="content" type="text" required>
+            </ceb-ui-form>
+        </ceb-ui-content>
+    </ceb-ui-page>
+
+    <!-- remove page -->
+    <ceb-ui-page id="removePage">
+        <ceb-ui-header ui-title="Remove">
+            <ceb-ui-action ref="backAction" primary></ceb-ui-action>
+        </ceb-ui-header>
+        <ceb-ui-content>
+            <p>Do you really want to remove this card?</p>
+            <ceb-ui-action ref="removeCardAction"></ceb-ui-action>
+        </ceb-ui-content>
+    </ceb-ui-page>
+
+</ceb-ui-app>
+
+</body>
+</html>

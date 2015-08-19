@@ -1,7 +1,9 @@
 /.*
+/*.tgz
 /gulp
 /es6/example
 /es6/test
+/gulp
 /bower.json
 /circle.yml
 /gulpfile.js

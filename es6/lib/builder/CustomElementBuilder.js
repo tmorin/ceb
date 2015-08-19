@@ -27,17 +27,17 @@ export class CustomElementBuilder {
     /**
      */
     constructor() {
-        var proto = Object.create(HTMLElement.prototype);
-        var builders = [];
-        var events = LIFECYCLE_EVENTS.reduce((a, b) => {
-            a[b] = [];
-            return a;
-        }, {
-            'before:builders': [],
-            'after:builders': [],
-            'before:registerElement': [],
-            'after:registerElement': []
-        });
+        let proto = Object.create(HTMLElement.prototype),
+            builders = [],
+            events = LIFECYCLE_EVENTS.reduce((a, b) => {
+                a[b] = [];
+                return a;
+            }, {
+                'before:builders': [],
+                'after:builders': [],
+                'before:registerElement': [],
+                'after:registerElement': []
+            });
         /**
          * @type {Object}
          * @property {!Object} proto - the prototype
@@ -84,7 +84,7 @@ export class CustomElementBuilder {
      * @property {function(callback: function)} invoke - to register the callback
      */
     on(event) {
-        var invoke = cb => {
+        let invoke = cb => {
             this.context.events[event].push(cb);
             return this;
         };
@@ -105,7 +105,7 @@ export class CustomElementBuilder {
 
         LIFECYCLE_CALLBACKS.forEach(partial(applyLifecycle, this.context));
 
-        var options = {prototype: this.context.proto};
+        let options = {prototype: this.context.proto};
 
         if (isString(this.context.extends)) {
             options.extends = this.context.extends;
@@ -113,7 +113,7 @@ export class CustomElementBuilder {
 
         this.context.events['before:registerElement'].forEach(fn => fn(this.context));
 
-        var CustomElement = document.registerElement(name, options);
+        let CustomElement = document.registerElement(name, options);
 
         this.context.events['after:registerElement'].forEach(fn => fn(CustomElement));
 
@@ -122,13 +122,13 @@ export class CustomElementBuilder {
 }
 
 function applyLifecycle(context, name) {
-    var proto = context.proto,
+    let proto = context.proto,
         original = proto[name],
         beforeFns = context.events['before:' + name],
         afterFns = context.events['after:' + name];
 
     proto[name] = function () {
-        var args = [this].concat(toArray(arguments));
+        let args = [this].concat(toArray(arguments));
 
         beforeFns.forEach(fn => fn.apply(this, args));
 

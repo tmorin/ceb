@@ -13,7 +13,7 @@ describe('ceb.template()', ()=> {
     });
 
     afterEach(() => {
-        sandbox.innerHTML = '';
+        //sandbox.innerHTML = '';
     });
 
     it('should apply a string template', () => {
@@ -26,6 +26,138 @@ describe('ceb.template()', ()=> {
         builder.augment(template(el => `<button>${el.tagName.toLowerCase()}</button>`)).register('ceb-template-function');
         var el = document.createElement('ceb-template-function');
         expect(el.innerHTML).to.be.eq('<button>ceb-template-function</button>');
+    });
+
+    it('should handle content node', (done) => {
+        builder.augment(template(`
+            <p>pseudo shadow DOM</p>
+            <content></content>
+            <p>pseudo shadow DOM</p>
+        `)).register('ceb-template-node-lightdom');
+
+        sandbox.innerHTML = `
+            <ceb-template-node-lightdom>
+            <span class="lightdom">light DOM</span>
+            </ceb-template-node-lightdom>
+        `;
+
+        setTimeout(() => {
+            var el = sandbox.querySelector('ceb-template-node-lightdom');
+            expect(el.querySelector('.lightdom').textContent).to.be.eq('light DOM');
+            expect(el.lightDomNode).to.be.eq(el.querySelector('.lightdom').parentNode);
+            done();
+        }, 20);
+    });
+
+    it('should handle ceb-content attribute', (done) => {
+        builder.augment(template(`
+            <p>pseudo shadow DOM</p>
+            <p ceb-content></p>
+            <p>pseudo shadow DOM</p>
+        `)).register('ceb-template-attr-lightdom');
+
+        sandbox.innerHTML = `
+            <ceb-template-attr-lightdom>
+            <span class="lightdom">light DOM</span>
+            </ceb-template-attr-lightdom>
+        `;
+
+        setTimeout(() => {
+            var el = sandbox.querySelector('ceb-template-attr-lightdom');
+            expect(el.querySelector('.lightdom').textContent).to.be.eq('light DOM');
+            expect(el.lightDomNode).to.be.eq(el.querySelector('.lightdom').parentNode);
+            done();
+        }, 20);
+    });
+
+    it('should handle embedded light nodes', (done) => {
+        ceb().augment(template(`
+            <p id="parent-before">pseudo parent shadow DOM</p>
+            <ceb-template-embebbed-child><content></content></ceb-template-embebbed-child>
+            <p id="parent-after">pseudo parent shadow DOM</p>
+        `)).register('ceb-template-embebbed-parent');
+
+        ceb().augment(template(`
+            <p id="child-before">pseudo child shadow DOM</p>
+            <content></content>
+            <p id="child-before">pseudo child shadow DOM</p>
+        `)).register('ceb-template-embebbed-child');
+
+        sandbox.innerHTML = `
+            <ceb-template-embebbed-parent>
+            <span class="lightdom">light DOM</span>
+            </ceb-template-embebbed-parent>
+        `;
+
+        setTimeout(() => {
+            var el = sandbox.querySelector('ceb-template-embebbed-parent');
+            expect(el.lightDomNode.textContent.trim()).to.be.eq('light DOM');
+            done();
+        }, 20);
+    });
+
+    it('should handle embedded light nodes v2', (done) => {
+        ceb().augment(template(`
+            <p id="parent-before">pseudo parent shadow DOM</p>
+            <content></content>
+            <p id="parent-after">pseudo parent shadow DOM</p>
+        `)).register('ceb-template-embebbed-parent-v2');
+
+        ceb().augment(template(`
+            <p id="child-before">pseudo child shadow DOM</p>
+            <content></content>
+            <p id="child-before">pseudo child shadow DOM</p>
+        `)).register('ceb-template-embebbed-child-v2');
+
+        sandbox.innerHTML = `
+            <ceb-template-embebbed-parent-v2 id="parent1">
+                <ceb-template-embebbed-child-v2 id="child1"><span class="lightdom">light DOM 1</span></ceb-template-embebbed-child-v2>
+                <ceb-template-embebbed-child-v2 id="child2"><span class="lightdom">light DOM 2</span></ceb-template-embebbed-child-v2>
+            </ceb-template-embebbed-parent-v2>
+        `;
+
+        setTimeout(() => {
+            var el = sandbox.querySelector('ceb-template-embebbed-parent-v2');
+            expect(el.lightDomNode.textContent.trim()).to.be.contain('light DOM');
+            expect(el.lightDomNode.querySelector('#child1')).to.be.not.null;
+            expect(el.lightDomNode.querySelector('#child2')).to.be.not.null;
+            done();
+        }, 20);
+    });
+
+    it('should be cloned', (done) => {
+        ceb().augment(template(`
+            <p id="parent-before">pseudo parent shadow DOM</p>
+            <content></content>
+            <p id="parent-after">pseudo parent shadow DOM</p>
+        `)).register('ceb-template-clone-parent');
+
+        ceb().augment(template(`
+            <p id="child-before">pseudo child shadow DOM</p>
+            <content></content>
+            <p id="child-before">pseudo child shadow DOM</p>
+        `)).register('ceb-template-clone-child');
+
+        sandbox.innerHTML = `
+            <ceb-template-clone-parent id="parent1">
+                <ceb-template-clone-child id="child1"><span class="lightdom">light DOM 1</span></ceb-template-clone-child>
+                <ceb-template-clone-child id="child2"><span class="lightdom">light DOM 2</span></ceb-template-clone-child>
+            </ceb-template-clone-parent>
+        `;
+
+        var el = sandbox.querySelector('ceb-template-clone-parent');
+
+        setTimeout(() => {
+            var clonedNode = el.cloneNode(true);
+            sandbox.appendChild(clonedNode);
+            setTimeout(() => {
+                expect(clonedNode.tagName).to.be.eq(el.tagName);
+                expect(el.lightDomNode.querySelector('#child1')).to.be.not.null;
+                expect(el.lightDomNode.querySelector('#child2')).to.be.not.null;
+                done();
+            }, 20);
+        }, 20);
+
     });
 
 });

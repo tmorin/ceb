@@ -20,7 +20,7 @@ export class OnBuilder extends Builder {
         /**
          * @ignore
          */
-        this.data = {events, invoke:noop};
+        this.data = {events, invoke: noop};
     }
 
     /**
@@ -86,14 +86,13 @@ export class OnBuilder extends Builder {
      * @ignore
      */
     build(proto, on) {
-        var events = this.data.events.split(' ').map(event => event.trim());
-        var capture = !!this.data.capture;
-        var invoke = this.data.invoke;
-        var selector = this.data.selector;
-        var stopPropagation = this.data.stopPropagation;
-        var preventDefault = this.data.preventDefault;
-        var listener;
-
+        let events = this.data.events.split(',').map(event => event.trim().split(' ')),
+            capture = !!this.data.capture,
+            invoke = this.data.invoke,
+            selector = this.data.selector,
+            stopPropagation = this.data.stopPropagation,
+            preventDefault = this.data.preventDefault,
+            listener;
         on('before:attachedCallback').invoke((el) => {
             listener = evt => {
                 if (stopPropagation) {
@@ -102,8 +101,12 @@ export class OnBuilder extends Builder {
                 if (preventDefault) {
                     evt.preventDefault();
                 }
+
                 if (selector) {
-                    var target = find(toArray(el.querySelectorAll(selector)), el => el === evt.target || el.contains(evt.target));
+                    let target = find(
+                        toArray(el.querySelectorAll(selector)),
+                            el => el === evt.target || el.contains(evt.target)
+                    );
                     if (target) {
                         invoke(el, evt, target);
                     }
@@ -111,7 +114,9 @@ export class OnBuilder extends Builder {
                     invoke(el, evt, el);
                 }
             };
-            events.forEach(event => el.addEventListener(event, listener, capture));
+            events.map(([name, target]) => [name, target ? el.querySelector(target) : el])
+                .filter(([name, target]) => !!target)
+                .forEach(([name, target]) => target.addEventListener(name, listener, capture));
         });
 
         on('before:detachedCallback').invoke((el) => {

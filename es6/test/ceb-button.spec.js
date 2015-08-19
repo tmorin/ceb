@@ -17,7 +17,7 @@ describe('ceb-button', ()=> {
     });
 
     afterEach(() => {
-        sandbox.innerHTML = '';
+        //sandbox.innerHTML = '';
     });
 
     it('should create the button', () => {

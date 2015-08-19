@@ -83,9 +83,9 @@ export class PropertyBuilder extends Builder {
      * @ignore
      */
     build(proto, on) {
-        var data = this.data;
+        let data = this.data;
 
-        var descriptor = {
+        let descriptor = {
             enumerable: this.data.enumerable
         };
 
@@ -110,12 +110,11 @@ export class PropertyBuilder extends Builder {
         }
 
         Object.defineProperty(proto, this.data.propName, descriptor);
-
         on('after:createdCallback').invoke(el => {
             if (!this.data.descriptorValue) {
-                var value = result(this.data, 'value');
+                let value = result(data, 'value');
                 if (!isUndefined(value)) {
-                    el[this.data.propName] = value;
+                    el[data.propName] = value;
                 }
             }
         });

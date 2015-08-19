@@ -6,6 +6,7 @@ import assign from 'lodash/object/assign.js';
 
 import {PropertyBuilder} from './PropertyBuilder.js';
 
+
 /**
  * Get the value from an attribute.
  * @param {!HTMLElement} el an HTML element
@@ -14,7 +15,11 @@ import {PropertyBuilder} from './PropertyBuilder.js';
  * @returns {string|boolean}
  */
 export function getAttValue(el, attrName, isBoolean) {
-    return isBoolean ? el.hasAttribute(attrName) : el.getAttribute(attrName);
+    if (isBoolean) {
+        //let value = el.getAttribute(attrName);
+        return el.hasAttribute(attrName);
+    }
+    return el.getAttribute(attrName);
 }
 
 /**
@@ -106,16 +111,20 @@ export class AttributeBuilder extends PropertyBuilder {
      * @override
      */
     build(proto, on) {
-        var attGetter = this.data.getter;
-        var attSetter = this.data.setter;
+        let attGetter = this.data.getter,
+            attSetter = this.data.setter;
 
         this.data.getter = this.data.getterFactory(this.data.attrName, this.data.boolean, attGetter);
         this.data.setter = this.data.setterFactory(this.data.attrName, this.data.boolean, attSetter);
 
+        if (this.data.boolean) {
+            delete this.data.value;
+        }
+
         super.build(proto, on);
 
         on('before:createdCallback').invoke(el => {
-            var attrValue = getAttValue(el, this.data.attrName, this.data.boolean);
+            let attrValue = getAttValue(el, this.data.attrName, this.data.boolean);
             if (!isNull(attrValue) && !isUndefined(attrValue)) {
                 this.data.value = attrValue;
             }
@@ -124,7 +133,7 @@ export class AttributeBuilder extends PropertyBuilder {
         on('before:attributeChangedCallback').invoke((el, attName, oldVal, newVal) => {
             // Synchronize the attribute value with its properties
             if (attName === this.data.attrName) {
-                var value = this.data.boolean ? newVal === '' : newVal;
+                let value = this.data.boolean ? newVal === '' : newVal;
                 if (el[this.data.propName] !== value) {
                     el[this.data.propName] = value;
                 }

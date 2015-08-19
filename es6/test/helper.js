@@ -17,8 +17,7 @@ function isSafari() {
         (
             navigator.userAgent.indexOf('Version/7.0.') > -1 ||
             navigator.userAgent.indexOf('Version/8.0.') > -1
-        )
-
+        );
 }
 
 function isAndroid4() {
@@ -26,10 +25,6 @@ function isAndroid4() {
 }
 
 export function canClick() {
-    try {
-        console.log(navigator.userAgent);
-    } catch (e) {
-    }
     return !(isIe() || isPhantom() || isFirefox() || isSafari() || isAndroid4());
 }
 

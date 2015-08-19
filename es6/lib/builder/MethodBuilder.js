@@ -51,16 +51,14 @@ export class MethodBuilder extends Builder {
      * @override
      */
     build(proto, on) {
-        var data = this.data;
+        let data = this.data;
 
         proto[data.methName] = function () {
             data.invoke.apply(this, [this].concat(toArray(arguments)));
         };
 
         on('after:builders').invoke(() => {
-            data.wrappers.forEach(wrapper => {
-                data.invoke = wrap(data.invoke, wrapper);
-            });
+            data.wrappers.forEach(wrapper => data.invoke = wrap(data.invoke, wrapper));
         });
     }
 }
