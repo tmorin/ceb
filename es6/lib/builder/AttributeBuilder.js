@@ -1,6 +1,7 @@
 import camelCase from 'lodash/string/camelCase.js';
 import isFunction from 'lodash/lang/isFunction.js';
 import isUndefined from 'lodash/lang/isUndefined.js';
+import result from 'lodash/object/result.js';
 import isNull from 'lodash/lang/isNull.js';
 import assign from 'lodash/object/assign.js';
 
@@ -112,21 +113,36 @@ export class AttributeBuilder extends PropertyBuilder {
      */
     build(proto, on) {
         let attGetter = this.data.getter,
-            attSetter = this.data.setter;
+            attSetter = this.data.setter,
+            defaultValue = result(this.data, 'value');
+
+        this.data.value = undefined;
 
         this.data.getter = this.data.getterFactory(this.data.attrName, this.data.boolean, attGetter);
         this.data.setter = this.data.setterFactory(this.data.attrName, this.data.boolean, attSetter);
 
-        if (this.data.boolean) {
-            delete this.data.value;
-        }
-
         super.build(proto, on);
 
-        on('before:createdCallback').invoke(el => {
+        /*on('before:createdCallback').invoke(el => {
             let attrValue = getAttValue(el, this.data.attrName, this.data.boolean);
-            if (!isNull(attrValue) && !isUndefined(attrValue)) {
+            if (this.data.boolean) {
+                console.log(el);
+                console.log('default', this.data.value);
+                console.log('attrValue', attrValue);
+                this.data.value = !!this.data.value ? this.data.value : attrValue;
+            } else if (!isNull(attrValue) && !isUndefined(attrValue)) {
                 this.data.value = attrValue;
+            }
+        });*/
+
+        on('after:createdCallback').invoke(el => {
+            let attrValue = getAttValue(el, this.data.attrName, this.data.boolean);
+            if (this.data.boolean) {
+                el[this.data.propName] = !!defaultValue ? defaultValue : attrValue;
+            } else if (!isNull(attrValue) && !isUndefined(attrValue)) {
+                el[this.data.propName] = attrValue;
+            } else if (!isUndefined(defaultValue)) {
+                el[this.data.propName] = defaultValue;
             }
         });
 
