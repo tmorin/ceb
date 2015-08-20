@@ -65,7 +65,7 @@ describe('ceb-button', ()=> {
             expect(el.querySelector('button [x-ref=icon]').textContent).to.eq('icon');
             expect(el.querySelector('button [x-ref=label]').textContent).to.eq('label');
             done();
-        }, 30);
+        }, 100);
     });
 
 });
