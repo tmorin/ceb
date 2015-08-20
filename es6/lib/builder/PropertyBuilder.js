@@ -83,9 +83,9 @@ export class PropertyBuilder extends Builder {
      * @ignore
      */
     build(proto, on) {
-        let data = this.data;
-
-        let descriptor = {
+        let data = this.data,
+            defaultValue = result(this.data, 'value'),
+            descriptor = {
             enumerable: this.data.enumerable
         };
 
@@ -106,16 +106,14 @@ export class PropertyBuilder extends Builder {
         }
 
         if (this.data.descriptorValue) {
-            descriptor.value = result(this.data, 'value');
+            descriptor.value = defaultValue;
         }
 
         Object.defineProperty(proto, this.data.propName, descriptor);
+
         on('after:createdCallback').invoke(el => {
-            if (!this.data.descriptorValue) {
-                let value = result(data, 'value');
-                if (!isUndefined(value)) {
-                    el[data.propName] = value;
-                }
+            if (!this.data.descriptorValue && !isUndefined(defaultValue)) {
+                el[data.propName] = defaultValue;
             }
         });
     }
