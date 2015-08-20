@@ -33,6 +33,6 @@ var taskNames = config.browserify.map(function (item) {
 
 gulp.task('watchify', taskNames);
 
-gulp.task('watch', ['watchify'], function () {
+gulp.task('watch', ['watchify', 'babel'], function () {
     gulp.watch(config.paths.example, ['babel']);
 });
