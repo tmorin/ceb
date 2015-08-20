@@ -10,8 +10,8 @@ export default ceb().augment(
         </button>
     `),
     delegate(attribute('name')).to('button'),
-    delegate(attribute('disabled').boolean()).to('button').property(),
-    delegate(attribute('label')).to('button [x-ref=label]').property('textContent'),
-    delegate(attribute('icon')).to('button [x-ref=icon]').property('textContent'),
-    on('click button').invoke((el, evt) => el.label = (el.label === 'clicked' ? 'label' : 'clicked'))
+    delegate(attribute('disabled').boolean().value(true)).to('button').property(),
+    delegate(attribute('label').value('click me')).to('button [x-ref=label]').property('textContent'),
+    delegate(attribute('icon').value('X')).to('button [x-ref=icon]').property('textContent'),
+    on('click button').invoke((el, evt) => el.label = (el.label === 'click me' ? 'label' : 'clicked'))
 ).register('ceb-button');
