@@ -17,7 +17,7 @@ describe('ceb-button', ()=> {
     });
 
     afterEach(() => {
-        //sandbox.innerHTML = '';
+        sandbox.innerHTML = '';
     });
 
     it('should create the button', () => {
@@ -37,25 +37,25 @@ describe('ceb-button', ()=> {
         expect(cebButton.querySelector('button').disabled).to.be.false;
     });
 
-    it('should have the label "clicked" when clicked', done => {
+    it('should have the label "click me" when clicked', done => {
+        click(cebButton.querySelector('button'));
+        setTimeout(() => {
+            if (canClick()) {
+                expect(cebButton.querySelector('button [x-ref=label]').textContent).to.eq('click me');
+            }
+            done();
+        }, 30);
+    });
+
+    it('should have the label "clicked" when clicked twice', done => {
+        click(cebButton.querySelector('button'));
         click(cebButton.querySelector('button'));
         setTimeout(() => {
             if (canClick()) {
                 expect(cebButton.querySelector('button [x-ref=label]').textContent).to.eq('clicked');
             }
             done();
-        }, 10);
-    });
-
-    it('should have the label "label" when clicked twice', done => {
-        click(cebButton.querySelector('button'));
-        click(cebButton.querySelector('button'));
-        setTimeout(() => {
-            if (canClick()) {
-                expect(cebButton.querySelector('button [x-ref=label]').textContent).to.eq('label');
-            }
-            done();
-        }, 10);
+        }, 30);
     });
 
     it('should handle attribute value when created', done => {
@@ -65,7 +65,7 @@ describe('ceb-button', ()=> {
             expect(el.querySelector('button [x-ref=icon]').textContent).to.eq('icon');
             expect(el.querySelector('button [x-ref=label]').textContent).to.eq('label');
             done();
-        }, 100);
+        }, 30);
     });
 
 });
