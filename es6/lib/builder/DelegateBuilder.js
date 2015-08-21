@@ -87,19 +87,23 @@ export class DelegateBuilder extends Builder {
             fieldBuilderData.getterFactory = (attrName, isBoolean) => {
                 return (el) => {
                     let target = el.querySelector(data.selector);
-                    return targetedAttrName ? getAttValue(target, targetedAttrName, isBoolean) : target[targetedPropName];
+                    if (target) {
+                        return targetedAttrName ? getAttValue(target, targetedAttrName, isBoolean) : target[targetedPropName];
+                    }
                 };
             };
             fieldBuilderData.setterFactory = (attrName, isBoolean, attSetter) => {
                 return (el, value) => {
                     let target = el.querySelector(data.selector),
                         attrValue = isFunction(attSetter) ? attSetter.call(el, el, value) : value;
-                    if (targetedAttrName) {
-                        setAttValue(target, targetedAttrName, isBoolean, attrValue);
-                    } else {
-                        target[targetedPropName] = attrValue;
+                    if (target) {
+                        if (targetedAttrName) {
+                            setAttValue(target, targetedAttrName, isBoolean, attrValue);
+                        } else {
+                            target[targetedPropName] = attrValue;
+                        }
+                        setAttValue(el, attrName, isBoolean, attrValue);
                     }
-                    setAttValue(el, attrName, isBoolean, attrValue);
                 };
             };
         } else if (fieldBuilderData.propName) {
@@ -107,20 +111,24 @@ export class DelegateBuilder extends Builder {
             fieldBuilderData.getter = (el) => {
                 let target = el.querySelector(data.selector),
                     targetValue;
-                if (targetedAttrName) {
-                    targetValue = target.getAttribute(targetedAttrName);
-                } else {
-                    targetValue = target[targetedPropName];
+                if (target) {
+                    if (targetedAttrName) {
+                        targetValue = target.getAttribute(targetedAttrName);
+                    } else {
+                        targetValue = target[targetedPropName];
+                    }
                 }
                 return isFunction(fieldGetter) ? fieldGetter.call(this, this, targetValue) : targetValue;
             };
             fieldBuilderData.setter = (el, value) => {
                 let target = el.querySelector(data.selector),
                     targetValue = isFunction(fieldSetter) ? fieldSetter.call(this, this, value) : value;
-                if (targetedAttrName) {
-                    target.setAttribute(targetedAttrName, targetValue);
-                } else {
-                    target[targetedPropName] = targetValue;
+                if (target) {
+                    if (targetedAttrName) {
+                        target.setAttribute(targetedAttrName, targetValue);
+                    } else {
+                        target[targetedPropName] = targetValue;
+                    }
                 }
             };
         }
