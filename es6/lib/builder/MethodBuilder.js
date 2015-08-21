@@ -54,7 +54,7 @@ export class MethodBuilder extends Builder {
         let data = this.data;
 
         proto[data.methName] = function () {
-            data.invoke.apply(this, [this].concat(toArray(arguments)));
+            return data.invoke.apply(this, [this].concat(toArray(arguments)));
         };
 
         on('after:builders').invoke(() => {
