@@ -9,11 +9,11 @@ export default ceb().augment(
     `),
     delegate(attribute('ui-title')).to('[ui-ref=title').property('textContent'),
     method('createdCallback').invoke(el => {
-        var primaryNodes = Array.prototype.slice.call(el.lightDomNode.querySelectorAll('ceb-ui-action[primary]'));
+        var primaryNodes = Array.prototype.slice.call(el.lightDomNode.querySelectorAll('[primary]'));
         var primaryNode = el.querySelector('[ui-ref=primary]');
         primaryNodes.forEach(action => primaryNode.appendChild(action));
 
-        var secondaryNodes = Array.prototype.slice.call(el.lightDomNode.querySelectorAll('ceb-ui-action:not([primary])'));
+        var secondaryNodes = Array.prototype.slice.call(el.lightDomNode.querySelectorAll(':not([primary])'));
         var secondaryNode = el.querySelector('[ui-ref=secondary]');
         secondaryNodes.forEach(action => secondaryNode.appendChild(action));
     })
