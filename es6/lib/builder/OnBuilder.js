@@ -91,10 +91,14 @@ export class OnBuilder extends Builder {
             invoke = this.data.invoke,
             selector = this.data.selector,
             stopPropagation = this.data.stopPropagation,
-            preventDefault = this.data.preventDefault,
-            listener;
+            preventDefault = this.data.preventDefault;
+
+        on('before:createdCallback').invoke((el) => {
+            el._cebOnHandlers = [];
+        });
+
         on('before:attachedCallback').invoke((el) => {
-            listener = evt => {
+            let listener = evt => {
                 if (stopPropagation) {
                     evt.stopPropagation();
                 }
@@ -114,13 +118,21 @@ export class OnBuilder extends Builder {
                     invoke(el, evt, el);
                 }
             };
-            events.map(([name, target]) => [name, target ? el.querySelector(target) : el])
+
+            el._cebOnHandlers = events
+                .map(([name, target]) => [name, target ? el.querySelector(target) : el])
                 .filter(([name, target]) => !!target)
-                .forEach(([name, target]) => target.addEventListener(name, listener, capture));
+                .map(([name, target]) => {
+                    target.addEventListener(name, listener, capture);
+                    return [target, name, listener, capture];
+                });
+
+            el._cebOnHandlers.forEach(([target, name, listener, capture]) => target.addEventListener(name, listener, capture));
+
         });
 
         on('before:detachedCallback').invoke((el) => {
-            events.forEach(event => el.removeEventListener(event, listener, capture));
+            el._cebOnHandlers.forEach(([target, name, listener, capture]) => target.removeEventListener(name, listener, capture));
         });
     }
 
