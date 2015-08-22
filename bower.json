@@ -1,47 +1,47 @@
 {
-    "name": "custom-elements-builder",
-    "description": "Just a Custom Elements builder, natively scalable and designed for FRP.",
-    "version": "0.5.0-beta.0",
-    "main": "public/umd/lib/ceb.js",
-    "keywords": [
-        "Web",
-        "Components",
-        "Custom",
-        "Element",
-        "Elements",
-        "DOM",
-        "W3C",
-        "FRP",
-        "functional",
-        "reactive",
-        "template",
-        "builder"
-    ],
-    "homepage": "https://tmorin.github.io/custom-elements-builder",
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/tmorin/custom-elements-builder.git"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Thibault Morin",
-            "url": "https://tmorin.github.io"
-        }
-    ],
-    "moduleType": [
-        "amd",
-        "es6",
-        "globals",
-        "node"
-    ],
-    "ignore": [
-        "/api",
-        "/doc",
-        "/example",
-        "/gulp",
-        "/node_modules",
-        "/.*",
-        "/*"
-    ]
+  "name": "custom-elements-builder",
+  "description": "Just a Custom Elements builder, natively scalable and designed for FRP.",
+  "version": "0.5.0",
+  "main": "public/umd/lib/ceb.js",
+  "keywords": [
+    "Web",
+    "Components",
+    "Custom",
+    "Element",
+    "Elements",
+    "DOM",
+    "W3C",
+    "FRP",
+    "functional",
+    "reactive",
+    "template",
+    "builder"
+  ],
+  "homepage": "https://tmorin.github.io/custom-elements-builder",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tmorin/custom-elements-builder.git"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Thibault Morin",
+      "url": "https://tmorin.github.io"
+    }
+  ],
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node"
+  ],
+  "ignore": [
+    "/api",
+    "/doc",
+    "/example",
+    "/gulp",
+    "/node_modules",
+    "/.*",
+    "/*"
+  ]
 }
