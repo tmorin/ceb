@@ -21,3 +21,6 @@ Obviously, ceb exposes dedicated builders to handle the common needs.
 - [Add attributes with attribute()](attribute.md)
 - [Add methods with method()](method.md)
 - [Properties or attributes delegation with delegate()](proxy.md)
+- [Add events listener with on()](method.md)
+- [Handle a template with template()](method.md)
+
