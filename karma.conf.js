@@ -6,28 +6,25 @@ module.exports = function (config) {
 
         basePath: '',
 
-        frameworks: ['mocha', 'chai', 'sinon'],
+        frameworks: ['mocha', 'sinon-chai', 'browserify'],
 
         files: [
-            // 'node_modules/document-register-element/build/document-register-element.js',
-            'node_modules/webcomponents.js/webcomponents-lite.min.js',
-            'node_modules/rx/dist/rx.lite.min.js',
-            'src/ceb.js',
-            'src/ceb-feature-template.js',
-            'src/ceb-feature-frp.js',
-            'src/ceb-feature-frp-rx.js',
-            'src/ceb-feature-cqrs.js',
-            'src/ceb-feature-cqrs-rx.js',
-            'specs/**/*.spec.js'
+            'node_modules/document-register-element/build/document-register-element.js',
+            //'node_modules/webcomponents.js/webcomponents-lite.min.js',
+            'es6/test/**/*.spec.js'
         ],
 
         exclude: [],
 
         preprocessors: {
-            'src/**/*.js': ['coverage']
+            'es6/**/*.js': ['browserify']
         },
 
-        reporters: ['progress', 'coverage'],
+        browserify: {
+            transform: ['babelify']
+        },
+
+        reporters: ['progress'],
 
         coverageReporter: {
             dir: './.tmp/cov',
@@ -49,15 +46,18 @@ module.exports = function (config) {
 
         autoWatch: false,
 
-        // browsers: ['IE'],
-        browsers: ['Firefox'],
+        //browsers: ['Chrome'],
+        //browsers: ['IE', 'PhantomJS'],
+        //browsers: ['IE'],
+        //browsers: ['Firefox', 'PhantomJS'],
+        //browsers: ['Firefox'],
+        browsers: ['PhantomJS'],
 
         singleRun: true,
 
         client: {
             mocha: {
-                reporter: 'html',
-                ui: 'tdd'
+                reporter: 'html'
             }
         }
 

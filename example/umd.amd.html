@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>umd with amd</title>
+    <script src="../node_modules/document-register-element/build/document-register-element.js"></script>
+    <script src="../node_modules/requirejs/require.js"></script>
+    <script>
+        require(['../public/umd/example/ceb-button'], function () {});
+    </script>
+</head>
+<body>
+
+default
+<ceb-button name="default"></ceb-button>
+
+<br>
+
+diasbled
+<ceb-button name="disabled" disabled></ceb-button>
+
+<br>
+
+with icon and label
+<ceb-button name="iconNlabel" icon="X" label="Ok"></ceb-button>
+
+<!--
+<button onclick="console.log('clicked')"><span>XXXX</span></button>
+<button disabled onclick="console.log('clicked')"><span>XXXX</span></button>
+-->
+</body>
+</html>

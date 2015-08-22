@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>umd with amd</title>
+    <script src="../node_modules/document-register-element/build/document-register-element.js"></script>
+    <script src="../node_modules/requirejs/require.js"></script>
+    <script>
+        require.config({
+            paths: {
+                lodash: '../node_modules/lodash',
+                baconjs: '../node_modules/baconjs/dist/Bacon',
+                immutable: '../node_modules/immutable/dist/immutable'
+            }
+        });
+        require([
+            '../public/umd/example/ui/ceb-ui-action.js',
+            '../public/umd/example/ui/ceb-ui-actions.js',
+            '../public/umd/example/ui/ceb-ui-app.js',
+            '../public/umd/example/ui/ceb-ui-content.js',
+            '../public/umd/example/ui/ceb-ui-form.js',
+            '../public/umd/example/ui/ceb-ui-header.js',
+            '../public/umd/example/ui/ceb-ui-list.js',
+            '../public/umd/example/ui/ceb-ui-page.js'
+        ], function () {
+
+            var context = {
+                displayedPage: 'homePage',
+                pages: {
+                    homePage: {
+                        cards: [],
+                    },
+                    addPage: {
+                        content: ''
+                    },
+                    editPage: {
+                        id: '',
+                        content: ''
+                    },
+                    removePage: {
+                        id: '',
+                        content: ''
+                    }
+                }
+            };
+
+            var app = document.getElementById('example');
+            app.streams.actions.filter(function (action) {
+                return action.name === 'showPage';
+            }).onValue(function (action) {
+                app.displayPage(action.params.pageId);
+            });
+
+            app.mergeContext(context);
+
+            var homePage = document.getElementById('homePage');
+            var addPage = document.getElementById('addPage');
+            var removePage = document.getElementById('removePage');
+            var editPage = document.getElementById('editPage');
+
+            app.start();
+
+        });
+    </script>
+</head>
+<body>
+
+<ceb-ui-app id="example" start-page="homePage" auto-start>
+
+    <!-- actions -->
+    <ceb-ui-actions>
+        <!-- page management -->
+        <ceb-ui-action id="backAction" name="showPreviousPage">
+            <button ceb-ui-action-target>Back</button>
+        </ceb-ui-action>
+        <ceb-ui-action id="showAddCardAction" name="showPage" param-page-id="addPage">
+            <button ceb-ui-action-target>Add</button>
+        </ceb-ui-action>
+        <ceb-ui-action id="showEditCardAction" name="showPage" param-page-id="editPage">
+            <button ceb-ui-action-target>Edit</button>
+        </ceb-ui-action>
+        <ceb-ui-action id="showRemoveCardAction" name="showPage" param-page-id="removePage">
+            <button ceb-ui-action-target>Remove</button>
+        </ceb-ui-action>
+    </ceb-ui-actions>
+
+    <!-- home page -->
+    <ceb-ui-page id="homePage">
+        <ceb-ui-header ui-title="Home">
+            <ceb-ui-action ref="showAddCardAction"></ceb-ui-action>
+        </ceb-ui-header>
+        <ceb-ui-content>
+            <p>click on add, to add a card</p>
+            <ceb-ui-list id="cardList">
+                <script template type="text/html">
+                    <div id="<%=id%>">
+                        <%=content%>
+                        <ceb-ui-action ref="showEditCardAction" param-card-id="<%=id%>"></ceb-ui-action>
+                        <ceb-ui-action ref="showRemoveCardAction" param-card-id="<%=id%>"></ceb-ui-action>
+                    </div>
+                </script>
+            </ceb-ui-list>
+        </ceb-ui-content>
+    </ceb-ui-page>
+
+    <!-- add page -->
+    <ceb-ui-page id="addPage">
+        <ceb-ui-header ui-title="Add">
+            <ceb-ui-action ref="backAction" primary></ceb-ui-action>
+            <button type="submit" form="addCardForm">Ok</button>
+        </ceb-ui-header>
+        <ceb-ui-content>
+            <form is="ceb-ui-form" id="addCardForm" action-name="addCardAction">
+                <input name="content" required>
+            </form>
+        </ceb-ui-content>
+    </ceb-ui-page>
+
+    <!-- edit page -->
+    <ceb-ui-page id="editPage">
+        <ceb-ui-header ui-title="Edit">
+            <ceb-ui-action ref="backAction" primary></ceb-ui-action>
+            <button type="submit" form="editCardForm">Edit</button>
+        </ceb-ui-header>
+        <ceb-ui-content>
+            <form is="ceb-ui-form" id="editCardForm" action-name="editCardAction">
+                <input type="hidden" name="id">
+                <input name="content" required>
+            </form>
+        </ceb-ui-content>
+    </ceb-ui-page>
+
+    <!-- remove page -->
+    <ceb-ui-page id="removePage">
+        <ceb-ui-header ui-title="Remove">
+            <ceb-ui-action ref="backAction" primary></ceb-ui-action>
+            <button type="submit" form="removeCardForm">Remove</button>
+        </ceb-ui-header>
+        <ceb-ui-content>
+            <p>Do you really want to remove this card?</p>
+
+            <form is="ceb-ui-form" id="removeCardForm" action-name="removeCardAction">
+                <input type="hidden" name="id">
+                <input name="content" readonly>
+            </form>
+        </ceb-ui-content>
+    </ceb-ui-page>
+
+</ceb-ui-app>
+
+</body>
+</html>

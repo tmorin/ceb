@@ -1,5 +1,5 @@
-.tmp
-node_modules
-bower_components
-.grunt
-.idea
+/.idea
+/api
+/lib
+/node_modules
+/public

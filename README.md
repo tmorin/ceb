@@ -1,9 +1,8 @@
 # custom-elements-builder
 
-[![Circle CI](https://circleci.com/gh/tmorin/custom-elements-builder.svg?style=svg)](https://circleci.com/gh/tmorin/custom-elements-builder)
-[![Dependency Status](https://david-dm.org/tmorin/custom-elements-builder.png)](https://david-dm.org/tmorin/custom-elements-builder)
-[![devDependency Status](https://david-dm.org/tmorin/custom-elements-builder/dev-status.png)](https://david-dm.org/tmorin/custom-elements-builder#info=devDependencies)
-[![Coverage Status](https://coveralls.io/repos/tmorin/custom-elements-builder/badge.svg)](https://coveralls.io/r/tmorin/custom-elements-builder)
+[![Circle CI](https://circleci.com/gh/tmorin/custom-elements-builder/tree/development.svg?style=svg)](https://circleci.com/gh/tmorin/custom-elements-builder/tree/development)
+[![Dependency Status](https://david-dm.org/tmorin/custom-elements-builder/development.svg)](https://david-dm.org/tmorin/custom-elements-builder/development)
+[![devDependency Status](https://david-dm.org/tmorin/custom-elements-builder/development/dev-status.svg)](https://david-dm.org/tmorin/custom-elements-builder/development#info=devDependencies)
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 
@@ -11,48 +10,82 @@ ceb is just a builder, natively scalable and designed for FRP.
 
 - [Home page](http://tmorin.github.io/custom-elements-builder/)
 
-## Grunt tasks
+## Dependencies
 
-### Editing source code
+Even if _custom-element-builder_ is transpilled from es6 to es5 with babel, the babel polyfill is not necessary. 
 
-Start karma in background, watching sources and specs then
-start a connect server watching most of the projects files.
-The URLs list:
-- the specs: http://localhost:9000/specs
-- the demos: http://localhost:9000/demos
-- the coverage: http://localhost:9000/cov
-```shell
-grunt
-```
-Or
-```shell
-grunt serve
-```
-To only activate live reload, add the parameter `--livereload-only`:
-```shell
-grunt --livereload-only
-```
+However, _lodash_ is required for both AMD and UMD distributions.
 
-Execute specs with karma on sauce labs.
-```shell
-grunt karma:build-ci-ie
-grunt karma:build-ci-evergreen
-grunt karma:build-ci-safari
-grunt karma:build-ci-android
+About, not evergreen browsers (those not implementing `document.registerElement()`) the following polyfill can be used:
+ - webcomponents.js
+ - document-register-element
+
+## Install
+
+From ES6;
+```javascript
+import {ceb} from 'custom-element-builder/es6/ceb'
+// or
+import ceb from 'custom-element-builder/es6/ceb'
+// or
+var ceb = require('custom-element-builder');
 ```
 
-### Building artifacts
-
-Check quality, build dist files and site.
-```shell
-grunt build
+From ES5:
+```javascript
+var ceb = require('custom-element-builder');
 ```
-Output:
-- dist: the minified sources
-- .tmp/site: the web site
-- .tmp/cov/html: the code coverage result
 
-Check quality and build dist files for continuous build.
+From AMD:
+```javascript
+require(['pathOfPublicDir/umd/lib/ceb'], function (ceb) {
+    // ...
+});
+// or
+require(['pathOfPublicDir/umd/lib/ceb.min'], function (ceb) {
+    // ...
+});
+```
+
+From System:
+```javascript
+System.import('pathOfPublicDir/system/lib/ceb.js'); 
+// or
+System.import('pathOfPublicDir/system/lib/ceb.min.js'); 
+```
+
+From global:
+
+```html
+<script src="pathOfPublicDir/umd/lib/ceb.js"></script>
+<!-- or -->
+<script src="pathOfPublicDir/umd/lib/ceb.min.js"></script>
+```
+
+```javascript
+(function (global) {
+    var ceb = global.ceb;
+}(this));
+```
+
+## Gulp tasks
+
+Clean built artifacts and check, test, build and generate everything.
 ```shell
-grunt build-ci
+gulp 
+```
+
+Single run of karma.
+```shell
+gulp karma
+```
+
+Start karma in watching mode handling browserify and babelify.
+```shell
+gulp karma:watch
+```
+
+Single run of karma with saucelabs browsers.
+```shell
+gulp karma:sauce
 ```
