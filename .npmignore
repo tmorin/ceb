@@ -7,4 +7,5 @@
 /bower.json
 /circle.yml
 /gulpfile.js
+/Gruntfile.js
 /karma.conf.js
