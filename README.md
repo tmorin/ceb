@@ -1,8 +1,8 @@
 # custom-elements-builder
 
-[![Circle CI](https://circleci.com/gh/tmorin/custom-elements-builder/tree/development.svg?style=svg)](https://circleci.com/gh/tmorin/custom-elements-builder/tree/development)
-[![Dependency Status](https://david-dm.org/tmorin/custom-elements-builder/development.svg)](https://david-dm.org/tmorin/custom-elements-builder/development)
-[![devDependency Status](https://david-dm.org/tmorin/custom-elements-builder/development/dev-status.svg)](https://david-dm.org/tmorin/custom-elements-builder/development#info=devDependencies)
+[![Circle CI](https://circleci.com/gh/tmorin/custom-elements-builder/tree/master.svg?style=svg)](https://circleci.com/gh/tmorin/custom-elements-builder/tree/master)
+[![Dependency Status](https://david-dm.org/tmorin/custom-elements-builder.svg)](https://david-dm.org/tmorin/custom-elements-builder)
+[![devDependency Status](https://david-dm.org/tmorin/custom-elements-builder/dev-status.svg)](https://david-dm.org/tmorin/custom-elements-builder#info=devDependencies) 
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 
