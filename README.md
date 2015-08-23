@@ -17,8 +17,8 @@ Even if _custom-element-builder_ is transpilled from es6 to es5 with babel, the 
 However, _lodash_ is required for both AMD and UMD distributions.
 
 About, not evergreen browsers (those not implementing `document.registerElement()`) the following polyfill can be used:
- - webcomponents.js
- - document-register-element
+ - [webcomponents.js](https://github.com/webcomponents/webcomponentsjs)
+ - [document-register-element](https://github.com/WebReflection/document-register-element)
 
 ## Install
 
