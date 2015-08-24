@@ -1,9 +1,5 @@
-import isFunction from 'lodash/lang/isFunction.js';
-import isUndefined from 'lodash/lang/isUndefined.js';
-import result from 'lodash/object/result.js';
-import assign from 'lodash/object/assign.js';
-
-import Builder from './Builder.js';
+import {Builder} from './Builder.js';
+import {isFunction, isUndefined, result, assign} from '../utils.js';
 
 const DEFAULT_DATA = {
     enumerable: true,
@@ -119,11 +115,3 @@ export class PropertyBuilder extends Builder {
     }
 
 }
-
-/**
- * @ignore
- */
-export default function helper(propName) {
-    return new PropertyBuilder(propName);
-}
-

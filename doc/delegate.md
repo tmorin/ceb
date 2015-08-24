@@ -1,6 +1,9 @@
+---
+title: delegate()
+---
 # delegate()
 
-The function `delegate()` return a fresh `DelegateBuilder` provided services to define a delegation on an attribute or an attribute.
+The function `delegate()` return a fresh `DelegateBuilder` providing services to define a delegation on an attribute or an attribute.
 
 ## Import
 

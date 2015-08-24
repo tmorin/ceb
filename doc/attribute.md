@@ -1,6 +1,9 @@
+---
+title: attribute()
+---
 # attribute()
 
-The function `attribute()` return a fresh `AttributeBuilder` provided services to define ... an attribute.
+The function `attribute()` return a fresh `AttributeBuilder` providing services to define ... an attribute.
 
 ## Import
 

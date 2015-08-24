@@ -1,13 +1,4 @@
-import isString from 'lodash/lang/isString.js';
-import isFunction from 'lodash/lang/isFunction.js';
-import toArray from 'lodash/lang/toArray.js';
-
-import flatten from 'lodash/array/flatten.js';
-
-import invoke from 'lodash/collection/invoke.js';
-
-import partial from 'lodash/function/partial.js';
-import bind from 'lodash/function/bind.js';
+import {isString, isFunction, toArray, flatten, invoke, partial, bind} from '../utils.js';
 
 const LIFECYCLE_CALLBACKS = [
     'createdCallback',
@@ -139,11 +130,3 @@ function applyLifecycle(context, name) {
         afterFns.forEach(fn => fn.apply(this, args));
     };
 }
-
-/**
- * @ignore
- */
-export default function helper() {
-    return new CustomElementBuilder();
-}
-

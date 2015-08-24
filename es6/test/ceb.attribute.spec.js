@@ -24,11 +24,14 @@ describe('ceb.attribute()', function () {
         expect(el.getAttribute('att1')).to.be.eq('value');
     });
 
-    it('should define an attribute with a default value', () => {
+    it('should define an attribute with a default value', (done) => {
         builder.augment(attribute('att1').value('default')).register('test-attribute-default');
         var el = document.createElement('test-attribute-default');
-        expect(el.att1).to.be.eq('default');
-        expect(el.getAttribute('att1')).to.be.eq('default');
+        setTimeout(function () {
+            expect(el.att1).to.be.eq('default');
+            expect(el.getAttribute('att1')).to.be.eq('default');
+            done();
+        }, 10);
     });
 
     it('should define an attribute binded to the same property name', () => {

@@ -1,6 +1,9 @@
+---
+title: on()
+---
 # on()
 
-The function `on()` return a fresh `OnBuilder` provided services to define event listeners.
+The function `on()` return a fresh `OnBuilder` providing services to define event listeners.
 
 ## Import
 

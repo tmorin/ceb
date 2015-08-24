@@ -6,7 +6,7 @@ var paths = {
     test: 'es6/test/**/*.js',
     example: 'es6/example/**/*.js',
     gulp: 'gulp/**/*.js',
-    clean: ['./api', './lib', './public', './test']
+    clean: ['./api', './dist', './lib', './public']
 };
 
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
         standalone: 'ceb',
         modules: 'umd',
         distName: 'ceb.js',
-        distPath: 'public/umd/lib',
+        distPath: 'dist/standalone',
         min: true
     }],
     babelify: [{
@@ -24,15 +24,25 @@ module.exports = {
         modules: 'common',
         dest: 'lib'
     }, {
+        src: paths.lib,
+        modules: 'umd',
+        dest: 'dist/umd'
+    }, {
         src: paths.example,
         modules: 'umd',
-        dest: 'public/umd/example',
-        min: true
+        dest: 'public/umd'
     }, {
-        src: [paths.es6, '!' + paths.test],
+        src: paths.lib,
+        modules: 'amd',
+        dest: 'dist/amd'
+    }, {
+        src: paths.lib,
         modules: 'system',
-        dest: 'public/system',
-        min: true
+        dest: 'dist/system'
+    }, {
+        src: paths.example,
+        modules: 'system',
+        dest: 'public/system'
     }],
     paths: paths,
     sauceTasks: {

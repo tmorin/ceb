@@ -35,9 +35,9 @@ describe('ceb.method()', function () {
         el.meth1(0, 1);
         expect(el.meth1).to.be.an.instanceof(Function);
         expect(meth1).to.have.been.calledWith(el, 0, 1);
-        expect(wrapper1).to.have.been.calledWith(sinon.match(Function), el, 0, 1);
-        expect(wrapper2).to.have.been.calledWith(sinon.match(Function), el, 0, 1);
-        expect(wrapper3).to.have.been.calledWith(sinon.match(Function), el, 0, 1);
+        expect(wrapper1).to.have.been.calledWith(sinon.match(Object), el, 0, 1);
+        expect(wrapper2).to.have.been.calledWith(sinon.match(Object), el, 0, 1);
+        expect(wrapper3).to.have.been.calledWith(sinon.match(Object), el, 0, 1);
     });
 
 });

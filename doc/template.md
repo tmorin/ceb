@@ -1,6 +1,9 @@
+---
+title: template()
+---
 # template()
 
-The function `template()` return a fresh `TemplateBuilder` provided services to define ... a template.
+The function `template()` return a fresh `TemplateBuilder` providing services to define ... a template.
 
 ## Import
 

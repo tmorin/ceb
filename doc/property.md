@@ -1,6 +1,9 @@
+---
+title: property()
+---
 # property()
 
-The function `property()` return a fresh `PropertyBuilder` provided services to define ... a property.
+The function `property()` return a fresh `PropertyBuilder` providing services to define ... a property.
 
 ## Import
 

@@ -1,8 +1,6 @@
-import isFunction from 'lodash/lang/isFunction.js';
-import isString from 'lodash/lang/isString.js';
-
-import Builder from './Builder.js';
-import property from './PropertyBuilder.js';
+import {isFunction, isString} from '../utils.js';
+import {Builder} from './Builder.js';
+import {PropertyBuilder} from './PropertyBuilder.js';
 
 /**
  * The counter is used to generate unique DOM's id.
@@ -115,7 +113,7 @@ export class TemplateBuilder extends Builder {
         let data = this.data,
             html = isString(data.tpl) ? data.tpl : null;
 
-        property('lightDomNode').getter(el => {
+        (new PropertyBuilder('lightDomNode')).getter(el => {
             return findContentNode(el);
         }).build(proto, on);
 
@@ -147,11 +145,3 @@ export class TemplateBuilder extends Builder {
     }
 
 }
-
-/**
- * @ignore
- */
-export default function helper(tpl) {
-    return new TemplateBuilder(tpl);
-}
-

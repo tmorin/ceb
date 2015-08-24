@@ -1,11 +1,5 @@
-import isFunction from 'lodash/lang/isFunction.js';
-import toArray from 'lodash/lang/toArray.js';
-
-import noop from 'lodash/utility/noop.js';
-
-import wrap from 'lodash/function/wrap.js';
-
-import Builder from './Builder.js';
+import {isFunction, toArray, noop, wrap} from '../utils.js';
+import {Builder} from './Builder.js';
 
 /**
  * The method builder.
@@ -61,11 +55,4 @@ export class MethodBuilder extends Builder {
             data.wrappers.forEach(wrapper => data.invoke = wrap(data.invoke, wrapper));
         });
     }
-}
-
-/**
- * @ignore
- */
-export default function helper(methName) {
-    return new MethodBuilder(methName);
 }

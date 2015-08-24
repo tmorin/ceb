@@ -1,10 +1,4 @@
-import camelCase from 'lodash/string/camelCase.js';
-import isFunction from 'lodash/lang/isFunction.js';
-import isUndefined from 'lodash/lang/isUndefined.js';
-import result from 'lodash/object/result.js';
-import isNull from 'lodash/lang/isNull.js';
-import assign from 'lodash/object/assign.js';
-
+import {camelCase, isFunction, isUndefined, result, isNull, assign} from '../utils.js';
 import {PropertyBuilder} from './PropertyBuilder.js';
 
 
@@ -123,18 +117,6 @@ export class AttributeBuilder extends PropertyBuilder {
 
         super.build(proto, on);
 
-        /*on('before:createdCallback').invoke(el => {
-            let attrValue = getAttValue(el, this.data.attrName, this.data.boolean);
-            if (this.data.boolean) {
-                console.log(el);
-                console.log('default', this.data.value);
-                console.log('attrValue', attrValue);
-                this.data.value = !!this.data.value ? this.data.value : attrValue;
-            } else if (!isNull(attrValue) && !isUndefined(attrValue)) {
-                this.data.value = attrValue;
-            }
-        });*/
-
         on('after:createdCallback').invoke(el => {
             let attrValue = getAttValue(el, this.data.attrName, this.data.boolean);
             if (this.data.boolean) {
@@ -158,11 +140,3 @@ export class AttributeBuilder extends PropertyBuilder {
     }
 
 }
-
-/**
- * @ignore
- */
-export default function helper(attName) {
-    return new AttributeBuilder(attName);
-}
-

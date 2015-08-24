@@ -1,9 +1,5 @@
-import isFunction from 'lodash/lang/isFunction.js';
-import toArray from 'lodash/lang/toArray.js';
-import find from 'lodash/collection/find.js';
-import noop from 'lodash/utility/noop.js';
-
-import Builder from './Builder.js';
+import {isFunction, toArray, find, noop} from '../utils.js';
+import {Builder} from './Builder.js';
 
 /**
  * The on builder.
@@ -137,11 +133,3 @@ export class OnBuilder extends Builder {
     }
 
 }
-
-/**
- * @ignore
- */
-export default function helper(tpl) {
-    return new OnBuilder(tpl);
-}
-

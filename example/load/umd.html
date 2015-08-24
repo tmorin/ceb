@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UMD modules - ceb's examples</title>
+
+    <script src="../node_modules/document-register-element/build/document-register-element.js"></script>
+
+    <script src="../dist/umd/utils.js"></script>
+    <script src="../dist/umd/builder/Builder.js"></script>
+    <script src="../dist/umd/builder/PropertyBuilder.js"></script>
+    <script src="../dist/umd/builder/AttributeBuilder.js"></script>
+    <script src="../dist/umd/builder/DelegateBuilder.js"></script>
+    <script src="../dist/umd/builder/MethodBuilder.js"></script>
+    <script src="../dist/umd/builder/OnBuilder.js"></script>
+    <script src="../dist/umd/builder/TemplateBuilder.js"></script>
+    <script src="../dist/umd/builder/CustomElementBuilder.js"></script>
+    <script src="../dist/umd/ceb.js"></script>
+
+    <script id="ceb-button-template" type="text/html">
+        <button>
+            <div>
+                <span x-ref="icon"></span>
+                <span x-ref="label"></span>
+            </div>
+        </button>
+    </script>
+
+    <script>
+        var tpl = document.getElementById('ceb-button-template').textContent;
+        ceb.ceb().augment(
+            ceb.template(tpl),
+            ceb.delegate(ceb.attribute('name')).to('button'),
+            ceb.delegate(ceb.attribute('disabled').boolean()).to('button').property(),
+            ceb.delegate(ceb.attribute('label').value('click me')).to('button [x-ref=label]').property('textContent'),
+            ceb.delegate(ceb.attribute('icon').value('X')).to('button [x-ref=icon]').property('textContent'),
+            ceb.on('click button').invoke(function (el) {
+                el.label = (el.label === 'click me' ? 'clicked' : 'click me');
+            })
+        ).register('ceb-button');
+    </script>
+
+</head>
+<body>
+
+<p>
+    <a href="../">back</a>
+</p>
+
+<ceb-button></ceb-button>
+
+</body>
+</html>

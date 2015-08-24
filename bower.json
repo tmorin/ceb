@@ -1,50 +1,51 @@
 {
-  "name": "custom-elements-builder",
-  "description": "Just a Custom Elements builder, natively scalable and designed for FRP.",
-  "version": "0.5.2",
-  "main": "public/umd/lib/ceb.js",
-  "keywords": [
-    "Web",
-    "Components",
-    "Custom",
-    "Element",
-    "Elements",
-    "DOM",
-    "W3C",
-    "FRP",
-    "functional",
-    "reactive",
-    "template",
-    "builder"
-  ],
-  "homepage": "https://tmorin.github.io/custom-elements-builder",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/tmorin/custom-elements-builder.git"
-  },
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Thibault Morin",
-      "url": "https://tmorin.github.io"
-    }
-  ],
-  "moduleType": [
-    "amd",
-    "es6",
-    "globals",
-    "node"
-  ],
-  "ignore": [
-    "/api",
-    "/doc",
-    "/example",
-    "/gulp",
-    "/node_modules",
-    "/.*",
-    "/*.js",
-    "/*.md",
-    "/*.yml",
-    "/package.json"
-  ]
+    "name": "custom-elements-builder",
+    "description": "Just a Custom Elements builder, natively scalable and designed for FRP.",
+    "version": "0.5.2",
+    "main": "dist/standalone/ceb.js",
+    "keywords": [
+        "Web",
+        "Components",
+        "Custom",
+        "Element",
+        "Elements",
+        "DOM",
+        "W3C",
+        "FRP",
+        "functional",
+        "reactive",
+        "template",
+        "builder"
+    ],
+    "homepage": "https://tmorin.github.io/custom-elements-builder",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/tmorin/custom-elements-builder.git"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thibault Morin",
+            "url": "https://tmorin.github.io"
+        }
+    ],
+    "moduleType": [
+        "amd",
+        "es6",
+        "globals",
+        "node"
+    ],
+    "ignore": [
+        "/api",
+        "/doc",
+        "/example",
+        "/gulp",
+        "/node_modules",
+        "/public",
+        "/.*",
+        "/*.js",
+        "/*.md",
+        "/*.yml",
+        "/package.json"
+    ]
 }

@@ -1,6 +1,9 @@
+---
+title: ceb()
+---
 # ceb()
 
-The function `ceb()` return a fresh `CustomElementBuilder` provided services to register a ... custom element.
+The function `ceb()` return a fresh `CustomElementBuilder` providing services to register a ... custom element.
 
 ## Import
 

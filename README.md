@@ -14,9 +14,7 @@ ceb is just a builder, natively scalable and designed for FRP.
 
 Even if _custom-element-builder_ is transpilled from es6 to es5 with babel, the babel polyfill is not necessary. 
 
-However, _lodash_ is required for both AMD and UMD distributions.
-
-About, not evergreen browsers (those not implementing `document.registerElement()`) the following polyfill can be used:
+About, not evergreen browsers (those not implementing `document.registerElement()`) the following polyfills can be used:
  - [webcomponents.js](https://github.com/webcomponents/webcomponentsjs)
  - [document-register-element](https://github.com/WebReflection/document-register-element)
 
@@ -25,10 +23,6 @@ About, not evergreen browsers (those not implementing `document.registerElement(
 From ES6;
 ```javascript
 import {ceb} from 'custom-element-builder/es6/ceb'
-// or
-import ceb from 'custom-element-builder/es6/ceb'
-// or
-var ceb = require('custom-element-builder');
 ```
 
 From ES5:
@@ -38,28 +32,35 @@ var ceb = require('custom-element-builder');
 
 From AMD:
 ```javascript
-require(['pathOfPublicDir/umd/lib/ceb'], function (ceb) {
-    // ...
-});
-// or
-require(['pathOfPublicDir/umd/lib/ceb.min'], function (ceb) {
+require(['pathOfDistDir/amd/lib/ceb'], function (ceb) {
     // ...
 });
 ```
 
 From System:
 ```javascript
-System.import('pathOfPublicDir/system/lib/ceb.js'); 
-// or
-System.import('pathOfPublicDir/system/lib/ceb.min.js'); 
+System.import('pathOfDistDir/system/lib/ceb.js').then(function (ceb) {
+    // ...
+});
 ```
 
-From global:
+From UMD (Global):
 
 ```html
-<script src="pathOfPublicDir/umd/lib/ceb.js"></script>
+<script src="pathOfDistDir/umd/utils.js"></script>
+<script src="pathOfDistDir/umd/builder/Builder.js"></script>
+<script src="pathOfDistDir/umd/builder/PropertyBuilder.js"></script>
+<script src="pathOfDistDir/umd/builder/AttributeBuilder.js"></script>
+<script src="pathOfDistDir/umd/builder/DelegateBuilder.js"></script>
+<script src="pathOfDistDir/umd/builder/MethodBuilder.js"></script>
+<script src="pathOfDistDir/umd/builder/OnBuilder.js"></script>
+<script src="pathOfDistDir/umd/builder/TemplateBuilder.js"></script>
+<script src="pathOfDistDir/umd/builder/CustomElementBuilder.js"></script>
+<script src="pathOfDistDir/umd/ceb.js"></script>
 <!-- or -->
-<script src="pathOfPublicDir/umd/lib/ceb.min.js"></script>
+<script src="pathOfDistDir/standalone/ceb.js"></script>
+<!-- or -->
+<script src="pathOfDistDir/standalone/ceb.min.js"></script>
 ```
 
 ```javascript
@@ -70,7 +71,7 @@ From global:
 
 ## Gulp tasks
 
-Clean built artifacts and check, test, build and generate everything.
+Clean built artifacts then check, test, build and generate everything.
 ```shell
 gulp 
 ```
@@ -88,4 +89,9 @@ gulp karma:watch
 Single run of karma with saucelabs browsers.
 ```shell
 gulp karma:sauce
+```
+
+Start local server for examples
+```shell
+gulp browser-sync
 ```

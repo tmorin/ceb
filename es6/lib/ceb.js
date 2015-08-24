@@ -1,31 +1,25 @@
-import customElementBuilder from './builder/CustomElementBuilder.js';
-import propertyBuilder from './builder/PropertyBuilder.js';
-import attributeBuilder from './builder/AttributeBuilder.js';
-import delegateBuilder from './builder/DelegateBuilder.js';
-import methodBuilder from './builder/MethodBuilder.js';
-import templateBuilder from './builder/TemplateBuilder.js';
-import onBuilder from './builder/OnBuilder.js';
-import BuilderType from './builder/Builder.js';
+import {CustomElementBuilder} from './builder/CustomElementBuilder.js';
+import {PropertyBuilder} from './builder/PropertyBuilder.js';
+import {AttributeBuilder} from './builder/AttributeBuilder.js';
+import {DelegateBuilder} from './builder/DelegateBuilder.js';
+import {MethodBuilder} from './builder/MethodBuilder.js';
+import {TemplateBuilder} from './builder/TemplateBuilder.js';
+import {OnBuilder} from './builder/OnBuilder.js';
+import {Builder as BuilderType} from './builder/Builder.js';
 
 /**
  * The base builder type
  * @type {Builder} the builder
  */
-export let Builder = BuilderType;
+export var Builder = BuilderType;
 
 /**
  * Get a new custom element builder.
  * @returns {CustomElementBuilder} the custom element builder
  */
 export function ceb() {
-    return customElementBuilder();
+    return new CustomElementBuilder();
 }
-
-/**
- * Get a new custom element builder.
- * @returns {CustomElementBuilder} the custom element builder
- */
-export default ceb;
 
 /**
  * Get a new property builder.
@@ -33,7 +27,7 @@ export default ceb;
  * @returns {PropertyBuilder} the property builder
  */
 export function property(propName) {
-    return propertyBuilder(propName);
+    return new PropertyBuilder(propName);
 }
 
 /**
@@ -42,7 +36,7 @@ export function property(propName) {
  * @returns {AttributeBuilder} the attribute builder
  */
 export function attribute(attrName) {
-    return attributeBuilder(attrName);
+    return new AttributeBuilder(attrName);
 }
 
 /**
@@ -51,7 +45,7 @@ export function attribute(attrName) {
  * @returns {MethodBuilder} the method builder
  */
 export function method(methName) {
-    return methodBuilder(methName);
+    return new MethodBuilder(methName);
 }
 
 /**
@@ -60,7 +54,7 @@ export function method(methName) {
  * @returns {DelegateBuilder} the delegate builder
  */
 export function delegate(builder) {
-    return delegateBuilder(builder);
+    return new DelegateBuilder(builder);
 }
 
 /**
@@ -69,7 +63,7 @@ export function delegate(builder) {
  * @returns {TemplateBuilder} the template builder
  */
 export function template(tpl) {
-    return templateBuilder(tpl);
+    return new TemplateBuilder(tpl);
 }
 
 /**
@@ -78,5 +72,5 @@ export function template(tpl) {
  * @returns {OnBuilder} the on builder
  */
 export function on(events) {
-    return onBuilder(events);
+    return new OnBuilder(events);
 }

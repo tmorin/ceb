@@ -1,9 +1,6 @@
-import isFunction from 'lodash/lang/isFunction.js';
-import isUndefined from 'lodash/lang/isUndefined.js';
-
+import {isUndefined, isFunction} from '../utils.js';
 import {getAttValue, setAttValue} from './AttributeBuilder.js';
-
-import Builder from './Builder.js';
+import {Builder} from './Builder.js';
 
 /**
  * The delegate builder.
@@ -136,11 +133,4 @@ export class DelegateBuilder extends Builder {
         this.fieldBuilder.build(proto, on);
     }
 
-}
-
-/**
- * @ignore
- */
-export default function helper(attName) {
-    return new DelegateBuilder(attName);
 }
