@@ -1,31 +1,56 @@
+/**
+ * @ignore
+ */
 export function camelCase(value) {
     return value.split(/(?=[A-Z])/).map(part => part.charAt(0).toLowerCase() + part.slice(1)).join('-');
 }
 
+/**
+ * @ignore
+ */
 export function isFunction(i) {
     return Object.prototype.toString.call(i) === '[object Function]';
 }
 
+/**
+ * @ignore
+ */
 export function isUndefined(i) {
     return i === undefined;
 }
 
+/**
+ * @ignore
+ */
 export function isNull(i) {
     return i === null;
 }
 
+/**
+ * @ignore
+ */
 export function isString(i) {
     return Object.prototype.toString.call(i) === '[object String]';
 }
 
+/**
+ * @ignore
+ */
 export function isArray(i) {
     return Object.prototype.toString.call(i) === '[object Array]';
 }
 
+/**
+ * @ignore
+ */
 export function result(obj, prop) {
     let value = obj[prop];
     return isFunction(value) ? value() : value;
 }
+
+/**
+ * @ignore
+ */
 export function assign() {
     return Array.prototype.reduce.call(arguments, function (target, source) {
         return Object.keys(Object(source)).reduce((target, key) => {
@@ -34,14 +59,24 @@ export function assign() {
         }, target);
     });
 }
+
+/**
+ * @ignore
+ */
 export function toArray(i) {
     return Array.prototype.slice.call(i);
 }
 
+/**
+ * @ignore
+ */
 export function flatten(array) {
     return array.reduce((a, b) => isArray(b) ? a.concat(flatten(b)) : a.concat(b), []);
 }
 
+/**
+ * @ignore
+ */
 export function invoke() {
     let args = toArray(arguments),
         objects = args.shift(),
@@ -51,6 +86,9 @@ export function invoke() {
     }
 }
 
+/**
+ * @ignore
+ */
 export function partial() {
     let args = toArray(arguments),
         fn = args.shift();
@@ -59,25 +97,33 @@ export function partial() {
     };
 }
 
+/**
+ * @ignore
+ */
 export function bind(fn, ctx) {
     return function () {
         return fn.apply(ctx, toArray(arguments));
     };
 }
 
+/**
+ * @ignore
+ */
 export function noop() {
     return function () {
     };
 }
 
+/**
+ * @ignore
+ */
 export function wrap(fn, wrapper) {
-    return function () {
-        let args = toArray(arguments),
-            next = isFunction(fn) ? fn : noop();
-        return wrapper.apply(this, [bind(next, this)].concat(args));
-    };
+    return partial(wrapper, fn);
 }
 
+/**
+ * @ignore
+ */
 export function find(array, cb) {
     return array.filter(cb)[0];
 }
