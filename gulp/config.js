@@ -6,7 +6,7 @@ var paths = {
     test: 'es6/test/**/*.js',
     example: 'es6/example/**/*.js',
     gulp: 'gulp/**/*.js',
-    clean: ['./api', './dist', './lib', './public']
+    clean: ['./api', './dist', './lib']
 };
 
 module.exports = {
@@ -28,10 +28,6 @@ module.exports = {
         modules: 'umd',
         dest: 'dist/umd'
     }, {
-        src: paths.example,
-        modules: 'umd',
-        dest: 'public/umd'
-    }, {
         src: paths.lib,
         modules: 'amd',
         dest: 'dist/amd'
@@ -39,10 +35,6 @@ module.exports = {
         src: paths.lib,
         modules: 'system',
         dest: 'dist/system'
-    }, {
-        src: paths.example,
-        modules: 'system',
-        dest: 'public/system'
     }],
     paths: paths,
     sauceTasks: {

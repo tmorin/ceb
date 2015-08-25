@@ -14,7 +14,6 @@ function build(src, modules, dest, min) {
         .pipe(gulp.dest(dest));
 }
 
-
 var taskNames = config.babelify.map(function (item) {
     var taskNames = [];
 

@@ -7,7 +7,7 @@ gulp.task('browser-sync', ['watch'], function () {
             baseDir: ['./example', './']
         }
     });
-    gulp.watch('./dist/**.*').on('change', browserSync.reload);
-    gulp.watch('./example/**.*').on('change', browserSync.reload);
-    gulp.watch('./public/**.*').on('change', browserSync.reload);
+    gulp.watch('./es6/lib/**/*').on('change', browserSync.reload);
+    gulp.watch('./dist/**/*').on('change', browserSync.reload);
+    gulp.watch('./example/**/*').on('change', browserSync.reload);
 });
