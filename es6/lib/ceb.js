@@ -1,9 +1,9 @@
 import {CustomElementBuilder} from './builder/CustomElementBuilder.js';
 import {PropertyBuilder} from './builder/PropertyBuilder.js';
-import {AttributeBuilder} from './builder/AttributeBuilder.js';
+import {AttributeBuilder, getAttValue, setAttValue} from './builder/AttributeBuilder.js';
 import {DelegateBuilder} from './builder/DelegateBuilder.js';
 import {MethodBuilder} from './builder/MethodBuilder.js';
-import {TemplateBuilder} from './builder/TemplateBuilder.js';
+import {TemplateBuilder, applyTemplate} from './builder/TemplateBuilder.js';
 import {OnBuilder} from './builder/OnBuilder.js';
 import {Builder as BuilderType} from './builder/Builder.js';
 
@@ -11,7 +11,7 @@ import {Builder as BuilderType} from './builder/Builder.js';
  * The base builder type
  * @type {Builder} the builder
  */
-export var Builder = BuilderType;
+export const Builder = BuilderType;
 
 /**
  * Get a new custom element builder.
@@ -38,6 +38,8 @@ export function property(propName) {
 export function attribute(attrName) {
     return new AttributeBuilder(attrName);
 }
+attribute.getAttValue = getAttValue;
+attribute.setAttValue = setAttValue;
 
 /**
  * Get a new method builder.
@@ -65,6 +67,7 @@ export function delegate(builder) {
 export function template(tpl) {
     return new TemplateBuilder(tpl);
 }
+template.applyTemplate = applyTemplate;
 
 /**
  * Get a new on builder.
