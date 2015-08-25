@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>baconify - ceb's examples</title>
+
+    <script src="../node_modules/document-register-element/build/document-register-element.js"></script>
+    <script src="../node_modules/babel/node_modules/babel-core/browser.min.js"></script>
+    <script src="../node_modules/systemjs/dist/system.js"></script>
+
+    <script>
+        window.define = System.amdDefine;
+        window.require = window.requirejs = System.amdRequire;
+
+        System.config({
+            baseURL: '../',
+            transpiler: 'babel',
+            map: {
+                bacon: 'node_modules/baconjs/dist/Bacon.min.js'
+            }
+        });
+
+        System.import('baconify/demo.js');
+
+    </script>
+
+</head>
+<body>
+
+<p>
+    <a href="../">back</a>
+</p>
+
+<ceb-input></ceb-input>
+
+</body>
+</html>
