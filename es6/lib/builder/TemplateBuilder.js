@@ -1,4 +1,4 @@
-import {isFunction, isString} from '../utils.js';
+import {isFunction} from '../utils.js';
 import {Builder} from './Builder.js';
 import {PropertyBuilder} from './PropertyBuilder.js';
 
@@ -89,6 +89,30 @@ function fillNewContentNode(el, children) {
 }
 
 /**
+ * Apply the template given by the property cebTemplate.
+ * @param {!HTMLElement} el the custom element
+ * @param {!string} tpl the template
+ */
+export function applyTemplate(el, tpl) {
+    let lightChildren = [],
+        handleContentNode = hasContent(tpl);
+
+    if (handleContentNode) {
+        let newCebContentId = 'ceb-content-' + counter++;
+        lightChildren = cleanOldContentNode(el);
+
+        tpl = replaceContent(tpl, newCebContentId);
+
+        el.setAttribute(OLD_CONTENT_ID_ATTR_NAME, newCebContentId);
+    }
+
+    el.innerHTML = tpl;
+
+    if (handleContentNode) {
+        fillNewContentNode(el, lightChildren);
+    }
+}
+/**
  * The template builder.
  * Its goal is to provide a way to fill the content of a custom element.
  * @extends {Builder}
@@ -110,37 +134,12 @@ export class TemplateBuilder extends Builder {
      * @ignore
      */
     build(proto, on) {
-        let data = this.data,
-            html = isString(data.tpl) ? data.tpl : null;
+        let data = this.data;
 
-        (new PropertyBuilder('lightDomNode')).getter(el => {
-            return findContentNode(el);
-        }).build(proto, on);
+        (new PropertyBuilder('lightDomNode')).getter(el => findContentNode(el)).build(proto, on);
 
         on('before:createdCallback').invoke(el => {
-            let tpl = html;
-            if (isFunction(data.tpl)) {
-                tpl = data.tpl(el);
-            }
-
-            let lightChildren = [],
-                handleContentNode = hasContent(tpl);
-
-            if (handleContentNode) {
-                let newCebContentId = 'ceb-content-' + counter++;
-                lightChildren = cleanOldContentNode(el);
-
-                tpl = replaceContent(tpl, newCebContentId);
-
-                el.setAttribute(OLD_CONTENT_ID_ATTR_NAME, newCebContentId);
-            }
-
-            el.innerHTML = tpl;
-
-            if (handleContentNode) {
-                fillNewContentNode(el, lightChildren);
-            }
-
+            applyTemplate(el, isFunction(data.tpl) ? data.tpl(el) : data.tpl);
         });
     }
 
