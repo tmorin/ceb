@@ -95,22 +95,27 @@ export class OnBuilder extends Builder {
 
         on('before:attachedCallback').invoke((el) => {
             let listener = evt => {
-                if (stopPropagation) {
-                    evt.stopPropagation();
-                }
-                if (preventDefault) {
-                    evt.preventDefault();
-                }
-
                 if (selector) {
                     let target = find(
                         toArray(el.querySelectorAll(selector)),
                             el => el === evt.target || el.contains(evt.target)
                     );
                     if (target) {
+                        if (stopPropagation) {
+                            evt.stopPropagation();
+                        }
+                        if (preventDefault) {
+                            evt.preventDefault();
+                        }
                         invoke(el, evt, target);
                     }
                 } else {
+                    if (stopPropagation) {
+                        evt.stopPropagation();
+                    }
+                    if (preventDefault) {
+                        evt.preventDefault();
+                    }
                     invoke(el, evt, el);
                 }
             };
