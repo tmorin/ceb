@@ -11,6 +11,9 @@
         global.utils = mod.exports;
     }
 })(this, function (exports) {
+    /**
+     * @ignore
+     */
     'use strict';
 
     Object.defineProperty(exports, '__esModule', {
@@ -39,30 +42,58 @@
         }).join('-');
     }
 
+    /**
+     * @ignore
+     */
+
     function isFunction(i) {
         return Object.prototype.toString.call(i) === '[object Function]';
     }
+
+    /**
+     * @ignore
+     */
 
     function isUndefined(i) {
         return i === undefined;
     }
 
+    /**
+     * @ignore
+     */
+
     function isNull(i) {
         return i === null;
     }
+
+    /**
+     * @ignore
+     */
 
     function isString(i) {
         return Object.prototype.toString.call(i) === '[object String]';
     }
 
+    /**
+     * @ignore
+     */
+
     function isArray(i) {
         return Object.prototype.toString.call(i) === '[object Array]';
     }
+
+    /**
+     * @ignore
+     */
 
     function result(obj, prop) {
         var value = obj[prop];
         return isFunction(value) ? value() : value;
     }
+
+    /**
+     * @ignore
+     */
 
     function assign() {
         return Array.prototype.reduce.call(arguments, function (target, source) {
@@ -73,15 +104,27 @@
         });
     }
 
+    /**
+     * @ignore
+     */
+
     function toArray(i) {
         return Array.prototype.slice.call(i);
     }
+
+    /**
+     * @ignore
+     */
 
     function flatten(array) {
         return array.reduce(function (a, b) {
             return isArray(b) ? a.concat(flatten(b)) : a.concat(b);
         }, []);
     }
+
+    /**
+     * @ignore
+     */
 
     function invoke() {
         var args = toArray(arguments),
@@ -96,6 +139,10 @@
         }
     }
 
+    /**
+     * @ignore
+     */
+
     function partial() {
         var args = toArray(arguments),
             fn = args.shift();
@@ -104,23 +151,35 @@
         };
     }
 
+    /**
+     * @ignore
+     */
+
     function bind(fn, ctx) {
         return function () {
             return fn.apply(ctx, toArray(arguments));
         };
     }
 
+    /**
+     * @ignore
+     */
+
     function noop() {
         return function () {};
     }
 
+    /**
+     * @ignore
+     */
+
     function wrap(fn, wrapper) {
-        return function () {
-            var args = toArray(arguments),
-                next = isFunction(fn) ? fn : noop();
-            return wrapper.apply(this, [bind(next, this)].concat(args));
-        };
+        return partial(wrapper, fn);
     }
+
+    /**
+     * @ignore
+     */
 
     function find(array, cb) {
         return array.filter(cb)[0];

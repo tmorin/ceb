@@ -6,7 +6,7 @@ System.register(['./builder/CustomElementBuilder.js', './builder/PropertyBuilder
    */
   'use strict';
 
-  var CustomElementBuilder, PropertyBuilder, AttributeBuilder, DelegateBuilder, MethodBuilder, TemplateBuilder, OnBuilder, BuilderType, Builder;
+  var CustomElementBuilder, PropertyBuilder, AttributeBuilder, getAttValue, setAttValue, DelegateBuilder, MethodBuilder, TemplateBuilder, applyTemplate, OnBuilder, BuilderType, Builder;
 
   /**
    * Get a new property builder.
@@ -23,12 +23,6 @@ System.register(['./builder/CustomElementBuilder.js', './builder/PropertyBuilder
    */
 
   _export('property', property);
-
-  /**
-   * Get a new method builder.
-   * @param {!string} methName the name of the method
-   * @returns {MethodBuilder} the method builder
-   */
 
   _export('attribute', attribute);
 
@@ -47,12 +41,6 @@ System.register(['./builder/CustomElementBuilder.js', './builder/PropertyBuilder
    */
 
   _export('delegate', delegate);
-
-  /**
-   * Get a new on builder.
-   * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
-   * @returns {OnBuilder} the on builder
-   */
 
   _export('template', template);
 
@@ -75,6 +63,12 @@ System.register(['./builder/CustomElementBuilder.js', './builder/PropertyBuilder
     return new AttributeBuilder(attrName);
   }
 
+  /**
+   * Get a new method builder.
+   * @param {!string} methName the name of the method
+   * @returns {MethodBuilder} the method builder
+   */
+
   function method(methName) {
     return new MethodBuilder(methName);
   }
@@ -87,6 +81,12 @@ System.register(['./builder/CustomElementBuilder.js', './builder/PropertyBuilder
     return new TemplateBuilder(tpl);
   }
 
+  /**
+   * Get a new on builder.
+   * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
+   * @returns {OnBuilder} the on builder
+   */
+
   function on(events) {
     return new OnBuilder(events);
   }
@@ -98,12 +98,15 @@ System.register(['./builder/CustomElementBuilder.js', './builder/PropertyBuilder
       PropertyBuilder = _builderPropertyBuilderJs.PropertyBuilder;
     }, function (_builderAttributeBuilderJs) {
       AttributeBuilder = _builderAttributeBuilderJs.AttributeBuilder;
+      getAttValue = _builderAttributeBuilderJs.getAttValue;
+      setAttValue = _builderAttributeBuilderJs.setAttValue;
     }, function (_builderDelegateBuilderJs) {
       DelegateBuilder = _builderDelegateBuilderJs.DelegateBuilder;
     }, function (_builderMethodBuilderJs) {
       MethodBuilder = _builderMethodBuilderJs.MethodBuilder;
     }, function (_builderTemplateBuilderJs) {
       TemplateBuilder = _builderTemplateBuilderJs.TemplateBuilder;
+      applyTemplate = _builderTemplateBuilderJs.applyTemplate;
     }, function (_builderOnBuilderJs) {
       OnBuilder = _builderOnBuilderJs.OnBuilder;
     }, function (_builderBuilderJs) {
@@ -113,6 +116,10 @@ System.register(['./builder/CustomElementBuilder.js', './builder/PropertyBuilder
       Builder = BuilderType;
 
       _export('Builder', Builder);
+
+      attribute.getAttValue = getAttValue;
+      attribute.setAttValue = setAttValue;
+      template.applyTemplate = applyTemplate;
     }
   };
 });

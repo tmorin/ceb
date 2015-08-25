@@ -60,6 +60,9 @@
     return new _builderAttributeBuilderJs.AttributeBuilder(attrName);
   }
 
+  attribute.getAttValue = _builderAttributeBuilderJs.getAttValue;
+  attribute.setAttValue = _builderAttributeBuilderJs.setAttValue;
+
   /**
    * Get a new method builder.
    * @param {!string} methName the name of the method
@@ -89,6 +92,8 @@
   function template(tpl) {
     return new _builderTemplateBuilderJs.TemplateBuilder(tpl);
   }
+
+  template.applyTemplate = _builderTemplateBuilderJs.applyTemplate;
 
   /**
    * Get a new on builder.

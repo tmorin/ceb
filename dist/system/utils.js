@@ -1,33 +1,96 @@
 System.register([], function (_export) {
+    /**
+     * @ignore
+     */
     'use strict';
+
+    /**
+     * @ignore
+     */
 
     _export('camelCase', camelCase);
 
+    /**
+     * @ignore
+     */
+
     _export('isFunction', isFunction);
+
+    /**
+     * @ignore
+     */
 
     _export('isUndefined', isUndefined);
 
+    /**
+     * @ignore
+     */
+
     _export('isNull', isNull);
+
+    /**
+     * @ignore
+     */
 
     _export('isString', isString);
 
+    /**
+     * @ignore
+     */
+
     _export('isArray', isArray);
+
+    /**
+     * @ignore
+     */
 
     _export('result', result);
 
+    /**
+     * @ignore
+     */
+
     _export('assign', assign);
+
+    /**
+     * @ignore
+     */
 
     _export('toArray', toArray);
 
+    /**
+     * @ignore
+     */
+
     _export('flatten', flatten);
+
+    /**
+     * @ignore
+     */
 
     _export('invoke', invoke);
 
+    /**
+     * @ignore
+     */
+
     _export('partial', partial);
+
+    /**
+     * @ignore
+     */
 
     _export('bind', bind);
 
+    /**
+     * @ignore
+     */
+
     _export('noop', noop);
+
+    /**
+     * @ignore
+     */
 
     _export('wrap', wrap);
 
@@ -115,11 +178,7 @@ System.register([], function (_export) {
     }
 
     function wrap(fn, wrapper) {
-        return function () {
-            var args = toArray(arguments),
-                next = isFunction(fn) ? fn : noop();
-            return wrapper.apply(this, [bind(next, this)].concat(args));
-        };
+        return partial(wrapper, fn);
     }
 
     function find(array, cb) {

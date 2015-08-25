@@ -143,21 +143,26 @@
 
                 on('before:attachedCallback').invoke(function (el) {
                     var listener = function listener(evt) {
-                        if (stopPropagation) {
-                            evt.stopPropagation();
-                        }
-                        if (preventDefault) {
-                            evt.preventDefault();
-                        }
-
                         if (selector) {
                             var target = (0, _utilsJs.find)((0, _utilsJs.toArray)(el.querySelectorAll(selector)), function (el) {
                                 return el === evt.target || el.contains(evt.target);
                             });
                             if (target) {
+                                if (stopPropagation) {
+                                    evt.stopPropagation();
+                                }
+                                if (preventDefault) {
+                                    evt.preventDefault();
+                                }
                                 invoke(el, evt, target);
                             }
                         } else {
+                            if (stopPropagation) {
+                                evt.stopPropagation();
+                            }
+                            if (preventDefault) {
+                                evt.preventDefault();
+                            }
                             invoke(el, evt, el);
                         }
                     };

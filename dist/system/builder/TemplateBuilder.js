@@ -6,11 +6,19 @@ System.register(['../utils.js', './Builder.js', './PropertyBuilder.js'], functio
      */
     'use strict';
 
-    var isFunction, isString, Builder, PropertyBuilder, counter, OLD_CONTENT_ID_ATTR_NAME, CONTENT_ATTR_REG_EX, CONTENT_NODE_REG_EX, TemplateBuilder;
+    var isFunction, Builder, PropertyBuilder, counter, OLD_CONTENT_ID_ATTR_NAME, CONTENT_ATTR_REG_EX, CONTENT_NODE_REG_EX, TemplateBuilder;
 
     var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
     var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+    /**
+     * The template builder.
+     * Its goal is to provide a way to fill the content of a custom element.
+     * @extends {Builder}
+     */
+
+    _export('applyTemplate', applyTemplate);
 
     function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -77,14 +85,34 @@ System.register(['../utils.js', './Builder.js', './PropertyBuilder.js'], functio
     }
 
     /**
-     * The template builder.
-     * Its goal is to provide a way to fill the content of a custom element.
-     * @extends {Builder}
+     * Apply the template given by the property cebTemplate.
+     * @param {!HTMLElement} el the custom element
+     * @param {!string} tpl the template
      */
+
+    function applyTemplate(el, tpl) {
+        var lightChildren = [],
+            handleContentNode = hasContent(tpl);
+
+        if (handleContentNode) {
+            var newCebContentId = 'ceb-content-' + counter++;
+            lightChildren = cleanOldContentNode(el);
+
+            tpl = replaceContent(tpl, newCebContentId);
+
+            el.setAttribute(OLD_CONTENT_ID_ATTR_NAME, newCebContentId);
+        }
+
+        el.innerHTML = tpl;
+
+        if (handleContentNode) {
+            fillNewContentNode(el, lightChildren);
+        }
+    }
+
     return {
         setters: [function (_utilsJs) {
             isFunction = _utilsJs.isFunction;
-            isString = _utilsJs.isString;
         }, function (_BuilderJs) {
             Builder = _BuilderJs.Builder;
         }, function (_PropertyBuilderJs) {
@@ -135,36 +163,14 @@ System.register(['../utils.js', './Builder.js', './PropertyBuilder.js'], functio
                 _createClass(TemplateBuilder, [{
                     key: 'build',
                     value: function build(proto, on) {
-                        var data = this.data,
-                            html = isString(data.tpl) ? data.tpl : null;
+                        var data = this.data;
 
                         new PropertyBuilder('lightDomNode').getter(function (el) {
                             return findContentNode(el);
                         }).build(proto, on);
 
                         on('before:createdCallback').invoke(function (el) {
-                            var tpl = html;
-                            if (isFunction(data.tpl)) {
-                                tpl = data.tpl(el);
-                            }
-
-                            var lightChildren = [],
-                                handleContentNode = hasContent(tpl);
-
-                            if (handleContentNode) {
-                                var newCebContentId = 'ceb-content-' + counter++;
-                                lightChildren = cleanOldContentNode(el);
-
-                                tpl = replaceContent(tpl, newCebContentId);
-
-                                el.setAttribute(OLD_CONTENT_ID_ATTR_NAME, newCebContentId);
-                            }
-
-                            el.innerHTML = tpl;
-
-                            if (handleContentNode) {
-                                fillNewContentNode(el, lightChildren);
-                            }
+                            applyTemplate(el, isFunction(data.tpl) ? data.tpl(el) : data.tpl);
                         });
                     }
                 }]);
