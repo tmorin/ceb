@@ -2,12 +2,12 @@ System.register(['../utils.js', './AttributeBuilder.js', './Builder.js'], functi
 
     /**
      * The delegate builder.
-     * Its goal is to provide a way to delegate properties and attributes.
+     * Its goal is to provide a way to delegate methods, properties and attributes.
      * @extends {Builder}
      */
     'use strict';
 
-    var isUndefined, isFunction, getAttValue, setAttValue, Builder, DelegateBuilder;
+    var isUndefined, isFunction, toArray, getAttValue, setAttValue, Builder, DelegateBuilder;
 
     var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -21,6 +21,7 @@ System.register(['../utils.js', './AttributeBuilder.js', './Builder.js'], functi
         setters: [function (_utilsJs) {
             isUndefined = _utilsJs.isUndefined;
             isFunction = _utilsJs.isFunction;
+            toArray = _utilsJs.toArray;
         }, function (_AttributeBuilderJs) {
             getAttValue = _AttributeBuilderJs.getAttValue;
             setAttValue = _AttributeBuilderJs.setAttValue;
@@ -32,7 +33,7 @@ System.register(['../utils.js', './AttributeBuilder.js', './Builder.js'], functi
                 _inherits(DelegateBuilder, _Builder);
 
                 /**
-                 * @param {!PropertyBuilder|AttributeBuilder} fieldBuilder the field builder
+                 * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} fieldBuilder the field builder
                  */
 
                 function DelegateBuilder(fieldBuilder) {
@@ -51,6 +52,8 @@ System.register(['../utils.js', './AttributeBuilder.js', './Builder.js'], functi
                         this.data.attrName = fieldBuilder.data.attrName;
                     } else if (this.fieldBuilder.data.propName) {
                         this.data.propName = fieldBuilder.data.propName;
+                    } else if (this.fieldBuilder.data.methName) {
+                        this.data.methName = fieldBuilder.data.methName;
                     }
                 }
 
@@ -68,7 +71,7 @@ System.register(['../utils.js', './AttributeBuilder.js', './Builder.js'], functi
                     }
 
                     /**
-                     * To force a delegate to a property.
+                     * To force the delegation to a property.
                      * @param {string} [propName] the name of the property
                      * @returns {DelegateBuilder} the builder
                      */
@@ -85,7 +88,7 @@ System.register(['../utils.js', './AttributeBuilder.js', './Builder.js'], functi
                     }
 
                     /**
-                     * To force the delegate to an attribute.
+                     * To force the delegation to an attribute.
                      * @param {string} [attrName] the name of the attribute
                      * @returns {DelegateBuilder} the builder
                      */
@@ -102,16 +105,32 @@ System.register(['../utils.js', './AttributeBuilder.js', './Builder.js'], functi
                     }
 
                     /**
+                     * To force the delegation to a method.
+                     * @param {string} [methName] the name of the method
+                     * @returns {DelegateBuilder} the builder
+                     */
+                }, {
+                    key: 'method',
+                    value: function method(methName) {
+                        this.data.methName = null;
+                        if (!isUndefined(methName)) {
+                            this.data.methName = methName;
+                        } else {
+                            this.data.methName = this.fieldBuilder.data.methName;
+                        }
+                        return this;
+                    }
+
+                    /**
                      * @override
                      */
                 }, {
                     key: 'build',
                     value: function build(proto, on) {
-                        var _this = this;
-
                         var data = this.data,
                             fieldBuilderData = this.fieldBuilder.data,
                             targetedPropName = this.data.propName,
+                            targetedMethName = this.data.methName,
                             targetedAttrName = this.data.attrName,
                             fieldGetter = fieldBuilderData.getter,
                             fieldSetter = fieldBuilderData.setter;
@@ -151,17 +170,26 @@ System.register(['../utils.js', './AttributeBuilder.js', './Builder.js'], functi
                                         targetValue = target[targetedPropName];
                                     }
                                 }
-                                return isFunction(fieldGetter) ? fieldGetter.call(_this, _this, targetValue) : targetValue;
+                                return isFunction(fieldGetter) ? fieldGetter.call(el, el, targetValue) : targetValue;
                             };
                             fieldBuilderData.setter = function (el, value) {
                                 var target = el.querySelector(data.selector),
-                                    targetValue = isFunction(fieldSetter) ? fieldSetter.call(_this, _this, value) : value;
+                                    targetValue = isFunction(fieldSetter) ? fieldSetter.call(el, el, value) : value;
                                 if (target) {
                                     if (targetedAttrName) {
                                         target.setAttribute(targetedAttrName, targetValue);
                                     } else {
                                         target[targetedPropName] = targetValue;
                                     }
+                                }
+                            };
+                        } else if (fieldBuilderData.methName) {
+                            fieldBuilderData.invoke = function (el) {
+                                var target = el.querySelector(data.selector);
+                                if (isFunction(target[targetedMethName])) {
+                                    var args = toArray(arguments);
+                                    args.shift();
+                                    return target[targetedMethName].apply(target, args);
                                 }
                             };
                         }
