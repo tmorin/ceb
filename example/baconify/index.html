@@ -5,8 +5,21 @@
     <title>baconify - ceb's examples</title>
 
     <script src="../node_modules/document-register-element/build/document-register-element.js"></script>
-    <script src="../node_modules/babel/node_modules/babel-core/browser.min.js"></script>
+    <script src="../node_modules/babel-core/browser.min.js"></script>
     <script src="../node_modules/systemjs/dist/system.js"></script>
+
+    <style>
+        ceb-address-selector li {
+            border: 1px solid transparent;
+            cursor: default;
+        }
+        ceb-address-selector li[marked] {
+            border: 1px solid grey;
+        }
+        ceb-address-selector li:hover {
+            background-color: whitesmoke;
+        }
+    </style>
 
     <script>
         window.define = System.amdDefine;
@@ -16,7 +29,9 @@
             baseURL: '../',
             transpiler: 'babel',
             map: {
-                bacon: 'node_modules/baconjs/dist/Bacon.min.js'
+                bacon: 'node_modules/baconjs/dist/Bacon.min.js',
+                handlebars: 'node_modules/handlebars/dist/handlebars.min.js',
+                jquery: 'node_modules/jquery/dist/jquery.min.js'
             }
         });
 
@@ -31,7 +46,7 @@
     <a href="../">back</a>
 </p>
 
-<ceb-input></ceb-input>
+<ceb-address-selector></ceb-address-selector>
 
 </body>
 </html>
