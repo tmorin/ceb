@@ -13,7 +13,7 @@ describe('ceb.template()', ()=> {
     });
 
     afterEach(() => {
-        //sandbox.innerHTML = '';
+        sandbox.innerHTML = '';
     });
 
     it('should apply a string template', () => {

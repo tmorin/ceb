@@ -1,16 +1,16 @@
-import {isUndefined, isFunction} from '../utils.js';
+import {isUndefined, isFunction, toArray} from '../utils.js';
 import {getAttValue, setAttValue} from './AttributeBuilder.js';
 import {Builder} from './Builder.js';
 
 /**
  * The delegate builder.
- * Its goal is to provide a way to delegate properties and attributes.
+ * Its goal is to provide a way to delegate methods, properties and attributes.
  * @extends {Builder}
  */
 export class DelegateBuilder extends Builder {
 
     /**
-     * @param {!PropertyBuilder|AttributeBuilder} fieldBuilder the field builder
+     * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} fieldBuilder the field builder
      */
     constructor(fieldBuilder) {
         super();
@@ -26,6 +26,8 @@ export class DelegateBuilder extends Builder {
             this.data.attrName = fieldBuilder.data.attrName;
         } else if (this.fieldBuilder.data.propName) {
             this.data.propName = fieldBuilder.data.propName;
+        } else if (this.fieldBuilder.data.methName) {
+            this.data.methName = fieldBuilder.data.methName;
         }
     }
 
@@ -40,7 +42,7 @@ export class DelegateBuilder extends Builder {
     }
 
     /**
-     * To force a delegate to a property.
+     * To force the delegation to a property.
      * @param {string} [propName] the name of the property
      * @returns {DelegateBuilder} the builder
      */
@@ -55,7 +57,7 @@ export class DelegateBuilder extends Builder {
     }
 
     /**
-     * To force the delegate to an attribute.
+     * To force the delegation to an attribute.
      * @param {string} [attrName] the name of the attribute
      * @returns {DelegateBuilder} the builder
      */
@@ -70,12 +72,28 @@ export class DelegateBuilder extends Builder {
     }
 
     /**
+     * To force the delegation to a method.
+     * @param {string} [methName] the name of the method
+     * @returns {DelegateBuilder} the builder
+     */
+    method(methName) {
+        this.data.methName = null;
+        if (!isUndefined(methName)) {
+            this.data.methName = methName;
+        } else {
+            this.data.methName = this.fieldBuilder.data.methName;
+        }
+        return this;
+    }
+
+    /**
      * @override
      */
     build(proto, on) {
         let data = this.data,
             fieldBuilderData = this.fieldBuilder.data,
             targetedPropName = this.data.propName,
+            targetedMethName = this.data.methName,
             targetedAttrName = this.data.attrName,
             fieldGetter = fieldBuilderData.getter,
             fieldSetter = fieldBuilderData.setter;
@@ -115,17 +133,26 @@ export class DelegateBuilder extends Builder {
                         targetValue = target[targetedPropName];
                     }
                 }
-                return isFunction(fieldGetter) ? fieldGetter.call(this, this, targetValue) : targetValue;
+                return isFunction(fieldGetter) ? fieldGetter.call(el, el, targetValue) : targetValue;
             };
             fieldBuilderData.setter = (el, value) => {
                 let target = el.querySelector(data.selector),
-                    targetValue = isFunction(fieldSetter) ? fieldSetter.call(this, this, value) : value;
+                    targetValue = isFunction(fieldSetter) ? fieldSetter.call(el, el, value) : value;
                 if (target) {
                     if (targetedAttrName) {
                         target.setAttribute(targetedAttrName, targetValue);
                     } else {
                         target[targetedPropName] = targetValue;
                     }
+                }
+            };
+        } else if (fieldBuilderData.methName) {
+            fieldBuilderData.invoke = function (el) {
+                let target = el.querySelector(data.selector);
+                if (isFunction(target[targetedMethName])) {
+                    let args = toArray(arguments);
+                    args.shift();
+                    return target[targetedMethName].apply(target, args);
                 }
             };
         }

@@ -1,6 +1,6 @@
 /*jshint -W030 */
 
-import {ceb, property, attribute, delegate} from '../lib/ceb';
+import {ceb, property, attribute, method, delegate} from '../lib/ceb';
 
 describe('ceb.delegate()', function () {
     var sandbox, builder;
@@ -142,6 +142,24 @@ describe('ceb.delegate()', function () {
         setTimeout(() => {
             expect(el.getAttribute('att1'), 'el@att1').to.be.eq('value1');
             expect(el.querySelector('button').getAttribute('att1'), 'el>button@att1').to.be.eq('value1');
+            done();
+        }, 10);
+    });
+
+    /* METHOD */
+
+    it('should delegate a method invocation to the target matching method', (done) => {
+        builder.augment(
+            delegate(method('click')).to('button')
+        ).register('test-delegate-meth-to-meth');
+        var el = document.createElement('test-delegate-meth-to-meth');
+        sandbox.appendChild(el);
+        setTimeout(() => {
+            var button = el.querySelector('button');
+            sinon.spy(button, 'click');
+            el.click();
+
+            expect(button.click).to.be.have.been.called;
             done();
         }, 10);
     });
