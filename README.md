@@ -6,7 +6,7 @@
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 
-ceb is just a builder, natively scalable and designed for FRP.
+ceb is just a set of builders, natively scalable and designed for FRP
 
 - [Home page](http://tmorin.github.io/custom-elements-builder/)
 
