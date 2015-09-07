@@ -50,11 +50,11 @@ If the element (`content`) is found, it will be replaced by a `span` element, an
 
 ### Getting the light DOM node
 
-Custom element augmented with the `template()` get a property `lightDomNode` which returns the light DOM element.
-If the template doesn't have the the _pseudo Shadow_ flag, the `lightDomNode` will return the custom element itself.
+Custom element augmented with the `template()` get a property `lightDom` which returns the light DOM element.
+If the template doesn't have the the _pseudo Shadow_ flag, the `lightDom` will return the custom element itself.
 
 Furthermore, the templating process is able to handle embedded light dom.
-In this case, the `lightDomNode` value of the root node, will be the `lightDomNode` of the last child having a  _pseudo Shadow_ flag.
+In this case, the `lightDom` value of the root node, will be the `lightDom` of the last child having a  _pseudo Shadow_ flag.
 
 ### Example
 

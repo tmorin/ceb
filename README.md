@@ -22,7 +22,7 @@ About, not evergreen browsers (those not implementing `document.registerElement(
 
 From ES6;
 ```javascript
-import {ceb} from 'custom-element-builder/es6/ceb'
+import {ceb} from 'custom-element-builder/es6/lib/ceb'
 ```
 
 From ES5:
@@ -71,7 +71,7 @@ From UMD (Global):
 
 ## Gulp tasks
 
-Clean built artifacts then check, test, build and generate everything.
+Clean generated folders then check, test, build and generate everything.
 ```shell
 gulp 
 ```
