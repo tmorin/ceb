@@ -5,7 +5,7 @@ ceb().augment(
     idomify(`
         <form class="add">
             <input required placeholder="an item" name="content">
-            <input type="submit" value="+">
+            <input type="submit">
         </form>
         <ul>
         <% data.items.forEach(function(item, index) { %>
@@ -21,17 +21,19 @@ ceb().augment(
     method('addItem').invoke((el, item) => {
         el.items.push(item);
         el.render();
+        el.querySelector('[name=content]').value = '';
+        el.querySelector('[name=content]').focus();
     }),
 
     method('removeItem').invoke((el, item) => {
         var index = el.items.indexOf(item);
         el.items.splice(index, 1);
         el.render();
+        el.querySelector('[name=content]').focus();
     }),
 
     on('submit').delegate('form.add').skip().invoke((el, evt) => {
         el.addItem(evt.target.content.value);
-        evt.target.content.value = '';
     }),
 
     on('click').delegate('button.remove').skip().invoke((el, evt) => {

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ui - ceb's examples</title>
+
+    <link href="demo.css" rel="stylesheet">
+
+    <script src="../node_modules/document-register-element/build/document-register-element.js"></script>
+    <script src="../node_modules/babel-core/browser.min.js"></script>
+    <script src="../node_modules/systemjs/dist/system.js"></script>
+    <script>
+        window.define = System.amdDefine;
+        window.require = window.requirejs = System.amdRequire;
+
+        System.config({
+            baseURL: '../',
+            transpiler: 'babel',
+            map: {
+                handlebars: 'node_modules/handlebars/dist/handlebars.min.js',
+                bacon: 'node_modules/baconjs/dist/Bacon.min.js',
+                baconify: 'baconify/baconify.js',
+                jquery: 'node_modules/jquery/dist/jquery.min.js',
+                itemplate: '/node_modules/idom-template/bin/itemplate.js',
+                idom: 'node_modules/idom-template/examples/lib/incremental-dom.js'
+
+            }
+        });
+
+        System.import('ui/demo.js');
+
+    </script>
+
+</head>
+<body>
+
+<p>
+    <a href="../">back</a>
+</p>
+
+<ui-app>
+
+    <ui-page id="home">
+        <ui-header>
+            <h1>Home</h1>
+            <ui-action>
+                <button type="button">+</button>
+            </ui-action>
+        </ui-header>
+
+        <ui-content>
+            <ui-items>
+                <script is="ui-template" type="text/x-idom-template">
+                    <% data.items.forEach(function(item) { %>
+                    <ui-card>
+                        <p><%- item.content %></p>
+                    </ui-card>
+                    <% }); %>
+                </script>
+            </ui-items>
+        </ui-content>
+
+        <ui-footer></ui-footer>
+    </ui-page>
+
+</ui-app>
+
+</body>
+</html>
