@@ -75,7 +75,7 @@
 
   /**
    * Get a new delegate builder.
-   * @param {!PropertyBuilder|AttributeBuilder} builder the property or attribute builder
+   * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} builder a property, attribute or method builder
    * @returns {DelegateBuilder} the delegate builder
    */
 

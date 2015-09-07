@@ -88,27 +88,24 @@
     /**
      * Remove and return the children of the light DOM node.
      * @param {!HTMLElement} el the custom element
-     * @returns {Array<Node>} the children DOM nodes
+     * @returns {DocumentFragment} the light DOM fragment
      */
     function cleanOldContentNode(el) {
-        var oldContentNode = el.lightDomNode,
-            lightChildren = [];
+        var oldContentNode = el.lightDom,
+            lightFrag = document.createDocumentFragment();
         while (oldContentNode.childNodes.length > 0) {
-            lightChildren.push(oldContentNode.removeChild(oldContentNode.childNodes[0]));
+            lightFrag.appendChild(oldContentNode.removeChild(oldContentNode.childNodes[0]));
         }
-        return lightChildren;
+        return lightFrag;
     }
 
     /**
      * Add the given DOM nodes list to the given element.
      * @param {!HTMLElement} el the custom element
-     * @param {Array<Node>} children the children DOM nodes
+     * @param {DocumentFragment} lightFrag the light DOM fragment
      */
-    function fillNewContentNode(el, children) {
-        var newContentNode = el.lightDomNode;
-        children.forEach(function (child) {
-            newContentNode.appendChild(child);
-        });
+    function fillNewContentNode(el, lightFrag) {
+        el.lightDom.appendChild(lightFrag);
     }
 
     /**
@@ -118,12 +115,12 @@
      */
 
     function applyTemplate(el, tpl) {
-        var lightChildren = [],
+        var lightFrag = [],
             handleContentNode = hasContent(tpl);
 
         if (handleContentNode) {
             var newCebContentId = 'ceb-content-' + counter++;
-            lightChildren = cleanOldContentNode(el);
+            lightFrag = cleanOldContentNode(el);
 
             tpl = replaceContent(tpl, newCebContentId);
 
@@ -133,7 +130,7 @@
         el.innerHTML = tpl;
 
         if (handleContentNode) {
-            fillNewContentNode(el, lightChildren);
+            fillNewContentNode(el, lightFrag);
         }
     }
 
@@ -169,7 +166,7 @@
             value: function build(proto, on) {
                 var data = this.data;
 
-                new _PropertyBuilderJs.PropertyBuilder('lightDomNode').getter(function (el) {
+                new _PropertyBuilderJs.PropertyBuilder('lightDom').getter(function (el) {
                     return findContentNode(el);
                 }).build(proto, on);
 
