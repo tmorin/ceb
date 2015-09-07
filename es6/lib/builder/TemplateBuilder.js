@@ -65,27 +65,24 @@ function findContentNode(el) {
 /**
  * Remove and return the children of the light DOM node.
  * @param {!HTMLElement} el the custom element
- * @returns {Array<Node>} the children DOM nodes
+ * @returns {DocumentFragment} the light DOM fragment
  */
 function cleanOldContentNode(el) {
-    let oldContentNode = el.lightDomNode,
-        lightChildren = [];
+    let oldContentNode = el.lightDom,
+        lightFrag = document.createDocumentFragment();
     while (oldContentNode.childNodes.length > 0) {
-        lightChildren.push(oldContentNode.removeChild(oldContentNode.childNodes[0]));
+        lightFrag.appendChild(oldContentNode.removeChild(oldContentNode.childNodes[0]));
     }
-    return lightChildren;
+    return lightFrag;
 }
 
 /**
  * Add the given DOM nodes list to the given element.
  * @param {!HTMLElement} el the custom element
- * @param {Array<Node>} children the children DOM nodes
+ * @param {DocumentFragment} lightFrag the light DOM fragment
  */
-function fillNewContentNode(el, children) {
-    let newContentNode = el.lightDomNode;
-    children.forEach(function (child) {
-        newContentNode.appendChild(child);
-    });
+function fillNewContentNode(el, lightFrag) {
+    el.lightDom.appendChild(lightFrag);
 }
 
 /**
@@ -94,12 +91,12 @@ function fillNewContentNode(el, children) {
  * @param {!string} tpl the template
  */
 export function applyTemplate(el, tpl) {
-    let lightChildren = [],
+    let lightFrag = [],
         handleContentNode = hasContent(tpl);
 
     if (handleContentNode) {
         let newCebContentId = 'ceb-content-' + counter++;
-        lightChildren = cleanOldContentNode(el);
+        lightFrag = cleanOldContentNode(el);
 
         tpl = replaceContent(tpl, newCebContentId);
 
@@ -109,7 +106,7 @@ export function applyTemplate(el, tpl) {
     el.innerHTML = tpl;
 
     if (handleContentNode) {
-        fillNewContentNode(el, lightChildren);
+        fillNewContentNode(el, lightFrag);
     }
 }
 /**
@@ -136,7 +133,7 @@ export class TemplateBuilder extends Builder {
     build(proto, on) {
         let data = this.data;
 
-        (new PropertyBuilder('lightDomNode')).getter(el => findContentNode(el)).build(proto, on);
+        (new PropertyBuilder('lightDom')).getter(el => findContentNode(el)).build(proto, on);
 
         on('before:createdCallback').invoke(el => {
             applyTemplate(el, isFunction(data.tpl) ? data.tpl(el) : data.tpl);
