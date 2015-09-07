@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 function isIe() {
     return navigator.userAgent.indexOf('MSIE 9.0') > -1 ||
         navigator.userAgent.indexOf('MSIE 10.0') > -1 ||
@@ -29,15 +31,5 @@ export function canClick() {
 }
 
 export function click(el) {
-    var evt = document.createEvent('MouseEvent');
-    evt.initMouseEvent(
-        'click',
-        /*bubble*/true, /*cancelable*/true,
-        window, null,
-        0, 0, 0, 0, /*coordinates*/
-        false, false, false, false, /*modifier keys*/
-        0/*button=left*/, null
-    );
-    el.dispatchEvent(evt);
-    return evt;
+    $(el).trigger('click');
 }

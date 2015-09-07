@@ -22,11 +22,11 @@ describe('ceb.on()', function () {
         builder.augment(on('click').invoke(fn), template('<button>button</button>')).register('test-on-bubbling');
         var el = document.createElement('test-on-bubbling');
         sandbox.appendChild(el);
-        var evt = click(el);
+        click(el);
         setTimeout(() => {
             if (canClick()) {
                 expect(fn).to.have.been.calledOnce;
-                expect(fn).to.be.calledWith(el, evt);
+                expect(fn).to.be.calledWith(el, sinon.match(Object));
             }
             done();
         }, 10);
@@ -37,11 +37,11 @@ describe('ceb.on()', function () {
         builder.augment(on('click').invoke(fn).capture(), template('<button>button</button>')).register('test-on-capture');
         var el = document.createElement('test-on-capture');
         sandbox.appendChild(el);
-        var evt = click(el);
+        click(el);
         setTimeout(() => {
             if (canClick()) {
                 expect(fn).to.have.been.calledOnce;
-                expect(fn).to.be.calledWith(el, evt);
+                expect(fn).to.be.calledWith(el, sinon.match(Object));
             }
             done();
         }, 10);
@@ -59,18 +59,18 @@ describe('ceb.on()', function () {
         ).register('test-on-delegate');
         var el = document.createElement('test-on-delegate');
         sandbox.appendChild(el);
-        var evtI1 = click(el.querySelector('.i1'));
-        var evtI2 = click(el.querySelector('.i2'));
-        var evtU1 = click(el.querySelector('.i1 u'));
+        click(el.querySelector('.i1'));
+        click(el.querySelector('.i2'));
+        click(el.querySelector('.i1 u'));
         setTimeout(() => {
             if (canClick()) {
                 expect(fn).to.have.been.calledThrice;
                 expect(fnI).to.have.been.calledThrice;
                 expect(fnI1).to.have.been.calledTwice;
-                expect(fnI1).to.be.calledWith(el, evtI1, el.querySelector('.i1'));
-                expect(fnI1).to.be.calledWith(el, evtU1, el.querySelector('.i1'));
-                expect(evtI1.target).to.eq(el.querySelector('.i1'));
-                expect(evtI2.target).to.eq(el.querySelector('.i2'));
+                expect(fnI1).to.be.calledWith(el, sinon.match(Object), el.querySelector('.i1'));
+                expect(fnI1).to.be.calledWith(el, sinon.match(Object), el.querySelector('.i1'));
+                expect(fnI1.getCall(0).args[1].target).to.eq(el.querySelector('.i1'));
+                expect(fnI.getCall(1).args[1].target).to.eq(el.querySelector('.i2'));
             }
             done();
         }, 10);
