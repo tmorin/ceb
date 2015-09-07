@@ -46,11 +46,12 @@ module.exports = function (config) {
 
         autoWatch: false,
 
-        //browsers: ['Chrome'],
+        //browsers: ['PhantomJS', 'Chrome', 'IE'],
+        //browsers: ['PhantomJS', 'Chrome', 'Firefox'],
+        //browsers: ['PhantomJS', 'Chrome', 'Firefox', 'IE'],
         //browsers: ['IE', 'PhantomJS'],
-        //browsers: ['IE'],
+        //browsers: ['Chrome', 'PhantomJS'],
         //browsers: ['Firefox', 'PhantomJS'],
-        //browsers: ['Firefox'],
         browsers: ['PhantomJS'],
 
         singleRun: true,
