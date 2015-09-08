@@ -1,4 +1,5 @@
 import {Builder, property} from 'es6/lib/ceb.js';
+import {noop, wrap} from 'es6/lib/utils.js';
 import {Bus} from 'bacon';
 
 let counter = 0;
@@ -27,8 +28,9 @@ function destroyStream(el, id, exposedName) {
         delete el.streams[exposedName];
     }
     if (el[id]) {
-        el[id].unsubAll();
-        el[id] = null;
+        el[id].end();
+        delete el[id];
+        delete el[`${id}Value`];
     }
 }
 
@@ -44,6 +46,11 @@ export class BaconBuilder extends Builder {
         return this;
     }
 
+    expose(name) {
+        this.data.exposedName = name;
+        return this;
+    }
+
     trigger(name, bubbles = true, cancellable = true) {
         this.data.dispachedEvent = {name, bubbles, cancellable};
         return this;
@@ -51,10 +58,11 @@ export class BaconBuilder extends Builder {
 
     build(proto, on) {
 
-        let id = `_cebBaconifyBus-${counter++}`,
+        let id = `_cebBaconifyBus${counter++}`,
             apply = this.data.apply,
             exposedName = this.data.exposedName,
-            dispachedEvent = this.data.dispachedEvent;
+            dispachedEvent = this.data.dispachedEvent,
+            builder = this.data.builder;
 
         if (exposedName && !Object.getOwnPropertyDescriptor(proto, 'streams')) {
             property('streams').immutable().value({}).build(proto, on);
@@ -75,10 +83,27 @@ export class BaconBuilder extends Builder {
             destroyStream(el, id, exposedName);
         });
 
-        if (this.data.builder) {
-            this.data.builder.invoke((el, evt) => {
+        if (builder && builder.data.invoke) {
+            let invoke = builder.data.invoke || noop();
+            builder.data.invoke = wrap(invoke, (next, el, evt, target) => {
                 el[id].push(evt);
-            }).build(proto, on);
+                return next(el, evt, target);
+            });
+            builder.build(proto, on);
+        } else if (builder && builder.data.propName) {
+            builder.data.descriptorValue = false;
+            let setter = builder.data.setter || ((el, value) => value);
+            let getter = builder.data.getter || noop();
+            builder.data.setter = wrap(setter, (next, el, value) => {
+                el[id].push(value);
+                el[`${id}Value`] = value;
+                return next(el, value);
+            });
+            builder.data.getter = wrap(getter, (next, el) => {
+                var value = next(el);
+                return value || el[`${id}Value`];
+            });
+            builder.build(proto, on);
         }
     }
 }
