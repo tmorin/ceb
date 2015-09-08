@@ -1480,6 +1480,7 @@
     exports.noop = noop;
     exports.wrap = wrap;
     exports.find = find;
+    exports.trigger = trigger;
 
     function camelCase(value) {
         return value.toLowerCase().split('-').map(function (part, index) {
@@ -1628,6 +1629,17 @@
 
     function find(array, cb) {
         return array.filter(cb)[0];
+    }
+
+    /**
+     * @ignore
+     * TODO: handle legacy ways
+     */
+
+    function trigger(el, options, detail) {
+        var evt = document.createEvent('CustomEvent');
+        evt.initCustomEvent(options.name, options.bubbles, options.cancellable, detail);
+        return el.dispatchEvent(evt);
     }
 });
 

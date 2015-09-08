@@ -94,7 +94,14 @@ System.register([], function (_export) {
 
     _export('wrap', wrap);
 
+    /**
+     * @ignore
+     * TODO: handle legacy ways
+     */
+
     _export('find', find);
+
+    _export('trigger', trigger);
 
     function camelCase(value) {
         return value.toLowerCase().split('-').map(function (part, index) {
@@ -183,6 +190,12 @@ System.register([], function (_export) {
 
     function find(array, cb) {
         return array.filter(cb)[0];
+    }
+
+    function trigger(el, options, detail) {
+        var evt = document.createEvent('CustomEvent');
+        evt.initCustomEvent(options.name, options.bubbles, options.cancellable, detail);
+        return el.dispatchEvent(evt);
     }
 
     return {
