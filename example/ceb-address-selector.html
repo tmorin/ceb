@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>baconify - ceb's examples</title>
+    <title>ceb-address-selector - ceb's examples</title>
 
-    <script src="../node_modules/document-register-element/build/document-register-element.js"></script>
-    <script src="../node_modules/babel-core/browser.min.js"></script>
-    <script src="../node_modules/systemjs/dist/system.js"></script>
+    <script src="node_modules/document-register-element/build/document-register-element.js"></script>
+    <script src="node_modules/babel-core/browser.min.js"></script>
+    <script src="node_modules/systemjs/dist/system.js"></script>
 
     <style>
         ceb-address-selector li {
@@ -26,24 +26,34 @@
         window.require = window.requirejs = System.amdRequire;
 
         System.config({
-            baseURL: '../',
+            baseURL: '.',
             transpiler: 'babel',
             map: {
                 bacon: 'node_modules/baconjs/dist/Bacon.min.js',
-                handlebars: 'node_modules/handlebars/dist/handlebars.min.js',
                 jquery: 'node_modules/jquery/dist/jquery.min.js'
             }
         });
 
-        System.import('baconify/demo.js');
+        System.import('elements/ceb-address-selector.js');
 
     </script>
 
 </head>
 <body>
 
+<h1>ceb-address-selector - ceb's examples</h1>
+
 <p>
-    <a href="../">back</a>
+    <a href="./">back</a>
+</p>
+
+<p>
+    <code>ceb-address-selector</code> consume the <a href="http://nominatim.openstreetmap.org">nominatim.openstreetmap.org</a> API to help the selection of a place.
+</p>
+
+<p>
+    The implementation is based on bacon's streams to simplify the asynchronous business of this kind of widgets.
+    The baconjs magic is provided by <code>example/builders/baconify.js</code>.
 </p>
 
 <ceb-address-selector></ceb-address-selector>

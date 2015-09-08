@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import {ceb, method, template, attribute, delegate, on} from 'es6/lib/ceb.js';
-import {baconify} from './baconify.js';
+import {baconify} from '../builders/baconify.js';
 import {fromPromise, once} from 'bacon';
 
 $.support.cors = true;
@@ -45,17 +45,24 @@ export default ceb().augment(
 
     /* Form elements' facade */
 
+    // the focus of the custom element is hosted by the text input
     delegate(method('focus')).to('input[type=text]'),
 
+    // the value of the custom element is hosted by the text input
     delegate(attribute('value')).to('input[type=text]').property(),
 
+    // the value could be get from an HTML form
     delegate(attribute('name')).to('input[type=text]'),
 
+    // the disabled state of the custom element
+    // is hosted by the text input
+    // alternatively, the clear button must be handled too
     delegate(attribute('disabled').setter((el, value) => {
         el.querySelector('input[type=button]').disabled = value;
         return value;
     })).to('input[type=text]').property(),
 
+    // like the disabled state
     delegate(attribute('readonly').setter((el, value) => {
         el.querySelector('input[type=button]').disabled = value;
         return value;

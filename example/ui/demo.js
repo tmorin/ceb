@@ -1,7 +1,7 @@
 import {ceb, method, on, attribute} from 'es6/lib/ceb.js';
-import {actionify} from './builder/ActionifyBuilder.js';
-import {contextify} from './builder/ContextifyBuilder.js';
-import {handlerify} from './builder/HandlerifyBuilder.js';
+import {actionify} from '../builders/actionify.js';
+import {contextify} from '../builders/contextify.js';
+import {handlerify} from '../builders/handlerify.js';
 import {fromJS} from 'immutable';
 
 ceb().augment(

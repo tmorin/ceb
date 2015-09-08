@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ceb-list - ceb's examples</title>
+
+    <script src="node_modules/document-register-element/build/document-register-element.js"></script>
+    <script src="node_modules/babel-core/browser.min.js"></script>
+    <script src="node_modules/systemjs/dist/system.js"></script>
+
+    <script>
+        window.define = System.amdDefine;
+        window.require = window.requirejs = System.amdRequire;
+
+        System.config({
+            baseURL: '.',
+            transpiler: 'babel',
+            map: {
+                handlebars: 'node_modules/handlebars/dist/handlebars.min.js'
+            }
+        });
+
+        System.import('elements/ceb-list.js');
+
+    </script>
+
+</head>
+<body>
+
+<h1>ceb-list - ceb's examples</h1>
+
+<p>
+    <a href="./">back</a>
+</p>
+
+<p>
+    The <code>ceb-list</code> content will be refreshed when an item is added or removed.
+    The templating system is provided by <code>example/builders/handlebarify.js</code>.
+</p>
+
+<ceb-list></ceb-list>
+
+</body>
+</html>

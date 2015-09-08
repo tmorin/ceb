@@ -1,5 +1,5 @@
 import {ceb, property, method, on} from 'es6/lib/ceb.js';
-import {handlebarify} from './handlebarify.js';
+import {handlebarify} from '../builders/handlebarify.js';
 
 ceb().augment(
     handlebarify(`

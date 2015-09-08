@@ -1,7 +1,6 @@
 import {Builder, attribute, method} from 'es6/lib/ceb.js';
-import {attributesAggregator} from './AttributesAggregatorBuilder.js';
-import {noop, wrap} from 'es6/lib/utils.js';
-import {trigger} from '../utils.js';
+import {attributesAggregator} from './attributesAggregator.js';
+import {noop, wrap, trigger} from 'es6/lib/utils.js';
 
 export class ActionifyBuilder extends Builder {
 

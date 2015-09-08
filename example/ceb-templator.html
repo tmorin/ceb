@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>templator - ceb's examples</title>
+    <title>ceb-templator - ceb's examples</title>
 
-    <script src="../node_modules/document-register-element/build/document-register-element.js"></script>
-    <script src="../node_modules/babel-core/browser.min.js"></script>
-    <script src="../node_modules/systemjs/dist/system.js"></script>
+    <script src="node_modules/document-register-element/build/document-register-element.js"></script>
+    <script src="node_modules/babel-core/browser.min.js"></script>
+    <script src="node_modules/systemjs/dist/system.js"></script>
 
     <script>
         window.define = System.amdDefine;
         window.require = window.requirejs = System.amdRequire;
 
         System.config({
-            baseURL: '../',
+            baseURL: '.',
             transpiler: 'babel',
             map: {
                 handlebars: 'node_modules/handlebars/dist/handlebars.min.js'
             }
         });
 
-        System.import('templator/demo.js').then(function () {
+        System.import('elements/ceb-templator.js').then(function () {
             var data = {
                 items: [{
                     name: 'item1'
@@ -43,8 +43,10 @@
 </head>
 <body>
 
+<h1>ceb-templator - ceb's examples</h1>
+
 <p>
-    <a href="../">back</a>
+    <a href="./">back</a>
 </p>
 
 <script id="withHandlebars" is="ceb-templator" type="text/x-handlebars-template">

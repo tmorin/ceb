@@ -1,7 +1,7 @@
 import {Builder, property, attribute, method, on} from 'es6/lib/ceb.js';
+import {trigger} from 'es6/lib/utils.js';
 import {baconify} from 'baconify';
 import {once} from 'bacon';
-import {trigger} from '../utils.js';
 
 function execute(el, action) {
     return el.handlers[action.name](once(el.context.value), action.params);

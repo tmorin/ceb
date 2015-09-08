@@ -1,5 +1,5 @@
 import {ceb, property, method, on} from 'es6/lib/ceb.js';
-import {idomify} from './idomify.js';
+import {idomify} from '../builders/idomify.js';
 
 ceb().augment(
     idomify(`
@@ -39,4 +39,4 @@ ceb().augment(
     on('click').delegate('button.remove').skip().invoke((el, evt) => {
         el.removeItem(el.items[parseInt(evt.target.getAttribute('data-index'))]);
     })
-).register('ceb-list');
+).register('ceb-list-plusplus');
