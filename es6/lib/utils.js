@@ -2,7 +2,7 @@
  * @ignore
  */
 export function camelCase(value) {
-    return value.split(/(?=[A-Z])/).map(part => part.charAt(0).toLowerCase() + part.slice(1)).join('-');
+    return value.toLowerCase().split('-').map((part, index) => index ? part.charAt(0).toUpperCase() + part.slice(1) : part).join('');
 }
 
 /**
