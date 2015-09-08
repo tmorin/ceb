@@ -97,9 +97,9 @@ System.register([], function (_export) {
     _export('find', find);
 
     function camelCase(value) {
-        return value.split(/(?=[A-Z])/).map(function (part) {
-            return part.charAt(0).toLowerCase() + part.slice(1);
-        }).join('-');
+        return value.toLowerCase().split('-').map(function (part, index) {
+            return index ? part.charAt(0).toUpperCase() + part.slice(1) : part;
+        }).join('');
     }
 
     function isFunction(i) {
