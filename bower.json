@@ -4,6 +4,7 @@
   "version": "0.5.5",
   "main": "dist/standalone/ceb.js",
   "keywords": [
+    "web-components ",
     "Web",
     "Components",
     "Component",

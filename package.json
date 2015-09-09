@@ -3,6 +3,7 @@
   "version": "0.5.5",
   "description": "Just a set of builders, natively scalable and designed for FRP.",
   "keywords": [
+    "web-components ",
     "Web",
     "Components",
     "Component",
