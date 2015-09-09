@@ -17,8 +17,8 @@ function isFirefox() {
 function isSafari() {
     return navigator.userAgent.indexOf('Macintosh') > -1 &&
         (
-            navigator.userAgent.indexOf('Version/7.0.') > -1 ||
-            navigator.userAgent.indexOf('Version/8.0.') > -1
+            navigator.userAgent.indexOf('Version/7.') > -1 ||
+            navigator.userAgent.indexOf('Version/8.') > -1
         );
 }
 
@@ -27,7 +27,6 @@ function isAndroid4() {
 }
 
 export function canClick() {
-    console.log(navigator.userAgent);
     return !(isIe() || isPhantom() || isFirefox() || isSafari() || isAndroid4());
 }
 
