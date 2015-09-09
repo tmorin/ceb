@@ -27,6 +27,7 @@ function isAndroid4() {
 }
 
 export function canClick() {
+    console.log(navigator.userAgent);
     return !(isIe() || isPhantom() || isFirefox() || isSafari() || isAndroid4());
 }
 
