@@ -34,7 +34,8 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/gulp karma:sauce",
-    "prepublish": "./node_modules/.bin/gulp"
+    "prepublish": "./node_modules/.bin/gulp",
+    "release": "./node_modules/.bin/gulp && ./node_modules/.bin/grunt release"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -52,6 +53,7 @@
     "document-register-element": "^0.4.5",
     "esdoc": "^0.2.1",
     "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
     "grunt-release": "^0.13.0",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.2.0",
