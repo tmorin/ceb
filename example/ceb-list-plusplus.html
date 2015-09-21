@@ -17,7 +17,9 @@
             transpiler: 'babel',
             map: {
                 itemplate: 'node_modules/idom-template/bin/itemplate.js',
-                idom: 'node_modules/idom-template/examples/lib/incremental-dom.js'
+                idom: 'node_modules/incremental-dom/dist/incremental-dom.js',
+                handlebars: 'node_modules/handlebars/dist/handlebars.min.js',
+                htmlparser2: 'dist/vendors/htmlparser2.js'
             }
         });
 
@@ -38,7 +40,7 @@
     The <code>ceb-list-plusplus</code> content will be refreshed when an item is added or removed.
     The templating system is provided by <code>example/builders/idomify.js</code>.
     There, only nodes needed to be updated will it be, it's like a virtual-dom, without the virtual-dom.
-    So, the for instance the input text will keep the focus on refresh.
+    So, for instance the input text will keep the focus on refresh.
 </p>
 
 <ceb-list-plusplus></ceb-list-plusplus>

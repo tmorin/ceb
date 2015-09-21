@@ -1,6 +1,10 @@
 import {Builder, method} from 'es6/lib/ceb.js';
-import itemplate from 'itemplate';
-import idom from 'idom';
+import {compile, patch} from '../incremental-dom-factory.js';
+
+const OPTIONS = {
+    ATT_EXP_START: '{{',
+    ATT_EXP_STOP: '}}'
+};
 
 export class IdomBuilder extends Builder {
 
@@ -10,15 +14,16 @@ export class IdomBuilder extends Builder {
     }
 
     build(proto, on) {
-        let render = itemplate.compile(this.data.tpl, idom);
+        let render = compile(this.data.tpl);
 
         on('after:createdCallback').invoke(el => {
             el.render();
         });
 
         method('render').invoke(el => {
-            idom.patch(el, render, el);
+            patch(el, render, el);
         }).build(proto, on);
+
     }
 
 }
@@ -26,3 +31,4 @@ export class IdomBuilder extends Builder {
 export function idomify(tpl) {
     return new IdomBuilder(tpl);
 }
+

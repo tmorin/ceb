@@ -17,6 +17,14 @@ module.exports = {
         modules: 'umd',
         distName: 'ceb.js',
         distPath: 'dist/standalone',
+        min: true,
+        watch: true
+    }, {
+        entry: 'node_modules/htmlparser2/lib/index.js',
+        standalone: 'htmlparser2',
+        modules: 'umd',
+        distName: 'htmlparser2.js',
+        distPath: 'dist/vendors',
         min: true
     }],
     babelify: [{

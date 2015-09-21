@@ -8,11 +8,12 @@ ceb().augment(
             <input type="submit">
         </form>
         <ul>
-        <% data.items.forEach(function(item, index) { %>
-            <li>
-                <button class="remove" data-index="<%= index %>">X</button> <%= item %>
+        <% data.items.forEach(function(item, index) { />
+            <li class="row {{ index % 2 == 1 ? ' even' : '' }}">
+                <button class="remove" data-index="{{ index }}">X</button>
+                <%= item />
             </li>
-        <%  }); %>
+        <%  }); />
         </ul>
     `),
 

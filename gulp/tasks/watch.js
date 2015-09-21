@@ -9,7 +9,9 @@ function bundle(bundler, item) {
     return b.streamify(bundler, item.distName, item.distPath);
 }
 
-var taskNames = config.browserify.map(function (item) {
+var taskNames = config.browserify.filter(function (item) {
+    return item.watch;
+}).map(function (item) {
     var taskNames = [];
 
     var baseTaskName = 'watchify:' + item.distPath + '/' + item.distName;

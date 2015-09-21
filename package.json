@@ -65,7 +65,7 @@
     "gulp-util": "^3.0.6",
     "gulp-zip": "^3.0.2",
     "handlebars": "^4.0.1",
-    "idom-template": "^0.1.1",
+    "htmlparser2": "^3.8.3",
     "immutable": "^3.7.5",
     "incremental-dom": "^0.1.0",
     "jquery": "^2.1.4",
