@@ -1,20 +1,20 @@
-import {Builder, method} from 'es6/lib/ceb.js';
-import {compile, patch} from '../incremental-dom-factory.js';
-
-const OPTIONS = {
-    ATT_EXP_START: '{{',
-    ATT_EXP_STOP: '}}'
-};
+import {Builder, method, template} from 'es6/lib/ceb.js';
+import {compile, patch} from '../incremental-dom-parser.js';
 
 export class IdomBuilder extends Builder {
 
-    constructor(tpl) {
+    constructor(tpl = '') {
         super();
-        this.data = {tpl};
+        this.data = {tpl, options: {}};
+    }
+
+    options(options) {
+        this.data.options = options;
+        return this;
     }
 
     build(proto, on) {
-        let render = compile(this.data.tpl);
+        let render = compile(this.data.tpl, this.data.options);
 
         on('after:createdCallback').invoke(el => {
             el.render();
@@ -23,7 +23,6 @@ export class IdomBuilder extends Builder {
         method('render').invoke(el => {
             patch(el, render, el);
         }).build(proto, on);
-
     }
 
 }

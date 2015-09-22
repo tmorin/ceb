@@ -4,16 +4,16 @@ import {idomify} from '../builders/idomify.js';
 ceb().augment(
     idomify(`
         <form class="add">
-            <input required placeholder="an item" name="content">
-            <input type="submit">
+            <input required placeholder="an item" name="content"/>
+            <input type="submit"/>
         </form>
         <ul>
         <% data.items.forEach(function(item, index) { />
-            <li class="row {{ index % 2 == 1 ? ' even' : '' }}">
+            <li class="row {{= index % 2 == 1 ? ' even' : '' }}">
                 <button class="remove" data-index="{{ index }}">X</button>
-                <%= item />
+                {{= item }}
             </li>
-        <%  }); />
+        <% }); />
         </ul>
     `),
 
