@@ -1,5 +1,6 @@
 import {Builder, method, template} from 'es6/lib/ceb.js';
-import {compile, patch} from '../incremental-dom-parser.js';
+import {compile, patch} from 'es6/lib/incremental-dom-factory.js';
+import {assign} from 'es6/lib/utils.js';
 
 export class IdomBuilder extends Builder {
 
@@ -16,12 +17,20 @@ export class IdomBuilder extends Builder {
     build(proto, on) {
         let render = compile(this.data.tpl, this.data.options);
 
+        //let idomifyOptions = assign({},OPTIONS, this.data.options);
         on('after:createdCallback').invoke(el => {
+            console.log(el.tagName, 'created');
+            //el.idomRender = compile(this.data.tpl, this.data.options);
+            el.idomRender = render;
             el.render();
         });
 
         method('render').invoke(el => {
-            patch(el, render, el);
+            // needed for chrome
+            setTimeout(() => {
+                console.log(el.tagName, 'patched');
+                patch(el, el.idomRender, el);
+            }, 0);
         }).build(proto, on);
     }
 

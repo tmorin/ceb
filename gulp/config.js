@@ -26,6 +26,13 @@ module.exports = {
         distName: 'htmlparser2.js',
         distPath: 'dist/vendors',
         min: true
+    }, {
+        entry: 'node_modules/redux-devtools/lib/index.js',
+        standalone: 'redux-devtools',
+        modules: 'umd',
+        distName: 'redux-devtools.js',
+        distPath: 'dist/vendors',
+        min: true
     }],
     babelify: [{
         src: paths.lib,

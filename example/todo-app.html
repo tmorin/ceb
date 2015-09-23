@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ceb-list-plusplus - ceb's examples</title>
+    <title>todo-app - ceb's examples</title>
+
+    <link href="todo-app/demo.css" rel="stylesheet">
 
     <script src="node_modules/document-register-element/build/document-register-element.js"></script>
     <script src="node_modules/babel-core/browser.min.js"></script>
@@ -17,32 +19,27 @@
             transpiler: 'babel',
             map: {
                 'incremental-dom': 'node_modules/incremental-dom/dist/incremental-dom.js',
-                handlebars: 'node_modules/handlebars/dist/handlebars.min.js',
-                htmlparser2: 'dist/vendors/htmlparser2.js'
+                htmlparser2: 'dist/vendors/htmlparser2.js',
+                redux: 'node_modules/redux/dist/redux.js',
+                'redux-devtools': 'dist/vendors/redux-devtools.js',
+                immutable: 'node_modules/immutable/dist/immutable.min.js'
             }
         });
 
-        System.import('elements/ceb-list-plusplus.js');
+        System.import('todo-app/todo-app.js');
 
     </script>
 
 </head>
 <body>
 
-<h1>ceb-list-pluplus - ceb's examples</h1>
+<h1>todo-app - ceb's examples</h1>
 
 <p>
     <a href="./">back</a>
 </p>
 
-<p>
-    The <code>ceb-list-plusplus</code> content will be refreshed when an item is added or removed.
-    The templating system is provided by <code>example/builders/idomify.js</code>.
-    There, only nodes needed to be updated will it be, it's like a virtual-dom, without the virtual-dom.
-    So, for instance the input text will keep the focus on refresh.
-</p>
-
-<ceb-list-plusplus></ceb-list-plusplus>
+<todo-app></todo-app>
 
 </body>
 </html>
