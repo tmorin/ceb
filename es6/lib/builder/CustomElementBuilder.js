@@ -7,7 +7,7 @@ const LIFECYCLE_CALLBACKS = [
     'attributeChangedCallback'
 ];
 
-const LIFECYCLE_EVENTS = flatten(LIFECYCLE_CALLBACKS.map(name => [`before:${name}`, `after:${name}`]));
+const LIFECYCLE_EVENTS = flatten(LIFECYCLE_CALLBACKS.map(name => [`before:${name}`, `after:${name}`, `ready:${name}`]));
 
 /**
  * The custom element builder.
@@ -26,8 +26,10 @@ export class CustomElementBuilder {
             }, {
                 'before:builders': [],
                 'after:builders': [],
+                'ready:builders': [],
                 'before:registerElement': [],
-                'after:registerElement': []
+                'after:registerElement': [],
+                'ready:registerElement': []
             });
         /**
          * @type {Object}
@@ -108,6 +110,8 @@ export class CustomElementBuilder {
 
         this.context.events['after:registerElement'].forEach(fn => fn(CustomElement));
 
+        this.context.events['ready:registerElement'].forEach(fn => fn(CustomElement));
+
         return CustomElement;
     }
 }
@@ -116,7 +120,8 @@ function applyLifecycle(context, name) {
     let proto = context.proto,
         original = proto[name],
         beforeFns = context.events['before:' + name],
-        afterFns = context.events['after:' + name];
+        afterFns = context.events['after:' + name],
+        readyFns = context.events['ready:' + name];
 
     proto[name] = function () {
         let args = [this].concat(toArray(arguments));
@@ -128,5 +133,7 @@ function applyLifecycle(context, name) {
         }
 
         afterFns.forEach(fn => fn.apply(this, args));
+
+        readyFns.forEach(fn => fn.apply(this, args));
     };
 }
