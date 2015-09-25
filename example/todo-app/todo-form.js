@@ -1,8 +1,6 @@
-import {ceb, property, method, on} from 'es6/lib/ceb.js';
+import {ceb, property, on} from 'es6/lib/ceb.js';
 import {idomify} from '../builders/idomify.js';
-
-import {addTodo} from './actions.js';
-import {store} from './store.js';
+import {todoify} from './todoify.js';
 
 ceb().augment(
     idomify(`
@@ -12,10 +10,14 @@ ceb().augment(
         </form>
     `),
 
+    todoify(),
+
     on('submit').skip().invoke((el, evt) => {
         let text = evt.target.text.value;
         if (text) {
-            store.dispatch(addTodo(text));
+            console.log('dispatch action', text);
+            el.actions.addTodo(text);
+            evt.target.text.value = '';
         }
     })
 ).register('todo-form');

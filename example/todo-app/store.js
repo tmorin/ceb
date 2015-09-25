@@ -1,16 +1,12 @@
-import {createStore, compose} from 'redux';
-import {devTools, persistState} from 'redux-devtools';
+import {createStore} from 'redux';
+import {fromJS} from 'immutable';
 import todoApp from './reducers.js';
 
-const finalCreateStore = compose(
-    // Provides support for DevTools
-    devTools(),
-    // Lets you write ?debug_session=<name> in address bar to persist debug sessions
-    persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
-)(createStore);
+export const store = createStore(todoApp, fromJS({
+    todos: [{text: 'note1', completed: false, id: 0}, {text: 'note2', completed: false, id: 1}]
+}));
 
-export const store = finalCreateStore(todoApp);
-
-store.subscribe((state) => {
-    console.log('state', state);
-});
+console.log('initial state', store.getState().toJS().todos.length);
+store.subscribe(() => {
+    console.log('global listener', store.getState().toJS());
+})

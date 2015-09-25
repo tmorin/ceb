@@ -1,8 +1,9 @@
-import {combineReducers} from 'redux';
+import {fromJS} from 'immutable';
+import {combineReducers, createReducer} from 'immutable-reducers';
 import {ADD_TODO, COMPLETE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters} from './actions.js';
-const {SHOW_ALL} = VisibilityFilters;
+const {SHOW_ACTIVE} = VisibilityFilters;
 
-function visibilityFilter(state = SHOW_ALL, action = {}) {
+function visibilityFilter(state = SHOW_ACTIVE, action = {}) {
     switch (action.type) {
         case SET_VISIBILITY_FILTER:
             return action.filter;
@@ -11,29 +12,24 @@ function visibilityFilter(state = SHOW_ALL, action = {}) {
     }
 }
 
-function todos(state = [], action = {}) {
+function todos(state = fromJS([]), action = {}) {
     switch (action.type) {
         case ADD_TODO:
-            return [...state, {
+            return state.push(fromJS({
+                id: action.id,
                 text: action.text,
                 completed: false
-            }];
+            }));
         case COMPLETE_TODO:
-            return [
-                ...state.slice(0, action.index),
-                Object.assign({}, state[action.index], {
-                    completed: true
-                }),
-                ...state.slice(action.index + 1)
-            ];
+            return state.setIn([parseInt(action.index, 0), 'completed'], true);
         default:
             return state;
     }
 }
 
-const todoApp = combineReducers({
-    visibilityFilter,
-    todos
-});
+const todoApp = combineReducers(
+    createReducer(['visibilityFilter'], visibilityFilter),
+    createReducer(['todos'], todos)
+);
 
 export default todoApp;
