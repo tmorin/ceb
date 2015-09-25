@@ -7,23 +7,10 @@
     <script src="node_modules/document-register-element/build/document-register-element.js"></script>
     <script src="node_modules/babel-core/browser.min.js"></script>
     <script src="node_modules/systemjs/dist/system.js"></script>
+    <script src="config.js"></script>
 
     <script>
-        window.define = System.amdDefine;
-        window.require = window.requirejs = System.amdRequire;
-
-        System.config({
-            baseURL: '.',
-            transpiler: 'babel',
-            map: {
-                'incremental-dom': 'node_modules/incremental-dom/dist/incremental-dom.js',
-                handlebars: 'node_modules/handlebars/dist/handlebars.min.js',
-                htmlparser2: 'dist/vendors/htmlparser2.js'
-            }
-        });
-
         System.import('elements/ceb-list-plusplus.js');
-
     </script>
 
 </head>

@@ -4,10 +4,6 @@
     <meta charset="UTF-8">
     <title>ceb-address-selector - ceb's examples</title>
 
-    <script src="node_modules/document-register-element/build/document-register-element.js"></script>
-    <script src="node_modules/babel-core/browser.min.js"></script>
-    <script src="node_modules/systemjs/dist/system.js"></script>
-
     <style>
         ceb-address-selector li {
             border: 1px solid transparent;
@@ -21,21 +17,14 @@
         }
     </style>
 
+    <script src="node_modules/document-register-element/build/document-register-element.js"></script>
+    <script src="node_modules/babel-core/browser.min.js"></script>
+    <script src="node_modules/systemjs/dist/system.js"></script>
+    <script src="config.js"></script>
     <script>
         window.define = System.amdDefine;
         window.require = window.requirejs = System.amdRequire;
-
-        System.config({
-            baseURL: '.',
-            transpiler: 'babel',
-            map: {
-                bacon: 'node_modules/baconjs/dist/Bacon.min.js',
-                jquery: 'node_modules/jquery/dist/jquery.min.js'
-            }
-        });
-
         System.import('elements/ceb-address-selector.js');
-
     </script>
 
 </head>
