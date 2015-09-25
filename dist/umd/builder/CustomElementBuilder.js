@@ -24,7 +24,7 @@
     var LIFECYCLE_CALLBACKS = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
 
     var LIFECYCLE_EVENTS = (0, _utilsJs.flatten)(LIFECYCLE_CALLBACKS.map(function (name) {
-        return ['before:' + name, 'after:' + name];
+        return ['before:' + name, 'after:' + name, 'ready:' + name];
     }));
 
     /**
@@ -48,8 +48,10 @@
             }, {
                 'before:builders': [],
                 'after:builders': [],
+                'ready:builders': [],
                 'before:registerElement': [],
-                'after:registerElement': []
+                'after:registerElement': [],
+                'ready:registerElement': []
             });
             /**
              * @type {Object}
@@ -161,6 +163,10 @@
                     return fn(CustomElement);
                 });
 
+                this.context.events['ready:registerElement'].forEach(function (fn) {
+                    return fn(CustomElement);
+                });
+
                 return CustomElement;
             }
         }]);
@@ -174,7 +180,8 @@
         var proto = context.proto,
             original = proto[name],
             beforeFns = context.events['before:' + name],
-            afterFns = context.events['after:' + name];
+            afterFns = context.events['after:' + name],
+            readyFns = context.events['ready:' + name];
 
         proto[name] = function () {
             var _this4 = this;
@@ -190,6 +197,10 @@
             }
 
             afterFns.forEach(function (fn) {
+                return fn.apply(_this4, args);
+            });
+
+            readyFns.forEach(function (fn) {
                 return fn.apply(_this4, args);
             });
         };

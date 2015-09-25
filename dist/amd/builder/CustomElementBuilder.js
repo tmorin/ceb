@@ -12,7 +12,7 @@ define(['exports', '../utils.js'], function (exports, _utilsJs) {
     var LIFECYCLE_CALLBACKS = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
 
     var LIFECYCLE_EVENTS = (0, _utilsJs.flatten)(LIFECYCLE_CALLBACKS.map(function (name) {
-        return ['before:' + name, 'after:' + name];
+        return ['before:' + name, 'after:' + name, 'ready:' + name];
     }));
 
     /**
@@ -36,8 +36,10 @@ define(['exports', '../utils.js'], function (exports, _utilsJs) {
             }, {
                 'before:builders': [],
                 'after:builders': [],
+                'ready:builders': [],
                 'before:registerElement': [],
-                'after:registerElement': []
+                'after:registerElement': [],
+                'ready:registerElement': []
             });
             /**
              * @type {Object}
@@ -149,6 +151,10 @@ define(['exports', '../utils.js'], function (exports, _utilsJs) {
                     return fn(CustomElement);
                 });
 
+                this.context.events['ready:registerElement'].forEach(function (fn) {
+                    return fn(CustomElement);
+                });
+
                 return CustomElement;
             }
         }]);
@@ -162,7 +168,8 @@ define(['exports', '../utils.js'], function (exports, _utilsJs) {
         var proto = context.proto,
             original = proto[name],
             beforeFns = context.events['before:' + name],
-            afterFns = context.events['after:' + name];
+            afterFns = context.events['after:' + name],
+            readyFns = context.events['ready:' + name];
 
         proto[name] = function () {
             var _this4 = this;
@@ -178,6 +185,10 @@ define(['exports', '../utils.js'], function (exports, _utilsJs) {
             }
 
             afterFns.forEach(function (fn) {
+                return fn.apply(_this4, args);
+            });
+
+            readyFns.forEach(function (fn) {
                 return fn.apply(_this4, args);
             });
         };
