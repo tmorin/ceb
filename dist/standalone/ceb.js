@@ -823,7 +823,7 @@
 
         /**
          * To do something when events occurred.
-         * The target arugment is by default the custom element.
+         * The target argument is by default the custom element.
          * When the delegate feature is used, target is the matched element.
          * @param {!function(el: HTMLElement, evt: DOMEvent, target: HTMLElement)} fn the event's logic
          * @returns {OnBuilder} the builder
@@ -839,7 +839,7 @@
             }
 
             /**
-             * To attach the event on the capture phase instread of on the bubble phase.
+             * To attach the event on the capture phase insteadof of on the bubble phase.
              * @returns {OnBuilder} the builder
              */
         }, {

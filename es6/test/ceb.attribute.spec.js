@@ -34,9 +34,9 @@ describe('ceb.attribute()', function () {
         }, 10);
     });
 
-    it('should define an attribute binded to the same property name', () => {
-        builder.augment(attribute('att1')).register('test-binded-attribute');
-        var el = document.createElement('test-binded-attribute');
+    it('should define an attribute bound to the same property name', () => {
+        builder.augment(attribute('att1')).register('test-bound-attribute');
+        var el = document.createElement('test-bound-attribute');
         el.att1 = 'fromProp';
         expect(el.att1).to.be.eq('fromProp');
         expect(el.getAttribute('att1')).to.be.eq('fromProp');
@@ -45,9 +45,9 @@ describe('ceb.attribute()', function () {
         expect(el.getAttribute('att1')).to.be.eq('fromAtt');
     });
 
-    it('should define an attribute binded to another property name', () => {
-        builder.augment(attribute('att1').property('prop1')).register('test-alt-binded-attribute');
-        var el = document.createElement('test-alt-binded-attribute');
+    it('should define an attribute bound to another property name', () => {
+        builder.augment(attribute('att1').property('prop1')).register('test-alt-bound-attribute');
+        var el = document.createElement('test-alt-bound-attribute');
         el.prop1 = 'fromProp';
         expect(el.prop1).to.be.eq('fromProp');
         expect(el.getAttribute('att1')).to.be.eq('fromProp');

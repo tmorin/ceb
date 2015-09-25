@@ -73,24 +73,24 @@ describe('ceb.template()', ()=> {
     it('should handle embedded light nodes', (done) => {
         ceb().augment(template(`
             <p id="parent-before">pseudo parent shadow DOM</p>
-            <ceb-template-embebbed-child><content></content></ceb-template-embebbed-child>
+            <ceb-template-embedded-child><content></content></ceb-template-embedded-child>
             <p id="parent-after">pseudo parent shadow DOM</p>
-        `)).register('ceb-template-embebbed-parent');
+        `)).register('ceb-template-embedded-parent');
 
         ceb().augment(template(`
             <p id="child-before">pseudo child shadow DOM</p>
             <content></content>
-            <p id="child-before">pseudo child shadow DOM</p>
-        `)).register('ceb-template-embebbed-child');
+            <p id="child-after">pseudo child shadow DOM</p>
+        `)).register('ceb-template-embedded-child');
 
         sandbox.innerHTML = `
-            <ceb-template-embebbed-parent>
+            <ceb-template-embedded-parent>
             <span class="lightdom">light DOM</span>
-            </ceb-template-embebbed-parent>
+            </ceb-template-embedded-parent>
         `;
 
         setTimeout(() => {
-            var el = sandbox.querySelector('ceb-template-embebbed-parent');
+            var el = sandbox.querySelector('ceb-template-embedded-parent');
             expect(el.lightDom.textContent.trim()).to.be.eq('light DOM');
             done();
         }, 20);
@@ -101,23 +101,23 @@ describe('ceb.template()', ()=> {
             <p id="parent-before">pseudo parent shadow DOM</p>
             <content></content>
             <p id="parent-after">pseudo parent shadow DOM</p>
-        `)).register('ceb-template-embebbed-parent-v2');
+        `)).register('ceb-template-embedded-parent-v2');
 
         ceb().augment(template(`
             <p id="child-before">pseudo child shadow DOM</p>
             <content></content>
             <p id="child-before">pseudo child shadow DOM</p>
-        `)).register('ceb-template-embebbed-child-v2');
+        `)).register('ceb-template-embedded-child-v2');
 
         sandbox.innerHTML = `
-            <ceb-template-embebbed-parent-v2 id="parent1">
-                <ceb-template-embebbed-child-v2 id="child1"><span class="lightdom">light DOM 1</span></ceb-template-embebbed-child-v2>
-                <ceb-template-embebbed-child-v2 id="child2"><span class="lightdom">light DOM 2</span></ceb-template-embebbed-child-v2>
-            </ceb-template-embebbed-parent-v2>
+            <ceb-template-embedded-parent-v2 id="parent1">
+                <ceb-template-embedded-child-v2 id="child1"><span class="lightdom">light DOM 1</span></ceb-template-embedded-child-v2>
+                <ceb-template-embedded-child-v2 id="child2"><span class="lightdom">light DOM 2</span></ceb-template-embedded-child-v2>
+            </ceb-template-embedded-parent-v2>
         `;
 
         setTimeout(() => {
-            var el = sandbox.querySelector('ceb-template-embebbed-parent-v2');
+            var el = sandbox.querySelector('ceb-template-embedded-parent-v2');
             expect(el.lightDom.textContent.trim()).to.be.contain('light DOM');
             expect(el.lightDom.querySelector('#child1')).to.be.not.null;
             expect(el.lightDom.querySelector('#child2')).to.be.not.null;

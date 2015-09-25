@@ -3,10 +3,8 @@ import {ceb, attribute, delegate, template, on} from '../lib/ceb.js';
 export default ceb().augment(
     template(`
         <button>
-            <div>
-                <span x-ref="icon"></span>
-                <span x-ref="label"></span>
-            </div>
+            <span x-ref="icon"></span>
+            <span x-ref="label"></span>
         </button>
     `),
     delegate(attribute('name')).to('button'),
