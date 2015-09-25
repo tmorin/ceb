@@ -44,7 +44,7 @@ However, the template builder is able to simulate its behaviors when a custom el
 If the _pseudo Shadow_ flag is not defined, the light DOM of the custom element will be lost.
 The flag can be an attribute (`ceb-content`) or like the Shadow DOM specification expect: an element (`content`).
 
-If an attribute (`ceb-content`) is found, the light DOM nodes of the custom element will be moved inside the attribute's element.
+If an attribute (`ceb-content`) is found, the light DOM nodes of the custom element will be moved inside the attribute element.
 
 If the element (`content`) is found, it will be replaced by a `span` element, and the light DOM nodes will be moved inside this one.
 
