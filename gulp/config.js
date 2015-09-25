@@ -20,17 +20,18 @@ module.exports = {
         min: true,
         watch: true
     }, {
+        entry: 'es6/lib/idom/idom.js',
+        standalone: 'idom',
+        modules: 'umd',
+        distName: 'idom.js',
+        distPath: 'dist/standalone',
+        min: true,
+        watch: true
+    }, {
         entry: 'node_modules/htmlparser2/lib/index.js',
         standalone: 'htmlparser2',
         modules: 'umd',
         distName: 'htmlparser2.js',
-        distPath: 'dist/vendors',
-        min: true
-    }, {
-        entry: 'node_modules/redux-devtools/lib/index.js',
-        standalone: 'redux-devtools',
-        modules: 'umd',
-        distName: 'redux-devtools.js',
         distPath: 'dist/vendors',
         min: true
     }],

@@ -67,6 +67,7 @@
     "handlebars": "^4.0.1",
     "htmlparser2": "^3.8.3",
     "immutable": "^3.7.5",
+    "immutable-reducers": "^1.1.0",
     "incremental-dom": "^0.2.0",
     "jquery": "^2.1.4",
     "jshint-stylish": "^2.0.1",

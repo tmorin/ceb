@@ -8,12 +8,12 @@ ceb().augment(
             <input type="submit"/>
         </form>
         <ul>
-        <% data.items.forEach(function(item, index) { />
-            <li class="row {{= index % 2 == 1 ? ' even' : '' }}">
+        <tpl-each items="data.items" item="item" index="index">
+            <li class="row {{ index % 2 == 1 ? ' even' : '' }}">
                 <button class="remove" data-index="{{ index }}">X</button>
-                {{= item }}
+                <tpl-text value="item" />
             </li>
-        <% }); />
+        </tpl-each>
         </ul>
     `),
 
