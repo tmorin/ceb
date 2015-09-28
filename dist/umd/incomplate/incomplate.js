@@ -8,7 +8,7 @@
             exports: {}
         };
         factory(mod.exports, global.IDOM, global.htmlparser2, global.utils);
-        global.idom = mod.exports;
+        global.incomplate = mod.exports;
     }
 })(this, function (exports, _incrementalDom, _htmlparser2, _utilsJs) {
     'use strict';
@@ -211,7 +211,7 @@
         options = (0, _utilsJs.assign)({}, OPTIONS, options);
 
         var fnBody = '';
-        var skipClosing = false;
+        var skipClosing = undefined;
         var parser = new _htmlparser22['default'].Parser({
             onopentag: function onopentag(name, attrs) {
                 var _parseAttributes = parseAttributes(attrs, options);

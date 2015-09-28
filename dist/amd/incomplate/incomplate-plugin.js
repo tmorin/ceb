@@ -1,4 +1,4 @@
-define(['exports', './idom.js'], function (exports, _idomJs) {
+define(['exports', './incomplate.js'], function (exports, _incomplateJs) {
     'use strict';
 
     Object.defineProperty(exports, '__esModule', {
@@ -8,11 +8,11 @@ define(['exports', './idom.js'], function (exports, _idomJs) {
     exports.instantiate = instantiate;
 
     function translate(load) {
-        return (0, _idomJs.compile)(load.source).toString();
+        return (0, _incomplateJs.compile)(load.source).toString();
     }
 
     function instantiate(load) {
         var factory = new Function(['i'], 'return (' + load.source + '(i));');
-        return factory(_idomJs.IncrementalDOM);
+        return factory(_incomplateJs.IncrementalDOM);
     }
 });

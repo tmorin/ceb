@@ -199,7 +199,7 @@ define(['exports', 'incremental-dom', 'htmlparser2', './../utils.js'], function 
         options = (0, _utilsJs.assign)({}, OPTIONS, options);
 
         var fnBody = '';
-        var skipClosing = false;
+        var skipClosing = undefined;
         var parser = new _htmlparser22['default'].Parser({
             onopentag: function onopentag(name, attrs) {
                 var _parseAttributes = parseAttributes(attrs, options);

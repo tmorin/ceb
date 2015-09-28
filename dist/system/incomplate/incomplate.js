@@ -163,7 +163,7 @@ System.register(['incremental-dom', 'htmlparser2', './../utils.js'], function (_
         options = assign({}, OPTIONS, options);
 
         var fnBody = '';
-        var skipClosing = false;
+        var skipClosing = undefined;
         var parser = new htmlparser2.Parser({
             onopentag: function onopentag(name, attrs) {
                 var _parseAttributes = parseAttributes(attrs, options);

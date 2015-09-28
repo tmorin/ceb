@@ -1,4 +1,4 @@
-System.register(['./idom.js'], function (_export) {
+System.register(['./incomplate.js'], function (_export) {
     'use strict';
 
     var compile, IncrementalDOM;
@@ -17,9 +17,9 @@ System.register(['./idom.js'], function (_export) {
     }
 
     return {
-        setters: [function (_idomJs) {
-            compile = _idomJs.compile;
-            IncrementalDOM = _idomJs.IncrementalDOM;
+        setters: [function (_incomplateJs) {
+            compile = _incomplateJs.compile;
+            IncrementalDOM = _incomplateJs.IncrementalDOM;
         }],
         execute: function () {}
     };

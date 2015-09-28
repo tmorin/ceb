@@ -1,4 +1,4 @@
-import {compile, IncrementalDOM} from './idom.js';
+import {compile, IncrementalDOM} from './incomplate.js';
 
 export function translate(load) {
     return compile(load.source).toString();

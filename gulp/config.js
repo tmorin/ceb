@@ -20,10 +20,10 @@ module.exports = {
         min: true,
         watch: true
     }, {
-        entry: 'es6/lib/idom/idom.js',
-        standalone: 'idom',
+        entry: 'es6/lib/incomplate/incomplate.js',
+        standalone: 'incomplate',
         modules: 'umd',
-        distName: 'idom.js',
+        distName: 'incomplate.js',
         distPath: 'dist/standalone',
         min: true,
         watch: true

@@ -1,6 +1,6 @@
 import {Builder, method, template} from 'es6/lib/ceb.js';
 import {assign} from 'es6/lib/utils.js';
-import {compile, patch} from 'es6/lib/idom/idom.js';
+import {compile, patch} from 'es6/lib/incomplate/incomplate.js';
 import IncrementalDOM from 'incremental-dom';
 
 export class IdomBuilder extends Builder {
