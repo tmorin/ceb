@@ -1,13 +1,13 @@
 import {Builder, method, template} from 'es6/lib/ceb.js';
 import {assign} from 'es6/lib/utils.js';
-import {compile, patch} from 'es6/lib/incomplate/incomplate.js';
+import {compile} from 'es6/lib/incomplate/incomplate.js';
 import IncrementalDOM from 'incremental-dom';
 
 export class IdomBuilder extends Builder {
 
     constructor(tpl = '') {
         super();
-        this.data = {tpl, options: {}};
+        this.data = {tpl, options: {}, helpers: {}};
     }
 
     options(options) {
@@ -15,13 +15,14 @@ export class IdomBuilder extends Builder {
         return this;
     }
 
+    helpers(options) {
+        this.data.options = options;
+        return this;
+    }
+
     build(proto, on) {
-        let render;
-        if (typeof this.data.tpl === 'function') {
-            render = this.data.tpl;
-        } else {
-            render = compile(this.data.tpl, this.data.options, IncrementalDOM);
-        }
+        let factory = typeof this.data.tpl === 'function' ? this.data.tpl : compile(this.data.tpl, this.data.options);
+        let render = factory(IncrementalDOM, this.data.helpers);
 
         on('ready:createdCallback').invoke(el => {
             console.log('%s %s %s %s', el.tagName, 'before:createdCallback', el.getAttribute('id'), el.attributes.length);
@@ -41,7 +42,7 @@ export class IdomBuilder extends Builder {
 
         method('render').invoke(el => {
             console.log('%s %s %s', el.tagName, 'render', el.getAttribute('id'));
-            patch(el, render, el);
+            IncrementalDOM.patch(el, render, el);
         }).build(proto, on);
     }
 

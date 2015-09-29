@@ -1,37 +1,41 @@
-import IDOM from 'incremental-dom';
 import htmlparser2 from 'htmlparser2';
 import {assign} from './../utils.js';
-
-export const IncrementalDOM = IDOM;
 
 export const OPTIONS = {
     pretty: true,
     evaluation: /\{\{([\s\S]+?)}}/gm,
     attributeKey: 'tpl-key',
     attributePlaceholder: 'tpl-placeholder',
-    varName: 'data',
+    varDataName: 'data',
+    varHelpersName: 'helpers',
     elements: {
         'tpl-logger': {
-            onopentag(name, attrs, key, statics, varArgs) {
+            onopentag(name, attrs, key, statics, varArgs, options) {
                 let level = statics.level || varArgs.level || 'log',
                     content = statics.content || varArgs.content || '';
                 return `console.${level}(${content});`;
             }
         },
         'tpl-each': {
-            onopentag(name, attrs, key, statics, varArgs) {
+            onopentag(name, attrs, key, statics, varArgs, options) {
                 let itemsName = statics.items || varArgs.items || `'items'`,
                     itemName = statics.item || varArgs.item || `'item'`,
                     indexName = statics.index || varArgs.index || `index`;
                 return `(${itemsName} || []).forEach(function (${itemName}, ${indexName}) {`;
             },
-            onclosetag(name, attrs, statics, varArgs) {
+            onclosetag(name, attrs, statics, varArgs, options) {
                 return `});`;
             }
         },
         'tpl-text': {
-            onopentag(name, attrs, key, statics, varArgs) {
+            onopentag(name, attrs, key, statics, varArgs, options) {
                 return `t(${statics.value || varArgs.value});`;
+            }
+        },
+        'tpl-call': {
+            onopentag(name, attrs, key, statics, varArgs, options) {
+                let helperName = statics.name || varArgs.name;
+                return `${options.varHelpersName}.${helperName}(${options.varDataName});`;
             }
         }
     },
@@ -55,13 +59,26 @@ function append(body = '', line = '', options = OPTIONS) {
     return body + (options.pretty ? '\n' : '') + line;
 }
 
+const stringEvaluator = {
+    appender: ' + ',
+    toText: text => `'${stringify(text)}'`,
+    toJs: clause => `(${clause})`
+};
+
+const inlineEvaluator = {
+    appender: ' ',
+    toText: text => `t('${stringify(text)}');`,
+    toJs: clause => `${clause}`
+};
+
 /**
  * Evaluate the string to return a JavaScript compliant syntax.
  * @param {!string} value the value
  * @param {*} options the options
+ * @param {*} conf the evaluator's configuration
  * @returns {string} the JavaScript compliant syntax
  */
-export function evaluate(value = '', options = OPTIONS) {
+export function evaluate(value = '', options = OPTIONS, conf = stringEvaluator) {
     let js = [];
     let result;
     let lastIndex = 0;
@@ -71,16 +88,16 @@ export function evaluate(value = '', options = OPTIONS) {
         let index = result.index;
         let before = value.substring(lastIndex, index);
         if (before) {
-            js.push(`'${stringify(before)}'`);
+            js.push(conf.toText(before));
         }
-        js.push(`(${group})`);
+        js.push(conf.toJs(group));
         lastIndex = index + full.length;
     }
     let after = value.substring(lastIndex, value.length);
     if (after) {
-        js.push(`'${stringify(after)}'`);
+        js.push(conf.toText(after));
     }
-    return js.join(' + ');
+    return js.join(conf.appender);
 }
 
 function parseAttributes(attrs = {}, options = OPTIONS) {
@@ -138,10 +155,9 @@ export function staticsToJs(statics = {}) {
  *
  * @param {!string} html the template
  * @param {Object} [options] the options
- * @param {IncrementalDOM} [incrementalDOM] the IncrementalDOM library
- * @returns {function(i: !IncrementalDOM)} the function factory
+ * @returns {function(i: !IncrementalDOM, h: *)} the function factory
  */
-export function compile(html = '', options = {}, incrementalDOM = null) {
+export function compile(html = '', options = {}) {
     options = assign({}, OPTIONS, options);
 
     let fnBody = '';
@@ -153,7 +169,7 @@ export function compile(html = '', options = {}, incrementalDOM = null) {
             if (options.elements[name]) {
                 let element = options.elements[name];
                 if (typeof element.onopentag === 'function') {
-                    fnBody = append(fnBody, element.onopentag(name, attrs, key, statics, varArgs), options);
+                    fnBody = append(fnBody, element.onopentag(name, attrs, key, statics, varArgs, options), options);
                 }
             } else {
                 let fn = getFunctionName(name, placeholder, options);
@@ -164,7 +180,7 @@ export function compile(html = '', options = {}, incrementalDOM = null) {
             if (options.elements[name]) {
                 let element = options.elements[name];
                 if (typeof element.onclosetag === 'function') {
-                    fnBody = append(fnBody, element.onclosetag(name), options);
+                    fnBody = append(fnBody, element.onclosetag(name, options), options);
                 }
             } else if (!isSelfClosing(name, options) && !skipClosing) {
                 fnBody = append(fnBody, `c('${name}');`, options);
@@ -173,8 +189,7 @@ export function compile(html = '', options = {}, incrementalDOM = null) {
         },
         ontext(text){
             if (text.search(options.evaluation) > -1) {
-                console.log('evaluate %s - %s', text, evaluate(text, options));
-                fnBody = append(fnBody, `${evaluate(text, options)};`, options);
+                fnBody = append(fnBody, `${evaluate(text, options, inlineEvaluator)};`, options);
             } else {
                 fnBody = append(fnBody, `t('${stringify(text)}');`, options);
             }
@@ -190,26 +205,18 @@ export function compile(html = '', options = {}, incrementalDOM = null) {
     parser.parseComplete(html);
 
     let fnWrapper = `
-        var o = i.elementOpen, c = i.elementClose, v = i.elementVoid, t = i.text, ph = i.elementPlaceholder;
+        var o = i.elementOpen,
+            c = i.elementClose,
+            v = i.elementVoid,
+            t = i.text,
+            ph = i.elementPlaceholder;
         return function (_data_) {
-            var ${options.varName} = _data_ || {};
+            var ${options.varHelpersName || 'helpers'} = h || {},
+                ${options.varDataName || 'data'} = _data_ || {};
             ${fnBody}
         };
     `;
-    let factory = new Function(['i'], fnWrapper);
-    if (incrementalDOM) {
-        return factory(incrementalDOM);
-    }
+    let factory = new Function(['i', 'h'], fnWrapper);
 
     return factory;
-}
-
-/**
- * Patch the document from the given DOM node.
- * @param {!Element|!DocumentFragment} domNode the DOM node
- * @param {!function(data: *)} render the render function
- * @param {!*} data the data representing the DOM state
- */
-export function patch(domNode, render, data) {
-    IDOM.patch(domNode, render, data);
 }
