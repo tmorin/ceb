@@ -1,16 +1,16 @@
 (function (global, factory) {
     if (typeof define === 'function' && define.amd) {
-        define(['exports', './incomplate.js'], factory);
+        define(['exports', './idomizer.js'], factory);
     } else if (typeof exports !== 'undefined') {
-        factory(exports, require('./incomplate.js'));
+        factory(exports, require('./idomizer.js'));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.incomplate);
-        global.incomplatePlugin = mod.exports;
+        factory(mod.exports, global.idomizer);
+        global.idomizerPlugin = mod.exports;
     }
-})(this, function (exports, _incomplateJs) {
+})(this, function (exports, _idomizerJs) {
     'use strict';
 
     Object.defineProperty(exports, '__esModule', {
@@ -20,11 +20,10 @@
     exports.instantiate = instantiate;
 
     function translate(load) {
-        return (0, _incomplateJs.compile)(load.source).toString();
+        return (0, _idomizerJs.compile)(load.source).toString();
     }
 
     function instantiate(load) {
-        var factory = new Function(['i'], 'return (' + load.source + '(i));');
-        return factory(_incomplateJs.IncrementalDOM);
+        return new Function(['i', 'h'], 'return (' + load.source + '(i, h));');
     }
 });

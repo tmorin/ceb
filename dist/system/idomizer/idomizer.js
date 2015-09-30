@@ -1,76 +1,23 @@
-(function (global, factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(['exports', 'htmlparser2', './../utils.js'], factory);
-    } else if (typeof exports !== 'undefined') {
-        factory(exports, require('htmlparser2'), require('./../utils.js'));
-    } else {
-        var mod = {
-            exports: {}
-        };
-        factory(mod.exports, global.htmlparser2, global.utils);
-        global.incomplate = mod.exports;
-    }
-})(this, function (exports, _htmlparser2, _utilsJs) {
+System.register(['htmlparser2'], function (_export) {
     'use strict';
 
-    Object.defineProperty(exports, '__esModule', {
-        value: true
-    });
+    var htmlparser2, OPTIONS, stringEvaluator, inlineEvaluator;
 
     var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
 
-    exports.evaluate = evaluate;
-    exports.varArgsToJs = varArgsToJs;
-    exports.staticsToJs = staticsToJs;
-    exports.compile = compile;
+    _export('evaluate', evaluate);
 
-    function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+    _export('compile', compile);
 
-    var _htmlparser22 = _interopRequireDefault(_htmlparser2);
+    function assign() {
+        return Array.prototype.reduce.call(arguments, function (target, source) {
+            return Object.keys(Object(source)).reduce(function (target, key) {
+                target[key] = source[key];
+                return target;
+            }, target);
+        });
+    }
 
-    var OPTIONS = {
-        pretty: true,
-        evaluation: /\{\{([\s\S]+?)}}/gm,
-        attributeKey: 'tpl-key',
-        attributePlaceholder: 'tpl-placeholder',
-        varDataName: 'data',
-        varHelpersName: 'helpers',
-        elements: {
-            'tpl-logger': {
-                onopentag: function onopentag(name, attrs, key, statics, varArgs, options) {
-                    var level = statics.level || varArgs.level || 'log',
-                        content = statics.content || varArgs.content || '';
-                    return 'console.' + level + '(' + content + ');';
-                }
-            },
-            'tpl-each': {
-                onopentag: function onopentag(name, attrs, key, statics, varArgs, options) {
-                    var itemsName = statics.items || varArgs.items || '\'items\'',
-                        itemName = statics.item || varArgs.item || '\'item\'',
-                        indexName = statics.index || varArgs.index || 'index';
-                    return '(' + itemsName + ' || []).forEach(function (' + itemName + ', ' + indexName + ') {';
-                },
-                onclosetag: function onclosetag(name, attrs, statics, varArgs, options) {
-                    return '});';
-                }
-            },
-            'tpl-text': {
-                onopentag: function onopentag(name, attrs, key, statics, varArgs, options) {
-                    return 't(' + (statics.value || varArgs.value) + ');';
-                }
-            },
-            'tpl-call': {
-                onopentag: function onopentag(name, attrs, key, statics, varArgs, options) {
-                    var helperName = statics.name || varArgs.name;
-                    return options.varHelpersName + '.' + helperName + '(' + options.varDataName + ');';
-                }
-            }
-        },
-        // http://www.w3.org/TR/html5/syntax.html#void-elements
-        selfClosingElements: ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr']
-    };
-
-    exports.OPTIONS = OPTIONS;
     function stringify() {
         var value = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
 
@@ -99,26 +46,6 @@
 
         return body + (options.pretty ? '\n' : '') + line;
     }
-
-    var stringEvaluator = {
-        appender: ' + ',
-        toText: function toText(text) {
-            return '\'' + stringify(text) + '\'';
-        },
-        toJs: function toJs(clause) {
-            return '(' + clause + ')';
-        }
-    };
-
-    var inlineEvaluator = {
-        appender: ' ',
-        toText: function toText(text) {
-            return 't(\'' + stringify(text) + '\');';
-        },
-        toJs: function toJs(clause) {
-            return '' + clause;
-        }
-    };
 
     /**
      * Evaluate the string to return a JavaScript compliant syntax.
@@ -151,6 +78,7 @@
         if (after) {
             js.push(conf.toText(after));
         }
+        //conf
         return js.join(conf.appender);
     }
 
@@ -183,7 +111,6 @@
      * @param {*} varArgs the variables arguments
      * @returns {string} the JavaScript
      */
-
     function varArgsToJs() {
         var varArgs = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
@@ -198,7 +125,6 @@
      * @param {*} statics the statics
      * @returns {string} the JavaScript
      */
-
     function staticsToJs() {
         var statics = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
@@ -229,11 +155,13 @@
         var html = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
         var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-        options = (0, _utilsJs.assign)({}, OPTIONS, options);
+        options = assign({}, OPTIONS, options, {
+            elements: assign({}, OPTIONS.elements, options.elements)
+        });
 
         var fnBody = '';
         var skipClosing = undefined;
-        var parser = new _htmlparser22['default'].Parser({
+        var parser = new htmlparser2.Parser({
             onopentag: function onopentag(name, attrs) {
                 var _parseAttributes = parseAttributes(attrs, options);
 
@@ -268,7 +196,7 @@
             },
             ontext: function ontext(text) {
                 if (text.search(options.evaluation) > -1) {
-                    fnBody = append(fnBody, evaluate(text, options, inlineEvaluator) + ';', options);
+                    fnBody = append(fnBody, '' + evaluate(text, options, inlineEvaluator), options);
                 } else {
                     fnBody = append(fnBody, 't(\'' + stringify(text) + '\');', options);
                 }
@@ -284,8 +212,79 @@
         parser.parseComplete(html);
 
         var fnWrapper = '\n        var o = i.elementOpen,\n            c = i.elementClose,\n            v = i.elementVoid,\n            t = i.text,\n            ph = i.elementPlaceholder;\n        return function (_data_) {\n            var ' + (options.varHelpersName || 'helpers') + ' = h || {},\n                ' + (options.varDataName || 'data') + ' = _data_ || {};\n            ' + fnBody + '\n        };\n    ';
+
         var factory = new Function(['i', 'h'], fnWrapper);
 
         return factory;
     }
+
+    return {
+        setters: [function (_htmlparser2) {
+            htmlparser2 = _htmlparser2['default'];
+        }],
+        execute: function () {
+            OPTIONS = {
+                pretty: true,
+                evaluation: /\{\{([\s\S]+?)}}/gm,
+                attributeKey: 'tpl-key',
+                attributePlaceholder: 'tpl-placeholder',
+                varDataName: 'data',
+                varHelpersName: 'helpers',
+                elements: {
+                    'tpl-logger': {
+                        onopentag: function onopentag(name, attrs, key, statics, varArgs, options) {
+                            var level = statics.level || varArgs.level || 'log',
+                                content = statics.content || varArgs.content || '';
+                            return 'console.' + level + '(' + content + ');';
+                        }
+                    },
+                    'tpl-each': {
+                        onopentag: function onopentag(name, attrs, key, statics, varArgs, options) {
+                            var itemsName = statics.items || varArgs.items || 'items',
+                                itemName = statics.item || varArgs.item || 'item',
+                                indexName = statics.index || varArgs.index || 'index';
+                            return '(' + itemsName + ' || []).forEach(function (' + itemName + ', ' + indexName + ') {';
+                        },
+                        onclosetag: function onclosetag(name, attrs, statics, varArgs, options) {
+                            return '});';
+                        }
+                    },
+                    'tpl-text': {
+                        onopentag: function onopentag(name, attrs, key, statics, varArgs, options) {
+                            return 't(' + (statics.value || varArgs.value) + ');';
+                        }
+                    },
+                    'tpl-call': {
+                        onopentag: function onopentag(name, attrs, key, statics, varArgs, options) {
+                            var helperName = statics.name || varArgs.name;
+                            return options.varHelpersName + '.' + helperName + '(' + options.varDataName + ');';
+                        }
+                    }
+                },
+                // http://www.w3.org/TR/html5/syntax.html#void-elements
+                selfClosingElements: ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'meta', 'param', 'source', 'track', 'wbr']
+            };
+
+            _export('OPTIONS', OPTIONS);
+
+            stringEvaluator = {
+                appender: ' + ',
+                toText: function toText(text) {
+                    return '\'' + stringify(text) + '\'';
+                },
+                toJs: function toJs(clause) {
+                    return '(' + clause + ')';
+                }
+            };
+            inlineEvaluator = {
+                appender: ' ',
+                toText: function toText(text) {
+                    return 't(\'' + stringify(text) + '\');';
+                },
+                toJs: function toJs(clause) {
+                    return '' + clause;
+                }
+            };
+        }
+    };
 });

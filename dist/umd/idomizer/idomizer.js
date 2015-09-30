@@ -1,4 +1,16 @@
-define(['exports', 'htmlparser2', './../utils.js'], function (exports, _htmlparser2, _utilsJs) {
+(function (global, factory) {
+    if (typeof define === 'function' && define.amd) {
+        define(['exports', 'htmlparser2'], factory);
+    } else if (typeof exports !== 'undefined') {
+        factory(exports, require('htmlparser2'));
+    } else {
+        var mod = {
+            exports: {}
+        };
+        factory(mod.exports, global.htmlparser2);
+        global.idomizer = mod.exports;
+    }
+})(this, function (exports, _htmlparser2) {
     'use strict';
 
     Object.defineProperty(exports, '__esModule', {
@@ -8,13 +20,20 @@ define(['exports', 'htmlparser2', './../utils.js'], function (exports, _htmlpars
     var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i['return']) _i['return'](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError('Invalid attempt to destructure non-iterable instance'); } }; })();
 
     exports.evaluate = evaluate;
-    exports.varArgsToJs = varArgsToJs;
-    exports.staticsToJs = staticsToJs;
     exports.compile = compile;
 
     function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
     var _htmlparser22 = _interopRequireDefault(_htmlparser2);
+
+    function assign() {
+        return Array.prototype.reduce.call(arguments, function (target, source) {
+            return Object.keys(Object(source)).reduce(function (target, key) {
+                target[key] = source[key];
+                return target;
+            }, target);
+        });
+    }
 
     var OPTIONS = {
         pretty: true,
@@ -33,8 +52,8 @@ define(['exports', 'htmlparser2', './../utils.js'], function (exports, _htmlpars
             },
             'tpl-each': {
                 onopentag: function onopentag(name, attrs, key, statics, varArgs, options) {
-                    var itemsName = statics.items || varArgs.items || '\'items\'',
-                        itemName = statics.item || varArgs.item || '\'item\'',
+                    var itemsName = statics.items || varArgs.items || 'items',
+                        itemName = statics.item || varArgs.item || 'item',
                         indexName = statics.index || varArgs.index || 'index';
                     return '(' + itemsName + ' || []).forEach(function (' + itemName + ', ' + indexName + ') {';
                 },
@@ -139,6 +158,7 @@ define(['exports', 'htmlparser2', './../utils.js'], function (exports, _htmlpars
         if (after) {
             js.push(conf.toText(after));
         }
+        //conf
         return js.join(conf.appender);
     }
 
@@ -171,7 +191,6 @@ define(['exports', 'htmlparser2', './../utils.js'], function (exports, _htmlpars
      * @param {*} varArgs the variables arguments
      * @returns {string} the JavaScript
      */
-
     function varArgsToJs() {
         var varArgs = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
@@ -186,7 +205,6 @@ define(['exports', 'htmlparser2', './../utils.js'], function (exports, _htmlpars
      * @param {*} statics the statics
      * @returns {string} the JavaScript
      */
-
     function staticsToJs() {
         var statics = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
@@ -217,7 +235,9 @@ define(['exports', 'htmlparser2', './../utils.js'], function (exports, _htmlpars
         var html = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
         var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
-        options = (0, _utilsJs.assign)({}, OPTIONS, options);
+        options = assign({}, OPTIONS, options, {
+            elements: assign({}, OPTIONS.elements, options.elements)
+        });
 
         var fnBody = '';
         var skipClosing = undefined;
@@ -256,7 +276,7 @@ define(['exports', 'htmlparser2', './../utils.js'], function (exports, _htmlpars
             },
             ontext: function ontext(text) {
                 if (text.search(options.evaluation) > -1) {
-                    fnBody = append(fnBody, evaluate(text, options, inlineEvaluator) + ';', options);
+                    fnBody = append(fnBody, '' + evaluate(text, options, inlineEvaluator), options);
                 } else {
                     fnBody = append(fnBody, 't(\'' + stringify(text) + '\');', options);
                 }
@@ -272,6 +292,7 @@ define(['exports', 'htmlparser2', './../utils.js'], function (exports, _htmlpars
         parser.parseComplete(html);
 
         var fnWrapper = '\n        var o = i.elementOpen,\n            c = i.elementClose,\n            v = i.elementVoid,\n            t = i.text,\n            ph = i.elementPlaceholder;\n        return function (_data_) {\n            var ' + (options.varHelpersName || 'helpers') + ' = h || {},\n                ' + (options.varDataName || 'data') + ' = _data_ || {};\n            ' + fnBody + '\n        };\n    ';
+
         var factory = new Function(['i', 'h'], fnWrapper);
 
         return factory;
