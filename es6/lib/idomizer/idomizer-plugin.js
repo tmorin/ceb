@@ -1,4 +1,4 @@
-import {compile} from './incomplate.js';
+import {compile} from './idomizer.js';
 
 export function translate(load) {
     return compile(load.source).toString();

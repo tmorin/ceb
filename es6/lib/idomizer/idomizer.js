@@ -1,5 +1,13 @@
 import htmlparser2 from 'htmlparser2';
-import {assign} from './../utils.js';
+
+function assign() {
+    return Array.prototype.reduce.call(arguments, function (target, source) {
+        return Object.keys(Object(source)).reduce((target, key) => {
+            target[key] = source[key];
+            return target;
+        }, target);
+    });
+}
 
 export const OPTIONS = {
     pretty: true,
@@ -18,8 +26,8 @@ export const OPTIONS = {
         },
         'tpl-each': {
             onopentag(name, attrs, key, statics, varArgs, options) {
-                let itemsName = statics.items || varArgs.items || `'items'`,
-                    itemName = statics.item || varArgs.item || `'item'`,
+                let itemsName = statics.items || varArgs.items || `items`,
+                    itemName = statics.item || varArgs.item || `item`,
                     indexName = statics.index || varArgs.index || `index`;
                 return `(${itemsName} || []).forEach(function (${itemName}, ${indexName}) {`;
             },
@@ -97,6 +105,7 @@ export function evaluate(value = '', options = OPTIONS, conf = stringEvaluator) 
     if (after) {
         js.push(conf.toText(after));
     }
+    //conf
     return js.join(conf.appender);
 }
 
@@ -126,7 +135,7 @@ function parseAttributes(attrs = {}, options = OPTIONS) {
  * @param {*} varArgs the variables arguments
  * @returns {string} the JavaScript
  */
-export function varArgsToJs(varArgs = {}) {
+function varArgsToJs(varArgs = {}) {
     let keys = Object.keys(varArgs);
     return keys.length > 0 ? (keys.map(key => `'${key}', ${varArgs[key]}`).join(', ')) : 'null';
 }
@@ -136,7 +145,7 @@ export function varArgsToJs(varArgs = {}) {
  * @param {*} statics the statics
  * @returns {string} the JavaScript
  */
-export function staticsToJs(statics = {}) {
+function staticsToJs(statics = {}) {
     let keys = Object.keys(statics);
     return keys.length > 0 ? `[${keys.map(key => `'${key}', '${stringify(statics[key])}'`).join(', ')}]` : 'null';
 }
@@ -158,7 +167,9 @@ export function staticsToJs(statics = {}) {
  * @returns {function(i: !IncrementalDOM, h: *)} the function factory
  */
 export function compile(html = '', options = {}) {
-    options = assign({}, OPTIONS, options);
+    options = assign({}, OPTIONS, options, {
+        elements: assign({}, OPTIONS.elements, options.elements)
+    });
 
     let fnBody = '';
     let skipClosing;
@@ -189,7 +200,7 @@ export function compile(html = '', options = {}) {
         },
         ontext(text){
             if (text.search(options.evaluation) > -1) {
-                fnBody = append(fnBody, `${evaluate(text, options, inlineEvaluator)};`, options);
+                fnBody = append(fnBody, `${evaluate(text, options, inlineEvaluator)}`, options);
             } else {
                 fnBody = append(fnBody, `t('${stringify(text)}');`, options);
             }
@@ -216,6 +227,7 @@ export function compile(html = '', options = {}) {
             ${fnBody}
         };
     `;
+
     let factory = new Function(['i', 'h'], fnWrapper);
 
     return factory;

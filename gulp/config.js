@@ -20,10 +20,10 @@ module.exports = {
         min: true,
         watch: true
     }, {
-        entry: 'es6/lib/incomplate/incomplate.js',
-        standalone: 'incomplate',
+        entry: 'es6/lib/idomizer/idomizer.js',
+        standalone: 'idomizer',
         modules: 'umd',
-        distName: 'incomplate.js',
+        distName: 'idomizer.js',
         distPath: 'dist/standalone',
         min: true,
         watch: true
