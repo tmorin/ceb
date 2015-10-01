@@ -19,21 +19,6 @@ module.exports = {
         distPath: 'dist/standalone',
         min: true,
         watch: true
-    }, {
-        entry: 'es6/lib/idomizer/idomizer.js',
-        standalone: 'idomizer',
-        modules: 'umd',
-        distName: 'idomizer.js',
-        distPath: 'dist/standalone',
-        min: true,
-        watch: true
-    }, {
-        entry: 'node_modules/htmlparser2/lib/index.js',
-        standalone: 'htmlparser2',
-        modules: 'umd',
-        distName: 'htmlparser2.js',
-        distPath: 'dist/vendors',
-        min: true
     }],
     babelify: [{
         src: paths.lib,

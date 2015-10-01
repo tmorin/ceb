@@ -28,6 +28,7 @@
     "url": "https://tmorin.github.io"
   },
   "main": "lib/ceb.js",
+  "jsnext:main": "src/lib/ceb.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/tmorin/custom-elements-builder.git"
@@ -38,9 +39,12 @@
     "release": "./node_modules/.bin/gulp && ./node_modules/.bin/grunt release"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "htmlparser2": "^3.8.3",
+    "idomizer": "^0.2.0"
+  },
   "devDependencies": {
     "babel": "^5.8.3",
     "babel-core": "^5.8.22",
@@ -65,7 +69,6 @@
     "gulp-util": "^3.0.6",
     "gulp-zip": "^3.0.2",
     "handlebars": "^4.0.1",
-    "htmlparser2": "^3.8.3",
     "immutable": "^3.7.5",
     "immutable-reducers": "^1.1.0",
     "incremental-dom": "^0.2.0",

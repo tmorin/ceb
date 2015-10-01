@@ -9,6 +9,7 @@ System.config({
         'jquery': 'node_modules/jquery/dist/jquery.min.js',
         'incremental-dom': 'node_modules/incremental-dom/dist/incremental-dom.js',
         'htmlparser2': 'dist/vendors/htmlparser2.js',
+        'idomizer': 'node_modules/idomizer/dist/idomizer.js',
         'redux': 'node_modules/redux/dist/redux.js',
         'immutable': 'node_modules/immutable/dist/immutable.min.js',
         'immutable-reducers': 'node_modules/immutable-reducers/dist/immutable-reducers.js',
