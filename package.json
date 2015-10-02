@@ -1,6 +1,6 @@
 {
   "name": "custom-elements-builder",
-  "version": "0.5.8",
+  "version": "0.5.9",
   "description": "Just a set of builders, natively scalable and designed for FRP.",
   "keywords": [
     "web-components",
