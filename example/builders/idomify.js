@@ -26,7 +26,6 @@ export class IdomBuilder extends Builder {
 
         on('ready:createdCallback').invoke(el => {
             console.log('%s %s %s %s', el.tagName, 'before:createdCallback', el.getAttribute('id'), el.attributes.length);
-            el.render();
         });
 
         on('ready:attachedCallback').invoke(el => {

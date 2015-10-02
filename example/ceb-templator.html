@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>ceb-templator - ceb's examples</title>
 
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css" />
+
     <script src="node_modules/document-register-element/build/document-register-element.js"></script>
     <script src="node_modules/babel-core/browser.min.js"></script>
     <script src="node_modules/systemjs/dist/system.js"></script>
@@ -30,7 +32,7 @@
     </script>
 
 </head>
-<body>
+<body class="container">
 
 <h1>ceb-templator - ceb's examples</h1>
 
@@ -50,14 +52,25 @@
     </ul>
 </script>
 
-<p>From</p>
-<pre style="width: 30em; height: auto;" id="withHandlebarsFrom"></pre>
-
-<hr>
-
-<p>to (<code>withHandlebars.render(/* ... */)</code>)</p>
-<pre style="display: inline-block;width: 30em; height: auto;" id="withHandlebarsTo"></pre>
-<div style="display: inline-block;width: 30em; height: auto;" id="withHandlebarsLive"></div>
+<div class="row">
+    <div class="col-md-12">
+        <h2>From</h2>
+        <pre id="withHandlebarsFrom"></pre>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h2>
+            to
+            <small><code>withHandlebars.render(/* ... */)</code></small>
+        </h2>
+        <pre id="withHandlebarsTo"></pre>
+    </div>
+    <div class="col-md-6">
+        <h2>Result</h2>
+        <div id="withHandlebarsLive"></div>
+    </div>
+</div>
 
 </body>
 </html>

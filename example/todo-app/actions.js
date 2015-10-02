@@ -21,11 +21,11 @@ export const VisibilityFilters = {
  */
 
 export function addTodo(text) {
-    return { type: ADD_TODO, text, id: Date.now() };
+    return { type: ADD_TODO, text, id: `item-${Date.now()}` };
 }
 
-export function completeTodo(index) {
-    return { type: COMPLETE_TODO, index };
+export function completeTodo(id) {
+    return { type: COMPLETE_TODO, id };
 }
 
 export function setVisibilityFilter(filter) {

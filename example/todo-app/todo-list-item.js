@@ -1,30 +1,32 @@
-import {ceb, attribute, on} from 'es6/lib/ceb.js';
+import {ceb, property, attribute, method, on} from 'es6/lib/ceb.js';
 import {idomify} from '../builders/idomify.js';
 import {todoify} from './todoify.js';
 
 ceb().augment(
     idomify(`
-        <div>
+        <div class="checkbox">
             <label>
                 <input
                     type="checkbox"
                     name="completed"
-                    checked="{{data.completed?'':null}}"
-                    disabled="{{data.completed?'':null}}"
-                    value="{{data.index}}" >
-                <tpl-text value="data.text" />
+                    checked="{{data.item.completed?'':null}}"
+                    disabled="{{data.item.completed?'':null}}"
+                    value="{{data.item.id}}" >
+                <tpl-text value="data.item.text" />
             </label>
         </div>
     `),
 
-    todoify().subscribe((el) => {
-        var state = el.store.getState().getIn(['todos', parseInt(el.index, 0)]).toJS();
-        el.text = state.text;
-        el.completed = state.completed;
+    todoify(),
+
+    property('item').setter((el, value) => {
+        el._items = value;
         el.render();
+    }).getter(el => {
+        return el._items
     }),
 
-    attribute('index'),
+    attribute('id'),
     attribute('text'),
     attribute('completed').boolean(),
 

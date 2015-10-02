@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <title>ceb-address-selector - ceb's examples</title>
 
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css" />
+
     <style>
-        ceb-address-selector li {
+        .suggestions-container li {
             border: 1px solid transparent;
             cursor: default;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
-        ceb-address-selector li[marked] {
+        .suggestions-container li[marked] {
             border: 1px solid grey;
         }
-        ceb-address-selector li:hover {
+        .suggestions-container li:hover {
             background-color: whitesmoke;
         }
     </style>
@@ -28,7 +33,7 @@
     </script>
 
 </head>
-<body>
+<body class="container">
 
 <h1>ceb-address-selector - ceb's examples</h1>
 

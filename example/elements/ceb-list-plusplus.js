@@ -4,17 +4,24 @@ import {idomify} from '../builders/idomify.js';
 ceb().augment(
     idomify(`
         <form class="add">
-            <input required placeholder="an item" name="content"/>
-            <input type="submit"/>
+            <div class="input-group">
+                <input required placeholder="an item" name="content" class="form-control">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                   </button>
+                </span>
+            </div>
         </form>
-        <ul>
+        <hr/>
         <tpl-each items="data.items" item="item" index="index">
-            <li class="row {{ index % 2 == 1 ? ' even' : '' }}">
-                <button class="remove" data-index="{{ index }}">X</button>
+            <p tpl-key="index" class="{{ index % 2 == 1 ? ' even' : '' }}">
+                <button class="remove btn btn-default btn-xs" data-index="{{ index }}">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
                 <tpl-text value="item" />
-            </li>
+            </p>
         </tpl-each>
-        </ul>
     `),
 
     property('items').immutable().value([]),

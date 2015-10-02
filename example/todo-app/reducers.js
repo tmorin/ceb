@@ -16,12 +16,16 @@ function todos(state = fromJS([]), action = {}) {
     switch (action.type) {
         case ADD_TODO:
             return state.push(fromJS({
-                id: action.id,
+                id: `item-${action.id}`,
                 text: action.text,
                 completed: false
             }));
         case COMPLETE_TODO:
-            return state.setIn([parseInt(action.index, 0), 'completed'], true);
+            let index = state.findIndex(item => item.get('id') === action.id);
+            if (index > -1) {
+                return state.setIn([index, 'completed'], true);
+            }
+            return state;
         default:
             return state;
     }

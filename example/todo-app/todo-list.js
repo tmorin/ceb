@@ -6,31 +6,33 @@ import {todoify} from './todoify.js';
 ceb().augment(
     idomify(`
         <p>
-            <label>
-                <input type="radio" name="visibility" value="SHOW_ACTIVE" checked="{{data.visibility === 'SHOW_ACTIVE' || null}}">
-                Active
-                (<tpl-text value="data.activeItems.length" />)
-            </label>
-            <label>
-                <input type="radio" name="visibility" value="SHOW_COMPLETED" checked="{{data.visibility === 'SHOW_COMPLETED' || null}}">
-                Completed
-                (<tpl-text value="data.completedItems.length" />)
-            </label>
-            <label>
-                <input type="radio" name="visibility" value="SHOW_ALL" checked="{{data.visibility === 'SHOW_ALL' || null}}">
-                All
-                (<tpl-text value="data.allItems.length" />)
-            </label>
+            <div class="checkbox-inline">
+                <label>
+                    <input type="radio" name="visibility" value="SHOW_ACTIVE" checked="{{data.visibility === 'SHOW_ACTIVE' || null}}">
+                    Active
+                    (<tpl-text value="data.activeItems.length" />)
+                </label>
+            </div>
+            <div class="checkbox-inline">
+                <label>
+                    <input type="radio" name="visibility" value="SHOW_COMPLETED" checked="{{data.visibility === 'SHOW_COMPLETED' || null}}">
+                    Completed
+                    (<tpl-text value="data.completedItems.length" />)
+                </label>
+            </div>
+            <div class="checkbox-inline">
+                <label>
+                    <input type="radio" name="visibility" value="SHOW_ALL" checked="{{data.visibility === 'SHOW_ALL' || null}}">
+                    All
+                    (<tpl-text value="data.allItems.length" />)
+                </label>
+            </div>
         </p>
+        <hr>
         <tpl-each items="data.visibleItems" item="item">
-            <todo-list-item
-                tpl-placeholder
-                tpl-key="item-{{item.id}}"
-                id="item-{{item.id}}"
-                text="{{item.text}}"
-                completed="{{item.completed?'':null}}"
-                index="{{index}}"/>
+            <todo-list-item tpl-placeholder tpl-key="{{item.id}}" item="{{item}}"/>
         </tpl-each>
+        <hr>
     `),
 
     todoify().subscribe((el) => {
@@ -43,7 +45,6 @@ ceb().augment(
     property('allItems').value([]),
     property('completedItems').getter((el) => el.allItems.filter(v => v.completed)),
     property('activeItems').getter((el) => el.allItems.filter(v => {
-        console.log('activeItems keep %s : %s', v.id, !v.completed);
         return !v.completed;
     })),
     property('visibleItems').getter((el) => {

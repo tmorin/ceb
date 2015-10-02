@@ -5,8 +5,14 @@ import {todoify} from './todoify.js';
 ceb().augment(
     idomify(`
         <form>
-            <input name="text" type="text" required>
-            <button type="submit">add</button>
+            <div class="input-group">
+                <input required placeholder="an item" name="text" class="form-control" type="text">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                   </button>
+                </span>
+            </div>
         </form>
     `),
 

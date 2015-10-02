@@ -1,6 +1,7 @@
 import $ from 'jquery';
+import 'bootstrap';
 import {ceb, method, template, attribute, delegate, on} from 'es6/lib/ceb.js';
-import {baconify} from '../builders/baconify.js';
+import {baconify, trigger} from '../builders/baconify.js';
 import {fromPromise, once} from 'bacon';
 
 $.support.cors = true;
@@ -38,10 +39,43 @@ function getKeyCode(evt) {
  */
 export default ceb().augment(
     template(`
-        <input type="text" placeholder="a place">
-        <input type="button" value="X">
-        <ul></ul>
+        <div class="input-group">
+            <input type="text" placeholder="a place" class="form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+               </button>
+            </span>
+        </div>
+        <div style="display: none;">
+            <ul class="list-unstyled suggestions-container"></ul>
+        </div>
     `),
+
+    method('attachedCallback').invoke(el => {
+        el.$ = $(el);
+        el._suggestionsContainer = el.querySelector('.suggestions-container');
+        $(el._suggestionsContainer).on('click', 'li', function () {
+            trigger(el, {
+                name: 'value',
+                bubbles: true,
+                cancellable: true
+            }, $(this).attr('value'));
+        });
+        el.$.popover({
+            html: true,
+            trigger: 'manual',
+            placement: 'bottom',
+            title: '',
+            content: function () {
+                return $(el._suggestionsContainer);
+            }
+        });
+    }),
+
+    method('detachedCallback').invoke(el => {
+        el.$input.popover('destroy');
+    }),
 
     /* Form elements' facade */
 
@@ -58,20 +92,20 @@ export default ceb().augment(
     // is hosted by the text input
     // alternatively, the clear button must be handled too
     delegate(attribute('disabled').setter((el, value) => {
-        el.querySelector('input[type=button]').disabled = value;
+        el.querySelector('button[type=button]').disabled = value;
         return value;
     })).to('input[type=text]').property(),
 
     // like the disabled state
     delegate(attribute('readonly').setter((el, value) => {
-        el.querySelector('input[type=button]').disabled = value;
+        el.querySelector('button[type=button]').disabled = value;
         return value;
     })).to('input[type=text]').property(),
 
     /* Autocomplete's logic */
 
     /* When the clear button is clicked, the value should be empty */
-    baconify(on('click').delegate('input[type=button]'))
+    baconify(on('click').delegate('button[type=button]'))
         .apply((el, stream) => stream.map(() => ''))
         .trigger('value'),
 
@@ -81,7 +115,7 @@ export default ceb().augment(
             let query = stream.debounce(300).map(evt => evt.target.value);
             let suggestions = query.flatMapLatest(getPlaces);
             query.awaiting(suggestions)
-                .filter(value => value).onValue(() => el.querySelector('ul').innerHTML = 'Searching ...');
+                .filter(value => value).onValue(() => el._suggestionsContainer.innerHTML = 'Searching ...');
             return suggestions;
         })
         .trigger('suggestions'),
@@ -92,15 +126,17 @@ export default ceb().augment(
             stream
                 .map(evt => evt.detail)
                 .onValue(results => {
-                    let ul = el.querySelector('ul');
                     if (!results) {
-                        ul.innerHTML = '';
+                        el._suggestionsContainer.innerHTML = '';
+                        el.$.popover('hide');
                     } else if (results.length > 0) {
-                        ul.innerHTML = results
+                        el._suggestionsContainer.innerHTML = results
                             .map(result => `<li value="${result.display_name}">${result.display_name}</li>`)
                             .join('');
+                        el.$.popover('show');
                     } else {
-                        ul.innerHTML = 'No results found ...';
+                        el._suggestionsContainer.innerHTML = 'No results found ...';
+                        el.$.popover('show');
                     }
                 });
         }),
@@ -117,8 +153,8 @@ export default ceb().augment(
                 .doAction('.preventDefault')
                 .map(evt => actionsMapping[getKeyCode(evt)])
                 .map(action => {
-                    let selected = el.querySelector('ul li[marked]'),
-                        lis = el.querySelectorAll('ul li');
+                    let selected = el._suggestionsContainer.querySelector('li[marked]'),
+                        lis = el._suggestionsContainer.querySelectorAll('li');
                     if (selected) {
                         selected.removeAttribute('marked');
                     }
@@ -137,9 +173,9 @@ export default ceb().augment(
     baconify(on('keydown'))
         .apply((el, stream) => {
             return stream
-                .filter(evt => getKeyCode(evt) === 13 && el.querySelector('ul li[marked]'))
+                .filter(evt => getKeyCode(evt) === 13 && el._suggestionsContainer.querySelector('li[marked]'))
                 .doAction('.preventDefault')
-                .map(() => el.querySelector('ul li[marked]'))
+                .map(() => el._suggestionsContainer.querySelector('li[marked]'))
                 .map(li => li.getAttribute('value'));
         })
         .trigger('value'),

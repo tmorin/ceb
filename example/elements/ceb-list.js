@@ -4,14 +4,26 @@ import {handlebarify} from '../builders/handlebarify.js';
 ceb().augment(
     handlebarify(`
         <form class="add">
-            <input required placeholder="an item" name="content">
-            <input type="submit">
+            <div class="input-group">
+                <input required placeholder="an item" name="content" class="form-control">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                   </button>
+                </span>
+            </div>
         </form>
-        <ul>
+        <hr>
+        <div>
             {{#each items}}
-                <li><button class="remove" data-index="{{@index}}">X</button> {{this}}</li>
+                <p>
+                    <button class="remove btn btn-default btn-xs" data-index="{{@index}}">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                    {{this}}
+                </p>
             {{/each}}
-        </ul>
+        </div>
     `),
 
     property('items').immutable().value([]),

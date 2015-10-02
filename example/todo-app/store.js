@@ -2,9 +2,12 @@ import {createStore} from 'redux';
 import {fromJS} from 'immutable';
 import todoApp from './reducers.js';
 
-export const store = createStore(todoApp, fromJS({
-    todos: [{text: 'note1', completed: false, id: 0}, {text: 'note2', completed: false, id: 1}]
-}));
+let todos = [];
+for(let i = 0; i < 11; i++) {
+    todos.push({text: `note ${i}`, completed: !!(i%2), id: `item-${i}`})
+}
+
+export const store = createStore(todoApp, fromJS({todos}));
 
 console.log('initial state', store.getState().toJS().todos.length);
 store.subscribe(() => {
