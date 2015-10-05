@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "htmlparser2": "^3.8.3",
-    "idomizer": "^0.2.0"
+    "idomizer": "^0.3.0"
   },
   "devDependencies": {
     "babel": "^5.8.3",
