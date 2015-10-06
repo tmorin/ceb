@@ -13,17 +13,15 @@ ceb().augment(
                 </span>
             </div>
         </form>
-        <hr>
-        <div>
-            {{#each items}}
-                <p>
-                    <button class="remove btn btn-default btn-xs" data-index="{{@index}}">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>
-                    {{this}}
-                </p>
-            {{/each}}
-        </div>
+        <br>
+        {{#each items}}
+            <p>
+                <button class="remove btn btn-default btn-xs" data-index="{{@index}}">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+                {{this}}
+            </p>
+        {{/each}}
     `),
 
     property('items').immutable().value([]),

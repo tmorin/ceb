@@ -13,7 +13,7 @@ ceb().augment(
                 </span>
             </div>
         </form>
-        <hr/>
+        <br>
         <tpl-each items="data.items" item="item" index="index">
             <p tpl-key="index" class="{{ index % 2 == 1 ? ' even' : '' }}">
                 <button class="remove btn btn-default btn-xs" data-index="{{ index }}">
@@ -25,6 +25,10 @@ ceb().augment(
     `),
 
     property('items').immutable().value([]),
+
+    method('createdCallback').invoke(el => {
+        el.render();
+    }),
 
     method('addItem').invoke((el, item) => {
         el.items.push(item);

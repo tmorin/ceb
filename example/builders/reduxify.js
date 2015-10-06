@@ -30,6 +30,8 @@ export class ReduxBuilder extends Builder {
             return boundActions;
         }, {});
 
+        listeners.push((el) => el.state = el.store.getState().toJS());
+
         property('store').immutable().value(store).build(proto, on);
         property('actions').immutable().value(boundActions).build(proto, on);
 
@@ -48,6 +50,10 @@ export class ReduxBuilder extends Builder {
 
         on('before:createdCallback').invoke(el => {
             el.registerListeners();
+        });
+
+        on('ready:createdCallback').invoke(el => {
+            el.state = el.store.getState().toJS();
         });
 
         on('before:attachedCallback').invoke(el => {
