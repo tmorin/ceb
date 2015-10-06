@@ -4,6 +4,7 @@
 
 export const ADD_TODO = 'ADD_TODO';
 export const COMPLETE_TODO = 'COMPLETE_TODO';
+export const CLEAR_COMPLETED_TODOS = 'CLEAR_COMPLETED_TODOS';
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
 
 /*
@@ -26,6 +27,10 @@ export function addTodo(text) {
 
 export function completeTodo(id) {
     return { type: COMPLETE_TODO, id };
+}
+
+export function clearCompletedTodos() {
+    return { type: CLEAR_COMPLETED_TODOS };
 }
 
 export function setVisibilityFilter(filter) {

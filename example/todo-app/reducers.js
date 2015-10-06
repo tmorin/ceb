@@ -1,6 +1,6 @@
 import {fromJS} from 'immutable';
 import {combineReducers, createReducer} from 'immutable-reducers';
-import {ADD_TODO, COMPLETE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters} from './actions.js';
+import {ADD_TODO, COMPLETE_TODO, CLEAR_COMPLETED_TODOS, SET_VISIBILITY_FILTER, VisibilityFilters} from './actions.js';
 const {SHOW_ACTIVE} = VisibilityFilters;
 
 function visibilityFilter(state = SHOW_ACTIVE, action = {}) {
@@ -26,6 +26,8 @@ function todos(state = fromJS([]), action = {}) {
                 return state.setIn([index, 'completed'], true);
             }
             return state;
+        case CLEAR_COMPLETED_TODOS:
+            return state.filter(item => !item.get('completed'));
         default:
             return state;
     }

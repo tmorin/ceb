@@ -1,4 +1,4 @@
-import {ceb, property, attribute, method, on} from 'es6/lib/ceb.js';
+import {ceb, property, on} from 'es6/lib/ceb.js';
 import {idomify} from '../builders/idomify.js';
 import {todoify} from './todoify.js';
 
@@ -9,8 +9,8 @@ ceb().augment(
                 <input
                     type="checkbox"
                     name="completed"
-                    checked="{{data.item.completed?'':null}}"
-                    disabled="{{data.item.completed?'':null}}"
+                    checked="{{data.item.completed ? '' : null}}"
+                    disabled="{{data.item.completed ? '' : null}}"
                     value="{{data.item.id}}" >
                 <tpl-text value="data.item.text" />
             </label>
@@ -22,13 +22,7 @@ ceb().augment(
     property('item').setter((el, value) => {
         el._items = value;
         el.render();
-    }).getter(el => {
-        return el._items
-    }),
-
-    attribute('id'),
-    attribute('text'),
-    attribute('completed').boolean(),
+    }).getter(el => el._items),
 
     on('change').delegate('input[name=completed]').skip().invoke((el, evt) => {
         el.actions.completeTodo(evt.target.value);
