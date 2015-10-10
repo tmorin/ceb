@@ -1,4 +1,4 @@
-import {isFunction, toArray, noop, wrap} from '../utils.js';
+import {isFunction, toArray, partial, bind} from '../utils.js';
 import {Builder} from './Builder.js';
 
 /**
@@ -16,7 +16,7 @@ export class MethodBuilder extends Builder {
         /**
          * @ignore
          */
-        this.data = {methName, invoke: noop, wrappers: []};
+        this.data = {methName, wrappers: []};
     }
 
     /**
@@ -47,12 +47,31 @@ export class MethodBuilder extends Builder {
     build(proto, on) {
         let data = this.data;
 
-        proto[data.methName] = function () {
-            return data.invoke.apply(this, [this].concat(toArray(arguments)));
-        };
+        if (data.invoke) {
+            proto[data.methName] = function () {
+                return data.invoke.apply(this, [this].concat(toArray(arguments)));
+            };
+        }
 
-        on('after:builders').invoke(() => {
-            data.wrappers.forEach(wrapper => data.invoke = wrap(data.invoke, wrapper));
-        });
+        if (data.wrappers.length) {
+            on('before:createdCallback').invoke(el => {
+                if (isFunction(el[data.methName])) {
+                    let lastIndex = data.wrappers.length - 1,
+                        original = el[data.methName],
+                        target = function target() {
+                            let args = toArray(arguments);
+                            args.shift();
+                            original.apply(el, args);
+                        };
+                    el[data.methName] = data.wrappers.reduce((next, current, i, a) => {
+                        if (i === lastIndex) {
+                            return bind(partial(current, next, el), el);
+                        }
+                        return bind(partial(current, next), el);
+                    }, target);
+
+                }
+            });
+        }
     }
 }

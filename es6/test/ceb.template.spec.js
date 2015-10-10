@@ -1,6 +1,6 @@
 /*jshint -W030 */
 
-import {ceb, template} from '../lib/ceb';
+import {ceb, template} from '../lib/ceb.js';
 
 describe('ceb.template()', ()=> {
     var sandbox, builder;

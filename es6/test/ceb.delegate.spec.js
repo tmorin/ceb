@@ -1,6 +1,6 @@
 /*jshint -W030 */
 
-import {ceb, property, attribute, method, delegate} from '../lib/ceb';
+import {ceb, property, attribute, method, delegate} from '../lib/ceb.js';
 
 describe('ceb.delegate()', function () {
     var sandbox, builder;

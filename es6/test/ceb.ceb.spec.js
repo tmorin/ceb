@@ -1,6 +1,6 @@
 /*jshint -W030 */
 
-import {ceb} from '../lib/ceb';
+import {ceb} from '../lib/ceb.js';
 
 describe('ceb.ceb()', () => {
     var sandbox, builder, before, after;

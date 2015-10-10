@@ -1,7 +1,7 @@
 /*jshint -W030 */
 
-import '../example/ceb-button';
-import {canClick, click} from './helper';
+import '../example/ceb-button.js';
+import {canClick, click} from './helper.js';
 
 describe('ceb-button', ()=> {
     var sandbox, cebButton;

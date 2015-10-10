@@ -1,7 +1,7 @@
 /*jshint -W030 */
 
-import {ceb, template, on} from '../lib/ceb';
-import {canClick, click} from './helper';
+import {ceb, template, on} from '../lib/ceb.js';
+import {canClick, click} from './helper.js';
 
 describe('ceb.on()', function () {
     var sandbox, builder;
@@ -55,7 +55,7 @@ describe('ceb.on()', function () {
             on('click').invoke(fn),
             on('click').delegate('.i1').invoke(fnI1),
             on('click').delegate('i').invoke(fnI),
-            template('<i class="i1"><u>i1</u></i><i class="i2"><u>i2</u></i>')
+            template('<i class="i1"><b>i1</b></i><i class="i2"><b>i2</b></i>')
         ).register('test-on-delegate');
         var el = document.createElement('test-on-delegate');
         sandbox.appendChild(el);
