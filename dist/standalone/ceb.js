@@ -708,7 +708,7 @@
             /**
              * @ignore
              */
-            this.data = { methName: methName, invoke: _utilsJs.noop, wrappers: [] };
+            this.data = { methName: methName, wrappers: [] };
         }
 
         /**
@@ -750,15 +750,33 @@
             value: function build(proto, on) {
                 var data = this.data;
 
-                proto[data.methName] = function () {
-                    return data.invoke.apply(this, [this].concat((0, _utilsJs.toArray)(arguments)));
-                };
+                if (data.invoke) {
+                    proto[data.methName] = function () {
+                        return data.invoke.apply(this, [this].concat((0, _utilsJs.toArray)(arguments)));
+                    };
+                }
 
-                on('after:builders').invoke(function () {
-                    data.wrappers.forEach(function (wrapper) {
-                        return data.invoke = (0, _utilsJs.wrap)(data.invoke, wrapper);
+                if (data.wrappers.length) {
+                    on('before:createdCallback').invoke(function (el) {
+                        if ((0, _utilsJs.isFunction)(el[data.methName])) {
+                            (function () {
+                                var lastIndex = data.wrappers.length - 1,
+                                    original = el[data.methName],
+                                    target = function target() {
+                                    var args = (0, _utilsJs.toArray)(arguments);
+                                    args.shift();
+                                    original.apply(el, args);
+                                };
+                                el[data.methName] = data.wrappers.reduce(function (next, current, i, a) {
+                                    if (i === lastIndex) {
+                                        return (0, _utilsJs.bind)((0, _utilsJs.partial)(current, next, el), el);
+                                    }
+                                    return (0, _utilsJs.bind)((0, _utilsJs.partial)(current, next), el);
+                                }, target);
+                            })();
+                        }
                     });
-                });
+                }
             }
         }]);
 

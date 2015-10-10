@@ -7,7 +7,7 @@ System.register(['../utils.js', './Builder.js'], function (_export) {
      */
     'use strict';
 
-    var isFunction, toArray, noop, wrap, Builder, MethodBuilder;
+    var isFunction, toArray, partial, bind, Builder, MethodBuilder;
 
     var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -21,8 +21,8 @@ System.register(['../utils.js', './Builder.js'], function (_export) {
         setters: [function (_utilsJs) {
             isFunction = _utilsJs.isFunction;
             toArray = _utilsJs.toArray;
-            noop = _utilsJs.noop;
-            wrap = _utilsJs.wrap;
+            partial = _utilsJs.partial;
+            bind = _utilsJs.bind;
         }, function (_BuilderJs) {
             Builder = _BuilderJs.Builder;
         }],
@@ -41,7 +41,7 @@ System.register(['../utils.js', './Builder.js'], function (_export) {
                     /**
                      * @ignore
                      */
-                    this.data = { methName: methName, invoke: noop, wrappers: [] };
+                    this.data = { methName: methName, wrappers: [] };
                 }
 
                 /**
@@ -83,15 +83,33 @@ System.register(['../utils.js', './Builder.js'], function (_export) {
                     value: function build(proto, on) {
                         var data = this.data;
 
-                        proto[data.methName] = function () {
-                            return data.invoke.apply(this, [this].concat(toArray(arguments)));
-                        };
+                        if (data.invoke) {
+                            proto[data.methName] = function () {
+                                return data.invoke.apply(this, [this].concat(toArray(arguments)));
+                            };
+                        }
 
-                        on('after:builders').invoke(function () {
-                            data.wrappers.forEach(function (wrapper) {
-                                return data.invoke = wrap(data.invoke, wrapper);
+                        if (data.wrappers.length) {
+                            on('before:createdCallback').invoke(function (el) {
+                                if (isFunction(el[data.methName])) {
+                                    (function () {
+                                        var lastIndex = data.wrappers.length - 1,
+                                            original = el[data.methName],
+                                            target = function target() {
+                                            var args = toArray(arguments);
+                                            args.shift();
+                                            original.apply(el, args);
+                                        };
+                                        el[data.methName] = data.wrappers.reduce(function (next, current, i, a) {
+                                            if (i === lastIndex) {
+                                                return bind(partial(current, next, el), el);
+                                            }
+                                            return bind(partial(current, next), el);
+                                        }, target);
+                                    })();
+                                }
                             });
-                        });
+                        }
                     }
                 }]);
 
