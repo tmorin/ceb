@@ -42,7 +42,7 @@ function hasContent(html) {
  */
 function replaceContent(html, newCebContentId) {
     return html
-        .replace('<content></content>', '<span ceb-content></span>')
+        .replace('<content></content>', '<ceb-lightdom ceb-content></ceb-lightdom>')
         .replace('ceb-content', newCebContentId);
 }
 
