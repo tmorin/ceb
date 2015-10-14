@@ -1,7 +1,6 @@
 import {camelCase, isFunction, isUndefined, result, isNull, assign} from '../utils.js';
 import {PropertyBuilder} from './PropertyBuilder.js';
 
-
 /**
  * Get the value from an attribute.
  * @param {!HTMLElement} el an HTML element
@@ -11,7 +10,6 @@ import {PropertyBuilder} from './PropertyBuilder.js';
  */
 export function getAttValue(el, attrName, isBoolean) {
     if (isBoolean) {
-        //let value = el.getAttribute(attrName);
         return el.hasAttribute(attrName);
     }
     return el.getAttribute(attrName);
@@ -45,15 +43,15 @@ export function setAttValue(el, attrName, isBoolean, value) {
 }
 
 function getterFactory(attrName, isBoolean) {
-    return (el) => {
-        return getAttValue(el, attrName, isBoolean);
+    return function () {
+        return getAttValue(this, attrName, isBoolean);
     };
 }
 
 function setterFactory(attrName, isBoolean, attSetter) {
-    return (el, value) => {
-        var attValue = isFunction(attSetter) ? attSetter.call(el, el, value) : value;
-        return setAttValue(el, attrName, isBoolean, attValue);
+    return function (value) {
+        var attValue = isFunction(attSetter) ? attSetter.call(this, this, value) : value;
+        return setAttValue(this, attrName, isBoolean, attValue);
     };
 }
 
@@ -74,6 +72,7 @@ export class AttributeBuilder extends PropertyBuilder {
          */
         assign(this.data, {
             attrName,
+            listeners: [],
             getterFactory,
             setterFactory,
             descriptorValue: false,
@@ -95,7 +94,7 @@ export class AttributeBuilder extends PropertyBuilder {
     /**
      * To override the property name.
      * @param {!string} propName the property name
-     * @returns {AttributeBuilder}
+     * @returns {AttributeBuilder} the builder
      */
     property(propName) {
         this.data.propName = propName;
@@ -103,19 +102,28 @@ export class AttributeBuilder extends PropertyBuilder {
     }
 
     /**
+     * To be notified when the attribute is updated.
+     * @param {function(el: HTMLElement, oldVal: string, newVal: string)} listener the listener function
+     * @returns {AttributeBuilder} the builder
+     */
+    listen(listener) {
+        this.data.listeners.push(listener);
+        return this;
+    }
+
+    /**
      * @override
      */
     build(proto, on) {
-        let attGetter = this.data.getter,
-            attSetter = this.data.setter,
-            defaultValue = result(this.data, 'value');
+        let defaultValue = result(this.data, 'value'),
+            descriptor = {
+                enumerable: this.data.enumerable,
+                configurable: false,
+                get: this.data.getterFactory(this.data.attrName, this.data.boolean),
+                set: this.data.setterFactory(this.data.attrName, this.data.boolean)
+            };
 
-        this.data.value = undefined;
-
-        this.data.getter = this.data.getterFactory(this.data.attrName, this.data.boolean, attGetter);
-        this.data.setter = this.data.setterFactory(this.data.attrName, this.data.boolean, attSetter);
-
-        super.build(proto, on);
+        Object.defineProperty(proto, this.data.propName, descriptor);
 
         on('after:createdCallback').invoke(el => {
             let attrValue = getAttValue(el, this.data.attrName, this.data.boolean);
@@ -126,14 +134,29 @@ export class AttributeBuilder extends PropertyBuilder {
             } else if (!isUndefined(defaultValue)) {
                 el[this.data.propName] = defaultValue;
             }
+
+            if (this.data.listeners.length > 0) {
+                let oldValue = this.data.boolean ? false : null;
+                let setValue = el[this.data.propName];
+                if (oldValue !== setValue) {
+                    this.data.listeners.forEach(listener => listener.call(el, el, oldValue, setValue));
+                }
+            }
         });
 
         on('before:attributeChangedCallback').invoke((el, attName, oldVal, newVal) => {
             // Synchronize the attribute value with its properties
             if (attName === this.data.attrName) {
-                let value = this.data.boolean ? newVal === '' : newVal;
-                if (el[this.data.propName] !== value) {
-                    el[this.data.propName] = value;
+                let newValue = this.data.boolean ? newVal === '' : newVal;
+                if (el[this.data.propName] !== newValue) {
+                    el[this.data.propName] = newValue;
+                }
+                if (this.data.listeners.length > 0) {
+                    let oldValue = this.data.boolean ? oldVal === '' : oldVal;
+                    let setValue = this.data.boolean ? newVal === '' : newVal;
+                    if (oldValue !== setValue) {
+                        this.data.listeners.forEach(listener => listener.call(el, el, oldValue, setValue));
+                    }
                 }
             }
         });

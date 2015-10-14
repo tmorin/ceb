@@ -91,15 +91,13 @@ export default ceb().augment(
     // the disabled state of the custom element
     // is hosted by the text input
     // alternatively, the clear button must be handled too
-    delegate(attribute('disabled').setter((el, value) => {
-        el.querySelector('button[type=button]').disabled = value;
-        return value;
+    delegate(attribute('disabled').listen((el, odlValue, newValue) => {
+        el.querySelector('button[type=button]').disabled = newValue;
     })).to('input[type=text]').property(),
 
     // like the disabled state
-    delegate(attribute('readonly').setter((el, value) => {
-        el.querySelector('button[type=button]').disabled = value;
-        return value;
+    delegate(attribute('readonly').setter((el, odlValue, newValue) => {
+        el.querySelector('button[type=button]').disabled = newValue;
     })).to('input[type=text]').property(),
 
     /* Autocomplete's logic */
