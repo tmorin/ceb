@@ -1,5 +1,4 @@
 import {ceb, method} from '../lib/ceb.js';
-import {toArray} from '../lib/utils.js';
 
 /*jshint -W030 */
 describe('ceb.method()', function () {
@@ -29,15 +28,15 @@ describe('ceb.method()', function () {
         var meth1 = sinon.spy(function meth1() {});
 
         var wrapper1 = sinon.spy(function wrapper1(next, el, a1, a2) {
-            return next(el, a1, a2)
+            return next(el, a1, a2);
         });
 
         var wrapper2 = sinon.spy(function wrapper2(next, el, a1, a2) {
-            return next(el, a1, a2)
+            return next(el, a1, a2);
         });
 
         var wrapper3 = sinon.spy(function wrapper3(next, el, a1, a2) {
-            return next(el, a1, a2)
+            return next(el, a1, a2);
         });
 
         builder.augment(method('meth1').invoke(meth1).wrap(wrapper1, wrapper2).wrap(wrapper3)).register('test-method-wrapper');

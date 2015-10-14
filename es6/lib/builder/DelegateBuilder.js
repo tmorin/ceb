@@ -100,24 +100,24 @@ export class DelegateBuilder extends Builder {
 
         if (fieldBuilderData.attrName) {
             fieldBuilderData.getterFactory = (attrName, isBoolean) => {
-                return (el) => {
-                    let target = el.querySelector(data.selector);
+                return function () {
+                    let target = this.querySelector(data.selector);
                     if (target) {
                         return targetedAttrName ? getAttValue(target, targetedAttrName, isBoolean) : target[targetedPropName];
                     }
                 };
             };
-            fieldBuilderData.setterFactory = (attrName, isBoolean, attSetter) => {
-                return (el, value) => {
-                    let target = el.querySelector(data.selector),
-                        attrValue = isFunction(attSetter) ? attSetter.call(el, el, value) : value;
+            fieldBuilderData.setterFactory = (attrName, isBoolean) => {
+                return function (value) {
+                    let target = this.querySelector(data.selector),
+                        attrValue = value;
                     if (target) {
                         if (targetedAttrName) {
                             setAttValue(target, targetedAttrName, isBoolean, attrValue);
                         } else {
                             target[targetedPropName] = attrValue;
                         }
-                        setAttValue(el, attrName, isBoolean, attrValue);
+                        setAttValue(this, attrName, isBoolean, attrValue);
                     }
                 };
             };

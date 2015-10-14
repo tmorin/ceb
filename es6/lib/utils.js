@@ -130,10 +130,9 @@ export function find(array, cb) {
 
 /**
  * @ignore
- * TODO: handle legacy ways
  */
-export function trigger(el, options, detail) {
+export function trigger(el, event, params) {
     var evt = document.createEvent('CustomEvent');
-    evt.initCustomEvent(options.name, options.bubbles, options.cancellable, detail);
+    evt.initCustomEvent(event, params.bubbles, params.cancellable, params.detail);
     return el.dispatchEvent(evt);
 }

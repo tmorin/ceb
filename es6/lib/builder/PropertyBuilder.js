@@ -82,8 +82,8 @@ export class PropertyBuilder extends Builder {
         let data = this.data,
             defaultValue = result(this.data, 'value'),
             descriptor = {
-            enumerable: this.data.enumerable
-        };
+                enumerable: this.data.enumerable
+            };
 
         if (this.data.immutable) {
             descriptor.configurable = false;

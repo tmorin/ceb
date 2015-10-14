@@ -131,21 +131,6 @@ describe('ceb.delegate()', function () {
         }, 10);
     });
 
-    it('should delegate an attribute to the target matching attribute with a setter', (done) => {
-        var setter = (el, value) => value + '1';
-        builder.augment(
-            delegate(attribute('att1').setter(setter)).to('button')
-        ).register('test-delegate-attr-to-attr-setter');
-        var el = document.createElement('test-delegate-attr-to-attr-setter');
-        sandbox.appendChild(el);
-        el.setAttribute('att1', 'value');
-        setTimeout(() => {
-            expect(el.getAttribute('att1'), 'el@att1').to.be.eq('value1');
-            expect(el.querySelector('button').getAttribute('att1'), 'el>button@att1').to.be.eq('value1');
-            done();
-        }, 10);
-    });
-
     /* METHOD */
 
     it('should delegate a method invocation to the target matching method', (done) => {

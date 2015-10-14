@@ -55,13 +55,13 @@ describe('ceb.on()', function () {
             on('click').invoke(fn),
             on('click').delegate('.i1').invoke(fnI1),
             on('click').delegate('i').invoke(fnI),
-            template('<i class="i1"><b>i1</b></i><i class="i2"><b>i2</b></i>')
+            template(`<i class="i1"><b>i1</b></i><i class="i2"><b>i2</b></i>`)
         ).register('test-on-delegate');
         var el = document.createElement('test-on-delegate');
         sandbox.appendChild(el);
         click(el.querySelector('.i1'));
         click(el.querySelector('.i2'));
-        click(el.querySelector('.i1 u'));
+        click(el.querySelector('.i1 b'));
         setTimeout(() => {
             if (canClick()) {
                 expect(fn).to.have.been.calledThrice;

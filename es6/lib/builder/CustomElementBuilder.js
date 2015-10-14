@@ -9,6 +9,28 @@ const LIFECYCLE_CALLBACKS = [
 
 const LIFECYCLE_EVENTS = flatten(LIFECYCLE_CALLBACKS.map(name => [`before:${name}`, `after:${name}`, `ready:${name}`]));
 
+function applyLifecycle(context, name) {
+    let proto = context.proto,
+        original = proto[name],
+        beforeFns = context.events['before:' + name],
+        afterFns = context.events['after:' + name],
+        readyFns = context.events['ready:' + name];
+
+    proto[name] = function () {
+        let args = [this].concat(toArray(arguments));
+
+        beforeFns.forEach(fn => fn.apply(this, args));
+
+        if (isFunction(original)) {
+            original.apply(this, args);
+        }
+
+        afterFns.forEach(fn => fn.apply(this, args));
+
+        readyFns.forEach(fn => fn.apply(this, args));
+    };
+}
+
 /**
  * The custom element builder.
  * Its goal is to provide a user friendly way to do it by some else (i.e. dedicated builders).
@@ -114,26 +136,4 @@ export class CustomElementBuilder {
 
         return CustomElement;
     }
-}
-
-function applyLifecycle(context, name) {
-    let proto = context.proto,
-        original = proto[name],
-        beforeFns = context.events['before:' + name],
-        afterFns = context.events['after:' + name],
-        readyFns = context.events['ready:' + name];
-
-    proto[name] = function () {
-        let args = [this].concat(toArray(arguments));
-
-        beforeFns.forEach(fn => fn.apply(this, args));
-
-        if (isFunction(original)) {
-            original.apply(this, args);
-        }
-
-        afterFns.forEach(fn => fn.apply(this, args));
-
-        readyFns.forEach(fn => fn.apply(this, args));
-    };
 }
