@@ -3,7 +3,7 @@ title: method()
 ---
 # method()
 
-The function `method()` return a fresh `MethodBuilder` providing services to define a method and ... more.
+The function `method()` returns a fresh `MethodBuilder` providing services to define a method and ... more.
 
 ## Import
 

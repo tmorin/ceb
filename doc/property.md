@@ -3,7 +3,7 @@ title: property()
 ---
 # property()
 
-The function `property()` return a fresh `PropertyBuilder` providing services to define ... a property.
+The function `property()` returns a fresh `PropertyBuilder` providing services to define ... a property.
 
 ## Import
 

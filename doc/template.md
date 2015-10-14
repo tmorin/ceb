@@ -3,7 +3,7 @@ title: template()
 ---
 # template()
 
-The function `template()` return a fresh `TemplateBuilder` providing services to define ... a template.
+The function `template()` returns a fresh `TemplateBuilder` providing services to define ... a template.
 
 ## Import
 
@@ -46,14 +46,14 @@ The flag can be an attribute (`ceb-content`) or like the Shadow DOM specificatio
 
 If an attribute (`ceb-content`) is found, the light DOM nodes of the custom element will be moved inside the attribute element.
 
-If the element (`content`) is found, it will be replaced by a `span` element, and the light DOM nodes will be moved inside this one.
+If the element (`content`) is found, it will be replaced by a `ceb-lightdom` element, and the light DOM nodes will be moved inside this one.
 
 ### Getting the light DOM node
 
-Custom element augmented with the `template()` get a property `lightDom` which returns the light DOM element.
+Custom element augmented with `template()` get a property `lightDom` which returns the light DOM element.
 If the template doesn't have the the _pseudo Shadow_ flag, the `lightDom` will return the custom element itself.
 
-Furthermore, the templating process is able to handle embedded light dom.
+Furthermore, the templating process is able to handle embedded light DOM.
 In this case, the `lightDom` value of the root node, will be the `lightDom` of the last child having a  _pseudo Shadow_ flag.
 
 ### Example

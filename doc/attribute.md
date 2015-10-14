@@ -3,7 +3,7 @@ title: attribute()
 ---
 # attribute()
 
-The function `attribute()` return a fresh `AttributeBuilder` providing services to define ... an attribute.
+The function `attribute()` returns a fresh `AttributeBuilder` providing services to define ... an attribute.
 
 ## Import
 
@@ -16,7 +16,8 @@ import {attribute} from 'custom-element-builder';
 `AttributeBuilder` extending `PropertyBuilder`, the attribute is also a property.
 So, the value can be read or updated from both API DOM and property.
 
-The `getter` functionality provider by `PropertyBuilder` can not be used with attributes. 
+The `getter` and `setter` functionality provided by `PropertyBuilder` can not be used with attributes.
+Obviously, an attribute can not be immutable.
 
 ### Default
 
@@ -59,18 +60,22 @@ ceb()
     .register('ceb-example');
 ```
 
-### Setter
+### Listen
 
-The registered custom element will have a property `att1` bound to an attribute `att1`.
-
-The setter will be invoked with the custom element and the set value as arguments.
-However, the setter must return the value which will be set to the attribute.
+Listeners are called when the attribute's value is updated.
+When the attribute has the flag _boolean_, `oldVal` and `newVal` will boolean values.
+Otherwise, it will be string values.
 
 ```javascript
 import {ceb, attribute} from 'custom-element-builder';
 ceb()
     .augment(
-        attribute('att1').setter((el, value) => value + 1)
+        attribute('att1')
+            .setter((el, value) => parseInt(value, 0) + 1)
+            .listen((el, oldVal, newVal) => {
+                /* oldVal was the (string) value of the attribute and
+                   newVal is the current (string) value of the attribute */
+            })
     )
     .register('ceb-example');
 ```

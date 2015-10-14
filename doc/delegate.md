@@ -3,7 +3,7 @@ title: delegate()
 ---
 # delegate()
 
-The function `delegate()` return a fresh `DelegateBuilder` providing services to define delegations on properties attributes and attributes.
+The function `delegate()` returns a fresh `DelegateBuilder` providing services to define delegations on properties attributes and attributes.
 
 ## Import
 
