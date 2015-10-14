@@ -6,11 +6,11 @@ gulp.task('zip:source', function () {
         '**/*',
         '!{.idea,.git,api,dist,lib,node_modules}/**/*',
         '!{.idea,.git,api,dist,lib,node_modules}',
-        '!{.project,ceb-source.zip}'
+        '!{.project,*.zip}'
     ], {
         dot: true
     })
-    .pipe(zip('ceb-source.zip'))
+    .pipe(zip('ceb-source-' + (Date.now()) + '.zip'))
     .pipe(gulp.dest('.'));
 });
 
