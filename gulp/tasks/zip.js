@@ -10,7 +10,7 @@ gulp.task('zip:source', function () {
     ], {
         dot: true
     })
-    .pipe(zip('ceb-source.zip'))
+    .pipe(zip('ceb-source-' + (Date.now()) + '.zip'))
     .pipe(gulp.dest('.'));
 });
 
