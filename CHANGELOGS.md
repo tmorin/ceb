@@ -1,6 +1,6 @@
 # Change logs
 
-## 0.5.0 -> 0.5.6
+## 0.5.x
 - keep concepts breaking API
 
 ## 0.3.4
