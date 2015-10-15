@@ -83,34 +83,38 @@ describe('ceb.attribute()', function () {
         expect(el.getAttribute('att1')).to.be.eq('fromAtt');
     });
 
-    it('should define listener for attribute', () => {
+    it('should define listener for attribute', (done) => {
         let listener = sinon.spy();
-
         builder.augment(attribute('att1').listen(listener)).register('test-listener-attribute');
         let el = document.createElement('test-listener-attribute');
-
         el.att1 = 'fromProp';
-        expect(listener, 'from prop').to.have.been.calledOnce;
-        expect(listener, 'from prop').to.have.been.calledWith(el, null, 'fromProp');
-
-        el.setAttribute('att1', 'fromAttr');
-        expect(listener, 'from attr').to.have.been.calledTwice;
-        expect(listener, 'from attr').to.have.been.calledWith(el, 'fromProp', 'fromAttr');
+        setTimeout(() => {
+            expect(listener).to.have.been.calledOnce;
+            expect(listener).to.have.been.calledWith(el, null, 'fromProp');
+            el.setAttribute('att1', 'fromAttr');
+            setTimeout(() => {
+                expect(listener).to.have.been.calledTwice;
+                expect(listener).to.have.been.calledWith(el, 'fromProp', 'fromAttr');
+                done();
+            }, 10);
+        }, 10);
     });
 
-    it('should define listener for boolean attribute', () => {
+    it('should define listener for boolean attribute', (done) => {
         let listener = sinon.spy();
-
         builder.augment(attribute('att1').boolean().listen(listener)).register('test-listener-boolean-attribute');
         let el = document.createElement('test-listener-boolean-attribute');
-
         el.att1 = true;
-        expect(listener, 'listener').to.have.been.calledOnce;
-        expect(listener, 'listener').to.have.been.calledWith(el, false, true);
-
-        el.removeAttribute('att1');
-        expect(listener, 'listener').to.have.been.calledTwice;
-        expect(listener, 'listener').to.have.been.calledWith(el, true, false);
+        setTimeout(() => {
+            expect(listener, 'listener').to.have.been.calledOnce;
+            expect(listener, 'listener').to.have.been.calledWith(el, false, true);
+            el.removeAttribute('att1');
+            setTimeout(() => {
+                expect(listener, 'listener').to.have.been.calledTwice;
+                expect(listener, 'listener').to.have.been.calledWith(el, true, false);
+                done();
+            }, 10);
+        }, 10);
     });
 
 });
