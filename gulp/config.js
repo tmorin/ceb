@@ -4,7 +4,6 @@ var paths = {
     es6: 'es6/**/*.js',
     lib: 'es6/lib/**/*.js',
     test: 'es6/test/**/*.js',
-    example: 'es6/example/**/*.js',
     gulp: 'gulp/**/*.js',
     clean: ['./api', './dist', './lib']
 };
