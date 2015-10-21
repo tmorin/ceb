@@ -47,6 +47,23 @@ ceb()
     .register('ceb-example');
 ```
 
+### Unbound attribute
+
+By default the attribute will be linked to a property.
+The link can be skip calling the `.unbound()` method.
+
+The registered custom element will have an attribute `att1`.
+But the property `att1` will not be defined, and obviously not bound the attribute.
+
+```javascript
+import {ceb, attribute} from 'custom-element-builder';
+ceb()
+    .augment(
+        attribute('att1').unbound()
+    )
+    .register('ceb-example');
+```
+
 ### Override the property name
 
 The registered custom element will have a property `prop1` bound to an attribute `att1`.

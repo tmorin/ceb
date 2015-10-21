@@ -117,22 +117,6 @@ export function noop() {
 /**
  * @ignore
  */
-export function wrap(fn, wrapper) {
-    return partial(wrapper, fn);
-}
-
-/**
- * @ignore
- */
 export function find(array, cb) {
     return array.filter(cb)[0];
-}
-
-/**
- * @ignore
- */
-export function trigger(el, event, params) {
-    var evt = document.createEvent('CustomEvent');
-    evt.initCustomEvent(event, params.bubbles, params.cancellable, params.detail);
-    return el.dispatchEvent(evt);
 }

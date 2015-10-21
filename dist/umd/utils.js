@@ -33,9 +33,7 @@
     exports.partial = partial;
     exports.bind = bind;
     exports.noop = noop;
-    exports.wrap = wrap;
     exports.find = find;
-    exports.trigger = trigger;
 
     function camelCase(value) {
         return value.toLowerCase().split('-').map(function (part, index) {
@@ -174,25 +172,7 @@
      * @ignore
      */
 
-    function wrap(fn, wrapper) {
-        return partial(wrapper, fn);
-    }
-
-    /**
-     * @ignore
-     */
-
     function find(array, cb) {
         return array.filter(cb)[0];
-    }
-
-    /**
-     * @ignore
-     */
-
-    function trigger(el, event, params) {
-        var evt = document.createEvent('CustomEvent');
-        evt.initCustomEvent(event, params.bubbles, params.cancellable, params.detail);
-        return el.dispatchEvent(evt);
     }
 });

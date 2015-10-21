@@ -8,7 +8,8 @@ gulp.task('lint', function () {
     return gulp.src([
         config.paths.gulp,
         config.paths.lib,
-        config.paths.test
+        config.paths.test,
+        config.paths.example
     ])
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'));

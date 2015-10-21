@@ -12,15 +12,14 @@ define(['exports', '../utils.js'], function (exports, _utilsJs) {
     var LIFECYCLE_CALLBACKS = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
 
     var LIFECYCLE_EVENTS = (0, _utilsJs.flatten)(LIFECYCLE_CALLBACKS.map(function (name) {
-        return ['before:' + name, 'after:' + name, 'ready:' + name];
+        return ['before:' + name, 'after:' + name];
     }));
 
     function applyLifecycle(context, name) {
         var proto = context.proto,
             original = proto[name],
             beforeFns = context.events['before:' + name],
-            afterFns = context.events['after:' + name],
-            readyFns = context.events['ready:' + name];
+            afterFns = context.events['after:' + name];
 
         proto[name] = function () {
             var _this = this;
@@ -36,10 +35,6 @@ define(['exports', '../utils.js'], function (exports, _utilsJs) {
             }
 
             afterFns.forEach(function (fn) {
-                return fn.apply(_this, args);
-            });
-
-            readyFns.forEach(function (fn) {
                 return fn.apply(_this, args);
             });
         };
@@ -66,10 +61,8 @@ define(['exports', '../utils.js'], function (exports, _utilsJs) {
             }, {
                 'before:builders': [],
                 'after:builders': [],
-                'ready:builders': [],
                 'before:registerElement': [],
-                'after:registerElement': [],
-                'ready:registerElement': []
+                'after:registerElement': []
             });
             /**
              * @type {Object}
@@ -178,10 +171,6 @@ define(['exports', '../utils.js'], function (exports, _utilsJs) {
                 var CustomElement = document.registerElement(name, options);
 
                 this.context.events['after:registerElement'].forEach(function (fn) {
-                    return fn(CustomElement);
-                });
-
-                this.context.events['ready:registerElement'].forEach(function (fn) {
                     return fn(CustomElement);
                 });
 

@@ -88,19 +88,7 @@ System.register([], function (_export) {
 
     _export('noop', noop);
 
-    /**
-     * @ignore
-     */
-
-    _export('wrap', wrap);
-
-    /**
-     * @ignore
-     */
-
     _export('find', find);
-
-    _export('trigger', trigger);
 
     function camelCase(value) {
         return value.toLowerCase().split('-').map(function (part, index) {
@@ -183,18 +171,8 @@ System.register([], function (_export) {
         return function () {};
     }
 
-    function wrap(fn, wrapper) {
-        return partial(wrapper, fn);
-    }
-
     function find(array, cb) {
         return array.filter(cb)[0];
-    }
-
-    function trigger(el, event, params) {
-        var evt = document.createEvent('CustomEvent');
-        evt.initCustomEvent(event, params.bubbles, params.cancellable, params.detail);
-        return el.dispatchEvent(evt);
     }
 
     return {

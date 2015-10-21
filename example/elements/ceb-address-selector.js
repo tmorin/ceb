@@ -128,6 +128,7 @@ export default ceb().augment(
                         el._suggestionsContainer.innerHTML = '';
                         el.$.popover('hide');
                     } else if (results.length > 0) {
+                        /*jshint camelcase: false */
                         el._suggestionsContainer.innerHTML = results
                             .map(result => `<li value="${result.display_name}">${result.display_name}</li>`)
                             .join('');

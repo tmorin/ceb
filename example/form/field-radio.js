@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {ceb, method, attribute, template} from 'es6/lib/ceb.js';
+import {ceb, attribute, template} from 'es6/lib/ceb.js';
 
 export default ceb().augment(
     template('<label ceb-content></label>'),

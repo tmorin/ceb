@@ -107,6 +107,7 @@
              */
             (0, _utilsJs.assign)(this.data, {
                 attrName: attrName,
+                bound: true,
                 listeners: [],
                 getterFactory: getterFactory,
                 setterFactory: setterFactory,
@@ -126,6 +127,17 @@
             key: 'boolean',
             value: function boolean() {
                 this.data.boolean = true;
+                return this;
+            }
+
+            /**
+             * To skip the link between the attribute and its property
+             * @returns {AttributeBuilder} the builder
+             */
+        }, {
+            key: 'unbound',
+            value: function unbound() {
+                this.data.bound = false;
                 return this;
             }
 
@@ -169,18 +181,21 @@
                     set: this.data.setterFactory(this.data.attrName, this.data.boolean)
                 };
 
-                Object.defineProperty(proto, this.data.propName, descriptor);
+                if (this.data.bound) {
+                    Object.defineProperty(proto, this.data.propName, descriptor);
+                }
 
                 on('after:createdCallback').invoke(function (el) {
-                    var attrValue = getAttValue(el, _this.data.attrName, _this.data.boolean);
-                    if (_this.data.boolean) {
-                        el[_this.data.propName] = !!defaultValue ? defaultValue : attrValue;
-                    } else if (!(0, _utilsJs.isNull)(attrValue) && !(0, _utilsJs.isUndefined)(attrValue)) {
-                        el[_this.data.propName] = attrValue;
-                    } else if (!(0, _utilsJs.isUndefined)(defaultValue)) {
-                        el[_this.data.propName] = defaultValue;
+                    if (_this.data.bound) {
+                        var attrValue = getAttValue(el, _this.data.attrName, _this.data.boolean);
+                        if (_this.data.boolean) {
+                            el[_this.data.propName] = !!defaultValue ? defaultValue : attrValue;
+                        } else if (!(0, _utilsJs.isNull)(attrValue) && !(0, _utilsJs.isUndefined)(attrValue)) {
+                            el[_this.data.propName] = attrValue;
+                        } else if (!(0, _utilsJs.isUndefined)(defaultValue)) {
+                            el[_this.data.propName] = defaultValue;
+                        }
                     }
-
                     if (_this.data.listeners.length > 0) {
                         (function () {
                             var oldValue = _this.data.boolean ? false : null;
@@ -197,9 +212,11 @@
                 on('before:attributeChangedCallback').invoke(function (el, attName, oldVal, newVal) {
                     // Synchronize the attribute value with its properties
                     if (attName === _this.data.attrName) {
-                        var newValue = _this.data.boolean ? newVal === '' : newVal;
-                        if (el[_this.data.propName] !== newValue) {
-                            el[_this.data.propName] = newValue;
+                        if (_this.data.bound) {
+                            var newValue = _this.data.boolean ? newVal === '' : newVal;
+                            if (el[_this.data.propName] !== newValue) {
+                                el[_this.data.propName] = newValue;
+                            }
                         }
                         if (_this.data.listeners.length > 0) {
                             (function () {
@@ -302,15 +319,14 @@
     var LIFECYCLE_CALLBACKS = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
 
     var LIFECYCLE_EVENTS = (0, _utilsJs.flatten)(LIFECYCLE_CALLBACKS.map(function (name) {
-        return ['before:' + name, 'after:' + name, 'ready:' + name];
+        return ['before:' + name, 'after:' + name];
     }));
 
     function applyLifecycle(context, name) {
         var proto = context.proto,
             original = proto[name],
             beforeFns = context.events['before:' + name],
-            afterFns = context.events['after:' + name],
-            readyFns = context.events['ready:' + name];
+            afterFns = context.events['after:' + name];
 
         proto[name] = function () {
             var _this = this;
@@ -326,10 +342,6 @@
             }
 
             afterFns.forEach(function (fn) {
-                return fn.apply(_this, args);
-            });
-
-            readyFns.forEach(function (fn) {
                 return fn.apply(_this, args);
             });
         };
@@ -356,10 +368,8 @@
             }, {
                 'before:builders': [],
                 'after:builders': [],
-                'ready:builders': [],
                 'before:registerElement': [],
-                'after:registerElement': [],
-                'ready:registerElement': []
+                'after:registerElement': []
             });
             /**
              * @type {Object}
@@ -468,10 +478,6 @@
                 var CustomElement = document.registerElement(name, options);
 
                 this.context.events['after:registerElement'].forEach(function (fn) {
-                    return fn(CustomElement);
-                });
-
-                this.context.events['ready:registerElement'].forEach(function (fn) {
                     return fn(CustomElement);
                 });
 
@@ -801,8 +807,8 @@
                                     args.shift();
                                     original.apply(el, args);
                                 };
-                                el[data.methName] = data.wrappers.reduce(function (next, current, i, a) {
-                                    if (i === lastIndex) {
+                                el[data.methName] = data.wrappers.reduce(function (next, current, index) {
+                                    if (index === lastIndex) {
                                         return (0, _utilsJs.bind)((0, _utilsJs.partial)(current, next, el), el);
                                     }
                                     return (0, _utilsJs.bind)((0, _utilsJs.partial)(current, next), el);
@@ -1541,9 +1547,7 @@
     exports.partial = partial;
     exports.bind = bind;
     exports.noop = noop;
-    exports.wrap = wrap;
     exports.find = find;
-    exports.trigger = trigger;
 
     function camelCase(value) {
         return value.toLowerCase().split('-').map(function (part, index) {
@@ -1682,26 +1686,8 @@
      * @ignore
      */
 
-    function wrap(fn, wrapper) {
-        return partial(wrapper, fn);
-    }
-
-    /**
-     * @ignore
-     */
-
     function find(array, cb) {
         return array.filter(cb)[0];
-    }
-
-    /**
-     * @ignore
-     */
-
-    function trigger(el, event, params) {
-        var evt = document.createEvent('CustomEvent');
-        evt.initCustomEvent(event, params.bubbles, params.cancellable, params.detail);
-        return el.dispatchEvent(evt);
     }
 });
 

@@ -50,9 +50,6 @@ export class ReduxBuilder extends Builder {
 
         on('before:createdCallback').invoke(el => {
             el.registerListeners();
-        });
-
-        on('ready:createdCallback').invoke(el => {
             el.state = el.store.getState().toJS();
         });
 

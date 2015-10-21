@@ -1,5 +1,5 @@
 import {Builder, property} from 'es6/lib/ceb.js';
-import {noop, wrap} from 'es6/lib/utils.js';
+import {noop, partial} from 'es6/lib/utils.js';
 import {Bus} from 'bacon';
 
 let counter = 0;
@@ -85,24 +85,24 @@ export class BaconBuilder extends Builder {
 
         if (builder && builder.data.invoke) {
             let invoke = builder.data.invoke || noop();
-            builder.data.invoke = wrap(invoke, (next, el, evt, target) => {
+            builder.data.invoke = partial((next, el, evt, target) => {
                 el[id].push(evt);
                 return next(el, evt, target);
-            });
+            }, invoke);
             builder.build(proto, on);
         } else if (builder && builder.data.propName) {
             builder.data.descriptorValue = false;
             let setter = builder.data.setter || ((el, value) => value);
             let getter = builder.data.getter || noop();
-            builder.data.setter = wrap(setter, (next, el, value) => {
+            builder.data.setter = partial((next, el, value) => {
                 el[id].push(value);
                 el[`${id}Value`] = value;
                 return next(el, value);
-            });
-            builder.data.getter = wrap(getter, (next, el) => {
+            }, setter);
+            builder.data.getter = partial((next, el) => {
                 var value = next(el);
                 return value || el[`${id}Value`];
-            });
+            }, getter);
             builder.build(proto, on);
         }
     }

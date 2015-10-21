@@ -63,8 +63,8 @@ export class MethodBuilder extends Builder {
                             args.shift();
                             original.apply(el, args);
                         };
-                    el[data.methName] = data.wrappers.reduce((next, current, i, a) => {
-                        if (i === lastIndex) {
+                    el[data.methName] = data.wrappers.reduce((next, current, index) => {
+                        if (index === lastIndex) {
                             return bind(partial(current, next, el), el);
                         }
                         return bind(partial(current, next), el);

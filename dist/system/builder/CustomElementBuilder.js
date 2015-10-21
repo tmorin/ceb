@@ -11,8 +11,7 @@ System.register(['../utils.js'], function (_export) {
         var proto = context.proto,
             original = proto[name],
             beforeFns = context.events['before:' + name],
-            afterFns = context.events['after:' + name],
-            readyFns = context.events['ready:' + name];
+            afterFns = context.events['after:' + name];
 
         proto[name] = function () {
             var _this = this;
@@ -28,10 +27,6 @@ System.register(['../utils.js'], function (_export) {
             }
 
             afterFns.forEach(function (fn) {
-                return fn.apply(_this, args);
-            });
-
-            readyFns.forEach(function (fn) {
                 return fn.apply(_this, args);
             });
         };
@@ -54,7 +49,7 @@ System.register(['../utils.js'], function (_export) {
         execute: function () {
             LIFECYCLE_CALLBACKS = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
             LIFECYCLE_EVENTS = flatten(LIFECYCLE_CALLBACKS.map(function (name) {
-                return ['before:' + name, 'after:' + name, 'ready:' + name];
+                return ['before:' + name, 'after:' + name];
             }));
 
             CustomElementBuilder = (function () {
@@ -73,10 +68,8 @@ System.register(['../utils.js'], function (_export) {
                     }, {
                         'before:builders': [],
                         'after:builders': [],
-                        'ready:builders': [],
                         'before:registerElement': [],
-                        'after:registerElement': [],
-                        'ready:registerElement': []
+                        'after:registerElement': []
                     });
                     /**
                      * @type {Object}
@@ -185,10 +178,6 @@ System.register(['../utils.js'], function (_export) {
                         var CustomElement = document.registerElement(name, options);
 
                         this.context.events['after:registerElement'].forEach(function (fn) {
-                            return fn(CustomElement);
-                        });
-
-                        this.context.events['ready:registerElement'].forEach(function (fn) {
                             return fn(CustomElement);
                         });
 

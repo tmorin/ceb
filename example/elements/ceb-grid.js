@@ -317,7 +317,7 @@ ceb().augment(
         return p.then(queryResponse => {
             el.render();
             return queryResponse;
-        })
+        });
     }),
 
     method('render').wrap((next, el) => {

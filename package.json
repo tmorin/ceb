@@ -34,11 +34,12 @@
     "url": "git://github.com/tmorin/custom-elements-builder.git"
   },
   "scripts": {
+    "lint": "jshint es6 example gulp gulpfile.js Gruntfile.js karma.conf.js",
     "karma": "karma start",
     "karma:watch": "npm run karma -- --no-single-run --auto-watch",
-    "test": "./node_modules/.bin/gulp karma:sauce",
-    "prepublish": "./node_modules/.bin/gulp",
-    "release": "./node_modules/.bin/gulp && ./node_modules/.bin/grunt release"
+    "test": "gulp karma:sauce",
+    "prepublish": "gulp",
+    "release": "gulp && grunt release"
   },
   "engines": {
     "node": ">=4.0.0"

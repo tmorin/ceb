@@ -23,6 +23,17 @@ describe('ceb.attribute()', function () {
         expect(el.getAttribute('att1')).to.be.eq('value');
     });
 
+    it('should define an unbound attribute', () => {
+        builder.augment(attribute('att1').unbound()).register('test-unbound-attribute');
+        let el = document.createElement('test-unbound-attribute');
+        el.setAttribute('att1', 'fromAttr');
+        expect(el.att1).to.be.undefined;
+        expect(el.getAttribute('att1')).to.be.eq('fromAttr');
+        el.att1 = 'fromProp';
+        expect(el.att1).to.be.eq('fromProp');
+        expect(el.getAttribute('att1')).to.be.eq('fromAttr');
+    });
+
     it('should define an attribute with a default value', (done) => {
         builder.augment(attribute('att1').value('default')).register('test-attribute-default');
         let el = document.createElement('test-attribute-default');

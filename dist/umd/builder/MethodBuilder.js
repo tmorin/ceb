@@ -104,8 +104,8 @@
                                     args.shift();
                                     original.apply(el, args);
                                 };
-                                el[data.methName] = data.wrappers.reduce(function (next, current, i, a) {
-                                    if (i === lastIndex) {
+                                el[data.methName] = data.wrappers.reduce(function (next, current, index) {
+                                    if (index === lastIndex) {
                                         return (0, _utilsJs.bind)((0, _utilsJs.partial)(current, next, el), el);
                                     }
                                     return (0, _utilsJs.bind)((0, _utilsJs.partial)(current, next), el);

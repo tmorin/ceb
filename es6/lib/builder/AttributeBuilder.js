@@ -72,6 +72,7 @@ export class AttributeBuilder extends PropertyBuilder {
          */
         assign(this.data, {
             attrName,
+            bound: true,
             listeners: [],
             getterFactory,
             setterFactory,
@@ -88,6 +89,15 @@ export class AttributeBuilder extends PropertyBuilder {
      */
     boolean() {
         this.data.boolean = true;
+        return this;
+    }
+
+    /**
+     * To skip the link between the attribute and its property
+     * @returns {AttributeBuilder} the builder
+     */
+    unbound() {
+        this.data.bound = false;
         return this;
     }
 
@@ -123,18 +133,21 @@ export class AttributeBuilder extends PropertyBuilder {
                 set: this.data.setterFactory(this.data.attrName, this.data.boolean)
             };
 
-        Object.defineProperty(proto, this.data.propName, descriptor);
+        if (this.data.bound) {
+            Object.defineProperty(proto, this.data.propName, descriptor);
+        }
 
         on('after:createdCallback').invoke(el => {
-            let attrValue = getAttValue(el, this.data.attrName, this.data.boolean);
-            if (this.data.boolean) {
-                el[this.data.propName] = !!defaultValue ? defaultValue : attrValue;
-            } else if (!isNull(attrValue) && !isUndefined(attrValue)) {
-                el[this.data.propName] = attrValue;
-            } else if (!isUndefined(defaultValue)) {
-                el[this.data.propName] = defaultValue;
+            if (this.data.bound) {
+                let attrValue = getAttValue(el, this.data.attrName, this.data.boolean);
+                if (this.data.boolean) {
+                    el[this.data.propName] = !!defaultValue ? defaultValue : attrValue;
+                } else if (!isNull(attrValue) && !isUndefined(attrValue)) {
+                    el[this.data.propName] = attrValue;
+                } else if (!isUndefined(defaultValue)) {
+                    el[this.data.propName] = defaultValue;
+                }
             }
-
             if (this.data.listeners.length > 0) {
                 let oldValue = this.data.boolean ? false : null;
                 let setValue = el[this.data.propName];
@@ -147,9 +160,11 @@ export class AttributeBuilder extends PropertyBuilder {
         on('before:attributeChangedCallback').invoke((el, attName, oldVal, newVal) => {
             // Synchronize the attribute value with its properties
             if (attName === this.data.attrName) {
-                let newValue = this.data.boolean ? newVal === '' : newVal;
-                if (el[this.data.propName] !== newValue) {
-                    el[this.data.propName] = newValue;
+                if (this.data.bound) {
+                    let newValue = this.data.boolean ? newVal === '' : newVal;
+                    if (el[this.data.propName] !== newValue) {
+                        el[this.data.propName] = newValue;
+                    }
                 }
                 if (this.data.listeners.length > 0) {
                     let oldValue = this.data.boolean ? oldVal === '' : oldVal;
