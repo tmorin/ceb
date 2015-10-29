@@ -26,17 +26,6 @@ module.exports = function (config) {
 
         reporters: ['progress'],
 
-        coverageReporter: {
-            dir: './.tmp/cov',
-            reporters: [{
-                type: 'lcov',
-                subdir: 'lcov'
-            }, {
-                type: 'html',
-                subdir: 'html'
-            }]
-        },
-
         port: 9877,
 
         colors: true,

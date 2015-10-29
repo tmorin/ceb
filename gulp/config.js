@@ -39,12 +39,12 @@ module.exports = {
     }],
     paths: paths,
     sauceTasks: {
-        ie: ['slIe11', 'slIe10', 'slIe9'],
-        evergreen: ['slChrome', 'slFirefox'],
-        safari: ['slSafari7', 'slSafari8'],
-        android: ['slAndroid4', 'slAndroid5'],
-        //iphone: ['slIPhone7', 'slIPhone8'],
-        //ipad: ['slIPad7', 'slIPad8']
+        ie: ['slIe11'/*, 'slIe10', 'slIe9'*/]/*,
+         evergreen: ['slChrome', 'slFirefox'],
+         safari: ['slSafari7', 'slSafari8'],
+         android: ['slAndroid4', 'slAndroid5'],
+         iphone: ['slIPhone7', 'slIPhone8'],
+         ipad: ['slIPad7', 'slIPad8']*/
     },
     customLaunchers: {
         slChrome: {
