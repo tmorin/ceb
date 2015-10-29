@@ -44,7 +44,7 @@ module.exports = {
          safari: ['slSafari7', 'slSafari8'],
          android: ['slAndroid4', 'slAndroid5'],*/
         iphone: ['slIPhone7', 'slIPhone8'],
-        ipad: ['slIPad7', 'slIPad8']
+        //ipad: ['slIPad7', 'slIPad8']
     },
     customLaunchers: {
         slChrome: {
