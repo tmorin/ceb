@@ -62,8 +62,8 @@ export class CustomElementBuilder {
      * @param {!string} value the name of the element
      * @returns {CustomElementBuilder} the builder
      */
-    extends(value) {
-        this.context.extends = value;
+    extend(value) {
+        this.context.extend = value;
         return this;
     }
 
@@ -82,7 +82,7 @@ export class CustomElementBuilder {
      * @param {...Builder} builders the builders
      * @returns {CustomElementBuilder} the builder
      */
-    augment(...builders) {
+    builders(...builders) {
         builders.forEach(builder => this.context.builders.push(builder));
         return this;
     }
@@ -117,8 +117,8 @@ export class CustomElementBuilder {
 
         let options = {prototype: this.context.proto};
 
-        if (isString(this.context.extends)) {
-            options.extends = this.context.extends;
+        if (isString(this.context.extend)) {
+            options.extends = this.context.extend;
         }
 
         this.context.events['before:registerElement'].forEach(fn => fn(this.context));

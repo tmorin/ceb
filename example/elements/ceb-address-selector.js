@@ -1,8 +1,8 @@
 import $ from 'jquery';
-import 'bootstrap';
-import {ceb, method, template, attribute, delegate, on} from 'es6/lib/ceb.js';
+import {ceb, method, template, attribute, delegate, on} from '../../es6/lib/ceb.js';
 import {baconify, trigger} from '../builders/baconify.js';
-import {fromPromise, once} from 'bacon';
+import {fromPromise, once} from 'baconjs';
+
 
 $.support.cors = true;
 
@@ -37,7 +37,7 @@ function getKeyCode(evt) {
 /**
  * The <code>CebAddressSelector</code> element.
  */
-export default ceb().augment(
+export default ceb().builders(
     template(`
         <div class="input-group">
             <input type="text" placeholder="a place" class="form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

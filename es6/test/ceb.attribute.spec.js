@@ -16,7 +16,7 @@ describe('ceb.attribute()', function () {
     });
 
     it('should define an attribute', () => {
-        builder.augment(attribute('att1')).register('test-attribute');
+        builder.builders(attribute('att1')).register('test-attribute');
         let el = document.createElement('test-attribute');
         el.setAttribute('att1', 'value');
         expect(el.att1).to.be.eq('value');
@@ -24,7 +24,7 @@ describe('ceb.attribute()', function () {
     });
 
     it('should define an unbound attribute', () => {
-        builder.augment(attribute('att1').unbound()).register('test-unbound-attribute');
+        builder.builders(attribute('att1').unbound()).register('test-unbound-attribute');
         let el = document.createElement('test-unbound-attribute');
         el.setAttribute('att1', 'fromAttr');
         expect(el.att1).to.be.undefined;
@@ -35,7 +35,7 @@ describe('ceb.attribute()', function () {
     });
 
     it('should define an attribute with a default value', (done) => {
-        builder.augment(attribute('att1').value('default')).register('test-attribute-default');
+        builder.builders(attribute('att1').value('default')).register('test-attribute-default');
         let el = document.createElement('test-attribute-default');
         setTimeout(function () {
             expect(el.att1).to.be.eq('default');
@@ -45,7 +45,7 @@ describe('ceb.attribute()', function () {
     });
 
     it('should define an attribute bound to the same property name', () => {
-        builder.augment(attribute('att1')).register('test-bound-attribute');
+        builder.builders(attribute('att1')).register('test-bound-attribute');
         let el = document.createElement('test-bound-attribute');
         el.att1 = 'fromProp';
         expect(el.att1).to.be.eq('fromProp');
@@ -56,7 +56,7 @@ describe('ceb.attribute()', function () {
     });
 
     it('should define an attribute bound to another property name', () => {
-        builder.augment(attribute('att1').property('prop1')).register('test-alt-bound-attribute');
+        builder.builders(attribute('att1').property('prop1')).register('test-alt-bound-attribute');
         let el = document.createElement('test-alt-bound-attribute');
         el.prop1 = 'fromProp';
         expect(el.prop1).to.be.eq('fromProp');
@@ -68,7 +68,7 @@ describe('ceb.attribute()', function () {
 
     it('should not define setter for attribute', () => {
         let setter = (el, value) => value + '1';
-        builder.augment(attribute('att1').setter(setter)).register('test-setter-attribute');
+        builder.builders(attribute('att1').setter(setter)).register('test-setter-attribute');
         let el = document.createElement('test-setter-attribute');
 
         el.att1 = 'fromProp';
@@ -82,7 +82,7 @@ describe('ceb.attribute()', function () {
 
     it('should not define getter for attribute', () => {
         let getter = (el, value) => value + '1';
-        builder.augment(attribute('att1').getter(getter)).register('test-getter-attribute');
+        builder.builders(attribute('att1').getter(getter)).register('test-getter-attribute');
         let el = document.createElement('test-getter-attribute');
 
         el.att1 = 'fromProp';
@@ -96,7 +96,7 @@ describe('ceb.attribute()', function () {
 
     it('should define listener for attribute', (done) => {
         let listener = sinon.spy();
-        builder.augment(attribute('att1').listen(listener)).register('test-listener-attribute');
+        builder.builders(attribute('att1').listen(listener)).register('test-listener-attribute');
         let el = document.createElement('test-listener-attribute');
         el.att1 = 'fromProp';
         setTimeout(() => {
@@ -113,7 +113,7 @@ describe('ceb.attribute()', function () {
 
     it('should define listener for boolean attribute', (done) => {
         let listener = sinon.spy();
-        builder.augment(attribute('att1').boolean().listen(listener)).register('test-listener-boolean-attribute');
+        builder.builders(attribute('att1').boolean().listen(listener)).register('test-listener-boolean-attribute');
         let el = document.createElement('test-listener-boolean-attribute');
         el.att1 = true;
         setTimeout(() => {

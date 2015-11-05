@@ -17,19 +17,19 @@ describe('ceb.template()', ()=> {
     });
 
     it('should apply a string template', () => {
-        builder.augment(template(`<button></button>`)).register('ceb-template-string');
+        builder.builders(template(`<button></button>`)).register('ceb-template-string');
         var el = document.createElement('ceb-template-string');
         expect(el.innerHTML).to.be.eq('<button></button>');
     });
 
     it('should apply a function template', () => {
-        builder.augment(template(el => `<button>${el.tagName.toLowerCase()}</button>`)).register('ceb-template-function');
+        builder.builders(template(el => `<button>${el.tagName.toLowerCase()}</button>`)).register('ceb-template-function');
         var el = document.createElement('ceb-template-function');
         expect(el.innerHTML).to.be.eq('<button>ceb-template-function</button>');
     });
 
     it('should handle content node', (done) => {
-        builder.augment(template(`
+        builder.builders(template(`
             <p>pseudo shadow DOM</p>
             <content></content>
             <p>pseudo shadow DOM</p>
@@ -50,7 +50,7 @@ describe('ceb.template()', ()=> {
     });
 
     it('should handle ceb-content attribute', (done) => {
-        builder.augment(template(`
+        builder.builders(template(`
             <p>pseudo shadow DOM</p>
             <p ceb-content></p>
             <p>pseudo shadow DOM</p>
@@ -71,13 +71,13 @@ describe('ceb.template()', ()=> {
     });
 
     it('should handle embedded light nodes', (done) => {
-        ceb().augment(template(`
+        ceb().builders(template(`
             <p id="parent-before">pseudo parent shadow DOM</p>
             <ceb-template-embedded-child><content></content></ceb-template-embedded-child>
             <p id="parent-after">pseudo parent shadow DOM</p>
         `)).register('ceb-template-embedded-parent');
 
-        ceb().augment(template(`
+        ceb().builders(template(`
             <p id="child-before">pseudo child shadow DOM</p>
             <content></content>
             <p id="child-after">pseudo child shadow DOM</p>
@@ -97,13 +97,13 @@ describe('ceb.template()', ()=> {
     });
 
     it('should handle embedded light nodes v2', (done) => {
-        ceb().augment(template(`
+        ceb().builders(template(`
             <p id="parent-before">pseudo parent shadow DOM</p>
             <content></content>
             <p id="parent-after">pseudo parent shadow DOM</p>
         `)).register('ceb-template-embedded-parent-v2');
 
-        ceb().augment(template(`
+        ceb().builders(template(`
             <p id="child-before">pseudo child shadow DOM</p>
             <content></content>
             <p id="child-before">pseudo child shadow DOM</p>
@@ -126,13 +126,13 @@ describe('ceb.template()', ()=> {
     });
 
     it('should be cloned', (done) => {
-        ceb().augment(template(`
+        ceb().builders(template(`
             <p id="parent-before">pseudo parent shadow DOM</p>
             <content></content>
             <p id="parent-after">pseudo parent shadow DOM</p>
         `)).register('ceb-template-clone-parent');
 
-        ceb().augment(template(`
+        ceb().builders(template(`
             <p id="child-before">pseudo child shadow DOM</p>
             <content></content>
             <p id="child-before">pseudo child shadow DOM</p>

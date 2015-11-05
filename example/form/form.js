@@ -1,5 +1,5 @@
-import {ceb, property, attribute} from 'es6/lib/ceb.js';
-import {toArray, isNull, isUndefined} from 'es6/lib/utils.js';
+import {ceb, property, attribute} from '../../es6/lib/ceb.js';
+import {toArray, isNull, isUndefined} from '../../es6/lib/utils.js';
 
 function getElementValue(element) {
     if (element.type === 'time' || element.type === 'date') {
@@ -77,7 +77,7 @@ function formToObject(form) {
     });
     return result;
 }
-export default ceb().proto(Object.create(HTMLFormElement.prototype)).extends('form').augment(
+export default ceb().proto(Object.create(HTMLFormElement.prototype)).extend('form').builders(
     attribute('prevent-submit')
         .boolean()
         .listen((el, oldValue, newValue) => el.setAttribute('onsubmit', newValue ? 'return false;' : '')),

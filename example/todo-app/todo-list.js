@@ -1,9 +1,9 @@
-import {ceb, property} from 'es6/lib/ceb.js';
+import {ceb, property} from '../../es6/lib/ceb.js';
 import {idomify} from '../builders/idomify.js';
 import {todoify} from './todoify.js';
 import './todo-list-item.js';
 
-ceb().augment(
+ceb().builders(
     idomify(`
         <tpl-if expression="data.items.length < 1">
             <p class="text-muted">no todos to display</p>

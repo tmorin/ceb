@@ -19,22 +19,82 @@ module.exports = {
         distPath: 'dist/standalone',
         min: true,
         watch: true
+    }, {
+        entry: 'example/ceb-address-selector.js',
+        standalone: 'ceb-address-selector',
+        modules: 'umd',
+        distName: 'ceb-address-selector.js',
+        distPath: 'dist/example',
+        min: false,
+        watch: true
+    }, {
+        entry: 'example/ceb-form.js',
+        standalone: 'ceb-form',
+        modules: 'umd',
+        distName: 'ceb-form.js',
+        distPath: 'dist/example',
+        min: false,
+        watch: true
+    }, {
+        entry: 'example/ceb-grid.js',
+        standalone: 'ceb-grid',
+        modules: 'umd',
+        distName: 'ceb-grid.js',
+        distPath: 'dist/example',
+        min: false,
+        watch: true
+    }, {
+        entry: 'example/ceb-list.js',
+        standalone: 'ceb-list',
+        modules: 'umd',
+        distName: 'ceb-list.js',
+        distPath: 'dist/example',
+        min: false,
+        watch: true
+    }, {
+        entry: 'example/ceb-list-plusplus.js',
+        standalone: 'ceb-list-plusplus',
+        modules: 'umd',
+        distName: 'ceb-list-plusplus.js',
+        distPath: 'dist/example',
+        min: false,
+        watch: true
+    }, {
+        entry: 'example/ceb-templator.js',
+        standalone: 'ceb-templator',
+        modules: 'umd',
+        distName: 'ceb-templator.js',
+        distPath: 'dist/example',
+        min: false,
+        watch: true
+    }, {
+        entry: 'example/todo-app.js',
+        standalone: 'todo-app',
+        modules: 'umd',
+        distName: 'todo-app.js',
+        distPath: 'dist/example',
+        min: false,
+        watch: true
     }],
     babelify: [{
         src: paths.lib,
-        modules: 'common',
+        presets: ['es2015'],
+        plugins: ['transform-es2015-modules-commonjs'],
         dest: 'lib'
     }, {
         src: paths.lib,
-        modules: 'umd',
+        presets: ['es2015'],
+        plugins: ['transform-es2015-modules-umd'],
         dest: 'dist/umd'
     }, {
         src: paths.lib,
-        modules: 'amd',
+        presets: ['es2015'],
+        plugins: ['transform-es2015-modules-amd'],
         dest: 'dist/amd'
     }, {
         src: paths.lib,
-        modules: 'system',
+        presets: ['es2015'],
+        plugins: ['transform-es2015-modules-systemjs'],
         dest: 'dist/system'
     }],
     paths: paths,

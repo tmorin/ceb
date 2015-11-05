@@ -21,7 +21,13 @@ module.exports = function (config) {
         },
 
         browserify: {
-            transform: ['babelify']
+            debug: true,
+            transform: [
+                ['babelify', {
+                    presets: ['es2015'],
+                    plugins: ['transform-es2015-modules-commonjs']
+                }]
+            ]
         },
 
         reporters: ['progress'],

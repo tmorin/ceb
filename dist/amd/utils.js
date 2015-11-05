@@ -1,10 +1,7 @@
-define(['exports'], function (exports) {
-    /**
-     * @ignore
-     */
-    'use strict';
+'use strict';
 
-    Object.defineProperty(exports, '__esModule', {
+define(['exports'], function (exports) {
+    Object.defineProperty(exports, "__esModule", {
         value: true
     });
     exports.camelCase = camelCase;
@@ -29,58 +26,30 @@ define(['exports'], function (exports) {
         }).join('');
     }
 
-    /**
-     * @ignore
-     */
-
     function isFunction(i) {
         return Object.prototype.toString.call(i) === '[object Function]';
     }
-
-    /**
-     * @ignore
-     */
 
     function isUndefined(i) {
         return i === undefined;
     }
 
-    /**
-     * @ignore
-     */
-
     function isNull(i) {
         return i === null;
     }
-
-    /**
-     * @ignore
-     */
 
     function isString(i) {
         return Object.prototype.toString.call(i) === '[object String]';
     }
 
-    /**
-     * @ignore
-     */
-
     function isArray(i) {
         return Object.prototype.toString.call(i) === '[object Array]';
     }
-
-    /**
-     * @ignore
-     */
 
     function result(obj, prop) {
         var value = obj[prop];
         return isFunction(value) ? value() : value;
     }
-
-    /**
-     * @ignore
-     */
 
     function assign() {
         return Array.prototype.reduce.call(arguments, function (target, source) {
@@ -91,17 +60,9 @@ define(['exports'], function (exports) {
         });
     }
 
-    /**
-     * @ignore
-     */
-
     function toArray(i) {
         return Array.prototype.slice.call(i);
     }
-
-    /**
-     * @ignore
-     */
 
     function flatten(array) {
         return array.reduce(function (a, b) {
@@ -109,14 +70,11 @@ define(['exports'], function (exports) {
         }, []);
     }
 
-    /**
-     * @ignore
-     */
-
     function invoke() {
         var args = toArray(arguments),
             objects = args.shift(),
             meth = args.shift();
+
         if (isArray(objects)) {
             objects.filter(function (obj) {
                 return isFunction(obj[meth]);
@@ -126,10 +84,6 @@ define(['exports'], function (exports) {
         }
     }
 
-    /**
-     * @ignore
-     */
-
     function partial() {
         var args = toArray(arguments),
             fn = args.shift();
@@ -138,27 +92,15 @@ define(['exports'], function (exports) {
         };
     }
 
-    /**
-     * @ignore
-     */
-
     function bind(fn, ctx) {
         return function () {
             return fn.apply(ctx, toArray(arguments));
         };
     }
 
-    /**
-     * @ignore
-     */
-
     function noop() {
         return function () {};
     }
-
-    /**
-     * @ignore
-     */
 
     function find(array, cb) {
         return array.filter(cb)[0];

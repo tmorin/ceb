@@ -26,7 +26,7 @@ The registered custom element will have a property `att1` bound to an attribute 
 ```javascript
 import {ceb, attribute} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         attribute('att1')
     )
     .register('ceb-example');
@@ -41,7 +41,7 @@ And when the property `att1` is `false`, the attribute `att1` is not present int
 ```javascript
 import {ceb, attribute} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         attribute('att1').boolean()
     )
     .register('ceb-example');
@@ -58,7 +58,7 @@ But the property `att1` will not be defined, and obviously not bound the attribu
 ```javascript
 import {ceb, attribute} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         attribute('att1').unbound()
     )
     .register('ceb-example');
@@ -71,7 +71,7 @@ The registered custom element will have a property `prop1` bound to an attribute
 ```javascript
 import {ceb, attribute} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         attribute('att1').property('prop1')
     )
     .register('ceb-example');
@@ -86,7 +86,7 @@ Otherwise, it will be string values.
 ```javascript
 import {ceb, attribute} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         attribute('att1')
             .setter((el, value) => parseInt(value, 0) + 1)
             .listen((el, oldVal, newVal) => {

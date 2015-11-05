@@ -11,7 +11,7 @@ var config = require('../config');
 var minify = require('../minify');
 var assign = require('lodash/object/assign');
 
-function bundlelify(entry, standalone, modules, args) {
+function bundlelify(entry, standalone, args) {
     var options = {
         entries: [entry],
         standalone: standalone
@@ -21,7 +21,8 @@ function bundlelify(entry, standalone, modules, args) {
     }
     var bundler = browserify(options);
     bundler.transform(babelify.configure({
-        modules: modules
+        plugins: ['transform-es2015-modules-commonjs'],
+        presets: ['es2015']
     }));
     return bundler;
 }
@@ -36,8 +37,8 @@ function streamify(bundler, distName, distPath, min) {
 }
 exports.streamify = streamify;
 
-function build(entry, standalone, modules, distName, distPath, min) {
-    var bundler = bundlelify(entry, standalone, modules);
+function build(entry, standalone, distName, distPath, min) {
+    var bundler = bundlelify(entry, standalone);
     return streamify(bundler, distName, distPath, min);
 }
 exports.build = build;
@@ -51,14 +52,14 @@ var taskNames = config.browserify.map(function (item) {
         var minTaskName = baseTaskName + ':min';
         taskNames.push(minTaskName);
         gulp.task(minTaskName, ['lint'], function () {
-            return build(item.entry, item.standalone, item.modules, item.distName, item.distPath, item.min);
+            return build(item.entry, item.standalone, item.distName, item.distPath, item.min);
         });
     }
 
     var plainTaskName = baseTaskName;
     taskNames.push(plainTaskName);
     gulp.task(plainTaskName, ['lint'], function () {
-        return build(item.entry, item.standalone, item.modules, item.distName, item.distPath);
+        return build(item.entry, item.standalone, item.distName, item.distPath);
     });
 
     return taskNames;

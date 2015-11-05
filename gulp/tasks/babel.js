@@ -5,10 +5,11 @@ var gulpif = require('gulp-if');
 var minify = require('../minify');
 var config = require('../config');
 
-function build(src, modules, dest, min) {
+function build(src, plugins, dest, min) {
     return gulp.src(src)
         .pipe(babel({
-            modules: modules
+            presets: ['es2015'],
+            plugins: plugins
         }))
         .pipe(gulpif(min, minify()))
         .pipe(gulp.dest(dest));
@@ -23,14 +24,14 @@ var taskNames = config.babelify.map(function (item) {
         var minTaskName = baseTaskName + ':min';
         taskNames.push(minTaskName);
         gulp.task(minTaskName, ['lint'], function () {
-            return build(item.src, item.modules, item.dest, true);
+            return build(item.src, item.plugins, item.dest, true);
         });
     }
 
     var plainTaskName = baseTaskName;
     taskNames.push(plainTaskName);
     gulp.task(plainTaskName, ['lint'], function () {
-        return build(item.src, item.modules, item.dest, false);
+        return build(item.src, item.plugins, item.dest, false);
     });
 
     return taskNames;

@@ -1,8 +1,8 @@
 import $ from 'jquery';
 
-import {ceb, attribute} from 'es6/lib/ceb.js';
+import {ceb, attribute} from '../../es6/lib/ceb.js';
 
-export default ceb().augment(
+export default ceb().builders(
     attribute('glyphicon').listen((el, oldValue, newValue) => {
         let $el = $(el);
         $el.removeClass('glyphicon glyphicon-' + oldValue);

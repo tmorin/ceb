@@ -25,7 +25,7 @@ When the method is invoked, the returned value could be `Hello world! from ceb-e
 ```javascript
 import {ceb, method} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         method('meth1').invoke((el, name) => `Hello ${name}! from ${el.tagName}`)
     )
     .register('ceb-example');
@@ -40,7 +40,7 @@ When the method is invoked, the returned value could be `HELLO WORLD! FROM CEB-E
 ```javascript
 import {ceb, attribute} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         method('meth1')
             .invoke((el, name) => `Hello ${name}! from ${el.tagName}`)
             .wrap((next, el, name) => next(el, name.toTrim()).toUpperCase())

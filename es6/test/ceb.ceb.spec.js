@@ -18,9 +18,9 @@ describe('ceb.ceb()', () => {
         sandbox.innerHTML = '';
     });
 
-    it('should handle the extends and prototype', () => {
+    it('should handle extend and prototype', () => {
         var CustomElement = builder
-            .extends('button')
+            .extend('button')
             .proto(Object.create(HTMLButtonElement.prototype))
             .register('test-button');
         expect(CustomElement).to.exists;
@@ -113,9 +113,9 @@ describe('ceb.ceb()', () => {
         }, 10);
     });
 
-    it('should handle augment', done => {
+    it('should handle builders', done => {
         var build = sinon.spy();
-        builder.augment({build: build}).register('test-augment');
+        builder.builders({build: build}).register('test-builders-handlers');
         setTimeout(() => {
             expect(build).to.have.been.calledOnce;
             expect(build).to.have.been.calledWith(sinon.match(Object), sinon.match(builder.on));

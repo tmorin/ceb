@@ -10,10 +10,15 @@ gulp.task('karma:watch', ['lint'], function (done) {
         autoWatch: true,
         singleRun: false,
         browserify: {
-            transform: ['babelify'],
             watchify: {
                 poll: true
-            }
+            },
+            transform: [
+                ['babelify', {
+                    presets: ['es2015'],
+                    plugins: ['transform-es2015-modules-commonjs']
+                }]
+            ]
         }
     }, done).start();
 });

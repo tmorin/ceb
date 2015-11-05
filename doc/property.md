@@ -23,7 +23,7 @@ But, the property can not be deleted, and its value can not be updated.
 ```javascript
 import {ceb, property} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         property('prop1').immutable().value('value1')
     )
     .register('ceb-example');
@@ -41,7 +41,7 @@ So, fill free to forget the `this` keyword.
 ```javascript
 import {ceb, property} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         property('prop1')
             .setter((el, value) => {
                 el._prop1 = value + 1; 

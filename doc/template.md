@@ -18,7 +18,7 @@ The template can be given as a `string` or a `function`. The function will be ca
 ```javascript
 import {ceb, template} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         template(`<button></button>`)
     )
     .register('ceb-example');
@@ -27,7 +27,7 @@ ceb()
 ```javascript
 import {ceb, template} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         template(el => `<button>${el.tagName}</button>`)
     )
     .register('ceb-example');
@@ -62,7 +62,7 @@ So, given the following custom element:
 ```javascript
 import {ceb, template, attribute, delegate} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         delegate(attribute('icon')).to('i').setter((el, name) => `fa fa-${name}`).attribute('class'),
         template(`
             <button>

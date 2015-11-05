@@ -33,7 +33,7 @@
 
     <script>
         var tpl = document.getElementById('ceb-button-template').textContent;
-        ceb.ceb().augment(
+        ceb.ceb().builders(
             ceb.template(tpl),
             ceb.delegate(ceb.attribute('name')).to('button'),
             ceb.delegate(ceb.attribute('disabled').boolean()).to('button').property(),

@@ -1,21 +1,13 @@
+'use strict';
+
 System.register(['../utils.js', './Builder.js'], function (_export) {
+    var isFunction, toArray, partial, bind, Builder, _createClass, MethodBuilder;
 
-    /**
-     * The method builder.
-     * Its goal is to provide a way to define a method.
-     * @extends {Builder}
-     */
-    'use strict';
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    var isFunction, toArray, partial, bind, Builder, MethodBuilder;
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-    var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-    var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-    function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
     return {
         setters: [function (_utilsJs) {
@@ -27,28 +19,22 @@ System.register(['../utils.js', './Builder.js'], function (_export) {
             Builder = _BuilderJs.Builder;
         }],
         execute: function () {
-            MethodBuilder = (function (_Builder) {
-                _inherits(MethodBuilder, _Builder);
+            _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-                /**
-                 * @param {!string} methName the name of the method
-                 */
+            _export('MethodBuilder', MethodBuilder = (function (_Builder) {
+                _inherits(MethodBuilder, _Builder);
 
                 function MethodBuilder(methName) {
                     _classCallCheck(this, MethodBuilder);
 
-                    _get(Object.getPrototypeOf(MethodBuilder.prototype), 'constructor', this).call(this);
-                    /**
-                     * @ignore
-                     */
-                    this.data = { methName: methName, wrappers: [] };
-                }
+                    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MethodBuilder).call(this));
 
-                /**
-                 * To do something when invoked.
-                 * @param {!function(el: HTMLElement, args: ...*)} fn the method's logic
-                 * @returns {MethodBuilder} the builder
-                 */
+                    _this.data = {
+                        methName: methName,
+                        wrappers: []
+                    };
+                    return _this;
+                }
 
                 _createClass(MethodBuilder, [{
                     key: 'invoke',
@@ -56,14 +42,9 @@ System.register(['../utils.js', './Builder.js'], function (_export) {
                         if (isFunction(fn)) {
                             this.data.invoke = fn;
                         }
+
                         return this;
                     }
-
-                    /**
-                     * To do something around the invocation.
-                     * @param {...function(el: HTMLElement, args: ...*)} wrappers a set of wrappers
-                     * @returns {MethodBuilder} the builder
-                     */
                 }, {
                     key: 'wrap',
                     value: function wrap() {
@@ -74,10 +55,6 @@ System.register(['../utils.js', './Builder.js'], function (_export) {
                         this.data.wrappers = this.data.wrappers.concat(wrappers);
                         return this;
                     }
-
-                    /**
-                     * @override
-                     */
                 }, {
                     key: 'build',
                     value: function build(proto, on) {
@@ -100,10 +77,12 @@ System.register(['../utils.js', './Builder.js'], function (_export) {
                                             args.shift();
                                             original.apply(el, args);
                                         };
+
                                         el[data.methName] = data.wrappers.reduce(function (next, current, index) {
                                             if (index === lastIndex) {
                                                 return bind(partial(current, next, el), el);
                                             }
+
                                             return bind(partial(current, next), el);
                                         }, target);
                                     })();
@@ -114,7 +93,7 @@ System.register(['../utils.js', './Builder.js'], function (_export) {
                 }]);
 
                 return MethodBuilder;
-            })(Builder);
+            })(Builder));
 
             _export('MethodBuilder', MethodBuilder);
         }

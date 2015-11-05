@@ -1,4 +1,4 @@
-import {ceb, attribute, method} from 'es6/lib/ceb.js';
+import {ceb, attribute, method} from '../../es6/lib/ceb.js';
 import handlebars from 'handlebars';
 
 const renderers = {
@@ -7,7 +7,7 @@ const renderers = {
     }
 };
 
-ceb().proto(Object.create(HTMLScriptElement.prototype)).extends('script').augment(
+ceb().proto(Object.create(HTMLScriptElement.prototype)).extend('script').builders(
     attribute('type'),
 
     method('createdCallback').invoke(el=> {

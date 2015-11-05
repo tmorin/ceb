@@ -16,7 +16,7 @@
         System.import('../dist/system/ceb.js').then(function (ceb) {
             console.log(ceb);
             var tpl = document.getElementById('ceb-button-template').textContent;
-            ceb.ceb().augment(
+            ceb.ceb().builders(
                 ceb.template(tpl),
                 ceb.delegate(ceb.attribute('name')).to('button'),
                 ceb.delegate(ceb.attribute('disabled').boolean()).to('button').property(),

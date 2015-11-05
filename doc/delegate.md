@@ -33,7 +33,7 @@ but its value is really hosted by the first child button found.
 ```javascript
 import {ceb, attribute, delegate} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         delegate(attribute('disabled')).to('button')
     )
     .register('ceb-example');
@@ -49,7 +49,7 @@ There, the attribute delegates to a property having another name.
 ```javascript
 import {ceb, attribute, delegate} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         delegate(attribute('custom-disabled')).to('button').property('disabled')
     )
     .register('ceb-example');
@@ -64,7 +64,7 @@ There, the invocation of the method `focus` will invoke the method `focus` of th
 ```javascript
 import {ceb, method, delegate} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         delegate(method('focus')).to('button')
     )
     .register('ceb-example');
@@ -79,7 +79,7 @@ There, the invocation of the method `applyFocus` will invoke the method `focus` 
 ```javascript
 import {ceb, method, delegate} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         delegate(method('applyFocus')).to('button').method('focus')
     )
     .register('ceb-example');

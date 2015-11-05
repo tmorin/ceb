@@ -17,7 +17,7 @@ describe('ceb.method()', function () {
 
     it('should define a method', () => {
         var meth1 = sinon.spy();
-        builder.augment(method('meth1').invoke(meth1)).register('test-method');
+        builder.builders(method('meth1').invoke(meth1)).register('test-method');
         var el = document.createElement('test-method');
         el.meth1(0, 1);
         expect(el.meth1).to.be.an.instanceof(Function);
@@ -39,7 +39,7 @@ describe('ceb.method()', function () {
             return next(el, a1, a2);
         });
 
-        builder.augment(method('meth1').invoke(meth1).wrap(wrapper1, wrapper2).wrap(wrapper3)).register('test-method-wrapper');
+        builder.builders(method('meth1').invoke(meth1).wrap(wrapper1, wrapper2).wrap(wrapper3)).register('test-method-wrapper');
         var el = document.createElement('test-method-wrapper');
         el.meth1(0, 1);
         expect(el.meth1).to.be.an.instanceof(Function);

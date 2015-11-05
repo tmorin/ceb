@@ -1,7 +1,7 @@
-import {ceb, property, method, on} from 'es6/lib/ceb.js';
+import {ceb, property, method, on} from '../../es6/lib/ceb.js';
 import {idomify} from '../builders/idomify.js';
 
-ceb().augment(
+ceb().builders(
     idomify(`
         <form class="add">
             <div class="input-group">

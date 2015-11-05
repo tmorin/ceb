@@ -10,38 +10,6 @@
     <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css"/>
 
     <script src="node_modules/document-register-element/build/document-register-element.js"></script>
-    <script src="node_modules/babel-core/browser.min.js"></script>
-    <script src="node_modules/systemjs/dist/system.js"></script>
-    <script src="config.js"></script>
-
-    <script>
-        System.import('form/index.js').then(function () {
-            var form = document.getElementById('theForm');
-            form.valueAsObject = {
-                identity: {
-                    firstname: 'John',
-                    lastname: 'Doe',
-                    sex: 'female',
-                    birthdate: new Date('1970-01-01'),
-                    weight: 75,
-                    height: 170
-                },
-                address: {
-                    street: 'Avenue de la gare, 20',
-                    city: 'Lausanne',
-                    postalCode: '1018',
-                    country: 'CH'
-                }
-            };
-            form.addEventListener('submit', function (evt) {
-                evt.preventDefault();
-                console.log(evt.target.valueAsObject);
-                var json = JSON.stringify(evt.target.valueAsObject, null, '  ');
-                alert('jsonified object:\n' + json + '\n\nThe object value is also displayed into the console.');
-            });
-        });
-
-    </script>
 
 </head>
 <body class="container">
@@ -139,6 +107,8 @@
         Reset
     </button>
 </form>
+
+<script src="../dist/example/ceb-form.js"></script>
 
 <script>
     (function (i, s, o, g, r, a, m) {

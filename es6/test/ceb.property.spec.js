@@ -17,7 +17,7 @@ describe('ceb.property()', function () {
     });
 
     it('should define an immutable property', () => {
-        builder.augment(property('prop1').immutable().value('value')).register('test-immutable-property');
+        builder.builders(property('prop1').immutable().value('value')).register('test-immutable-property');
         var el = document.createElement('test-immutable-property');
         expect(el.prop1).to.be.eq('value');
         try {
@@ -30,7 +30,7 @@ describe('ceb.property()', function () {
     });
 
     it('should define a mutable property', () => {
-        builder.augment(property('prop1').value('value')).register('test-mutable-property');
+        builder.builders(property('prop1').value('value')).register('test-mutable-property');
         var el = document.createElement('test-mutable-property');
         expect(el.prop1).to.be.eq('value');
         try {
@@ -43,7 +43,7 @@ describe('ceb.property()', function () {
     it('should define accessors property', () => {
         var getter = sinon.spy();
         var setter = sinon.spy();
-        builder.augment(property('prop1').value('value').getter(getter).setter(setter)).register('test-accessor-property');
+        builder.builders(property('prop1').value('value').getter(getter).setter(setter)).register('test-accessor-property');
         var el = document.createElement('test-accessor-property');
         expect(el.prop1).to.be.undefined;
         expect(getter).to.have.been.calledWith(el);

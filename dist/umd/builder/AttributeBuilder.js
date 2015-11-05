@@ -1,7 +1,9 @@
+'use strict';
+
 (function (global, factory) {
-    if (typeof define === 'function' && define.amd) {
+    if (typeof define === "function" && define.amd) {
         define(['exports', '../utils.js', './PropertyBuilder.js'], factory);
-    } else if (typeof exports !== 'undefined') {
+    } else if (typeof exports !== "undefined") {
         factory(exports, require('../utils.js'), require('./PropertyBuilder.js'));
     } else {
         var mod = {
@@ -10,62 +12,41 @@
         factory(mod.exports, global.utils, global.PropertyBuilder);
         global.AttributeBuilder = mod.exports;
     }
-})(this, function (exports, _utilsJs, _PropertyBuilderJs) {
-    'use strict';
-
-    Object.defineProperty(exports, '__esModule', {
+})(this, function (exports, _utils, _PropertyBuilder2) {
+    Object.defineProperty(exports, "__esModule", {
         value: true
     });
-
-    var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-    var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
+    exports.AttributeBuilder = undefined;
     exports.getAttValue = getAttValue;
     exports.setAttValue = setAttValue;
 
-    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+    var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-    /**
-     * Get the value from an attribute.
-     * @param {!HTMLElement} el an HTML element
-     * @param {!string} attrName the name of the attribute
-     * @param {!boolean} isBoolean true is the returned value should be a boolean
-     * @returns {string|boolean}
-     */
+    function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+    function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
     function getAttValue(el, attrName, isBoolean) {
         if (isBoolean) {
             return el.hasAttribute(attrName);
         }
+
         return el.getAttribute(attrName);
     }
 
-    /**
-     * Set the value of an attribute.
-     * @param {!HTMLElement} el an HTML element
-     * @param {!string} attrName the name of the attribute
-     * @param {!boolean} isBoolean true is the value should be a boolean
-     * @param {string|boolean} value the value to set
-     */
-
     function setAttValue(el, attrName, isBoolean, value) {
         if (isBoolean) {
-            // Handle boolean value
             if (value && !el.hasAttribute(attrName)) {
                 el.setAttribute(attrName, '');
             } else if (!value && el.hasAttribute(attrName)) {
                 el.removeAttribute(attrName);
             }
         } else {
-            // Handle none boolean value
-            if (((0, _utilsJs.isUndefined)(value) || (0, _utilsJs.isNull)(value)) && el.hasAttribute(attrName)) {
-                // There is no value, so the attribute must be removed
+            if (((0, _utils.isUndefined)(value) || (0, _utils.isNull)(value)) && el.hasAttribute(attrName)) {
                 el.removeAttribute(attrName);
-            } else if (!(0, _utilsJs.isUndefined)(value) && !(0, _utilsJs.isNull)(value) && el.getAttribute(attrName) !== value) {
-                // Sync the attribute value with value
+            } else if (!(0, _utils.isUndefined)(value) && !(0, _utils.isNull)(value) && el.getAttribute(attrName) !== value) {
                 el.setAttribute(attrName, value);
             }
         }
@@ -79,18 +60,12 @@
 
     function setterFactory(attrName, isBoolean, attSetter) {
         return function (value) {
-            var attValue = (0, _utilsJs.isFunction)(attSetter) ? attSetter.call(this, this, value) : value;
+            var attValue = (0, _utils.isFunction)(attSetter) ? attSetter.call(this, this, value) : value;
             return setAttValue(this, attrName, isBoolean, attValue);
         };
     }
 
-    /**
-     * The attribute builder.
-     * Its goal is to provide a way to define an attribute.
-     * @extends {PropertyBuilder}
-     */
-
-    var AttributeBuilder = (function (_PropertyBuilder) {
+    var AttributeBuilder = exports.AttributeBuilder = (function (_PropertyBuilder) {
         _inherits(AttributeBuilder, _PropertyBuilder);
 
         /**
@@ -100,11 +75,13 @@
         function AttributeBuilder(attrName) {
             _classCallCheck(this, AttributeBuilder);
 
-            _get(Object.getPrototypeOf(AttributeBuilder.prototype), 'constructor', this).call(this, (0, _utilsJs.camelCase)(attrName));
             /**
              * @ignore
              */
-            (0, _utilsJs.assign)(this.data, {
+
+            var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AttributeBuilder).call(this, (0, _utils.camelCase)(attrName)));
+
+            (0, _utils.assign)(_this.data, {
                 attrName: attrName,
                 bound: true,
                 listeners: [],
@@ -114,6 +91,7 @@
                 getAttValue: getAttValue,
                 setAttValue: setAttValue
             });
+            return _this;
         }
 
         /**
@@ -133,6 +111,7 @@
              * To skip the link between the attribute and its property
              * @returns {AttributeBuilder} the builder
              */
+
         }, {
             key: 'unbound',
             value: function unbound() {
@@ -145,6 +124,7 @@
              * @param {!string} propName the property name
              * @returns {AttributeBuilder} the builder
              */
+
         }, {
             key: 'property',
             value: function property(propName) {
@@ -157,6 +137,7 @@
              * @param {function(el: HTMLElement, oldVal: string, newVal: string)} listener the listener function
              * @returns {AttributeBuilder} the builder
              */
+
         }, {
             key: 'listen',
             value: function listen(listener) {
@@ -167,12 +148,13 @@
             /**
              * @override
              */
+
         }, {
             key: 'build',
             value: function build(proto, on) {
-                var _this = this;
+                var _this2 = this;
 
-                var defaultValue = (0, _utilsJs.result)(this.data, 'value'),
+                var defaultValue = (0, _utils.result)(this.data, 'value'),
                     descriptor = {
                     enumerable: this.data.enumerable,
                     configurable: false,
@@ -185,22 +167,22 @@
                 }
 
                 on('after:createdCallback').invoke(function (el) {
-                    if (_this.data.bound) {
-                        var attrValue = getAttValue(el, _this.data.attrName, _this.data.boolean);
-                        if (_this.data.boolean) {
-                            el[_this.data.propName] = !!defaultValue ? defaultValue : attrValue;
-                        } else if (!(0, _utilsJs.isNull)(attrValue) && !(0, _utilsJs.isUndefined)(attrValue)) {
-                            el[_this.data.propName] = attrValue;
-                        } else if (!(0, _utilsJs.isUndefined)(defaultValue)) {
-                            el[_this.data.propName] = defaultValue;
+                    if (_this2.data.bound) {
+                        var attrValue = getAttValue(el, _this2.data.attrName, _this2.data.boolean);
+                        if (_this2.data.boolean) {
+                            el[_this2.data.propName] = !!defaultValue ? defaultValue : attrValue;
+                        } else if (!(0, _utils.isNull)(attrValue) && !(0, _utils.isUndefined)(attrValue)) {
+                            el[_this2.data.propName] = attrValue;
+                        } else if (!(0, _utils.isUndefined)(defaultValue)) {
+                            el[_this2.data.propName] = defaultValue;
                         }
                     }
-                    if (_this.data.listeners.length > 0) {
+                    if (_this2.data.listeners.length > 0) {
                         (function () {
-                            var oldValue = _this.data.boolean ? false : null;
-                            var setValue = el[_this.data.propName];
+                            var oldValue = _this2.data.boolean ? false : null;
+                            var setValue = el[_this2.data.propName];
                             if (oldValue !== setValue) {
-                                _this.data.listeners.forEach(function (listener) {
+                                _this2.data.listeners.forEach(function (listener) {
                                     return listener.call(el, el, oldValue, setValue);
                                 });
                             }
@@ -210,19 +192,19 @@
 
                 on('before:attributeChangedCallback').invoke(function (el, attName, oldVal, newVal) {
                     // Synchronize the attribute value with its properties
-                    if (attName === _this.data.attrName) {
-                        if (_this.data.bound) {
-                            var newValue = _this.data.boolean ? newVal === '' : newVal;
-                            if (el[_this.data.propName] !== newValue) {
-                                el[_this.data.propName] = newValue;
+                    if (attName === _this2.data.attrName) {
+                        if (_this2.data.bound) {
+                            var newValue = _this2.data.boolean ? newVal === '' : newVal;
+                            if (el[_this2.data.propName] !== newValue) {
+                                el[_this2.data.propName] = newValue;
                             }
                         }
-                        if (_this.data.listeners.length > 0) {
+                        if (_this2.data.listeners.length > 0) {
                             (function () {
-                                var oldValue = _this.data.boolean ? oldVal === '' : oldVal;
-                                var setValue = _this.data.boolean ? newVal === '' : newVal;
+                                var oldValue = _this2.data.boolean ? oldVal === '' : oldVal;
+                                var setValue = _this2.data.boolean ? newVal === '' : newVal;
                                 if (oldValue !== setValue) {
-                                    _this.data.listeners.forEach(function (listener) {
+                                    _this2.data.listeners.forEach(function (listener) {
                                         return listener.call(el, el, oldValue, setValue);
                                     });
                                 }
@@ -234,7 +216,5 @@
         }]);
 
         return AttributeBuilder;
-    })(_PropertyBuilderJs.PropertyBuilder);
-
-    exports.AttributeBuilder = AttributeBuilder;
+    })(_PropertyBuilder2.PropertyBuilder);
 });

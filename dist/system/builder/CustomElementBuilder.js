@@ -1,11 +1,9 @@
+'use strict';
+
 System.register(['../utils.js'], function (_export) {
-    'use strict';
+    var isString, isFunction, toArray, flatten, invoke, partial, bind, _createClass, LIFECYCLE_CALLBACKS, LIFECYCLE_EVENTS, CustomElementBuilder;
 
-    var isString, isFunction, toArray, flatten, invoke, partial, bind, LIFECYCLE_CALLBACKS, LIFECYCLE_EVENTS, CustomElementBuilder;
-
-    var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+    function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
     function applyLifecycle(context, name) {
         var proto = context.proto,
@@ -17,7 +15,6 @@ System.register(['../utils.js'], function (_export) {
             var _this = this;
 
             var args = [this].concat(toArray(arguments));
-
             beforeFns.forEach(function (fn) {
                 return fn.apply(_this, args);
             });
@@ -32,10 +29,6 @@ System.register(['../utils.js'], function (_export) {
         };
     }
 
-    /**
-     * The custom element builder.
-     * Its goal is to provide a user friendly way to do it by some else (i.e. dedicated builders).
-     */
     return {
         setters: [function (_utilsJs) {
             isString = _utilsJs.isString;
@@ -47,16 +40,14 @@ System.register(['../utils.js'], function (_export) {
             bind = _utilsJs.bind;
         }],
         execute: function () {
+            _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
             LIFECYCLE_CALLBACKS = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
             LIFECYCLE_EVENTS = flatten(LIFECYCLE_CALLBACKS.map(function (name) {
                 return ['before:' + name, 'after:' + name];
             }));
 
-            CustomElementBuilder = (function () {
-
-                /**
-                 */
-
+            _export('CustomElementBuilder', CustomElementBuilder = (function () {
                 function CustomElementBuilder() {
                     _classCallCheck(this, CustomElementBuilder);
 
@@ -71,66 +62,40 @@ System.register(['../utils.js'], function (_export) {
                         'before:registerElement': [],
                         'after:registerElement': []
                     });
-                    /**
-                     * @type {Object}
-                     * @property {!Object} proto - the prototype
-                     * @property {!string} extends - the name of a native element
-                     * @desc the context of the builder
-                     */
-                    this.context = { proto: proto, builders: builders, events: events };
+                    this.context = {
+                        proto: proto,
+                        builders: builders,
+                        events: events
+                    };
                 }
 
-                /**
-                 * To extend a native element.
-                 * @param {!string} value the name of the element
-                 * @returns {CustomElementBuilder} the builder
-                 */
-
                 _createClass(CustomElementBuilder, [{
-                    key: 'extends',
-                    value: function _extends(value) {
-                        this.context['extends'] = value;
+                    key: 'extend',
+                    value: function extend(value) {
+                        this.context.extend = value;
                         return this;
                     }
-
-                    /**
-                     * To override the default prototype.
-                     * @param {!Object} value the prototype
-                     * @returns {CustomElementBuilder} the builder
-                     */
                 }, {
                     key: 'proto',
                     value: function proto(value) {
                         this.context.proto = value;
                         return this;
                     }
-
-                    /**
-                     * To apply the given builders during the build process.
-                     * @param {...Builder} builders the builders
-                     * @returns {CustomElementBuilder} the builder
-                     */
                 }, {
-                    key: 'augment',
-                    value: function augment() {
+                    key: 'builders',
+                    value: function builders() {
                         var _this2 = this;
 
-                        for (var _len = arguments.length, builders = Array(_len), _key = 0; _key < _len; _key++) {
-                            builders[_key] = arguments[_key];
+                        for (var _len = arguments.length, _builders = Array(_len), _key = 0; _key < _len; _key++) {
+                            _builders[_key] = arguments[_key];
                         }
 
-                        builders.forEach(function (builder) {
+                        _builders.forEach(function (builder) {
                             return _this2.context.builders.push(builder);
                         });
+
                         return this;
                     }
-
-                    /**
-                     * To register call back on events.
-                     * @param {!string} event the event name
-                     * @returns {Object} the on builder.
-                     * @property {function(callback: function)} invoke - to register the callback
-                     */
                 }, {
                     key: 'on',
                     value: function on(event) {
@@ -138,16 +103,14 @@ System.register(['../utils.js'], function (_export) {
 
                         var invoke = function invoke(cb) {
                             _this3.context.events[event].push(cb);
+
                             return _this3;
                         };
-                        return { invoke: invoke };
-                    }
 
-                    /**
-                     * To register the custom element.
-                     * @param {!string} name the name of the cutsom element
-                     * @returns {Element} the custom element Type
-                     */
+                        return {
+                            invoke: invoke
+                        };
+                    }
                 }, {
                     key: 'register',
                     value: function register(name) {
@@ -156,37 +119,32 @@ System.register(['../utils.js'], function (_export) {
                         this.context.events['before:builders'].forEach(function (fn) {
                             return fn(_this4.context);
                         });
-
                         invoke(this.context.builders, 'build', this.context.proto, bind(this.on, this));
-
                         this.context.events['after:builders'].forEach(function (fn) {
                             return fn(_this4.context);
                         });
-
                         LIFECYCLE_CALLBACKS.forEach(partial(applyLifecycle, this.context));
+                        var options = {
+                            prototype: this.context.proto
+                        };
 
-                        var options = { prototype: this.context.proto };
-
-                        if (isString(this.context['extends'])) {
-                            options['extends'] = this.context['extends'];
+                        if (isString(this.context.extend)) {
+                            options.extends = this.context.extend;
                         }
 
                         this.context.events['before:registerElement'].forEach(function (fn) {
                             return fn(_this4.context);
                         });
-
                         var CustomElement = document.registerElement(name, options);
-
                         this.context.events['after:registerElement'].forEach(function (fn) {
                             return fn(CustomElement);
                         });
-
                         return CustomElement;
                     }
                 }]);
 
                 return CustomElementBuilder;
-            })();
+            })());
 
             _export('CustomElementBuilder', CustomElementBuilder);
         }

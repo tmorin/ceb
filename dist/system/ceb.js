@@ -1,96 +1,7 @@
+'use strict';
+
 System.register(['./builder/CustomElementBuilder.js', './builder/PropertyBuilder.js', './builder/AttributeBuilder.js', './builder/DelegateBuilder.js', './builder/MethodBuilder.js', './builder/TemplateBuilder.js', './builder/OnBuilder.js', './builder/Builder.js'], function (_export) {
-
-  /**
-   * The base builder type
-   * @type {Builder} the builder
-   */
-  'use strict';
-
   var CustomElementBuilder, PropertyBuilder, AttributeBuilder, getAttValue, setAttValue, DelegateBuilder, MethodBuilder, TemplateBuilder, applyTemplate, OnBuilder, BuilderType, Builder;
-
-  /**
-   * Get a new property builder.
-   * @param {!string} propName the name of the property
-   * @returns {PropertyBuilder} the property builder
-   */
-
-  _export('ceb', ceb);
-
-  /**
-   * Get a new attribute builder.
-   * @param {!string} attrName the name of the attribute
-   * @returns {AttributeBuilder} the attribute builder
-   */
-
-  _export('property', property);
-
-  _export('attribute', attribute);
-
-  /**
-   * Get a new delegate builder.
-   * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} builder a property, attribute or method builder
-   * @returns {DelegateBuilder} the delegate builder
-   */
-
-  _export('method', method);
-
-  /**
-   * Get a new template builder.
-   * @param {!string|Function} tpl the string or function template
-   * @returns {TemplateBuilder} the template builder
-   */
-
-  _export('delegate', delegate);
-
-  _export('template', template);
-
-  _export('on', on);
-
-  /**
-   * Get a new custom element builder.
-   * @returns {CustomElementBuilder} the custom element builder
-   */
-
-  function ceb() {
-    return new CustomElementBuilder();
-  }
-
-  function property(propName) {
-    return new PropertyBuilder(propName);
-  }
-
-  function attribute(attrName) {
-    return new AttributeBuilder(attrName);
-  }
-
-  /**
-   * Get a new method builder.
-   * @param {!string} methName the name of the method
-   * @returns {MethodBuilder} the method builder
-   */
-
-  function method(methName) {
-    return new MethodBuilder(methName);
-  }
-
-  function delegate(builder) {
-    return new DelegateBuilder(builder);
-  }
-
-  function template(tpl) {
-    return new TemplateBuilder(tpl);
-  }
-
-  /**
-   * Get a new on builder.
-   * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
-   * @returns {OnBuilder} the on builder
-   */
-
-  function on(events) {
-    return new OnBuilder(events);
-  }
-
   return {
     setters: [function (_builderCustomElementBuilderJs) {
       CustomElementBuilder = _builderCustomElementBuilderJs.CustomElementBuilder;
@@ -113,13 +24,56 @@ System.register(['./builder/CustomElementBuilder.js', './builder/PropertyBuilder
       BuilderType = _builderBuilderJs.Builder;
     }],
     execute: function () {
-      Builder = BuilderType;
+      _export('Builder', Builder = BuilderType);
 
       _export('Builder', Builder);
 
+      function ceb() {
+        return new CustomElementBuilder();
+      }
+
+      _export('ceb', ceb);
+
+      function property(propName) {
+        return new PropertyBuilder(propName);
+      }
+
+      _export('property', property);
+
+      function attribute(attrName) {
+        return new AttributeBuilder(attrName);
+      }
+
+      _export('attribute', attribute);
+
       attribute.getAttValue = getAttValue;
       attribute.setAttValue = setAttValue;
+
+      function method(methName) {
+        return new MethodBuilder(methName);
+      }
+
+      _export('method', method);
+
+      function delegate(builder) {
+        return new DelegateBuilder(builder);
+      }
+
+      _export('delegate', delegate);
+
+      function template(tpl) {
+        return new TemplateBuilder(tpl);
+      }
+
+      _export('template', template);
+
       template.applyTemplate = applyTemplate;
+
+      function on(events) {
+        return new OnBuilder(events);
+      }
+
+      _export('on', on);
     }
   };
 });

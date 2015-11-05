@@ -1,6 +1,6 @@
 import {ceb, attribute, delegate, template, on} from '../../es6/lib/ceb.js';
 
-export default ceb().augment(
+export default ceb().builders(
     template(`
         <button>
             <span x-ref="icon"></span>

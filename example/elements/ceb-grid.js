@@ -1,9 +1,9 @@
-import {ceb, method, property, attribute, on} from 'es6/lib/ceb.js';
-import {toArray, assign, isFunction} from 'es6/lib/utils.js';
+import {ceb, method, property, attribute, on} from '../../es6/lib/ceb.js';
+import {toArray, assign, isFunction} from '../../es6/lib/utils.js';
 import $ from 'jquery';
 import {idomify} from '../builders/idomify.js';
 
-ceb().augment(
+ceb().builders(
     property('data').value([]),
     method('query').invoke((el, queryRequest) => {
         let req = assign({
@@ -60,7 +60,7 @@ ceb().augment(
     })
 ).register('ceb-store-memory');
 
-ceb().augment(
+ceb().builders(
     property('toData').value(() => ( req => req.filterBy )),
     property('toResponse').value(() => ( payload => payload )),
     method('query').invoke((el, queryRequest) => {
@@ -87,7 +87,7 @@ ceb().augment(
     })
 ).register('ceb-store-rest');
 
-ceb().augment(
+ceb().builders(
     idomify(`
         <table tpl-key="{{el.uuid}}-table-header" class="table" thead>
             <caption><tpl-text value="el.options.caption"/></caption>

@@ -19,7 +19,7 @@ describe('ceb.on()', function () {
 
     it('should invoke during the bubbling phase', done => {
         var fn = sinon.spy();
-        builder.augment(on('click').invoke(fn), template('<button>button</button>')).register('test-on-bubbling');
+        builder.builders(on('click').invoke(fn), template('<button>button</button>')).register('test-on-bubbling');
         var el = document.createElement('test-on-bubbling');
         sandbox.appendChild(el);
         click(el);
@@ -34,7 +34,7 @@ describe('ceb.on()', function () {
 
     it('should invoke during the capture phase', done => {
         var fn = sinon.spy();
-        builder.augment(on('click').invoke(fn).capture(), template('<button>button</button>')).register('test-on-capture');
+        builder.builders(on('click').invoke(fn).capture(), template('<button>button</button>')).register('test-on-capture');
         var el = document.createElement('test-on-capture');
         sandbox.appendChild(el);
         click(el);
@@ -51,7 +51,7 @@ describe('ceb.on()', function () {
         var fn = sinon.spy();
         var fnI1 = sinon.spy();
         var fnI = sinon.spy();
-        builder.augment(
+        builder.builders(
             on('click').invoke(fn),
             on('click').delegate('.i1').invoke(fnI1),
             on('click').delegate('i').invoke(fnI),
@@ -78,7 +78,7 @@ describe('ceb.on()', function () {
 
     it('should skip propagation and default behavior', done => {
         var fn = sinon.spy();
-        builder.augment(on('click').skip()).register('test-on-skip');
+        builder.builders(on('click').skip()).register('test-on-skip');
         var el = document.createElement('test-on-skip');
         sandbox.appendChild(el);
         sandbox.addEventListener('click', fn);

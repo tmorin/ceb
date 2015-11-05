@@ -24,7 +24,7 @@ If the user clicks on the custom element or one of its children, the message _tr
 ```javascript
 import {ceb, on} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         on('click').invoke((el, evt, target) => console.log('triggered by %s', target.tagName))
     )
     .register('ceb-example');
@@ -37,7 +37,7 @@ If the user clicks on the custom element or one of its children, the message _tr
 ```javascript
 import {ceb, on} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         on('click').capture().invoke((el, evt, target) => console.log('triggered by %s', target.tagName))
     )
     .register('ceb-example');
@@ -52,7 +52,7 @@ ceb()
 ```javascript
 import {ceb, on} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         on('click').prevent(),
         on('mouseover').stop(),
         on('keypress').skip()
@@ -70,7 +70,7 @@ If the user clicks on `button.cancel` or one of its children, the message _Cance
 ```javascript
 import {ceb, on, template} from 'custom-element-builder';
 ceb()
-    .augment(
+    .builders(
         template(`
             <p class="message"></p>
             <button class="ok"><i class="fa fa-check"></i> Ok</button>

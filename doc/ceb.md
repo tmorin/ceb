@@ -39,15 +39,15 @@ document.createElement('my-custom-element');
 By default the prototype of the future custom element is `Object.create(HTMLElement.prototype)`.
 The method `prototype()` can be used to override the default value.
 
-To extend a native HTML element, the method `extends()` must be set with the name of the native element.
+To extend a native HTML element, the method `extend()` must be set with the name of the native element.
  
 See the [specification](http://w3c.github.io/webcomponents/spec/custom/#api-element-registration-options) to get more information. 
 
 ```javascript
 import ceb from 'custom-element-builder';
 var MyCustomButton = ceb()
-    .prototype(Object.create(HTMLButtonElement.prototype))
-    .extends('button')
+    .proto(Object.create(HTMLButtonElement.prototype))
+    .extend('button')
     .register('my-custom-button');
 ```
 
@@ -65,16 +65,16 @@ document.createElement('button', 'my-custom-button');
 
 ## Consume dedicated builders
 
-The user friendly way to use dedicated builders is provided by the method `augment()`.
+The user friendly way to use dedicated builders is provided by the method `builders()`.
 
 ```javascript
 import {ceb, attribute, property} from 'custom-element-builder';
 var MyCustomElement = ceb()
-    .augment(
+    .builders(
         attribute('att1'),
         property('prop1').immutable().value('I am a constant')
     )
-    .augment(attribute('att2'))
+    .builders(attribute('att2'))
     .register('my-custom-element');
 ```
 
@@ -139,7 +139,7 @@ All stuff which can not be done during the execution of the method `build()`, ca
 ```javascript
 import {ceb} from 'custom-element-builder';
 var MyDummyButtonElement = ceb()
-    .augment({
+    .builders({
         build(proto, on) {
             // this will be executed once by register call
             Object.defineProperty(proto, 'prop1', {

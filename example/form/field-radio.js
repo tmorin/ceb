@@ -1,7 +1,7 @@
 import $ from 'jquery';
-import {ceb, attribute, template} from 'es6/lib/ceb.js';
+import {ceb, attribute, template} from '../../es6/lib/ceb.js';
 
-export default ceb().augment(
+export default ceb().builders(
     template('<label ceb-content></label>'),
     attribute('inline').boolean().listen((el, oldValue, newValue) => {
         if (newValue) {

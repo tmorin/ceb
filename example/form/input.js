@@ -1,7 +1,7 @@
 import $ from 'jquery';
-import {ceb, attribute, method} from 'es6/lib/ceb.js';
+import {ceb, attribute, method} from '../../es6/lib/ceb.js';
 
-export default ceb().proto(Object.create(HTMLInputElement.prototype)).extends('input').augment(
+export default ceb().proto(Object.create(HTMLInputElement.prototype)).extend('input').builders(
     attribute('type').listen((el, oldVal, newVal) => {
         if (newVal === 'checkbox' || newVal === 'radio') {
             $(el).removeClass('form-control');
