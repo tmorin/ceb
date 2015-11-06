@@ -1,7 +1,7 @@
 'use strict';
 
-System.register(['../utils.js', './PropertyBuilder.js'], function (_export) {
-    var camelCase, isFunction, isUndefined, result, isNull, assign, PropertyBuilder, _createClass, AttributeBuilder;
+System.register(['../utils.js', './Builder.js'], function (_export) {
+    var camelCase, isFunction, isUndefined, result, isNull, assign, Builder, _createClass, DEFAULT_DATA, AttributeBuilder;
 
     function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -30,8 +30,8 @@ System.register(['../utils.js', './PropertyBuilder.js'], function (_export) {
             result = _utilsJs.result;
             isNull = _utilsJs.isNull;
             assign = _utilsJs.assign;
-        }, function (_PropertyBuilderJs) {
-            PropertyBuilder = _PropertyBuilderJs.PropertyBuilder;
+        }, function (_BuilderJs) {
+            Builder = _BuilderJs.Builder;
         }],
         execute: function () {
             _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -64,24 +64,27 @@ System.register(['../utils.js', './PropertyBuilder.js'], function (_export) {
 
             _export('setAttValue', setAttValue);
 
-            _export('AttributeBuilder', AttributeBuilder = (function (_PropertyBuilder) {
-                _inherits(AttributeBuilder, _PropertyBuilder);
+            DEFAULT_DATA = {
+                bound: true,
+                getterFactory: getterFactory,
+                setterFactory: setterFactory,
+                getAttValue: getAttValue,
+                setAttValue: setAttValue
+            };
+
+            _export('AttributeBuilder', AttributeBuilder = (function (_Builder) {
+                _inherits(AttributeBuilder, _Builder);
 
                 function AttributeBuilder(attrName) {
                     _classCallCheck(this, AttributeBuilder);
 
-                    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AttributeBuilder).call(this, camelCase(attrName)));
+                    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AttributeBuilder).call(this));
 
-                    assign(_this.data, {
+                    _this.data = assign({
                         attrName: attrName,
-                        bound: true,
-                        listeners: [],
-                        getterFactory: getterFactory,
-                        setterFactory: setterFactory,
-                        descriptorValue: false,
-                        getAttValue: getAttValue,
-                        setAttValue: setAttValue
-                    });
+                        propName: camelCase(attrName),
+                        listeners: []
+                    }, DEFAULT_DATA);
                     return _this;
                 }
 
@@ -89,6 +92,12 @@ System.register(['../utils.js', './PropertyBuilder.js'], function (_export) {
                     key: 'boolean',
                     value: function boolean() {
                         this.data.boolean = true;
+                        return this;
+                    }
+                }, {
+                    key: 'hidden',
+                    value: function hidden() {
+                        this.data.enumerable = false;
                         return this;
                     }
                 }, {
@@ -101,6 +110,12 @@ System.register(['../utils.js', './PropertyBuilder.js'], function (_export) {
                     key: 'property',
                     value: function property(propName) {
                         this.data.propName = propName;
+                        return this;
+                    }
+                }, {
+                    key: 'value',
+                    value: function value(_value) {
+                        this.data.value = _value;
                         return this;
                     }
                 }, {
@@ -180,7 +195,7 @@ System.register(['../utils.js', './PropertyBuilder.js'], function (_export) {
                 }]);
 
                 return AttributeBuilder;
-            })(PropertyBuilder));
+            })(Builder));
 
             _export('AttributeBuilder', AttributeBuilder);
         }

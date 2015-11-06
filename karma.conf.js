@@ -50,6 +50,17 @@ module.exports = function (config) {
         browsers: ['PhantomJS'],
         //browsers: ['IE'],
 
+        customLaunchers: {
+            IE9_EMULATE: {
+                base: 'IE',
+                'x-ua-compatible': 'IE=EmulateIE9'
+            },
+            IE10_EMULATE: {
+                base: 'IE',
+                'x-ua-compatible': 'IE=EmulateIE10'
+            }
+        },
+
         singleRun: true,
 
         client: {

@@ -13,11 +13,8 @@ import {attribute} from 'custom-element-builder';
 
 ## Usage
 
-`AttributeBuilder` extending `PropertyBuilder`, the attribute is also a property.
+Attributes defined by `AttributeBuilder` are by default bound to a property.
 So, the value can be read or updated from both API DOM and property.
-
-The `getter` and `setter` functionality provided by `PropertyBuilder` can not be used with attributes.
-Obviously, an attribute can not be immutable.
 
 ### Default
 

@@ -12,7 +12,7 @@ exports.setAttValue = setAttValue;
 
 var _utils = require('../utils.js');
 
-var _PropertyBuilder2 = require('./PropertyBuilder.js');
+var _Builder2 = require('./Builder.js');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -74,14 +74,22 @@ function setterFactory(attrName, isBoolean, attSetter) {
     };
 }
 
+var DEFAULT_DATA = {
+    bound: true,
+    getterFactory: getterFactory,
+    setterFactory: setterFactory,
+    getAttValue: getAttValue,
+    setAttValue: setAttValue
+};
+
 /**
  * The attribute builder.
  * Its goal is to provide a way to define an attribute.
  * @extends {PropertyBuilder}
  */
 
-var AttributeBuilder = exports.AttributeBuilder = (function (_PropertyBuilder) {
-    _inherits(AttributeBuilder, _PropertyBuilder);
+var AttributeBuilder = (function (_Builder) {
+    _inherits(AttributeBuilder, _Builder);
 
     /**
      * @param {!string} attrName the name of the attribute
@@ -94,18 +102,13 @@ var AttributeBuilder = exports.AttributeBuilder = (function (_PropertyBuilder) {
          * @ignore
          */
 
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AttributeBuilder).call(this, (0, _utils.camelCase)(attrName)));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AttributeBuilder).call(this));
 
-        (0, _utils.assign)(_this.data, {
+        _this.data = (0, _utils.assign)({
             attrName: attrName,
-            bound: true,
-            listeners: [],
-            getterFactory: getterFactory,
-            setterFactory: setterFactory,
-            descriptorValue: false,
-            getAttValue: getAttValue,
-            setAttValue: setAttValue
-        });
+            propName: (0, _utils.camelCase)(attrName),
+            listeners: []
+        }, DEFAULT_DATA);
         return _this;
     }
 
@@ -119,6 +122,18 @@ var AttributeBuilder = exports.AttributeBuilder = (function (_PropertyBuilder) {
         key: 'boolean',
         value: function boolean() {
             this.data.boolean = true;
+            return this;
+        }
+
+        /**
+         * To hide the property name when using <code>Object.keys()</code>.
+         * @returns {PropertyBuilder} the builder
+         */
+
+    }, {
+        key: 'hidden',
+        value: function hidden() {
+            this.data.enumerable = false;
             return this;
         }
 
@@ -144,6 +159,19 @@ var AttributeBuilder = exports.AttributeBuilder = (function (_PropertyBuilder) {
         key: 'property',
         value: function property(propName) {
             this.data.propName = propName;
+            return this;
+        }
+
+        /**
+         * To set a default value.
+         * @param {*} value the default value
+         * @returns {PropertyBuilder} the builder
+         */
+
+    }, {
+        key: 'value',
+        value: function value(_value) {
+            this.data.value = _value;
             return this;
         }
 
@@ -231,9 +259,11 @@ var AttributeBuilder = exports.AttributeBuilder = (function (_PropertyBuilder) {
     }]);
 
     return AttributeBuilder;
-})(_PropertyBuilder2.PropertyBuilder);
+})(_Builder2.Builder);
 
-},{"../utils.js":10,"./PropertyBuilder.js":7}],2:[function(require,module,exports){
+exports.AttributeBuilder = AttributeBuilder;
+
+},{"../utils.js":10,"./Builder.js":2}],2:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();

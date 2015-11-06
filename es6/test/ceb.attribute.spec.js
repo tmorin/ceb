@@ -66,34 +66,6 @@ describe('ceb.attribute()', function () {
         expect(el.getAttribute('att1')).to.be.eq('fromAtt');
     });
 
-    it('should not define setter for attribute', () => {
-        let setter = (el, value) => value + '1';
-        builder.builders(attribute('att1').setter(setter)).register('test-setter-attribute');
-        let el = document.createElement('test-setter-attribute');
-
-        el.att1 = 'fromProp';
-        expect(el.att1).to.be.eq('fromProp');
-        expect(el.getAttribute('att1')).to.be.eq('fromProp');
-
-        el.setAttribute('att1', 'fromAtt');
-        expect(el.att1).to.be.eq('fromAtt');
-        expect(el.getAttribute('att1')).to.be.eq('fromAtt');
-    });
-
-    it('should not define getter for attribute', () => {
-        let getter = (el, value) => value + '1';
-        builder.builders(attribute('att1').getter(getter)).register('test-getter-attribute');
-        let el = document.createElement('test-getter-attribute');
-
-        el.att1 = 'fromProp';
-        expect(el.att1).to.be.eq('fromProp');
-        expect(el.getAttribute('att1')).to.be.eq('fromProp');
-
-        el.setAttribute('att1', 'fromAtt');
-        expect(el.att1).to.be.eq('fromAtt');
-        expect(el.getAttribute('att1')).to.be.eq('fromAtt');
-    });
-
     it('should define listener for attribute', (done) => {
         let listener = sinon.spy();
         builder.builders(attribute('att1').listen(listener)).register('test-listener-attribute');

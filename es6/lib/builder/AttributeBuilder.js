@@ -1,5 +1,5 @@
 import {camelCase, isFunction, isUndefined, result, isNull, assign} from '../utils.js';
-import {PropertyBuilder} from './PropertyBuilder.js';
+import {Builder} from './Builder.js';
 
 /**
  * Get the value from an attribute.
@@ -55,31 +55,34 @@ function setterFactory(attrName, isBoolean, attSetter) {
     };
 }
 
+const DEFAULT_DATA = {
+    bound: true,
+    getterFactory,
+    setterFactory,
+    getAttValue: getAttValue,
+    setAttValue: setAttValue
+};
+
 /**
  * The attribute builder.
  * Its goal is to provide a way to define an attribute.
  * @extends {PropertyBuilder}
  */
-export class AttributeBuilder extends PropertyBuilder {
+export class AttributeBuilder extends Builder {
 
     /**
      * @param {!string} attrName the name of the attribute
      */
     constructor(attrName) {
-        super(camelCase(attrName));
+        super();
         /**
          * @ignore
          */
-        assign(this.data, {
+        this.data = assign({
             attrName,
-            bound: true,
-            listeners: [],
-            getterFactory,
-            setterFactory,
-            descriptorValue: false,
-            getAttValue: getAttValue,
-            setAttValue: setAttValue
-        });
+            propName: camelCase(attrName),
+            listeners: []
+        }, DEFAULT_DATA);
     }
 
     /**
@@ -89,6 +92,15 @@ export class AttributeBuilder extends PropertyBuilder {
      */
     boolean() {
         this.data.boolean = true;
+        return this;
+    }
+
+    /**
+     * To hide the property name when using <code>Object.keys()</code>.
+     * @returns {PropertyBuilder} the builder
+     */
+    hidden() {
+        this.data.enumerable = false;
         return this;
     }
 
@@ -108,6 +120,16 @@ export class AttributeBuilder extends PropertyBuilder {
      */
     property(propName) {
         this.data.propName = propName;
+        return this;
+    }
+
+    /**
+     * To set a default value.
+     * @param {*} value the default value
+     * @returns {PropertyBuilder} the builder
+     */
+    value(value) {
+        this.data.value = value;
         return this;
     }
 
