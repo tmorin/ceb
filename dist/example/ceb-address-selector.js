@@ -1891,7 +1891,7 @@ exports.default = (0, _ceb.ceb)().builders((0, _ceb.template)('\n        <div cl
 })).to('input[type=text]').property(),
 
 // like the disabled state
-(0, _ceb.delegate)((0, _ceb.attribute)('readonly').setter(function (el, odlValue, newValue) {
+(0, _ceb.delegate)((0, _ceb.attribute)('readonly').listen(function (el, odlValue, newValue) {
     el.querySelector('button[type=button]').disabled = newValue;
 })).to('input[type=text]').property(),
 

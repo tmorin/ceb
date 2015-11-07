@@ -96,7 +96,7 @@ export default ceb().builders(
     })).to('input[type=text]').property(),
 
     // like the disabled state
-    delegate(attribute('readonly').setter((el, odlValue, newValue) => {
+    delegate(attribute('readonly').listen((el, odlValue, newValue) => {
         el.querySelector('button[type=button]').disabled = newValue;
     })).to('input[type=text]').property(),
 

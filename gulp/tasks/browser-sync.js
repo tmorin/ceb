@@ -4,7 +4,7 @@ var browserSync = require('browser-sync').create();
 gulp.task('browser-sync', ['watch'], function () {
     browserSync.init({
         server: {
-            baseDir: ['./example', './']
+            baseDir: ['./', './example']
         }
     });
     gulp.watch('./es6/lib/**/*').on('change', browserSync.reload);
