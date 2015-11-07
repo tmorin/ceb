@@ -85,7 +85,6 @@ import {ceb, attribute} from 'custom-element-builder';
 ceb()
     .builders(
         attribute('att1')
-            .setter((el, value) => parseInt(value, 0) + 1)
             .listen((el, oldVal, newVal) => {
                 /* oldVal was the (string) value of the attribute and
                    newVal is the current (string) value of the attribute */
