@@ -120,3 +120,17 @@ export function noop() {
 export function find(array, cb) {
     return array.filter(cb)[0];
 }
+
+/**
+ * @ignore
+ */
+export function dispatch(el, name, options = {}) {
+    var evt = document.createEvent('CustomEvent');
+    evt.initCustomEvent(
+        name,
+        options.bubbles !== false,
+        options.cancelable !== false,
+        options.detail || {}
+    );
+    return el.dispatchEvent(evt);
+}
