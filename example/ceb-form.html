@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ceb-form - ceb's examples</title>
 
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css"/>
 
     <script src="node_modules/document-register-element/build/document-register-element.js"></script>
 
@@ -21,91 +21,63 @@
 </p>
 
 <p>
-    This example used several custom elements extending the native form's elements and others to reduce boilerplate HTML/CSS code.
+    This example used several custom elements extending the native form's elements and others to reduce boilerplate
+    HTML/CSS code.
 </p>
 
 <hr>
 
-<form is="wui-form" prevent-submit id="theForm">
+<form name="order" is="ceb-form" prevent-submit>
 
     <fieldset>
-        <legend>Identity</legend>
+        <legend>input[type=text]</legend>
         <div class="row">
-            <wui-field label="Firstname" class="col-md-6">
-                <input is="wui-input" name="identity.firstname">
-            </wui-field>
-            <wui-field label="Lastname" class="col-md-6">
-                <input is="wui-input" name="identity.lastname">
-            </wui-field>
-        </div>
-        <div class="row">
-            <wui-field label="Sex" class="col-md-3">
-                <div>
-                    <wui-field-radio inline>
-                        <input is="wui-input" type="radio" name="identity.sex" value="male">
-                        male
-                    </wui-field-radio>
-                    <wui-field-radio inline>
-                        <input is="wui-input" type="radio" name="identity.sex" value="female">
-                        female
-                    </wui-field-radio>
-                    <wui-field-radio inline>
-                        <input is="wui-input" type="radio" name="identity.sex" value="both">
-                        both
-                    </wui-field-radio>
-                </div>
-            </wui-field>
-            <wui-field label="Birthdate" class="col-md-3">
-                <input is="wui-input" type="date" name="identity.birthdate">
-            </wui-field>
-            <wui-field label="weight" class="col-md-3">
-                <div class="input-group">
-                    <input is="wui-input" type="number" name="identity.weight" min="1">
-                    <span class="input-group-addon">kg</span>
-                </div>
-            </wui-field>
-            <wui-field label="height" class="col-md-3">
-                <div class="input-group">
-                    <input is="wui-input" type="number" name="identity.height" min="1">
-                    <span class="input-group-addon">cm</span>
-                </div>
-            </wui-field>
+            <ceb-field class="col-sm-4">
+                <label for="inputTextRequired" class="control-label">
+                    required
+                </label>
+                <input id="inputTextRequired"
+                       type="text"
+                       name="input[text]"
+                       class="form-control"
+                       required
+                       title="The field is required.">
+            </ceb-field>
+            <ceb-field class="col-sm-4">
+                <label for="inputTextMinLength" class="control-label">
+                    minlength
+                    <small>is 5</small>
+                </label>
+                <input id="inputTextMinLength"
+                       type="text"
+                       name="input[text]"
+                       class="form-control"
+                       minlength="5">
+            </ceb-field>
+            <ceb-field class="col-sm-4">
+                <label for="inputTextMaxLength" class="control-label">
+                    maxlength
+                    <small>is 5</small>
+                </label>
+                <input id="inputTextMaxLength"
+                       type="text"
+                       name="input[text]"
+                       class="form-control"
+                       maxlength="5">
+            </ceb-field>
         </div>
     </fieldset>
 
-    <fieldset>
-        <legend>Address</legend>
-        <wui-field label="Street">
-            <textarea is="wui-textarea" name="address.street"></textarea>
-        </wui-field>
-        <div class="row">
-            <wui-field label="City" class="col-md-4">
-                <input is="wui-input" name="address.city">
-            </wui-field>
-            <wui-field label="Postal code" class="col-md-4">
-                <input is="wui-input" name="address.postalCode">
-            </wui-field>
-            <wui-field label="Country" class="col-md-4">
-                <select is="wui-select" name="address.country">
-                    <option value=""></option>
-                    <option value="FR">France</option>
-                    <option value="IN">India</option>
-                    <option value="CH">Switzerland</option>
-                    <option value="GB">United Kingdom</option>
-                </select>
-            </wui-field>
-        </div>
-    </fieldset>
-
-    <button is="wui-button" type="submit" meaning="primary">
-        <wui-icon glyphicon="ok"></wui-icon>
-        Submit
-    </button>
-
-    <button is="wui-button" type="reset" meaning="warning">
-        <wui-icon glyphicon="erase"></wui-icon>
-        Reset
-    </button>
+    <p>
+        <button type="submit" is="ceb-button" meaning="primary">
+            <i class="glyphicon glyphicon-check"></i>
+            Save
+        </button>
+        <button type="reset" is="ceb-button" meaning="warning">
+            <i class="glyphicon glyphicon-erase"></i>
+            Reset
+        </button>
+    </p>
 </form>
 
 <script src="dist/example/ceb-form.js"></script>

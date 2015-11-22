@@ -1,89 +1,89 @@
-import {ceb, property, attribute} from '../../es6/lib/ceb.js';
-import {toArray, isNull, isUndefined} from '../../es6/lib/utils.js';
+import {ceb, property, attribute, method, on} from '../../es6/lib/ceb.js';
+import {dispatch, toArray} from '../../es6/lib/utils';
+import {jquerify} from '../builders/jquerify.js';
 
-function getElementValue(element) {
-    if (element.type === 'time' || element.type === 'date') {
-        return 'valueAsDate' in element ? element.valueAsDate : new Date(element.value);
-    } else if (element.type === 'range' || element.type === 'number') {
-        return parseFloat(element.value);
-    } else if (element.type === 'checkbox' || element.type === 'radio') {
-        return element.checked ? element.value : undefined;
-    } else {
-        return element.value;
-    }
+const FORM_CONTROL_TYPES = ['input', 'textarea', 'select'];
+
+const REQUIRABLE_INPUT_TYPES = ['text', 'search', 'url', 'tel', 'email', 'password', 'date', 'time', 'number', 'checkbox', 'radio', 'file'];
+
+function isIn(value, array) {
+    return array.indexOf(value.toLowerCase());
 }
 
-function setElementValue(element, value) {
-    if (element.type === 'time' || element.type === 'date') {
-        if ('valueAsDate' in element) {
-            element.valueAsDate = value;
-        } else if (value) {
-            let isoValue = value.toISOString();
-            element.value = isoValue.substring(0, isoValue.indexOf('T'));
+const DEFAULT_RULES = [{
+    name: 'required',
+    filter: el => {
+        return el.hasAttribute('required');
+    },
+    apply: el => {
+        if ('checked' in el) {
+            return !(el.checked);
         }
-    } else if (element.type === 'range' || element.type === 'number') {
-        element.value = value;
-    } else if (element.type === 'checkbox' || element.type === 'radio') {
-        element.checked = element.value === value;
-    } else {
-        element.value = isNull(value) || isUndefined(value) ? '' : value;
-    }
-}
-
-function setObjectValue(object, path, value) {
-    let props = path.split('.');
-    let iMax = props.length;
-    let current = object;
-    let i = 0;
-    for (; i < iMax - 1; i++) {
-        let prop = props[i];
-        if (!current[prop]) {
-            current[prop] = {};
+        if ('selectedOptions' in el) {
+            return el.selectedOptions.length < 1;
         }
-        current = current[prop];
-    }
-    current[props[i]] = value;
-}
-
-function getObjectValue(object, path) {
-    let props = path.split('.');
-    let iMax = props.length;
-    let current = object;
-    let i = 0;
-    for (; i < iMax; i++) {
-        current = current[props[i]];
-    }
-    return current;
-}
-
-function objectToForm(form, object) {
-    let elements = toArray(form.querySelectorAll('[name]'));
-    elements.forEach(element => {
-        let path = element.name;
-        let value = getObjectValue(object, path);
-        setElementValue(element, value);
-    });
-}
-
-function formToObject(form) {
-    let result = {};
-    let elements = toArray(form.querySelectorAll('[name]'));
-    elements.forEach(element => {
-        let path = element.name;
-        let value = getElementValue(element);
-        if (!isUndefined(value)) {
-            setObjectValue(result, path, value);
+        if ('value' in el) {
+            return el.value.trim().length < 1;
         }
-    });
-    return result;
-}
+        return false;
+    }
+}];
+
 export default ceb().proto(Object.create(HTMLFormElement.prototype)).extend('form').builders(
-    attribute('prevent-submit')
-        .boolean()
-        .listen((el, oldValue, newValue) => el.setAttribute('onsubmit', newValue ? 'return false;' : '')),
+    jquerify(),
 
-    property('valueAsObject').setter(objectToForm).getter(formToObject),
+    attribute('prevent-submit').boolean(),
 
-    property('namedElements').getter(el => toArray(el.querySelectorAll('[name]')))
-).register('wui-form');
+    property('rules'),
 
+    method('createdCallback').invoke(el => {
+        el.setAttribute('novalidate', '');
+        el.rules = [].concat(DEFAULT_RULES);
+    }),
+
+    method('checkValidity').invoke(el => {
+        let controls = toArray(el.querySelectorAll(FORM_CONTROL_TYPES.join(',')));
+
+        controls.map(control => {
+            var results = el.rules
+                .filter(rule => rule.filter(control))
+                .reduce((result, rule) => {
+                    result[rule.name] = rule.apply(control);
+                    return result;
+                }, {});
+            return {control, results}
+        });
+
+        let formIsInvalid = controls.map(({control, results}) => {
+            let controlIsInvalid = Object.keys(results).reduce((r, k) => results[k], false);
+            let controlEventName = controlIsInvalid ? 'invalid' : 'valid';
+            dispatch(control, controlEventName);
+            return controlIsInvalid;
+        }).reduce((r, k) => results[k], false);
+
+        let formEventName = formIsInvalid ? 'invalid' : 'valid';
+        dispatch(el, formEventName);
+    }),
+
+    method('reportValidity').invoke(el => {
+        el.checkValidity();
+    }),
+
+    method('addRule').invoke((el, rule) => {
+        el.rules.push(rule);
+    }),
+
+    on('reset').invoke(el => {
+    }),
+
+    on('submit').invoke((el, evt) => {
+        el.reportValidity();
+        if (el.preventSubmit) {
+            evt.preventDefault();
+        }
+    }),
+
+    on('change').invoke((el, evt) => {
+        var element = evt.target;
+    })
+).register('ceb-form');

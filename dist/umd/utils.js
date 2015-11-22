@@ -31,6 +31,7 @@
     exports.bind = bind;
     exports.noop = noop;
     exports.find = find;
+    exports.dispatch = dispatch;
 
     function camelCase(value) {
         return value.toLowerCase().split('-').map(function (part, index) {
@@ -116,5 +117,12 @@
 
     function find(array, cb) {
         return array.filter(cb)[0];
+    }
+
+    function dispatch(el, name) {
+        var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+        var evt = document.createEvent('CustomEvent');
+        evt.initCustomEvent(name, options.bubbles !== false, options.cancelable !== false, options.detail || {});
+        return el.dispatchEvent(evt);
     }
 });
