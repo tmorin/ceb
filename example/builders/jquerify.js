@@ -10,7 +10,8 @@ export class JquerifyBuilder extends Builder {
 
     build(proto, on) {
         on('before:createdCallback').invoke(el => {
-            el.$ = $(el);
+            el.$ = $;
+            el.$el = $(el);
         });
     }
 }
