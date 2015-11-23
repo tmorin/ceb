@@ -6,9 +6,9 @@ export default ceb().proto(Object.create(HTMLButtonElement.prototype)).extend('b
 
     attribute('meaning')
         .value('default')
-        .listen((el, oldValue, newValue) => el.$.removeClass('btn-' + oldValue).addClass('btn-' + newValue)),
+        .listen((el, oldValue, newValue) => el.$el.removeClass('btn-' + oldValue).addClass('btn-' + newValue)),
 
     method('createdCallback').invoke(el => {
-        el.$.addClass('btn');
+        el.$el.addClass('btn');
     })
 ).register('ceb-button');

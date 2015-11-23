@@ -21,13 +21,18 @@
 </p>
 
 <p>
-    This example used several custom elements extending the native form's elements and others to reduce boilerplate
-    HTML/CSS code.
+    The following form is based on an extion of the native HTMLFormElement.
+    This extension taking the validation of the underlying form elements, even without HTML5.
+    Obviously, the custom HTMLFormElement, provide an API
 </p>
 
 <hr>
 
-<form name="order" is="ceb-form" prevent-submit>
+<form name="order"
+      is="ceb-form"
+      prevent-submit
+      validate-on="submit"
+      validate-controls-on="change,input">
 
     <fieldset>
         <legend>input[type=text]</legend>
@@ -63,6 +68,7 @@
                        type="text"
                        name="input[text]"
                        class="form-control"
+                       value="more than five characters"
                        maxlength="5">
             </ceb-field>
         </div>
