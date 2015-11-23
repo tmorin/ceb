@@ -1,14 +1,14 @@
-# custom-elements-builder
+# ceb: custom-element-builder
 
-[![Circle CI](https://circleci.com/gh/tmorin/custom-elements-builder/tree/master.svg?style=svg)](https://circleci.com/gh/tmorin/custom-elements-builder/tree/master)
-[![Dependency Status](https://david-dm.org/tmorin/custom-elements-builder.svg)](https://david-dm.org/tmorin/custom-elements-builder)
-[![devDependency Status](https://david-dm.org/tmorin/custom-elements-builder/dev-status.svg)](https://david-dm.org/tmorin/custom-elements-builder#info=devDependencies) 
+[![Circle CI](https://circleci.com/gh/tmorin/ceb.svg?style=svg)](https://circleci.com/gh/tmorin/ceb)
+[![Dependency Status](https://david-dm.org/tmorin/ceb.svg)](https://david-dm.org/tmorin/ceb)
+[![devDependency Status](https://david-dm.org/tmorin/ceb/dev-status.svg)](https://david-dm.org/tmorin/ceb#info=devDependencies)
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 
 ceb is just a set of builders, natively scalable and designed for FRP
 
-- [Home page](http://tmorin.github.io/custom-elements-builder/)
+- [Home page](http://tmorin.github.io/ceb)
 
 ## Dependencies
 
@@ -22,12 +22,12 @@ About, not evergreen browsers (those not implementing `document.registerElement(
 
 From ES6;
 ```javascript
-import {ceb} from 'custom-element-builder/es6/lib/ceb'
+import {ceb} from 'ceb/es6/lib/ceb'
 ```
 
 From ES5:
 ```javascript
-var ceb = require('custom-element-builder');
+var ceb = require('ceb');
 ```
 
 From AMD:

@@ -1,7 +1,7 @@
 {
-  "name": "custom-elements-builder",
-  "version": "0.5.18",
-  "description": "Just a set of builders, natively scalable and designed for FRP.",
+  "name": "ceb",
+  "version": "0.6.0-beta.0",
+  "description": "custom-element-builder is just a set of builders, natively scalable and designed for FRP. ",
   "keywords": [
     "web-components",
     "Web",
@@ -18,9 +18,9 @@
     "template",
     "builder"
   ],
-  "homepage": "https://tmorin.github.io/custom-elements-builder",
+  "homepage": "https://tmorin.github.io/ceb",
   "bugs": {
-    "url": "https://github.com/tmorin/custom-elements-builder/issues"
+    "url": "https://github.com/tmorin/ceb/issues"
   },
   "license": "MIT",
   "author": {
@@ -31,7 +31,7 @@
   "jsnext:main": "es6/lib/ceb.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/tmorin/custom-elements-builder.git"
+    "url": "git://github.com/tmorin/ceb.git"
   },
   "scripts": {
     "lint": "jshint es6 example gulp gulpfile.js Gruntfile.js karma.conf.js",

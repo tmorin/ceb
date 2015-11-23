@@ -1,6 +1,6 @@
 {
-  "name": "custom-elements-builder",
-  "description": "Just a set of builders, natively scalable and designed for FRP.",
+  "name": "ceb",
+  "description": "custom-element-builder is just a set of builders, natively scalable and designed for FRP. ",
   "version": "0.5.18",
   "main": "dist/standalone/ceb.js",
   "keywords": [
@@ -19,10 +19,10 @@
     "template",
     "builder"
   ],
-  "homepage": "https://tmorin.github.io/custom-elements-builder",
+  "homepage": "https://tmorin.github.io/ceb",
   "repository": {
     "type": "git",
-    "url": "git://github.com/tmorin/custom-elements-builder.git"
+    "url": "git://github.com/tmorin/ceb.git"
   },
   "license": "MIT",
   "authors": [
