@@ -45,7 +45,7 @@ function createSauceTask(name) {
                 recordScreenshots: false
             },
             captureTimeout: 3 * 60 * 1000,
-            reporters: ['dots', 'saucelabs'],
+            reporters: ['dots', 'saucelabs', 'junit'],
             singleRun: true,
             autoWatch: false,
             customLaunchers: config.customLaunchers,

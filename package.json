@@ -40,7 +40,10 @@
     "test": "gulp karma:sauce",
     "start": "gulp browser-sync",
     "prepublish": "gulp",
-    "release": "gulp && grunt release"
+    "release:pre": "gulp && grunt release:prerelease --npmtag canary",
+    "release:patch": "gulp && grunt release:patch",
+    "release:minor": "gulp && grunt release:minor",
+    "release:major": "gulp && grunt release:major"
   },
   "engines": {
     "node": ">=4.0.0"
@@ -92,6 +95,7 @@
     "karma-cli": "^0.1.1",
     "karma-firefox-launcher": "^0.1.6",
     "karma-ie-launcher": "^0.2.0",
+    "karma-junit-reporter": "^0.3.8",
     "karma-mocha": "^0.2.0",
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-sauce-launcher": "^0.3.0",

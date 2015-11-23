@@ -30,7 +30,12 @@ module.exports = function (config) {
             ]
         },
 
-        reporters: ['progress'],
+        reporters: ['progress', 'junit'],
+
+        junitReporter: {
+            outputDir: process.env.CIRCLE_TEST_REPORTS || 'junit',
+            useBrowserName: true
+        },
 
         port: 9877,
 

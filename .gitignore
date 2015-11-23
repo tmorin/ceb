@@ -1,5 +1,6 @@
 /.idea
 /api
+/junit
 /lib
 /node_modules
 /public
