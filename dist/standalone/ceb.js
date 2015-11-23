@@ -1642,9 +1642,10 @@ function find(array, cb) {
  */
 function dispatch(el, name) {
     var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+    var detail = arguments.length <= 3 || arguments[3] === undefined ? undefined : arguments[3];
 
     var evt = document.createEvent('CustomEvent');
-    evt.initCustomEvent(name, options.bubbles !== false, options.cancelable !== false, options.detail || {});
+    evt.initCustomEvent(name, options.bubbles !== false, options.cancelable !== false, detail);
     return el.dispatchEvent(evt);
 }
 

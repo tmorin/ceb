@@ -1642,9 +1642,10 @@ function find(array, cb) {
  */
 function dispatch(el, name) {
     var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+    var detail = arguments.length <= 3 || arguments[3] === undefined ? undefined : arguments[3];
 
     var evt = document.createEvent('CustomEvent');
-    evt.initCustomEvent(name, options.bubbles !== false, options.cancelable !== false, options.detail || {});
+    evt.initCustomEvent(name, options.bubbles !== false, options.cancelable !== false, detail);
     return el.dispatchEvent(evt);
 }
 
@@ -1684,7 +1685,8 @@ var JquerifyBuilder = exports.JquerifyBuilder = (function (_Builder) {
         key: 'build',
         value: function build(proto, on) {
             on('before:createdCallback').invoke(function (el) {
-                el.$ = $(el);
+                el.$ = $;
+                el.$el = $(el);
             });
         }
     }]);
@@ -1719,9 +1721,9 @@ var _ceb = require('../../es6/lib/ceb.js');
 var _jquerify = require('../builders/jquerify.js');
 
 exports.default = (0, _ceb.ceb)().proto(Object.create(HTMLButtonElement.prototype)).extend('button').builders((0, _jquerify.jquerify)(), (0, _ceb.attribute)('meaning').value('default').listen(function (el, oldValue, newValue) {
-    return el.$.removeClass('btn-' + oldValue).addClass('btn-' + newValue);
+    return el.$el.removeClass('btn-' + oldValue).addClass('btn-' + newValue);
 }), (0, _ceb.method)('createdCallback').invoke(function (el) {
-    el.$.addClass('btn');
+    el.$el.addClass('btn');
 })).register('ceb-button');
 
 },{"../../es6/lib/ceb.js":9,"../builders/jquerify.js":11}],14:[function(require,module,exports){
@@ -1735,12 +1737,29 @@ var _ceb = require('../../es6/lib/ceb.js');
 
 var _jquerify = require('../builders/jquerify.js');
 
-exports.default = (0, _ceb.ceb)().builders((0, _jquerify.jquerify)(), (0, _ceb.template)('<content></content>'), (0, _ceb.method)('createdCallback').invoke(function (el) {
-    el.$.addClass('form-group').css('display', 'block');
-}), (0, _ceb.on)('form-control-valid').invoke(function (el) {
-    el.$.removeClass('has-error');
-}), (0, _ceb.on)('form-control-invalid').invoke(function (el) {
-    el.$.addClass('has-error');
+exports.default = (0, _ceb.ceb)().builders((0, _jquerify.jquerify)(), (0, _ceb.template)('<content></content>'), (0, _ceb.property)('messages').value({
+    required: 'The field is required.',
+    maxlength: function maxlength(data) {
+        return 'The value must be lower than ' + data.maxlength + ' characters.';
+    },
+    minlength: function minlength(data) {
+        return 'The value must be higher than ' + data.minlength + ' characters.';
+    }
+}), (0, _ceb.method)('createdCallback').invoke(function (el) {
+    el.$el.addClass('form-group').css('display', 'block');
+}), (0, _ceb.on)('valid').invoke(function (el) {
+    el.$el.removeClass('has-error').find('.help-block.errors').remove();
+}), (0, _ceb.on)('invalid').invoke(function (el, evt) {
+    var errors = evt.detail.errors;
+    var messages = Object.keys(errors).map(function (key) {
+        var message = el.messages[key];
+        if (typeof message === 'function') {
+            message = message(errors[key]);
+        }
+        return message;
+    }).join(', ');
+    el.$el.find('.help-block.errors').remove();
+    el.$el.addClass('has-error').append('<p class="help-block errors">' + messages + '</p>');
 })).register('ceb-field');
 
 },{"../../es6/lib/ceb.js":9,"../builders/jquerify.js":11}],15:[function(require,module,exports){
@@ -1749,6 +1768,7 @@ exports.default = (0, _ceb.ceb)().builders((0, _jquerify.jquerify)(), (0, _ceb.t
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.addRule = addRule;
 
 var _ceb = require('../../es6/lib/ceb.js');
 
@@ -1756,24 +1776,20 @@ var _utils = require('../../es6/lib/utils');
 
 var _jquerify = require('../builders/jquerify.js');
 
-var FORM_CONTROL_TYPES = ['input', 'textarea', 'select'];
+var CHECKABLE_INPUT_TYPES = ['checkbox', 'radio'];
 
-var REQUIRABLE_INPUT_TYPES = ['text', 'search', 'url', 'tel', 'email', 'password', 'date', 'time', 'number', 'checkbox', 'radio', 'file'];
+var SELECTABLE_FORM_CONTROLS = ['select'];
 
-function isIn(value, array) {
-    return array.indexOf(value.toLowerCase());
-}
-
-var DEFAULT_RULES = [{
+var BUILTIN_RULES = [{
     name: 'required',
     filter: function filter(el) {
         return el.hasAttribute('required');
     },
     apply: function apply(el) {
-        if ('checked' in el) {
+        if (CHECKABLE_INPUT_TYPES.indexOf((el.type || '').toLowerCase()) > -1) {
             return !el.checked;
         }
-        if ('selectedOptions' in el) {
+        if (SELECTABLE_FORM_CONTROLS.indexOf((el.tagname || '').toLowerCase()) > -1) {
             return el.selectedOptions.length < 1;
         }
         if ('value' in el) {
@@ -1781,51 +1797,160 @@ var DEFAULT_RULES = [{
         }
         return false;
     }
+}, {
+    name: 'minlength',
+    filter: function filter(el) {
+        return el.hasAttribute('minlength');
+    },
+    apply: function apply(el) {
+        var minlength = parseInt(el.getAttribute('minlength')) || 0;
+        if ('value' in el && el.value) {
+            return el.value.trim().length < minlength ? { minlength: minlength } : false;
+        }
+        return false;
+    }
+}, {
+    name: 'maxlength',
+    filter: function filter(el) {
+        return el.hasAttribute('maxlength');
+    },
+    apply: function apply(el) {
+        var maxlength = parseInt(el.getAttribute('maxlength')) || 0;
+        if ('value' in el && el.value) {
+            return el.value.trim().length > maxlength ? { maxlength: maxlength } : false;
+        }
+        return false;
+    }
 }];
 
-exports.default = (0, _ceb.ceb)().proto(Object.create(HTMLFormElement.prototype)).extend('form').builders((0, _jquerify.jquerify)(), (0, _ceb.attribute)('prevent-submit').boolean(), (0, _ceb.property)('rules'), (0, _ceb.method)('createdCallback').invoke(function (el) {
-    el.setAttribute('novalidate', '');
-    el.rules = [].concat(DEFAULT_RULES);
-}), (0, _ceb.method)('checkValidity').invoke(function (el) {
-    var controls = (0, _utils.toArray)(el.querySelectorAll(FORM_CONTROL_TYPES.join(',')));
+var EXTERNAL_RULES = [];
 
-    controls.map(function (control) {
-        var results = el.rules.filter(function (rule) {
-            return rule.filter(control);
-        }).reduce(function (result, rule) {
-            result[rule.name] = rule.apply(control);
-            return result;
-        }, {});
-        return { control: control, results: results };
+function addRule(name) {
+    var filter = arguments.length <= 1 || arguments[1] === undefined ? function () {
+        return false;
+    } : arguments[1];
+    var apply = arguments.length <= 2 || arguments[2] === undefined ? function () {
+        return false;
+    } : arguments[2];
+
+    EXTERNAL_RULES.push({ name: name, filter: filter, apply: apply });
+}
+
+function parseStringEventList(string) {
+    return (string || '').split(',').map(function (name) {
+        return name.toLowerCase();
+    }).filter(function (name) {
+        return name;
     });
+}
 
-    var formIsInvalid = controls.map(function (_ref) {
-        var control = _ref.control;
-        var results = _ref.results;
+exports.default = (0, _ceb.ceb)().proto(Object.create(HTMLFormElement.prototype)).extend('form').builders((0, _jquerify.jquerify)(), (0, _ceb.attribute)('prevent-submit').boolean(), (0, _ceb.property)('validateOn').getter(function (el) {
+    return parseStringEventList(el.getAttribute('validate-on'));
+}), (0, _ceb.property)('validateControlsOn').getter(function (el) {
+    return parseStringEventList(el.getAttribute('validate-controls-on'));
+}), (0, _ceb.property)('rules').getter(function (el) {
+    return BUILTIN_RULES.concat(EXTERNAL_RULES).concat(el._rules);
+}), (0, _ceb.property)('elementsAsArray').getter(function (el) {
+    return (0, _utils.toArray)(el.elements);
+}), (0, _ceb.method)('createdCallback').invoke(function (el) {
+    el.setAttribute('novalidate', '');
+    el._rules = [];
+}), (0, _ceb.method)('checkFormControlValidity').invoke(function (el, control) {
+    var errors = el.rules.filter(function (rule) {
+        return rule.filter(control);
+    }).reduce(function (result, rule) {
+        result[rule.name] = rule.apply(control);
+        return result;
+    }, {});
 
-        var controlIsInvalid = Object.keys(results).reduce(function (r, k) {
-            return results[k];
-        }, false);
-        var controlEventName = controlIsInvalid ? 'invalid' : 'valid';
-        (0, _utils.dispatch)(control, controlEventName);
-        return controlIsInvalid;
-    }).reduce(function (r, k) {
-        return results[k];
+    var controlIsInvalid = Object.keys(errors).reduce(function (invalid, key) {
+        return invalid ? invalid : errors[key];
     }, false);
 
-    var formEventName = formIsInvalid ? 'invalid' : 'valid';
-    (0, _utils.dispatch)(el, formEventName);
+    return {
+        element: control,
+        valid: !controlIsInvalid,
+        invalid: controlIsInvalid,
+        errors: errors
+    };
+}), (0, _ceb.method)('checkValidity').invoke(function (el) {
+    var controls = el.elementsAsArray;
+
+    var controlStates = controls.map(el.checkFormControlValidity, el);
+
+    var formIsValid = controlStates.reduce(function (valid, state) {
+        return valid && state.valid;
+    }, true);
+
+    var formState = {
+        valid: formIsValid,
+        invalid: !formIsValid,
+        controls: controlStates
+    };
+
+    (0, _utils.dispatch)(el, formIsValid ? 'valid' : 'invalid', {}, formState);
+    controlStates.forEach(function (state) {
+        return (0, _utils.dispatch)(state.element, state.valid ? 'valid' : 'invalid', {}, state);
+    });
+
+    return formState;
 }), (0, _ceb.method)('reportValidity').invoke(function (el) {
-    el.checkValidity();
-}), (0, _ceb.method)('addRule').invoke(function (el, rule) {
-    el.rules.push(rule);
-}), (0, _ceb.on)('reset').invoke(function (el) {}), (0, _ceb.on)('submit').invoke(function (el, evt) {
-    el.reportValidity();
+    var formState = el.checkValidity();
+    if (formState.invalid) {
+        var firstInvalidControl = formState.elementsAsArray.filter(function (state) {
+            return state.invalid;
+        })[0];
+        if (firstInvalidControl) {
+            firstInvalidControl.element.focus();
+        }
+    }
+}), (0, _ceb.method)('addRule').invoke(function (el, name) {
+    var filter = arguments.length <= 2 || arguments[2] === undefined ? function () {
+        return false;
+    } : arguments[2];
+    var apply = arguments.length <= 3 || arguments[3] === undefined ? function () {
+        return false;
+    } : arguments[3];
+
+    el.rules.push({ name: name, filter: filter, apply: apply });
+}), (0, _ceb.on)('reset').invoke(function (el) {
+    var controlStates = el.elementsAsArray.map(function (control) {
+        return {
+            element: control,
+            valid: true,
+            invalid: false,
+            errors: {}
+        };
+    });
+
+    var formState = {
+        valid: true,
+        invalid: false,
+        controls: controlStates
+    };
+
+    (0, _utils.dispatch)(el, 'valid', {}, formState);
+    controlStates.forEach(function (state) {
+        return (0, _utils.dispatch)(state.element, 'valid', {}, state);
+    });
+}), (0, _ceb.on)('submit').invoke(function (el, evt) {
     if (el.preventSubmit) {
         evt.preventDefault();
     }
-}), (0, _ceb.on)('change').invoke(function (el, evt) {
-    var element = evt.target;
+    if (el.validateOn.indexOf('submit') > -1) {
+        el.reportValidity();
+    }
+}), (0, _ceb.on)('change, input').invoke(function (el, evt) {
+    var formControl = evt.target;
+    var noValidateOn = parseStringEventList(formControl.getAttribute('no-validate-on'));
+    var validateOn = parseStringEventList(formControl.getAttribute('validate-on')).concat(el.validateControlsOn).filter(function (name) {
+        return noValidateOn.indexOf(name) < 0;
+    });
+
+    if (validateOn.indexOf(evt.type) > -1) {
+        var state = el.checkFormControlValidity(formControl);
+        (0, _utils.dispatch)(state.element, state.valid ? 'valid' : 'invalid', {}, state);
+    }
 })).register('ceb-form');
 
 },{"../../es6/lib/ceb.js":9,"../../es6/lib/utils":10,"../builders/jquerify.js":11}],16:[function(require,module,exports){

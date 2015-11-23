@@ -1642,9 +1642,10 @@ function find(array, cb) {
  */
 function dispatch(el, name) {
     var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
+    var detail = arguments.length <= 3 || arguments[3] === undefined ? undefined : arguments[3];
 
     var evt = document.createEvent('CustomEvent');
-    evt.initCustomEvent(name, options.bubbles !== false, options.cancelable !== false, options.detail || {});
+    evt.initCustomEvent(name, options.bubbles !== false, options.cancelable !== false, detail);
     return el.dispatchEvent(evt);
 }
 
@@ -2030,7 +2031,7 @@ var Bacon = {
   }
 };
 
-Bacon.version = '0.7.80';
+Bacon.version = '0.7.82';
 
 var Exception = (typeof global !== "undefined" && global !== null ? global : this).Error;
 var nop = function () {};
@@ -2183,7 +2184,6 @@ var _ = {
         f(key, value);
       }
     }
-    return undefined;
   },
   toArray: function (xs) {
     return isArray(xs) ? xs : [xs];
@@ -2316,6 +2316,7 @@ var UpdateBarrier = Bacon.UpdateBarrier = (function () {
   var waiters = {};
   var afters = [];
   var aftersIndex = 0;
+  var flushed = {};
 
   var afterTransaction = function (f) {
     if (rootEvent) {
@@ -2341,36 +2342,38 @@ var UpdateBarrier = Bacon.UpdateBarrier = (function () {
 
   var flush = function () {
     while (waiterObs.length > 0) {
-      flushWaiters(0);
+      flushWaiters(0, true);
     }
-    return undefined;
+    flushed = {};
   };
 
-  var flushWaiters = function (index) {
+  var flushWaiters = function (index, deps) {
     var obs = waiterObs[index];
     var obsId = obs.id;
     var obsWaiters = waiters[obsId];
     waiterObs.splice(index, 1);
     delete waiters[obsId];
-    flushDepsOf(obs);
+    if (deps && waiterObs.length > 0) {
+      flushDepsOf(obs);
+    }
     for (var i = 0, f; i < obsWaiters.length; i++) {
       f = obsWaiters[i];
       f();
     }
-    return undefined;
   };
 
   var flushDepsOf = function (obs) {
+    if (flushed[obs.id]) return;
     var deps = obs.internalDeps();
     for (var i = 0, dep; i < deps.length; i++) {
       dep = deps[i];
       flushDepsOf(dep);
       if (waiters[dep.id]) {
         var index = _.indexOf(waiterObs, dep);
-        flushWaiters(index);
+        flushWaiters(index, false);
       }
     }
-    return undefined;
+    flushed[obs.id] = true;
   };
 
   var inTransaction = function (event, context, f, args) {
@@ -2627,7 +2630,7 @@ var toSimpleExtractor = function (args) {
   return function (key) {
     return function (value) {
       if (!(typeof value !== "undefined" && value !== null)) {
-        return undefined;
+        return;
       } else {
         var fieldValue = value[key];
         if (_.isFunction(fieldValue)) {
@@ -4212,7 +4215,6 @@ extend(Bus.prototype, {
         sub.unsub();
       }
     }
-    return undefined;
   },
 
   subscribeAll: function (newSink) {
