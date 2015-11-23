@@ -124,13 +124,13 @@ export function find(array, cb) {
 /**
  * @ignore
  */
-export function dispatch(el, name, options = {}) {
+export function dispatch(el, name, options = {}, detail = undefined) {
     var evt = document.createEvent('CustomEvent');
     evt.initCustomEvent(
         name,
         options.bubbles !== false,
         options.cancelable !== false,
-        options.detail || {}
+        detail
     );
     return el.dispatchEvent(evt);
 }
