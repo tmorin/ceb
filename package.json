@@ -1,6 +1,6 @@
 {
   "name": "ceb",
-  "version": "0.6.0-beta.0",
+  "version": "0.6.0-beta.1",
   "description": "custom-element-builder is just a set of builders, natively scalable and designed for FRP. ",
   "keywords": [
     "web-components",
