@@ -111,7 +111,7 @@ The method `on()` registers a callback about the events listed above.
 ```javascript
 import {ceb} from 'custom-element-builder';
 var MyDummyButtonElement = ceb()
-    .on('before:createdCallback', (el) => el.innerHTML = '<button></button>')
+    .on('before:createdCallback', el => el.innerHTML = '<button></button>')
     .register('my-dummy-button-element');
 ```
 
@@ -146,9 +146,9 @@ var MyDummyButtonElement = ceb()
                 writable: false,
                 value: 'value1'
             });
-            on('before:createdCallback'. (el) => {
+            on('before:createdCallback', el => {
                 // this will be executed for each created custom element
-                this.innerHTML = '<button></button>';
+                el.innerHTML = '<button></button>';
             });
         }
     })
