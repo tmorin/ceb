@@ -2,6 +2,7 @@
 /*.tgz
 /es6/test
 /gulp
+/junit
 /bower.json
 /circle.yml
 /gulpfile.js
