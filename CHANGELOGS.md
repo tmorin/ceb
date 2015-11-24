@@ -1,5 +1,8 @@
 # Change logs
 
+## 0.6.x
+- rename github repo
+
 ## 0.5.x
 - keep concepts breaking API
 
