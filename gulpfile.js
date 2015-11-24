@@ -111,7 +111,7 @@ gulp.task('zip', ['zip:source']);
 function createSauceTask(name) {
     gulp.task('karma:sauce:' + name, function (done) {
         new Server({
-            configFile: __dirname + '/../../karma.conf.js',
+            configFile: __dirname + '/karma.conf.js',
             sauceLabs: {
                 testName: 'ceb - ' + name,
                 recordVideo: false,
