@@ -1,7 +1,39 @@
 'use strict';
 
-System.register(['babel-runtime/core-js/object/define-property', 'babel-runtime/core-js/object/get-prototype-of', 'babel-runtime/helpers/classCallCheck', 'babel-runtime/helpers/createClass', 'babel-runtime/helpers/possibleConstructorReturn', 'babel-runtime/helpers/inherits', '../utils.js', './Builder.js'], function (_export) {
-    var _Object$defineProperty, _Object$getPrototypeOf, _classCallCheck, _createClass, _possibleConstructorReturn, _inherits, camelCase, isFunction, isUndefined, result, isNull, assign, Builder, DEFAULT_DATA, AttributeBuilder;
+function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
+System.register(['../utils.js', './Builder.js'], function (_export) {
+    var camelCase, isFunction, isUndefined, result, isNull, assign, Builder, _createClass, DEFAULT_DATA, AttributeBuilder;
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+
+        return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+    }
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
 
     function getterFactory(attrName, isBoolean) {
         return function () {
@@ -17,19 +49,7 @@ System.register(['babel-runtime/core-js/object/define-property', 'babel-runtime/
     }
 
     return {
-        setters: [function (_babelRuntimeCoreJsObjectDefineProperty) {
-            _Object$defineProperty = _babelRuntimeCoreJsObjectDefineProperty.default;
-        }, function (_babelRuntimeCoreJsObjectGetPrototypeOf) {
-            _Object$getPrototypeOf = _babelRuntimeCoreJsObjectGetPrototypeOf.default;
-        }, function (_babelRuntimeHelpersClassCallCheck) {
-            _classCallCheck = _babelRuntimeHelpersClassCallCheck.default;
-        }, function (_babelRuntimeHelpersCreateClass) {
-            _createClass = _babelRuntimeHelpersCreateClass.default;
-        }, function (_babelRuntimeHelpersPossibleConstructorReturn) {
-            _possibleConstructorReturn = _babelRuntimeHelpersPossibleConstructorReturn.default;
-        }, function (_babelRuntimeHelpersInherits) {
-            _inherits = _babelRuntimeHelpersInherits.default;
-        }, function (_utilsJs) {
+        setters: [function (_utilsJs) {
             camelCase = _utilsJs.camelCase;
             isFunction = _utilsJs.isFunction;
             isUndefined = _utilsJs.isUndefined;
@@ -40,6 +60,24 @@ System.register(['babel-runtime/core-js/object/define-property', 'babel-runtime/
             Builder = _BuilderJs.Builder;
         }],
         execute: function () {
+            _createClass = (function () {
+                function defineProperties(target, props) {
+                    for (var i = 0; i < props.length; i++) {
+                        var descriptor = props[i];
+                        descriptor.enumerable = descriptor.enumerable || false;
+                        descriptor.configurable = true;
+                        if ("value" in descriptor) descriptor.writable = true;
+                        Object.defineProperty(target, descriptor.key, descriptor);
+                    }
+                }
+
+                return function (Constructor, protoProps, staticProps) {
+                    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                    if (staticProps) defineProperties(Constructor, staticProps);
+                    return Constructor;
+                };
+            })();
+
             function getAttValue(el, attrName, isBoolean) {
                 if (isBoolean) {
                     return el.hasAttribute(attrName);
@@ -82,7 +120,7 @@ System.register(['babel-runtime/core-js/object/define-property', 'babel-runtime/
                 function AttributeBuilder(attrName) {
                     _classCallCheck(this, AttributeBuilder);
 
-                    var _this = _possibleConstructorReturn(this, _Object$getPrototypeOf(AttributeBuilder).call(this));
+                    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AttributeBuilder).call(this));
 
                     _this.data = assign({
                         attrName: attrName,
@@ -142,7 +180,7 @@ System.register(['babel-runtime/core-js/object/define-property', 'babel-runtime/
                         };
 
                         if (this.data.bound) {
-                            _Object$defineProperty(proto, this.data.propName, descriptor);
+                            Object.defineProperty(proto, this.data.propName, descriptor);
                         }
 
                         on('after:createdCallback').invoke(function (el) {

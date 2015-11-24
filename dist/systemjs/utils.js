@@ -1,12 +1,8 @@
 'use strict';
 
-System.register(['babel-runtime/core-js/object/keys'], function (_export) {
-    var _Object$keys;
-
+System.register([], function (_export) {
     return {
-        setters: [function (_babelRuntimeCoreJsObjectKeys) {
-            _Object$keys = _babelRuntimeCoreJsObjectKeys.default;
-        }],
+        setters: [],
         execute: function () {
             function camelCase(value) {
                 return value.toLowerCase().split('-').map(function (part, index) {
@@ -55,7 +51,7 @@ System.register(['babel-runtime/core-js/object/keys'], function (_export) {
 
             function assign() {
                 return Array.prototype.reduce.call(arguments, function (target, source) {
-                    return _Object$keys(Object(source)).reduce(function (target, key) {
+                    return Object.keys(Object(source)).reduce(function (target, key) {
                         target[key] = source[key];
                         return target;
                     }, target);

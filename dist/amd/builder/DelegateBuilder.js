@@ -1,42 +1,76 @@
 'use strict';
 
-define(['exports', 'babel-runtime/core-js/object/get-prototype-of', 'babel-runtime/helpers/classCallCheck', 'babel-runtime/helpers/createClass', 'babel-runtime/helpers/possibleConstructorReturn', 'babel-runtime/helpers/inherits', '../utils.js', './AttributeBuilder.js', './Builder.js'], function (exports, _getPrototypeOf, _classCallCheck2, _createClass2, _possibleConstructorReturn2, _inherits2, _utils, _AttributeBuilder, _Builder2) {
+function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
+define(['exports', '../utils.js', './AttributeBuilder.js', './Builder.js'], function (exports, _utils, _AttributeBuilder, _Builder2) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
     exports.DelegateBuilder = undefined;
 
-    var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
 
-    var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+    var _createClass = (function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
 
-    var _createClass3 = _interopRequireDefault(_createClass2);
-
-    var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-    var _inherits3 = _interopRequireDefault(_inherits2);
-
-    function _interopRequireDefault(obj) {
-        return obj && obj.__esModule ? obj : {
-            default: obj
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
         };
+    })();
+
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+
+        return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+    }
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
 
     var DelegateBuilder = exports.DelegateBuilder = (function (_Builder) {
-        (0, _inherits3.default)(DelegateBuilder, _Builder);
+        _inherits(DelegateBuilder, _Builder);
 
         /**
          * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} fieldBuilder the field builder
          */
 
         function DelegateBuilder(fieldBuilder) {
-            (0, _classCallCheck3.default)(this, DelegateBuilder);
+            _classCallCheck(this, DelegateBuilder);
 
             /**
              * @ignore
              */
 
-            var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(DelegateBuilder).call(this));
+            var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DelegateBuilder).call(this));
 
             _this.fieldBuilder = fieldBuilder;
             /**
@@ -59,7 +93,7 @@ define(['exports', 'babel-runtime/core-js/object/get-prototype-of', 'babel-runti
          * @returns {DelegateBuilder} the builder
          */
 
-        (0, _createClass3.default)(DelegateBuilder, [{
+        _createClass(DelegateBuilder, [{
             key: 'to',
             value: function to(selector) {
                 this.data.selector = selector;
@@ -197,6 +231,7 @@ define(['exports', 'babel-runtime/core-js/object/get-prototype-of', 'babel-runti
                 this.fieldBuilder.build(proto, on);
             }
         }]);
+
         return DelegateBuilder;
     })(_Builder2.Builder);
 });

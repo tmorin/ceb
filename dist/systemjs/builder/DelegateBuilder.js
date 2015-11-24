@@ -1,20 +1,42 @@
 'use strict';
 
-System.register(['babel-runtime/core-js/object/get-prototype-of', 'babel-runtime/helpers/classCallCheck', 'babel-runtime/helpers/createClass', 'babel-runtime/helpers/possibleConstructorReturn', 'babel-runtime/helpers/inherits', '../utils.js', './AttributeBuilder.js', './Builder.js'], function (_export) {
-    var _Object$getPrototypeOf, _classCallCheck, _createClass, _possibleConstructorReturn, _inherits, isUndefined, isFunction, toArray, getAttValue, setAttValue, Builder, DelegateBuilder;
+function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
+System.register(['../utils.js', './AttributeBuilder.js', './Builder.js'], function (_export) {
+    var isUndefined, isFunction, toArray, getAttValue, setAttValue, Builder, _createClass, DelegateBuilder;
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+
+        return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+    }
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
 
     return {
-        setters: [function (_babelRuntimeCoreJsObjectGetPrototypeOf) {
-            _Object$getPrototypeOf = _babelRuntimeCoreJsObjectGetPrototypeOf.default;
-        }, function (_babelRuntimeHelpersClassCallCheck) {
-            _classCallCheck = _babelRuntimeHelpersClassCallCheck.default;
-        }, function (_babelRuntimeHelpersCreateClass) {
-            _createClass = _babelRuntimeHelpersCreateClass.default;
-        }, function (_babelRuntimeHelpersPossibleConstructorReturn) {
-            _possibleConstructorReturn = _babelRuntimeHelpersPossibleConstructorReturn.default;
-        }, function (_babelRuntimeHelpersInherits) {
-            _inherits = _babelRuntimeHelpersInherits.default;
-        }, function (_utilsJs) {
+        setters: [function (_utilsJs) {
             isUndefined = _utilsJs.isUndefined;
             isFunction = _utilsJs.isFunction;
             toArray = _utilsJs.toArray;
@@ -25,13 +47,31 @@ System.register(['babel-runtime/core-js/object/get-prototype-of', 'babel-runtime
             Builder = _BuilderJs.Builder;
         }],
         execute: function () {
+            _createClass = (function () {
+                function defineProperties(target, props) {
+                    for (var i = 0; i < props.length; i++) {
+                        var descriptor = props[i];
+                        descriptor.enumerable = descriptor.enumerable || false;
+                        descriptor.configurable = true;
+                        if ("value" in descriptor) descriptor.writable = true;
+                        Object.defineProperty(target, descriptor.key, descriptor);
+                    }
+                }
+
+                return function (Constructor, protoProps, staticProps) {
+                    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                    if (staticProps) defineProperties(Constructor, staticProps);
+                    return Constructor;
+                };
+            })();
+
             _export('DelegateBuilder', DelegateBuilder = (function (_Builder) {
                 _inherits(DelegateBuilder, _Builder);
 
                 function DelegateBuilder(fieldBuilder) {
                     _classCallCheck(this, DelegateBuilder);
 
-                    var _this = _possibleConstructorReturn(this, _Object$getPrototypeOf(DelegateBuilder).call(this));
+                    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DelegateBuilder).call(this));
 
                     _this.fieldBuilder = fieldBuilder;
                     _this.data = {};

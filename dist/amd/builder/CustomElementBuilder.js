@@ -1,22 +1,34 @@
 'use strict';
 
-define(['exports', 'babel-runtime/core-js/object/create', 'babel-runtime/helpers/classCallCheck', 'babel-runtime/helpers/createClass', '../utils.js'], function (exports, _create, _classCallCheck2, _createClass2, _utils) {
+define(['exports', '../utils.js'], function (exports, _utils) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
     exports.CustomElementBuilder = undefined;
 
-    var _create2 = _interopRequireDefault(_create);
-
-    var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-    var _createClass3 = _interopRequireDefault(_createClass2);
-
-    function _interopRequireDefault(obj) {
-        return obj && obj.__esModule ? obj : {
-            default: obj
-        };
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
     }
+
+    var _createClass = (function () {
+        function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+                var descriptor = props[i];
+                descriptor.enumerable = descriptor.enumerable || false;
+                descriptor.configurable = true;
+                if ("value" in descriptor) descriptor.writable = true;
+                Object.defineProperty(target, descriptor.key, descriptor);
+            }
+        }
+
+        return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps);
+            if (staticProps) defineProperties(Constructor, staticProps);
+            return Constructor;
+        };
+    })();
 
     var LIFECYCLE_CALLBACKS = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
     var LIFECYCLE_EVENTS = (0, _utils.flatten)(LIFECYCLE_CALLBACKS.map(function (name) {
@@ -49,8 +61,9 @@ define(['exports', 'babel-runtime/core-js/object/create', 'babel-runtime/helpers
 
     var CustomElementBuilder = (function () {
         function CustomElementBuilder() {
-            (0, _classCallCheck3.default)(this, CustomElementBuilder);
-            var proto = (0, _create2.default)(HTMLElement.prototype),
+            _classCallCheck(this, CustomElementBuilder);
+
+            var proto = Object.create(HTMLElement.prototype),
                 builders = [],
                 events = LIFECYCLE_EVENTS.reduce(function (a, b) {
                 a[b] = [];
@@ -68,7 +81,7 @@ define(['exports', 'babel-runtime/core-js/object/create', 'babel-runtime/helpers
             };
         }
 
-        (0, _createClass3.default)(CustomElementBuilder, [{
+        _createClass(CustomElementBuilder, [{
             key: 'extend',
             value: function extend(value) {
                 this.context.extend = value;
@@ -141,6 +154,7 @@ define(['exports', 'babel-runtime/core-js/object/create', 'babel-runtime/helpers
                 return CustomElement;
             }
         }]);
+
         return CustomElementBuilder;
     })();
 

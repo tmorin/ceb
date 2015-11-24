@@ -1,27 +1,40 @@
 'use strict';
 
-define(['exports', 'babel-runtime/helpers/classCallCheck', 'babel-runtime/helpers/createClass'], function (exports, _classCallCheck2, _createClass2) {
+define(['exports'], function (exports) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
-  exports.Builder = undefined;
 
-  var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-  var _createClass3 = _interopRequireDefault(_createClass2);
-
-  function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-      default: obj
-    };
+  function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+      throw new TypeError("Cannot call a class as a function");
+    }
   }
+
+  var _createClass = (function () {
+    function defineProperties(target, props) {
+      for (var i = 0; i < props.length; i++) {
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+      }
+    }
+
+    return function (Constructor, protoProps, staticProps) {
+      if (protoProps) defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) defineProperties(Constructor, staticProps);
+      return Constructor;
+    };
+  })();
 
   var Builder = exports.Builder = (function () {
     function Builder() {
-      (0, _classCallCheck3.default)(this, Builder);
+      _classCallCheck(this, Builder);
     }
 
-    (0, _createClass3.default)(Builder, [{
+    _createClass(Builder, [{
       key: 'build',
 
       /**
@@ -33,6 +46,7 @@ define(['exports', 'babel-runtime/helpers/classCallCheck', 'babel-runtime/helper
         throw new Error('not implemented');
       }
     }]);
+
     return Builder;
   })();
 });

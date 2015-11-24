@@ -1,7 +1,39 @@
 'use strict';
 
-System.register(['babel-runtime/core-js/object/get-prototype-of', 'babel-runtime/helpers/classCallCheck', 'babel-runtime/helpers/createClass', 'babel-runtime/helpers/possibleConstructorReturn', 'babel-runtime/helpers/inherits', '../utils.js', './Builder.js', './PropertyBuilder.js'], function (_export) {
-    var _Object$getPrototypeOf, _classCallCheck, _createClass, _possibleConstructorReturn, _inherits, isFunction, Builder, PropertyBuilder, counter, OLD_CONTENT_ID_ATTR_NAME, CONTENT_ATTR_REG_EX, CONTENT_NODE_REG_EX, TemplateBuilder;
+function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
+System.register(['../utils.js', './Builder.js', './PropertyBuilder.js'], function (_export) {
+    var isFunction, Builder, PropertyBuilder, _createClass, counter, OLD_CONTENT_ID_ATTR_NAME, CONTENT_ATTR_REG_EX, CONTENT_NODE_REG_EX, TemplateBuilder;
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+
+        return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+    }
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
 
     function hasContent(html) {
         return html.search(CONTENT_ATTR_REG_EX) !== -1 || html.search(CONTENT_NODE_REG_EX) !== -1;
@@ -41,17 +73,7 @@ System.register(['babel-runtime/core-js/object/get-prototype-of', 'babel-runtime
     }
 
     return {
-        setters: [function (_babelRuntimeCoreJsObjectGetPrototypeOf) {
-            _Object$getPrototypeOf = _babelRuntimeCoreJsObjectGetPrototypeOf.default;
-        }, function (_babelRuntimeHelpersClassCallCheck) {
-            _classCallCheck = _babelRuntimeHelpersClassCallCheck.default;
-        }, function (_babelRuntimeHelpersCreateClass) {
-            _createClass = _babelRuntimeHelpersCreateClass.default;
-        }, function (_babelRuntimeHelpersPossibleConstructorReturn) {
-            _possibleConstructorReturn = _babelRuntimeHelpersPossibleConstructorReturn.default;
-        }, function (_babelRuntimeHelpersInherits) {
-            _inherits = _babelRuntimeHelpersInherits.default;
-        }, function (_utilsJs) {
+        setters: [function (_utilsJs) {
             isFunction = _utilsJs.isFunction;
         }, function (_BuilderJs) {
             Builder = _BuilderJs.Builder;
@@ -59,6 +81,24 @@ System.register(['babel-runtime/core-js/object/get-prototype-of', 'babel-runtime
             PropertyBuilder = _PropertyBuilderJs.PropertyBuilder;
         }],
         execute: function () {
+            _createClass = (function () {
+                function defineProperties(target, props) {
+                    for (var i = 0; i < props.length; i++) {
+                        var descriptor = props[i];
+                        descriptor.enumerable = descriptor.enumerable || false;
+                        descriptor.configurable = true;
+                        if ("value" in descriptor) descriptor.writable = true;
+                        Object.defineProperty(target, descriptor.key, descriptor);
+                    }
+                }
+
+                return function (Constructor, protoProps, staticProps) {
+                    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                    if (staticProps) defineProperties(Constructor, staticProps);
+                    return Constructor;
+                };
+            })();
+
             counter = 0;
             OLD_CONTENT_ID_ATTR_NAME = 'ceb-old-content-id';
             CONTENT_ATTR_REG_EX = /ceb\-content/im;
@@ -90,7 +130,7 @@ System.register(['babel-runtime/core-js/object/get-prototype-of', 'babel-runtime
                 function TemplateBuilder(tpl) {
                     _classCallCheck(this, TemplateBuilder);
 
-                    var _this = _possibleConstructorReturn(this, _Object$getPrototypeOf(TemplateBuilder).call(this));
+                    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TemplateBuilder).call(this));
 
                     _this.data = {
                         tpl: tpl

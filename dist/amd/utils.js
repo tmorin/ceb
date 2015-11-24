@@ -1,6 +1,6 @@
 'use strict';
 
-define(['exports', 'babel-runtime/core-js/object/keys'], function (exports, _keys) {
+define(['exports'], function (exports) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -20,14 +20,6 @@ define(['exports', 'babel-runtime/core-js/object/keys'], function (exports, _key
     exports.noop = noop;
     exports.find = find;
     exports.dispatch = dispatch;
-
-    var _keys2 = _interopRequireDefault(_keys);
-
-    function _interopRequireDefault(obj) {
-        return obj && obj.__esModule ? obj : {
-            default: obj
-        };
-    }
 
     function camelCase(value) {
         return value.toLowerCase().split('-').map(function (part, index) {
@@ -62,7 +54,7 @@ define(['exports', 'babel-runtime/core-js/object/keys'], function (exports, _key
 
     function assign() {
         return Array.prototype.reduce.call(arguments, function (target, source) {
-            return (0, _keys2.default)(Object(source)).reduce(function (target, key) {
+            return Object.keys(Object(source)).reduce(function (target, key) {
                 target[key] = source[key];
                 return target;
             }, target);
