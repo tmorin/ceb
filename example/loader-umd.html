@@ -1,0 +1,39 @@
+<script src="dist/umd/utils.js"></script>
+<script src="dist/umd/builder/Builder.js"></script>
+<script src="dist/umd/builder/PropertyBuilder.js"></script>
+<script src="dist/umd/builder/AttributeBuilder.js"></script>
+<script src="dist/umd/builder/DelegateBuilder.js"></script>
+<script src="dist/umd/builder/MethodBuilder.js"></script>
+<script src="dist/umd/builder/OnBuilder.js"></script>
+<script src="dist/umd/builder/TemplateBuilder.js"></script>
+<script src="dist/umd/builder/CustomElementBuilder.js"></script>
+<script src="dist/umd/ceb.js"></script>
+
+<script id="ceb-button-template" type="text/html">
+    <button class="btn btn-default">
+        <div>
+            <span x-ref="icon"></span>
+            <span x-ref="label"></span>
+        </div>
+    </button>
+</script>
+
+<div class="container">
+    <ceb-button></ceb-button>
+</div>
+
+<script>
+    document.body.onload = function () {
+        var tpl = document.getElementById('ceb-button-template').textContent;
+        ceb.ceb().builders(
+            ceb.template(tpl),
+            ceb.delegate(ceb.attribute('name')).to('button'),
+            ceb.delegate(ceb.attribute('disabled').boolean()).to('button').property(),
+            ceb.delegate(ceb.attribute('label').value('click me')).to('button [x-ref=label]').property('textContent'),
+            ceb.delegate(ceb.attribute('icon').value('X')).to('button [x-ref=icon]').property('textContent'),
+            ceb.on('click button').invoke(function (el) {
+                el.label = (el.label === 'click me' ? 'clicked' : 'click me');
+            })
+        ).register('ceb-button');
+    }
+</script>

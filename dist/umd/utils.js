@@ -2,17 +2,17 @@
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(['exports'], factory);
+        define(['exports', 'babel-runtime/core-js/object/keys'], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports);
+        factory(exports, require('babel-runtime/core-js/object/keys'));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports);
+        factory(mod.exports, global.keys);
         global.utils = mod.exports;
     }
-})(this, function (exports) {
+})(this, function (exports, _keys) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -32,6 +32,14 @@
     exports.noop = noop;
     exports.find = find;
     exports.dispatch = dispatch;
+
+    var _keys2 = _interopRequireDefault(_keys);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
+        };
+    }
 
     function camelCase(value) {
         return value.toLowerCase().split('-').map(function (part, index) {
@@ -66,7 +74,7 @@
 
     function assign() {
         return Array.prototype.reduce.call(arguments, function (target, source) {
-            return Object.keys(Object(source)).reduce(function (target, key) {
+            return (0, _keys2.default)(Object(source)).reduce(function (target, key) {
                 target[key] = source[key];
                 return target;
             }, target);

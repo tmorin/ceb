@@ -1,4 +1,4 @@
-import {ceb, attribute, method} from '../../es6/lib/ceb.js';
+import {ceb, attribute, method} from '../../src/ceb.js';
 import {jquerify} from '../builders/jquerify.js';
 
 export default ceb().proto(Object.create(HTMLButtonElement.prototype)).extend('button').builders(

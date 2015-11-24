@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {ceb, method, template, attribute, delegate, on} from '../../es6/lib/ceb.js';
+import {ceb, method, template, attribute, delegate, on} from '../../src/ceb.js';
 import {baconify, trigger} from '../builders/baconify.js';
 import {fromPromise, once} from 'baconjs';
 

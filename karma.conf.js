@@ -6,36 +6,34 @@ module.exports = function (config) {
 
         basePath: '',
 
-        frameworks: ['mocha', 'sinon-chai', 'browserify'],
+        frameworks: ['mocha', 'sinon-chai'],
 
         files: [
             'node_modules/document-register-element/build/document-register-element.js',
             //'node_modules/webcomponents.js/webcomponents-lite.min.js',
-            'es6/test/**/*.spec.js'
+            'test/**/*.spec.js'
         ],
 
         exclude: [],
 
         preprocessors: {
-            'es6/**/*.js': ['browserify']
+            'test/**/*.spec.js': ['webpack', 'sourcemap']
         },
 
-        browserify: {
-            debug: true,
-            transform: [
-                ['babelify', {
-                    presets: ['es2015'],
-                    plugins: ['transform-es2015-modules-commonjs']
-                }]
-            ]
+        webpack: {
+            module: {
+                loaders: [
+                    {test: /\.js?$/, exclude: /node_modules/, loader: 'babel'}
+                ]
+            },
+            devtool: 'inline-source-map'
         },
 
-        reporters: ['progress', 'junit'],
-
-        junitReporter: {
-            outputDir: process.env.CIRCLE_TEST_REPORTS || 'junit',
-            useBrowserName: true
+        webpackMiddleware: {
+            noInfo: true
         },
+
+        reporters: ['progress'],
 
         port: 9877,
 

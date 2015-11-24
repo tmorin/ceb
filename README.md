@@ -22,7 +22,7 @@ About, not evergreen browsers (those not implementing `document.registerElement(
 
 From ES6;
 ```javascript
-import {ceb} from 'ceb/es6/lib/ceb'
+import {ceb} from 'ceb/src/ceb'
 ```
 
 From ES5:
@@ -32,14 +32,14 @@ var ceb = require('ceb');
 
 From AMD:
 ```javascript
-require(['pathOfDistDir/amd/lib/ceb'], function (ceb) {
+require(['pathOfDistDir/amd/ceb'], function (ceb) {
     // ...
 });
 ```
 
-From System:
+From SystemJs:
 ```javascript
-System.import('pathOfDistDir/system/lib/ceb.js').then(function (ceb) {
+System.import('pathOfDistDir/systemjs/ceb.js').then(function (ceb) {
     // ...
 });
 ```
@@ -69,29 +69,49 @@ From UMD (Global):
 }(this));
 ```
 
-## Gulp tasks
+## npm tasks
 
-Clean generated folders then check, test, build and generate everything.
+Clean working directory
 ```shell
-gulp 
+npm run clean
 ```
 
-Single run of karma.
+Lint JavaScript source files
 ```shell
-gulp karma
+npm run lint
 ```
 
-Start karma in watching mode handling browserify and babelify.
+Build distributions files
 ```shell
-gulp karma:watch
+npm run build
 ```
 
-Single run of karma with saucelabs browsers.
+Launch karma against PhantomJS
 ```shell
-gulp karma:sauce
+npm run test:local
 ```
 
-Start local server for examples
+Launch karma against PhantomJS with hot reload
 ```shell
-gulp browser-sync
+npm run test:local:watch
+```
+
+Launch karma against saucelab browsers
+```shell
+npm run test
+```
+
+Zip sources files
+```shell
+npm run zip
+```
+
+Start webpack dev server with hot reload
+```shell
+npm start
+```
+
+Release (version + tag + npm) the project
+```shell
+npm release:[pre|patch|minor|major]
 ```

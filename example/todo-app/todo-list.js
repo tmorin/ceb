@@ -1,4 +1,4 @@
-import {ceb, property} from '../../es6/lib/ceb.js';
+import {ceb, property} from '../../src/ceb.js';
 import {idomify} from '../builders/idomify.js';
 import {todoify} from './todoify.js';
 import './todo-list-item.js';

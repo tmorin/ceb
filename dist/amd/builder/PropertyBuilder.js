@@ -1,59 +1,27 @@
 'use strict';
 
-function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
-
-define(['exports', './Builder.js', '../utils.js'], function (exports, _Builder2, _utils) {
+define(['exports', 'babel-runtime/core-js/object/define-property', 'babel-runtime/core-js/object/get-prototype-of', 'babel-runtime/helpers/classCallCheck', 'babel-runtime/helpers/createClass', 'babel-runtime/helpers/possibleConstructorReturn', 'babel-runtime/helpers/inherits', './Builder.js', '../utils.js'], function (exports, _defineProperty, _getPrototypeOf, _classCallCheck2, _createClass2, _possibleConstructorReturn2, _inherits2, _Builder2, _utils) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
     exports.PropertyBuilder = undefined;
 
-    function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-            throw new TypeError("Cannot call a class as a function");
-        }
-    }
+    var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
-    var _createClass = (function () {
-        function defineProperties(target, props) {
-            for (var i = 0; i < props.length; i++) {
-                var descriptor = props[i];
-                descriptor.enumerable = descriptor.enumerable || false;
-                descriptor.configurable = true;
-                if ("value" in descriptor) descriptor.writable = true;
-                Object.defineProperty(target, descriptor.key, descriptor);
-            }
-        }
+    var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-        return function (Constructor, protoProps, staticProps) {
-            if (protoProps) defineProperties(Constructor.prototype, protoProps);
-            if (staticProps) defineProperties(Constructor, staticProps);
-            return Constructor;
+    var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+    var _createClass3 = _interopRequireDefault(_createClass2);
+
+    var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+    var _inherits3 = _interopRequireDefault(_inherits2);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
         };
-    })();
-
-    function _possibleConstructorReturn(self, call) {
-        if (!self) {
-            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-        }
-
-        return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-    }
-
-    function _inherits(subClass, superClass) {
-        if (typeof superClass !== "function" && superClass !== null) {
-            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-        }
-
-        subClass.prototype = Object.create(superClass && superClass.prototype, {
-            constructor: {
-                value: subClass,
-                enumerable: false,
-                writable: true,
-                configurable: true
-            }
-        });
-        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
 
     var DEFAULT_DATA = {
@@ -63,12 +31,12 @@ define(['exports', './Builder.js', '../utils.js'], function (exports, _Builder2,
     };
 
     var PropertyBuilder = (function (_Builder) {
-        _inherits(PropertyBuilder, _Builder);
+        (0, _inherits3.default)(PropertyBuilder, _Builder);
 
         function PropertyBuilder(propName) {
-            _classCallCheck(this, PropertyBuilder);
+            (0, _classCallCheck3.default)(this, PropertyBuilder);
 
-            var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PropertyBuilder).call(this));
+            var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(PropertyBuilder).call(this));
 
             _this.data = (0, _utils.assign)({
                 propName: propName
@@ -76,7 +44,7 @@ define(['exports', './Builder.js', '../utils.js'], function (exports, _Builder2,
             return _this;
         }
 
-        _createClass(PropertyBuilder, [{
+        (0, _createClass3.default)(PropertyBuilder, [{
             key: 'immutable',
             value: function immutable() {
                 this.data.immutable = true;
@@ -141,7 +109,7 @@ define(['exports', './Builder.js', '../utils.js'], function (exports, _Builder2,
                     descriptor.value = defaultValue;
                 }
 
-                Object.defineProperty(proto, this.data.propName, descriptor);
+                (0, _defineProperty2.default)(proto, this.data.propName, descriptor);
                 on('after:createdCallback').invoke(function (el) {
                     if (!_this2.data.descriptorValue && !(0, _utils.isUndefined)(defaultValue)) {
                         el[data.propName] = defaultValue;
@@ -149,7 +117,6 @@ define(['exports', './Builder.js', '../utils.js'], function (exports, _Builder2,
                 });
             }
         }]);
-
         return PropertyBuilder;
     })(_Builder2.Builder);
 

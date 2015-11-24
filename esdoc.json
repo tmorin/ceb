@@ -1,4 +1,4 @@
 {
-  "source": "./es6/lib",
+  "source": "./src",
   "destination": "./api"
 }

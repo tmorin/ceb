@@ -1,5 +1,5 @@
-import {ceb, method, property, attribute, on} from '../../es6/lib/ceb.js';
-import {toArray, assign, isFunction} from '../../es6/lib/utils.js';
+import {ceb, method, property, attribute, on} from '../../src/ceb.js';
+import {toArray, assign, isFunction} from '../../src/utils.js';
 import $ from 'jquery';
 import {idomify} from '../builders/idomify.js';
 

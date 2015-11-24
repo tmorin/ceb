@@ -1,64 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ceb-address-selector - ceb's examples</title>
+<div class="container">
 
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css"/>
+    <p>
+        <code>ceb-address-selector</code> consume the <a href="http://nominatim.openstreetmap.org">nominatim.openstreetmap.org</a> API to help the selection of a place.
+    </p>
 
-    <style>
-        .suggestions-container li {
-            border: 1px solid transparent;
-            cursor: default;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-        .suggestions-container li[marked] {
-            border: 1px solid grey;
-        }
-        .suggestions-container li:hover {
-            background-color: whitesmoke;
-        }
-    </style>
+    <p>
+        The implementation is based on <a href="https://baconjs.github.io" target="_blank">bacon.js</a> streams to simplify the asynchronous business of this kind of widgets.
+        The bacon.js magic is provided by <code>example/builders/baconify.js</code>.
+    </p>
 
-    <script src="node_modules/document-register-element/build/document-register-element.js"></script>
+    <hr>
 
-</head>
-<body class="container">
+    <ceb-address-selector></ceb-address-selector>
 
-<h1>ceb-address-selector - ceb's examples</h1>
-
-<p>
-    <a href="./">back</a>
-</p>
-
-<p>
-    <code>ceb-address-selector</code> consume the <a href="http://nominatim.openstreetmap.org">nominatim.openstreetmap.org</a> API to help the selection of a place.
-</p>
-
-<p>
-    The implementation is based on <a href="https://baconjs.github.io" target="_blank">bacon.js</a> streams to simplify the asynchronous business of this kind of widgets.
-    The bacon.js magic is provided by <code>example/builders/baconify.js</code>.
-</p>
-
-<hr>
-
-<ceb-address-selector></ceb-address-selector>
-
-<script src="dist/example/ceb-address-selector.js"></script>
-
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-20179310-5', 'auto');
-    ga('send', 'pageview');
-</script>
-
-</body>
-</html>
+</div>

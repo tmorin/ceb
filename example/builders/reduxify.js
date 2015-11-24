@@ -1,5 +1,5 @@
-import {Builder, method, property} from '../../es6/lib/ceb.js';
-import {assign, partial, toArray} from '../../es6/lib/utils.js';
+import {Builder, method, property} from '../../src/ceb.js';
+import {assign, partial, toArray} from '../../src/utils.js';
 
 export class ReduxBuilder extends Builder {
 

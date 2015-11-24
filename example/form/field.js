@@ -1,4 +1,4 @@
-import {ceb, method, property, on, template} from '../../es6/lib/ceb.js';
+import {ceb, method, property, on, template} from '../../src/ceb.js';
 import {jquerify} from '../builders/jquerify.js';
 
 export default ceb().builders(

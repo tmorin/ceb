@@ -1,122 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ceb-grid - ceb's examples</title>
+<div class="container">
 
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css"/>
+    <p>
+        The implemenation
+    </p>
 
-    <!-- <script src="node_modules/webcomponents.js/webcomponents-lite.min.js"></script> -->
-    <script src="node_modules/document-register-element/build/document-register-element.js"></script>
+    <hr>
 
-    <style>
-        ceb-grid {
-            display: block;
-        }
-        ceb-grid table[thead=""], ceb-grid table[tbody=""] {
-            margin-bottom: 0;
-            table-layout: fixed;
-        }
-        ceb-grid table[thead=""] tr th span {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-        ceb-grid table[tbody=""] tbody tr:nth-child(1) td {
-            border-top: none;
-        }
-    </style>
-</head>
-<body class="container">
+    <form id="filterForm" onsubmit="return false;">
+        <div class="form-group">
+            <input placeholder="try 10" name="filterQuery" class="form-control" type="text">
+        </div>
+        <button type="submit" class="btn btn-primary" name="submitBtn">
+            apply filter
+        </button>
+        <button type="reset" class="btn btn-default" name="resetBtn">
+            reset filters
+        </button>
+    </form>
 
-<h1>ceb-grid - ceb's examples</h1>
+    <ceb-store-memory id="memoryStore"></ceb-store-memory>
+    <ceb-store-rest id="restStore"></ceb-store-rest>
 
-<p>
-    <a href="./">back</a>
-</p>
-
-<p>
-    The implemenation
-</p>
-
-<hr>
-
-<form id="filterForm" onsubmit="return false;">
-    <div class="form-group">
-        <input placeholder="try 10" name="filterQuery" class="form-control" type="text">
+    <div class="row">
+        <div class="col-md-6">
+            <ceb-grid id="memoryGrid"
+                      store="memoryStore"
+                      options.body.height="20em"
+                      pagination.from="0"
+                      pagination.size="50"
+                      pager.rows.steps="5"
+                      pager.rows.offset="50">
+                <table>
+                    <caption>I'm a memoryGrid linked to a memory store.</caption>
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>firstname</th>
+                        <th>lastname</th>
+                        <th type="date">birthdate</th>
+                    </tr>
+                    </thead>
+                </table>
+            </ceb-grid>
+        </div>
+        <div class="col-md-6">
+            <ceb-grid id="restGrid"
+                      store="restStore"
+                      options.body.height="20em"
+                      pagination.from="0"
+                      pagination.size="10"
+                      pager.rows.steps="5"
+                      pager.rows.offset="10">
+                <table>
+                    <caption>
+                        I'm a grid linked to a rest store.
+                        I'm bound to the Wikipedia public API, so the browser will freeze on jsonp respones due to babel processing.
+                    </caption>
+                    <thead>
+                    <tr>
+                        <th>title</th>
+                        <th>size</th>
+                        <th>wordcount</th>
+                        <th type="date">timestamp</th>
+                    </tr>
+                    </thead>
+                </table>
+            </ceb-grid>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary" name="submitBtn">
-        apply filter
-    </button>
-    <button type="reset" class="btn btn-default" name="resetBtn">
-        reset filters
-    </button>
-</form>
 
-<ceb-store-memory id="memoryStore"></ceb-store-memory>
-<ceb-store-rest id="restStore"></ceb-store-rest>
-
-<div class="row">
-    <div class="col-md-6">
-        <ceb-grid id="memoryGrid"
-                  store="memoryStore"
-                  options.body.height="20em"
-                  pagination.from="0"
-                  pagination.size="50"
-                  pager.rows.steps="5"
-                  pager.rows.offset="50">
-            <table>
-                <caption>I'm a memoryGrid linked to a memory store.</caption>
-                <thead>
-                <tr>
-                    <th>id</th>
-                    <th>firstname</th>
-                    <th>lastname</th>
-                    <th type="date">birthdate</th>
-                </tr>
-                </thead>
-            </table>
-        </ceb-grid>
-    </div>
-    <div class="col-md-6">
-        <ceb-grid id="restGrid"
-                  store="restStore"
-                  options.body.height="20em"
-                  pagination.from="0"
-                  pagination.size="10"
-                  pager.rows.steps="5"
-                  pager.rows.offset="10">
-            <table>
-                <caption>
-                    I'm a grid linked to a rest store.
-                    I'm bound to the Wikipedia public API, so the browser will freeze on jsonp respones due to babel processing.
-                </caption>
-                <thead>
-                <tr>
-                    <th>title</th>
-                    <th>size</th>
-                    <th>wordcount</th>
-                    <th type="date">timestamp</th>
-                </tr>
-                </thead>
-            </table>
-        </ceb-grid>
-    </div>
 </div>
-
-<script src="dist/example/ceb-grid.js"></script>
-
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-20179310-5', 'auto');
-ga('send', 'pageview');
-</script>
-
-</body>
-</html>

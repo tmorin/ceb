@@ -1,51 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>todo-app - ceb's examples</title>
+<div class="container">
 
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css"/>
+    <p>
+        <code>todo-app</code> is based on <a href="http://rackt.github.io/redux/" target="_blank">redux</a> and <a href="https://github.com/google/incremental-dom" target="_blank">incremental-dom</a>.
 
-    <script src="node_modules/document-register-element/build/document-register-element.js"></script>
+        The logic part of the application is based on the redux's <a href="http://rackt.github.io/redux/docs/basics/ExampleTodoList.html" target="_blank">TodoList example</a>.
 
-</head>
-<body class="container">
+        The UI part is split into several custom elements and linked to the redux stuff with the custom builder <code>example/builders/reduxify.js</code>.
 
-<h1>todo-app - ceb's examples</h1>
+        The templates of the custom elements are compiled with <a href="https://github.com/tmorin/idomizer" target="_blank">idomizer</a>.
 
-<p>
-    <a href="./">back</a>
-</p>
+        Its integration is handled by the custom builder <code>example/builders/idomify.js</code>.
+    </p>
 
-<p>
-    <code>todo-app</code> is based on <a href="http://rackt.github.io/redux/" target="_blank">redux</a> and <a href="https://github.com/google/incremental-dom" target="_blank">incremental-dom</a>.
+    <hr>
 
-    The logic part of the application is based on the redux's <a href="http://rackt.github.io/redux/docs/basics/ExampleTodoList.html" target="_blank">TodoList example</a>.
+    <todo-app></todo-app>
 
-    The UI part is split into several custom elements and linked to the redux stuff with the custom builder <code>example/builders/reduxify.js</code>.
-
-    The templates of the custom elements are compiled with <a href="https://github.com/tmorin/idomizer" target="_blank">idomizer</a>.
-
-    Its integration is handled by the custom builder <code>example/builders/idomify.js</code>.
-</p>
-
-<hr>
-
-<todo-app></todo-app>
-
-<script src="dist/example/todo-app.js"></script>
-
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-20179310-5', 'auto');
-    ga('send', 'pageview');
-</script>
-
-</body>
-</html>
+</div>

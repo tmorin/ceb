@@ -1,6 +1,6 @@
 import {noConflict} from 'jquery';
 var $ = noConflict();
-import {Builder} from '../../es6/lib/ceb.js';
+import {Builder} from '../../src/ceb.js';
 
 export class JquerifyBuilder extends Builder {
 

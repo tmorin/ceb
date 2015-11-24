@@ -1,107 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ceb-form - ceb's examples</title>
-
-    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap-theme.min.css"/>
-
-    <script src="node_modules/document-register-element/build/document-register-element.js"></script>
-
-</head>
-<body class="container">
-
-<h1>ceb-form - ceb's examples</h1>
-
-<p>
-    <a href="./">back</a>
-</p>
-
-<p>
-    The following form is based on an extion of the native HTMLFormElement.
-    This extension taking the validation of the underlying form elements, even without HTML5.
-</p>
-
-<hr>
-
-<form name="order"
-      is="ceb-form"
-      prevent-submit
-      validate-on="submit"
-      validate-controls-on="change,input">
-
-    <fieldset>
-        <legend>input[type=text]</legend>
-        <div class="row">
-            <ceb-field class="col-sm-4">
-                <label for="inputTextRequired" class="control-label">
-                    required
-                </label>
-                <input id="inputTextRequired"
-                       type="text"
-                       name="input[text]"
-                       class="form-control"
-                       required
-                       title="The field is required.">
-            </ceb-field>
-            <ceb-field class="col-sm-4">
-                <label for="inputTextMinLength" class="control-label">
-                    minlength
-                    <small>is 5</small>
-                </label>
-                <input id="inputTextMinLength"
-                       type="text"
-                       name="input[text]"
-                       class="form-control"
-                       minlength="5">
-            </ceb-field>
-            <ceb-field class="col-sm-4">
-                <label for="inputTextMaxLength" class="control-label">
-                    maxlength
-                    <small>is 5</small>
-                </label>
-                <input id="inputTextMaxLength"
-                       type="text"
-                       name="input[text]"
-                       class="form-control"
-                       value="more than five characters"
-                       maxlength="5">
-            </ceb-field>
-        </div>
-    </fieldset>
+<div class="container">
 
     <p>
-        <button type="submit" is="ceb-button" meaning="primary">
-            <i class="glyphicon glyphicon-check"></i>
-            Save
-        </button>
-        <button type="reset" is="ceb-button" meaning="warning">
-            <i class="glyphicon glyphicon-erase"></i>
-            Reset
-        </button>
+        The following form is based on an extion of the native HTMLFormElement.
+        This extension taking the validation of the underlying form elements, even without HTML5.
     </p>
-</form>
 
-<script src="dist/example/ceb-form.js"></script>
+    <hr>
 
-<script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-20179310-5', 'auto');
-    ga('send', 'pageview');
-</script>
+    <form name="order"
+          is="ceb-form"
+          prevent-submit
+          validate-on="submit"
+          validate-controls-on="change,input">
 
-</body>
-</html>
+        <fieldset>
+            <legend>input[type=text]</legend>
+            <div class="row">
+                <ceb-field class="col-sm-4">
+                    <label for="inputTextRequired" class="control-label">
+                        required
+                    </label>
+                    <input id="inputTextRequired"
+                           type="text"
+                           name="input[text]"
+                           class="form-control"
+                           required
+                           title="The field is required.">
+                </ceb-field>
+                <ceb-field class="col-sm-4">
+                    <label for="inputTextMinLength" class="control-label">
+                        minlength
+                        <small>is 5</small>
+                    </label>
+                    <input id="inputTextMinLength"
+                           type="text"
+                           name="input[text]"
+                           class="form-control"
+                           minlength="5">
+                </ceb-field>
+                <ceb-field class="col-sm-4">
+                    <label for="inputTextMaxLength" class="control-label">
+                        maxlength
+                        <small>is 5</small>
+                    </label>
+                    <input id="inputTextMaxLength"
+                           type="text"
+                           name="input[text]"
+                           class="form-control"
+                           value="more than five characters"
+                           maxlength="5">
+                </ceb-field>
+            </div>
+        </fieldset>
+
+        <p>
+            <button type="submit" is="ceb-button" meaning="primary">
+                <i class="glyphicon glyphicon-check"></i>
+                Save
+            </button>
+            <button type="reset" is="ceb-button" meaning="warning">
+                <i class="glyphicon glyphicon-erase"></i>
+                Reset
+            </button>
+        </p>
+    </form>
+
+</div>

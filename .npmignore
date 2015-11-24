@@ -1,7 +1,6 @@
 /.*
 /*.tgz
-/es6/test
-/gulp
+/test
 /junit
 /bower.json
 /circle.yml

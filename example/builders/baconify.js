@@ -1,5 +1,5 @@
-import {Builder, property} from '../../es6/lib/ceb.js';
-import {noop, partial} from '../../es6/lib/utils.js';
+import {Builder, property} from '../../src/ceb.js';
+import {noop, partial} from '../../src/utils.js';
 import {Bus} from 'baconjs';
 
 let counter = 0;

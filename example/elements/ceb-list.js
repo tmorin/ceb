@@ -1,4 +1,4 @@
-import {ceb, property, method, on} from '../../es6/lib/ceb.js';
+import {ceb, property, method, on} from '../../src/ceb.js';
 import {handlebarify} from '../builders/handlebarify.js';
 
 ceb().builders(

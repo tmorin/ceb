@@ -1,114 +1,44 @@
 'use strict';
 
-function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
-
-define(['exports', '../utils.js', './Builder.js'], function (exports, _utils, _Builder2) {
+define(['exports', 'babel-runtime/helpers/slicedToArray', 'babel-runtime/core-js/object/get-prototype-of', 'babel-runtime/helpers/classCallCheck', 'babel-runtime/helpers/createClass', 'babel-runtime/helpers/possibleConstructorReturn', 'babel-runtime/helpers/inherits', '../utils.js', './Builder.js'], function (exports, _slicedToArray2, _getPrototypeOf, _classCallCheck2, _createClass2, _possibleConstructorReturn2, _inherits2, _utils, _Builder2) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
     exports.OnBuilder = undefined;
 
-    var _slicedToArray = (function () {
-        function sliceIterator(arr, i) {
-            var _arr = [];
-            var _n = true;
-            var _d = false;
-            var _e = undefined;
+    var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 
-            try {
-                for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-                    _arr.push(_s.value);
+    var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-                    if (i && _arr.length === i) break;
-                }
-            } catch (err) {
-                _d = true;
-                _e = err;
-            } finally {
-                try {
-                    if (!_n && _i["return"]) _i["return"]();
-                } finally {
-                    if (_d) throw _e;
-                }
-            }
+    var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-            return _arr;
-        }
+    var _createClass3 = _interopRequireDefault(_createClass2);
 
-        return function (arr, i) {
-            if (Array.isArray(arr)) {
-                return arr;
-            } else if (Symbol.iterator in Object(arr)) {
-                return sliceIterator(arr, i);
-            } else {
-                throw new TypeError("Invalid attempt to destructure non-iterable instance");
-            }
+    var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+    var _inherits3 = _interopRequireDefault(_inherits2);
+
+    function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : {
+            default: obj
         };
-    })();
-
-    function _classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-            throw new TypeError("Cannot call a class as a function");
-        }
-    }
-
-    var _createClass = (function () {
-        function defineProperties(target, props) {
-            for (var i = 0; i < props.length; i++) {
-                var descriptor = props[i];
-                descriptor.enumerable = descriptor.enumerable || false;
-                descriptor.configurable = true;
-                if ("value" in descriptor) descriptor.writable = true;
-                Object.defineProperty(target, descriptor.key, descriptor);
-            }
-        }
-
-        return function (Constructor, protoProps, staticProps) {
-            if (protoProps) defineProperties(Constructor.prototype, protoProps);
-            if (staticProps) defineProperties(Constructor, staticProps);
-            return Constructor;
-        };
-    })();
-
-    function _possibleConstructorReturn(self, call) {
-        if (!self) {
-            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-        }
-
-        return call && ((typeof call === 'undefined' ? 'undefined' : _typeof(call)) === "object" || typeof call === "function") ? call : self;
-    }
-
-    function _inherits(subClass, superClass) {
-        if (typeof superClass !== "function" && superClass !== null) {
-            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-        }
-
-        subClass.prototype = Object.create(superClass && superClass.prototype, {
-            constructor: {
-                value: subClass,
-                enumerable: false,
-                writable: true,
-                configurable: true
-            }
-        });
-        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
 
     var OnBuilder = exports.OnBuilder = (function (_Builder) {
-        _inherits(OnBuilder, _Builder);
+        (0, _inherits3.default)(OnBuilder, _Builder);
 
         /**
          * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
          */
 
         function OnBuilder(events) {
-            _classCallCheck(this, OnBuilder);
+            (0, _classCallCheck3.default)(this, OnBuilder);
 
             /**
              * @ignore
              */
 
-            var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(OnBuilder).call(this));
+            var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(OnBuilder).call(this));
 
             _this.data = { events: events, invoke: _utils.noop };
             return _this;
@@ -122,7 +52,7 @@ define(['exports', '../utils.js', './Builder.js'], function (exports, _utils, _B
          * @returns {OnBuilder} the builder
          */
 
-        _createClass(OnBuilder, [{
+        (0, _createClass3.default)(OnBuilder, [{
             key: 'invoke',
             value: function invoke(fn) {
                 if ((0, _utils.isFunction)(fn)) {
@@ -238,19 +168,19 @@ define(['exports', '../utils.js', './Builder.js'], function (exports, _utils, _B
                     };
 
                     el._cebOnHandlers = events.map(function (_ref) {
-                        var _ref2 = _slicedToArray(_ref, 2);
+                        var _ref2 = (0, _slicedToArray3.default)(_ref, 2);
 
                         var name = _ref2[0];
                         var target = _ref2[1];
                         return [name, target ? el.querySelector(target) : el];
                     }).filter(function (_ref3) {
-                        var _ref4 = _slicedToArray(_ref3, 2);
+                        var _ref4 = (0, _slicedToArray3.default)(_ref3, 2);
 
                         var name = _ref4[0];
                         var target = _ref4[1];
                         return !!target;
                     }).map(function (_ref5) {
-                        var _ref6 = _slicedToArray(_ref5, 2);
+                        var _ref6 = (0, _slicedToArray3.default)(_ref5, 2);
 
                         var name = _ref6[0];
                         var target = _ref6[1];
@@ -260,7 +190,7 @@ define(['exports', '../utils.js', './Builder.js'], function (exports, _utils, _B
                     });
 
                     el._cebOnHandlers.forEach(function (_ref7) {
-                        var _ref8 = _slicedToArray(_ref7, 4);
+                        var _ref8 = (0, _slicedToArray3.default)(_ref7, 4);
 
                         var target = _ref8[0];
                         var name = _ref8[1];
@@ -272,7 +202,7 @@ define(['exports', '../utils.js', './Builder.js'], function (exports, _utils, _B
 
                 on('before:detachedCallback').invoke(function (el) {
                     el._cebOnHandlers.forEach(function (_ref9) {
-                        var _ref10 = _slicedToArray(_ref9, 4);
+                        var _ref10 = (0, _slicedToArray3.default)(_ref9, 4);
 
                         var target = _ref10[0];
                         var name = _ref10[1];
@@ -283,7 +213,6 @@ define(['exports', '../utils.js', './Builder.js'], function (exports, _utils, _B
                 });
             }
         }]);
-
         return OnBuilder;
     })(_Builder2.Builder);
 });

@@ -1,5 +1,5 @@
-import {Builder, method} from '../../es6/lib/ceb.js';
-import {assign} from '../../es6/lib/utils.js';
+import {Builder, method} from '../../src/ceb.js';
+import {assign} from '../../src/utils.js';
 import {compile} from 'idomizer';
 import IncrementalDOM from 'incremental-dom';
 

@@ -1,5 +1,5 @@
-import {Builder, template, method} from '../../es6/lib/ceb.js';
-import handlebars from 'handlebars';
+import {Builder, template, method} from '../../src/ceb.js';
+import handlebars from 'handlebars/dist/handlebars.js';
 
 export class HandlebarsBuilder extends Builder {
 

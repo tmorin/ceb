@@ -1,5 +1,5 @@
-import {ceb, property, attribute, method, on} from '../../es6/lib/ceb.js';
-import {dispatch, toArray} from '../../es6/lib/utils';
+import {ceb, property, attribute, method, on} from '../../src/ceb.js';
+import {dispatch, toArray} from '../../src/utils';
 import {jquerify} from '../builders/jquerify.js';
 
 const CHECKABLE_INPUT_TYPES = ['checkbox', 'radio'];
@@ -117,7 +117,7 @@ export default ceb().proto(Object.create(HTMLFormElement.prototype)).extend('for
     method('reportValidity').invoke(el => {
         let formState = el.checkValidity();
         if (formState.invalid) {
-            let firstInvalidControl = formState.elementsAsArray.filter(state => state.invalid)[0];
+            let firstInvalidControl = el.elementsAsArray.filter(state => state.invalid)[0];
             if (firstInvalidControl) {
                 firstInvalidControl.element.focus();
             }
