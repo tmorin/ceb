@@ -95,13 +95,13 @@ var config = {
 
 gulp.task('zip:source', function () {
     return gulp.src([
-        '**/*',
-        '!{.idea,.git,api,dist,lib,node_modules,junit}/**/*',
-        '!{.idea,.git,api,dist,lib,node_modules,junit}',
-        '!{.project,*.zip}'
-    ], {
-        dot: true
-    })
+            '**/*',
+            '!{.idea,.git,api,dist,lib,node_modules,junit}/**/*',
+            '!{.idea,.git,api,dist,lib,node_modules,junit}',
+            '!{.project,*.zip}'
+        ], {
+            dot: true
+        })
         .pipe(zip('ceb-source-' + (Date.now()) + '.zip'))
         .pipe(gulp.dest('.'));
 });
@@ -109,7 +109,7 @@ gulp.task('zip:source', function () {
 gulp.task('zip', ['zip:source']);
 
 function createSauceTask(name) {
-    gulp.task('karma:sauce:' + name, ['lint'], function (done) {
+    gulp.task('karma:sauce:' + name, function (done) {
         new Server({
             configFile: __dirname + '/../../karma.conf.js',
             sauceLabs: {
