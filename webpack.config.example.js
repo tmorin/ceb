@@ -38,7 +38,7 @@ config.plugins = [
     })
 ];
 
-['index', 'ceb-address-selector', 'ceb-list-plusplus', 'ceb-list', 'ceb-grid', 'ceb-templator', 'ceb-form', 'loader-amd', 'loader-standalone', 'loader-systemjs', 'loader-umd', 'todo-app'].forEach(chunk => {
+['index', 'ceb-address-selector', 'ceb-list-plusplus', 'ceb-list', 'ceb-grid', 'ceb-templator', 'ceb-form', 'loader-amd', 'loader-standalone', 'loader-systemjs', 'loader-umd', 'todo-app'].forEach(function (chunk) {
     config.plugins.push(new HtmlWebpackPlugin({
         title: chunk === 'index' ? '' : chunk + ' - ceb\'s examples',
         template: './example/template.html',
