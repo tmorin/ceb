@@ -1,4 +1,4 @@
-import {ceb, method} from '../src/ceb.js';
+import {element, method} from '../src/ceb.js';
 
 /*jshint -W030 */
 describe('ceb.method()', function () {
@@ -8,7 +8,7 @@ describe('ceb.method()', function () {
             sandbox.parentNode.removeChild(sandbox);
         }
         document.body.appendChild((sandbox = document.createElement('div')));
-        builder = ceb();
+        builder = element();
     });
 
     afterEach(() => {

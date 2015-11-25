@@ -1,10 +1,9 @@
-import {Builder, template, method} from '../../src/ceb.js';
+import {template, method, applyTemplate} from '../../src/ceb.js';
 import handlebars from 'handlebars/dist/handlebars.js';
 
-export class HandlebarsBuilder extends Builder {
+export class HandlebarsBuilder {
 
     constructor(tpl) {
-        super();
         this.data = {tpl};
     }
 
@@ -12,7 +11,7 @@ export class HandlebarsBuilder extends Builder {
         var tpl = handlebars.compile(this.data.tpl);
         template(tpl).build(proto, on);
         method('render').invoke(el => {
-            template.applyTemplate(el, tpl(el));
+            applyTemplate(el, tpl(el));
         }).build(proto, on);
     }
 

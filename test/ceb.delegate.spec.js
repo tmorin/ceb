@@ -1,6 +1,6 @@
 /*jshint -W030 */
 
-import {ceb, property, attribute, method, delegate} from '../src/ceb.js';
+import {element, property, attribute, method, delegate} from '../src/ceb.js';
 
 describe('ceb.delegate()', function () {
     var sandbox, builder;
@@ -9,7 +9,7 @@ describe('ceb.delegate()', function () {
             sandbox.parentNode.removeChild(sandbox);
         }
         document.body.appendChild((sandbox = document.createElement('div')));
-        builder = ceb();
+        builder = element();
         builder.on('before:createdCallback').invoke(el => {
             el.innerHTML = '<button></button>';
         });

@@ -1,4 +1,4 @@
-import {ceb, method} from '../../src/ceb.js';
+import {element, method} from '../../src/ceb.js';
 import {idomify} from '../builders/idomify.js';
 import {todoify} from './todoify.js';
 
@@ -7,7 +7,7 @@ import './todo-add.js';
 import './todo-filters.js';
 import './todo-clear-completed.js';
 
-ceb().builders(
+element().builders(
     idomify(`
         <p class="row">
             <div class="col-sm-12">

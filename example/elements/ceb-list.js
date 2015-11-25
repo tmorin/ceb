@@ -1,7 +1,7 @@
-import {ceb, property, method, on} from '../../src/ceb.js';
+import {element, property, method, on} from '../../src/ceb.js';
 import {handlebarify} from '../builders/handlebarify.js';
 
-ceb().builders(
+element().builders(
     handlebarify(`
         <form class="add">
             <div class="input-group">

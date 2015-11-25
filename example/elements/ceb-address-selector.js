@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {ceb, method, template, attribute, delegate, on} from '../../src/ceb.js';
+import {element, method, template, attribute, delegate, on} from '../../src/ceb.js';
 import {baconify, trigger} from '../builders/baconify.js';
 import {fromPromise, once} from 'baconjs';
 
@@ -37,7 +37,7 @@ function getKeyCode(evt) {
 /**
  * The <code>CebAddressSelector</code> element.
  */
-export default ceb().builders(
+export default element().builders(
     template(`
         <div class="input-group">
             <input type="text" placeholder="a place" class="form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -1,18 +1,11 @@
----
-title: ceb()
----
 # ceb()
 
-The function `ceb()` return a fresh `CustomElementBuilder` providing services to register a ... custom element.
+The function `ceb()` return a fresh `ElementBuilder` providing services to register a ... custom element.
 
 ## Import
 
 ```javascript
-import ceb from 'custom-element-builder';
-```
-
-```javascript
-import {ceb} from 'custom-element-builder';
+import {ceb} from 'ceb';
 ```
 
 ## Register an element
@@ -20,7 +13,7 @@ import {ceb} from 'custom-element-builder';
 An element is registered with the method `register()`.
 
 ```javascript
-import ceb from 'custom-element-builder';
+import {ceb} from 'ceb';
 var MyCustomElement = ceb().register('my-custom-element');
 ```
 
@@ -31,20 +24,20 @@ document.createElement('my-custom-element');
 ```
 
 ```html
-<button is="my-custom-element"></my-custom-element>
+<my-custom-element></my-custom-element>
 ```
 
 ## Extending (native) elements
 
 By default the prototype of the future custom element is `Object.create(HTMLElement.prototype)`.
-The method `prototype()` can be used to override the default value.
+The method `proto()` can be used to override the default value.
 
 To extend a native HTML element, the method `extend()` must be set with the name of the native element.
  
 See the [specification](http://w3c.github.io/webcomponents/spec/custom/#api-element-registration-options) to get more information. 
 
 ```javascript
-import ceb from 'custom-element-builder';
+import {ceb} from 'ceb';
 var MyCustomButton = ceb()
     .proto(Object.create(HTMLButtonElement.prototype))
     .extend('button')
@@ -68,7 +61,7 @@ document.createElement('button', 'my-custom-button');
 The user friendly way to use dedicated builders is provided by the method `builders()`.
 
 ```javascript
-import {ceb, attribute, property} from 'custom-element-builder';
+import {ceb, attribute, property} from 'ceb';
 var MyCustomElement = ceb()
     .builders(
         attribute('att1'),
@@ -79,7 +72,7 @@ var MyCustomElement = ceb()
 ```
 
 Builders are executed sequentially when `register()` is called.
-That means, `attribute('att1')` will be executed first and `attribute('att2')` as last.
+That means, `attribute('att1')` will be executed first and `attribute('att2')` will be the last one.
 
 ## Life cycle
 
@@ -109,7 +102,7 @@ The life cycle of the future Custom Element also raise events:
 The method `on()` registers a callback about the events listed above.
 
 ```javascript
-import {ceb} from 'custom-element-builder';
+import {ceb} from 'ceb';
 var MyDummyButtonElement = ceb()
     .on('before:createdCallback', el => el.innerHTML = '<button></button>')
     .register('my-dummy-button-element');
@@ -137,7 +130,7 @@ Basically, the logic of the builder is implemented into the method `build()`.
 All stuff which can not be done during the execution of the method `build()`, can be executed later using the function `on()`. 
 
 ```javascript
-import {ceb} from 'custom-element-builder';
+import {ceb} from 'ceb';
 var MyDummyButtonElement = ceb()
     .builders({
         build(proto, on) {

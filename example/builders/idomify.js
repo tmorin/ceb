@@ -1,12 +1,10 @@
-import {Builder, method} from '../../src/ceb.js';
-import {assign} from '../../src/utils.js';
+import {method, assign} from '../../src/ceb.js';
 import {compile} from 'idomizer';
 import IncrementalDOM from 'incremental-dom';
 
-export class IdomBuilder extends Builder {
+export class IdomBuilder {
 
     constructor(tpl = '') {
-        super();
         this.data = {tpl, options: {}, helpers: {}};
     }
 

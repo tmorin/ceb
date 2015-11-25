@@ -1,12 +1,16 @@
-<script src="dist/umd/utils.js"></script>
-<script src="dist/umd/builder/Builder.js"></script>
-<script src="dist/umd/builder/PropertyBuilder.js"></script>
-<script src="dist/umd/builder/AttributeBuilder.js"></script>
-<script src="dist/umd/builder/DelegateBuilder.js"></script>
-<script src="dist/umd/builder/MethodBuilder.js"></script>
-<script src="dist/umd/builder/OnBuilder.js"></script>
-<script src="dist/umd/builder/TemplateBuilder.js"></script>
-<script src="dist/umd/builder/CustomElementBuilder.js"></script>
+<script src="dist/umd/helper/type.js"></script>
+<script src="dist/umd/helper/array.js"></script>
+<script src="dist/umd/helper/converter.js"></script>
+<script src="dist/umd/helper/function.js"></script>
+<script src="dist/umd/helper/object.js"></script>
+<script src="dist/umd/helper/event.js"></script>
+<script src="dist/umd/builder/property.js"></script>
+<script src="dist/umd/builder/attribute.js"></script>
+<script src="dist/umd/builder/delegate.js"></script>
+<script src="dist/umd/builder/method.js"></script>
+<script src="dist/umd/builder/on.js"></script>
+<script src="dist/umd/builder/template.js"></script>
+<script src="dist/umd/builder/element.js"></script>
 <script src="dist/umd/ceb.js"></script>
 
 <script id="ceb-button-template" type="text/html">
@@ -25,7 +29,7 @@
 <script>
     document.body.onload = function () {
         var tpl = document.getElementById('ceb-button-template').textContent;
-        ceb.ceb().builders(
+        ceb.element().builders(
             ceb.template(tpl),
             ceb.delegate(ceb.attribute('name')).to('button'),
             ceb.delegate(ceb.attribute('disabled').boolean()).to('button').property(),

@@ -1,8 +1,8 @@
-import {ceb, on, property} from '../../src/ceb.js';
+import {element, on, property} from '../../src/ceb.js';
 import {idomify} from '../builders/idomify.js';
 import {todoify} from './todoify.js';
 
-ceb().builders(
+element().builders(
     idomify(`
         <button type="button" name="clearCompletedTodos" class="btn btn-danger btn-block" disabled="{{data.buttonDisabled ? '' : null}}">
             <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>

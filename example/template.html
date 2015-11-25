@@ -5,6 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{%=o.htmlWebpackPlugin.options.title || "ceb's examples"%}</title>
+    {% var filename = o.htmlWebpackPlugin.options.filename; %}
+    {% if (filename === 'loader-systemjs.html') { %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.18.4/system-polyfills.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.18.4/system.js"></script>
+    {% } %}
+    {% if (filename === 'loader-amd.html') { %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.22/require.min.js"></script>
+    {% } %}
 </head>
 <body>
 <div class="container">

@@ -1,5 +1,4 @@
-import {Builder, property} from '../../src/ceb.js';
-import {noop, partial} from '../../src/utils.js';
+import {property, noop, partial} from '../../src/ceb.js';
 import {Bus} from 'baconjs';
 
 let counter = 0;
@@ -34,10 +33,9 @@ function destroyStream(el, id, exposedName) {
     }
 }
 
-export class BaconBuilder extends Builder {
+export class BaconBuilder {
 
     constructor(builder) {
-        super();
         this.data = {builder};
     }
 

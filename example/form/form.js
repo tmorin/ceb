@@ -1,5 +1,5 @@
-import {ceb, property, attribute, method, on} from '../../src/ceb.js';
-import {dispatch, toArray} from '../../src/utils';
+import {element, property, attribute, method, on, toArray, dispatchCustomEvent} from '../../src/ceb.js';
+
 import {jquerify} from '../builders/jquerify.js';
 
 const CHECKABLE_INPUT_TYPES = ['checkbox', 'radio'];
@@ -59,7 +59,7 @@ function parseStringEventList(string) {
     return (string || '').split(',').map(name => name.toLowerCase()).filter(name => name);
 }
 
-export default ceb().proto(Object.create(HTMLFormElement.prototype)).extend('form').builders(
+export default element().proto(Object.create(HTMLFormElement.prototype)).extend('form').builders(
     jquerify(),
 
     attribute('prevent-submit').boolean(),
@@ -102,14 +102,14 @@ export default ceb().proto(Object.create(HTMLFormElement.prototype)).extend('for
 
         let formIsValid = controlStates.reduce((valid, state) => valid && state.valid, true);
 
-         let formState = {
-                valid: formIsValid,
-                invalid: !formIsValid,
-                controls: controlStates
+        let formState = {
+            valid: formIsValid,
+            invalid: !formIsValid,
+            controls: controlStates
         };
 
-        dispatch(el, formIsValid ? 'valid' : 'invalid', {}, formState);
-        controlStates.forEach(state => dispatch(state.element, state.valid ? 'valid' : 'invalid', {}, state));
+        dispatchCustomEvent(el, formIsValid ? 'valid' : 'invalid', {detail: formState});
+        controlStates.forEach(state => dispatchCustomEvent(state.element, state.valid ? 'valid' : 'invalid', {detail: state}));
 
         return formState;
     }),
@@ -142,8 +142,8 @@ export default ceb().proto(Object.create(HTMLFormElement.prototype)).extend('for
             controls: controlStates
         };
 
-        dispatch(el, 'valid', {}, formState);
-        controlStates.forEach(state => dispatch(state.element, 'valid', {}, state));
+        dispatchCustomEvent(el, 'valid', {detail: formState});
+        controlStates.forEach(state => dispatchCustomEvent(state.element, 'valid', {detail: state}));
     }),
 
     on('submit').invoke((el, evt) => {
@@ -164,7 +164,7 @@ export default ceb().proto(Object.create(HTMLFormElement.prototype)).extend('for
 
         if (validateOn.indexOf(evt.type) > -1) {
             let state = el.checkFormControlValidity(formControl);
-            dispatch(state.element, state.valid ? 'valid' : 'invalid', {}, state);
+            dispatchCustomEvent(state.element, state.valid ? 'valid' : 'invalid', {detail: state});
         }
     })
 ).register('ceb-form');

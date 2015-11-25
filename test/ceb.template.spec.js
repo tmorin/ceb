@@ -1,6 +1,6 @@
 /*jshint -W030 */
 
-import {ceb, template} from '../src/ceb.js';
+import {element, template} from '../src/ceb.js';
 
 describe('ceb.template()', ()=> {
     var sandbox, builder;
@@ -9,7 +9,7 @@ describe('ceb.template()', ()=> {
             sandbox.parentNode.removeChild(sandbox);
         }
         document.body.appendChild((sandbox = document.createElement('div')));
-        builder = ceb();
+        builder = element();
     });
 
     afterEach(() => {
@@ -71,13 +71,13 @@ describe('ceb.template()', ()=> {
     });
 
     it('should handle embedded light nodes', (done) => {
-        ceb().builders(template(`
+        element().builders(template(`
             <p id="parent-before">pseudo parent shadow DOM</p>
             <ceb-template-embedded-child><content></content></ceb-template-embedded-child>
             <p id="parent-after">pseudo parent shadow DOM</p>
         `)).register('ceb-template-embedded-parent');
 
-        ceb().builders(template(`
+        element().builders(template(`
             <p id="child-before">pseudo child shadow DOM</p>
             <content></content>
             <p id="child-after">pseudo child shadow DOM</p>
@@ -97,13 +97,13 @@ describe('ceb.template()', ()=> {
     });
 
     it('should handle embedded light nodes v2', (done) => {
-        ceb().builders(template(`
+        element().builders(template(`
             <p id="parent-before">pseudo parent shadow DOM</p>
             <content></content>
             <p id="parent-after">pseudo parent shadow DOM</p>
         `)).register('ceb-template-embedded-parent-v2');
 
-        ceb().builders(template(`
+        element().builders(template(`
             <p id="child-before">pseudo child shadow DOM</p>
             <content></content>
             <p id="child-before">pseudo child shadow DOM</p>
@@ -126,13 +126,13 @@ describe('ceb.template()', ()=> {
     });
 
     it('should be cloned', (done) => {
-        ceb().builders(template(`
+        element().builders(template(`
             <p id="parent-before">pseudo parent shadow DOM</p>
             <content></content>
             <p id="parent-after">pseudo parent shadow DOM</p>
         `)).register('ceb-template-clone-parent');
 
-        ceb().builders(template(`
+        element().builders(template(`
             <p id="child-before">pseudo child shadow DOM</p>
             <content></content>
             <p id="child-before">pseudo child shadow DOM</p>

@@ -1,6 +1,3 @@
----
-title: property()
----
 # property()
 
 The function `property()` returns a fresh `PropertyBuilder` providing services to define ... a property.
@@ -8,7 +5,7 @@ The function `property()` returns a fresh `PropertyBuilder` providing services t
 ## Import
 
 ```javascript
-import {property} from 'custom-element-builder';
+import {property} from 'ceb';
 ```
 
 ## Usage
@@ -21,7 +18,7 @@ The registered custom element will have a property `prop1` initialized with the 
 But, the property can not be deleted, and its value can not be updated.
 
 ```javascript
-import {ceb, property} from 'custom-element-builder';
+import {ceb, property} from 'ceb';
 ceb()
     .builders(
         property('prop1').immutable().value('value1')
@@ -39,7 +36,7 @@ Getter and setter are invoked with the custom element as first argument.
 So, fill free to forget the `this` keyword.
 
 ```javascript
-import {ceb, property} from 'custom-element-builder';
+import {ceb, property} from 'ceb';
 ceb()
     .builders(
         property('prop1')

@@ -51,6 +51,7 @@ module.exports = function (config) {
         //browsers: ['Chrome', 'PhantomJS'],
         //browsers: ['Firefox', 'PhantomJS'],
         browsers: ['PhantomJS'],
+        //browsers: ['Chrome'],
         //browsers: ['IE'],
 
         customLaunchers: {

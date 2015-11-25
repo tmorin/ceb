@@ -33,3 +33,15 @@ export function canClick() {
 export function click(el) {
     $(el).trigger('click');
 }
+
+export function listen(el, type, limit, done) {
+    let counter = 0;
+    let listener = () => {
+        counter++;
+        if (counter === limit) {
+            done();
+            el.removeEventListener(type, listener);
+        }
+    };
+    el.addEventListener(type, listener);
+}

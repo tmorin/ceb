@@ -1,10 +1,8 @@
-import {Builder, method, property} from '../../src/ceb.js';
-import {assign, partial, toArray} from '../../src/utils.js';
+import {method, property, assign, partial, toArray} from '../../src/ceb.js';
 
-export class ReduxBuilder extends Builder {
+export class ReduxBuilder {
 
     constructor(store) {
-        super();
         this.data = {store, actions: {}, listeners: []};
     }
 

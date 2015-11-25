@@ -59,101 +59,201 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.Builder = undefined;
-	exports.ceb = ceb;
-	exports.property = property;
-	exports.attribute = attribute;
-	exports.method = method;
-	exports.delegate = delegate;
-	exports.template = template;
-	exports.on = on;
 
-	var _CustomElementBuilder = __webpack_require__(5);
+	var _element = __webpack_require__(9);
 
-	var _PropertyBuilder = __webpack_require__(4);
+	Object.defineProperty(exports, 'element', {
+	  enumerable: true,
+	  get: function get() {
+	    return _element.element;
+	  }
+	});
 
-	var _AttributeBuilder = __webpack_require__(3);
+	var _property = __webpack_require__(6);
 
-	var _DelegateBuilder = __webpack_require__(6);
+	Object.defineProperty(exports, 'property', {
+	  enumerable: true,
+	  get: function get() {
+	    return _property.property;
+	  }
+	});
 
-	var _MethodBuilder = __webpack_require__(7);
+	var _attribute = __webpack_require__(5);
 
-	var _TemplateBuilder = __webpack_require__(9);
+	Object.defineProperty(exports, 'attribute', {
+	  enumerable: true,
+	  get: function get() {
+	    return _attribute.attribute;
+	  }
+	});
+	Object.defineProperty(exports, 'getAttValue', {
+	  enumerable: true,
+	  get: function get() {
+	    return _attribute.getAttValue;
+	  }
+	});
+	Object.defineProperty(exports, 'setAttValue', {
+	  enumerable: true,
+	  get: function get() {
+	    return _attribute.setAttValue;
+	  }
+	});
 
-	var _OnBuilder = __webpack_require__(8);
+	var _delegate = __webpack_require__(8);
 
-	var _Builder = __webpack_require__(1);
+	Object.defineProperty(exports, 'delegate', {
+	  enumerable: true,
+	  get: function get() {
+	    return _delegate.delegate;
+	  }
+	});
 
-	/**
-	 * The base builder type
-	 * @type {Builder} the builder
-	 */
-	var Builder = exports.Builder = _Builder.Builder;
+	var _method = __webpack_require__(10);
 
-	/**
-	 * Get a new custom element builder.
-	 * @returns {CustomElementBuilder} the custom element builder
-	 */
-	function ceb() {
-	  return new _CustomElementBuilder.CustomElementBuilder();
-	}
+	Object.defineProperty(exports, 'method', {
+	  enumerable: true,
+	  get: function get() {
+	    return _method.method;
+	  }
+	});
 
-	/**
-	 * Get a new property builder.
-	 * @param {!string} propName the name of the property
-	 * @returns {PropertyBuilder} the property builder
-	 */
-	function property(propName) {
-	  return new _PropertyBuilder.PropertyBuilder(propName);
-	}
+	var _template = __webpack_require__(12);
 
-	/**
-	 * Get a new attribute builder.
-	 * @param {!string} attrName the name of the attribute
-	 * @returns {AttributeBuilder} the attribute builder
-	 */
-	function attribute(attrName) {
-	  return new _AttributeBuilder.AttributeBuilder(attrName);
-	}
-	attribute.getAttValue = _AttributeBuilder.getAttValue;
-	attribute.setAttValue = _AttributeBuilder.setAttValue;
+	Object.defineProperty(exports, 'template', {
+	  enumerable: true,
+	  get: function get() {
+	    return _template.template;
+	  }
+	});
+	Object.defineProperty(exports, 'applyTemplate', {
+	  enumerable: true,
+	  get: function get() {
+	    return _template.applyTemplate;
+	  }
+	});
 
-	/**
-	 * Get a new method builder.
-	 * @param {!string} methName the name of the method
-	 * @returns {MethodBuilder} the method builder
-	 */
-	function method(methName) {
-	  return new _MethodBuilder.MethodBuilder(methName);
-	}
+	var _on = __webpack_require__(11);
 
-	/**
-	 * Get a new delegate builder.
-	 * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} builder a property, attribute or method builder
-	 * @returns {DelegateBuilder} the delegate builder
-	 */
-	function delegate(builder) {
-	  return new _DelegateBuilder.DelegateBuilder(builder);
-	}
+	Object.defineProperty(exports, 'on', {
+	  enumerable: true,
+	  get: function get() {
+	    return _on.on;
+	  }
+	});
 
-	/**
-	 * Get a new template builder.
-	 * @param {!string|Function} tpl the string or function template
-	 * @returns {TemplateBuilder} the template builder
-	 */
-	function template(tpl) {
-	  return new _TemplateBuilder.TemplateBuilder(tpl);
-	}
-	template.applyTemplate = _TemplateBuilder.applyTemplate;
+	var _array = __webpack_require__(7);
 
-	/**
-	 * Get a new on builder.
-	 * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
-	 * @returns {OnBuilder} the on builder
-	 */
-	function on(events) {
-	  return new _OnBuilder.OnBuilder(events);
-	}
+	Object.defineProperty(exports, 'flatten', {
+	  enumerable: true,
+	  get: function get() {
+	    return _array.flatten;
+	  }
+	});
+	Object.defineProperty(exports, 'invoke', {
+	  enumerable: true,
+	  get: function get() {
+	    return _array.invoke;
+	  }
+	});
+
+	var _converter = __webpack_require__(2);
+
+	Object.defineProperty(exports, 'toArray', {
+	  enumerable: true,
+	  get: function get() {
+	    return _converter.toArray;
+	  }
+	});
+	Object.defineProperty(exports, 'toCamelCase', {
+	  enumerable: true,
+	  get: function get() {
+	    return _converter.toCamelCase;
+	  }
+	});
+
+	var _function = __webpack_require__(3);
+
+	Object.defineProperty(exports, 'bind', {
+	  enumerable: true,
+	  get: function get() {
+	    return _function.bind;
+	  }
+	});
+	Object.defineProperty(exports, 'noop', {
+	  enumerable: true,
+	  get: function get() {
+	    return _function.noop;
+	  }
+	});
+	Object.defineProperty(exports, 'partial', {
+	  enumerable: true,
+	  get: function get() {
+	    return _function.partial;
+	  }
+	});
+
+	var _object = __webpack_require__(4);
+
+	Object.defineProperty(exports, 'assign', {
+	  enumerable: true,
+	  get: function get() {
+	    return _object.assign;
+	  }
+	});
+	Object.defineProperty(exports, 'result', {
+	  enumerable: true,
+	  get: function get() {
+	    return _object.result;
+	  }
+	});
+
+	var _event = __webpack_require__(13);
+
+	Object.defineProperty(exports, 'dispatchCustomEvent', {
+	  enumerable: true,
+	  get: function get() {
+	    return _event.dispatchCustomEvent;
+	  }
+	});
+	Object.defineProperty(exports, 'dispatchMouseEvent', {
+	  enumerable: true,
+	  get: function get() {
+	    return _event.dispatchMouseEvent;
+	  }
+	});
+
+	var _type = __webpack_require__(1);
+
+	Object.defineProperty(exports, 'isArray', {
+	  enumerable: true,
+	  get: function get() {
+	    return _type.isArray;
+	  }
+	});
+	Object.defineProperty(exports, 'isFunction', {
+	  enumerable: true,
+	  get: function get() {
+	    return _type.isFunction;
+	  }
+	});
+	Object.defineProperty(exports, 'isNull', {
+	  enumerable: true,
+	  get: function get() {
+	    return _type.isNull;
+	  }
+	});
+	Object.defineProperty(exports, 'isString', {
+	  enumerable: true,
+	  get: function get() {
+	    return _type.isString;
+	  }
+	});
+	Object.defineProperty(exports, 'isUndefined', {
+	  enumerable: true,
+	  get: function get() {
+	    return _type.isUndefined;
+	  }
+	});
 
 /***/ },
 /* 1 */
@@ -161,39 +261,60 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	exports.isFunction = isFunction;
+	exports.isUndefined = isUndefined;
+	exports.isNull = isNull;
+	exports.isString = isString;
+	exports.isArray = isArray;
+	// obviously close to underscorejs and lodash ;)
 
 	/**
-	 * A builder is defined by a build method.
-	 * @abstract
+	 * Checks if value is a Function object.
+	 * @param [value] the value to check
+	 * @return {boolean} true if value is a function, else false.
 	 */
+	function isFunction(value) {
+	  return Object.prototype.toString.call(value) === '[object Function]';
+	}
 
-	var Builder = exports.Builder = (function () {
-	  function Builder() {
-	    _classCallCheck(this, Builder);
-	  }
+	/**
+	 * Checks if value is undefined.
+	 * @param [value] the value to check
+	 * @return {boolean} true if value is undefined, else false.
+	 */
+	function isUndefined(value) {
+	  return value === undefined;
+	}
 
-	  _createClass(Builder, [{
-	    key: 'build',
+	/**
+	 * Checks if value is null.
+	 * @param [value] the value to check
+	 * @return {boolean} true if value is null, else false.
+	 */
+	function isNull(value) {
+	  return value === null;
+	}
 
-	    /**
-	     * To specify the logic of the builder.
-	     * @param {!CustomElementBuilder.context.proto} proto the prototype
-	     * @param {!CustomElementBuilder.on} on the method on
-	     */
-	    value: function build() {
-	      throw new Error('not implemented');
-	    }
-	  }]);
+	/**
+	 * Checks if value is a string.
+	 * @param [value] the value to check
+	 * @return {boolean} true if value is a string, else false.
+	 */
+	function isString(value) {
+	  return Object.prototype.toString.call(value) === '[object String]';
+	}
 
-	  return Builder;
-	})();
+	/**
+	 * Checks if value is an array.
+	 * @param [value] the value to check
+	 * @return {boolean} true if value is an array, else false.
+	 */
+	function isArray(value) {
+	  return Object.prototype.toString.call(value) === '[object Array]';
+	}
 
 /***/ },
 /* 2 */
@@ -202,81 +323,127 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.toArray = toArray;
+	exports.toCamelCase = toCamelCase;
+	// obviously close to underscorejs and lodash ;)
+
+	/**
+	 * Converts value to an array.
+	 * @param [value] the value to convert
+	 * @returns {Array} the converted array
+	 */
+	function toArray(value) {
+	  return Array.prototype.slice.call(value);
+	}
+
+	/**
+	 * Converts string to camel case.
+	 * @param {string} [string=''] the string to convert
+	 * @return {string} the camel cased string
+	 */
+	function toCamelCase() {
+	  var string = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+
+	  return string.toLowerCase().split('-').map(function (part, index) {
+	    return index ? part.charAt(0).toUpperCase() + part.slice(1) : part;
+	  }).join('');
+	}
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.camelCase = camelCase;
-	exports.isFunction = isFunction;
-	exports.isUndefined = isUndefined;
-	exports.isNull = isNull;
-	exports.isString = isString;
-	exports.isArray = isArray;
-	exports.result = result;
-	exports.assign = assign;
-	exports.toArray = toArray;
-	exports.flatten = flatten;
-	exports.invoke = invoke;
 	exports.partial = partial;
 	exports.bind = bind;
 	exports.noop = noop;
-	exports.find = find;
-	exports.dispatch = dispatch;
+
+	var _converter = __webpack_require__(2);
+
 	/**
-	 * @ignore
+	 * Partially apply a function by filling in any number of its arguments, without changing its dynamic this value.
+	 * @param {!Function} fn the function to partially apply arguments to
+	 * @param {...} args the arguments to be partially applied
+	 * @returns {Function} the new partially applied function
 	 */
-	function camelCase(value) {
-	    return value.toLowerCase().split('-').map(function (part, index) {
-	        return index ? part.charAt(0).toUpperCase() + part.slice(1) : part;
-	    }).join('');
+	function partial(fn) {
+	    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	        args[_key - 1] = arguments[_key];
+	    }
+
+	    return function () {
+	        return fn.apply(this, args.concat((0, _converter.toArray)(arguments)));
+	    };
 	}
 
 	/**
-	 * @ignore
+	 * Creates a function that invokes fn with context the context ctx.
+	 * @param {!Function} fn the function to bind
+	 * @param ctx the context
+	 * @returns {Function} the new bound function
 	 */
-	function isFunction(i) {
-	    return Object.prototype.toString.call(i) === '[object Function]';
+	// obviously close to underscorejs and lodash ;)
+
+	function bind(fn, ctx) {
+	    return function () {
+	        return fn.apply(ctx, (0, _converter.toArray)(arguments));
+	    };
 	}
 
 	/**
-	 * @ignore
+	 * An empty function doing nothing.
+	 * @returns {Function} a new function doing nothing
 	 */
-	function isUndefined(i) {
-	    return i === undefined;
+	function noop() {
+	    return function () {};
+	}
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.result = result;
+	exports.assign = assign;
+
+	var _type = __webpack_require__(1);
+
+	/**
+	 * Resolve the value of propName into object.
+	 * If the value is a function, it will be executed.
+	 * @param {!Object} object the object
+	 * @param {!string} propName the property name
+	 * @return the resolved value.
+	 */
+	function result(object, propName) {
+	    var value = object[propName];
+	    return (0, _type.isFunction)(value) ? value() : value;
 	}
 
 	/**
-	 * @ignore
+	 * Assigns own enumerable properties of source object(s) to the destination object.
+	 * @param {!Object} destination the destination object
+	 * @param {...Object} [sources] the source objects
+	 * @returns {Object} the destination object
 	 */
-	function isNull(i) {
-	    return i === null;
-	}
+	// obviously close to underscorejs and lodash ;)
 
-	/**
-	 * @ignore
-	 */
-	function isString(i) {
-	    return Object.prototype.toString.call(i) === '[object String]';
-	}
+	function assign(destination) {
+	    for (var _len = arguments.length, sources = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	        sources[_key - 1] = arguments[_key];
+	    }
 
-	/**
-	 * @ignore
-	 */
-	function isArray(i) {
-	    return Object.prototype.toString.call(i) === '[object Array]';
-	}
-
-	/**
-	 * @ignore
-	 */
-	function result(obj, prop) {
-	    var value = obj[prop];
-	    return isFunction(value) ? value() : value;
-	}
-
-	/**
-	 * @ignore
-	 */
-	function assign() {
-	    return Array.prototype.reduce.call(arguments, function (target, source) {
+	    return [destination].concat(sources).reduce(function (target, source) {
 	        return Object.keys(Object(source)).reduce(function (target, key) {
 	            target[key] = source[key];
 	            return target;
@@ -284,86 +451,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	}
 
-	/**
-	 * @ignore
-	 */
-	function toArray(i) {
-	    return Array.prototype.slice.call(i);
-	}
-
-	/**
-	 * @ignore
-	 */
-	function flatten(array) {
-	    return array.reduce(function (a, b) {
-	        return isArray(b) ? a.concat(flatten(b)) : a.concat(b);
-	    }, []);
-	}
-
-	/**
-	 * @ignore
-	 */
-	function invoke() {
-	    var args = toArray(arguments),
-	        objects = args.shift(),
-	        meth = args.shift();
-	    if (isArray(objects)) {
-	        objects.filter(function (obj) {
-	            return isFunction(obj[meth]);
-	        }).forEach(function (obj) {
-	            return obj[meth].apply(obj, args);
-	        });
-	    }
-	}
-
-	/**
-	 * @ignore
-	 */
-	function partial() {
-	    var args = toArray(arguments),
-	        fn = args.shift();
-	    return function () {
-	        return fn.apply(this, args.concat(toArray(arguments)));
-	    };
-	}
-
-	/**
-	 * @ignore
-	 */
-	function bind(fn, ctx) {
-	    return function () {
-	        return fn.apply(ctx, toArray(arguments));
-	    };
-	}
-
-	/**
-	 * @ignore
-	 */
-	function noop() {
-	    return function () {};
-	}
-
-	/**
-	 * @ignore
-	 */
-	function find(array, cb) {
-	    return array.filter(cb)[0];
-	}
-
-	/**
-	 * @ignore
-	 */
-	function dispatch(el, name) {
-	    var options = arguments.length <= 2 || arguments[2] === undefined ? {} : arguments[2];
-	    var detail = arguments.length <= 3 || arguments[3] === undefined ? undefined : arguments[3];
-
-	    var evt = document.createEvent('CustomEvent');
-	    evt.initCustomEvent(name, options.bubbles !== false, options.cancelable !== false, detail);
-	    return el.dispatchEvent(evt);
-	}
-
 /***/ },
-/* 3 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -376,16 +465,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.AttributeBuilder = undefined;
 	exports.getAttValue = getAttValue;
 	exports.setAttValue = setAttValue;
+	exports.attribute = attribute;
 
-	var _utils = __webpack_require__(2);
+	var _type = __webpack_require__(1);
 
-	var _Builder2 = __webpack_require__(1);
+	var _object = __webpack_require__(4);
+
+	var _converter = __webpack_require__(2);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	/**
 	 * Get the value from an attribute.
@@ -418,10 +506,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    } else {
 	        // Handle none boolean value
-	        if (((0, _utils.isUndefined)(value) || (0, _utils.isNull)(value)) && el.hasAttribute(attrName)) {
+	        if (((0, _type.isUndefined)(value) || (0, _type.isNull)(value)) && el.hasAttribute(attrName)) {
 	            // There is no value, so the attribute must be removed
 	            el.removeAttribute(attrName);
-	        } else if (!(0, _utils.isUndefined)(value) && !(0, _utils.isNull)(value) && el.getAttribute(attrName) !== value) {
+	        } else if (!(0, _type.isUndefined)(value) && !(0, _type.isNull)(value) && el.getAttribute(attrName) !== value) {
 	            // Sync the attribute value with value
 	            el.setAttribute(attrName, value);
 	        }
@@ -436,7 +524,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function setterFactory(attrName, isBoolean, attSetter) {
 	    return function (value) {
-	        var attValue = (0, _utils.isFunction)(attSetter) ? attSetter.call(this, this, value) : value;
+	        var attValue = (0, _type.isFunction)(attSetter) ? attSetter.call(this, this, value) : value;
 	        return setAttValue(this, attrName, isBoolean, attValue);
 	    };
 	}
@@ -455,8 +543,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @extends {PropertyBuilder}
 	 */
 
-	var AttributeBuilder = (function (_Builder) {
-	    _inherits(AttributeBuilder, _Builder);
+	var AttributeBuilder = (function () {
 
 	    /**
 	     * @param {!string} attrName the name of the attribute
@@ -468,15 +555,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        /**
 	         * @ignore
 	         */
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AttributeBuilder).call(this));
-
-	        _this.data = (0, _utils.assign)({
+	        this.data = (0, _object.assign)({
 	            attrName: attrName,
-	            propName: (0, _utils.camelCase)(attrName),
+	            propName: (0, _converter.toCamelCase)(attrName),
 	            listeners: []
 	        }, DEFAULT_DATA);
-	        return _this;
 	    }
 
 	    /**
@@ -556,15 +639,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        /**
-	         * @override
+	         * Logic of the builder.
+	         * @param {!ElementBuilder.context.proto} proto the prototype
+	         * @param {!ElementBuilder.on} on the method on
 	         */
 
 	    }, {
 	        key: 'build',
 	        value: function build(proto, on) {
-	            var _this2 = this;
+	            var _this = this;
 
-	            var defaultValue = (0, _utils.result)(this.data, 'value'),
+	            var defaultValue = (0, _object.result)(this.data, 'value'),
 	                descriptor = {
 	                enumerable: this.data.enumerable,
 	                configurable: false,
@@ -577,22 +662,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }
 
 	            on('after:createdCallback').invoke(function (el) {
-	                if (_this2.data.bound) {
-	                    var attrValue = getAttValue(el, _this2.data.attrName, _this2.data.boolean);
-	                    if (_this2.data.boolean) {
-	                        el[_this2.data.propName] = !!defaultValue ? defaultValue : attrValue;
-	                    } else if (!(0, _utils.isNull)(attrValue) && !(0, _utils.isUndefined)(attrValue)) {
-	                        el[_this2.data.propName] = attrValue;
-	                    } else if (!(0, _utils.isUndefined)(defaultValue)) {
-	                        el[_this2.data.propName] = defaultValue;
+	                if (_this.data.bound) {
+	                    var attrValue = getAttValue(el, _this.data.attrName, _this.data.boolean);
+	                    if (_this.data.boolean) {
+	                        el[_this.data.propName] = !!defaultValue ? defaultValue : attrValue;
+	                    } else if (!(0, _type.isNull)(attrValue) && !(0, _type.isUndefined)(attrValue)) {
+	                        el[_this.data.propName] = attrValue;
+	                    } else if (!(0, _type.isUndefined)(defaultValue)) {
+	                        el[_this.data.propName] = defaultValue;
 	                    }
 	                }
-	                if (_this2.data.listeners.length > 0) {
+	                if (_this.data.listeners.length > 0) {
 	                    (function () {
-	                        var oldValue = _this2.data.boolean ? false : null;
-	                        var setValue = el[_this2.data.propName];
+	                        var oldValue = _this.data.boolean ? false : null;
+	                        var setValue = el[_this.data.propName];
 	                        if (oldValue !== setValue) {
-	                            _this2.data.listeners.forEach(function (listener) {
+	                            _this.data.listeners.forEach(function (listener) {
 	                                return listener.call(el, el, oldValue, setValue);
 	                            });
 	                        }
@@ -602,19 +687,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            on('before:attributeChangedCallback').invoke(function (el, attName, oldVal, newVal) {
 	                // Synchronize the attribute value with its properties
-	                if (attName === _this2.data.attrName) {
-	                    if (_this2.data.bound) {
-	                        var newValue = _this2.data.boolean ? newVal === '' : newVal;
-	                        if (el[_this2.data.propName] !== newValue) {
-	                            el[_this2.data.propName] = newValue;
+	                if (attName === _this.data.attrName) {
+	                    if (_this.data.bound) {
+	                        var newValue = _this.data.boolean ? newVal === '' : newVal;
+	                        if (el[_this.data.propName] !== newValue) {
+	                            el[_this.data.propName] = newValue;
 	                        }
 	                    }
-	                    if (_this2.data.listeners.length > 0) {
+	                    if (_this.data.listeners.length > 0) {
 	                        (function () {
-	                            var oldValue = _this2.data.boolean ? oldVal === '' : oldVal;
-	                            var setValue = _this2.data.boolean ? newVal === '' : newVal;
+	                            var oldValue = _this.data.boolean ? oldVal === '' : oldVal;
+	                            var setValue = _this.data.boolean ? newVal === '' : newVal;
 	                            if (oldValue !== setValue) {
-	                                _this2.data.listeners.forEach(function (listener) {
+	                                _this.data.listeners.forEach(function (listener) {
 	                                    return listener.call(el, el, oldValue, setValue);
 	                                });
 	                            }
@@ -626,12 +711,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }]);
 
 	    return AttributeBuilder;
-	})(_Builder2.Builder);
+	})();
+
+	/**
+	 * Get a new attribute builder.
+	 * @param {!string} attrName the name of the attribute
+	 * @returns {AttributeBuilder} the attribute builder
+	 */
 
 	exports.AttributeBuilder = AttributeBuilder;
+	function attribute(attrName) {
+	    return new AttributeBuilder(attrName);
+	}
 
 /***/ },
-/* 4 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -642,16 +736,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	exports.PropertyBuilder = undefined;
+	exports.property = property;
 
-	var _Builder2 = __webpack_require__(1);
+	var _type = __webpack_require__(1);
 
-	var _utils = __webpack_require__(2);
+	var _object = __webpack_require__(4);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var DEFAULT_DATA = {
 	    enumerable: true,
@@ -665,8 +756,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @extends {Builder}
 	 */
 
-	var PropertyBuilder = (function (_Builder) {
-	    _inherits(PropertyBuilder, _Builder);
+	var PropertyBuilder = (function () {
 
 	    /**
 	     * @param {!string} propName the name of the property
@@ -678,11 +768,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        /**
 	         * @ignore
 	         */
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PropertyBuilder).call(this));
-
-	        _this.data = (0, _utils.assign)({ propName: propName }, DEFAULT_DATA);
-	        return _this;
+	        this.data = (0, _object.assign)({ propName: propName }, DEFAULT_DATA);
 	    }
 
 	    /**
@@ -751,16 +837,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        /**
-	         * @ignore
+	         * Logic of the builder.
+	         * @param {!ElementBuilder.context.proto} proto the prototype
+	         * @param {!ElementBuilder.on} on the method on
 	         */
 
 	    }, {
 	        key: 'build',
 	        value: function build(proto, on) {
-	            var _this2 = this;
+	            var _this = this;
 
 	            var data = this.data,
-	                defaultValue = (0, _utils.result)(this.data, 'value'),
+	                defaultValue = (0, _object.result)(this.data, 'value'),
 	                descriptor = {
 	                enumerable: this.data.enumerable
 	            };
@@ -768,7 +856,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (this.data.immutable) {
 	                descriptor.configurable = false;
 	                descriptor.writable = false;
-	            } else if ((0, _utils.isFunction)(this.data.getter) || (0, _utils.isFunction)(this.data.setter)) {
+	            } else if ((0, _type.isFunction)(this.data.getter) || (0, _type.isFunction)(this.data.setter)) {
 	                descriptor.configurable = false;
 	                descriptor.get = function () {
 	                    return data.getter.call(this, this);
@@ -788,7 +876,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            Object.defineProperty(proto, this.data.propName, descriptor);
 
 	            on('after:createdCallback').invoke(function (el) {
-	                if (!_this2.data.descriptorValue && !(0, _utils.isUndefined)(defaultValue)) {
+	                if (!_this.data.descriptorValue && !(0, _type.isUndefined)(defaultValue)) {
 	                    el[data.propName] = defaultValue;
 	                }
 	            });
@@ -796,12 +884,70 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }]);
 
 	    return PropertyBuilder;
-	})(_Builder2.Builder);
+	})();
+
+	/**
+	 * Get a new property builder.
+	 * @param {!string} propName the name of the property
+	 * @returns {PropertyBuilder} the property builder
+	 */
 
 	exports.PropertyBuilder = PropertyBuilder;
+	function property(propName) {
+	    return new PropertyBuilder(propName);
+	}
 
 /***/ },
-/* 5 */
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.flatten = flatten;
+	exports.invoke = invoke;
+
+	var _type = __webpack_require__(1);
+
+	/**
+	 * Flattens a nested array.
+	 * @param {!Array} array the array to flatten
+	 * @returns {Array} the new flattened array
+	 */
+	function flatten(array) {
+	    return array.reduce(function (a, b) {
+	        return (0, _type.isArray)(b) ? a.concat(flatten(b)) : a.concat(b);
+	    }, []);
+	}
+
+	/**
+	 * For each objects, invoke the method called methName with the arguments args.
+	 * @param {!Array<Object>} objects the objects
+	 * @param {!string} methName the name of the method
+	 * @param {...*} args the arguments to invoke the method with
+	 * @return {Array} the array of results
+	 */
+	// obviously close to underscorejs and lodash ;)
+
+	function invoke(objects, methName) {
+	    for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+	        args[_key - 2] = arguments[_key];
+	    }
+
+	    if ((0, _type.isArray)(objects)) {
+	        return objects.filter(function (obj) {
+	            return (0, _type.isFunction)(obj[methName]);
+	        }).map(function (obj) {
+	            return obj[methName].apply(obj, args);
+	        });
+	    }
+	    return [];
+	}
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -811,15 +957,236 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.CustomElementBuilder = undefined;
+	exports.DelegateBuilder = undefined;
+	exports.delegate = delegate;
 
-	var _utils = __webpack_require__(2);
+	var _type = __webpack_require__(1);
+
+	var _converter = __webpack_require__(2);
+
+	var _attribute = __webpack_require__(5);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/**
+	 * The delegate builder.
+	 * Its goal is to provide a way to delegate methods, properties and attributes.
+	 * @extends {Builder}
+	 */
+
+	var DelegateBuilder = exports.DelegateBuilder = (function () {
+
+	    /**
+	     * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} fieldBuilder the field builder
+	     */
+
+	    function DelegateBuilder(fieldBuilder) {
+	        _classCallCheck(this, DelegateBuilder);
+
+	        /**
+	         * @ignore
+	         */
+	        this.fieldBuilder = fieldBuilder;
+	        /**
+	         * @ignore
+	         */
+	        this.data = {};
+	        if (fieldBuilder.data.attrName) {
+	            this.data.attrName = fieldBuilder.data.attrName;
+	        } else if (this.fieldBuilder.data.propName) {
+	            this.data.propName = fieldBuilder.data.propName;
+	        } else if (this.fieldBuilder.data.methName) {
+	            this.data.methName = fieldBuilder.data.methName;
+	        }
+	    }
+
+	    /**
+	     * The target of the delegate.
+	     * @param {!string} selector a valid css query
+	     * @returns {DelegateBuilder} the builder
+	     */
+
+	    _createClass(DelegateBuilder, [{
+	        key: 'to',
+	        value: function to(selector) {
+	            this.data.selector = selector;
+	            return this;
+	        }
+
+	        /**
+	         * To force the delegation to a property.
+	         * @param {string} [propName] the name of the property
+	         * @returns {DelegateBuilder} the builder
+	         */
+
+	    }, {
+	        key: 'property',
+	        value: function property(propName) {
+	            this.data.attrName = null;
+	            if (!(0, _type.isUndefined)(propName)) {
+	                this.data.propName = propName;
+	            } else {
+	                this.data.propName = this.fieldBuilder.data.propName;
+	            }
+	            return this;
+	        }
+
+	        /**
+	         * To force the delegation to an attribute.
+	         * @param {string} [attrName] the name of the attribute
+	         * @returns {DelegateBuilder} the builder
+	         */
+
+	    }, {
+	        key: 'attribute',
+	        value: function attribute(attrName) {
+	            this.data.propName = null;
+	            if (!(0, _type.isUndefined)(attrName)) {
+	                this.data.attrName = attrName;
+	            } else {
+	                this.data.attrName = this.fieldBuilder.data.attrName || this.fieldBuilder.data.propName;
+	            }
+	            return this;
+	        }
+
+	        /**
+	         * To force the delegation to a method.
+	         * @param {string} [methName] the name of the method
+	         * @returns {DelegateBuilder} the builder
+	         */
+
+	    }, {
+	        key: 'method',
+	        value: function method(methName) {
+	            this.data.methName = null;
+	            if (!(0, _type.isUndefined)(methName)) {
+	                this.data.methName = methName;
+	            } else {
+	                this.data.methName = this.fieldBuilder.data.methName;
+	            }
+	            return this;
+	        }
+
+	        /**
+	         * Logic of the builder.
+	         * @param {!ElementBuilder.context.proto} proto the prototype
+	         * @param {!ElementBuilder.on} on the method on
+	         */
+
+	    }, {
+	        key: 'build',
+	        value: function build(proto, on) {
+	            var data = this.data,
+	                fieldBuilderData = this.fieldBuilder.data,
+	                targetedPropName = this.data.propName,
+	                targetedMethName = this.data.methName,
+	                targetedAttrName = this.data.attrName,
+	                fieldGetter = fieldBuilderData.getter,
+	                fieldSetter = fieldBuilderData.setter;
+
+	            if (fieldBuilderData.attrName) {
+	                fieldBuilderData.getterFactory = function (attrName, isBoolean) {
+	                    return function () {
+	                        var target = this.querySelector(data.selector);
+	                        if (target) {
+	                            return targetedAttrName ? (0, _attribute.getAttValue)(target, targetedAttrName, isBoolean) : target[targetedPropName];
+	                        }
+	                    };
+	                };
+	                fieldBuilderData.setterFactory = function (attrName, isBoolean) {
+	                    return function (value) {
+	                        var target = this.querySelector(data.selector),
+	                            attrValue = value;
+	                        if (target) {
+	                            if (targetedAttrName) {
+	                                (0, _attribute.setAttValue)(target, targetedAttrName, isBoolean, attrValue);
+	                            } else {
+	                                target[targetedPropName] = attrValue;
+	                            }
+	                            (0, _attribute.setAttValue)(this, attrName, isBoolean, attrValue);
+	                        }
+	                    };
+	                };
+	            } else if (fieldBuilderData.propName) {
+	                fieldBuilderData.descriptorValue = false;
+	                fieldBuilderData.getter = function (el) {
+	                    var target = el.querySelector(data.selector),
+	                        targetValue = undefined;
+	                    if (target) {
+	                        if (targetedAttrName) {
+	                            targetValue = target.getAttribute(targetedAttrName);
+	                        } else {
+	                            targetValue = target[targetedPropName];
+	                        }
+	                    }
+	                    return (0, _type.isFunction)(fieldGetter) ? fieldGetter.call(el, el, targetValue) : targetValue;
+	                };
+	                fieldBuilderData.setter = function (el, value) {
+	                    var target = el.querySelector(data.selector),
+	                        targetValue = (0, _type.isFunction)(fieldSetter) ? fieldSetter.call(el, el, value) : value;
+	                    if (target) {
+	                        if (targetedAttrName) {
+	                            target.setAttribute(targetedAttrName, targetValue);
+	                        } else {
+	                            target[targetedPropName] = targetValue;
+	                        }
+	                    }
+	                };
+	            } else if (fieldBuilderData.methName) {
+	                fieldBuilderData.invoke = function (el) {
+	                    var target = el.querySelector(data.selector);
+	                    if ((0, _type.isFunction)(target[targetedMethName])) {
+	                        var args = (0, _converter.toArray)(arguments);
+	                        args.shift();
+	                        return target[targetedMethName].apply(target, args);
+	                    }
+	                };
+	            }
+
+	            this.fieldBuilder.build(proto, on);
+	        }
+	    }]);
+
+	    return DelegateBuilder;
+	})();
+
+	/**
+	 * Get a new delegate builder.
+	 * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} builder a property, attribute or method builder
+	 * @returns {DelegateBuilder} the delegate builder
+	 */
+
+	function delegate(builder) {
+	    return new DelegateBuilder(builder);
+	}
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.ElementBuilder = undefined;
+	exports.element = element;
+
+	var _type = __webpack_require__(1);
+
+	var _function = __webpack_require__(3);
+
+	var _converter = __webpack_require__(2);
+
+	var _array = __webpack_require__(7);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var LIFECYCLE_CALLBACKS = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
 
-	var LIFECYCLE_EVENTS = (0, _utils.flatten)(LIFECYCLE_CALLBACKS.map(function (name) {
+	var LIFECYCLE_EVENTS = (0, _array.flatten)(LIFECYCLE_CALLBACKS.map(function (name) {
 	    return ['before:' + name, 'after:' + name];
 	}));
 
@@ -832,13 +1199,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    proto[name] = function () {
 	        var _this = this;
 
-	        var args = [this].concat((0, _utils.toArray)(arguments));
+	        var args = [this].concat((0, _converter.toArray)(arguments));
 
 	        beforeFns.forEach(function (fn) {
 	            return fn.apply(_this, args);
 	        });
 
-	        if ((0, _utils.isFunction)(original)) {
+	        if ((0, _type.isFunction)(original)) {
 	            original.apply(this, args);
 	        }
 
@@ -853,13 +1220,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Its goal is to provide a user friendly way to do it by some else (i.e. dedicated builders).
 	 */
 
-	var CustomElementBuilder = (function () {
+	var ElementBuilder = (function () {
 
 	    /**
 	     */
 
-	    function CustomElementBuilder() {
-	        _classCallCheck(this, CustomElementBuilder);
+	    function ElementBuilder() {
+	        _classCallCheck(this, ElementBuilder);
 
 	        var proto = Object.create(HTMLElement.prototype),
 	            builders = [],
@@ -884,10 +1251,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    /**
 	     * To extend a native element.
 	     * @param {!string} value the name of the element
-	     * @returns {CustomElementBuilder} the builder
+	     * @returns {ElementBuilder} the builder
 	     */
 
-	    _createClass(CustomElementBuilder, [{
+	    _createClass(ElementBuilder, [{
 	        key: 'extend',
 	        value: function extend(value) {
 	            this.context.extend = value;
@@ -897,7 +1264,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        /**
 	         * To override the default prototype.
 	         * @param {!Object} value the prototype
-	         * @returns {CustomElementBuilder} the builder
+	         * @returns {ElementBuilder} the builder
 	         */
 
 	    }, {
@@ -910,7 +1277,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        /**
 	         * To apply the given builders during the build process.
 	         * @param {...Builder} builders the builders
-	         * @returns {CustomElementBuilder} the builder
+	         * @returns {ElementBuilder} the builder
 	         */
 
 	    }, {
@@ -962,17 +1329,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	                return fn(_this4.context);
 	            });
 
-	            (0, _utils.invoke)(this.context.builders, 'build', this.context.proto, (0, _utils.bind)(this.on, this));
+	            (0, _array.invoke)(this.context.builders, 'build', this.context.proto, (0, _function.bind)(this.on, this));
 
 	            this.context.events['after:builders'].forEach(function (fn) {
 	                return fn(_this4.context);
 	            });
 
-	            LIFECYCLE_CALLBACKS.forEach((0, _utils.partial)(applyLifecycle, this.context));
+	            LIFECYCLE_CALLBACKS.forEach((0, _function.partial)(applyLifecycle, this.context));
 
 	            var options = { prototype: this.context.proto };
 
-	            if ((0, _utils.isString)(this.context.extend)) {
+	            if ((0, _type.isString)(this.context.extend)) {
 	                options.extends = this.context.extend;
 	            }
 
@@ -990,223 +1357,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	    }]);
 
-	    return CustomElementBuilder;
+	    return ElementBuilder;
 	})();
 
-	exports.CustomElementBuilder = CustomElementBuilder;
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.DelegateBuilder = undefined;
-
-	var _utils = __webpack_require__(2);
-
-	var _AttributeBuilder = __webpack_require__(3);
-
-	var _Builder2 = __webpack_require__(1);
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 	/**
-	 * The delegate builder.
-	 * Its goal is to provide a way to delegate methods, properties and attributes.
-	 * @extends {Builder}
+	 * Get a new custom element builder.
+	 * @returns {ElementBuilder} the custom element builder
 	 */
 
-	var DelegateBuilder = exports.DelegateBuilder = (function (_Builder) {
-	    _inherits(DelegateBuilder, _Builder);
-
-	    /**
-	     * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} fieldBuilder the field builder
-	     */
-
-	    function DelegateBuilder(fieldBuilder) {
-	        _classCallCheck(this, DelegateBuilder);
-
-	        /**
-	         * @ignore
-	         */
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DelegateBuilder).call(this));
-
-	        _this.fieldBuilder = fieldBuilder;
-	        /**
-	         * @ignore
-	         */
-	        _this.data = {};
-	        if (fieldBuilder.data.attrName) {
-	            _this.data.attrName = fieldBuilder.data.attrName;
-	        } else if (_this.fieldBuilder.data.propName) {
-	            _this.data.propName = fieldBuilder.data.propName;
-	        } else if (_this.fieldBuilder.data.methName) {
-	            _this.data.methName = fieldBuilder.data.methName;
-	        }
-	        return _this;
-	    }
-
-	    /**
-	     * The target of the delegate.
-	     * @param {!string} selector a valid css query
-	     * @returns {DelegateBuilder} the builder
-	     */
-
-	    _createClass(DelegateBuilder, [{
-	        key: 'to',
-	        value: function to(selector) {
-	            this.data.selector = selector;
-	            return this;
-	        }
-
-	        /**
-	         * To force the delegation to a property.
-	         * @param {string} [propName] the name of the property
-	         * @returns {DelegateBuilder} the builder
-	         */
-
-	    }, {
-	        key: 'property',
-	        value: function property(propName) {
-	            this.data.attrName = null;
-	            if (!(0, _utils.isUndefined)(propName)) {
-	                this.data.propName = propName;
-	            } else {
-	                this.data.propName = this.fieldBuilder.data.propName;
-	            }
-	            return this;
-	        }
-
-	        /**
-	         * To force the delegation to an attribute.
-	         * @param {string} [attrName] the name of the attribute
-	         * @returns {DelegateBuilder} the builder
-	         */
-
-	    }, {
-	        key: 'attribute',
-	        value: function attribute(attrName) {
-	            this.data.propName = null;
-	            if (!(0, _utils.isUndefined)(attrName)) {
-	                this.data.attrName = attrName;
-	            } else {
-	                this.data.attrName = this.fieldBuilder.data.attrName || this.fieldBuilder.data.propName;
-	            }
-	            return this;
-	        }
-
-	        /**
-	         * To force the delegation to a method.
-	         * @param {string} [methName] the name of the method
-	         * @returns {DelegateBuilder} the builder
-	         */
-
-	    }, {
-	        key: 'method',
-	        value: function method(methName) {
-	            this.data.methName = null;
-	            if (!(0, _utils.isUndefined)(methName)) {
-	                this.data.methName = methName;
-	            } else {
-	                this.data.methName = this.fieldBuilder.data.methName;
-	            }
-	            return this;
-	        }
-
-	        /**
-	         * @override
-	         */
-
-	    }, {
-	        key: 'build',
-	        value: function build(proto, on) {
-	            var data = this.data,
-	                fieldBuilderData = this.fieldBuilder.data,
-	                targetedPropName = this.data.propName,
-	                targetedMethName = this.data.methName,
-	                targetedAttrName = this.data.attrName,
-	                fieldGetter = fieldBuilderData.getter,
-	                fieldSetter = fieldBuilderData.setter;
-
-	            if (fieldBuilderData.attrName) {
-	                fieldBuilderData.getterFactory = function (attrName, isBoolean) {
-	                    return function () {
-	                        var target = this.querySelector(data.selector);
-	                        if (target) {
-	                            return targetedAttrName ? (0, _AttributeBuilder.getAttValue)(target, targetedAttrName, isBoolean) : target[targetedPropName];
-	                        }
-	                    };
-	                };
-	                fieldBuilderData.setterFactory = function (attrName, isBoolean) {
-	                    return function (value) {
-	                        var target = this.querySelector(data.selector),
-	                            attrValue = value;
-	                        if (target) {
-	                            if (targetedAttrName) {
-	                                (0, _AttributeBuilder.setAttValue)(target, targetedAttrName, isBoolean, attrValue);
-	                            } else {
-	                                target[targetedPropName] = attrValue;
-	                            }
-	                            (0, _AttributeBuilder.setAttValue)(this, attrName, isBoolean, attrValue);
-	                        }
-	                    };
-	                };
-	            } else if (fieldBuilderData.propName) {
-	                fieldBuilderData.descriptorValue = false;
-	                fieldBuilderData.getter = function (el) {
-	                    var target = el.querySelector(data.selector),
-	                        targetValue = undefined;
-	                    if (target) {
-	                        if (targetedAttrName) {
-	                            targetValue = target.getAttribute(targetedAttrName);
-	                        } else {
-	                            targetValue = target[targetedPropName];
-	                        }
-	                    }
-	                    return (0, _utils.isFunction)(fieldGetter) ? fieldGetter.call(el, el, targetValue) : targetValue;
-	                };
-	                fieldBuilderData.setter = function (el, value) {
-	                    var target = el.querySelector(data.selector),
-	                        targetValue = (0, _utils.isFunction)(fieldSetter) ? fieldSetter.call(el, el, value) : value;
-	                    if (target) {
-	                        if (targetedAttrName) {
-	                            target.setAttribute(targetedAttrName, targetValue);
-	                        } else {
-	                            target[targetedPropName] = targetValue;
-	                        }
-	                    }
-	                };
-	            } else if (fieldBuilderData.methName) {
-	                fieldBuilderData.invoke = function (el) {
-	                    var target = el.querySelector(data.selector);
-	                    if ((0, _utils.isFunction)(target[targetedMethName])) {
-	                        var args = (0, _utils.toArray)(arguments);
-	                        args.shift();
-	                        return target[targetedMethName].apply(target, args);
-	                    }
-	                };
-	            }
-
-	            this.fieldBuilder.build(proto, on);
-	        }
-	    }]);
-
-	    return DelegateBuilder;
-	})(_Builder2.Builder);
+	exports.ElementBuilder = ElementBuilder;
+	function element() {
+	    return new ElementBuilder();
+	}
 
 /***/ },
-/* 7 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1217,16 +1382,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	exports.MethodBuilder = undefined;
+	exports.method = method;
 
-	var _utils = __webpack_require__(2);
+	var _type = __webpack_require__(1);
 
-	var _Builder2 = __webpack_require__(1);
+	var _function = __webpack_require__(3);
+
+	var _converter = __webpack_require__(2);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	/**
 	 * The method builder.
@@ -1234,8 +1398,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @extends {Builder}
 	 */
 
-	var MethodBuilder = exports.MethodBuilder = (function (_Builder) {
-	    _inherits(MethodBuilder, _Builder);
+	var MethodBuilder = exports.MethodBuilder = (function () {
 
 	    /**
 	     * @param {!string} methName the name of the method
@@ -1247,11 +1410,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        /**
 	         * @ignore
 	         */
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MethodBuilder).call(this));
-
-	        _this.data = { methName: methName, wrappers: [] };
-	        return _this;
+	        this.data = { methName: methName, wrappers: [] };
 	    }
 
 	    /**
@@ -1263,7 +1422,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _createClass(MethodBuilder, [{
 	        key: 'invoke',
 	        value: function invoke(fn) {
-	            if ((0, _utils.isFunction)(fn)) {
+	            if ((0, _type.isFunction)(fn)) {
 	                this.data.invoke = fn;
 	            }
 	            return this;
@@ -1287,7 +1446,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        /**
-	         * @override
+	         * Logic of the builder.
+	         * @param {!ElementBuilder.context.proto} proto the prototype
+	         * @param {!ElementBuilder.on} on the method on
 	         */
 
 	    }, {
@@ -1297,26 +1458,26 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            if (data.invoke) {
 	                proto[data.methName] = function () {
-	                    return data.invoke.apply(this, [this].concat((0, _utils.toArray)(arguments)));
+	                    return data.invoke.apply(this, [this].concat((0, _converter.toArray)(arguments)));
 	                };
 	            }
 
 	            if (data.wrappers.length) {
 	                on('before:createdCallback').invoke(function (el) {
-	                    if ((0, _utils.isFunction)(el[data.methName])) {
+	                    if ((0, _type.isFunction)(el[data.methName])) {
 	                        (function () {
 	                            var lastIndex = data.wrappers.length - 1,
 	                                original = el[data.methName],
 	                                target = function target() {
-	                                var args = (0, _utils.toArray)(arguments);
+	                                var args = (0, _converter.toArray)(arguments);
 	                                args.shift();
 	                                original.apply(el, args);
 	                            };
 	                            el[data.methName] = data.wrappers.reduce(function (next, current, index) {
 	                                if (index === lastIndex) {
-	                                    return (0, _utils.bind)((0, _utils.partial)(current, next, el), el);
+	                                    return (0, _function.bind)((0, _function.partial)(current, next, el), el);
 	                                }
-	                                return (0, _utils.bind)((0, _utils.partial)(current, next), el);
+	                                return (0, _function.bind)((0, _function.partial)(current, next), el);
 	                            }, target);
 	                        })();
 	                    }
@@ -1326,10 +1487,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }]);
 
 	    return MethodBuilder;
-	})(_Builder2.Builder);
+	})();
+
+	/**
+	 * Get a new method builder.
+	 * @param {!string} methName the name of the method
+	 * @returns {MethodBuilder} the method builder
+	 */
+
+	function method(methName) {
+	    return new MethodBuilder(methName);
+	}
 
 /***/ },
-/* 8 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1342,16 +1513,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	exports.OnBuilder = undefined;
+	exports.on = on;
 
-	var _utils = __webpack_require__(2);
+	var _type = __webpack_require__(1);
 
-	var _Builder2 = __webpack_require__(1);
+	var _function = __webpack_require__(3);
+
+	var _converter = __webpack_require__(2);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	/**
 	 * The on builder.
@@ -1359,8 +1529,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @extends {Builder}
 	 */
 
-	var OnBuilder = exports.OnBuilder = (function (_Builder) {
-	    _inherits(OnBuilder, _Builder);
+	var OnBuilder = exports.OnBuilder = (function () {
 
 	    /**
 	     * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
@@ -1372,11 +1541,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        /**
 	         * @ignore
 	         */
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(OnBuilder).call(this));
-
-	        _this.data = { events: events, invoke: _utils.noop };
-	        return _this;
+	        this.data = { events: events, invoke: _function.noop };
 	    }
 
 	    /**
@@ -1390,7 +1555,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _createClass(OnBuilder, [{
 	        key: 'invoke',
 	        value: function invoke(fn) {
-	            if ((0, _utils.isFunction)(fn)) {
+	            if ((0, _type.isFunction)(fn)) {
 	                this.data.invoke = fn;
 	            }
 	            return this;
@@ -1457,7 +1622,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        /**
-	         * @ignore
+	         * Logic of the builder.
+	         * @param {!ElementBuilder.context.proto} proto the prototype
+	         * @param {!ElementBuilder.on} on the method on
 	         */
 
 	    }, {
@@ -1479,9 +1646,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            on('before:attachedCallback').invoke(function (el) {
 	                var listener = function listener(evt) {
 	                    if (selector) {
-	                        var target = (0, _utils.find)((0, _utils.toArray)(el.querySelectorAll(selector)), function (el) {
+	                        var target = (0, _converter.toArray)(el.querySelectorAll(selector)).filter(function (el) {
 	                            return el === evt.target || el.contains(evt.target);
-	                        });
+	                        })[0];
 	                        if (target) {
 	                            if (stopPropagation) {
 	                                evt.stopPropagation();
@@ -1550,10 +1717,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }]);
 
 	    return OnBuilder;
-	})(_Builder2.Builder);
+	})();
+
+	/**
+	 * Get a new on builder.
+	 * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
+	 * @returns {OnBuilder} the on builder
+	 */
+
+	function on(events) {
+	    return new OnBuilder(events);
+	}
 
 /***/ },
-/* 9 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1565,18 +1742,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.TemplateBuilder = undefined;
 	exports.applyTemplate = applyTemplate;
+	exports.template = template;
 
-	var _utils = __webpack_require__(2);
+	var _type = __webpack_require__(1);
 
-	var _Builder2 = __webpack_require__(1);
-
-	var _PropertyBuilder = __webpack_require__(4);
+	var _property = __webpack_require__(6);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	/**
 	 * The counter is used to generate unique DOM's id.
@@ -1689,8 +1861,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @extends {Builder}
 	 */
 
-	var TemplateBuilder = exports.TemplateBuilder = (function (_Builder) {
-	    _inherits(TemplateBuilder, _Builder);
+	var TemplateBuilder = exports.TemplateBuilder = (function () {
 
 	    /**
 	     * @param {!string|function(el: HTMLElement)} tpl the template as a string or a function
@@ -1702,15 +1873,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	        /**
 	         * @ignore
 	         */
-
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TemplateBuilder).call(this));
-
-	        _this.data = { tpl: tpl };
-	        return _this;
+	        this.data = { tpl: tpl };
 	    }
 
 	    /**
-	     * @ignore
+	     * Logic of the builder.
+	     * @param {!ElementBuilder.context.proto} proto the prototype
+	     * @param {!ElementBuilder.on} on the method on
 	     */
 
 	    _createClass(TemplateBuilder, [{
@@ -1718,18 +1887,111 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function build(proto, on) {
 	            var data = this.data;
 
-	            new _PropertyBuilder.PropertyBuilder('lightDom').getter(function (el) {
+	            new _property.PropertyBuilder('lightDom').getter(function (el) {
 	                return findContentNode(el);
 	            }).build(proto, on);
 
 	            on('before:createdCallback').invoke(function (el) {
-	                applyTemplate(el, (0, _utils.isFunction)(data.tpl) ? data.tpl(el) : data.tpl);
+	                applyTemplate(el, (0, _type.isFunction)(data.tpl) ? data.tpl(el) : data.tpl);
 	            });
 	        }
 	    }]);
 
 	    return TemplateBuilder;
-	})(_Builder2.Builder);
+	})();
+
+	/**
+	 * Get a new template builder.
+	 * @param {!string|Function} tpl the string or function template
+	 * @returns {TemplateBuilder} the template builder
+	 */
+
+	function template(tpl) {
+	    return new TemplateBuilder(tpl);
+	}
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.dispatchCustomEvent = dispatchCustomEvent;
+	exports.dispatchMouseEvent = dispatchMouseEvent;
+
+	var _object = __webpack_require__(4);
+
+	var CUSTOM_EVENT_ARG_NAMES = ['bubbles', 'cancelable', 'detail'];
+
+	var MOUSE_EVENT_ARG_NAMES = ['bubbles', 'cancelable', 'view', 'detail', 'screenX', 'screenY', 'clientX', 'clientY', 'ctrlKey', 'altKey', 'shiftKey', 'metaKey', 'button', 'relatedTarget'];
+
+	var DEFAULT_CUSTOM_EVENT_OPTIONS = {
+	    bubbles: true,
+	    cancelable: true,
+	    detail: null
+	};
+
+	var DEFAULT_MOUSE_EVENT_OPTIONS = {
+	    bubbles: true,
+	    cancelable: true,
+	    view: window,
+	    detail: 0,
+	    screenX: 0,
+	    screenY: 0,
+	    clientX: 0,
+	    clientY: 0,
+	    ctrlKey: false,
+	    altKey: false,
+	    shiftKey: false,
+	    metaKey: false,
+	    button: 0,
+	    relatedTarget: null
+	};
+
+	/**
+	 * Create and dispatch a custom event.
+	 * @param {!HTMLElement} el the element where the event will be dispatched
+	 * @param {!string} eventType the event type
+	 * @param {Object} [options] the options
+	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
+	 */
+	function dispatchCustomEvent(el, eventType, options) {
+	    var event = undefined,
+	        args = (0, _object.assign)({}, DEFAULT_CUSTOM_EVENT_OPTIONS, options);
+	    if (typeof CustomEvent === 'function') {
+	        event = new CustomEvent(eventType, args);
+	    } else {
+	        event = document.createEvent('CustomEvent');
+	        event.initCustomEvent.apply(event, [eventType].concat(CUSTOM_EVENT_ARG_NAMES.map(function (name) {
+	            return args[name];
+	        })));
+	    }
+	    return el.dispatchEvent(event);
+	}
+
+	/**
+	 * Create and dispatch a mouse event (click, mouseover, etc.).
+	 * @param {!HTMLElement} el the element where the event will be dispatched
+	 * @param {!string} eventType the event type
+	 * @param {Object} [options] the options
+	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
+	 */
+	function dispatchMouseEvent(el, eventType, options) {
+	    var event = undefined,
+	        args = (0, _object.assign)({}, DEFAULT_MOUSE_EVENT_OPTIONS, options);
+	    if (typeof MouseEvent === 'function') {
+	        event = new MouseEvent(eventType, args);
+	    } else {
+	        event = document.createEvent('MouseEvents');
+	        event.initMouseEvent.apply(event, [eventType].concat(MOUSE_EVENT_ARG_NAMES.map(function (name) {
+	            return args[name];
+	        })));
+	    }
+	    return el.dispatchEvent(event);
+	}
 
 /***/ }
 /******/ ])

@@ -1,6 +1,3 @@
----
-title: template()
----
 # template()
 
 The function `template()` returns a fresh `TemplateBuilder` providing services to define ... a template.
@@ -8,7 +5,7 @@ The function `template()` returns a fresh `TemplateBuilder` providing services t
 ## Import
 
 ```javascript
-import {template} from 'custom-element-builder';
+import {template} from 'ceb';
 ```
 
 ## Usage
@@ -16,7 +13,7 @@ import {template} from 'custom-element-builder';
 The template can be given as a `string` or a `function`. The function will be called on `createdCallback`.
 
 ```javascript
-import {ceb, template} from 'custom-element-builder';
+import {ceb, template} from 'ceb';
 ceb()
     .builders(
         template(`<button></button>`)
@@ -25,7 +22,7 @@ ceb()
 ```
 
 ```javascript
-import {ceb, template} from 'custom-element-builder';
+import {ceb, template} from 'ceb';
 ceb()
     .builders(
         template(el => `<button>${el.tagName}</button>`)
@@ -51,16 +48,16 @@ If the element (`content`) is found, it will be replaced by a `ceb-lightdom` ele
 ### Getting the light DOM node
 
 Custom element augmented with `template()` get a property `lightDom` which returns the light DOM element.
-If the template doesn't have the the _pseudo Shadow_ flag, the `lightDom` will return the custom element itself.
+If the template doesn't have the _pseudo Shadow_ flag, the `lightDom` will return the custom element itself.
 
 Furthermore, the templating process is able to handle embedded light DOM.
-In this case, the `lightDom` value of the root node, will be the `lightDom` of the last child having a  _pseudo Shadow_ flag.
+In this case, the `lightDom` value of the root node, will be the `lightDom` of the last child having a _pseudo Shadow_ flag.
 
 ### Example
 
 So, given the following custom element: 
 ```javascript
-import {ceb, template, attribute, delegate} from 'custom-element-builder';
+import {ceb, template, attribute, delegate} from 'ceb';
 ceb()
     .builders(
         delegate(attribute('icon')).to('i').setter((el, name) => `fa fa-${name}`).attribute('class'),

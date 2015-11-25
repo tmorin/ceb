@@ -1,0 +1,118 @@
+'use strict';
+
+System.register(['../helper/type.js', '../helper/function.js', '../helper/converter.js'], function (_export) {
+    var isFunction, partial, bind, toArray, _createClass, MethodBuilder;
+
+    function _classCallCheck(instance, Constructor) {
+        if (!(instance instanceof Constructor)) {
+            throw new TypeError("Cannot call a class as a function");
+        }
+    }
+
+    return {
+        setters: [function (_helperTypeJs) {
+            isFunction = _helperTypeJs.isFunction;
+        }, function (_helperFunctionJs) {
+            partial = _helperFunctionJs.partial;
+            bind = _helperFunctionJs.bind;
+        }, function (_helperConverterJs) {
+            toArray = _helperConverterJs.toArray;
+        }],
+        execute: function () {
+            _createClass = (function () {
+                function defineProperties(target, props) {
+                    for (var i = 0; i < props.length; i++) {
+                        var descriptor = props[i];
+                        descriptor.enumerable = descriptor.enumerable || false;
+                        descriptor.configurable = true;
+                        if ("value" in descriptor) descriptor.writable = true;
+                        Object.defineProperty(target, descriptor.key, descriptor);
+                    }
+                }
+
+                return function (Constructor, protoProps, staticProps) {
+                    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+                    if (staticProps) defineProperties(Constructor, staticProps);
+                    return Constructor;
+                };
+            })();
+
+            _export('MethodBuilder', MethodBuilder = (function () {
+                function MethodBuilder(methName) {
+                    _classCallCheck(this, MethodBuilder);
+
+                    this.data = {
+                        methName: methName,
+                        wrappers: []
+                    };
+                }
+
+                _createClass(MethodBuilder, [{
+                    key: 'invoke',
+                    value: function invoke(fn) {
+                        if (isFunction(fn)) {
+                            this.data.invoke = fn;
+                        }
+
+                        return this;
+                    }
+                }, {
+                    key: 'wrap',
+                    value: function wrap() {
+                        for (var _len = arguments.length, wrappers = Array(_len), _key = 0; _key < _len; _key++) {
+                            wrappers[_key] = arguments[_key];
+                        }
+
+                        this.data.wrappers = this.data.wrappers.concat(wrappers);
+                        return this;
+                    }
+                }, {
+                    key: 'build',
+                    value: function build(proto, on) {
+                        var data = this.data;
+
+                        if (data.invoke) {
+                            proto[data.methName] = function () {
+                                return data.invoke.apply(this, [this].concat(toArray(arguments)));
+                            };
+                        }
+
+                        if (data.wrappers.length) {
+                            on('before:createdCallback').invoke(function (el) {
+                                if (isFunction(el[data.methName])) {
+                                    (function () {
+                                        var lastIndex = data.wrappers.length - 1,
+                                            original = el[data.methName],
+                                            target = function target() {
+                                            var args = toArray(arguments);
+                                            args.shift();
+                                            original.apply(el, args);
+                                        };
+
+                                        el[data.methName] = data.wrappers.reduce(function (next, current, index) {
+                                            if (index === lastIndex) {
+                                                return bind(partial(current, next, el), el);
+                                            }
+
+                                            return bind(partial(current, next), el);
+                                        }, target);
+                                    })();
+                                }
+                            });
+                        }
+                    }
+                }]);
+
+                return MethodBuilder;
+            })());
+
+            _export('MethodBuilder', MethodBuilder);
+
+            function method(methName) {
+                return new MethodBuilder(methName);
+            }
+
+            _export('method', method);
+        }
+    };
+});

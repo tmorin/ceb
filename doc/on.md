@@ -1,6 +1,3 @@
----
-title: on()
----
 # on()
 
 The function `on()` returns a fresh `OnBuilder` providing services to define event listeners.
@@ -8,7 +5,7 @@ The function `on()` returns a fresh `OnBuilder` providing services to define eve
 ## Import
 
 ```javascript
-import {on} from 'custom-element-builder';
+import {on} from 'ceb';
 ```
 
 ## Usage
@@ -22,7 +19,7 @@ Listeners are attached on `attachedCallback` and removed on `detachedCallback`.
 If the user clicks on the custom element or one of its children, the message _triggered by CEB-EXAMPLE_ will be logged.
 
 ```javascript
-import {ceb, on} from 'custom-element-builder';
+import {ceb, on} from 'ceb';
 ceb()
     .builders(
         on('click').invoke((el, evt, target) => console.log('triggered by %s', target.tagName))
@@ -35,7 +32,7 @@ ceb()
 If the user clicks on the custom element or one of its children, the message _triggered by CEB-EXAMPLE_ will be logged.
 
 ```javascript
-import {ceb, on} from 'custom-element-builder';
+import {ceb, on} from 'ceb';
 ceb()
     .builders(
         on('click').capture().invoke((el, evt, target) => console.log('triggered by %s', target.tagName))
@@ -50,7 +47,7 @@ ceb()
 `skip()` will call the methods `preventDefault()` and `stopPropagation()` of the event.
 
 ```javascript
-import {ceb, on} from 'custom-element-builder';
+import {ceb, on} from 'ceb';
 ceb()
     .builders(
         on('click').prevent(),
@@ -68,7 +65,7 @@ If the user clicks on `button.ok` or one of its children, the message _Ok! trigg
 If the user clicks on `button.cancel` or one of its children, the message _Cancel! triggered by BUTTON_ will be logged.
 
 ```javascript
-import {ceb, on, template} from 'custom-element-builder';
+import {ceb, on, template} from 'ceb';
 ceb()
     .builders(
         template(`

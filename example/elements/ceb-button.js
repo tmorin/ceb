@@ -1,6 +1,6 @@
-import {ceb, attribute, delegate, template, on} from '../../src/ceb.js';
+import {element, attribute, delegate, template, on} from '../../src/ceb.js';
 
-export default ceb().builders(
+export default element().builders(
     template(`
         <button>
             <span x-ref="icon"></span>

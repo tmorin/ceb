@@ -1,8 +1,8 @@
-import {ceb, property, on} from '../../src/ceb.js';
+import {element, property, on} from '../../src/ceb.js';
 import {idomify} from '../builders/idomify.js';
 import {todoify} from './todoify.js';
 
-ceb().builders(
+element().builders(
     idomify(`
         <div class="checkbox">
             <label>

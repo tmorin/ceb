@@ -1,4 +1,4 @@
-import {ceb, attribute} from '../src/ceb.js';
+import {element, attribute} from '../src/ceb.js';
 
 /*jshint -W030 */
 describe('ceb.attribute()', function () {
@@ -8,7 +8,7 @@ describe('ceb.attribute()', function () {
             sandbox.parentNode.removeChild(sandbox);
         }
         document.body.appendChild((sandbox = document.createElement('div')));
-        builder = ceb();
+        builder = element();
     });
 
     afterEach(() => {

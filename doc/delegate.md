@@ -1,19 +1,16 @@
----
-title: delegate()
----
 # delegate()
 
-The function `delegate()` returns a fresh `DelegateBuilder` providing services to define delegations on properties attributes and attributes.
+The function `delegate()` returns a fresh `DelegateBuilder` providing services to define delegations on properties, attributes and methods.
 
 ## Import
 
 ```javascript
-import {delegate} from 'custom-element-builder';
+import {delegate} from 'ceb';
 ```
 
 ## Usage
 
-The delegation is useful, when the custom element is a composition of a native element.
+The delegation is useful when the custom element is a composition of a native element.
 For instance, to delegate the _disabled_ state of a custom button to the embedded native one.
 Or to delegate the _focus_ behavior of a custom button to the embedded native one.
 
@@ -31,7 +28,7 @@ The registered custom element will have an attribute and a property `disabled`,
 but its value is really hosted by the first child button found.
 
 ```javascript
-import {ceb, attribute, delegate} from 'custom-element-builder';
+import {ceb, attribute, delegate} from 'ceb';
 ceb()
     .builders(
         delegate(attribute('disabled')).to('button')
@@ -47,7 +44,7 @@ All combinations are available.
 There, the attribute delegates to a property having another name.
 
 ```javascript
-import {ceb, attribute, delegate} from 'custom-element-builder';
+import {ceb, attribute, delegate} from 'ceb';
 ceb()
     .builders(
         delegate(attribute('custom-disabled')).to('button').property('disabled')
@@ -62,7 +59,7 @@ Method invocations can also be delegated.
 There, the invocation of the method `focus` will invoke the method `focus` of the first child button found.
 
 ```javascript
-import {ceb, method, delegate} from 'custom-element-builder';
+import {ceb, method, delegate} from 'ceb';
 ceb()
     .builders(
         delegate(method('focus')).to('button')
@@ -77,7 +74,7 @@ As for attributes and properties, the name of the delegated method can be overri
 There, the invocation of the method `applyFocus` will invoke the method `focus` of the first child button found.
 
 ```javascript
-import {ceb, method, delegate} from 'custom-element-builder';
+import {ceb, method, delegate} from 'ceb';
 ceb()
     .builders(
         delegate(method('applyFocus')).to('button').method('focus')

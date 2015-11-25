@@ -1,6 +1,6 @@
 /*jshint -W030 */
 
-import {ceb, property} from '../src/ceb.js';
+import {element, property} from '../src/ceb.js';
 
 describe('ceb.property()', function () {
     var sandbox, builder;
@@ -9,7 +9,7 @@ describe('ceb.property()', function () {
             sandbox.parentNode.removeChild(sandbox);
         }
         document.body.appendChild((sandbox = document.createElement('div')));
-        builder = ceb();
+        builder = element();
     });
 
     afterEach(() => {

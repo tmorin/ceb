@@ -1,4 +1,4 @@
-# ceb: custom-element-builder
+# <code>&lt;ceb/&gt;</code> or custom-element-builder
 
 [![Circle CI](https://circleci.com/gh/tmorin/ceb.svg?style=svg)](https://circleci.com/gh/tmorin/ceb)
 [![Dependency Status](https://david-dm.org/tmorin/ceb.svg)](https://david-dm.org/tmorin/ceb)
@@ -6,112 +6,46 @@
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 
-ceb is just a set of builders, natively scalable and designed for FRP
+<code>&lt;ceb/&gt;</code> is a builder executing others builders which a the end register a [Custom Elements](http://www.w3.org/TR/custom-elements/).
 
-- [Home page](http://tmorin.github.io/ceb)
+Based on the builder pattern, the services provided by <code>&lt;ceb/&gt;</code> are easy to discover and use.
 
-## Dependencies
+Furthermore, <code>&lt;ceb/&gt;</code> is natively open for extensions, so feel free to play with your own builders.
 
-Even if _custom-element-builder_ is transpilled from es6 to es5 with babel, the babel polyfill is not necessary. 
+<code>&lt;ceb/&gt;</code> is dependency free.
+Only not evergreen browsers have to be enhanced with a polyfill of the Custom Elements specification.
 
-About, not evergreen browsers (those not implementing `document.registerElement()`) the following polyfills can be used:
- - [webcomponents.js](https://github.com/webcomponents/webcomponentsjs)
- - [document-register-element](https://github.com/WebReflection/document-register-element)
+## Quick overview
 
-## Install
-
-From ES6;
 ```javascript
-import {ceb} from 'ceb/src/ceb'
-```
+import {element, property, method} from 'ceb';
 
-From ES5:
-```javascript
-var ceb = require('ceb');
-```
+// create a fresh element builder
+let builder = element();
 
-From AMD:
-```javascript
-require(['pathOfDistDir/amd/ceb'], function (ceb) {
-    // ...
-});
-```
+// add a property named foo initialized to 0
+builder.builders(property('foo').value(0));
 
-From SystemJs:
-```javascript
-System.import('pathOfDistDir/systemjs/ceb.js').then(function (ceb) {
-    // ...
-});
-```
+// add a method named incFoo which increment the foo value
+builder.builders(method('incFoo').invoke((el, num = 1 )=> el.foo = el.foo + num);
 
-From UMD (Global):
+// build and register the custom element 
+let CebExample = builder.register('ceb-example');
 
-```html
-<script src="pathOfDistDir/umd/utils.js"></script>
-<script src="pathOfDistDir/umd/builder/Builder.js"></script>
-<script src="pathOfDistDir/umd/builder/PropertyBuilder.js"></script>
-<script src="pathOfDistDir/umd/builder/AttributeBuilder.js"></script>
-<script src="pathOfDistDir/umd/builder/DelegateBuilder.js"></script>
-<script src="pathOfDistDir/umd/builder/MethodBuilder.js"></script>
-<script src="pathOfDistDir/umd/builder/OnBuilder.js"></script>
-<script src="pathOfDistDir/umd/builder/TemplateBuilder.js"></script>
-<script src="pathOfDistDir/umd/builder/CustomElementBuilder.js"></script>
-<script src="pathOfDistDir/umd/ceb.js"></script>
-<!-- or -->
-<script src="pathOfDistDir/standalone/ceb.js"></script>
-<!-- or -->
-<script src="pathOfDistDir/standalone/ceb.min.js"></script>
+// export the class of the custom element
+export default CebExample;
 ```
 
 ```javascript
-(function (global) {
-    var ceb = global.ceb;
-}(this));
-```
+// create an instance of ceb-example
+var cebExample = document.createElement('ceb-example');
 
-## npm tasks
+// by default foo is 0
+console.log(cebExample.foo) // => 0
 
-Clean working directory
-```shell
-npm run clean
-```
+cebExample.incFoo();
+console.log(cebExample.foo) // => now it's: 1
 
-Lint JavaScript source files
-```shell
-npm run lint
-```
-
-Build distributions files
-```shell
-npm run build
-```
-
-Launch karma against PhantomJS
-```shell
-npm run test:local
-```
-
-Launch karma against PhantomJS with hot reload
-```shell
-npm run test:local:watch
-```
-
-Launch karma against saucelab browsers
-```shell
-npm run test
-```
-
-Zip sources files
-```shell
-npm run zip
-```
-
-Start webpack dev server with hot reload
-```shell
-npm start
-```
-
-Release (version + tag + npm) the project
-```shell
-npm release:[pre|patch|minor|major]
+cebExample.incFoo(2);
+console.log(cebExample.foo) // => and finally: 3
 ```

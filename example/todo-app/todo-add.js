@@ -1,8 +1,8 @@
-import {ceb, method, on} from '../../src/ceb.js';
+import {element, method, on} from '../../src/ceb.js';
 import {idomify} from '../builders/idomify.js';
 import {todoify} from './todoify.js';
 
-ceb().builders(
+element().builders(
     idomify(`
         <form>
             <div class="input-group">

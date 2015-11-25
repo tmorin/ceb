@@ -1,6 +1,3 @@
----
-title: method()
----
 # method()
 
 The function `method()` returns a fresh `MethodBuilder` providing services to define a method and ... more.
@@ -8,7 +5,7 @@ The function `method()` returns a fresh `MethodBuilder` providing services to de
 ## Import
 
 ```javascript
-import {method} from 'custom-element-builder';
+import {method} from 'ceb';
 ```
 
 ## Usage
@@ -20,10 +17,10 @@ So, fill free to forget the `this` keyword.
 
 The registered custom element will have a method `meth1`.
 
-When the method is invoked, the returned value could be `Hello world! from ceb-example`.
+When the method is invoked, the returned value should be `Hello world! from ceb-example`.
 
 ```javascript
-import {ceb, method} from 'custom-element-builder';
+import {ceb, method} from 'ceb';
 ceb()
     .builders(
         method('meth1').invoke((el, name) => `Hello ${name}! from ${el.tagName}`)
@@ -35,10 +32,10 @@ ceb()
 
 The registered custom element will have a method `meth1`.
 
-When the method is invoked, the returned value could be `HELLO WORLD! FROM CEB-EXAMPLE`.
+But, when the method is invoked, the returned value should be `HELLO WORLD! FROM CEB-EXAMPLE`.
 
 ```javascript
-import {ceb, attribute} from 'custom-element-builder';
+import {ceb, attribute} from 'ceb';
 ceb()
     .builders(
         method('meth1')

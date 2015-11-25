@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import 'bootstrap/dist/js/bootstrap.js';
 
-import './elements/ceb-address-selector';
+import './elements/ceb-address-selector.js';
 
 import './ceb-address-selector.css';
 
