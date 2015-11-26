@@ -63,13 +63,7 @@
     "version": "npm run build && git add -A dist",
     "postversion": "git push && git push --tags",
     "prepublish": "npm run clean && npm run lint && npm run test:local && npm run build",
-    "release:patch": "npm version patch && npm publish && npm run site:deploy",
-    "release:minor": "npm version minor && npm publish && npm run site:deploy",
-    "release:major": "npm version major && npm publish && npm run site:deploy",
-    "release:preminor": "npm version preminor && npm publish --npmtag canary && npm run site:deploy",
-    "release:prepatch": "npm version prepatch && npm publish --npmtag canary && npm run site:deploy",
-    "release:premajor": "npm version premajor && npm publish --npmtag canary && npm run site:deploy",
-    "release:prerelease": "npm version prerelease && npm publish --npmtag canary && npm run site:deploy"
+    "postpublish": "npm run site:deploy"
   },
   "engines": {
     "node": ">=4.0.0"
@@ -96,6 +90,7 @@
     "file-loader": "^0.8.5",
     "form-serializer": "^2.5.0",
     "gulp": "^3.9.0",
+    "gulp-gh-pages": "^0.5.4",
     "gulp-zip": "^3.0.2",
     "handlebars": "^4.0.1",
     "html-webpack-plugin": "^1.7.0",
