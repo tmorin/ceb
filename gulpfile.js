@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var zip = require('gulp-zip');
-var ghPages = require('gulp-gh-pages');
 
 gulp.task('zip', function () {
     return gulp.src([
