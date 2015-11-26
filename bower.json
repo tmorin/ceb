@@ -23,7 +23,7 @@
   "homepage": "https://tmorin.github.io/ceb",
   "repository": {
     "type": "git",
-    "url": "git://github.com/tmorin/ceb.git"
+    "url": "https://github.com/tmorin/ceb.git"
   },
   "license": "MIT",
   "authors": [

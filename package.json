@@ -32,11 +32,11 @@
   "jsnext:main": "src/ceb.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/tmorin/ceb.git"
+    "url": "https://github.com/tmorin/ceb.git"
   },
   "scripts": {
     "lint": "jshint . --reporter=node_modules/jshint-stylish",
-    "clean": "rimraf dist site lib *.zip *.tgz",
+    "clean": "rimraf .publish dist site lib *.zip *.tgz",
     "build:commonjs": "babel --plugins transform-es2015-modules-commonjs src --out-dir lib",
     "build:amd": "babel --plugins transform-es2015-modules-amd src --out-dir dist/amd",
     "build:umd": "babel --plugins transform-es2015-modules-umd src --out-dir dist/umd",
@@ -47,7 +47,8 @@
     "build": "npm run build:commonjs && npm run build:amd && npm run build:umd && npm run build:systemjs && npm run build:standalone",
     "site:esdoc": "esdoc -c esdoc.json",
     "site:example": "webpack --config webpack.config.example.js",
-    "site:site": "npm run site:esdoc && npm run site:example && ncp dist site/example/dist",
+    "site": "npm run site:esdoc && npm run site:example && ncp dist site/example/dist",
+    "site:deploy": "npm run build && npm run site && gulp deploy",
     "test:local": "karma start karma.config.local.js",
     "test:local:watch": "karma start --auto-watch --no-single-run",
     "test:ci:ie": "karma start karma.config.ci.js --browsers slIe11,slIe10,slIe9",
