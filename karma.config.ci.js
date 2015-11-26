@@ -94,7 +94,7 @@ module.exports = function (config) {
     };
 
     override.sauceLabs = {
-        testName: 'ceb - ' + name,
+        testName: 'ceb - test',
         recordVideo: false,
         recordScreenshots: false
     };
