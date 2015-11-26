@@ -18,13 +18,28 @@ describe('ceb.element()', () => {
         sandbox.innerHTML = '';
     });
 
-    it('should handle extend and prototype', () => {
-        var CustomElement = builder
-            .extend('button')
-            .proto(Object.create(HTMLButtonElement.prototype))
-            .register('test-button');
-        expect(CustomElement).to.exists;
+    it('should handle prototype and extends value', () => {
+        builder.base(Object.create(HTMLButtonElement.prototype), 'button').register('test-prototype-extends');
+        let customElement = document.createElement('button', 'test-prototype-extends');
+        expect(customElement).to.be.an.instanceOf(HTMLButtonElement);
+    });
 
+    it('should handle extends and prototype value', () => {
+        builder.base('button', Object.create(HTMLButtonElement.prototype)).register('test-extends-prototype');
+        let customElement = document.createElement('button', 'test-extends-prototype');
+        expect(customElement).to.be.an.instanceOf(HTMLButtonElement);
+    });
+
+    it('should handle prototype value', () => {
+        builder.base(Object.create(HTMLButtonElement.prototype)).register('test-prototype');
+        let customElement = document.createElement('test-prototype');
+        expect(customElement).to.be.an.instanceOf(HTMLButtonElement);
+    });
+
+    it('should handle extends value', () => {
+        builder.base('button').register('test-extends');
+        let customElement = document.createElement('button', 'test-extends');
+        expect(customElement).to.be.an.instanceOf(HTMLElement);
     });
 
     it('should handle before:builders and after:builders', () => {

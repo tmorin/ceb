@@ -1,5 +1,5 @@
-import {isFunction, isUndefined} from '../helper/type.js';
-import {result, assign} from '../helper/object.js';
+import {isFunction, isUndefined} from '../helper/types.js';
+import {result, assign} from '../helper/objects.js';
 
 const DEFAULT_DATA = {
     enumerable: true,
@@ -10,7 +10,6 @@ const DEFAULT_DATA = {
 /**
  * The property builder.
  * Its goal is to provide a way to define a property.
- * @extends {Builder}
  */
 export class PropertyBuilder {
 

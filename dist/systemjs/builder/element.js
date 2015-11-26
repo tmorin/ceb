@@ -1,7 +1,11 @@
 'use strict';
 
-System.register(['../helper/type.js', '../helper/function.js', '../helper/converter.js', '../helper/array.js'], function (_export) {
+System.register(['../helper/types.js', '../helper/functions.js', '../helper/converters.js', '../helper/arrays.js'], function (_export) {
     var isString, isFunction, partial, bind, toArray, flatten, invoke, _createClass, LIFECYCLE_CALLBACKS, LIFECYCLE_EVENTS, ElementBuilder;
+
+    function _typeof(obj) {
+        return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
+    }
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -10,7 +14,7 @@ System.register(['../helper/type.js', '../helper/function.js', '../helper/conver
     }
 
     function applyLifecycle(context, name) {
-        var proto = context.proto,
+        var proto = context.p,
             original = proto[name],
             beforeFns = context.events['before:' + name],
             afterFns = context.events['after:' + name];
@@ -34,17 +38,17 @@ System.register(['../helper/type.js', '../helper/function.js', '../helper/conver
     }
 
     return {
-        setters: [function (_helperTypeJs) {
-            isString = _helperTypeJs.isString;
-            isFunction = _helperTypeJs.isFunction;
-        }, function (_helperFunctionJs) {
-            partial = _helperFunctionJs.partial;
-            bind = _helperFunctionJs.bind;
-        }, function (_helperConverterJs) {
-            toArray = _helperConverterJs.toArray;
-        }, function (_helperArrayJs) {
-            flatten = _helperArrayJs.flatten;
-            invoke = _helperArrayJs.invoke;
+        setters: [function (_helperTypesJs) {
+            isString = _helperTypesJs.isString;
+            isFunction = _helperTypesJs.isFunction;
+        }, function (_helperFunctionsJs) {
+            partial = _helperFunctionsJs.partial;
+            bind = _helperFunctionsJs.bind;
+        }, function (_helperConvertersJs) {
+            toArray = _helperConvertersJs.toArray;
+        }, function (_helperArraysJs) {
+            flatten = _helperArraysJs.flatten;
+            invoke = _helperArraysJs.invoke;
         }],
         execute: function () {
             _createClass = (function () {
@@ -74,7 +78,7 @@ System.register(['../helper/type.js', '../helper/function.js', '../helper/conver
                 function ElementBuilder() {
                     _classCallCheck(this, ElementBuilder);
 
-                    var proto = Object.create(HTMLElement.prototype),
+                    var p = Object.create(HTMLElement.prototype),
                         builders = [],
                         events = LIFECYCLE_EVENTS.reduce(function (a, b) {
                         a[b] = [];
@@ -86,22 +90,27 @@ System.register(['../helper/type.js', '../helper/function.js', '../helper/conver
                         'after:registerElement': []
                     });
                     this.context = {
-                        proto: proto,
+                        p: p,
                         builders: builders,
                         events: events
                     };
                 }
 
                 _createClass(ElementBuilder, [{
-                    key: 'extend',
-                    value: function extend(value) {
-                        this.context.extend = value;
-                        return this;
-                    }
-                }, {
-                    key: 'proto',
-                    value: function proto(value) {
-                        this.context.proto = value;
+                    key: 'base',
+                    value: function base(arg1, arg2) {
+                        var arg1Type = typeof arg1 === 'undefined' ? 'undefined' : _typeof(arg1);
+                        var p = arg1Type === 'string' ? arg2 : arg1;
+                        var e = arg1Type === 'string' ? arg1 : arg2;
+
+                        if (p) {
+                            this.context.p = p;
+                        }
+
+                        if (e) {
+                            this.context.e = e;
+                        }
+
                         return this;
                     }
                 }, {
@@ -142,17 +151,17 @@ System.register(['../helper/type.js', '../helper/function.js', '../helper/conver
                         this.context.events['before:builders'].forEach(function (fn) {
                             return fn(_this4.context);
                         });
-                        invoke(this.context.builders, 'build', this.context.proto, bind(this.on, this));
+                        invoke(this.context.builders, 'build', this.context.p, bind(this.on, this));
                         this.context.events['after:builders'].forEach(function (fn) {
                             return fn(_this4.context);
                         });
                         LIFECYCLE_CALLBACKS.forEach(partial(applyLifecycle, this.context));
                         var options = {
-                            prototype: this.context.proto
+                            prototype: this.context.p
                         };
 
-                        if (isString(this.context.extend)) {
-                            options.extends = this.context.extend;
+                        if (isString(this.context.e)) {
+                            options.extends = this.context.e;
                         }
 
                         this.context.events['before:registerElement'].forEach(function (fn) {

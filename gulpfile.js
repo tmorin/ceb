@@ -1,5 +1,20 @@
 var gulp = require('gulp');
 var zip = require('gulp-zip');
+
+gulp.task('zip', function () {
+    return gulp.src([
+        '**/*',
+        '!{.idea,.git,site,dist,lib,node_modules}/**/*',
+        '!{.idea,.git,site,dist,lib,node_modules}',
+        '!{.project,*.zip}'
+    ], {
+        dot: true
+    })
+        .pipe(zip('ceb-source-' + (Date.now()) + '.zip'))
+        .pipe(gulp.dest('.'));
+});
+
+/*
 var runSequence = require('run-sequence');
 var Server = require('karma').Server;
 
@@ -8,9 +23,9 @@ var config = {
         ie: ['slIe11', 'slIe10', 'slIe9'],
         evergreen: ['slChrome', 'slFirefox'],
         safari: ['slSafari7', 'slSafari8'],
-        android: ['slAndroid4', 'slAndroid5']/*,
-         iphone: ['slIPhone7', 'slIPhone8'],
-         ipad: ['slIPad7', 'slIPad8']*/
+        android: ['slAndroid4', 'slAndroid5'],
+        //iphone: ['slIPhone7', 'slIPhone8'],
+        //ipad: ['slIPad7', 'slIPad8']
     },
     customLaunchers: {
         slChrome: {
@@ -93,25 +108,10 @@ var config = {
     }
 };
 
-gulp.task('zip:source', function () {
-    return gulp.src([
-            '**/*',
-            '!{.idea,.git,api,dist,lib,node_modules,junit}/**/*',
-            '!{.idea,.git,api,dist,lib,node_modules,junit}',
-            '!{.project,*.zip}'
-        ], {
-            dot: true
-        })
-        .pipe(zip('ceb-source-' + (Date.now()) + '.zip'))
-        .pipe(gulp.dest('.'));
-});
-
-gulp.task('zip', ['zip:source']);
-
 function createSauceTask(name) {
     gulp.task('karma:sauce:' + name, function (done) {
         new Server({
-            configFile: __dirname + '/karma.conf.js',
+            configFile: __dirname + '/karma.conf.gulp.js',
             sauceLabs: {
                 testName: 'ceb - ' + name,
                 recordVideo: false,
@@ -145,3 +145,4 @@ gulp.task('karma:sauce', [], function (done) {
     taskNames.push(done);
     runSequence.apply(null, taskNames);
 });
+*/

@@ -1,11 +1,10 @@
-import {isFunction} from '../helper/type.js';
-import {partial, bind} from '../helper/function.js';
-import {toArray} from '../helper/converter.js';
+import {isFunction} from '../helper/types.js';
+import {partial, bind} from '../helper/functions.js';
+import {toArray} from '../helper/converters.js';
 
 /**
  * The method builder.
  * Its goal is to provide a way to define a method.
- * @extends {Builder}
  */
 export class MethodBuilder {
 

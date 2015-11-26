@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['../helper/type.js', '../helper/object.js'], function (_export) {
+System.register(['../helper/types.js', '../helper/objects.js'], function (_export) {
     var isFunction, isUndefined, result, assign, _createClass, DEFAULT_DATA, PropertyBuilder;
 
     function _classCallCheck(instance, Constructor) {
@@ -10,12 +10,12 @@ System.register(['../helper/type.js', '../helper/object.js'], function (_export)
     }
 
     return {
-        setters: [function (_helperTypeJs) {
-            isFunction = _helperTypeJs.isFunction;
-            isUndefined = _helperTypeJs.isUndefined;
-        }, function (_helperObjectJs) {
-            result = _helperObjectJs.result;
-            assign = _helperObjectJs.assign;
+        setters: [function (_helperTypesJs) {
+            isFunction = _helperTypesJs.isFunction;
+            isUndefined = _helperTypesJs.isUndefined;
+        }, function (_helperObjectsJs) {
+            result = _helperObjectsJs.result;
+            assign = _helperObjectsJs.assign;
         }],
         execute: function () {
             _createClass = (function () {

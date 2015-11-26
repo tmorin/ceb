@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['./builder/element.js', './builder/property.js', './builder/attribute.js', './builder/delegate.js', './builder/method.js', './builder/template.js', './builder/on.js', './helper/array.js', './helper/converter.js', './helper/function.js', './helper/object.js', './helper/event.js', './helper/type.js'], function (_export) {
+System.register(['./builder/element.js', './builder/property.js', './builder/attribute.js', './builder/delegate.js', './builder/method.js', './builder/template.js', './builder/on.js', './helper/arrays.js', './helper/converters.js', './helper/functions.js', './helper/objects.js', './helper/events.js', './helper/types.js'], function (_export) {
   return {
     setters: [function (_builderElementJs) {
       var _exportObj = {};
@@ -40,44 +40,44 @@ System.register(['./builder/element.js', './builder/property.js', './builder/att
       _exportObj7.on = _builderOnJs.on;
 
       _export(_exportObj7);
-    }, function (_helperArrayJs) {
+    }, function (_helperArraysJs) {
       var _exportObj8 = {};
-      _exportObj8.flatten = _helperArrayJs.flatten;
-      _exportObj8.invoke = _helperArrayJs.invoke;
+      _exportObj8.flatten = _helperArraysJs.flatten;
+      _exportObj8.invoke = _helperArraysJs.invoke;
 
       _export(_exportObj8);
-    }, function (_helperConverterJs) {
+    }, function (_helperConvertersJs) {
       var _exportObj9 = {};
-      _exportObj9.toArray = _helperConverterJs.toArray;
-      _exportObj9.toCamelCase = _helperConverterJs.toCamelCase;
+      _exportObj9.toArray = _helperConvertersJs.toArray;
+      _exportObj9.toCamelCase = _helperConvertersJs.toCamelCase;
 
       _export(_exportObj9);
-    }, function (_helperFunctionJs) {
+    }, function (_helperFunctionsJs) {
       var _exportObj10 = {};
-      _exportObj10.bind = _helperFunctionJs.bind;
-      _exportObj10.noop = _helperFunctionJs.noop;
-      _exportObj10.partial = _helperFunctionJs.partial;
+      _exportObj10.bind = _helperFunctionsJs.bind;
+      _exportObj10.noop = _helperFunctionsJs.noop;
+      _exportObj10.partial = _helperFunctionsJs.partial;
 
       _export(_exportObj10);
-    }, function (_helperObjectJs) {
+    }, function (_helperObjectsJs) {
       var _exportObj11 = {};
-      _exportObj11.assign = _helperObjectJs.assign;
-      _exportObj11.result = _helperObjectJs.result;
+      _exportObj11.assign = _helperObjectsJs.assign;
+      _exportObj11.result = _helperObjectsJs.result;
 
       _export(_exportObj11);
-    }, function (_helperEventJs) {
+    }, function (_helperEventsJs) {
       var _exportObj12 = {};
-      _exportObj12.dispatchCustomEvent = _helperEventJs.dispatchCustomEvent;
-      _exportObj12.dispatchMouseEvent = _helperEventJs.dispatchMouseEvent;
+      _exportObj12.dispatchCustomEvent = _helperEventsJs.dispatchCustomEvent;
+      _exportObj12.dispatchMouseEvent = _helperEventsJs.dispatchMouseEvent;
 
       _export(_exportObj12);
-    }, function (_helperTypeJs) {
+    }, function (_helperTypesJs) {
       var _exportObj13 = {};
-      _exportObj13.isArray = _helperTypeJs.isArray;
-      _exportObj13.isFunction = _helperTypeJs.isFunction;
-      _exportObj13.isNull = _helperTypeJs.isNull;
-      _exportObj13.isString = _helperTypeJs.isString;
-      _exportObj13.isUndefined = _helperTypeJs.isUndefined;
+      _exportObj13.isArray = _helperTypesJs.isArray;
+      _exportObj13.isFunction = _helperTypesJs.isFunction;
+      _exportObj13.isNull = _helperTypesJs.isNull;
+      _exportObj13.isString = _helperTypesJs.isString;
+      _exportObj13.isUndefined = _helperTypesJs.isUndefined;
 
       _export(_exportObj13);
     }],

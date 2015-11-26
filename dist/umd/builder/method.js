@@ -2,17 +2,17 @@
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(['exports', '../helper/type.js', '../helper/function.js', '../helper/converter.js'], factory);
+        define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/converters.js'], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require('../helper/type.js'), require('../helper/function.js'), require('../helper/converter.js'));
+        factory(exports, require('../helper/types.js'), require('../helper/functions.js'), require('../helper/converters.js'));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.type, global._function, global.converter);
+        factory(mod.exports, global.types, global.functions, global.converters);
         global.method = mod.exports;
     }
-})(this, function (exports, _type, _function, _converter) {
+})(this, function (exports, _types, _functions, _converters) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -67,7 +67,7 @@
         _createClass(MethodBuilder, [{
             key: 'invoke',
             value: function invoke(fn) {
-                if ((0, _type.isFunction)(fn)) {
+                if ((0, _types.isFunction)(fn)) {
                     this.data.invoke = fn;
                 }
                 return this;
@@ -103,26 +103,26 @@
 
                 if (data.invoke) {
                     proto[data.methName] = function () {
-                        return data.invoke.apply(this, [this].concat((0, _converter.toArray)(arguments)));
+                        return data.invoke.apply(this, [this].concat((0, _converters.toArray)(arguments)));
                     };
                 }
 
                 if (data.wrappers.length) {
                     on('before:createdCallback').invoke(function (el) {
-                        if ((0, _type.isFunction)(el[data.methName])) {
+                        if ((0, _types.isFunction)(el[data.methName])) {
                             (function () {
                                 var lastIndex = data.wrappers.length - 1,
                                     original = el[data.methName],
                                     target = function target() {
-                                    var args = (0, _converter.toArray)(arguments);
+                                    var args = (0, _converters.toArray)(arguments);
                                     args.shift();
                                     original.apply(el, args);
                                 };
                                 el[data.methName] = data.wrappers.reduce(function (next, current, index) {
                                     if (index === lastIndex) {
-                                        return (0, _function.bind)((0, _function.partial)(current, next, el), el);
+                                        return (0, _functions.bind)((0, _functions.partial)(current, next, el), el);
                                     }
-                                    return (0, _function.bind)((0, _function.partial)(current, next), el);
+                                    return (0, _functions.bind)((0, _functions.partial)(current, next), el);
                                 }, target);
                             })();
                         }

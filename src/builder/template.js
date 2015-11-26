@@ -1,4 +1,4 @@
-import {isFunction} from '../helper/type.js';
+import {isFunction} from '../helper/types.js';
 import {PropertyBuilder} from './property.js';
 
 /**
@@ -67,7 +67,7 @@ function findContentNode(el) {
  * @returns {DocumentFragment} the light DOM fragment
  */
 function cleanOldContentNode(el) {
-    let oldContentNode = el.lightDom,
+    let oldContentNode = el.lightDOM,
         lightFrag = document.createDocumentFragment();
     while (oldContentNode.childNodes.length > 0) {
         lightFrag.appendChild(oldContentNode.removeChild(oldContentNode.childNodes[0]));
@@ -81,11 +81,11 @@ function cleanOldContentNode(el) {
  * @param {DocumentFragment} lightFrag the light DOM fragment
  */
 function fillNewContentNode(el, lightFrag) {
-    el.lightDom.appendChild(lightFrag);
+    el.lightDOM.appendChild(lightFrag);
 }
 
 /**
- * Apply the template given by the property cebTemplate.
+ * Apply the template to the element.
  * @param {!HTMLElement} el the custom element
  * @param {!string} tpl the template
  */
@@ -108,10 +108,10 @@ export function applyTemplate(el, tpl) {
         fillNewContentNode(el, lightFrag);
     }
 }
+
 /**
  * The template builder.
  * Its goal is to provide a way to fill the content of a custom element.
- * @extends {Builder}
  */
 export class TemplateBuilder {
 
@@ -133,7 +133,7 @@ export class TemplateBuilder {
     build(proto, on) {
         let data = this.data;
 
-        (new PropertyBuilder('lightDom')).getter(el => findContentNode(el)).build(proto, on);
+        (new PropertyBuilder('lightDOM')).getter(el => findContentNode(el)).build(proto, on);
 
         on('before:createdCallback').invoke(el => {
             applyTemplate(el, isFunction(data.tpl) ? data.tpl(el) : data.tpl);

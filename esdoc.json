@@ -1,23 +1,40 @@
 {
   "source": "./src",
-  "destination": "./api",
+  "destination": "./site",
   "title": "ceb - custom-element-builder",
+  "plugins": [
+    {
+      "name": "esdoc-importpath-plugin",
+      "option": {
+        "replaces": [
+          {
+            "from": "^src/",
+            "to": "lib/"
+          }
+        ]
+      }
+    }
+  ],
   "manual": {
-    "overview": [
-      "./doc/overview.md"
-    ],
     "usage": [
-      "./doc/ceb.md",
-      "./doc/property.md",
-      "./doc/attribute.md",
-      "./doc/method.md",
-      "./doc/delegate.md",
-      "./doc/on.md",
-      "./doc/template.md"
+      "./doc/usage/element.md",
+      "./doc/usage/property.md",
+      "./doc/usage/attribute.md",
+      "./doc/usage/method.md",
+      "./doc/usage/delegate.md",
+      "./doc/usage/on.md",
+      "./doc/usage/template.md"
     ],
     "installation": [
-      "./doc/installation.md"
+      "./doc/installation/npm_and_bower.md",
+      "./doc/installation/source.md",
+      "./doc/installation/integration.md"
     ],
-    "changelog": ["./CHANGELOG.md"]
+    "example": [
+      "./doc/example.md"
+    ],
+    "changelog": [
+      "./CHANGELOG.md"
+    ]
   }
 }

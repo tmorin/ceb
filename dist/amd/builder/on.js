@@ -1,6 +1,6 @@
 'use strict';
 
-define(['exports', '../helper/type.js', '../helper/function.js', '../helper/converter.js'], function (exports, _type, _function, _converter) {
+define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/converters.js'], function (exports, _types, _functions, _converters) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -81,7 +81,7 @@ define(['exports', '../helper/type.js', '../helper/function.js', '../helper/conv
             /**
              * @ignore
              */
-            this.data = { events: events, invoke: _function.noop };
+            this.data = { events: events, invoke: _functions.noop };
         }
 
         /**
@@ -95,7 +95,7 @@ define(['exports', '../helper/type.js', '../helper/function.js', '../helper/conv
         _createClass(OnBuilder, [{
             key: 'invoke',
             value: function invoke(fn) {
-                if ((0, _type.isFunction)(fn)) {
+                if ((0, _types.isFunction)(fn)) {
                     this.data.invoke = fn;
                 }
                 return this;
@@ -186,7 +186,7 @@ define(['exports', '../helper/type.js', '../helper/function.js', '../helper/conv
                 on('before:attachedCallback').invoke(function (el) {
                     var listener = function listener(evt) {
                         if (selector) {
-                            var target = (0, _converter.toArray)(el.querySelectorAll(selector)).filter(function (el) {
+                            var target = (0, _converters.toArray)(el.querySelectorAll(selector)).filter(function (el) {
                                 return el === evt.target || el.contains(evt.target);
                             })[0];
                             if (target) {

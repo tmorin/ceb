@@ -1,11 +1,10 @@
-import {isFunction} from '../helper/type.js';
-import {noop} from '../helper/function.js';
-import {toArray} from '../helper/converter.js';
+import {isFunction} from '../helper/types.js';
+import {noop} from '../helper/functions.js';
+import {toArray} from '../helper/converters.js';
 
 /**
  * The on builder.
  * Its goal is to provide a way to listen events coming from the custom element.
- * @extends {Builder}
  */
 export class OnBuilder {
 

@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['../helper/type.js', '../helper/object.js', '../helper/converter.js'], function (_export) {
+System.register(['../helper/types.js', '../helper/objects.js', '../helper/converters.js'], function (_export) {
     var isFunction, isUndefined, isNull, result, assign, toCamelCase, _createClass, DEFAULT_DATA, AttributeBuilder;
 
     function _classCallCheck(instance, Constructor) {
@@ -23,15 +23,15 @@ System.register(['../helper/type.js', '../helper/object.js', '../helper/converte
     }
 
     return {
-        setters: [function (_helperTypeJs) {
-            isFunction = _helperTypeJs.isFunction;
-            isUndefined = _helperTypeJs.isUndefined;
-            isNull = _helperTypeJs.isNull;
-        }, function (_helperObjectJs) {
-            result = _helperObjectJs.result;
-            assign = _helperObjectJs.assign;
-        }, function (_helperConverterJs) {
-            toCamelCase = _helperConverterJs.toCamelCase;
+        setters: [function (_helperTypesJs) {
+            isFunction = _helperTypesJs.isFunction;
+            isUndefined = _helperTypesJs.isUndefined;
+            isNull = _helperTypesJs.isNull;
+        }, function (_helperObjectsJs) {
+            result = _helperObjectsJs.result;
+            assign = _helperObjectsJs.assign;
+        }, function (_helperConvertersJs) {
+            toCamelCase = _helperConvertersJs.toCamelCase;
         }],
         execute: function () {
             _createClass = (function () {

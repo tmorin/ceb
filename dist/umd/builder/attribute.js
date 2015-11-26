@@ -2,17 +2,17 @@
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(['exports', '../helper/type.js', '../helper/object.js', '../helper/converter.js'], factory);
+        define(['exports', '../helper/types.js', '../helper/objects.js', '../helper/converters.js'], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require('../helper/type.js'), require('../helper/object.js'), require('../helper/converter.js'));
+        factory(exports, require('../helper/types.js'), require('../helper/objects.js'), require('../helper/converters.js'));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.type, global.object, global.converter);
+        factory(mod.exports, global.types, global.objects, global.converters);
         global.attribute = mod.exports;
     }
-})(this, function (exports, _type, _object, _converter) {
+})(this, function (exports, _types, _objects, _converters) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -61,9 +61,9 @@
                 el.removeAttribute(attrName);
             }
         } else {
-            if (((0, _type.isUndefined)(value) || (0, _type.isNull)(value)) && el.hasAttribute(attrName)) {
+            if (((0, _types.isUndefined)(value) || (0, _types.isNull)(value)) && el.hasAttribute(attrName)) {
                 el.removeAttribute(attrName);
-            } else if (!(0, _type.isUndefined)(value) && !(0, _type.isNull)(value) && el.getAttribute(attrName) !== value) {
+            } else if (!(0, _types.isUndefined)(value) && !(0, _types.isNull)(value) && el.getAttribute(attrName) !== value) {
                 el.setAttribute(attrName, value);
             }
         }
@@ -77,7 +77,7 @@
 
     function setterFactory(attrName, isBoolean, attSetter) {
         return function (value) {
-            var attValue = (0, _type.isFunction)(attSetter) ? attSetter.call(this, this, value) : value;
+            var attValue = (0, _types.isFunction)(attSetter) ? attSetter.call(this, this, value) : value;
             return setAttValue(this, attrName, isBoolean, attValue);
         };
     }
@@ -94,9 +94,9 @@
         function AttributeBuilder(attrName) {
             _classCallCheck(this, AttributeBuilder);
 
-            this.data = (0, _object.assign)({
+            this.data = (0, _objects.assign)({
                 attrName: attrName,
-                propName: (0, _converter.toCamelCase)(attrName),
+                propName: (0, _converters.toCamelCase)(attrName),
                 listeners: []
             }, DEFAULT_DATA);
         }
@@ -142,7 +142,7 @@
             value: function build(proto, on) {
                 var _this = this;
 
-                var defaultValue = (0, _object.result)(this.data, 'value'),
+                var defaultValue = (0, _objects.result)(this.data, 'value'),
                     descriptor = {
                     enumerable: this.data.enumerable,
                     configurable: false,
@@ -160,9 +160,9 @@
 
                         if (_this.data.boolean) {
                             el[_this.data.propName] = !!defaultValue ? defaultValue : attrValue;
-                        } else if (!(0, _type.isNull)(attrValue) && !(0, _type.isUndefined)(attrValue)) {
+                        } else if (!(0, _types.isNull)(attrValue) && !(0, _types.isUndefined)(attrValue)) {
                             el[_this.data.propName] = attrValue;
-                        } else if (!(0, _type.isUndefined)(defaultValue)) {
+                        } else if (!(0, _types.isUndefined)(defaultValue)) {
                             el[_this.data.propName] = defaultValue;
                         }
                     }

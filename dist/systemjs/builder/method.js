@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['../helper/type.js', '../helper/function.js', '../helper/converter.js'], function (_export) {
+System.register(['../helper/types.js', '../helper/functions.js', '../helper/converters.js'], function (_export) {
     var isFunction, partial, bind, toArray, _createClass, MethodBuilder;
 
     function _classCallCheck(instance, Constructor) {
@@ -10,13 +10,13 @@ System.register(['../helper/type.js', '../helper/function.js', '../helper/conver
     }
 
     return {
-        setters: [function (_helperTypeJs) {
-            isFunction = _helperTypeJs.isFunction;
-        }, function (_helperFunctionJs) {
-            partial = _helperFunctionJs.partial;
-            bind = _helperFunctionJs.bind;
-        }, function (_helperConverterJs) {
-            toArray = _helperConverterJs.toArray;
+        setters: [function (_helperTypesJs) {
+            isFunction = _helperTypesJs.isFunction;
+        }, function (_helperFunctionsJs) {
+            partial = _helperFunctionsJs.partial;
+            bind = _helperFunctionsJs.bind;
+        }, function (_helperConvertersJs) {
+            toArray = _helperConvertersJs.toArray;
         }],
         execute: function () {
             _createClass = (function () {

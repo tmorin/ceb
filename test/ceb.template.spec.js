@@ -44,7 +44,7 @@ describe('ceb.template()', ()=> {
         setTimeout(() => {
             var el = sandbox.querySelector('ceb-template-node-lightdom');
             expect(el.querySelector('.lightdom').textContent).to.be.eq('light DOM');
-            expect(el.lightDom).to.be.eq(el.querySelector('.lightdom').parentNode);
+            expect(el.lightDOM).to.be.eq(el.querySelector('.lightdom').parentNode);
             done();
         }, 20);
     });
@@ -65,7 +65,7 @@ describe('ceb.template()', ()=> {
         setTimeout(() => {
             var el = sandbox.querySelector('ceb-template-attr-lightdom');
             expect(el.querySelector('.lightdom').textContent).to.be.eq('light DOM');
-            expect(el.lightDom).to.be.eq(el.querySelector('.lightdom').parentNode);
+            expect(el.lightDOM).to.be.eq(el.querySelector('.lightdom').parentNode);
             done();
         }, 20);
     });
@@ -91,7 +91,7 @@ describe('ceb.template()', ()=> {
 
         setTimeout(() => {
             var el = sandbox.querySelector('ceb-template-embedded-parent');
-            expect(el.lightDom.textContent.trim()).to.be.eq('light DOM');
+            expect(el.lightDOM.textContent.trim()).to.be.eq('light DOM');
             done();
         }, 20);
     });
@@ -118,9 +118,9 @@ describe('ceb.template()', ()=> {
 
         setTimeout(() => {
             var el = sandbox.querySelector('ceb-template-embedded-parent-v2');
-            expect(el.lightDom.textContent.trim()).to.be.contain('light DOM');
-            expect(el.lightDom.querySelector('#child1')).to.be.not.null;
-            expect(el.lightDom.querySelector('#child2')).to.be.not.null;
+            expect(el.lightDOM.textContent.trim()).to.be.contain('light DOM');
+            expect(el.lightDOM.querySelector('#child1')).to.be.not.null;
+            expect(el.lightDOM.querySelector('#child2')).to.be.not.null;
             done();
         }, 20);
     });
@@ -152,8 +152,8 @@ describe('ceb.template()', ()=> {
             sandbox.appendChild(clonedNode);
             setTimeout(() => {
                 expect(clonedNode.tagName).to.be.eq(el.tagName);
-                expect(el.lightDom.querySelector('#child1')).to.be.not.null;
-                expect(el.lightDom.querySelector('#child2')).to.be.not.null;
+                expect(el.lightDOM.querySelector('#child1')).to.be.not.null;
+                expect(el.lightDOM.querySelector('#child2')).to.be.not.null;
                 done();
             }, 20);
         }, 20);

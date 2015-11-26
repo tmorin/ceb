@@ -59,7 +59,7 @@ function parseStringEventList(string) {
     return (string || '').split(',').map(name => name.toLowerCase()).filter(name => name);
 }
 
-export default element().proto(Object.create(HTMLFormElement.prototype)).extend('form').builders(
+export default element().base(Object.create(HTMLFormElement.prototype), 'form').builders(
     jquerify(),
 
     attribute('prevent-submit').boolean(),

@@ -1,6 +1,6 @@
-import {isFunction, isUndefined, isNull} from '../helper/type.js';
-import {result, assign} from '../helper/object.js';
-import {toCamelCase} from '../helper/converter.js';
+import {isFunction, isUndefined, isNull} from '../helper/types.js';
+import {result, assign} from '../helper/objects.js';
+import {toCamelCase} from '../helper/converters.js';
 
 /**
  * Get the value from an attribute.
@@ -67,7 +67,6 @@ const DEFAULT_DATA = {
 /**
  * The attribute builder.
  * Its goal is to provide a way to define an attribute.
- * @extends {PropertyBuilder}
  */
 export class AttributeBuilder {
 

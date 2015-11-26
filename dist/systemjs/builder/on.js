@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['../helper/type.js', '../helper/function.js', '../helper/converter.js'], function (_export) {
+System.register(['../helper/types.js', '../helper/functions.js', '../helper/converters.js'], function (_export) {
     var isFunction, noop, toArray, _slicedToArray, _createClass, OnBuilder;
 
     function _classCallCheck(instance, Constructor) {
@@ -10,12 +10,12 @@ System.register(['../helper/type.js', '../helper/function.js', '../helper/conver
     }
 
     return {
-        setters: [function (_helperTypeJs) {
-            isFunction = _helperTypeJs.isFunction;
-        }, function (_helperFunctionJs) {
-            noop = _helperFunctionJs.noop;
-        }, function (_helperConverterJs) {
-            toArray = _helperConverterJs.toArray;
+        setters: [function (_helperTypesJs) {
+            isFunction = _helperTypesJs.isFunction;
+        }, function (_helperFunctionsJs) {
+            noop = _helperFunctionsJs.noop;
+        }, function (_helperConvertersJs) {
+            toArray = _helperConvertersJs.toArray;
         }],
         execute: function () {
             _slicedToArray = (function () {

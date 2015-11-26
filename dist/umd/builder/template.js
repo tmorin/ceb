@@ -2,17 +2,17 @@
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(['exports', '../helper/type.js', './property.js'], factory);
+        define(['exports', '../helper/types.js', './property.js'], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require('../helper/type.js'), require('./property.js'));
+        factory(exports, require('../helper/types.js'), require('./property.js'));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.type, global.property);
+        factory(mod.exports, global.types, global.property);
         global.template = mod.exports;
     }
-})(this, function (exports, _type, _property) {
+})(this, function (exports, _types, _property) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -72,7 +72,7 @@
     }
 
     function cleanOldContentNode(el) {
-        var oldContentNode = el.lightDom,
+        var oldContentNode = el.lightDOM,
             lightFrag = document.createDocumentFragment();
 
         while (oldContentNode.childNodes.length > 0) {
@@ -83,7 +83,7 @@
     }
 
     function fillNewContentNode(el, lightFrag) {
-        el.lightDom.appendChild(lightFrag);
+        el.lightDOM.appendChild(lightFrag);
     }
 
     function applyTemplate(el, tpl) {
@@ -130,12 +130,12 @@
             value: function build(proto, on) {
                 var data = this.data;
 
-                new _property.PropertyBuilder('lightDom').getter(function (el) {
+                new _property.PropertyBuilder('lightDOM').getter(function (el) {
                     return findContentNode(el);
                 }).build(proto, on);
 
                 on('before:createdCallback').invoke(function (el) {
-                    applyTemplate(el, (0, _type.isFunction)(data.tpl) ? data.tpl(el) : data.tpl);
+                    applyTemplate(el, (0, _types.isFunction)(data.tpl) ? data.tpl(el) : data.tpl);
                 });
             }
         }]);

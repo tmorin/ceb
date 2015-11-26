@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['../helper/type.js', '../helper/converter.js', './attribute.js'], function (_export) {
+System.register(['../helper/types.js', '../helper/converters.js', './attribute.js'], function (_export) {
     var isUndefined, isFunction, toArray, getAttValue, setAttValue, _createClass, DelegateBuilder;
 
     function _classCallCheck(instance, Constructor) {
@@ -10,11 +10,11 @@ System.register(['../helper/type.js', '../helper/converter.js', './attribute.js'
     }
 
     return {
-        setters: [function (_helperTypeJs) {
-            isUndefined = _helperTypeJs.isUndefined;
-            isFunction = _helperTypeJs.isFunction;
-        }, function (_helperConverterJs) {
-            toArray = _helperConverterJs.toArray;
+        setters: [function (_helperTypesJs) {
+            isUndefined = _helperTypesJs.isUndefined;
+            isFunction = _helperTypesJs.isFunction;
+        }, function (_helperConvertersJs) {
+            toArray = _helperConvertersJs.toArray;
         }, function (_attributeJs) {
             getAttValue = _attributeJs.getAttValue;
             setAttValue = _attributeJs.setAttValue;

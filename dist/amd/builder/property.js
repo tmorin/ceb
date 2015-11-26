@@ -1,6 +1,6 @@
 'use strict';
 
-define(['exports', '../helper/type.js', '../helper/object.js'], function (exports, _type, _object) {
+define(['exports', '../helper/types.js', '../helper/objects.js'], function (exports, _types, _objects) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -41,7 +41,7 @@ define(['exports', '../helper/type.js', '../helper/object.js'], function (export
         function PropertyBuilder(propName) {
             _classCallCheck(this, PropertyBuilder);
 
-            this.data = (0, _object.assign)({
+            this.data = (0, _objects.assign)({
                 propName: propName
             }, DEFAULT_DATA);
         }
@@ -84,7 +84,7 @@ define(['exports', '../helper/type.js', '../helper/object.js'], function (export
                 var _this = this;
 
                 var data = this.data,
-                    defaultValue = (0, _object.result)(this.data, 'value'),
+                    defaultValue = (0, _objects.result)(this.data, 'value'),
                     descriptor = {
                     enumerable: this.data.enumerable
                 };
@@ -92,7 +92,7 @@ define(['exports', '../helper/type.js', '../helper/object.js'], function (export
                 if (this.data.immutable) {
                     descriptor.configurable = false;
                     descriptor.writable = false;
-                } else if ((0, _type.isFunction)(this.data.getter) || (0, _type.isFunction)(this.data.setter)) {
+                } else if ((0, _types.isFunction)(this.data.getter) || (0, _types.isFunction)(this.data.setter)) {
                     descriptor.configurable = false;
 
                     descriptor.get = function () {
@@ -113,7 +113,7 @@ define(['exports', '../helper/type.js', '../helper/object.js'], function (export
 
                 Object.defineProperty(proto, this.data.propName, descriptor);
                 on('after:createdCallback').invoke(function (el) {
-                    if (!_this.data.descriptorValue && !(0, _type.isUndefined)(defaultValue)) {
+                    if (!_this.data.descriptorValue && !(0, _types.isUndefined)(defaultValue)) {
                         el[data.propName] = defaultValue;
                     }
                 });

@@ -2,17 +2,17 @@
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(['exports', '../helper/type.js', '../helper/function.js', '../helper/converter.js'], factory);
+        define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/converters.js'], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require('../helper/type.js'), require('../helper/function.js'), require('../helper/converter.js'));
+        factory(exports, require('../helper/types.js'), require('../helper/functions.js'), require('../helper/converters.js'));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.type, global._function, global.converter);
+        factory(mod.exports, global.types, global.functions, global.converters);
         global.on = mod.exports;
     }
-})(this, function (exports, _type, _function, _converter) {
+})(this, function (exports, _types, _functions, _converters) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -93,7 +93,7 @@
             /**
              * @ignore
              */
-            this.data = { events: events, invoke: _function.noop };
+            this.data = { events: events, invoke: _functions.noop };
         }
 
         /**
@@ -107,7 +107,7 @@
         _createClass(OnBuilder, [{
             key: 'invoke',
             value: function invoke(fn) {
-                if ((0, _type.isFunction)(fn)) {
+                if ((0, _types.isFunction)(fn)) {
                     this.data.invoke = fn;
                 }
                 return this;
@@ -198,7 +198,7 @@
                 on('before:attachedCallback').invoke(function (el) {
                     var listener = function listener(evt) {
                         if (selector) {
-                            var target = (0, _converter.toArray)(el.querySelectorAll(selector)).filter(function (el) {
+                            var target = (0, _converters.toArray)(el.querySelectorAll(selector)).filter(function (el) {
                                 return el === evt.target || el.contains(evt.target);
                             })[0];
                             if (target) {

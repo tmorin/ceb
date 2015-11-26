@@ -1,6 +1,6 @@
 'use strict';
 
-define(['exports', './builder/element.js', './builder/property.js', './builder/attribute.js', './builder/delegate.js', './builder/method.js', './builder/template.js', './builder/on.js', './helper/array.js', './helper/converter.js', './helper/function.js', './helper/object.js', './helper/event.js', './helper/type.js'], function (exports, _element, _property, _attribute, _delegate, _method, _template, _on, _array, _converter, _function, _object, _event, _type) {
+define(['exports', './builder/element.js', './builder/property.js', './builder/attribute.js', './builder/delegate.js', './builder/method.js', './builder/template.js', './builder/on.js', './helper/arrays.js', './helper/converters.js', './helper/functions.js', './helper/objects.js', './helper/events.js', './helper/types.js'], function (exports, _element, _property, _attribute, _delegate, _method, _template, _on, _arrays, _converters, _functions, _objects, _events, _types) {
   Object.defineProperty(exports, "__esModule", {
     value: true
   });
@@ -67,97 +67,97 @@ define(['exports', './builder/element.js', './builder/property.js', './builder/a
   Object.defineProperty(exports, 'flatten', {
     enumerable: true,
     get: function get() {
-      return _array.flatten;
+      return _arrays.flatten;
     }
   });
   Object.defineProperty(exports, 'invoke', {
     enumerable: true,
     get: function get() {
-      return _array.invoke;
+      return _arrays.invoke;
     }
   });
   Object.defineProperty(exports, 'toArray', {
     enumerable: true,
     get: function get() {
-      return _converter.toArray;
+      return _converters.toArray;
     }
   });
   Object.defineProperty(exports, 'toCamelCase', {
     enumerable: true,
     get: function get() {
-      return _converter.toCamelCase;
+      return _converters.toCamelCase;
     }
   });
   Object.defineProperty(exports, 'bind', {
     enumerable: true,
     get: function get() {
-      return _function.bind;
+      return _functions.bind;
     }
   });
   Object.defineProperty(exports, 'noop', {
     enumerable: true,
     get: function get() {
-      return _function.noop;
+      return _functions.noop;
     }
   });
   Object.defineProperty(exports, 'partial', {
     enumerable: true,
     get: function get() {
-      return _function.partial;
+      return _functions.partial;
     }
   });
   Object.defineProperty(exports, 'assign', {
     enumerable: true,
     get: function get() {
-      return _object.assign;
+      return _objects.assign;
     }
   });
   Object.defineProperty(exports, 'result', {
     enumerable: true,
     get: function get() {
-      return _object.result;
+      return _objects.result;
     }
   });
   Object.defineProperty(exports, 'dispatchCustomEvent', {
     enumerable: true,
     get: function get() {
-      return _event.dispatchCustomEvent;
+      return _events.dispatchCustomEvent;
     }
   });
   Object.defineProperty(exports, 'dispatchMouseEvent', {
     enumerable: true,
     get: function get() {
-      return _event.dispatchMouseEvent;
+      return _events.dispatchMouseEvent;
     }
   });
   Object.defineProperty(exports, 'isArray', {
     enumerable: true,
     get: function get() {
-      return _type.isArray;
+      return _types.isArray;
     }
   });
   Object.defineProperty(exports, 'isFunction', {
     enumerable: true,
     get: function get() {
-      return _type.isFunction;
+      return _types.isFunction;
     }
   });
   Object.defineProperty(exports, 'isNull', {
     enumerable: true,
     get: function get() {
-      return _type.isNull;
+      return _types.isNull;
     }
   });
   Object.defineProperty(exports, 'isString', {
     enumerable: true,
     get: function get() {
-      return _type.isString;
+      return _types.isString;
     }
   });
   Object.defineProperty(exports, 'isUndefined', {
     enumerable: true,
     get: function get() {
-      return _type.isUndefined;
+      return _types.isUndefined;
     }
   });
 });

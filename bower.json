@@ -1,6 +1,6 @@
 {
   "name": "ceb",
-  "description": "custom-element-builder is just a set of builders, natively scalable and designed for FRP.",
+  "description": "ceb (custom-element-builder) is a library helping to develop Custom Elements.",
   "version": "0.6.0-beta.2",
   "main": "dist/standalone/ceb.js",
   "keywords": [
@@ -39,17 +39,14 @@
     "node"
   ],
   "ignore": [
-    "/api",
-    "/doc",
-    "/example",
-    "/gulp",
-    "/node_modules",
-    "/public",
-    "/junit",
     "/.*",
-    "/*.js",
-    "/*.md",
-    "/*.yml",
-    "/package.json"
+    "/example",
+    "/test",
+    "/circle.*",
+    "/esdoc.*",
+    "/Gruntfile.*",
+    "/gulpfile.*",
+    "/karma.*",
+    "/webpack.*"
   ]
 }

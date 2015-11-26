@@ -1,11 +1,10 @@
-import {isUndefined, isFunction} from '../helper/type.js';
-import {toArray} from '../helper/converter.js';
+import {isUndefined, isFunction} from '../helper/types.js';
+import {toArray} from '../helper/converters.js';
 import {getAttValue, setAttValue} from './attribute.js';
 
 /**
  * The delegate builder.
  * Its goal is to provide a way to delegate methods, properties and attributes.
- * @extends {Builder}
  */
 export class DelegateBuilder {
 

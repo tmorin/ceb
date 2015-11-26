@@ -2,22 +2,26 @@
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(['exports', '../helper/type.js', '../helper/function.js', '../helper/converter.js', '../helper/array.js'], factory);
+        define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/converters.js', '../helper/arrays.js'], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require('../helper/type.js'), require('../helper/function.js'), require('../helper/converter.js'), require('../helper/array.js'));
+        factory(exports, require('../helper/types.js'), require('../helper/functions.js'), require('../helper/converters.js'), require('../helper/arrays.js'));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.type, global._function, global.converter, global.array);
+        factory(mod.exports, global.types, global.functions, global.converters, global.arrays);
         global.element = mod.exports;
     }
-})(this, function (exports, _type, _function, _converter, _array) {
+})(this, function (exports, _types, _functions, _converters, _arrays) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
     exports.ElementBuilder = undefined;
     exports.element = element;
+
+    function _typeof(obj) {
+        return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
+    }
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -44,12 +48,12 @@
     })();
 
     var LIFECYCLE_CALLBACKS = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
-    var LIFECYCLE_EVENTS = (0, _array.flatten)(LIFECYCLE_CALLBACKS.map(function (name) {
+    var LIFECYCLE_EVENTS = (0, _arrays.flatten)(LIFECYCLE_CALLBACKS.map(function (name) {
         return ['before:' + name, 'after:' + name];
     }));
 
     function applyLifecycle(context, name) {
-        var proto = context.proto,
+        var proto = context.p,
             original = proto[name],
             beforeFns = context.events['before:' + name],
             afterFns = context.events['after:' + name];
@@ -57,12 +61,12 @@
         proto[name] = function () {
             var _this = this;
 
-            var args = [this].concat((0, _converter.toArray)(arguments));
+            var args = [this].concat((0, _converters.toArray)(arguments));
             beforeFns.forEach(function (fn) {
                 return fn.apply(_this, args);
             });
 
-            if ((0, _type.isFunction)(original)) {
+            if ((0, _types.isFunction)(original)) {
                 original.apply(this, args);
             }
 
@@ -76,7 +80,7 @@
         function ElementBuilder() {
             _classCallCheck(this, ElementBuilder);
 
-            var proto = Object.create(HTMLElement.prototype),
+            var p = Object.create(HTMLElement.prototype),
                 builders = [],
                 events = LIFECYCLE_EVENTS.reduce(function (a, b) {
                 a[b] = [];
@@ -88,22 +92,27 @@
                 'after:registerElement': []
             });
             this.context = {
-                proto: proto,
+                p: p,
                 builders: builders,
                 events: events
             };
         }
 
         _createClass(ElementBuilder, [{
-            key: 'extend',
-            value: function extend(value) {
-                this.context.extend = value;
-                return this;
-            }
-        }, {
-            key: 'proto',
-            value: function proto(value) {
-                this.context.proto = value;
+            key: 'base',
+            value: function base(arg1, arg2) {
+                var arg1Type = typeof arg1 === 'undefined' ? 'undefined' : _typeof(arg1);
+                var p = arg1Type === 'string' ? arg2 : arg1;
+                var e = arg1Type === 'string' ? arg1 : arg2;
+
+                if (p) {
+                    this.context.p = p;
+                }
+
+                if (e) {
+                    this.context.e = e;
+                }
+
                 return this;
             }
         }, {
@@ -144,17 +153,17 @@
                 this.context.events['before:builders'].forEach(function (fn) {
                     return fn(_this4.context);
                 });
-                (0, _array.invoke)(this.context.builders, 'build', this.context.proto, (0, _function.bind)(this.on, this));
+                (0, _arrays.invoke)(this.context.builders, 'build', this.context.p, (0, _functions.bind)(this.on, this));
                 this.context.events['after:builders'].forEach(function (fn) {
                     return fn(_this4.context);
                 });
-                LIFECYCLE_CALLBACKS.forEach((0, _function.partial)(applyLifecycle, this.context));
+                LIFECYCLE_CALLBACKS.forEach((0, _functions.partial)(applyLifecycle, this.context));
                 var options = {
-                    prototype: this.context.proto
+                    prototype: this.context.p
                 };
 
-                if ((0, _type.isString)(this.context.extend)) {
-                    options.extends = this.context.extend;
+                if ((0, _types.isString)(this.context.e)) {
+                    options.extends = this.context.e;
                 }
 
                 this.context.events['before:registerElement'].forEach(function (fn) {

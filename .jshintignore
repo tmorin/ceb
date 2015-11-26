@@ -1,0 +1,5 @@
+dist/
+doc/
+lib/
+node_modules/
+site/

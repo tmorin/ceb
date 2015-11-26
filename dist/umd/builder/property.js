@@ -2,17 +2,17 @@
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(['exports', '../helper/type.js', '../helper/object.js'], factory);
+        define(['exports', '../helper/types.js', '../helper/objects.js'], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require('../helper/type.js'), require('../helper/object.js'));
+        factory(exports, require('../helper/types.js'), require('../helper/objects.js'));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.type, global.object);
+        factory(mod.exports, global.types, global.objects);
         global.property = mod.exports;
     }
-})(this, function (exports, _type, _object) {
+})(this, function (exports, _types, _objects) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -53,7 +53,7 @@
         function PropertyBuilder(propName) {
             _classCallCheck(this, PropertyBuilder);
 
-            this.data = (0, _object.assign)({
+            this.data = (0, _objects.assign)({
                 propName: propName
             }, DEFAULT_DATA);
         }
@@ -96,7 +96,7 @@
                 var _this = this;
 
                 var data = this.data,
-                    defaultValue = (0, _object.result)(this.data, 'value'),
+                    defaultValue = (0, _objects.result)(this.data, 'value'),
                     descriptor = {
                     enumerable: this.data.enumerable
                 };
@@ -104,7 +104,7 @@
                 if (this.data.immutable) {
                     descriptor.configurable = false;
                     descriptor.writable = false;
-                } else if ((0, _type.isFunction)(this.data.getter) || (0, _type.isFunction)(this.data.setter)) {
+                } else if ((0, _types.isFunction)(this.data.getter) || (0, _types.isFunction)(this.data.setter)) {
                     descriptor.configurable = false;
 
                     descriptor.get = function () {
@@ -125,7 +125,7 @@
 
                 Object.defineProperty(proto, this.data.propName, descriptor);
                 on('after:createdCallback').invoke(function (el) {
-                    if (!_this.data.descriptorValue && !(0, _type.isUndefined)(defaultValue)) {
+                    if (!_this.data.descriptorValue && !(0, _types.isUndefined)(defaultValue)) {
                         el[data.propName] = defaultValue;
                     }
                 });

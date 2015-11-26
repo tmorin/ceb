@@ -1,7 +1,7 @@
-import {isString, isFunction} from '../helper/type.js';
-import {partial, bind} from '../helper/function.js';
-import {toArray} from '../helper/converter.js';
-import {flatten, invoke} from '../helper/array.js';
+import {isString, isFunction} from '../helper/types.js';
+import {partial, bind} from '../helper/functions.js';
+import {toArray} from '../helper/converters.js';
+import {flatten, invoke} from '../helper/arrays.js';
 
 const LIFECYCLE_CALLBACKS = [
     'createdCallback',
@@ -13,7 +13,7 @@ const LIFECYCLE_CALLBACKS = [
 const LIFECYCLE_EVENTS = flatten(LIFECYCLE_CALLBACKS.map(name => [`before:${name}`, `after:${name}`]));
 
 function applyLifecycle(context, name) {
-    let proto = context.proto,
+    let proto = context.p,
         original = proto[name],
         beforeFns = context.events['before:' + name],
         afterFns = context.events['after:' + name];
@@ -40,7 +40,7 @@ export class ElementBuilder {
     /**
      */
     constructor() {
-        let proto = Object.create(HTMLElement.prototype),
+        let p = Object.create(HTMLElement.prototype),
             builders = [],
             events = LIFECYCLE_EVENTS.reduce((a, b) => {
                 a[b] = [];
@@ -53,30 +53,35 @@ export class ElementBuilder {
             });
         /**
          * @type {Object}
-         * @property {!Object} proto - the prototype
-         * @property {!string} extends - the name of a native element
+         * @property {!Object} p - the prototype
+         * @property {!string} e - the name of a native element
          * @desc the context of the builder
          */
-        this.context = {proto, builders, events};
+        this.context = {p, builders, events};
     }
 
     /**
-     * To extend a native element.
-     * @param {!string} value the name of the element
+     * Set the basement of the future custom element, i.e. the prototype and/or the extends value.
+     * Prototype and extends value can be swapped.
+     * @example
+     * element().base(prototypeValue, extendsValue);
+     * element().base(extendsValue, prototypeValue);
+     * element().base(extendsValue);
+     * element().base(prototypeValue);
+     * @param {!(string|Object)} arg1 the prototype or the name of the native element
+     * @param {string|Object} [arg2] the prototype or the name of the native element
      * @returns {ElementBuilder} the builder
      */
-    extend(value) {
-        this.context.extend = value;
-        return this;
-    }
-
-    /**
-     * To override the default prototype.
-     * @param {!Object} value the prototype
-     * @returns {ElementBuilder} the builder
-     */
-    proto(value) {
-        this.context.proto = value;
+    base(arg1, arg2) {
+        let arg1Type = typeof arg1;
+        let p = arg1Type === 'string' ? arg2 : arg1;
+        let e = arg1Type === 'string' ? arg1 : arg2;
+        if (p) {
+            this.context.p = p;
+        }
+        if (e) {
+            this.context.e = e;
+        }
         return this;
     }
 
@@ -112,16 +117,16 @@ export class ElementBuilder {
     register(name) {
         this.context.events['before:builders'].forEach(fn => fn(this.context));
 
-        invoke(this.context.builders, 'build', this.context.proto, bind(this.on, this));
+        invoke(this.context.builders, 'build', this.context.p, bind(this.on, this));
 
         this.context.events['after:builders'].forEach(fn => fn(this.context));
 
         LIFECYCLE_CALLBACKS.forEach(partial(applyLifecycle, this.context));
 
-        let options = {prototype: this.context.proto};
+        let options = {prototype: this.context.p};
 
-        if (isString(this.context.extend)) {
-            options.extends = this.context.extend;
+        if (isString(this.context.e)) {
+            options.extends = this.context.e;
         }
 
         this.context.events['before:registerElement'].forEach(fn => fn(this.context));

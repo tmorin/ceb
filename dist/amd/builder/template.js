@@ -1,6 +1,6 @@
 'use strict';
 
-define(['exports', '../helper/type.js', './property.js'], function (exports, _type, _property) {
+define(['exports', '../helper/types.js', './property.js'], function (exports, _types, _property) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -60,7 +60,7 @@ define(['exports', '../helper/type.js', './property.js'], function (exports, _ty
     }
 
     function cleanOldContentNode(el) {
-        var oldContentNode = el.lightDom,
+        var oldContentNode = el.lightDOM,
             lightFrag = document.createDocumentFragment();
 
         while (oldContentNode.childNodes.length > 0) {
@@ -71,7 +71,7 @@ define(['exports', '../helper/type.js', './property.js'], function (exports, _ty
     }
 
     function fillNewContentNode(el, lightFrag) {
-        el.lightDom.appendChild(lightFrag);
+        el.lightDOM.appendChild(lightFrag);
     }
 
     function applyTemplate(el, tpl) {
@@ -118,12 +118,12 @@ define(['exports', '../helper/type.js', './property.js'], function (exports, _ty
             value: function build(proto, on) {
                 var data = this.data;
 
-                new _property.PropertyBuilder('lightDom').getter(function (el) {
+                new _property.PropertyBuilder('lightDOM').getter(function (el) {
                     return findContentNode(el);
                 }).build(proto, on);
 
                 on('before:createdCallback').invoke(function (el) {
-                    applyTemplate(el, (0, _type.isFunction)(data.tpl) ? data.tpl(el) : data.tpl);
+                    applyTemplate(el, (0, _types.isFunction)(data.tpl) ? data.tpl(el) : data.tpl);
                 });
             }
         }]);

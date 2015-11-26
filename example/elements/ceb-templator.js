@@ -7,7 +7,7 @@ const renderers = {
     }
 };
 
-element().proto(Object.create(HTMLScriptElement.prototype)).extend('script').builders(
+element().base(Object.create(HTMLScriptElement.prototype), 'script').builders(
     attribute('type'),
 
     method('createdCallback').invoke(el=> {

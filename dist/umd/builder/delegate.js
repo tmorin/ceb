@@ -2,17 +2,17 @@
 
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
-        define(['exports', '../helper/type.js', '../helper/converter.js', './attribute.js'], factory);
+        define(['exports', '../helper/types.js', '../helper/converters.js', './attribute.js'], factory);
     } else if (typeof exports !== "undefined") {
-        factory(exports, require('../helper/type.js'), require('../helper/converter.js'), require('./attribute.js'));
+        factory(exports, require('../helper/types.js'), require('../helper/converters.js'), require('./attribute.js'));
     } else {
         var mod = {
             exports: {}
         };
-        factory(mod.exports, global.type, global.converter, global.attribute);
+        factory(mod.exports, global.types, global.converters, global.attribute);
         global.delegate = mod.exports;
     }
-})(this, function (exports, _type, _converter, _attribute) {
+})(this, function (exports, _types, _converters, _attribute) {
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -92,7 +92,7 @@
             key: 'property',
             value: function property(propName) {
                 this.data.attrName = null;
-                if (!(0, _type.isUndefined)(propName)) {
+                if (!(0, _types.isUndefined)(propName)) {
                     this.data.propName = propName;
                 } else {
                     this.data.propName = this.fieldBuilder.data.propName;
@@ -110,7 +110,7 @@
             key: 'attribute',
             value: function attribute(attrName) {
                 this.data.propName = null;
-                if (!(0, _type.isUndefined)(attrName)) {
+                if (!(0, _types.isUndefined)(attrName)) {
                     this.data.attrName = attrName;
                 } else {
                     this.data.attrName = this.fieldBuilder.data.attrName || this.fieldBuilder.data.propName;
@@ -128,7 +128,7 @@
             key: 'method',
             value: function method(methName) {
                 this.data.methName = null;
-                if (!(0, _type.isUndefined)(methName)) {
+                if (!(0, _types.isUndefined)(methName)) {
                     this.data.methName = methName;
                 } else {
                     this.data.methName = this.fieldBuilder.data.methName;
@@ -188,11 +188,11 @@
                                 targetValue = target[targetedPropName];
                             }
                         }
-                        return (0, _type.isFunction)(fieldGetter) ? fieldGetter.call(el, el, targetValue) : targetValue;
+                        return (0, _types.isFunction)(fieldGetter) ? fieldGetter.call(el, el, targetValue) : targetValue;
                     };
                     fieldBuilderData.setter = function (el, value) {
                         var target = el.querySelector(data.selector),
-                            targetValue = (0, _type.isFunction)(fieldSetter) ? fieldSetter.call(el, el, value) : value;
+                            targetValue = (0, _types.isFunction)(fieldSetter) ? fieldSetter.call(el, el, value) : value;
                         if (target) {
                             if (targetedAttrName) {
                                 target.setAttribute(targetedAttrName, targetValue);
@@ -204,8 +204,8 @@
                 } else if (fieldBuilderData.methName) {
                     fieldBuilderData.invoke = function (el) {
                         var target = el.querySelector(data.selector);
-                        if ((0, _type.isFunction)(target[targetedMethName])) {
-                            var args = (0, _converter.toArray)(arguments);
+                        if ((0, _types.isFunction)(target[targetedMethName])) {
+                            var args = (0, _converters.toArray)(arguments);
                             args.shift();
                             return target[targetedMethName].apply(target, args);
                         }

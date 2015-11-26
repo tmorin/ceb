@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['../helper/type.js', './property.js'], function (_export) {
+System.register(['../helper/types.js', './property.js'], function (_export) {
     var isFunction, PropertyBuilder, _createClass, counter, OLD_CONTENT_ID_ATTR_NAME, CONTENT_ATTR_REG_EX, CONTENT_NODE_REG_EX, TemplateBuilder;
 
     function _classCallCheck(instance, Constructor) {
@@ -32,7 +32,7 @@ System.register(['../helper/type.js', './property.js'], function (_export) {
     }
 
     function cleanOldContentNode(el) {
-        var oldContentNode = el.lightDom,
+        var oldContentNode = el.lightDOM,
             lightFrag = document.createDocumentFragment();
 
         while (oldContentNode.childNodes.length > 0) {
@@ -43,12 +43,12 @@ System.register(['../helper/type.js', './property.js'], function (_export) {
     }
 
     function fillNewContentNode(el, lightFrag) {
-        el.lightDom.appendChild(lightFrag);
+        el.lightDOM.appendChild(lightFrag);
     }
 
     return {
-        setters: [function (_helperTypeJs) {
-            isFunction = _helperTypeJs.isFunction;
+        setters: [function (_helperTypesJs) {
+            isFunction = _helperTypesJs.isFunction;
         }, function (_propertyJs) {
             PropertyBuilder = _propertyJs.PropertyBuilder;
         }],
@@ -109,7 +109,7 @@ System.register(['../helper/type.js', './property.js'], function (_export) {
                     key: 'build',
                     value: function build(proto, on) {
                         var data = this.data;
-                        new PropertyBuilder('lightDom').getter(function (el) {
+                        new PropertyBuilder('lightDOM').getter(function (el) {
                             return findContentNode(el);
                         }).build(proto, on);
                         on('before:createdCallback').invoke(function (el) {
