@@ -44,14 +44,25 @@
     })();
 
     var MethodBuilder = exports.MethodBuilder = (function () {
+
+        /**
+         * @param {!string} methName the name of the method
+         */
+
         function MethodBuilder(methName) {
             _classCallCheck(this, MethodBuilder);
 
-            this.data = {
-                methName: methName,
-                wrappers: []
-            };
+            /**
+             * @ignore
+             */
+            this.data = { methName: methName, wrappers: [] };
         }
+
+        /**
+         * To do something when invoked.
+         * @param {!function(el: HTMLElement, args: ...*)} fn the method's logic
+         * @returns {MethodBuilder} the builder
+         */
 
         _createClass(MethodBuilder, [{
             key: 'invoke',
@@ -59,9 +70,15 @@
                 if ((0, _types.isFunction)(fn)) {
                     this.data.invoke = fn;
                 }
-
                 return this;
             }
+
+            /**
+             * To do something around the invocation.
+             * @param {...function(el: HTMLElement, args: ...*)} wrappers a set of wrappers
+             * @returns {MethodBuilder} the builder
+             */
+
         }, {
             key: 'wrap',
             value: function wrap() {
@@ -72,6 +89,13 @@
                 this.data.wrappers = this.data.wrappers.concat(wrappers);
                 return this;
             }
+
+            /**
+             * Logic of the builder.
+             * @param {!ElementBuilder.context.proto} proto the prototype
+             * @param {!ElementBuilder.on} on the method on
+             */
+
         }, {
             key: 'build',
             value: function build(proto, on) {
@@ -94,12 +118,10 @@
                                     args.shift();
                                     original.apply(el, args);
                                 };
-
                                 el[data.methName] = data.wrappers.reduce(function (next, current, index) {
                                     if (index === lastIndex) {
                                         return (0, _functions.bind)((0, _functions.partial)(current, next, el), el);
                                     }
-
                                     return (0, _functions.bind)((0, _functions.partial)(current, next), el);
                                 }, target);
                             })();

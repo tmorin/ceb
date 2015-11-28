@@ -9,4 +9,4 @@ import './elements/ceb-list-plusplus.js';
 import $ from 'jquery';
 import template from './ceb-list-plusplus.html';
 
-$(() => $(template).appendTo($('body')));
+$(() => $(template).appendTo($('#content')));

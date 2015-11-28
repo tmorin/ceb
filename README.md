@@ -1,4 +1,4 @@
-# <code>&lt;ceb/&gt;</code> or custom-element-builder
+# <code>&lt;ceb/&gt;</code> <small>custom-element-builder</small>
 
 [![Circle CI](https://circleci.com/gh/tmorin/ceb.svg?style=svg)](https://circleci.com/gh/tmorin/ceb)
 [![Dependency Status](https://david-dm.org/tmorin/ceb.svg)](https://david-dm.org/tmorin/ceb)
@@ -63,5 +63,31 @@ console.log(cebExample.foo) // => now it's: 1
 cebExample.incFoo(2);
 console.log(cebExample.foo) // => and finally: 3
 
-cebExample.bar('foo'); // -> dispatch the custom event 'bar' with the detail 'foo'
+cebExample.bar('foo'); // => dispatch the custom event 'bar' with the detail 'foo'
 ```
+
+## Documentation and example
+
+Manual and API are available from [there](https://tmorin.github.io/ceb/doc).
+
+Live example are available [there](https://tmorin.github.io/ceb/example).
+
+## Download
+
+<code>&lt;ceb/&gt;</code> distributed files are available from 
+[npm](https://www.npmjs.com/package/ceb)
+and bower.
+
+From npm:
+```shell
+npm install ceb
+```
+
+From bower:
+```shell
+bower install ceb
+```
+
+## License
+
+Released under the [MIT license](http://opensource.org/licenses/MIT).

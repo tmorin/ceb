@@ -10,7 +10,7 @@ import $ from 'jquery';
 import template from './ceb-templator.html';
 
 $(() => {
-    $(template).appendTo($('body'));
+    $(template).appendTo($('#content'));
 
     setTimeout(function () {
         var data = {

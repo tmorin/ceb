@@ -1,0 +1,20 @@
+{
+  "structure": {
+    "summary": "doc/README.md"
+  },
+  "plugins1": [
+    "edit-link",
+    "prism",
+    "-highlight",
+    "github"
+  ],
+  "pluginsConfig": {
+    "edit-link": {
+      "base": "https://github.com/tmorin/ceb/tree/master",
+      "label": "Edit This Page"
+    },
+    "github": {
+      "url": "https://github.com/tmorin/ceb/"
+    }
+  }
+}

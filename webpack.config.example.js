@@ -1,6 +1,7 @@
 'use strict';
 
 var path = require('path');
+var fs = require('fs');
 
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -11,22 +12,22 @@ var config = Object.create(baseConfig);
 var HTTP_PORT = 3000;
 
 config.entry = {
-    'ceb-address-selector': './example/ceb-address-selector.js',
-    'ceb-form': './example/ceb-form.js',
-    'ceb-grid': './example/ceb-grid.js',
-    'ceb-list': './example/ceb-list.js',
-    'ceb-list-plusplus': './example/ceb-list-plusplus.js',
-    'ceb-templator': './example/ceb-templator.js',
     'index': './example/index.js',
     'loader-amd': './example/loader-amd.js',
     'loader-standalone': './example/loader-standalone.js',
     'loader-systemjs': './example/loader-systemjs.js',
     'loader-umd': './example/loader-umd.js',
+    'ceb-address-selector': './example/ceb-address-selector.js',
+    'ceb-list': './example/ceb-list.js',
+    'ceb-list-plusplus': './example/ceb-list-plusplus.js',
+    'ceb-grid': './example/ceb-grid.js',
+    'ceb-templator': './example/ceb-templator.js',
+    'ceb-form': './example/ceb-form.js',
     'todo-app': './example/todo-app.js'
 };
 
 config.output = {
-    path: path.join(__dirname, 'site/example'),
+    path: path.join(__dirname, '.site/example'),
     filename: '[name].js'
 };
 
@@ -38,9 +39,10 @@ config.plugins = [
     })
 ];
 
-['index', 'ceb-address-selector', 'ceb-list-plusplus', 'ceb-list', 'ceb-grid', 'ceb-templator', 'ceb-form', 'loader-amd', 'loader-standalone', 'loader-systemjs', 'loader-umd', 'todo-app'].forEach(function (chunk) {
+Object.keys(config.entry).forEach(function (chunk, i, all) {
     config.plugins.push(new HtmlWebpackPlugin({
-        title: chunk === 'index' ? '' : chunk + ' - ceb\'s examples',
+        all: all,
+        title: chunk,
         template: './example/template.html',
         inject: 'head',
         chunks: ['commons', chunk],

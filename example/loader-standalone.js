@@ -7,4 +7,4 @@ import 'bootstrap/dist/js/bootstrap.js';
 import $ from 'jquery';
 import template from './loader-standalone.html';
 
-$(() => $(template).appendTo($('body')));
+$(() => $(template).appendTo($('#content')));

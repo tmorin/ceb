@@ -9,4 +9,4 @@ import './todo-app/todo-app.js';
 import $ from 'jquery';
 import template from './todo-app.html';
 
-$(() => $(template).appendTo($('body')));
+$(() => $(template).appendTo($('#content')));

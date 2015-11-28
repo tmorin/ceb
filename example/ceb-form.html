@@ -1,68 +1,64 @@
-<div class="container">
+<p>
+    The following form is based on an extion of the native HTMLFormElement.
+    This extension taking the validation of the underlying form elements, even without HTML5.
+</p>
+
+<hr>
+
+<form name="order"
+      is="ceb-form"
+      prevent-submit
+      validate-on="submit"
+      validate-controls-on="change,input">
+
+    <fieldset>
+        <legend>input[type=text]</legend>
+        <div class="row">
+            <ceb-field class="col-sm-4">
+                <label for="inputTextRequired" class="control-label">
+                    required
+                </label>
+                <input id="inputTextRequired"
+                       type="text"
+                       name="input[text]"
+                       class="form-control"
+                       required
+                       title="The field is required.">
+            </ceb-field>
+            <ceb-field class="col-sm-4">
+                <label for="inputTextMinLength" class="control-label">
+                    minlength
+                    <small>is 5</small>
+                </label>
+                <input id="inputTextMinLength"
+                       type="text"
+                       name="input[text]"
+                       class="form-control"
+                       minlength="5">
+            </ceb-field>
+            <ceb-field class="col-sm-4">
+                <label for="inputTextMaxLength" class="control-label">
+                    maxlength
+                    <small>is 5</small>
+                </label>
+                <input id="inputTextMaxLength"
+                       type="text"
+                       name="input[text]"
+                       class="form-control"
+                       value="more than five characters"
+                       maxlength="5">
+            </ceb-field>
+        </div>
+    </fieldset>
 
     <p>
-        The following form is based on an extion of the native HTMLFormElement.
-        This extension taking the validation of the underlying form elements, even without HTML5.
+        <button type="submit" is="ceb-button" meaning="primary">
+            <i class="glyphicon glyphicon-check"></i>
+            Save
+        </button>
+        <button type="reset" is="ceb-button" meaning="warning">
+            <i class="glyphicon glyphicon-erase"></i>
+            Reset
+        </button>
     </p>
-
-    <hr>
-
-    <form name="order"
-          is="ceb-form"
-          prevent-submit
-          validate-on="submit"
-          validate-controls-on="change,input">
-
-        <fieldset>
-            <legend>input[type=text]</legend>
-            <div class="row">
-                <ceb-field class="col-sm-4">
-                    <label for="inputTextRequired" class="control-label">
-                        required
-                    </label>
-                    <input id="inputTextRequired"
-                           type="text"
-                           name="input[text]"
-                           class="form-control"
-                           required
-                           title="The field is required.">
-                </ceb-field>
-                <ceb-field class="col-sm-4">
-                    <label for="inputTextMinLength" class="control-label">
-                        minlength
-                        <small>is 5</small>
-                    </label>
-                    <input id="inputTextMinLength"
-                           type="text"
-                           name="input[text]"
-                           class="form-control"
-                           minlength="5">
-                </ceb-field>
-                <ceb-field class="col-sm-4">
-                    <label for="inputTextMaxLength" class="control-label">
-                        maxlength
-                        <small>is 5</small>
-                    </label>
-                    <input id="inputTextMaxLength"
-                           type="text"
-                           name="input[text]"
-                           class="form-control"
-                           value="more than five characters"
-                           maxlength="5">
-                </ceb-field>
-            </div>
-        </fieldset>
-
-        <p>
-            <button type="submit" is="ceb-button" meaning="primary">
-                <i class="glyphicon glyphicon-check"></i>
-                Save
-            </button>
-            <button type="reset" is="ceb-button" meaning="warning">
-                <i class="glyphicon glyphicon-erase"></i>
-                Reset
-            </button>
-        </p>
-    </form>
-
-</div>
+</form>

@@ -7,5 +7,5 @@ import 'bootstrap/dist/js/bootstrap.js';
 import $ from 'jquery';
 import template from './loader-amd.html';
 
-$(() => $(template).appendTo($('body')));
+$(() => $(template).appendTo($('#content')));
 

@@ -1,72 +1,68 @@
-<div class="container">
+<p>
+    The implemenation
+</p>
 
-    <p>
-        The implemenation
-    </p>
+<hr>
 
-    <hr>
-
-    <form id="filterForm" onsubmit="return false;">
-        <div class="form-group">
-            <input placeholder="try 10" name="filterQuery" class="form-control" type="text">
-        </div>
-        <button type="submit" class="btn btn-primary" name="submitBtn">
-            apply filter
-        </button>
-        <button type="reset" class="btn btn-default" name="resetBtn">
-            reset filters
-        </button>
-    </form>
-
-    <ceb-store-memory id="memoryStore"></ceb-store-memory>
-    <ceb-store-rest id="restStore"></ceb-store-rest>
-
-    <div class="row">
-        <div class="col-md-6">
-            <ceb-grid id="memoryGrid"
-                      store="memoryStore"
-                      options.body.height="20em"
-                      pagination.from="0"
-                      pagination.size="50"
-                      pager.rows.steps="5"
-                      pager.rows.offset="50">
-                <table>
-                    <caption>I'm a memoryGrid linked to a memory store.</caption>
-                    <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>firstname</th>
-                        <th>lastname</th>
-                        <th type="date">birthdate</th>
-                    </tr>
-                    </thead>
-                </table>
-            </ceb-grid>
-        </div>
-        <div class="col-md-6">
-            <ceb-grid id="restGrid"
-                      store="restStore"
-                      options.body.height="20em"
-                      pagination.from="0"
-                      pagination.size="10"
-                      pager.rows.steps="5"
-                      pager.rows.offset="10">
-                <table>
-                    <caption>
-                        I'm a grid linked to a rest store.
-                        I'm bound to the Wikipedia public API, so the browser will freeze on jsonp respones due to babel processing.
-                    </caption>
-                    <thead>
-                    <tr>
-                        <th>title</th>
-                        <th>size</th>
-                        <th>wordcount</th>
-                        <th type="date">timestamp</th>
-                    </tr>
-                    </thead>
-                </table>
-            </ceb-grid>
-        </div>
+<form id="filterForm" onsubmit="return false;">
+    <div class="form-group">
+        <input placeholder="try 10" name="filterQuery" class="form-control" type="text">
     </div>
+    <button type="submit" class="btn btn-primary" name="submitBtn">
+        apply filter
+    </button>
+    <button type="reset" class="btn btn-default" name="resetBtn">
+        reset filters
+    </button>
+</form>
 
+<ceb-store-memory id="memoryStore"></ceb-store-memory>
+<ceb-store-rest id="restStore"></ceb-store-rest>
+
+<div class="row">
+    <div class="col-md-6">
+        <ceb-grid id="memoryGrid"
+                  store="memoryStore"
+                  options.body.height="20em"
+                  pagination.from="0"
+                  pagination.size="50"
+                  pager.rows.steps="5"
+                  pager.rows.offset="50">
+            <table>
+                <caption>I'm a memoryGrid linked to a memory store.</caption>
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>firstname</th>
+                    <th>lastname</th>
+                    <th type="date">birthdate</th>
+                </tr>
+                </thead>
+            </table>
+        </ceb-grid>
+    </div>
+    <div class="col-md-6">
+        <ceb-grid id="restGrid"
+                  store="restStore"
+                  options.body.height="20em"
+                  pagination.from="0"
+                  pagination.size="10"
+                  pager.rows.steps="5"
+                  pager.rows.offset="10">
+            <table>
+                <caption>
+                    I'm a grid linked to a rest store.
+                    I'm bound to the Wikipedia public API, so the browser will freeze on jsonp respones due to babel processing.
+                </caption>
+                <thead>
+                <tr>
+                    <th>title</th>
+                    <th>size</th>
+                    <th>wordcount</th>
+                    <th type="date">timestamp</th>
+                </tr>
+                </thead>
+            </table>
+        </ceb-grid>
+    </div>
 </div>

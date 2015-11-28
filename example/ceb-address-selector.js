@@ -11,4 +11,4 @@ import './ceb-address-selector.css';
 import $ from 'jquery';
 import template from './ceb-address-selector.html';
 
-$(() => $(template).appendTo($('body')));
+$(() => $(template).appendTo($('#content')));

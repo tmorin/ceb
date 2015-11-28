@@ -14,7 +14,7 @@ import $ from 'jquery';
 import template from './ceb-grid.html';
 
 $(() => {
-    $(template).appendTo($('body'));
+    $(template).appendTo($('#content'));
 
     setTimeout(function () {
         /* start the memory store */

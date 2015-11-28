@@ -2,12 +2,10 @@
 /*.tgz
 /*.zip
 /example
-/site
 /test
 /bower.*
 /circle.*
 /esdoc.*
-/Gruntfile.*
 /gulpfile.*
 /karma.*
 /webpack.*

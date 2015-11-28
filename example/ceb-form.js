@@ -11,4 +11,4 @@ import './form/form.js';
 import $ from 'jquery';
 import template from './ceb-form.html';
 
-$(() => $(template).appendTo($('body')));
+$(() => $(template).appendTo($('#content')));

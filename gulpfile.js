@@ -5,8 +5,8 @@ var ghPages = require('gulp-gh-pages');
 gulp.task('zip', function () {
     return gulp.src([
             '**/*',
-            '!{.idea,.publish,.git,site,dist,lib,node_modules}/**/*',
-            '!{.idea,.publish,.git,site,dist,lib,node_modules}',
+            '!{.idea,.publish,.git,.site,dist,lib,node_modules}/**/*',
+            '!{.idea,.publish,.git,.site,dist,lib,node_modules}',
             '!{.project,*.zip,*.tgz}'
         ], {
             dot: true
@@ -16,5 +16,5 @@ gulp.task('zip', function () {
 });
 
 gulp.task('deploy', function () {
-    return gulp.src('./site/**/*').pipe(ghPages());
+    return gulp.src('./.site/**/*').pipe(ghPages());
 });

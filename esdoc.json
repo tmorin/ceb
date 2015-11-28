@@ -1,7 +1,7 @@
 {
   "source": "./src",
-  "destination": "./site",
-  "title": "ceb - custom-element-builder",
+  "destination": "./.site/doc",
+  "title": "ceb's documentation",
   "plugins": [
     {
       "name": "esdoc-importpath-plugin",
@@ -15,6 +15,7 @@
       }
     }
   ],
+  "index": "./doc/README.md",
   "manual": {
     "usage": [
       "./doc/usage/element.md",
@@ -29,9 +30,6 @@
       "./doc/installation/npm_and_bower.md",
       "./doc/installation/source.md",
       "./doc/installation/integration.md"
-    ],
-    "example": [
-      "./doc/example.md"
     ],
     "changelog": [
       "./CHANGELOG.md"

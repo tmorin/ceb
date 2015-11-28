@@ -9,4 +9,4 @@ import './elements/ceb-list.js';
 import $ from 'jquery';
 import template from './ceb-list.html';
 
-$(() => $(template).appendTo($('body')));
+$(() => $(template).appendTo($('#content')));
