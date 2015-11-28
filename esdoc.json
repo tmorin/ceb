@@ -1,7 +1,7 @@
 {
   "source": "./src",
-  "destination": "./.site/doc",
-  "title": "ceb's documentation",
+  "destination": "./_book/api",
+  "title": "ceb's api",
   "plugins": [
     {
       "name": "esdoc-importpath-plugin",
@@ -14,25 +14,5 @@
         ]
       }
     }
-  ],
-  "index": "./doc/README.md",
-  "manual": {
-    "usage": [
-      "./doc/usage/element.md",
-      "./doc/usage/property.md",
-      "./doc/usage/attribute.md",
-      "./doc/usage/method.md",
-      "./doc/usage/delegate.md",
-      "./doc/usage/on.md",
-      "./doc/usage/template.md"
-    ],
-    "installation": [
-      "./doc/installation/npm_and_bower.md",
-      "./doc/installation/source.md",
-      "./doc/installation/integration.md"
-    ],
-    "changelog": [
-      "./CHANGELOG.md"
-    ]
-  }
+  ]
 }

@@ -1,6 +1,7 @@
 /.*
 /*.tgz
 /*.zip
+/_book
 /example
 /test
 /bower.*

@@ -1,8 +1,10 @@
 {
+  "gitbook": "2.5.2",
+  "title": "ceb - custom-element-builder",
   "structure": {
     "summary": "doc/README.md"
   },
-  "plugins1": [
+  "plugins": [
     "edit-link",
     "prism",
     "-highlight",
@@ -10,7 +12,7 @@
   ],
   "pluginsConfig": {
     "edit-link": {
-      "base": "https://github.com/tmorin/ceb/tree/master",
+      "base": "https://github.com/tmorin/ceb/edit/master",
       "label": "Edit This Page"
     },
     "github": {

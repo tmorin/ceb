@@ -27,7 +27,7 @@ config.entry = {
 };
 
 config.output = {
-    path: path.join(__dirname, '.site/example'),
+    path: path.join(__dirname, '_book/example'),
     filename: '[name].js'
 };
 

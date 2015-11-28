@@ -66,12 +66,6 @@ console.log(cebExample.foo) // => and finally: 3
 cebExample.bar('foo'); // => dispatch the custom event 'bar' with the detail 'foo'
 ```
 
-## Documentation and example
-
-Manual and API are available from [there](https://tmorin.github.io/ceb/doc).
-
-Live example are available [there](https://tmorin.github.io/ceb/example).
-
 ## Download
 
 <code>&lt;ceb/&gt;</code> distributed files are available from 
