@@ -1,4 +1,4 @@
-# <code>&lt;ceb/&gt;</code> <small>custom-element-builder</small>
+# `<ceb/>` <small>custom-element-builder</small>
 
 [![Circle CI](https://circleci.com/gh/tmorin/ceb.svg?style=svg)](https://circleci.com/gh/tmorin/ceb)
 [![Dependency Status](https://david-dm.org/tmorin/ceb.svg)](https://david-dm.org/tmorin/ceb)
@@ -6,12 +6,12 @@
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 
-<code>&lt;ceb/&gt;</code> is a library helping to develop [Custom Elements](http://www.w3.org/TR/custom-elements/).
+`<ceb/>` is a library helping to develop [Custom Elements](http://www.w3.org/TR/custom-elements/).
 
 It's core is a builder which executes others builders.
-By this way, <code>&lt;ceb/&gt;</code> is natively open to extensions and builders easily sharable. 
+By this way, `<ceb/>` is natively opened to extensions and builders easily sharable. 
 
-Obviously, <code>&lt;ceb/&gt;</code> exposes builders and helpers to handle the common needs:
+Obviously, `<ceb/>` exposes builders and helpers to handle the common needs:
 
 - property
 - attribute
@@ -34,7 +34,7 @@ builder.builders(
     // add a property named foo initialized to 0
     property('foo').value(0),
 
-    // add a method named incFoo which increment the foo value
+    // add a method named incFoo, which will increment the foo value
     method('incFoo').invoke( (el, num=1) => el.foo = el.foo + num )
 );
 
@@ -68,7 +68,7 @@ cebExample.bar('foo'); // => dispatch the custom event 'bar' with the detail 'fo
 
 ## Download
 
-<code>&lt;ceb/&gt;</code> distributed files are available from 
+`<ceb/>` distributed files are available from 
 [npm](https://www.npmjs.com/package/ceb)
 and bower.
 

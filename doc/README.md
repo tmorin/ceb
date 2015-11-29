@@ -19,5 +19,7 @@
  * [delegate()](/doc/usage/delegate.md)
  * [on()](/doc/usage/on.md)
  * [template()](/doc/usage/template.md)
+* [Example](/doc/example/README.md)
+ * [Extended form](/doc/example/extended_form.md)
 * [API](/doc/api/README.md)
 * [Change Log](/CHANGELOG.md)
