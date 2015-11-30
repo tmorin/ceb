@@ -54,7 +54,7 @@ describe('ceb-form', () => {
 
     it('should validate a form control', () => {
         let input = cebForm.elements[0];
-        input.required = true;
+        input.setAttribute('required', '');
         input.value = '';
         let state = cebForm.checkFormControlValidity(input);
         expect(state.element, 'element').to.be.eq(input);
@@ -65,7 +65,7 @@ describe('ceb-form', () => {
 
     it('should validate the form', () => {
         let input = cebForm.elements[0];
-        input.required = true;
+        input.setAttribute('required', '');
         input.value = '';
         let state = cebForm.checkValidity();
         expect(state.form, 'form').to.be.eq(cebForm);
@@ -78,7 +78,7 @@ describe('ceb-form', () => {
 
     it('should report validity', (done) => {
         let input = cebForm.elements[0];
-        input.required = true;
+        input.setAttribute('required', '');
         input.value = '';
 
         cebForm.addEventListener('invalid', function listener(evt) {
@@ -101,7 +101,7 @@ describe('ceb-form', () => {
 
     it('should validate the form on events', (done) => {
         let input = cebForm.elements[0];
-        input.required = true;
+        input.setAttribute('required', '');
         input.value = '';
 
         cebForm.addEventListener('invalid', function listener(evt) {
@@ -118,7 +118,7 @@ describe('ceb-form', () => {
 
     it('should validate a control on events', (done) => {
         let input = cebForm.elements[0];
-        input.required = true;
+        input.setAttribute('required', '');
         input.value = '';
 
         cebForm.addEventListener('invalid', function listener(evt) {
@@ -135,7 +135,7 @@ describe('ceb-form', () => {
 
     it('should dispatch valid on reset', (done) => {
         let input = cebForm.elements[0];
-        input.required = true;
+        input.setAttribute('required', '');
         input.value = '';
 
         cebForm.addEventListener('valid', function listener(evt) {
