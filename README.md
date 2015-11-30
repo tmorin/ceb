@@ -68,7 +68,7 @@ cebExample.bar('foo'); // => dispatch the custom event 'bar' with the detail 'fo
 
 ## Download
 
-`<ceb/>` distributed files are available from 
+`<ceb/>` is available from 
 [npm](https://www.npmjs.com/package/ceb)
 and bower.
 

@@ -1,5 +1,7 @@
 'use strict';
 
+var webpackDevConfig = require('./webpack.config.development.js');
+
 module.exports = {
 
     basePath: '',
@@ -9,23 +11,20 @@ module.exports = {
     files: [
         'node_modules/document-register-element/build/document-register-element.js',
         //'node_modules/webcomponents.js/webcomponents-lite.min.js',
-        'test/**/*.spec.js'
+        'test/**/*.spec.js',
+        'example/**/*.spec.js'
     ],
 
     exclude: [],
 
     preprocessors: {
-        'test/**/*.spec.js': ['webpack', 'sourcemap']
+        'test/**/*.spec.js': ['webpack', 'sourcemap'],
+        'example/**/*.spec.js': ['webpack', 'sourcemap']
     },
 
-    webpack: {
-        module: {
-            loaders: [
-                {test: /\.js?$/, exclude: /node_modules/, loader: 'babel'}
-            ]
-        },
+    webpack: Object.assign({}, webpackDevConfig, {
         devtool: 'inline-source-map'
-    },
+    }),
 
     webpackMiddleware: {
         noInfo: true

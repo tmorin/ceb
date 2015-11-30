@@ -6,7 +6,4 @@
 /test
 /bower.*
 /circle.*
-/esdoc.*
-/gulpfile.*
-/karma.*
-/webpack.*
+/build

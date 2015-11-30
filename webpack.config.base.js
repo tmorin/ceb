@@ -1,5 +1,7 @@
 'use strict';
 
+var path = require('path');
+
 module.exports = {
     module: {
         loaders: [
@@ -18,5 +20,10 @@ module.exports = {
     output: {
         library: 'ceb',
         libraryTarget: 'umd'
+    },
+    resolve: {
+        alias: {
+            'ceb': path.join(__dirname, 'src/ceb.js')
+        }
     }
 };

@@ -6,8 +6,8 @@ var fs = require('fs');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var baseConfig = require('./webpack.config.base');
-var config = Object.create(baseConfig);
+var baseConfig = require('./webpack.config.base.js');
+var config = Object.assign({}, baseConfig);
 
 var HTTP_PORT = 3000;
 
@@ -22,12 +22,12 @@ config.entry = {
     'ceb-list-plusplus': './example/ceb-list-plusplus.js',
     'ceb-grid': './example/ceb-grid.js',
     'ceb-templator': './example/ceb-templator.js',
-    'ceb-form': './example/ceb-form.js',
+    'ceb-form': './example/form/index.js',
     'todo-app': './example/todo-app.js'
 };
 
 config.output = {
-    path: path.join(__dirname, '_book/example'),
+    path: path.join(__dirname, '../_book/example'),
     filename: '[name].js'
 };
 
