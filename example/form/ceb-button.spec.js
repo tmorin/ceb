@@ -30,10 +30,12 @@ describe('ceb-button', () => {
         expect(cebButton.getAttribute('class').split((' '))).to.include('btn-default');
     });
 
-    it('should handle meaning', () => {
+    it('should handle alternative style', () => {
         cebButton.altStyle = 'primary';
-        expect(cebButton.getAttribute('class').split((' '))).to.include('btn');
-        expect(cebButton.getAttribute('class').split((' '))).to.include('btn-primary');
+        setTimeout(() => {
+            expect(cebButton.getAttribute('class').split((' '))).to.include('btn');
+            expect(cebButton.getAttribute('class').split((' '))).to.include('btn-primary');
+        }, 100);
     });
 
 });
