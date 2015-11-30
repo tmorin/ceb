@@ -69,6 +69,7 @@ System.register(['./builder/element.js', './builder/property.js', './builder/att
       var _exportObj12 = {};
       _exportObj12.dispatchCustomEvent = _helperEventsJs.dispatchCustomEvent;
       _exportObj12.dispatchMouseEvent = _helperEventsJs.dispatchMouseEvent;
+      _exportObj12.dispatchHtmlEvent = _helperEventsJs.dispatchHtmlEvent;
 
       _export(_exportObj12);
     }, function (_helperTypesJs) {

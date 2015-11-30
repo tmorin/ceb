@@ -18,6 +18,7 @@
     });
     exports.dispatchCustomEvent = dispatchCustomEvent;
     exports.dispatchMouseEvent = dispatchMouseEvent;
+    exports.dispatchHtmlEvent = dispatchHtmlEvent;
     var CUSTOM_EVENT_ARG_NAMES = ['bubbles', 'cancelable', 'detail'];
     var MOUSE_EVENT_ARG_NAMES = ['bubbles', 'cancelable', 'view', 'detail', 'screenX', 'screenY', 'clientX', 'clientY', 'ctrlKey', 'altKey', 'shiftKey', 'metaKey', 'button', 'relatedTarget'];
     var DEFAULT_CUSTOM_EVENT_OPTIONS = {
@@ -67,6 +68,22 @@
         } else {
             event = document.createEvent('MouseEvents');
             event.initMouseEvent.apply(event, [eventType].concat(MOUSE_EVENT_ARG_NAMES.map(function (name) {
+                return args[name];
+            })));
+        }
+
+        return el.dispatchEvent(event);
+    }
+
+    function dispatchHtmlEvent(el, eventType, options) {
+        var event = undefined,
+            args = (0, _objects.assign)({}, DEFAULT_MOUSE_EVENT_OPTIONS, options);
+
+        if (typeof HTMLEvents === 'function') {
+            event = new Events(eventType, args);
+        } else {
+            event = document.createEvent('HTMLEvents');
+            event.initEvent.apply(event, [eventType].concat(MOUSE_EVENT_ARG_NAMES.map(function (name) {
                 return args[name];
             })));
         }

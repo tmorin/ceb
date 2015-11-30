@@ -130,6 +130,12 @@ define(['exports', './builder/element.js', './builder/property.js', './builder/a
       return _events.dispatchMouseEvent;
     }
   });
+  Object.defineProperty(exports, 'dispatchHtmlEvent', {
+    enumerable: true,
+    get: function get() {
+      return _events.dispatchHtmlEvent;
+    }
+  });
   Object.defineProperty(exports, 'isArray', {
     enumerable: true,
     get: function get() {

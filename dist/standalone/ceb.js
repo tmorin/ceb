@@ -221,6 +221,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return _events.dispatchMouseEvent;
 	  }
 	});
+	Object.defineProperty(exports, 'dispatchHtmlEvent', {
+	  enumerable: true,
+	  get: function get() {
+	    return _events.dispatchHtmlEvent;
+	  }
+	});
 
 	var _types = __webpack_require__(1);
 
@@ -1920,6 +1926,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	exports.dispatchCustomEvent = dispatchCustomEvent;
 	exports.dispatchMouseEvent = dispatchMouseEvent;
+	exports.dispatchHtmlEvent = dispatchHtmlEvent;
 
 	var _objects = __webpack_require__(4);
 
@@ -1986,6 +1993,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else {
 	        event = document.createEvent('MouseEvents');
 	        event.initMouseEvent.apply(event, [eventType].concat(MOUSE_EVENT_ARG_NAMES.map(function (name) {
+	            return args[name];
+	        })));
+	    }
+	    return el.dispatchEvent(event);
+	}
+
+	/**
+	 * Create and dispatch an HTML event (change, etc.).
+	 * @param {!HTMLElement} el the element where the event will be dispatched
+	 * @param {!string} eventType the event type
+	 * @param {Object} [options] the options
+	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
+	 */
+	function dispatchHtmlEvent(el, eventType, options) {
+	    var event = undefined,
+	        args = (0, _objects.assign)({}, DEFAULT_MOUSE_EVENT_OPTIONS, options);
+	    if (typeof HTMLEvents === 'function') {
+	        event = new Events(eventType, args);
+	    } else {
+	        event = document.createEvent('HTMLEvents');
+	        event.initEvent.apply(event, [eventType].concat(MOUSE_EVENT_ARG_NAMES.map(function (name) {
 	            return args[name];
 	        })));
 	    }
