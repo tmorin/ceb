@@ -81,3 +81,21 @@ export function dispatchMouseEvent(el, eventType, options) {
     }
     return el.dispatchEvent(event);
 }
+
+/**
+ * Create and dispatch an HTML event (change, etc.).
+ * @param {!HTMLElement} el the element where the event will be dispatched
+ * @param {!string} eventType the event type
+ * @param {Object} [options] the options
+ * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
+ */
+export function dispatchHtmlEvent(el, eventType, options) {
+    let event, args = assign({}, DEFAULT_MOUSE_EVENT_OPTIONS, options);
+    if (typeof HTMLEvents === 'function') {
+        event = new Events(eventType, args);
+    } else {
+        event = document.createEvent('HTMLEvents');
+        event.initEvent.apply(event, [eventType].concat(MOUSE_EVENT_ARG_NAMES.map(name => args[name])));
+    }
+    return el.dispatchEvent(event);
+}
