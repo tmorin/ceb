@@ -1,6 +1,5 @@
 <p>
-    The following form is based on an extion of the native HTMLFormElement.
-    This extension taking the validation of the underlying form elements, even without HTML5.
+    The goal of it's example is to create a set of custom elements close to the HTML5 form element.
 </p>
 
 <hr>
@@ -9,7 +8,7 @@
       is="ceb-form"
       prevent-submit
       validate-on="submit"
-      validate-controls-on="change,input">
+      validate-control-on="change,input">
 
     <fieldset>
         <legend>input[type=text]</legend>
@@ -52,11 +51,11 @@
     </fieldset>
 
     <p>
-        <button type="submit" is="ceb-button" meaning="primary">
+        <button type="submit" is="ceb-button" alt-style="primary">
             <i class="glyphicon glyphicon-check"></i>
             Save
         </button>
-        <button type="reset" is="ceb-button" meaning="warning">
+        <button type="reset" is="ceb-button" alt-style="warning">
             <i class="glyphicon glyphicon-erase"></i>
             Reset
         </button>
