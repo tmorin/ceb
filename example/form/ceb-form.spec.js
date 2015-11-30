@@ -23,7 +23,7 @@ describe('ceb-form', () => {
         cebForm = sandbox.querySelector('form');
         submitBtn = sandbox.querySelector('[type="submit"]');
         resetBtn = sandbox.querySelector('[type="reset"]');
-        setTimeout(() => done(), 10);
+        setTimeout(() => done(), 100);
     });
 
     afterEach(() => {

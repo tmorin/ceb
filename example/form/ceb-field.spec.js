@@ -20,7 +20,7 @@ describe('ceb-field', () => {
         cebField = sandbox.querySelector('ceb-field');
         input1 = sandbox.querySelector('[name="prop1"]');
         input2 = sandbox.querySelector('[name="prop2"]');
-        setTimeout(() => done(), 10);
+        setTimeout(() => done(), 100);
     });
 
     afterEach(() => {

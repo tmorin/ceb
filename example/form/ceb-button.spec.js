@@ -14,7 +14,7 @@ describe('ceb-button', () => {
             <button is="ceb-button"></button>
         `;
         cebButton = sandbox.querySelector('button');
-        setTimeout(() => done(), 10);
+        setTimeout(() => done(), 100);
     });
 
     afterEach(() => {
