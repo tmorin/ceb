@@ -113,7 +113,7 @@ describe('ceb-form', () => {
 
         cebForm.validateOn = 'submit';
 
-        dispatchMouseEvent(submitBtn, 'click');
+        setTimeout(() => dispatchMouseEvent(submitBtn, 'click'), 100);
     });
 
     it('should validate a control on events', (done) => {
@@ -129,8 +129,7 @@ describe('ceb-form', () => {
         });
 
         cebForm.validateControlOn = 'change';
-
-        dispatchHtmlEvent(input, 'change');
+        setTimeout(() => dispatchHtmlEvent(input, 'change'), 100);
     });
 
     it('should dispatch valid on reset', (done) => {
