@@ -8,7 +8,7 @@ So, to make it alive, it has to be based on the `HTMLButtonElement` prototype an
 ```javascript
 import {element} from 'ceb';
 
-let cebButtonBuilder = element();
+let cebButtonBuilder = element().base(Object.create(HTMLButtonElement.prototype), 'button');
 
 export default cebButtonBuilder.register('ceb-button');
 ```
