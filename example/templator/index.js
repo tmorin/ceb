@@ -4,10 +4,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import 'bootstrap/dist/js/bootstrap.js';
 
-import './elements/ceb-templator.js';
+import './ceb-templator.js';
 
 import $ from 'jquery';
-import template from './ceb-templator.html';
+import template from './index.html';
 
 $(() => {
     $(template).appendTo($('#content'));

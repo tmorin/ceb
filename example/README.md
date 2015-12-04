@@ -2,4 +2,5 @@
 
 `<ceb/>` is also based on example fully functional and obviously tested.
 
-* [ceb-form](form/README.md)
+* [form](form/README.md)
+* [templator](templator/README.md)

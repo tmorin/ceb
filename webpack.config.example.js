@@ -21,8 +21,8 @@ config.entry = {
     'ceb-list': './example/ceb-list.js',
     'ceb-list-plusplus': './example/ceb-list-plusplus.js',
     'ceb-grid': './example/ceb-grid.js',
-    'ceb-templator': './example/ceb-templator.js',
-    'ceb-form': './example/form/index.js',
+    'templator': './example/templator/index.js',
+    'form': './example/form/index.js',
     'todo-app': './example/todo-app.js'
 };
 
