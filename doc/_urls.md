@@ -24,7 +24,7 @@
 [custom-element-specification-registration]: http://w3c.github.io/webcomponents/spec/custom/#api-element-registration-options
 
 [ceb API]: http://tmorin.github.io/ceb/api
-[ceb examples]: https://tmorin.github.io/ceb/example
+[ceb examples]: https://tmorin.github.io/ceb/live
 
 [npm]: https://www.npmjs.com/package/ceb
 [bower]: http://bower.io/search/?q=ceb

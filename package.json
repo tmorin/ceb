@@ -49,7 +49,7 @@
     "site:doc": "gitbook install && gitbook build -g tmorin/ceb",
     "site:esdoc": "esdoc -c esdoc.json",
     "site:example": "webpack --config webpack.config.example.js",
-    "site": "npm run site:doc && npm run site:esdoc && npm run site:example && ncp dist _book/example/dist",
+    "site": "npm run site:doc && npm run site:esdoc && npm run site:example && ncp dist _book/live/dist",
     "site:deploy": "npm run build && npm run site && gulp deploy",
     "test:local": "karma start karma.config.local.js",
     "test:local:watch": "npm run test:local -- --auto-watch --no-single-run",
