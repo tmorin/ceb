@@ -1,6 +1,7 @@
+{% include "/doc/_urls.md" %}
 # AMD
 
-Using the dedicated [AMD](https://github.com/amdjs/amdjs-api) files from `dist/amd/`:
+Using the dedicated [AMD] files from `dist/amd/`:
 
 ```javascript
 // load all ceb
@@ -12,9 +13,9 @@ require(['dist/amd/ceb'], function (ceb) {
 });
 ```
 
-The [UMD](https://github.com/umdjs/umd) files from `dist/umd/` works well too.
+The [UMD] files from `dist/umd/` works well too.
 
-Using the standalone [UMD](https://github.com/umdjs/umd) file from `dist/standalone/`:
+Using the standalone [UMD] file from `dist/standalone/`:
 
 ```javascript
 require(['dist/standalone/ceb'], function (ceb) {

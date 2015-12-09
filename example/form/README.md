@@ -1,11 +1,9 @@
+{% include "/doc/_urls.md" %}
 # Form
 
-The goal of it's example is to create a set of custom elements close to the [HTML5 form][HTML5-form] element.
-
-The live example is available [there][live].
-
-[HTML5-form]: https://html.spec.whatwg.org/multipage/forms.html
-[live]: https://tmorin.github.io/ceb/example/form
+The goal of it's example is to create a set of custom elements close to the [HTML5 form] element.
+The live example is available [there][ceb examples].
+Every custom elements defined by this example has been unit tested.
 
 - [ceb-form](ceb-form.md)
 - [ceb-field](ceb-field.md)

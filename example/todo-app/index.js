@@ -4,8 +4,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import 'bootstrap/dist/js/bootstrap.js';
 
+import './todo-app.js';
+
 import $ from 'jquery';
-import template from './loader-amd.html';
+import template from './index.html';
 
 $(() => $(template).appendTo($('#content')));
-

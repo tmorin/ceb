@@ -1,8 +1,9 @@
+{% include "/doc/_urls.md" %}
 # ceb-button
 
 ## From `button` to `ceb-button`
 
-`ceb-button` is an extension of te native [HTML5 button][HTML5-button].
+`ceb-button` is an extension of te native [HTML5 button].
 So, to make it alive, it has to be based on the `HTMLButtonElement` prototype and the `button` tag name.
 
 ```javascript
@@ -18,8 +19,6 @@ The `cebButtonBuilder` is ready to be used and the custom element too.
 ```html
 <button is="ceb-button"></form>
 ```
-
-[HTML5-button]: https://html.spec.whatwg.org/multipage/forms.html#the-button-element
 
 ## `.$el`
 

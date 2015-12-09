@@ -1,3 +1,4 @@
+{% include "/doc/_urls.md" %}
 # API
 
-The API documentation is available [there](http://tmorin.github.io/ceb/api/).
+The API documentation is available [there][ceb API].

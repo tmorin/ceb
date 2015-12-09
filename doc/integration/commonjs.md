@@ -1,8 +1,9 @@
+{% include "/doc/_urls.md" %}
 # CommonJS
 
-By default, the npm package loads the [CommonJS](http://www.commonjs.org/) files from `lib/`.
+By default, the npm package loads the [CommonJS] files from `lib/`.
 
-Using the [CommonJS](http://www.commonjs.org/) `require()` function:
+Using the [CommonJS] `require()` function:
 ```javascript
 var ceb = require('ceb');
 

@@ -1,9 +1,10 @@
+{% include "/doc/_urls.md" %}
 # ceb-form
 
 ## From `form` to `ceb-form`
 
 The main custom element of its example is `ceb-form`.
-It's an extension of te native [HTML5 form][HTML5-form].
+It's an extension of te native [HTML5 form].
 So, to make it alive, it has to be based on the `HTMLFormElement` prototype and the `form` tag name.
 
 ```javascript
@@ -372,5 +373,3 @@ cebFormBuilder.builders(
 
 /* ... */
 ```
-
-[HTML5-form]: https://html.spec.whatwg.org/multipage/forms.html

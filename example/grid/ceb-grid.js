@@ -2,6 +2,8 @@ import {element, method, property, attribute, on, toArray, assign, isFunction} f
 import $ from 'jquery';
 import {idomify} from '../builders/idomify.js';
 
+import './ceb-grid.css';
+
 element().builders(
     property('data').value([]),
     method('query').invoke((el, queryRequest) => {
