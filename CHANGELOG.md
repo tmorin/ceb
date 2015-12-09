@@ -1,4 +1,8 @@
+# Change log
+
 ## 0.6.x
+- review web site
+- improve the example documentation
 - rename github repo
 - rename npm package name
 - rename bower package name

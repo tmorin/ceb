@@ -1,6 +1,7 @@
+{% include "/doc/_urls.md" %}
 # ceb-field
 
-`ceb-field` is like the `form-group` of [bootstrap][bootstrap].
+`ceb-field` is like the `form-group` of [bootstrap].
 
 At the beginning:
 ```javascript
@@ -161,5 +162,3 @@ cebFieldBuilder.builders(
 
 /* ... */
 ```
-
-[bootstrap]: http://getbootstrap.com/

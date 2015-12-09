@@ -6,7 +6,7 @@
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 
-`<ceb/>` is a library helping to develop [Custom Elements](http://www.w3.org/TR/custom-elements/).
+`<ceb/>` is a library helping to develop [Custom Elements](http://w3c.github.io/webcomponents/spec/custom).
 
 It's core is a builder which executes others builders.
 By this way, `<ceb/>` is natively opened to extensions and builders easily sharable. 
@@ -68,9 +68,7 @@ cebExample.bar('foo'); // => dispatch the custom event 'bar' with the detail 'fo
 
 ## Download
 
-`<ceb/>` is available from 
-[npm](https://www.npmjs.com/package/ceb)
-and bower.
+`<ceb/>` is available from [npm](https://www.npmjs.com/package/ceb) and [bower](http://bower.io/search/?q=ceb).
 
 From npm:
 ```shell

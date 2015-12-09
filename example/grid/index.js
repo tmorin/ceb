@@ -6,12 +6,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import 'bootstrap/dist/js/bootstrap.js';
 
-import './elements/ceb-grid.js';
-
-import './ceb-grid.css';
+import './ceb-grid.js';
 
 import $ from 'jquery';
-import template from './ceb-grid.html';
+import template from './index.html';
 
 $(() => {
     $(template).appendTo($('#content'));

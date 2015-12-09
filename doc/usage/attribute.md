@@ -1,3 +1,4 @@
+{% include "/doc/_urls.md" %}
 # attribute()
 
 The function `attribute()` returns a fresh `AttributeBuilder` providing services to define ... an attribute.

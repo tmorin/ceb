@@ -1,6 +1,26 @@
+{% include "/doc/_urls.md" %}
 # Example
 
-`<ceb/>` is also based on example fully functional and obviously tested.
+`<ceb/>` is shipped with several examples. 
 
-* [form](form/README.md)
-* [templator](templator/README.md)
+## Builders
+
+Even if the `<ceb/>` examples show how to use the built-in functionality, they are also based on custom builders:
+
+* [baconify](builders/baconify.md)
+* [handlebarify](builders/handlebarify.md)
+* [idomify](builders/idomify.md)
+* [reduxify](builders/reduxify.md)
+
+## Elements
+
+* [Address selector](address-selector/README.md)
+* [Form](form/README.md)
+* [Grid](grid/README.md)
+* [List](list/README.md)
+* [List++](list-plusplus/README.md)
+* [Templator](templator/README.md)
+
+## Apps
+
+* [Todo App](todo-app/README.md)

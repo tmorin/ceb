@@ -1,10 +1,13 @@
+{% include "/doc/_urls.md" %}
 # Templator
 
-This example show how to extends the `script` element in order to compile its content on the fly. 
+This example show how to extends the `script` element in order to compile its content on the fly.
+The live example is available [there][ceb examples].
+The underlying custom element defined by this example has been unit tested.
 
 ## From `script` to `ceb-templator`
 
-`ceb-button` is an extension of te native [HTML5 script][HTML5-script].
+`ceb-button` is an extension of te native [HTML5 script].
 So, to make it alive, it has to be based on the `HTMLScriptElement` prototype and the `script` tag name.
 
 ```javascript
@@ -21,7 +24,7 @@ The `cebTemplatorBuilder` is ready to be used and the custom element too.
 <script is="ceb-templator"></script>
 ```
 
-At the end, the custom element could declared like below.
+At the end, the custom element could be declared like below.
 
 ```html
 <script is="ceb-templator" type="text/x-handlebars-template">
@@ -89,5 +92,3 @@ cebTemplatorBuilder.builders(
 
 /* ... */
 ```
-
-[HTML5-script]: https://html.spec.whatwg.org/multipage/script.html

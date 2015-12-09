@@ -2,10 +2,15 @@
 
 ## Setting up development environment
 
+Get the source:
 ```shell
 git clone https://github.com/tmorin/ceb.git
-cd ceb
-npm install # install dependencies and build the projet
+cd ceb 
+```
+
+Install dependencies and build:
+```shell
+npm install 
 ```
 
 ## npm tasks
@@ -31,7 +36,7 @@ npm run build
 
 Build documentation and start server with hot reload
 ```shell
-npm run doc:watch
+npm run site:doc:watch
 ```
 
 Build the site, i.e. https://tmorin.github.io/ceb

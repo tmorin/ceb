@@ -1,3 +1,4 @@
+{% include "/doc/_urls.md" %}
 # template()
 
 The function `template()` returns a fresh `TemplateBuilder` providing services to define ... a template.
@@ -24,8 +25,7 @@ element()
 
 ## Light and shadow DOM
 
-According to [caniuse.com](http://caniuse.com/#search=Shadow%20DOM),
-the Shadow DOM isn't yet implemented by most of the browsers.
+According to [caniuse.com], the Shadow DOM isn't yet implemented by most of the browsers.
 
 However, the template builder is able to simulate a part of its behaviors
 when a custom element needs to wrap its light DOM with others elements.

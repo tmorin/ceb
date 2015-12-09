@@ -1,8 +1,8 @@
 import $ from 'jquery';
-import {element, method, template, attribute, delegate, on} from '../../src/ceb.js';
+import {element, method, template, attribute, delegate, on} from 'ceb';
 import {baconify, trigger} from '../builders/baconify.js';
 import {fromPromise, once} from 'baconjs';
-
+import './ceb-address-selector.css';
 
 $.support.cors = true;
 

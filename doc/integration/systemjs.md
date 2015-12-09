@@ -1,6 +1,7 @@
+{% include "/doc/_urls.md" %}
 # SystemJS
 
-Using the dedicated [SystemJS](https://github.com/systemjs/systemjs) files from `dist/systemjs/`:
+Using the dedicated [SystemJS] files from `dist/systemjs/`:
 
 ```javascript
 System.config({
@@ -16,6 +17,5 @@ System.import('./dist/systemjs/ceb.js').then(function (ceb) {
 });
 ```
 
-Because [SystemJS](https://github.com/systemjs/systemjs) works with [AMD](https://github.com/amdjs/amdjs-api) modules,
-files from `dist/umd/` and `dist/amd/` can also be used.
-However, [SystemJS](https://github.com/systemjs/systemjs) must configured to handle them.
+Because [SystemJS] works with [AMD] modules, files from `dist/umd/` and `dist/amd/` can also be used.
+However, [SystemJS] must configured to handle them.

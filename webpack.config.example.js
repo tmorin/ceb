@@ -13,17 +13,17 @@ var HTTP_PORT = 3000;
 
 config.entry = {
     'index': './example/index.js',
-    'loader-amd': './example/loader-amd.js',
-    'loader-standalone': './example/loader-standalone.js',
-    'loader-systemjs': './example/loader-systemjs.js',
-    'loader-umd': './example/loader-umd.js',
-    'ceb-address-selector': './example/ceb-address-selector.js',
-    'ceb-list': './example/ceb-list.js',
-    'ceb-list-plusplus': './example/ceb-list-plusplus.js',
-    'ceb-grid': './example/ceb-grid.js',
+    'loader-amd': './example/loader/loader-amd.js',
+    'loader-standalone': './example/loader/loader-standalone.js',
+    'loader-systemjs': './example/loader/loader-systemjs.js',
+    'loader-umd': './example/loader/loader-umd.js',
+    'address-selector': './example/address-selector/index.js',
+    'list': './example/list/index.js',
+    'list-plusplus': './example/list-plusplus/index.js',
+    'grid': './example/grid/index.js',
     'templator': './example/templator/index.js',
     'form': './example/form/index.js',
-    'todo-app': './example/todo-app.js'
+    'todo-app': './example/todo-app/index.js'
 };
 
 config.output = {

@@ -1,6 +1,7 @@
+{% include "/doc/_urls.md" %}
 # As a global variable
 
-Using the [UMD](https://github.com/umdjs/umd) files from `dist/umd/`:
+Using the [UMD] files from `dist/umd/`:
 
 ```html
 <!-- load helpers, keep the order ;) -->
@@ -26,7 +27,7 @@ Using the [UMD](https://github.com/umdjs/umd) files from `dist/umd/`:
 <script src="dist/umd/ceb.js"></script>
 ```
 
-Using the standalone [UMD](https://github.com/umdjs/umd) file from `dist/standalone/`:
+Using the standalone [UMD] file from `dist/standalone/`:
 
 ```html
 <!-- not minified -->
