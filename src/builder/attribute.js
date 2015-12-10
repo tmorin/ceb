@@ -148,7 +148,8 @@ export class AttributeBuilder {
      * @param {!ElementBuilder.on} on the method on
      */
     build(proto, on) {
-        let defaultValue = result(this.data, 'value'),
+        let data = this.data,
+            defaultValue = result(this.data, 'value'),
             descriptor = {
                 enumerable: this.data.enumerable,
                 configurable: false,
@@ -156,44 +157,44 @@ export class AttributeBuilder {
                 set: this.data.setterFactory(this.data.attrName, this.data.boolean)
             };
 
-        if (this.data.bound) {
-            Object.defineProperty(proto, this.data.propName, descriptor);
+        if (data.bound) {
+            Object.defineProperty(proto, data.propName, descriptor);
         }
 
         on('after:createdCallback').invoke(el => {
-            if (this.data.bound) {
-                let attrValue = getAttValue(el, this.data.attrName, this.data.boolean);
-                if (this.data.boolean) {
-                    el[this.data.propName] = !!defaultValue ? defaultValue : attrValue;
+            if (data.bound) {
+                let attrValue = getAttValue(el, data.attrName, data.boolean);
+                if (data.boolean) {
+                    el[data.propName] = !!defaultValue ? defaultValue : attrValue;
                 } else if (!isNull(attrValue) && !isUndefined(attrValue)) {
-                    el[this.data.propName] = attrValue;
+                    el[data.propName] = attrValue;
                 } else if (!isUndefined(defaultValue)) {
-                    el[this.data.propName] = defaultValue;
+                    el[data.propName] = defaultValue;
                 }
             }
-            if (this.data.listeners.length > 0) {
-                let oldValue = this.data.boolean ? false : null;
-                let setValue = el[this.data.propName];
+            if (data.listeners.length > 0) {
+                let oldValue = data.boolean ? false : null;
+                let setValue = el[data.propName];
                 if (oldValue !== setValue) {
-                    this.data.listeners.forEach(listener => listener.call(el, el, oldValue, setValue));
+                    data.listeners.forEach(listener => listener.call(el, el, oldValue, setValue));
                 }
             }
         });
 
         on('before:attributeChangedCallback').invoke((el, attName, oldVal, newVal) => {
             // Synchronize the attribute value with its properties
-            if (attName === this.data.attrName) {
-                if (this.data.bound) {
-                    let newValue = this.data.boolean ? newVal === '' : newVal;
-                    if (el[this.data.propName] !== newValue) {
-                        el[this.data.propName] = newValue;
+            if (attName === data.attrName) {
+                if (data.bound) {
+                    let newValue = data.boolean ? newVal === '' : newVal;
+                    if (el[data.propName] !== newValue) {
+                        el[data.propName] = newValue;
                     }
                 }
-                if (this.data.listeners.length > 0) {
-                    let oldValue = this.data.boolean ? oldVal === '' : oldVal;
-                    let setValue = this.data.boolean ? newVal === '' : newVal;
+                if (data.listeners.length > 0) {
+                    let oldValue = data.boolean ? oldVal === '' : oldVal;
+                    let setValue = data.boolean ? newVal === '' : newVal;
                     if (oldValue !== setValue) {
-                        this.data.listeners.forEach(listener => listener.call(el, el, oldValue, setValue));
+                        data.listeners.forEach(listener => listener.call(el, el, oldValue, setValue));
                     }
                 }
             }
