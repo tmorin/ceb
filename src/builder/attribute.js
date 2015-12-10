@@ -182,7 +182,6 @@ export class AttributeBuilder {
         });
 
         on('before:attributeChangedCallback').invoke((el, attName, oldVal, newVal) => {
-            console.log('attributeChangedCallback', el.tagName, attName, oldVal, newVal);
             // Synchronize the attribute value with its properties
             if (attName === data.attrName) {
                 if (data.bound) {
