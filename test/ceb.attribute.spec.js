@@ -1,7 +1,7 @@
 import {element, attribute} from '../src/ceb.js';
 
 /*jshint -W030 */
-describe('ceb.attribute()', function () {
+describe('ceb.attribute()', () => {
     let sandbox, builder;
     beforeEach(() => {
         if (sandbox) {
@@ -79,8 +79,8 @@ describe('ceb.attribute()', function () {
                 expect(listener).to.have.been.calledTwice;
                 expect(listener).to.have.been.calledWith(el, 'fromProp', 'fromAttr');
                 done();
-            }, 10);
-        }, 10);
+            }, 50);
+        }, 50);
     });
 
     it('should define listener for boolean attribute', (done) => {
@@ -96,8 +96,8 @@ describe('ceb.attribute()', function () {
                 expect(listener, 'listener').to.have.been.calledTwice;
                 expect(listener, 'listener').to.have.been.calledWith(el, true, false);
                 done();
-            }, 10);
-        }, 10);
+            }, 50);
+        }, 50);
     });
 
 });
