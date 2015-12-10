@@ -89,10 +89,12 @@ describe('ceb.attribute()', () => {
         let el = document.createElement('test-listener-boolean-attribute');
         el.att1 = true;
         setTimeout(() => {
+            console.log('set listener', listener);
             expect(listener, 'listener').to.have.been.calledOnce;
             //expect(listener, 'listener').to.have.been.calledWith(el, false, true);
             el.removeAttribute('att1');
             setTimeout(() => {
+                console.log('unset listener', listener);
                 expect(listener, 'listener').to.have.been.calledTwice;
                 //expect(listener, 'listener').to.have.been.calledWith(el, true, false);
                 done();
