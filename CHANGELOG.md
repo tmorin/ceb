@@ -1,13 +1,14 @@
 # Change log
 
 ## 0.6.x
+- improve method builder with the modifier `native()`
+- improve helpers with events utilities, `dispatchCustomEvent()`, `dispatchMouseEvent()`, `dispatchHtmlEvent()`
 - review web site
 - improve the example documentation
 - rename github repo
 - rename npm package name
 - rename bower package name
 - refactor project structure
-- add event utilities
 
 ## 0.5.x
 - keep concepts breaking API

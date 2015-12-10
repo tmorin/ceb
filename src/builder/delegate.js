@@ -151,7 +151,9 @@ export class DelegateBuilder {
                 let target = el.querySelector(data.selector);
                 if (isFunction(target[targetedMethName])) {
                     let args = toArray(arguments);
-                    args.shift();
+                    if (!fieldBuilderData.native) {
+                        args.shift();
+                    }
                     return target[targetedMethName].apply(target, args);
                 }
             };

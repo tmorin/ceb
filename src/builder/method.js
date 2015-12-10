@@ -41,6 +41,16 @@ export class MethodBuilder {
     }
 
     /**
+     * Skip the custom element instance as first argument.
+     * It's required when playing with native method with delegration or wrapping.
+     * @returns {MethodBuilder} the builder
+     */
+    native() {
+        this.data.native = true;
+        return this;
+    }
+
+    /**
      * Logic of the builder.
      * @param {!ElementBuilder.context.proto} proto the prototype
      * @param {!ElementBuilder.on} on the method on
@@ -50,7 +60,11 @@ export class MethodBuilder {
 
         if (data.invoke) {
             proto[data.methName] = function () {
-                return data.invoke.apply(this, [this].concat(toArray(arguments)));
+                var args = toArray(arguments);
+                if (!data.native) {
+                    args = [this].concat(args);
+                }
+                return data.invoke.apply(this, args);
             };
         }
 
@@ -61,12 +75,14 @@ export class MethodBuilder {
                         original = el[data.methName],
                         target = function target() {
                             let args = toArray(arguments);
-                            args.shift();
+                            if (!data.native) {
+                                args.shift();
+                            }
                             original.apply(el, args);
                         };
                     el[data.methName] = data.wrappers.reduce((next, current, index) => {
                         if (index === lastIndex) {
-                            return bind(partial(current, next, el), el);
+                            return bind(data.native ? partial(current, next) : partial(current, next, el), el);
                         }
                         return bind(partial(current, next), el);
                     }, target);
