@@ -173,7 +173,11 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
 
                                 if (isFunction(target[targetedMethName])) {
                                     var args = toArray(arguments);
-                                    args.shift();
+
+                                    if (!fieldBuilderData.native) {
+                                        args.shift();
+                                    }
+
                                     return target[targetedMethName].apply(target, args);
                                 }
                             };

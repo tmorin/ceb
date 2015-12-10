@@ -67,13 +67,25 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                         return this;
                     }
                 }, {
+                    key: 'native',
+                    value: function native() {
+                        this.data.native = true;
+                        return this;
+                    }
+                }, {
                     key: 'build',
                     value: function build(proto, on) {
                         var data = this.data;
 
                         if (data.invoke) {
                             proto[data.methName] = function () {
-                                return data.invoke.apply(this, [this].concat(toArray(arguments)));
+                                var args = toArray(arguments);
+
+                                if (!data.native) {
+                                    args = [this].concat(args);
+                                }
+
+                                return data.invoke.apply(this, args);
                             };
                         }
 
@@ -85,13 +97,17 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                                             original = el[data.methName],
                                             target = function target() {
                                             var args = toArray(arguments);
-                                            args.shift();
+
+                                            if (!data.native) {
+                                                args.shift();
+                                            }
+
                                             original.apply(el, args);
                                         };
 
                                         el[data.methName] = data.wrappers.reduce(function (next, current, index) {
                                             if (index === lastIndex) {
-                                                return bind(partial(current, next, el), el);
+                                                return bind(data.native ? partial(current, next) : partial(current, next, el), el);
                                             }
 
                                             return bind(partial(current, next), el);

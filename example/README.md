@@ -1,7 +1,7 @@
 {% include "/doc/_urls.md" %}
 # Example
 
-`<ceb/>` is shipped with several examples. 
+`<ceb/>` is shipped with several examples.  They are alive [there][live].
 
 ## Builders
 

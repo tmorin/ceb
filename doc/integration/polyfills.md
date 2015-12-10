@@ -1,7 +1,7 @@
 {% include "/doc/_urls.md" %}
 # Polyfills
 
-Even if `<ceb/>` is transpilled from es2015 to es5 with [babel], the babel polyfill is not necessary. 
+Even if `<ceb/>` is transpilled from [ES2015] to [es5] with [babel], the babel polyfill is not necessary. 
 
 However, not evergreen browsers (those not implementing `document.registerElement()`) have to be patched with one of the following polyfills:
  

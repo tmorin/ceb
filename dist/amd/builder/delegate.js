@@ -194,7 +194,9 @@ define(['exports', '../helper/types.js', '../helper/converters.js', './attribute
                         var target = el.querySelector(data.selector);
                         if ((0, _types.isFunction)(target[targetedMethName])) {
                             var args = (0, _converters.toArray)(arguments);
-                            args.shift();
+                            if (!fieldBuilderData.native) {
+                                args.shift();
+                            }
                             return target[targetedMethName].apply(target, args);
                         }
                     };

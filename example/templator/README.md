@@ -2,8 +2,9 @@
 # Templator
 
 This example show how to extends the `script` element in order to compile its content on the fly.
-The live example is available [there][ceb examples].
 The underlying custom element defined by this example has been unit tested.
+
+The live example is alive [there][live-templator].
 
 ## From `script` to `ceb-templator`
 

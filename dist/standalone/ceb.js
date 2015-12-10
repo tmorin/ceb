@@ -1140,7 +1140,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    var target = el.querySelector(data.selector);
 	                    if ((0, _types.isFunction)(target[targetedMethName])) {
 	                        var args = (0, _converters.toArray)(arguments);
-	                        args.shift();
+	                        if (!fieldBuilderData.native) {
+	                            args.shift();
+	                        }
 	                        return target[targetedMethName].apply(target, args);
 	                    }
 	                };
@@ -1452,6 +1454,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 
 	        /**
+	         * Skip the custom element instance as first argument.
+	         * It's required when playing with native method with delegration or wrapping.
+	         * @returns {MethodBuilder} the builder
+	         */
+
+	    }, {
+	        key: 'native',
+	        value: function native() {
+	            this.data.native = true;
+	            return this;
+	        }
+
+	        /**
 	         * Logic of the builder.
 	         * @param {!ElementBuilder.context.proto} proto the prototype
 	         * @param {!ElementBuilder.on} on the method on
@@ -1464,7 +1479,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            if (data.invoke) {
 	                proto[data.methName] = function () {
-	                    return data.invoke.apply(this, [this].concat((0, _converters.toArray)(arguments)));
+	                    var args = (0, _converters.toArray)(arguments);
+	                    if (!data.native) {
+	                        args = [this].concat(args);
+	                    }
+	                    return data.invoke.apply(this, args);
 	                };
 	            }
 
@@ -1476,12 +1495,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                original = el[data.methName],
 	                                target = function target() {
 	                                var args = (0, _converters.toArray)(arguments);
-	                                args.shift();
+	                                if (!data.native) {
+	                                    args.shift();
+	                                }
 	                                original.apply(el, args);
 	                            };
 	                            el[data.methName] = data.wrappers.reduce(function (next, current, index) {
 	                                if (index === lastIndex) {
-	                                    return (0, _functions.bind)((0, _functions.partial)(current, next, el), el);
+	                                    return (0, _functions.bind)(data.native ? (0, _functions.partial)(current, next) : (0, _functions.partial)(current, next, el), el);
 	                                }
 	                                return (0, _functions.bind)((0, _functions.partial)(current, next), el);
 	                            }, target);

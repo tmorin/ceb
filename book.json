@@ -1,17 +1,28 @@
 {
   "gitbook": "2.5.2",
-  "title": "ceb - custom-element-builder",
+  "title": "ceb custom-element-builder",
   "structure": {
     "summary": "doc/README.md"
   },
   "plugins": [
     "prism",
     "-highlight",
-    "github"
+    "github",
+    "ga",
+    "sitemap"
   ],
   "pluginsConfig": {
     "github": {
       "url": "https://github.com/tmorin/ceb/"
+    },
+    "ga": {
+      "token": "UA-20179310-5",
+      "configuration": {
+        "cookieDomain": "tmorin.github.io"
+      }
+    },
+    "sitemap":{
+      "hostname": "https://tmorin.github.io/ceb/"
     }
   }
 }

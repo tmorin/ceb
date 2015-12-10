@@ -1,7 +1,7 @@
 {% include "/doc/_urls.md" %}
 # baconify
 
-It's goal is to provide an easy way to play [baconjs'] streams.
+It's goal is to provide an easy way to play [baconjs] streams.
 The streams are created from the builders `attribute` and `on`.
 
 This builder is used by the [Address selector](../address-selector/README.md) example.

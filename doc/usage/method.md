@@ -37,3 +37,22 @@ element()
     )
     .register('ceb-example');
 ```
+
+## Handling native method
+
+Some times, the custom element instance as first argument is problematic
+when dealing with delegation and wrapping on native method.
+
+The modifier `native()` skip it, handling arguments as given by the invocation.
+
+```javascript
+import {element, attribute} from 'ceb';
+element()
+    .builders(
+        method('meth1')
+            .native()
+            .invoke(name => `Hello ${name}! from ceb-example}`)
+            .wrap((next, name) => next(name.toTrim()).toUpperCase())
+    )
+    .register('ceb-example');
+```

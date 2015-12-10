@@ -11,7 +11,7 @@
 It's core is a builder which executes others builders.
 By this way, `<ceb/>` is natively opened to extensions and builders easily sharable. 
 
-Obviously, `<ceb/>` exposes builders and helpers to handle the common needs:
+Obviously, `<ceb/>` exposes builders and helpers handling the common needs:
 
 - property
 - attribute
