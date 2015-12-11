@@ -13,7 +13,7 @@ $.support.cors = true;
  * @returns {Bacon.EventStream} the stream of places
  */
 function getPlaces(query) {
-    return !query ? once(null) : fromPromise($.ajax('http://nominatim.openstreetmap.org/search', {
+    return !query ? once(null) : fromPromise($.ajax('//nominatim.openstreetmap.org/search', {
         crossDomain: true,
         dataType: 'json',
         method: 'GET',
