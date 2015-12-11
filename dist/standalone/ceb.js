@@ -652,9 +652,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'build',
 	        value: function build(proto, on) {
-	            var _this = this;
-
-	            var defaultValue = (0, _objects.result)(this.data, 'value'),
+	            var data = this.data,
+	                defaultValue = (0, _objects.result)(this.data, 'value'),
 	                descriptor = {
 	                enumerable: this.data.enumerable,
 	                configurable: false,
@@ -662,27 +661,27 @@ return /******/ (function(modules) { // webpackBootstrap
 	                set: this.data.setterFactory(this.data.attrName, this.data.boolean)
 	            };
 
-	            if (this.data.bound) {
-	                Object.defineProperty(proto, this.data.propName, descriptor);
+	            if (data.bound) {
+	                Object.defineProperty(proto, data.propName, descriptor);
 	            }
 
 	            on('after:createdCallback').invoke(function (el) {
-	                if (_this.data.bound) {
-	                    var attrValue = getAttValue(el, _this.data.attrName, _this.data.boolean);
-	                    if (_this.data.boolean) {
-	                        el[_this.data.propName] = !!defaultValue ? defaultValue : attrValue;
+	                if (data.bound) {
+	                    var attrValue = getAttValue(el, data.attrName, data.boolean);
+	                    if (data.boolean) {
+	                        el[data.propName] = !!defaultValue ? defaultValue : attrValue;
 	                    } else if (!(0, _types.isNull)(attrValue) && !(0, _types.isUndefined)(attrValue)) {
-	                        el[_this.data.propName] = attrValue;
+	                        el[data.propName] = attrValue;
 	                    } else if (!(0, _types.isUndefined)(defaultValue)) {
-	                        el[_this.data.propName] = defaultValue;
+	                        el[data.propName] = defaultValue;
 	                    }
 	                }
-	                if (_this.data.listeners.length > 0) {
+	                if (data.listeners.length > 0) {
 	                    (function () {
-	                        var oldValue = _this.data.boolean ? false : null;
-	                        var setValue = el[_this.data.propName];
+	                        var oldValue = data.boolean ? false : null;
+	                        var setValue = el[data.propName];
 	                        if (oldValue !== setValue) {
-	                            _this.data.listeners.forEach(function (listener) {
+	                            data.listeners.forEach(function (listener) {
 	                                return listener.call(el, el, oldValue, setValue);
 	                            });
 	                        }
@@ -692,19 +691,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            on('before:attributeChangedCallback').invoke(function (el, attName, oldVal, newVal) {
 	                // Synchronize the attribute value with its properties
-	                if (attName === _this.data.attrName) {
-	                    if (_this.data.bound) {
-	                        var newValue = _this.data.boolean ? newVal === '' : newVal;
-	                        if (el[_this.data.propName] !== newValue) {
-	                            el[_this.data.propName] = newValue;
+	                if (attName === data.attrName) {
+	                    if (data.bound) {
+	                        var newValue = data.boolean ? newVal === '' : newVal;
+	                        if (el[data.propName] !== newValue) {
+	                            el[data.propName] = newValue;
 	                        }
 	                    }
-	                    if (_this.data.listeners.length > 0) {
+	                    if (data.listeners.length > 0) {
 	                        (function () {
-	                            var oldValue = _this.data.boolean ? oldVal === '' : oldVal;
-	                            var setValue = _this.data.boolean ? newVal === '' : newVal;
+	                            var oldValue = data.boolean ? oldVal === '' : oldVal;
+	                            var setValue = data.boolean ? newVal === '' : newVal;
 	                            if (oldValue !== setValue) {
-	                                _this.data.listeners.forEach(function (listener) {
+	                                data.listeners.forEach(function (listener) {
 	                                    return listener.call(el, el, oldValue, setValue);
 	                                });
 	                            }
