@@ -36,7 +36,7 @@
 [live]: https://tmorin.github.io/ceb/live
 [live-address-selector]: https://tmorin.github.io/ceb/live/address-selector.html
 [live-form]: https://tmorin.github.io/ceb/live/form.html
-[live-gird]: https://tmorin.github.io/ceb/live/grid.html
+[live-grid]: https://tmorin.github.io/ceb/live/grid.html
 [live-list]: https://tmorin.github.io/ceb/live/list.html
 [live-list-plusplus]: https://tmorin.github.io/ceb/live/list-plusplus.html
 [live-templator]: https://tmorin.github.io/ceb/live/templator.html
