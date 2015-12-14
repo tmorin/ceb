@@ -91,8 +91,6 @@
     "file-loader": "^0.8.5",
     "form-serializer": "^2.5.0",
     "gitbook-cli": "^1.0.0",
-    "gitbook-plugin-ga": "^1.0.1",
-    "gitbook-plugin-sitemap": "^1.1.0",
     "gulp": "^3.9.0",
     "gulp-gh-pages": "^0.5.4",
     "gulp-zip": "^3.0.2",
