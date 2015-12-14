@@ -5,3 +5,7 @@
 /bower*
 /circle*
 /package*
+/webpack*
+/karma*
+/gulp*
+/esdoc*

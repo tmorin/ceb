@@ -1,5 +1,5 @@
 {
-  "gitbook": "2.5.2",
+  "gitbook": "2.5.x",
   "title": "ceb custom-element-builder",
   "structure": {
     "summary": "doc/README.md"
