@@ -37,6 +37,7 @@
     * [Templator](/example/templator/README.md)
   * Apps
     * [Todo App](/example/todo-app/README.md)
+* [Testing](/doc/testing/README.md)
 * [API](https://tmorin.github.io/ceb/api)
 * [Contributing](/CONTRIBUTING.md)
 * [Change Log](/CHANGELOG.md)

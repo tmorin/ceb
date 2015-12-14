@@ -58,9 +58,9 @@ describe('ceb-form, () => {
 });
 ```
 
-Every looks good, except the following line: `setTimeout(() => done(), 100);`.
+Every thing looks good, except the following line: `setTimeout(() => done(), 100);`.
 Basically: it's ugly.
-However it's necessary because the custom elements are created asynchronously according to the native and/or polyfill implementations.
+However it's necessary because the custom elements are created synchronously or asynchronously according to the native and/or polyfill implementations.
 Presently, it's difficult and maybe impossible to know when the custom elements are really _ready_.
 
 ## Dealing with events
@@ -80,4 +80,8 @@ it('should prevent submit event', (done) => {
     dispatchMouseEvent(submitBtn, 'click');
 });
 ```
+There the _click_ event dispatched from the button will trigger the submit event from the _form_.
+
+`dispatchMouseEvent()` is an utility function provided by `<ceb/>`, helping to create and dispatch mouse events.
+`dispatchCustomEvent()` and `dispatchHtmlEvent()` are also available.
 
