@@ -163,4 +163,20 @@ cebFormBuilder.builders(
     })
 );
 
+function getPathValue(object, path) {
+}
+cebFormBuilder.builders(
+    property('valueAsObject').setter((el, object) => {
+        el.elementsAsArray.map(formControl => formControl.name).filter(name => name).forEach(function (path) {
+            let pathValue = getPathValue(object, path);
+            updateFormControlValue(el.querySelector(`[name="${path}"]`), pathValue);
+        });
+    }).getter(el => {
+        return el.elementsAsArray.map(formControl => formControl.name).filter(name => name).reduce((object, path) => {
+            let formControlValue = getFormControlValue(el.querySelector(`[name="${path}"]`));
+            setPathValue(object, path, formControlValue);
+        }, {});
+    })
+);
+
 export default cebFormBuilder.register('ceb-form');

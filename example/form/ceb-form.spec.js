@@ -14,8 +14,13 @@ describe('ceb-form', () => {
         document.body.appendChild((sandbox = document.createElement('div')));
         sandbox.innerHTML = `
             <form is="ceb-form" prevent-submit>
-                <input name="prop1" value="value1">
-                <input name="prop2" value="value2">
+                <input name="person[fullname]" value="fullname">
+                <input name="person[email][0]" value="email1@email.com">
+                <input name="person[email][1]" value="email2@email.com">
+                <input name="person[address][street]" value="street">
+                <input name="person[address][postalCode]" value="postal code">
+                <input name="person[address][city]" value="city">
+                <input name="person[address][country]" value="country">
                 <button type="submit"></button>
                 <button type="reset"></button>
             </form>
