@@ -4,7 +4,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
     var isString, isFunction, partial, bind, toArray, flatten, invoke, _createClass, LIFECYCLE_CALLBACKS, LIFECYCLE_EVENTS, ElementBuilder;
 
     function _typeof(obj) {
-        return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
+        return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj;
     }
 
     function _classCallCheck(instance, Constructor) {
