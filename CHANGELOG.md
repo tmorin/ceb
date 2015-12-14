@@ -1,5 +1,7 @@
 # Change log
 
+## 0.7.x
+
 ## 0.6.x
 - improve method builder with the modifier `native()`
 - improve helpers with events utilities, `dispatchCustomEvent()`, `dispatchMouseEvent()`, `dispatchHtmlEvent()`
