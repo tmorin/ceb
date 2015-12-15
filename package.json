@@ -89,7 +89,6 @@
     "esdoc": "^0.4.3",
     "esdoc-importpath-plugin": "0.0.1",
     "file-loader": "^0.8.5",
-    "form-serializer": "^2.5.0",
     "gitbook-cli": "^1.0.0",
     "gulp": "^3.9.0",
     "gulp-gh-pages": "^0.5.4",
