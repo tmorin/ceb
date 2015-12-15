@@ -1,6 +1,8 @@
 # Change log
 
 ## 0.7.x
+- review npm and bower packages content
+- clean and upgrade dependencies
 
 ## 0.6.x
 - improve method builder with the modifier `native()`
