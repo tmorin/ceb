@@ -41,11 +41,10 @@
     "/.*",
     "/example",
     "/test",
-    "/circle.*",
-    "/esdoc.*",
-    "/Gruntfile.*",
-    "/gulpfile.*",
-    "/karma.*",
-    "/webpack.*"
+    "/circle*",
+    "/esdoc*",
+    "/gulp*",
+    "/karma*",
+    "/webpack*"
   ]
 }

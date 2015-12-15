@@ -1,11 +1,10 @@
 /.*
-/build
 /src
 /test
 /bower*
 /circle*
+/esdoc*
+/gulp*
+/karma*
 /package*
 /webpack*
-/karma*
-/gulp*
-/esdoc*

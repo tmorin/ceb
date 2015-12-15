@@ -4,6 +4,10 @@
 /_book
 /example
 /test
-/bower.*
-/circle.*
-/build
+/book*
+/bower*
+/circle*
+/esdoc*
+/gulp*
+/karma*
+/webpack*
