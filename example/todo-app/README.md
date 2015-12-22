@@ -11,7 +11,7 @@ Its integration is handled by the custom builder [idomify](../builders/idomify.m
 
 The live example is alive [there][live-todo-app].
 
-# Logic
+## Logic
 
 According to the [redux's TodoList example], the logic is split into three files:
 
@@ -19,7 +19,7 @@ According to the [redux's TodoList example], the logic is split into three files
 * `reducers.js`: contains the reducers __todos__  and __visibilityFilter__
 * `store.js`: create and expose the redux' store
 
-# UI
+## UI
 
 The UI part is split into small custom elements. The dependencies are describes below:
 
@@ -29,5 +29,3 @@ The UI part is split into small custom elements. The dependencies are describes 
   * `todo-clear-completed`
   * `todo-list`
     * `todo-list-item`
-
-[redux's TodoList example]: http://rackt.github.io/redux/docs/basics/ExampleTodoList.html

@@ -23,7 +23,8 @@ config.entry = {
     'grid': './example/grid/index.js',
     'templator': './example/templator/index.js',
     'form': './example/form/index.js',
-    'todo-app': './example/todo-app/index.js'
+    'todo-app': './example/todo-app/index.js',
+    'weather-app': './example/weather-app/index.js'
 };
 
 config.output = {

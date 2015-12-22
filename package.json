@@ -117,6 +117,8 @@
     "karma-sinon-chai": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.6",
     "karma-webpack": "^1.7.0",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.2",
     "mocha": "^2.2.5",
     "ncp": "^2.0.0",
     "phantomjs": "^1.9.18",

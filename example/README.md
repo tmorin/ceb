@@ -1,7 +1,8 @@
 {% include "/doc/_urls.md" %}
 # Example
 
-`<ceb/>` is shipped with several examples.  They are alive [there][live].
+`<ceb/>` is shipped with several examples.
+They are alive [there][live].
 
 ## Builders
 
@@ -24,3 +25,4 @@ Even if the `<ceb/>` examples show how to use the built-in functionality, they a
 ## Apps
 
 * [Todo App](todo-app/README.md)
+* [Weather App](weather-app/README.md)

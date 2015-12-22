@@ -1,0 +1,51 @@
+@import (reference) 'https://erikflowers.github.io/weather-icons/css/weather-icons.css';
+@import (reference) 'https://erikflowers.github.io/weather-icons/css/weather-icons-wind.css';
+
+weather-app {
+    display: block;
+}
+
+weather-place-finder,
+weather-units-switcher,
+weather-toolbar {
+    display: inline-block;
+    vertical-align: top;
+}
+
+weather-locations {
+    display: block;
+}
+
+weather-location {
+    display: block;
+    .thumbnail {
+        display: block;
+    }
+    hr {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+    .lead:not(header) {
+        margin-bottom: 0;
+    }
+}
+
+weather-location-clouds,
+weather-location-humidity,
+weather-location-pressure,
+weather-location-rain,
+weather-location-snow,
+weather-location-sunrise,
+weather-location-sunset,
+weather-location-temperature,
+weather-location-value,
+weather-location-wind {
+    display: block;
+}
+
+weather-location-value {
+    text-align: center;
+    & > strong {
+        display: block;
+    }
+}

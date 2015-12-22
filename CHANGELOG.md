@@ -1,6 +1,8 @@
 # Change log
 
 ## 0.7.x
+- add listeners on properties
+- add weather-app example
 - review npm and bower packages content
 - clean and upgrade dependencies
 

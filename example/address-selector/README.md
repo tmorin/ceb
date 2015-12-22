@@ -2,7 +2,7 @@
 # Address selector
 
 The goal of this example is to create an auto-complete input element
-fetching data from a remote web services: http://nominatim.openstreetmap.org.
+fetching data from a remote web services: [nominatim].
 
 The design part is handled by [bootstrap].
 The complexity is tackled using the functional paradigm given by [baconjs].
