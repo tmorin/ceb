@@ -47,7 +47,8 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                     _classCallCheck(this, PropertyBuilder);
 
                     this.data = assign({
-                        propName: propName
+                        propName: propName,
+                        listeners: []
                     }, DEFAULT_DATA);
                 }
 
@@ -84,10 +85,14 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                         return this;
                     }
                 }, {
+                    key: 'listen',
+                    value: function listen(listener) {
+                        this.data.listeners.push(listener);
+                        return this;
+                    }
+                }, {
                     key: 'build',
                     value: function build(proto, on) {
-                        var _this = this;
-
                         var data = this.data,
                             defaultValue = result(this.data, 'value'),
                             descriptor = {
@@ -101,24 +106,60 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                             descriptor.configurable = false;
 
                             descriptor.get = function () {
-                                return data.getter.call(this, this);
+                                if (data.getter) {
+                                    return data.getter.call(this, this);
+                                }
                             };
 
                             descriptor.set = function (value) {
-                                return data.setter.call(this, this, value);
+                                if (data.setter) {
+                                    return data.setter.call(this, this, value);
+                                }
                             };
                         } else {
                             descriptor.configurable = true;
                             descriptor.writable = true;
                         }
 
-                        if (this.data.descriptorValue) {
+                        if (data.listeners.length > 0) {
+                            (function () {
+                                descriptor.configurable = false;
+                                delete descriptor.writable;
+                                data.descriptorValue = false;
+
+                                var _propName = '_' + data.propName;
+
+                                if (!descriptor.get) {
+                                    descriptor.get = function () {
+                                        return this[_propName];
+                                    };
+                                }
+
+                                descriptor.set = function (newVal) {
+                                    var _this = this;
+
+                                    var oldVal = this[_propName];
+
+                                    if (data.setter) {
+                                        data.setter.call(this, this, newVal);
+                                    } else {
+                                        this[_propName] = newVal;
+                                    }
+
+                                    data.listeners.forEach(function (listener) {
+                                        listener.call(_this, _this, oldVal, newVal);
+                                    });
+                                };
+                            })();
+                        }
+
+                        if (data.descriptorValue) {
                             descriptor.value = defaultValue;
                         }
 
                         Object.defineProperty(proto, this.data.propName, descriptor);
                         on('after:createdCallback').invoke(function (el) {
-                            if (!_this.data.descriptorValue && !isUndefined(defaultValue)) {
+                            if (!data.descriptorValue && !isUndefined(defaultValue)) {
                                 el[data.propName] = defaultValue;
                             }
                         });

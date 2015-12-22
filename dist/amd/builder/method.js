@@ -32,25 +32,14 @@ define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/co
     })();
 
     var MethodBuilder = exports.MethodBuilder = (function () {
-
-        /**
-         * @param {!string} methName the name of the method
-         */
-
         function MethodBuilder(methName) {
             _classCallCheck(this, MethodBuilder);
 
-            /**
-             * @ignore
-             */
-            this.data = { methName: methName, wrappers: [] };
+            this.data = {
+                methName: methName,
+                wrappers: []
+            };
         }
-
-        /**
-         * To do something when invoked.
-         * @param {!function(el: HTMLElement, args: ...*)} fn the method's logic
-         * @returns {MethodBuilder} the builder
-         */
 
         _createClass(MethodBuilder, [{
             key: 'invoke',
@@ -58,15 +47,9 @@ define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/co
                 if ((0, _types.isFunction)(fn)) {
                     this.data.invoke = fn;
                 }
+
                 return this;
             }
-
-            /**
-             * To do something around the invocation.
-             * @param {...function(el: HTMLElement, args: ...*)} wrappers a set of wrappers
-             * @returns {MethodBuilder} the builder
-             */
-
         }, {
             key: 'wrap',
             value: function wrap() {
@@ -77,26 +60,12 @@ define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/co
                 this.data.wrappers = this.data.wrappers.concat(wrappers);
                 return this;
             }
-
-            /**
-             * Skip the custom element instance as first argument.
-             * It's required when playing with native method with delegration or wrapping.
-             * @returns {MethodBuilder} the builder
-             */
-
         }, {
             key: 'native',
             value: function native() {
                 this.data.native = true;
                 return this;
             }
-
-            /**
-             * Logic of the builder.
-             * @param {!ElementBuilder.context.proto} proto the prototype
-             * @param {!ElementBuilder.on} on the method on
-             */
-
         }, {
             key: 'build',
             value: function build(proto, on) {
@@ -105,9 +74,11 @@ define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/co
                 if (data.invoke) {
                     proto[data.methName] = function () {
                         var args = (0, _converters.toArray)(arguments);
+
                         if (!data.native) {
                             args = [this].concat(args);
                         }
+
                         return data.invoke.apply(this, args);
                     };
                 }
@@ -120,15 +91,19 @@ define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/co
                                     original = el[data.methName],
                                     target = function target() {
                                     var args = (0, _converters.toArray)(arguments);
+
                                     if (!data.native) {
                                         args.shift();
                                     }
+
                                     original.apply(el, args);
                                 };
+
                                 el[data.methName] = data.wrappers.reduce(function (next, current, index) {
                                     if (index === lastIndex) {
                                         return (0, _functions.bind)(data.native ? (0, _functions.partial)(current, next) : (0, _functions.partial)(current, next, el), el);
                                     }
+
                                     return (0, _functions.bind)((0, _functions.partial)(current, next), el);
                                 }, target);
                             })();

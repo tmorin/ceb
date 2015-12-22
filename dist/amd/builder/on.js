@@ -70,27 +70,14 @@ define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/co
     })();
 
     var OnBuilder = exports.OnBuilder = (function () {
-
-        /**
-         * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
-         */
-
         function OnBuilder(events) {
             _classCallCheck(this, OnBuilder);
 
-            /**
-             * @ignore
-             */
-            this.data = { events: events, invoke: _functions.noop };
+            this.data = {
+                events: events,
+                invoke: _functions.noop
+            };
         }
-
-        /**
-         * To do something when events occurred.
-         * The target argument is by default the custom element.
-         * When the delegate feature is used, target is the matched element.
-         * @param {!function(el: HTMLElement, evt: DOMEvent, target: HTMLElement)} fn the event's logic
-         * @returns {OnBuilder} the builder
-         */
 
         _createClass(OnBuilder, [{
             key: 'invoke',
@@ -98,75 +85,38 @@ define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/co
                 if ((0, _types.isFunction)(fn)) {
                     this.data.invoke = fn;
                 }
+
                 return this;
             }
-
-            /**
-             * To attach the event on the capture phase insteadof of on the bubble phase.
-             * @returns {OnBuilder} the builder
-             */
-
         }, {
             key: 'capture',
             value: function capture() {
                 this.data.capture = true;
                 return this;
             }
-
-            /**
-             * To delegate the event.
-             * @param {!string} selector the selector
-             * @returns {OnBuilder} the builder
-             */
-
         }, {
             key: 'delegate',
             value: function delegate(selector) {
                 this.data.selector = selector;
                 return this;
             }
-
-            /**
-             * To prevent the default behavior.
-             * @returns {OnBuilder} the builder
-             */
-
         }, {
             key: 'prevent',
             value: function prevent() {
                 this.data.preventDefault = true;
                 return this;
             }
-
-            /**
-             * To stop the event propagation.
-             * @returns {OnBuilder} the builder
-             */
-
         }, {
             key: 'stop',
             value: function stop() {
                 this.data.stopPropagation = true;
                 return this;
             }
-
-            /**
-             * To prevent the default behavior and to stop the event propagation.
-             * @returns {OnBuilder} the builder
-             */
-
         }, {
             key: 'skip',
             value: function skip() {
                 return this.prevent().stop();
             }
-
-            /**
-             * Logic of the builder.
-             * @param {!ElementBuilder.context.proto} proto the prototype
-             * @param {!ElementBuilder.on} on the method on
-             */
-
         }, {
             key: 'build',
             value: function build(proto, on) {
@@ -178,33 +128,36 @@ define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/co
                     selector = this.data.selector,
                     stopPropagation = this.data.stopPropagation,
                     preventDefault = this.data.preventDefault;
-
                 on('before:createdCallback').invoke(function (el) {
                     el._cebOnHandlers = [];
                 });
-
                 on('before:attachedCallback').invoke(function (el) {
                     var listener = function listener(evt) {
                         if (selector) {
                             var target = (0, _converters.toArray)(el.querySelectorAll(selector)).filter(function (el) {
                                 return el === evt.target || el.contains(evt.target);
                             })[0];
+
                             if (target) {
                                 if (stopPropagation) {
                                     evt.stopPropagation();
                                 }
+
                                 if (preventDefault) {
                                     evt.preventDefault();
                                 }
+
                                 invoke(el, evt, target);
                             }
                         } else {
                             if (stopPropagation) {
                                 evt.stopPropagation();
                             }
+
                             if (preventDefault) {
                                 evt.preventDefault();
                             }
+
                             invoke(el, evt, el);
                         }
                     };
@@ -226,7 +179,6 @@ define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/co
 
                         var name = _ref6[0];
                         var target = _ref6[1];
-
                         target.addEventListener(name, listener, capture);
                         return [target, name, listener, capture];
                     });
@@ -241,7 +193,6 @@ define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/co
                         return target.addEventListener(name, listener, capture);
                     });
                 });
-
                 on('before:detachedCallback').invoke(function (el) {
                     el._cebOnHandlers.forEach(function (_ref9) {
                         var _ref10 = _slicedToArray(_ref9, 4);

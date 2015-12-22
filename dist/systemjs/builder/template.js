@@ -1,7 +1,7 @@
 'use strict';
 
 System.register(['../helper/types.js', './property.js'], function (_export) {
-    var isFunction, PropertyBuilder, _createClass, counter, OLD_CONTENT_ID_ATTR_NAME, CONTENT_ATTR_REG_EX, CONTENT_NODE_REG_EX, TemplateBuilder;
+    var isFunction, property, _createClass, counter, OLD_CONTENT_ID_ATTR_NAME, CONTENT_ATTR_REG_EX, CONTENT_NODE_REG_EX, TemplateBuilder;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -50,7 +50,7 @@ System.register(['../helper/types.js', './property.js'], function (_export) {
         setters: [function (_helperTypesJs) {
             isFunction = _helperTypesJs.isFunction;
         }, function (_propertyJs) {
-            PropertyBuilder = _propertyJs.PropertyBuilder;
+            property = _propertyJs.property;
         }],
         execute: function () {
             _createClass = (function () {
@@ -109,7 +109,7 @@ System.register(['../helper/types.js', './property.js'], function (_export) {
                     key: 'build',
                     value: function build(proto, on) {
                         var data = this.data;
-                        new PropertyBuilder('lightDOM').getter(function (el) {
+                        property('lightDOM').getter(function (el) {
                             return findContentNode(el);
                         }).build(proto, on);
                         on('before:createdCallback').invoke(function (el) {
