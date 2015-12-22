@@ -50,6 +50,15 @@ describe('ceb.property()', function () {
         expect(setter).to.have.been.calledWith(el, 'value');
     });
 
+    it('should listen property set', () => {
+        var listener = sinon.spy();
+        builder.builders(property('prop1').value('value').listen(listener)).register('test-accessor-listen');
+        var el = document.createElement('test-accessor-listen');
+        expect(listener).to.have.been.calledWith(el, undefined, 'value');
+        el.prop1 = 'value bis';
+        expect(listener).to.have.been.calledWith(el, 'value', 'value bis');
+    });
+
     it('should hide property', () => {
         var propBuilder = property('prop1').value('value').hidden();
         expect(propBuilder.data.enumerable).to.be.false;

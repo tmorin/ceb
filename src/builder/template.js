@@ -1,5 +1,5 @@
 import {isFunction} from '../helper/types.js';
-import {PropertyBuilder} from './property.js';
+import {property} from './property.js';
 
 /**
  * The counter is used to generate unique DOM's id.
@@ -133,7 +133,7 @@ export class TemplateBuilder {
     build(proto, on) {
         let data = this.data;
 
-        (new PropertyBuilder('lightDOM')).getter(el => findContentNode(el)).build(proto, on);
+        property('lightDOM').getter(el => findContentNode(el)).build(proto, on);
 
         on('before:createdCallback').invoke(el => {
             applyTemplate(el, isFunction(data.tpl) ? data.tpl(el) : data.tpl);

@@ -20,7 +20,7 @@ export class PropertyBuilder {
         /**
          * @ignore
          */
-        this.data = assign({propName}, DEFAULT_DATA);
+        this.data = assign({propName, listeners: []}, DEFAULT_DATA);
     }
 
     /**
@@ -74,6 +74,16 @@ export class PropertyBuilder {
     }
 
     /**
+     * To be notified when the property is updated.
+     * @param {function(el: HTMLElement, oldVal: *, newVal: *)} listener the listener function
+     * @returns {PropertyBuilder} the builder
+     */
+    listen(listener) {
+        this.data.listeners.push(listener);
+        return this;
+    }
+
+    /**
      * Logic of the builder.
      * @param {!ElementBuilder.context.proto} proto the prototype
      * @param {!ElementBuilder.on} on the method on
@@ -91,24 +101,51 @@ export class PropertyBuilder {
         } else if (isFunction(this.data.getter) || isFunction(this.data.setter)) {
             descriptor.configurable = false;
             descriptor.get = function () {
-                return data.getter.call(this, this);
+                if (data.getter) {
+                    return data.getter.call(this, this);
+                }
             };
             descriptor.set = function (value) {
-                return data.setter.call(this, this, value);
+                if (data.setter) {
+                    return data.setter.call(this, this, value);
+                }
             };
         } else {
             descriptor.configurable = true;
             descriptor.writable = true;
         }
 
-        if (this.data.descriptorValue) {
+        if (data.listeners.length > 0) {
+            descriptor.configurable = false;
+            delete descriptor.writable;
+            data.descriptorValue = false;
+            let _propName = '_' + data.propName;
+            if (!descriptor.get) {
+                descriptor.get = function () {
+                    return this[_propName];
+                };
+            }
+            descriptor.set = function (newVal) {
+                let oldVal = this[_propName];
+                if (data.setter) {
+                    data.setter.call(this, this, newVal);
+                } else {
+                    this[_propName] = newVal;
+                }
+                data.listeners.forEach(listener => {
+                    listener.call(this, this, oldVal, newVal);
+                });
+            };
+        }
+
+        if (data.descriptorValue) {
             descriptor.value = defaultValue;
         }
 
         Object.defineProperty(proto, this.data.propName, descriptor);
 
         on('after:createdCallback').invoke(el => {
-            if (!this.data.descriptorValue && !isUndefined(defaultValue)) {
+            if (!data.descriptorValue && !isUndefined(defaultValue)) {
                 el[data.propName] = defaultValue;
             }
         });
