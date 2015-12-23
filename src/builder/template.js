@@ -76,22 +76,12 @@ function cleanOldContentNode(el) {
 }
 
 /**
- * Add the given DOM nodes list to the given element.
- * @param {!HTMLElement} el the custom element
- * @param {DocumentFragment} lightFrag the light DOM fragment
- */
-function fillNewContentNode(el, lightFrag) {
-    el.lightDOM.appendChild(lightFrag);
-}
-
-/**
  * Apply the template to the element.
  * @param {!HTMLElement} el the custom element
  * @param {!string} tpl the template
  */
 export function applyTemplate(el, tpl) {
-    let lightFrag = [],
-        handleContentNode = hasContent(tpl);
+    let lightFrag, handleContentNode = hasContent(tpl);
 
     if (handleContentNode) {
         let newCebContentId = 'ceb-content-' + counter++;
@@ -104,8 +94,8 @@ export function applyTemplate(el, tpl) {
 
     el.innerHTML = tpl;
 
-    if (handleContentNode) {
-        fillNewContentNode(el, lightFrag);
+    if (handleContentNode && lightFrag) {
+        el.lightDOM.appendChild(lightFrag);
     }
 }
 
