@@ -105,7 +105,7 @@ At runtime the custom element could be like that:
 
 ## Add validation concept
 
-Being close to the [HTML5 form][HTML5-form], `ceb-form` provides two methods:
+Being close to the [HTML5 form], `ceb-form` provides two methods:
 
 - `checkValidity()`
 - `reportValidity()`
