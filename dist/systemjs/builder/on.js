@@ -134,7 +134,9 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                             stopPropagation = this.data.stopPropagation,
                             preventDefault = this.data.preventDefault;
                         on('before:createdCallback').invoke(function (el) {
-                            el._cebOnHandlers = [];
+                            if (!el.__cebOnHandlers) {
+                                el.__cebOnHandlers = [];
+                            }
                         });
                         on('before:attachedCallback').invoke(function (el) {
                             var listener = function listener(evt) {
@@ -167,7 +169,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                                 }
                             };
 
-                            el._cebOnHandlers = events.map(function (_ref) {
+                            el.__cebOnHandlers = events.map(function (_ref) {
                                 var _ref2 = _slicedToArray(_ref, 2);
 
                                 var name = _ref2[0];
@@ -188,7 +190,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                                 return [target, name, listener, capture];
                             });
 
-                            el._cebOnHandlers.forEach(function (_ref7) {
+                            el.__cebOnHandlers.forEach(function (_ref7) {
                                 var _ref8 = _slicedToArray(_ref7, 4);
 
                                 var target = _ref8[0];
@@ -199,7 +201,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                             });
                         });
                         on('before:detachedCallback').invoke(function (el) {
-                            el._cebOnHandlers.forEach(function (_ref9) {
+                            el.__cebOnHandlers.forEach(function (_ref9) {
                                 var _ref10 = _slicedToArray(_ref9, 4);
 
                                 var target = _ref10[0];

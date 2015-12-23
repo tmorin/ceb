@@ -134,7 +134,7 @@
                         delete descriptor.writable;
                         data.descriptorValue = false;
 
-                        var _propName = '_' + data.propName;
+                        var _propName = '__' + data.propName + 'LastSetValue';
 
                         if (!descriptor.get) {
                             descriptor.get = function () {
@@ -146,11 +146,10 @@
                             var _this = this;
 
                             var oldVal = this[_propName];
+                            this[_propName] = newVal;
 
                             if (data.setter) {
                                 data.setter.call(this, this, newVal);
-                            } else {
-                                this[_propName] = newVal;
                             }
 
                             data.listeners.forEach(function (listener) {

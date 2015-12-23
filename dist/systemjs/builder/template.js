@@ -42,10 +42,6 @@ System.register(['../helper/types.js', './property.js'], function (_export) {
         return lightFrag;
     }
 
-    function fillNewContentNode(el, lightFrag) {
-        el.lightDOM.appendChild(lightFrag);
-    }
-
     return {
         setters: [function (_helperTypesJs) {
             isFunction = _helperTypesJs.isFunction;
@@ -77,7 +73,7 @@ System.register(['../helper/types.js', './property.js'], function (_export) {
             CONTENT_NODE_REG_EX = /<content><\/content>/im;
 
             function applyTemplate(el, tpl) {
-                var lightFrag = [],
+                var lightFrag = undefined,
                     handleContentNode = hasContent(tpl);
 
                 if (handleContentNode) {
@@ -89,8 +85,8 @@ System.register(['../helper/types.js', './property.js'], function (_export) {
 
                 el.innerHTML = tpl;
 
-                if (handleContentNode) {
-                    fillNewContentNode(el, lightFrag);
+                if (handleContentNode && lightFrag) {
+                    el.lightDOM.appendChild(lightFrag);
                 }
             }
 

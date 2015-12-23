@@ -70,12 +70,8 @@ define(['exports', '../helper/types.js', './property.js'], function (exports, _t
         return lightFrag;
     }
 
-    function fillNewContentNode(el, lightFrag) {
-        el.lightDOM.appendChild(lightFrag);
-    }
-
     function applyTemplate(el, tpl) {
-        var lightFrag = [],
+        var lightFrag = undefined,
             handleContentNode = hasContent(tpl);
 
         if (handleContentNode) {
@@ -87,8 +83,8 @@ define(['exports', '../helper/types.js', './property.js'], function (exports, _t
 
         el.innerHTML = tpl;
 
-        if (handleContentNode) {
-            fillNewContentNode(el, lightFrag);
+        if (handleContentNode && lightFrag) {
+            el.lightDOM.appendChild(lightFrag);
         }
     }
 

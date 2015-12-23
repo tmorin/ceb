@@ -892,7 +892,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    descriptor.configurable = false;
 	                    delete descriptor.writable;
 	                    data.descriptorValue = false;
-	                    var _propName = '_' + data.propName;
+	                    var _propName = '__' + data.propName + 'LastSetValue';
 	                    if (!descriptor.get) {
 	                        descriptor.get = function () {
 	                            return this[_propName];
@@ -902,10 +902,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        var _this = this;
 
 	                        var oldVal = this[_propName];
+	                        this[_propName] = newVal;
 	                        if (data.setter) {
 	                            data.setter.call(this, this, newVal);
-	                        } else {
-	                            this[_propName] = newVal;
 	                        }
 	                        data.listeners.forEach(function (listener) {
 	                            listener.call(_this, _this, oldVal, newVal);
@@ -1707,7 +1706,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                preventDefault = this.data.preventDefault;
 
 	            on('before:createdCallback').invoke(function (el) {
-	                el._cebOnHandlers = [];
+	                if (!el.__cebOnHandlers) {
+	                    el.__cebOnHandlers = [];
+	                }
 	            });
 
 	            on('before:attachedCallback').invoke(function (el) {
@@ -1736,7 +1737,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                };
 
-	                el._cebOnHandlers = events.map(function (_ref) {
+	                el.__cebOnHandlers = events.map(function (_ref) {
 	                    var _ref2 = _slicedToArray(_ref, 2);
 
 	                    var name = _ref2[0];
@@ -1758,7 +1759,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    return [target, name, listener, capture];
 	                });
 
-	                el._cebOnHandlers.forEach(function (_ref7) {
+	                el.__cebOnHandlers.forEach(function (_ref7) {
 	                    var _ref8 = _slicedToArray(_ref7, 4);
 
 	                    var target = _ref8[0];
@@ -1770,7 +1771,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            });
 
 	            on('before:detachedCallback').invoke(function (el) {
-	                el._cebOnHandlers.forEach(function (_ref9) {
+	                el.__cebOnHandlers.forEach(function (_ref9) {
 	                    var _ref10 = _slicedToArray(_ref9, 4);
 
 	                    var target = _ref10[0];
@@ -1890,21 +1891,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * Add the given DOM nodes list to the given element.
-	 * @param {!HTMLElement} el the custom element
-	 * @param {DocumentFragment} lightFrag the light DOM fragment
-	 */
-	function fillNewContentNode(el, lightFrag) {
-	    el.lightDOM.appendChild(lightFrag);
-	}
-
-	/**
 	 * Apply the template to the element.
 	 * @param {!HTMLElement} el the custom element
 	 * @param {!string} tpl the template
 	 */
 	function applyTemplate(el, tpl) {
-	    var lightFrag = [],
+	    var lightFrag = undefined,
 	        handleContentNode = hasContent(tpl);
 
 	    if (handleContentNode) {
@@ -1918,8 +1910,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    el.innerHTML = tpl;
 
-	    if (handleContentNode) {
-	        fillNewContentNode(el, lightFrag);
+	    if (handleContentNode && lightFrag) {
+	        el.lightDOM.appendChild(lightFrag);
 	    }
 	}
 
