@@ -83,7 +83,7 @@ describe('ceb.attribute()', () => {
         }, 10);
     });
 
-    xit('should define listener for boolean attribute', (done) => {
+    it('should define listener for boolean attribute', (done) => {
         let listener = sinon.spy();
         builder.builders(attribute('att1').boolean().listen(listener)).register('test-listener-boolean-attribute');
         let el = document.createElement('test-listener-boolean-attribute');
