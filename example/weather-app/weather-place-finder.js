@@ -1,7 +1,9 @@
 import {
     element,
     method,
+    attribute,
     template,
+    delegate,
     on,
     dispatchCustomEvent
 } from 'ceb';
@@ -9,27 +11,41 @@ import {
 export const WeatherPlaceFinder = element().builders(
     template(`
         <weather-api></weather-api>
-        <form novalidate name="placeFinderForm" class="form-inline">
-            <input type="text"
-                class="form-control"
-                name="query"
-                placeholder="London, Delhi, paris, ..."
-                autocomplete="off">
-            <button type="submit" class="btn btn-default">search</button>
-        </form>
-        <ul></ul>
+        <div class="well">
+            <form novalidate name="placeFinderForm" class="form-inline">
+                <input type="text"
+                    class="form-control"
+                    name="query"
+                    placeholder="London, Delhi, Brasilia, ..."
+                    autocomplete="off">
+                <button type="submit" class="btn btn-default">search</button>
+            </form>
+            <div class="results"></div>
+        </div>
     `),
+
+    delegate(method('focus')).to('input[name="query"]'),
+
+    method('createdCallback').invoke(el => {
+        el.style.display = 'none';
+    }),
+
+    attribute('shown').boolean().listen((el, oldVal, newVal) => el.style.display = newVal ? '' : 'none'),
 
     on('submit').delegate('form').invoke((el, evt) => {
         evt.preventDefault();
         let query = evt.target.query.value;
         if (query.length > 2) {
-            let ul = el.querySelector('ul');
-            ul.innerHTML = 'searching ...';
+            let result = el.querySelector('.results');
+            result.innerHTML = '<ul><li>Searching ...</li></ul>';
             el.querySelector('weather-api').find(query).then(data => {
-                ul.innerHTML = '';
+                result.innerHTML = '';
 
                 let frag = document.createDocumentFragment();
+
+                let ul = document.createElement('ul');
+                frag.appendChild(ul);
+
                 data.list.filter(result => result.id > 0).map(result => {
                     let a = document.createElement('a');
                     a.textContent = `${result.name} (${result.sys.country})`;
@@ -38,15 +54,15 @@ export const WeatherPlaceFinder = element().builders(
                     let li = document.createElement('li');
                     li.appendChild(a);
                     return li;
-                }).forEach(li => frag.appendChild(li));
+                }).forEach(li => ul.appendChild(li));
 
-                if (frag.childNodes.length < 1) {
+                if (ul.childNodes.length < 1) {
                     let li = document.createElement('li');
                     li.textContent = 'No result';
-                    frag.appendChild(li);
+                    ul.appendChild(li);
                 }
 
-                ul.appendChild(frag);
+                result.appendChild(frag);
             }, xhr => {
                 if (xhr) {
                     ul.innerHTML = '<li>Unable find locations.</li>';
@@ -61,6 +77,6 @@ export const WeatherPlaceFinder = element().builders(
             detail: evt.target.getAttribute('data-locationId')
         });
         el.querySelector('form').query.value = '';
-        el.querySelector('ul').innerHTML = '';
+        el.querySelector('.results').innerHTML = '';
     })
 ).register('weather-place-finder');

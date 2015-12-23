@@ -66,7 +66,7 @@ export const WeatherLocation = element().builders(
     attribute('location-id'),
 
     property('data').listen((el, old, data) => {
-        console.log(el.tagName, 'data', data);
+        el.locationId = data.id;
 
         el.querySelector('header .name').textContent = data.name;
         el.querySelector('header .country').textContent = data.sys.country;
@@ -144,6 +144,12 @@ export const WeatherLocation = element().builders(
             }).forEach(child => rain.lightDOM.appendChild(child));
             el.querySelector('.clouds').appendChild(rain);
         }
+
+        dispatchCustomEvent(el, 'location-refreshed');
+    }),
+
+    method('attachedCallback').invoke(el => {
+        dispatchCustomEvent(el, 'location-attached');
     }),
 
     method('refresh').invoke(el => {
@@ -151,7 +157,9 @@ export const WeatherLocation = element().builders(
             el.data = data;
         }, xhr => {
             if (xhr) {
-                console.error(el.tagName, el.locationId, 'refresh', xhr);
+                if (typeof console !== 'undefined') {
+                    console.error(el.tagName, el.locationId, 'refresh', xhr);
+                }
             }
         });
     }),

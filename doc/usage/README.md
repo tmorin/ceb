@@ -3,7 +3,7 @@
 
 The entry point is the [element()](element.md) builder.
 
-Then, the following builders can be used according the use cases of the future custom element:
+Then, the following builders can be used according to the purpose of the future custom element:
 
 * [property()](property.md)
 * [attribute()](attribute.md)

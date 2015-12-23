@@ -9,6 +9,7 @@
 [mocha]: http://mochajs.org
 [karma]: http://karma-runner.github.io
 [webpack]: https://webpack.github.io
+[browserify]: http://browserify.org
 [PhantomJS]: http://phantomjs.org
 [baconjs]: https://baconjs.github.io
 [handlebarsjs]: http://handlebarsjs.com
@@ -17,7 +18,7 @@
 [redux's TodoList example]: http://rackt.github.io/redux/docs/basics/ExampleTodoList.html
 [bootstrap]: http://getbootstrap.com
 [idomizer]: https://github.com/tmorin/idomizer
-[weather-icons]: https://erikflowers.github.io/weather-icons/
+[weather-icons]: https://erikflowers.github.io/weather-icons
 
 [BDD]: https://fr.wikipedia.org/wiki/Behavior_driven_development
 
@@ -47,6 +48,10 @@
 [live-templator]: https://tmorin.github.io/ceb/live/templator.html
 [live-todo-app]: https://tmorin.github.io/ceb/live/todo-app.html
 [live-weather-app]: https://tmorin.github.io/ceb/live/weather-app.html
+[live-loader-amd]: https://tmorin.github.io/ceb/live/loader-amd.html
+[live-loader-standalone]: https://tmorin.github.io/ceb/live/loader-standalone.html
+[live-loader-systemjs]: https://tmorin.github.io/ceb/live/loader-systemjs.html
+[live-loader-umd]: https://tmorin.github.io/ceb/live/loader-umd.html
 
 [npm]: https://www.npmjs.com/package/ceb
 [bower]: http://bower.io/search/?q=ceb

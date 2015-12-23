@@ -8,3 +8,11 @@ import $ from 'jquery';
 import template from './index.html';
 
 $(() => $(template).appendTo($('#content')));
+
+$(() => {
+
+    let el = new HTMLOptionElement('', '');
+    console.log('el', el);
+    document.body.appendChild(el);
+
+});

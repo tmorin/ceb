@@ -14,9 +14,11 @@ The live example is alive [there][live-weather-app].
 
 * `weather-app`: acts as a controller
   * `todo-locations`: to handle the locations management
-    * `todo-place-finder`: to find locations 
     * `todo-units-switcher`: to change the units (metric, imperial, etc.)
     * `todo-toolbar`: useful buttons
+    * `todo-map`: to display cities on a map
+      * `todo-map-location`: to get info about a city
+    * `todo-place-finder`: to find locations
     * `todo-location`: the _card_ of a location
       * `todo-location-clouds`: info about the clouds
       * `todo-location-humidity`: info about the humidity

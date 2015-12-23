@@ -2,33 +2,42 @@ import {
     element,
     template,
     method,
+    on,
+    dispatchCustomEvent,
     toArray
 } from 'ceb';
 
 import {getLocationIds, setLocationIds} from './storage.js';
 
-function appendCard(el, data) {
-    let weatherCard = document.createElement('weather-location');
-    weatherCard.locationId = data.id;
-    weatherCard.data = data;
-    el.querySelector('.locations').appendChild(weatherCard);
+function appendFirst(parent, child) {
+    if (parent.firstChild) {
+        parent.insertBefore(child, parent.firstChild);
+    } else {
+        parent.appendChild(child);
+    }
 }
 
 export const WeatherLocations = element().builders(
     template(`
-       <section class="locations"></section>
+        <weather-api></weather-api>
+        <section class="locations"></section>
     `),
 
     method('createdCallback').invoke(el => {
-        el.appendChild(document.createElement('weather-api'));
         let locationIds = getLocationIds();
         if (locationIds.length > 0) {
             el.querySelector('weather-api').getByIds(locationIds).then(data => {
-                data.list.forEach(locationData => appendCard(el, locationData));
+                data.list.forEach(locationData => {
+                    let weatherLocation = document.createElement('weather-location');
+                    weatherLocation.data = locationData;
+                    appendFirst(el.querySelector('.locations'), weatherLocation);
+                });
             }, xhr => {
-                storage.setLocationIds([]);
+                setLocationIds([]);
                 if (xhr) {
-                    console.error(el.tagName, 'addLocation', xhr);
+                    if (typeof console !== 'undefined') {
+                        console.error(el.tagName, 'addLocation', xhr);
+                    }
                     alert('Unable to load locations.');
                 }
             });
@@ -46,13 +55,16 @@ export const WeatherLocations = element().builders(
         setLocationIds(locationIds);
 
         el.querySelector('weather-api').getById(locationId).then(data => {
-            appendCard(el, data);
+            let weatherLocation = document.createElement('weather-location');
+            weatherLocation.data = data;
+            appendFirst(el.querySelector('.locations'), weatherLocation);
         }, xhr => {
-            let storage = el.querySelector('weather-storage');
             let locationIds = getLocationIds();
             setLocationIds(locationIds.splice(locationIds.indexOf(locationId), 1));
             if (xhr) {
-                console.error(el.tagName, 'addLocation', xhr);
+                if (typeof console !== 'undefined') {
+                    console.error(el.tagName, 'addLocation', xhr);
+                }
                 alert('Unable to add the location.');
             }
         });
@@ -64,14 +76,15 @@ export const WeatherLocations = element().builders(
         if (index > -1) {
             locationIds.splice(index, 1);
             setLocationIds(locationIds);
-            let location = el.querySelector(`[location-id="${locationId}"]`);
-            location.parentNode.removeChild(location);
+            let weatherLocation = el.querySelector(`[location-id="${locationId}"]`);
+            weatherLocation.parentNode.removeChild(weatherLocation);
         }
     }),
 
     method('removeAllLocations').invoke(el => {
         setLocationIds([]);
-        toArray(el.querySelectorAll('weather-location')).forEach(child => child.parentNode.removeChild(child));
+        toArray(el.querySelectorAll('weather-location'))
+            .forEach(child => child.parentNode.removeChild(child));
     }),
 
     method('refreshAllLocations').invoke(el => {
@@ -80,12 +93,27 @@ export const WeatherLocations = element().builders(
             el.querySelector('weather-api').getByIds(locationIds).then(data => {
                 data.list.forEach(locationData => el.querySelector(`[location-id="${locationData.id}"]`).data = locationData);
             }, xhr => {
-                storage.setLocationIds([]);
                 if (xhr) {
-                    console.error(el.tagName, 'refreshAllLocations', xhr);
+                    if (typeof console !== 'undefined') {
+                        console.error(el.tagName, 'refreshAllLocations', xhr);
+                    }
                     alert('Unable to load locations.');
                 }
             });
+        }
+    }),
+
+    on('location-refreshed').skip().delegate('.locations').invoke((el, evt)=> {
+        dispatchCustomEvent(el, 'location-refreshed', {detail: evt.target});
+    }),
+
+    on('location-attached').skip().delegate('.locations').invoke((el, evt)=> {
+        dispatchCustomEvent(el, 'location-added', {detail: evt.target});
+    }),
+
+    on('DOMNodeRemoved').delegate('.locations').invoke((el, evt)=> {
+        if (evt.target.tagName === 'weather-location'.toUpperCase()) {
+            dispatchCustomEvent(el, 'location-removed', {detail: evt.target});
         }
     })
 ).register('weather-locations');
