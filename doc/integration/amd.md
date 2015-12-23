@@ -25,3 +25,5 @@ require(['dist/standalone/ceb'], function (ceb) {
     ).register('ceb-example');
 });
 ```
+
+This snippet is covered by the [AMD example][live-loader-amd].

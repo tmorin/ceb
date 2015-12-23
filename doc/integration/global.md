@@ -27,6 +27,8 @@ Using the [UMD] files from `dist/umd/`:
 <script src="dist/umd/ceb.js"></script>
 ```
 
+This snippet is covered by the [UMD example][live-loader-umd].
+
 Using the standalone [UMD] file from `dist/standalone/`:
 
 ```html
@@ -50,3 +52,5 @@ Using the standalone [UMD] file from `dist/standalone/`:
     ).register('ceb-example');
 }(this));
 ```
+
+This snippet is covered by the [standalone example][live-loader-standalone].

@@ -1,7 +1,7 @@
 {% include "/doc/_urls.md" %}
 # CommonJS
 
-By default, the npm package loads the [CommonJS] files from `lib/`.
+By default, the [npm package][npm] loads the [CommonJS] files from `lib/`.
 
 Using the [CommonJS] `require()` function:
 ```javascript
@@ -12,3 +12,5 @@ ceb.element(
     ceb.attribute('bar')
 ).register('ceb-example');
 ```
+
+[CommonJS] files should be used with [webpack], [browserify] or any bundling tools.
