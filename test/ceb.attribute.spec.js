@@ -91,13 +91,12 @@ describe('ceb.attribute()', () => {
         setTimeout(() => {
             //expect(listener, 'listener').to.have.been.calledOnce;
             //expect(listener, 'listener').to.have.been.calledWith(el, false, true);
-            done();
-            /*el.removeAttribute('att1');
+            el.removeAttribute('att1');
             setTimeout(() => {
-                expect(listener, 'listener').to.have.been.calledTwice;
-                expect(listener, 'listener').to.have.been.calledWith(el, true, false);
+                //expect(listener, 'listener').to.have.been.calledTwice;
+                //expect(listener, 'listener').to.have.been.calledWith(el, true, false);
                 done();
-            }, 10);*/
+            }, 10);
         }, 10);
     });
 
