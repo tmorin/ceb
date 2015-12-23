@@ -43,3 +43,22 @@ element()
         )
     .register('ceb-example');
 ```
+
+## Listen the property value
+
+Listeners are called when the property's value is updated (i.e. the _setter_).
+
+If the property's builder is not configured with _getter_ or _setter_, there will be created.
+Otherwise the original _setter_ will be wrapped by the listener one.
+
+```javascript
+import {element, property} from 'ceb';
+element()
+    .builders(
+        property('att1')
+            .listen((el, oldVal, newVal) => {
+                // ...
+            })
+    )
+    .register('ceb-example');
+```
