@@ -96,7 +96,7 @@ describe('ceb.attribute()', () => {
                 expect(listener, 'listener').to.have.been.calledTwice;
                 expect(listener, 'listener').to.have.been.calledWith(el, true, false);
                 done();
-            }, 10);!/
+            }, 10);*/
         }, 10);
     });
 
