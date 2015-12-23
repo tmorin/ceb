@@ -119,7 +119,7 @@ export class PropertyBuilder {
             descriptor.configurable = false;
             delete descriptor.writable;
             data.descriptorValue = false;
-            let _propName = '_' + data.propName;
+            let _propName = '__' + data.propName + 'LastSetValue';
             if (!descriptor.get) {
                 descriptor.get = function () {
                     return this[_propName];
@@ -127,10 +127,9 @@ export class PropertyBuilder {
             }
             descriptor.set = function (newVal) {
                 let oldVal = this[_propName];
+                this[_propName] = newVal;
                 if (data.setter) {
                     data.setter.call(this, this, newVal);
-                } else {
-                    this[_propName] = newVal;
                 }
                 data.listeners.forEach(listener => {
                     listener.call(this, this, oldVal, newVal);
