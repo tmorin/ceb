@@ -134,9 +134,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                             stopPropagation = this.data.stopPropagation,
                             preventDefault = this.data.preventDefault;
                         on('before:createdCallback').invoke(function (el) {
-                            if (!el.__cebOnHandlers) {
-                                el.__cebOnHandlers = [];
-                            }
+                            el.__cebOnHandlers = [];
                         });
                         on('before:attachedCallback').invoke(function (el) {
                             var listener = function listener(evt) {

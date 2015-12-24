@@ -1706,9 +1706,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                preventDefault = this.data.preventDefault;
 
 	            on('before:createdCallback').invoke(function (el) {
-	                if (!el.__cebOnHandlers) {
-	                    el.__cebOnHandlers = [];
-	                }
+	                el.__cebOnHandlers = [];
 	            });
 
 	            on('before:attachedCallback').invoke(function (el) {
