@@ -39,19 +39,19 @@
 
 [ceb API]: http://tmorin.github.io/ceb/api
 
-[live]: https://tmorin.github.io/ceb/live
-[live-address-selector]: https://tmorin.github.io/ceb/live/address-selector.html
-[live-form]: https://tmorin.github.io/ceb/live/form.html
-[live-grid]: https://tmorin.github.io/ceb/live/grid.html
-[live-list]: https://tmorin.github.io/ceb/live/list.html
-[live-list-plusplus]: https://tmorin.github.io/ceb/live/list-plusplus.html
-[live-templator]: https://tmorin.github.io/ceb/live/templator.html
-[live-todo-app]: https://tmorin.github.io/ceb/live/todo-app.html
-[live-weather-app]: https://tmorin.github.io/ceb/live/weather-app.html
-[live-loader-amd]: https://tmorin.github.io/ceb/live/loader-amd.html
-[live-loader-standalone]: https://tmorin.github.io/ceb/live/loader-standalone.html
-[live-loader-systemjs]: https://tmorin.github.io/ceb/live/loader-systemjs.html
-[live-loader-umd]: https://tmorin.github.io/ceb/live/loader-umd.html
+[live]: http://tmorin.github.io/ceb/live
+[live-address-selector]: http://tmorin.github.io/ceb/live/address-selector.html
+[live-form]: http://tmorin.github.io/ceb/live/form.html
+[live-grid]: http://tmorin.github.io/ceb/live/grid.html
+[live-list]: http://tmorin.github.io/ceb/live/list.html
+[live-list-plusplus]: http://tmorin.github.io/ceb/live/list-plusplus.html
+[live-templator]: http://tmorin.github.io/ceb/live/templator.html
+[live-todo-app]: http://tmorin.github.io/ceb/live/todo-app.html
+[live-weather-app]: http://tmorin.github.io/ceb/live/weather-app.html
+[live-loader-amd]: http://tmorin.github.io/ceb/live/loader-amd.html
+[live-loader-standalone]: http://tmorin.github.io/ceb/live/loader-standalone.html
+[live-loader-systemjs]: http://tmorin.github.io/ceb/live/loader-systemjs.html
+[live-loader-umd]: http://tmorin.github.io/ceb/live/loader-umd.html
 
 [npm]: https://www.npmjs.com/package/ceb
 [bower]: http://bower.io/search/?q=ceb
