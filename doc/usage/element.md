@@ -9,7 +9,7 @@ An element is registered with the method `register()`.
 
 ```javascript
 import {element} from 'ceb';
-var MyCustomElement = element().register('my-custom-element');
+const MyCustomElement = element().register('my-custom-element');
 ```
 
 Now the custom element can be used like another regular `HTMLElement`.
@@ -33,7 +33,7 @@ See the [specification][custom-element-specification-registration] to get more i
 
 ```javascript
 import {element} from 'ceb';
-var MyCustomButton = element()
+const MyCustomButton = element()
     .base(Object.create(HTMLButtonElement.prototype), 'button')
     .register('my-custom-button');
 ```
@@ -71,7 +71,7 @@ The user friendly way to use dedicated builders is provided by the method `build
 
 ```javascript
 import {element, attribute, property} from 'ceb';
-var MyCustomElement = element()
+const MyCustomElement = element()
     .builders(
         attribute('att1'),
         property('prop1').immutable().value('I am a constant')

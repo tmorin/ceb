@@ -33,7 +33,7 @@ The method `on()` registers a callback about the events listed above.
 
 ```javascript
 import {element} from 'ceb';
-var MyDummyButtonElement = element()
+const MyDummyButtonElement = element()
     .on('before:createdCallback', el => el.innerHTML = '<button></button>')
     .register('my-dummy-button-element');
 ```
@@ -61,7 +61,7 @@ All stuff which can not be done during the execution of the method `build()`, ca
 
 ```javascript
 import {element} from 'ceb';
-var MyDummyButtonElement = element()
+const MyDummyButtonElement = element()
     .builders({
         build(proto, on) {
             // this will be executed once by register call
