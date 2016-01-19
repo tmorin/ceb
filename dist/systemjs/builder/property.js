@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['../helper/types.js', '../helper/objects.js'], function (_export) {
+System.register(['../helper/types.js', '../helper/objects.js'], function (_export, _context) {
     var isFunction, isUndefined, result, assign, _createClass, DEFAULT_DATA, PropertyBuilder;
 
     function _classCallCheck(instance, Constructor) {
@@ -18,7 +18,7 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
             assign = _helperObjectsJs.assign;
         }],
         execute: function () {
-            _createClass = (function () {
+            _createClass = function () {
                 function defineProperties(target, props) {
                     for (var i = 0; i < props.length; i++) {
                         var descriptor = props[i];
@@ -34,7 +34,7 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                     if (staticProps) defineProperties(Constructor, staticProps);
                     return Constructor;
                 };
-            })();
+            }();
 
             DEFAULT_DATA = {
                 enumerable: true,
@@ -42,7 +42,7 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                 descriptorValue: true
             };
 
-            _export('PropertyBuilder', PropertyBuilder = (function () {
+            _export('PropertyBuilder', PropertyBuilder = function () {
                 function PropertyBuilder(propName) {
                     _classCallCheck(this, PropertyBuilder);
 
@@ -166,7 +166,7 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                 }]);
 
                 return PropertyBuilder;
-            })());
+            }());
 
             _export('PropertyBuilder', PropertyBuilder);
 

@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['../helper/types.js', '../helper/objects.js', '../helper/converters.js'], function (_export) {
+System.register(['../helper/types.js', '../helper/objects.js', '../helper/converters.js'], function (_export, _context) {
     var isFunction, isUndefined, isNull, result, assign, toCamelCase, _createClass, DEFAULT_DATA, AttributeBuilder;
 
     function _classCallCheck(instance, Constructor) {
@@ -34,7 +34,7 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
             toCamelCase = _helperConvertersJs.toCamelCase;
         }],
         execute: function () {
-            _createClass = (function () {
+            _createClass = function () {
                 function defineProperties(target, props) {
                     for (var i = 0; i < props.length; i++) {
                         var descriptor = props[i];
@@ -50,7 +50,7 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
                     if (staticProps) defineProperties(Constructor, staticProps);
                     return Constructor;
                 };
-            })();
+            }();
 
             function getAttValue(el, attrName, isBoolean) {
                 if (isBoolean) {
@@ -88,7 +88,7 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
                 setAttValue: setAttValue
             };
 
-            _export('AttributeBuilder', AttributeBuilder = (function () {
+            _export('AttributeBuilder', AttributeBuilder = function () {
                 function AttributeBuilder(attrName) {
                     _classCallCheck(this, AttributeBuilder);
 
@@ -205,7 +205,7 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
                 }]);
 
                 return AttributeBuilder;
-            })());
+            }());
 
             _export('AttributeBuilder', AttributeBuilder);
 

@@ -1,6 +1,6 @@
-'use strict';
-
 define(['exports', './builder/element.js', './builder/property.js', './builder/attribute.js', './builder/delegate.js', './builder/method.js', './builder/template.js', './builder/on.js', './helper/arrays.js', './helper/converters.js', './helper/functions.js', './helper/objects.js', './helper/events.js', './helper/types.js'], function (exports, _element, _property, _attribute, _delegate, _method, _template, _on, _arrays, _converters, _functions, _objects, _events, _types) {
+  'use strict';
+
   Object.defineProperty(exports, "__esModule", {
     value: true
   });

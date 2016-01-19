@@ -1,6 +1,6 @@
-'use strict';
-
 define(['exports', '../helper/types.js', '../helper/objects.js'], function (exports, _types, _objects) {
+    'use strict';
+
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -13,7 +13,7 @@ define(['exports', '../helper/types.js', '../helper/objects.js'], function (expo
         }
     }
 
-    var _createClass = (function () {
+    var _createClass = function () {
         function defineProperties(target, props) {
             for (var i = 0; i < props.length; i++) {
                 var descriptor = props[i];
@@ -29,7 +29,7 @@ define(['exports', '../helper/types.js', '../helper/objects.js'], function (expo
             if (staticProps) defineProperties(Constructor, staticProps);
             return Constructor;
         };
-    })();
+    }();
 
     var DEFAULT_DATA = {
         enumerable: true,
@@ -37,7 +37,7 @@ define(['exports', '../helper/types.js', '../helper/objects.js'], function (expo
         descriptorValue: true
     };
 
-    var PropertyBuilder = (function () {
+    var PropertyBuilder = function () {
         function PropertyBuilder(propName) {
             _classCallCheck(this, PropertyBuilder);
 
@@ -161,7 +161,7 @@ define(['exports', '../helper/types.js', '../helper/objects.js'], function (expo
         }]);
 
         return PropertyBuilder;
-    })();
+    }();
 
     exports.PropertyBuilder = PropertyBuilder;
 

@@ -1,5 +1,3 @@
-'use strict';
-
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
         define(['exports', './converters.js'], factory);
@@ -13,6 +11,8 @@
         global.functions = mod.exports;
     }
 })(this, function (exports, _converters) {
+    'use strict';
+
     Object.defineProperty(exports, "__esModule", {
         value: true
     });

@@ -1,6 +1,6 @@
-'use strict';
-
 define(['exports', './converters.js'], function (exports, _converters) {
+    'use strict';
+
     Object.defineProperty(exports, "__esModule", {
         value: true
     });

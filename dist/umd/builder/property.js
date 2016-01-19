@@ -1,5 +1,3 @@
-'use strict';
-
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
         define(['exports', '../helper/types.js', '../helper/objects.js'], factory);
@@ -13,6 +11,8 @@
         global.property = mod.exports;
     }
 })(this, function (exports, _types, _objects) {
+    'use strict';
+
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -25,7 +25,7 @@
         }
     }
 
-    var _createClass = (function () {
+    var _createClass = function () {
         function defineProperties(target, props) {
             for (var i = 0; i < props.length; i++) {
                 var descriptor = props[i];
@@ -41,7 +41,7 @@
             if (staticProps) defineProperties(Constructor, staticProps);
             return Constructor;
         };
-    })();
+    }();
 
     var DEFAULT_DATA = {
         enumerable: true,
@@ -49,7 +49,7 @@
         descriptorValue: true
     };
 
-    var PropertyBuilder = (function () {
+    var PropertyBuilder = function () {
         function PropertyBuilder(propName) {
             _classCallCheck(this, PropertyBuilder);
 
@@ -173,7 +173,7 @@
         }]);
 
         return PropertyBuilder;
-    })();
+    }();
 
     exports.PropertyBuilder = PropertyBuilder;
 

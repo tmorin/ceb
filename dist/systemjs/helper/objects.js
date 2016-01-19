@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['./types.js'], function (_export) {
+System.register(['./types.js'], function (_export, _context) {
     var isFunction;
     return {
         setters: [function (_typesJs) {

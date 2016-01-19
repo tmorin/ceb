@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['../helper/types.js', '../helper/functions.js', '../helper/converters.js'], function (_export) {
+System.register(['../helper/types.js', '../helper/functions.js', '../helper/converters.js'], function (_export, _context) {
     var isFunction, noop, toArray, _slicedToArray, _createClass, OnBuilder;
 
     function _classCallCheck(instance, Constructor) {
@@ -18,7 +18,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
             toArray = _helperConvertersJs.toArray;
         }],
         execute: function () {
-            _slicedToArray = (function () {
+            _slicedToArray = function () {
                 function sliceIterator(arr, i) {
                     var _arr = [];
                     var _n = true;
@@ -54,9 +54,9 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                         throw new TypeError("Invalid attempt to destructure non-iterable instance");
                     }
                 };
-            })();
+            }();
 
-            _createClass = (function () {
+            _createClass = function () {
                 function defineProperties(target, props) {
                     for (var i = 0; i < props.length; i++) {
                         var descriptor = props[i];
@@ -72,9 +72,9 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                     if (staticProps) defineProperties(Constructor, staticProps);
                     return Constructor;
                 };
-            })();
+            }();
 
-            _export('OnBuilder', OnBuilder = (function () {
+            _export('OnBuilder', OnBuilder = function () {
                 function OnBuilder(events) {
                     _classCallCheck(this, OnBuilder);
 
@@ -213,7 +213,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                 }]);
 
                 return OnBuilder;
-            })());
+            }());
 
             _export('OnBuilder', OnBuilder);
 

@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['../helper/types.js', '../helper/functions.js', '../helper/converters.js'], function (_export) {
+System.register(['../helper/types.js', '../helper/functions.js', '../helper/converters.js'], function (_export, _context) {
     var isFunction, partial, bind, toArray, _createClass, MethodBuilder;
 
     function _classCallCheck(instance, Constructor) {
@@ -19,7 +19,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
             toArray = _helperConvertersJs.toArray;
         }],
         execute: function () {
-            _createClass = (function () {
+            _createClass = function () {
                 function defineProperties(target, props) {
                     for (var i = 0; i < props.length; i++) {
                         var descriptor = props[i];
@@ -35,9 +35,9 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                     if (staticProps) defineProperties(Constructor, staticProps);
                     return Constructor;
                 };
-            })();
+            }();
 
-            _export('MethodBuilder', MethodBuilder = (function () {
+            _export('MethodBuilder', MethodBuilder = function () {
                 function MethodBuilder(methName) {
                     _classCallCheck(this, MethodBuilder);
 
@@ -120,7 +120,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                 }]);
 
                 return MethodBuilder;
-            })());
+            }());
 
             _export('MethodBuilder', MethodBuilder);
 

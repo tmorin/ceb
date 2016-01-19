@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['../helper/types.js', '../helper/converters.js', './attribute.js'], function (_export) {
+System.register(['../helper/types.js', '../helper/converters.js', './attribute.js'], function (_export, _context) {
     var isUndefined, isFunction, toArray, getAttValue, setAttValue, _createClass, DelegateBuilder;
 
     function _classCallCheck(instance, Constructor) {
@@ -20,7 +20,7 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
             setAttValue = _attributeJs.setAttValue;
         }],
         execute: function () {
-            _createClass = (function () {
+            _createClass = function () {
                 function defineProperties(target, props) {
                     for (var i = 0; i < props.length; i++) {
                         var descriptor = props[i];
@@ -36,9 +36,9 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
                     if (staticProps) defineProperties(Constructor, staticProps);
                     return Constructor;
                 };
-            })();
+            }();
 
-            _export('DelegateBuilder', DelegateBuilder = (function () {
+            _export('DelegateBuilder', DelegateBuilder = function () {
                 function DelegateBuilder(fieldBuilder) {
                     _classCallCheck(this, DelegateBuilder);
 
@@ -188,7 +188,7 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
                 }]);
 
                 return DelegateBuilder;
-            })());
+            }());
 
             _export('DelegateBuilder', DelegateBuilder);
 

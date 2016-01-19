@@ -1,11 +1,7 @@
 'use strict';
 
-System.register(['../helper/types.js', '../helper/functions.js', '../helper/converters.js', '../helper/arrays.js'], function (_export) {
-    var isString, isFunction, partial, bind, toArray, flatten, invoke, _createClass, LIFECYCLE_CALLBACKS, LIFECYCLE_EVENTS, ElementBuilder;
-
-    function _typeof(obj) {
-        return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj;
-    }
+System.register(['../helper/types.js', '../helper/functions.js', '../helper/converters.js', '../helper/arrays.js'], function (_export, _context) {
+    var isString, isFunction, partial, bind, toArray, flatten, invoke, _typeof, _createClass, LIFECYCLE_CALLBACKS, LIFECYCLE_EVENTS, ElementBuilder;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -51,7 +47,13 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
             invoke = _helperArraysJs.invoke;
         }],
         execute: function () {
-            _createClass = (function () {
+            _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+                return typeof obj;
+            } : function (obj) {
+                return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+            };
+
+            _createClass = function () {
                 function defineProperties(target, props) {
                     for (var i = 0; i < props.length; i++) {
                         var descriptor = props[i];
@@ -67,14 +69,14 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                     if (staticProps) defineProperties(Constructor, staticProps);
                     return Constructor;
                 };
-            })();
+            }();
 
             LIFECYCLE_CALLBACKS = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
             LIFECYCLE_EVENTS = flatten(LIFECYCLE_CALLBACKS.map(function (name) {
                 return ['before:' + name, 'after:' + name];
             }));
 
-            _export('ElementBuilder', ElementBuilder = (function () {
+            _export('ElementBuilder', ElementBuilder = function () {
                 function ElementBuilder() {
                     _classCallCheck(this, ElementBuilder);
 
@@ -176,7 +178,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                 }]);
 
                 return ElementBuilder;
-            })());
+            }());
 
             _export('ElementBuilder', ElementBuilder);
 

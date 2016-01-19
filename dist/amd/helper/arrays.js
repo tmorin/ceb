@@ -1,6 +1,6 @@
-'use strict';
-
 define(['exports', './types.js'], function (exports, _types) {
+    'use strict';
+
     Object.defineProperty(exports, "__esModule", {
         value: true
     });

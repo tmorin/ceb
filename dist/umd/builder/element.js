@@ -1,5 +1,3 @@
-'use strict';
-
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
         define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/converters.js', '../helper/arrays.js'], factory);
@@ -13,15 +11,19 @@
         global.element = mod.exports;
     }
 })(this, function (exports, _types, _functions, _converters, _arrays) {
+    'use strict';
+
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
     exports.ElementBuilder = undefined;
     exports.element = element;
 
-    function _typeof(obj) {
-        return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
-    }
+    var _typeof = typeof Symbol === "function" && _typeof(Symbol.iterator) === "symbol" ? function (obj) {
+        return typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
+    } : function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj === 'undefined' ? 'undefined' : _typeof(obj);
+    };
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -29,7 +31,7 @@
         }
     }
 
-    var _createClass = (function () {
+    var _createClass = function () {
         function defineProperties(target, props) {
             for (var i = 0; i < props.length; i++) {
                 var descriptor = props[i];
@@ -45,7 +47,7 @@
             if (staticProps) defineProperties(Constructor, staticProps);
             return Constructor;
         };
-    })();
+    }();
 
     var LIFECYCLE_CALLBACKS = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
     var LIFECYCLE_EVENTS = (0, _arrays.flatten)(LIFECYCLE_CALLBACKS.map(function (name) {
@@ -76,7 +78,7 @@
         };
     }
 
-    var ElementBuilder = (function () {
+    var ElementBuilder = function () {
         function ElementBuilder() {
             _classCallCheck(this, ElementBuilder);
 
@@ -178,7 +180,7 @@
         }]);
 
         return ElementBuilder;
-    })();
+    }();
 
     exports.ElementBuilder = ElementBuilder;
 

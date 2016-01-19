@@ -1,5 +1,3 @@
-'use strict';
-
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
         define(['exports', '../helper/types.js', './property.js'], factory);
@@ -13,6 +11,8 @@
         global.template = mod.exports;
     }
 })(this, function (exports, _types, _property) {
+    'use strict';
+
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -26,7 +26,7 @@
         }
     }
 
-    var _createClass = (function () {
+    var _createClass = function () {
         function defineProperties(target, props) {
             for (var i = 0; i < props.length; i++) {
                 var descriptor = props[i];
@@ -42,7 +42,7 @@
             if (staticProps) defineProperties(Constructor, staticProps);
             return Constructor;
         };
-    })();
+    }();
 
     var counter = 0;
     var OLD_CONTENT_ID_ATTR_NAME = 'ceb-old-content-id';
@@ -100,22 +100,36 @@
         }
     }
 
-    var TemplateBuilder = exports.TemplateBuilder = (function () {
+    var TemplateBuilder = exports.TemplateBuilder = function () {
+
+        /**
+         * @param {!string|function(el: HTMLElement)} tpl the template as a string or a function
+         */
+
         function TemplateBuilder(tpl) {
             _classCallCheck(this, TemplateBuilder);
 
-            this.data = {
-                tpl: tpl
-            };
+            /**
+             * @ignore
+             */
+            this.data = { tpl: tpl };
         }
+
+        /**
+         * Logic of the builder.
+         * @param {!ElementBuilder.context.proto} proto the prototype
+         * @param {!ElementBuilder.on} on the method on
+         */
 
         _createClass(TemplateBuilder, [{
             key: 'build',
             value: function build(proto, on) {
                 var data = this.data;
+
                 (0, _property.property)('lightDOM').getter(function (el) {
                     return findContentNode(el);
                 }).build(proto, on);
+
                 on('before:createdCallback').invoke(function (el) {
                     applyTemplate(el, (0, _types.isFunction)(data.tpl) ? data.tpl(el) : data.tpl);
                 });
@@ -123,7 +137,7 @@
         }]);
 
         return TemplateBuilder;
-    })();
+    }();
 
     function template(tpl) {
         return new TemplateBuilder(tpl);

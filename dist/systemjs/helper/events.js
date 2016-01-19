@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['./objects.js'], function (_export) {
+System.register(['./objects.js'], function (_export, _context) {
     var assign, CUSTOM_EVENT_ARG_NAMES, MOUSE_EVENT_ARG_NAMES, DEFAULT_CUSTOM_EVENT_OPTIONS, DEFAULT_MOUSE_EVENT_OPTIONS;
     return {
         setters: [function (_objectsJs) {

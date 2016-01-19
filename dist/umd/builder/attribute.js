@@ -1,5 +1,3 @@
-'use strict';
-
 (function (global, factory) {
     if (typeof define === "function" && define.amd) {
         define(['exports', '../helper/types.js', '../helper/objects.js', '../helper/converters.js'], factory);
@@ -13,6 +11,8 @@
         global.attribute = mod.exports;
     }
 })(this, function (exports, _types, _objects, _converters) {
+    'use strict';
+
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -27,7 +27,7 @@
         }
     }
 
-    var _createClass = (function () {
+    var _createClass = function () {
         function defineProperties(target, props) {
             for (var i = 0; i < props.length; i++) {
                 var descriptor = props[i];
@@ -43,7 +43,7 @@
             if (staticProps) defineProperties(Constructor, staticProps);
             return Constructor;
         };
-    })();
+    }();
 
     function getAttValue(el, attrName, isBoolean) {
         if (isBoolean) {
@@ -90,7 +90,7 @@
         setAttValue: setAttValue
     };
 
-    var AttributeBuilder = (function () {
+    var AttributeBuilder = function () {
         function AttributeBuilder(attrName) {
             _classCallCheck(this, AttributeBuilder);
 
@@ -207,7 +207,7 @@
         }]);
 
         return AttributeBuilder;
-    })();
+    }();
 
     exports.AttributeBuilder = AttributeBuilder;
 

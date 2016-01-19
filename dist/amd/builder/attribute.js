@@ -1,6 +1,6 @@
-'use strict';
-
 define(['exports', '../helper/types.js', '../helper/objects.js', '../helper/converters.js'], function (exports, _types, _objects, _converters) {
+    'use strict';
+
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
@@ -15,7 +15,7 @@ define(['exports', '../helper/types.js', '../helper/objects.js', '../helper/conv
         }
     }
 
-    var _createClass = (function () {
+    var _createClass = function () {
         function defineProperties(target, props) {
             for (var i = 0; i < props.length; i++) {
                 var descriptor = props[i];
@@ -31,7 +31,7 @@ define(['exports', '../helper/types.js', '../helper/objects.js', '../helper/conv
             if (staticProps) defineProperties(Constructor, staticProps);
             return Constructor;
         };
-    })();
+    }();
 
     function getAttValue(el, attrName, isBoolean) {
         if (isBoolean) {
@@ -78,7 +78,7 @@ define(['exports', '../helper/types.js', '../helper/objects.js', '../helper/conv
         setAttValue: setAttValue
     };
 
-    var AttributeBuilder = (function () {
+    var AttributeBuilder = function () {
         function AttributeBuilder(attrName) {
             _classCallCheck(this, AttributeBuilder);
 
@@ -195,7 +195,7 @@ define(['exports', '../helper/types.js', '../helper/objects.js', '../helper/conv
         }]);
 
         return AttributeBuilder;
-    })();
+    }();
 
     exports.AttributeBuilder = AttributeBuilder;
 

@@ -1,6 +1,6 @@
 'use strict';
 
-System.register(['../helper/types.js', './property.js'], function (_export) {
+System.register(['../helper/types.js', './property.js'], function (_export, _context) {
     var isFunction, property, _createClass, counter, OLD_CONTENT_ID_ATTR_NAME, CONTENT_ATTR_REG_EX, CONTENT_NODE_REG_EX, TemplateBuilder;
 
     function _classCallCheck(instance, Constructor) {
@@ -49,7 +49,7 @@ System.register(['../helper/types.js', './property.js'], function (_export) {
             property = _propertyJs.property;
         }],
         execute: function () {
-            _createClass = (function () {
+            _createClass = function () {
                 function defineProperties(target, props) {
                     for (var i = 0; i < props.length; i++) {
                         var descriptor = props[i];
@@ -65,7 +65,7 @@ System.register(['../helper/types.js', './property.js'], function (_export) {
                     if (staticProps) defineProperties(Constructor, staticProps);
                     return Constructor;
                 };
-            })();
+            }();
 
             counter = 0;
             OLD_CONTENT_ID_ATTR_NAME = 'ceb-old-content-id';
@@ -92,7 +92,7 @@ System.register(['../helper/types.js', './property.js'], function (_export) {
 
             _export('applyTemplate', applyTemplate);
 
-            _export('TemplateBuilder', TemplateBuilder = (function () {
+            _export('TemplateBuilder', TemplateBuilder = function () {
                 function TemplateBuilder(tpl) {
                     _classCallCheck(this, TemplateBuilder);
 
@@ -115,7 +115,7 @@ System.register(['../helper/types.js', './property.js'], function (_export) {
                 }]);
 
                 return TemplateBuilder;
-            })());
+            }());
 
             _export('TemplateBuilder', TemplateBuilder);
 
