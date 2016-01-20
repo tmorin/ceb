@@ -94,7 +94,7 @@
     "gulp-gh-pages": "^0.5.4",
     "gulp-zip": "^3.0.2",
     "handlebars": "^4.0.1",
-    "html-webpack-plugin": "^1.7.0",
+    "html-webpack-plugin": "^2.7.0",
     "htmlparser2": "^3.8.3",
     "idomizer": "^0.4.0",
     "immutable": "^3.7.5",

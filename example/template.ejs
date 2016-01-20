@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ceb - {%= o.htmlWebpackPlugin.options.title || "home"%}</title>
-    {% var filename = o.htmlWebpackPlugin.options.filename; %}
-    {% if (filename === 'loader-systemjs.html') { %}
+    <title>ceb - <%= htmlWebpackPlugin.options.title || "home"%></title>
+    <% var filename = htmlWebpackPlugin.options.filename; %>
+    <% if (filename === 'loader-systemjs.html') { %>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.18.4/system-polyfills.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.18.4/system.js"></script>
-    {% } %}
-    {% if (filename === 'loader-amd.html') { %}
+    <% } %>
+    <% if (filename === 'loader-amd.html') { %>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.22/require.min.js"></script>
-    {% } %}
+    <% } %>
 </head>
 <body>
 <div class="container">
@@ -23,24 +23,24 @@
 
         <div class="col-sm-3">
             <ul class="nav nav-pills nav-stacked">
-                {%
-                o.htmlWebpackPlugin.options.all.forEach(function (item) {
+                <%
+                htmlWebpackPlugin.options.all.forEach(function (item) {
                 var link = item + '.html';
-                var isActive = o.htmlWebpackPlugin.options.filename === link;
-                %}
-                <li class="{%= isActive ? 'active' : '' %}" >
-                    <a href="{%= link %}">{%= item %}</a>
+                var isActive = htmlWebpackPlugin.options.filename === link;
+                %>
+                <li class="<%= isActive ? 'active' : '' %>" >
+                    <a href="<%= link %>"><%= item %></a>
                 </li>
-                {% }); %}
+                <% }); %>
             </ul>
         </div>
 
         <div class="col-sm-9">
-            {% if (o.htmlWebpackPlugin.options.filename !== 'index.html') { %}
-            <h2>{%=o.htmlWebpackPlugin.options.title %}</h2>
-            {% } %}
+            <% if (htmlWebpackPlugin.options.filename !== 'index.html') { %>
+            <h2><%= htmlWebpackPlugin.options.title %></h2>
+            <% } %>
             <div id="content">
-                {%#o.htmlWebpackPlugin.options.content%}
+                <%= htmlWebpackPlugin.options.content %>
             </div>
         </div>
 

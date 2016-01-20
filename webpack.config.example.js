@@ -44,7 +44,7 @@ Object.keys(config.entry).forEach(function (chunk, i, all) {
     config.plugins.push(new HtmlWebpackPlugin({
         all: all,
         title: chunk,
-        template: './example/template.html',
+        template: './example/template.ejs',
         inject: 'head',
         chunks: ['commons', chunk],
         filename: chunk + '.html'
