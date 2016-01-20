@@ -121,17 +121,17 @@ export class OnBuilder {
             el.__cebOnHandlers = events
                 .map(([name, target]) => [name, target ? el.querySelector(target) : el])
                 .filter(([name, target]) => !!target)
-                .map(([name, target]) => {
-                    target.addEventListener(name, listener, capture);
-                    return [target, name, listener, capture];
-                });
+                .map(([name, target]) => [target, name, listener, capture])
+                .concat(el.__cebOnHandlers);
 
-            el.__cebOnHandlers.forEach(([target, name, listener, capture]) => target.addEventListener(name, listener, capture));
-
+            el.__cebOnHandlers.forEach(([target, name, listener, capture]) =>
+                target.addEventListener(name, listener, capture));
         });
 
         on('before:detachedCallback').invoke((el) => {
-            el.__cebOnHandlers.forEach(([target, name, listener, capture]) => target.removeEventListener(name, listener, capture));
+            el.__cebOnHandlers.forEach(([target, name, listener, capture]) =>
+                target.removeEventListener(name, listener, capture));
+            el.__cebOnHandlers = [];
         });
     }
 
