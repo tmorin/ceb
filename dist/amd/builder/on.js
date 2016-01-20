@@ -226,10 +226,8 @@ define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/co
 
                         var name = _ref6[0];
                         var target = _ref6[1];
-
-                        target.addEventListener(name, listener, capture);
                         return [target, name, listener, capture];
-                    });
+                    }).concat(el.__cebOnHandlers);
 
                     el.__cebOnHandlers.forEach(function (_ref7) {
                         var _ref8 = _slicedToArray(_ref7, 4);
@@ -252,6 +250,7 @@ define(['exports', '../helper/types.js', '../helper/functions.js', '../helper/co
                         var capture = _ref10[3];
                         return target.removeEventListener(name, listener, capture);
                     });
+                    el.__cebOnHandlers = [];
                 });
             }
         }]);
