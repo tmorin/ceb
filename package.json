@@ -1,6 +1,6 @@
 {
   "name": "ceb",
-  "version": "0.7.3",
+  "version": "0.8.0",
   "description": "ceb (custom-element-builder) is a library helping to develop Custom Elements.",
   "keywords": [
     "custom-element-builder",
