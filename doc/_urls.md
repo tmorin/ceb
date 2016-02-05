@@ -51,7 +51,6 @@
 [live-loader-amd]: http://tmorin.github.io/ceb/live/loader-amd.html
 [live-loader-standalone]: http://tmorin.github.io/ceb/live/loader-standalone.html
 [live-loader-systemjs]: http://tmorin.github.io/ceb/live/loader-systemjs.html
-[live-loader-umd]: http://tmorin.github.io/ceb/live/loader-umd.html
 
 [npm]: https://www.npmjs.com/package/ceb
 [bower]: http://bower.io/search/?q=ceb

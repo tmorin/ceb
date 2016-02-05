@@ -16,7 +16,7 @@ bower install ceb
 Both packages expose `<ceb/>` from the following directories:
 
 * `dist/`
-  * [UMD] (ES5) (all in one and multiple files)
+  * [UMD] (ES5)
   * [SystemJS] (ES5)
   * [AMD] (ES5)
 * `lib/`
