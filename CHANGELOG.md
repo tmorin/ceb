@@ -1,5 +1,8 @@
 # Change log
 
+## 0.8.x
+- review dist files
+
 ## 0.7.x
 - add listeners on properties
 - add weather-app example
