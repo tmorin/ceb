@@ -2,6 +2,7 @@
 
 ## 0.8.x
 - review dist files
+- upgrade dependencies
 
 ## 0.7.x
 - add listeners on properties

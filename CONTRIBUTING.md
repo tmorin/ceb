@@ -53,3 +53,15 @@ Clean the working directory, lint, test and build.
 ```shell
 npm run prepublish
 ```
+
+# Release
+
+Build all stuff and create version
+```shell
+npm version [major|minor|patch]
+```
+
+Publish to npm repo
+```shell
+npm publish
+```
