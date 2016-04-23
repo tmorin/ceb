@@ -19,6 +19,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
             var _this = this;
 
             var args = [this].concat(toArray(arguments));
+
             beforeFns.forEach(function (fn) {
                 return fn.apply(_this, args);
             });
@@ -33,6 +34,10 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
         };
     }
 
+    /**
+     * The custom element builder.
+     * Its goal is to provide a user friendly way to do it by some else (i.e. dedicated builders).
+     */
     return {
         setters: [function (_helperTypesJs) {
             isString = _helperTypesJs.isString;
@@ -77,6 +82,10 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
             }));
 
             _export('ElementBuilder', ElementBuilder = function () {
+
+                /**
+                 */
+
                 function ElementBuilder() {
                     _classCallCheck(this, ElementBuilder);
 
@@ -91,12 +100,28 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                         'before:registerElement': [],
                         'after:registerElement': []
                     });
-                    this.context = {
-                        p: p,
-                        builders: builders,
-                        events: events
-                    };
+                    /**
+                     * @type {Object}
+                     * @property {!Object} p - the prototype
+                     * @property {!string} e - the name of a native element
+                     * @desc the context of the builder
+                     */
+                    this.context = { p: p, builders: builders, events: events };
                 }
+
+                /**
+                 * Set the basement of the future custom element, i.e. the prototype and/or the extends value.
+                 * Prototype and extends value can be swapped.
+                 * @example
+                 * element().base(prototypeValue, extendsValue);
+                 * element().base(extendsValue, prototypeValue);
+                 * element().base(extendsValue);
+                 * element().base(prototypeValue);
+                 * @param {!(string|Object)} arg1 the prototype or the name of the native element
+                 * @param {string|Object} [arg2] the prototype or the name of the native element
+                 * @returns {ElementBuilder} the builder
+                 */
+
 
                 _createClass(ElementBuilder, [{
                     key: 'base',
@@ -104,15 +129,12 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                         var arg1Type = typeof arg1 === 'undefined' ? 'undefined' : _typeof(arg1);
                         var p = arg1Type === 'string' ? arg2 : arg1;
                         var e = arg1Type === 'string' ? arg1 : arg2;
-
                         if (p) {
                             this.context.p = p;
                         }
-
                         if (e) {
                             this.context.e = e;
                         }
-
                         return this;
                     }
                 }, {
@@ -127,7 +149,6 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                         _builders.forEach(function (builder) {
                             return _this2.context.builders.push(builder);
                         });
-
                         return this;
                     }
                 }, {
@@ -137,13 +158,9 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
 
                         var invoke = function invoke(cb) {
                             _this3.context.events[event].push(cb);
-
                             return _this3;
                         };
-
-                        return {
-                            invoke: invoke
-                        };
+                        return { invoke: invoke };
                     }
                 }, {
                     key: 'register',
@@ -153,14 +170,16 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                         this.context.events['before:builders'].forEach(function (fn) {
                             return fn(_this4.context);
                         });
+
                         invoke(this.context.builders, 'build', this.context.p, bind(this.on, this));
+
                         this.context.events['after:builders'].forEach(function (fn) {
                             return fn(_this4.context);
                         });
+
                         LIFECYCLE_CALLBACKS.forEach(partial(applyLifecycle, this.context));
-                        var options = {
-                            prototype: this.context.p
-                        };
+
+                        var options = { prototype: this.context.p };
 
                         if (isString(this.context.e)) {
                             options.extends = this.context.e;
@@ -169,10 +188,13 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                         this.context.events['before:registerElement'].forEach(function (fn) {
                             return fn(_this4.context);
                         });
+
                         var CustomElement = document.registerElement(name, options);
+
                         this.context.events['after:registerElement'].forEach(function (fn) {
                             return fn(CustomElement);
                         });
+
                         return CustomElement;
                     }
                 }]);
@@ -182,6 +204,10 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
 
             _export('ElementBuilder', ElementBuilder);
 
+            /**
+             * Get a new custom element builder.
+             * @returns {ElementBuilder} the custom element builder
+             */
             function element() {
                 return new ElementBuilder();
             }

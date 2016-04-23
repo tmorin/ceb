@@ -39,12 +39,22 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
             }();
 
             _export('DelegateBuilder', DelegateBuilder = function () {
+
+                /**
+                 * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} fieldBuilder the field builder
+                 */
+
                 function DelegateBuilder(fieldBuilder) {
                     _classCallCheck(this, DelegateBuilder);
 
+                    /**
+                     * @ignore
+                     */
                     this.fieldBuilder = fieldBuilder;
+                    /**
+                     * @ignore
+                     */
                     this.data = {};
-
                     if (fieldBuilder.data.attrName) {
                         this.data.attrName = fieldBuilder.data.attrName;
                     } else if (this.fieldBuilder.data.propName) {
@@ -53,6 +63,13 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
                         this.data.methName = fieldBuilder.data.methName;
                     }
                 }
+
+                /**
+                 * The target of the delegate.
+                 * @param {!string} selector a valid css query
+                 * @returns {DelegateBuilder} the builder
+                 */
+
 
                 _createClass(DelegateBuilder, [{
                     key: 'to',
@@ -64,39 +81,33 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
                     key: 'property',
                     value: function property(propName) {
                         this.data.attrName = null;
-
                         if (!isUndefined(propName)) {
                             this.data.propName = propName;
                         } else {
                             this.data.propName = this.fieldBuilder.data.propName;
                         }
-
                         return this;
                     }
                 }, {
                     key: 'attribute',
                     value: function attribute(attrName) {
                         this.data.propName = null;
-
                         if (!isUndefined(attrName)) {
                             this.data.attrName = attrName;
                         } else {
                             this.data.attrName = this.fieldBuilder.data.attrName || this.fieldBuilder.data.propName;
                         }
-
                         return this;
                     }
                 }, {
                     key: 'method',
                     value: function method(methName) {
                         this.data.methName = null;
-
                         if (!isUndefined(methName)) {
                             this.data.methName = methName;
                         } else {
                             this.data.methName = this.fieldBuilder.data.methName;
                         }
-
                         return this;
                     }
                 }, {
@@ -114,36 +125,30 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
                             fieldBuilderData.getterFactory = function (attrName, isBoolean) {
                                 return function () {
                                     var target = this.querySelector(data.selector);
-
                                     if (target) {
                                         return targetedAttrName ? getAttValue(target, targetedAttrName, isBoolean) : target[targetedPropName];
                                     }
                                 };
                             };
-
                             fieldBuilderData.setterFactory = function (attrName, isBoolean) {
                                 return function (value) {
                                     var target = this.querySelector(data.selector),
                                         attrValue = value;
-
                                     if (target) {
                                         if (targetedAttrName) {
                                             setAttValue(target, targetedAttrName, isBoolean, attrValue);
                                         } else {
                                             target[targetedPropName] = attrValue;
                                         }
-
                                         setAttValue(this, attrName, isBoolean, attrValue);
                                     }
                                 };
                             };
                         } else if (fieldBuilderData.propName) {
                             fieldBuilderData.descriptorValue = false;
-
                             fieldBuilderData.getter = function (el) {
                                 var target = el.querySelector(data.selector),
-                                    targetValue = undefined;
-
+                                    targetValue = void 0;
                                 if (target) {
                                     if (targetedAttrName) {
                                         targetValue = target.getAttribute(targetedAttrName);
@@ -151,14 +156,11 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
                                         targetValue = target[targetedPropName];
                                     }
                                 }
-
                                 return isFunction(fieldGetter) ? fieldGetter.call(el, el, targetValue) : targetValue;
                             };
-
                             fieldBuilderData.setter = function (el, value) {
                                 var target = el.querySelector(data.selector),
                                     targetValue = isFunction(fieldSetter) ? fieldSetter.call(el, el, value) : value;
-
                                 if (target) {
                                     if (targetedAttrName) {
                                         target.setAttribute(targetedAttrName, targetValue);
@@ -170,14 +172,11 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
                         } else if (fieldBuilderData.methName) {
                             fieldBuilderData.invoke = function (el) {
                                 var target = el.querySelector(data.selector);
-
                                 if (isFunction(target[targetedMethName])) {
                                     var args = toArray(arguments);
-
                                     if (!fieldBuilderData.native) {
                                         args.shift();
                                     }
-
                                     return target[targetedMethName].apply(target, args);
                                 }
                             };
@@ -192,6 +191,11 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
 
             _export('DelegateBuilder', DelegateBuilder);
 
+            /**
+             * Get a new delegate builder.
+             * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} builder a property, attribute or method builder
+             * @returns {DelegateBuilder} the delegate builder
+             */
             function delegate(builder) {
                 return new DelegateBuilder(builder);
             }

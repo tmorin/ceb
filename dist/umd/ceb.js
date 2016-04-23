@@ -463,12 +463,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.AttributeBuilder = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	exports.getAttValue = getAttValue;
 	exports.setAttValue = setAttValue;
 	exports.attribute = attribute;
@@ -572,6 +573,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Attribute is present when true and missing when false.
 	     * @returns {AttributeBuilder} the builder
 	     */
+
 
 	    _createClass(AttributeBuilder, [{
 	        key: 'boolean',
@@ -723,6 +725,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {AttributeBuilder} the attribute builder
 	 */
 
+
 	exports.AttributeBuilder = AttributeBuilder;
 	function attribute(attrName) {
 	    return new AttributeBuilder(attrName);
@@ -734,12 +737,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.PropertyBuilder = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	exports.property = property;
 
 	var _types = __webpack_require__(1);
@@ -778,6 +782,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * To make an immutable property.
 	     * @returns {PropertyBuilder} the builder
 	     */
+
 
 	    _createClass(PropertyBuilder, [{
 	        key: 'immutable',
@@ -936,6 +941,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {PropertyBuilder} the property builder
 	 */
 
+
 	exports.PropertyBuilder = PropertyBuilder;
 	function property(propName) {
 	    return new PropertyBuilder(propName);
@@ -996,12 +1002,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.DelegateBuilder = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	exports.delegate = delegate;
 
 	var _types = __webpack_require__(1);
@@ -1048,6 +1055,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @param {!string} selector a valid css query
 	     * @returns {DelegateBuilder} the builder
 	     */
+
 
 	    _createClass(DelegateBuilder, [{
 	        key: 'to',
@@ -1154,7 +1162,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                fieldBuilderData.descriptorValue = false;
 	                fieldBuilderData.getter = function (el) {
 	                    var target = el.querySelector(data.selector),
-	                        targetValue = undefined;
+	                        targetValue = void 0;
 	                    if (target) {
 	                        if (targetedAttrName) {
 	                            targetValue = target.getAttribute(targetedAttrName);
@@ -1201,6 +1209,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {DelegateBuilder} the delegate builder
 	 */
 
+
 	function delegate(builder) {
 	    return new DelegateBuilder(builder);
 	}
@@ -1211,14 +1220,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.ElementBuilder = undefined;
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	exports.element = element;
 
 	var _types = __webpack_require__(1);
@@ -1307,6 +1317,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @param {string|Object} [arg2] the prototype or the name of the native element
 	     * @returns {ElementBuilder} the builder
 	     */
+
 
 	    _createClass(ElementBuilder, [{
 	        key: 'base',
@@ -1414,6 +1425,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {ElementBuilder} the custom element builder
 	 */
 
+
 	exports.ElementBuilder = ElementBuilder;
 	function element() {
 	    return new ElementBuilder();
@@ -1425,12 +1437,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.MethodBuilder = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	exports.method = method;
 
 	var _types = __webpack_require__(1);
@@ -1466,6 +1479,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @param {!function(el: HTMLElement, args: ...*)} fn the method's logic
 	     * @returns {MethodBuilder} the builder
 	     */
+
 
 	    _createClass(MethodBuilder, [{
 	        key: 'invoke',
@@ -1562,6 +1576,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {MethodBuilder} the method builder
 	 */
 
+
 	function method(methName) {
 	    return new MethodBuilder(methName);
 	}
@@ -1572,14 +1587,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.OnBuilder = undefined;
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	exports.on = on;
 
 	var _types = __webpack_require__(1);
@@ -1617,6 +1633,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @param {!function(el: HTMLElement, evt: DOMEvent, target: HTMLElement)} fn the event's logic
 	     * @returns {OnBuilder} the builder
 	     */
+
 
 	    _createClass(OnBuilder, [{
 	        key: 'invoke',
@@ -1790,6 +1807,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {OnBuilder} the on builder
 	 */
 
+
 	function on(events) {
 	    return new OnBuilder(events);
 	}
@@ -1800,12 +1818,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.TemplateBuilder = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	exports.applyTemplate = applyTemplate;
 	exports.template = template;
 
@@ -1893,7 +1912,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {!string} tpl the template
 	 */
 	function applyTemplate(el, tpl) {
-	    var lightFrag = undefined,
+	    var lightFrag = void 0,
 	        handleContentNode = hasContent(tpl);
 
 	    if (handleContentNode) {
@@ -1938,6 +1957,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * @param {!ElementBuilder.on} on the method on
 	     */
 
+
 	    _createClass(TemplateBuilder, [{
 	        key: 'build',
 	        value: function build(proto, on) {
@@ -1961,6 +1981,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {!string|Function} tpl the string or function template
 	 * @returns {TemplateBuilder} the template builder
 	 */
+
 
 	function template(tpl) {
 	    return new TemplateBuilder(tpl);
@@ -2016,7 +2037,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
 	 */
 	function dispatchCustomEvent(el, eventType, options) {
-	    var event = undefined,
+	    var event = void 0,
 	        args = (0, _objects.assign)({}, DEFAULT_CUSTOM_EVENT_OPTIONS, options);
 	    if (typeof CustomEvent === 'function') {
 	        event = new CustomEvent(eventType, args);
@@ -2037,7 +2058,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
 	 */
 	function dispatchMouseEvent(el, eventType, options) {
-	    var event = undefined,
+	    var event = void 0,
 	        args = (0, _objects.assign)({}, DEFAULT_MOUSE_EVENT_OPTIONS, options);
 	    if (typeof MouseEvent === 'function') {
 	        event = new MouseEvent(eventType, args);
@@ -2058,7 +2079,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
 	 */
 	function dispatchHtmlEvent(el, eventType, options) {
-	    var event = undefined,
+	    var event = void 0,
 	        args = (0, _objects.assign)({}, DEFAULT_MOUSE_EVENT_OPTIONS, options);
 	    if (typeof HTMLEvents === 'function') {
 	        event = new Events(eventType, args);

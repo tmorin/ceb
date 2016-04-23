@@ -38,14 +38,26 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
             }();
 
             _export('MethodBuilder', MethodBuilder = function () {
+
+                /**
+                 * @param {!string} methName the name of the method
+                 */
+
                 function MethodBuilder(methName) {
                     _classCallCheck(this, MethodBuilder);
 
-                    this.data = {
-                        methName: methName,
-                        wrappers: []
-                    };
+                    /**
+                     * @ignore
+                     */
+                    this.data = { methName: methName, wrappers: [] };
                 }
+
+                /**
+                 * To do something when invoked.
+                 * @param {!function(el: HTMLElement, args: ...*)} fn the method's logic
+                 * @returns {MethodBuilder} the builder
+                 */
+
 
                 _createClass(MethodBuilder, [{
                     key: 'invoke',
@@ -53,7 +65,6 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                         if (isFunction(fn)) {
                             this.data.invoke = fn;
                         }
-
                         return this;
                     }
                 }, {
@@ -80,11 +91,9 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                         if (data.invoke) {
                             proto[data.methName] = function () {
                                 var args = toArray(arguments);
-
                                 if (!data.native) {
                                     args = [this].concat(args);
                                 }
-
                                 return data.invoke.apply(this, args);
                             };
                         }
@@ -97,19 +106,15 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                                             original = el[data.methName],
                                             target = function target() {
                                             var args = toArray(arguments);
-
                                             if (!data.native) {
                                                 args.shift();
                                             }
-
                                             original.apply(el, args);
                                         };
-
                                         el[data.methName] = data.wrappers.reduce(function (next, current, index) {
                                             if (index === lastIndex) {
                                                 return bind(data.native ? partial(current, next) : partial(current, next, el), el);
                                             }
-
                                             return bind(partial(current, next), el);
                                         }, target);
                                     })();
@@ -124,6 +129,11 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
 
             _export('MethodBuilder', MethodBuilder);
 
+            /**
+             * Get a new method builder.
+             * @param {!string} methName the name of the method
+             * @returns {MethodBuilder} the method builder
+             */
             function method(methName) {
                 return new MethodBuilder(methName);
             }

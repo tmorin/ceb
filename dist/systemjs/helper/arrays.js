@@ -4,15 +4,31 @@ System.register(['./types.js'], function (_export, _context) {
     var isArray, isFunction;
     return {
         setters: [function (_typesJs) {
+            // obviously close to underscorejs and lodash ;)
+
             isArray = _typesJs.isArray;
             isFunction = _typesJs.isFunction;
         }],
         execute: function () {
+
+            /**
+             * Flattens a nested array.
+             * @param {!Array} array the array to flatten
+             * @returns {Array} the new flattened array
+             */
             function flatten(array) {
                 return array.reduce(function (a, b) {
                     return isArray(b) ? a.concat(flatten(b)) : a.concat(b);
                 }, []);
             }
+
+            /**
+             * For each objects, invoke the method called methName with the arguments args.
+             * @param {!Array<Object>} objects the objects
+             * @param {!string} methName the name of the method
+             * @param {...*} args the arguments to invoke the method with
+             * @return {Array} the array of results
+             */
 
             _export('flatten', flatten);
 
@@ -28,7 +44,6 @@ System.register(['./types.js'], function (_export, _context) {
                         return obj[methName].apply(obj, args);
                     });
                 }
-
                 return [];
             }
 

@@ -43,14 +43,25 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
             };
 
             _export('PropertyBuilder', PropertyBuilder = function () {
+
+                /**
+                 * @param {!string} propName the name of the property
+                 */
+
                 function PropertyBuilder(propName) {
                     _classCallCheck(this, PropertyBuilder);
 
-                    this.data = assign({
-                        propName: propName,
-                        listeners: []
-                    }, DEFAULT_DATA);
+                    /**
+                     * @ignore
+                     */
+                    this.data = assign({ propName: propName, listeners: [] }, DEFAULT_DATA);
                 }
+
+                /**
+                 * To make an immutable property.
+                 * @returns {PropertyBuilder} the builder
+                 */
+
 
                 _createClass(PropertyBuilder, [{
                     key: 'immutable',
@@ -104,13 +115,11 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                             descriptor.writable = false;
                         } else if (isFunction(this.data.getter) || isFunction(this.data.setter)) {
                             descriptor.configurable = false;
-
                             descriptor.get = function () {
                                 if (data.getter) {
                                     return data.getter.call(this, this);
                                 }
                             };
-
                             descriptor.set = function (value) {
                                 if (data.setter) {
                                     return data.setter.call(this, this, value);
@@ -126,25 +135,20 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                                 descriptor.configurable = false;
                                 delete descriptor.writable;
                                 data.descriptorValue = false;
-
                                 var _propName = '__' + data.propName + 'LastSetValue';
-
                                 if (!descriptor.get) {
                                     descriptor.get = function () {
                                         return this[_propName];
                                     };
                                 }
-
                                 descriptor.set = function (newVal) {
                                     var _this = this;
 
                                     var oldVal = this[_propName];
                                     this[_propName] = newVal;
-
                                     if (data.setter) {
                                         data.setter.call(this, this, newVal);
                                     }
-
                                     data.listeners.forEach(function (listener) {
                                         listener.call(_this, _this, oldVal, newVal);
                                     });
@@ -157,6 +161,7 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                         }
 
                         Object.defineProperty(proto, this.data.propName, descriptor);
+
                         on('after:createdCallback').invoke(function (el) {
                             if (!data.descriptorValue && !isUndefined(defaultValue)) {
                                 el[data.propName] = defaultValue;
@@ -170,6 +175,11 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
 
             _export('PropertyBuilder', PropertyBuilder);
 
+            /**
+             * Get a new property builder.
+             * @param {!string} propName the name of the property
+             * @returns {PropertyBuilder} the property builder
+             */
             function property(propName) {
                 return new PropertyBuilder(propName);
             }

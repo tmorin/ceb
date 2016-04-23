@@ -52,32 +52,49 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
                 };
             }();
 
+            /**
+             * Get the value from an attribute.
+             * @param {!HTMLElement} el an HTML element
+             * @param {!string} attrName the name of the attribute
+             * @param {!boolean} isBoolean true is the returned value should be a boolean
+             * @returns {string|boolean}
+             */
             function getAttValue(el, attrName, isBoolean) {
                 if (isBoolean) {
                     return el.hasAttribute(attrName);
                 }
-
                 return el.getAttribute(attrName);
             }
+
+            /**
+             * Set the value of an attribute.
+             * @param {!HTMLElement} el an HTML element
+             * @param {!string} attrName the name of the attribute
+             * @param {!boolean} isBoolean true is the value should be a boolean
+             * @param {string|boolean} value the value to set
+             */
 
             _export('getAttValue', getAttValue);
 
             function setAttValue(el, attrName, isBoolean, value) {
                 if (isBoolean) {
+                    // Handle boolean value
                     if (value && !el.hasAttribute(attrName)) {
                         el.setAttribute(attrName, '');
                     } else if (!value && el.hasAttribute(attrName)) {
                         el.removeAttribute(attrName);
                     }
                 } else {
+                    // Handle none boolean value
                     if ((isUndefined(value) || isNull(value)) && el.hasAttribute(attrName)) {
+                        // There is no value, so the attribute must be removed
                         el.removeAttribute(attrName);
                     } else if (!isUndefined(value) && !isNull(value) && el.getAttribute(attrName) !== value) {
+                        // Sync the attribute value with value
                         el.setAttribute(attrName, value);
                     }
                 }
             }
-
             _export('setAttValue', setAttValue);
 
             DEFAULT_DATA = {
@@ -89,15 +106,30 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
             };
 
             _export('AttributeBuilder', AttributeBuilder = function () {
+
+                /**
+                 * @param {!string} attrName the name of the attribute
+                 */
+
                 function AttributeBuilder(attrName) {
                     _classCallCheck(this, AttributeBuilder);
 
+                    /**
+                     * @ignore
+                     */
                     this.data = assign({
                         attrName: attrName,
                         propName: toCamelCase(attrName),
                         listeners: []
                     }, DEFAULT_DATA);
                 }
+
+                /**
+                 * To handle the attribute/property value as a boolean:
+                 * Attribute is present when true and missing when false.
+                 * @returns {AttributeBuilder} the builder
+                 */
+
 
                 _createClass(AttributeBuilder, [{
                     key: 'boolean',
@@ -154,7 +186,6 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
                         on('after:createdCallback').invoke(function (el) {
                             if (data.bound) {
                                 var attrValue = getAttValue(el, data.attrName, data.boolean);
-
                                 if (data.boolean) {
                                     el[data.propName] = !!defaultValue ? defaultValue : attrValue;
                                 } else if (!isNull(attrValue) && !isUndefined(attrValue)) {
@@ -163,12 +194,10 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
                                     el[data.propName] = defaultValue;
                                 }
                             }
-
                             if (data.listeners.length > 0) {
                                 (function () {
                                     var oldValue = data.boolean ? false : null;
                                     var setValue = el[data.propName];
-
                                     if (oldValue !== setValue) {
                                         data.listeners.forEach(function (listener) {
                                             return listener.call(el, el, oldValue, setValue);
@@ -177,21 +206,20 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
                                 })();
                             }
                         });
+
                         on('before:attributeChangedCallback').invoke(function (el, attName, oldVal, newVal) {
+                            // Synchronize the attribute value with its properties
                             if (attName === data.attrName) {
                                 if (data.bound) {
                                     var newValue = data.boolean ? newVal === '' : newVal;
-
                                     if (el[data.propName] !== newValue) {
                                         el[data.propName] = newValue;
                                     }
                                 }
-
                                 if (data.listeners.length > 0) {
                                     (function () {
                                         var oldValue = data.boolean ? oldVal === '' : oldVal;
                                         var setValue = data.boolean ? newVal === '' : newVal;
-
                                         if (oldValue !== setValue) {
                                             data.listeners.forEach(function (listener) {
                                                 return listener.call(el, el, oldValue, setValue);
@@ -209,6 +237,11 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
 
             _export('AttributeBuilder', AttributeBuilder);
 
+            /**
+             * Get a new attribute builder.
+             * @param {!string} attrName the name of the attribute
+             * @returns {AttributeBuilder} the attribute builder
+             */
             function attribute(attrName) {
                 return new AttributeBuilder(attrName);
             }

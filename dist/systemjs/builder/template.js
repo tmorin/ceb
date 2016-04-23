@@ -9,39 +9,59 @@ System.register(['../helper/types.js', './property.js'], function (_export, _con
         }
     }
 
+    /**
+     * @param {!string} html the HTML template
+     * @returns {boolean} true if the HTML template handle a light DOM node
+     */
     function hasContent(html) {
         return html.search(CONTENT_ATTR_REG_EX) !== -1 || html.search(CONTENT_NODE_REG_EX) !== -1;
     }
 
+    /**
+     * Update or replace an eventual content flag according to the given id.
+     * @param {!string} html the HTML template
+     * @param {!string} newCebContentId the new content node id
+     * @returns {string} the updated HTML template
+     */
     function replaceContent(html, newCebContentId) {
         return html.replace('<content></content>', '<ceb-lightdom ceb-content></ceb-lightdom>').replace('ceb-content', newCebContentId);
     }
 
+    /**
+     * Try to find a light DOM node
+     * @param {!HTMLElement} el the custom element
+     * @returns {HTMLElement} the light DOM node if found otherwise it's the given HTML Element
+     */
     function findContentNode(el) {
         if (!el) {
             return;
         }
-
         var oldCebContentId = el.getAttribute(OLD_CONTENT_ID_ATTR_NAME);
-
         if (oldCebContentId) {
             return findContentNode(el.querySelector('[' + oldCebContentId + ']')) || el;
         }
-
         return el;
     }
 
+    /**
+     * Remove and return the children of the light DOM node.
+     * @param {!HTMLElement} el the custom element
+     * @returns {DocumentFragment} the light DOM fragment
+     */
     function cleanOldContentNode(el) {
         var oldContentNode = el.lightDOM,
             lightFrag = document.createDocumentFragment();
-
         while (oldContentNode.childNodes.length > 0) {
             lightFrag.appendChild(oldContentNode.removeChild(oldContentNode.childNodes[0]));
         }
-
         return lightFrag;
     }
 
+    /**
+     * Apply the template to the element.
+     * @param {!HTMLElement} el the custom element
+     * @param {!string} tpl the template
+     */
     return {
         setters: [function (_helperTypesJs) {
             isFunction = _helperTypesJs.isFunction;
@@ -71,15 +91,16 @@ System.register(['../helper/types.js', './property.js'], function (_export, _con
             OLD_CONTENT_ID_ATTR_NAME = 'ceb-old-content-id';
             CONTENT_ATTR_REG_EX = /ceb\-content/im;
             CONTENT_NODE_REG_EX = /<content><\/content>/im;
-
             function applyTemplate(el, tpl) {
-                var lightFrag = undefined,
+                var lightFrag = void 0,
                     handleContentNode = hasContent(tpl);
 
                 if (handleContentNode) {
                     var newCebContentId = 'ceb-content-' + counter++;
                     lightFrag = cleanOldContentNode(el);
+
                     tpl = replaceContent(tpl, newCebContentId);
+
                     el.setAttribute(OLD_CONTENT_ID_ATTR_NAME, newCebContentId);
                 }
 
@@ -90,24 +111,44 @@ System.register(['../helper/types.js', './property.js'], function (_export, _con
                 }
             }
 
+            /**
+             * The template builder.
+             * Its goal is to provide a way to fill the content of a custom element.
+             */
+
             _export('applyTemplate', applyTemplate);
 
             _export('TemplateBuilder', TemplateBuilder = function () {
+
+                /**
+                 * @param {!string|function(el: HTMLElement)} tpl the template as a string or a function
+                 */
+
                 function TemplateBuilder(tpl) {
                     _classCallCheck(this, TemplateBuilder);
 
-                    this.data = {
-                        tpl: tpl
-                    };
+                    /**
+                     * @ignore
+                     */
+                    this.data = { tpl: tpl };
                 }
+
+                /**
+                 * Logic of the builder.
+                 * @param {!ElementBuilder.context.proto} proto the prototype
+                 * @param {!ElementBuilder.on} on the method on
+                 */
+
 
                 _createClass(TemplateBuilder, [{
                     key: 'build',
                     value: function build(proto, on) {
                         var data = this.data;
+
                         property('lightDOM').getter(function (el) {
                             return findContentNode(el);
                         }).build(proto, on);
+
                         on('before:createdCallback').invoke(function (el) {
                             applyTemplate(el, isFunction(data.tpl) ? data.tpl(el) : data.tpl);
                         });
@@ -119,6 +160,11 @@ System.register(['../helper/types.js', './property.js'], function (_export, _con
 
             _export('TemplateBuilder', TemplateBuilder);
 
+            /**
+             * Get a new template builder.
+             * @param {!string|Function} tpl the string or function template
+             * @returns {TemplateBuilder} the template builder
+             */
             function template(tpl) {
                 return new TemplateBuilder(tpl);
             }
