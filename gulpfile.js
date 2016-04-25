@@ -16,5 +16,7 @@ gulp.task('zip', function () {
 });
 
 gulp.task('deploy', function () {
-    return gulp.src('./_book/**/*').pipe(ghPages());
+    return gulp.src('./_book/**/*').pipe(ghPages({
+        message: 'update site, so [skip ci]'
+    }));
 });
