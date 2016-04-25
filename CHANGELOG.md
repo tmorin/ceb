@@ -1,5 +1,8 @@
 # Change log
 
+## 0.9.x
+- upgrade dependencies
+
 ## 0.8.x
 - review dist files
 - upgrade dependencies
