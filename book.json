@@ -1,8 +1,8 @@
 {
   "gitbook": "2.6.x",
   "title": "ceb custom-element-builder",
-  "structure": {
-    "summary": "doc/README.md"
+  "structures": {
+    "summary": "/doc/README.md"
   },
   "plugins": [
     "prism",

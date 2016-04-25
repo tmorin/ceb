@@ -1,4 +1,5 @@
 {% include "/doc/_urls.md" %}
+{% raw %}
 # Templator
 
 This example show how to extends the `script` element in order to compile its content on the fly.
@@ -93,3 +94,4 @@ cebTemplatorBuilder.builders(
 
 /* ... */
 ```
+{% endraw %}

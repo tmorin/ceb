@@ -9,7 +9,7 @@ This builder is used by the following examples:
 - [Grid](../grid/README.md)
 
 The following snippet is extracted from the [List++](../list-plusplus/README.md) example.
-
+{% raw %}
 ```javascript
 import {element, on} from 'ceb';
 import {idomify} from 'idomify';
@@ -44,5 +44,5 @@ cebExampleBuilder.builders(
 
 export default cebExampleBuilder.register('ceb-example');
 ```
-
+{% endraw %}
 The context of the template is the custom element instance.
