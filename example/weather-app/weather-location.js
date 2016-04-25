@@ -10,6 +10,8 @@ import {
     toArray
 } from 'ceb';
 
+import {getById} from './owm';
+
 function padLeft(nbr, ref, val) {
     if (nbr > ref.length) {
         let paddedRef = ref;
@@ -28,7 +30,6 @@ function getTime(date) {
 export const WeatherLocation = element().builders(
     template(`
         <div class="well">
-            <weather-api></weather-api>
             <div class="pull-right">
                 <button class="btn btn-default btn-sm" type="button" name="refresh">
                     <i class="glyphicon glyphicon-refresh"></i>
@@ -153,7 +154,7 @@ export const WeatherLocation = element().builders(
     }),
 
     method('refresh').invoke(el => {
-        el.querySelector('weather-api').getById(el.locationId).then(data => {
+        getById(el.locationId).then(data => {
             el.data = data;
         }, xhr => {
             if (xhr) {

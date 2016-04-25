@@ -17,16 +17,17 @@ function appendFirst(parent, child) {
     }
 }
 
+import {getById, getByIds} from './owm';
+
 export const WeatherLocations = element().builders(
     template(`
-        <weather-api></weather-api>
         <section class="locations"></section>
     `),
 
     method('createdCallback').invoke(el => {
         let locationIds = getLocationIds();
         if (locationIds.length > 0) {
-            el.querySelector('weather-api').getByIds(locationIds).then(data => {
+            getByIds(locationIds).then(data => {
                 data.list.forEach(locationData => {
                     let weatherLocation = document.createElement('weather-location');
                     weatherLocation.data = locationData;
@@ -54,7 +55,7 @@ export const WeatherLocations = element().builders(
         locationIds.push(locationId);
         setLocationIds(locationIds);
 
-        el.querySelector('weather-api').getById(locationId).then(data => {
+        getById(locationId).then(data => {
             let weatherLocation = document.createElement('weather-location');
             weatherLocation.data = data;
             appendFirst(el.querySelector('.locations'), weatherLocation);
@@ -90,7 +91,7 @@ export const WeatherLocations = element().builders(
     method('refreshAllLocations').invoke(el => {
         let locationIds = getLocationIds();
         if (locationIds.length > 0) {
-            el.querySelector('weather-api').getByIds(locationIds).then(data => {
+            getByIds(locationIds).then(data => {
                 data.list.forEach(locationData => el.querySelector(`[location-id="${locationData.id}"]`).data = locationData);
             }, xhr => {
                 if (xhr) {

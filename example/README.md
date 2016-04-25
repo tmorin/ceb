@@ -25,3 +25,4 @@ Even if the `<ceb/>` examples show how to use the built-in functionality, they a
 ## Apps
 
 * [Todo App](todo-app/README.md)
+* [Weather App](weather-app/README.md)

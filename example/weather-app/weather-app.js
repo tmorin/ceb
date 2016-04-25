@@ -6,7 +6,6 @@ import {
 
 import './weather-app.less';
 
-export {WeatherApi} from './weather-api.js';
 export {WeatherLocation} from './weather-location.js';
 export {WeatherLocationClouds} from './weather-location-clouds.js';
 export {WeatherLocationHumidity} from './weather-location-humidity.js';
@@ -34,8 +33,8 @@ export const WeatherApp = element().builders(
                 <li class="navbar-form"><weather-toolbar></weather-toolbar></li>
             </ul>
         </div>
-        <weather-map></weather-map>
         <weather-place-finder></weather-place-finder>
+        <weather-map></weather-map>
         <weather-locations></weather-locations>
     `),
 
@@ -43,7 +42,7 @@ export const WeatherApp = element().builders(
         let weatherPlaceFinder = el.querySelector('weather-place-finder');
         weatherPlaceFinder.shown = !weatherPlaceFinder.shown;
         if (weatherPlaceFinder.shown) {
-            weatherPlaceFinder.focus();
+            setTimeout(() => weatherPlaceFinder.focus(), 0);
         }
     }),
 

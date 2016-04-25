@@ -13,24 +13,25 @@ The live example is alive [there][live-weather-app].
 ## UI elements
 
 * `weather-app`: acts as a controller
-  * `todo-locations`: to handle the locations management
-    * `todo-units-switcher`: to change the units (metric, imperial, etc.)
-    * `todo-toolbar`: useful buttons
-    * `todo-map`: to display cities on a map
-      * `todo-map-location`: to get info about a city
-    * `todo-place-finder`: to find locations
-    * `todo-location`: the _card_ of a location
-      * `todo-location-clouds`: info about the clouds
-      * `todo-location-humidity`: info about the humidity
-      * `todo-location-pressure`: info about the pressure
-      * `todo-location-rain`: info about the rain
-      * `todo-location-snow`: info about the snow
-      * `todo-location-sunrise`: info about the sunrise
-      * `todo-location-sunset`: info about the sunset
-      * `todo-location-temperature`: info about the temperature
-      * `todo-location-value`: info about the value
-      * `todo-location-wind`: info about the wind
+  * `weather-units-switcher`: to change the units (metric, imperial, etc.)
+  * `weather-toolbar`: useful buttons
+  * `weather-map`: to display cities on a map
+    * `weather-map-location`: to get info about a city
+  * `weather-place-finder`: to find locations
+  * `weather-locations`: to handle the locations management
+    * `weather-location`: the _card_ of a location
+      * `weather-location-clouds`: info about the clouds
+      * `weather-location-humidity`: info about the humidity
+      * `weather-location-pressure`: info about the pressure
+      * `weather-location-rain`: info about the rain
+      * `weather-location-snow`: info about the snow
+      * `weather-location-sunrise`: info about the sunrise
+      * `weather-location-sunset`: info about the sunset
+      * `weather-location-temperature`: info about the temperature
+      * `weather-location-value`: info about the value
+      * `weather-location-wind`: info about the wind
 
-## Logic elements
+## JS modules
 
-* `weather-api`: an element providing an API to make XHR request, this component is created by each elements requiring it
+ * `owm`: to handle the [openweathermap] REST API
+ * `storage`: to handle the LocalStorage data (the units)

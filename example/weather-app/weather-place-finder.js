@@ -8,9 +8,10 @@ import {
     dispatchCustomEvent
 } from 'ceb';
 
+import {find} from './owm';
+
 export const WeatherPlaceFinder = element().builders(
     template(`
-        <weather-api></weather-api>
         <div class="well">
             <form novalidate name="placeFinderForm" class="form-inline">
                 <input type="text"
@@ -38,7 +39,7 @@ export const WeatherPlaceFinder = element().builders(
         if (query.length > 2) {
             let result = el.querySelector('.results');
             result.innerHTML = '<ul><li>Searching ...</li></ul>';
-            el.querySelector('weather-api').find(query).then(data => {
+            find(query).then(data => {
                 result.innerHTML = '';
 
                 let frag = document.createDocumentFragment();
