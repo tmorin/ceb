@@ -66,7 +66,7 @@ export const WeatherPlaceFinder = element().builders(
                 result.appendChild(frag);
             }, xhr => {
                 if (xhr) {
-                    ul.innerHTML = '<li>Unable find locations.</li>';
+                    result.innerHTML = '<ul><li>Unable find locations.</li></ul>';
                 }
             });
         }
