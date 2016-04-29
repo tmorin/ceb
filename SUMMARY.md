@@ -2,7 +2,7 @@
 # Table of Contents
 
 * [Readme](/README.md)
-* [Installation](/INSTALL.md) 
+* [Installation](/INSTALL.md)
 * [Integration](/doc/integration/README.md)
   * [Polyfills](/doc/integration/polyfills.md)
   * [As a global variable](/doc/integration/global.md)
@@ -39,6 +39,6 @@
     * [Todo App](/example/todo-app/README.md)
     * [Weather App](/example/weather-app/README.md)
 * [Testing](/doc/testing/README.md)
-* [API](https://tmorin.github.io/ceb/api)
+* [API](api/index)
 * [Contributing](/CONTRIBUTING.md)
 * [Change Log](/CHANGELOG.md)
