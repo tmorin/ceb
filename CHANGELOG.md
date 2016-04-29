@@ -2,6 +2,7 @@
 
 ## 0.9.x
 - upgrade dependencies
+- fix weather-app
 
 ## 0.8.x
 - review dist files
