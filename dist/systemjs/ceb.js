@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['./builder/element.js', './builder/property.js', './builder/attribute.js', './builder/delegate.js', './builder/method.js', './builder/template.js', './builder/on.js', './helper/arrays.js', './helper/converters.js', './helper/functions.js', './helper/objects.js', './helper/events.js', './helper/types.js'], function (_export, _context) {
+  "use strict";
+
   return {
     setters: [function (_builderElementJs) {
       var _exportObj = {};

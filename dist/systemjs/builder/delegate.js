@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['../helper/types.js', '../helper/converters.js', './attribute.js'], function (_export, _context) {
+    "use strict";
+
     var isUndefined, isFunction, toArray, getAttValue, setAttValue, _createClass, DelegateBuilder;
 
     function _classCallCheck(instance, Constructor) {

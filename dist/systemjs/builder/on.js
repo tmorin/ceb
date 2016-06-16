@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['../helper/types.js', '../helper/functions.js', '../helper/converters.js'], function (_export, _context) {
+    "use strict";
+
     var isFunction, noop, toArray, _slicedToArray, _createClass, OnBuilder;
 
     function _classCallCheck(instance, Constructor) {

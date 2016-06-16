@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['./converters.js'], function (_export, _context) {
+    "use strict";
+
     var toArray;
     return {
         setters: [function (_convertersJs) {

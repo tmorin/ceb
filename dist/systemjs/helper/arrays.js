@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['./types.js'], function (_export, _context) {
+    "use strict";
+
     var isArray, isFunction;
     return {
         setters: [function (_typesJs) {

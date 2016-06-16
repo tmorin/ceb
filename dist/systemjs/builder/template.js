@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['../helper/types.js', './property.js'], function (_export, _context) {
+    "use strict";
+
     var isFunction, property, _createClass, counter, OLD_CONTENT_ID_ATTR_NAME, CONTENT_ATTR_REG_EX, CONTENT_NODE_REG_EX, TemplateBuilder;
 
     function _classCallCheck(instance, Constructor) {

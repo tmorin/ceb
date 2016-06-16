@@ -1,6 +1,8 @@
 'use strict';
 
 System.register(['../helper/types.js', '../helper/objects.js'], function (_export, _context) {
+    "use strict";
+
     var isFunction, isUndefined, result, assign, _createClass, DEFAULT_DATA, PropertyBuilder;
 
     function _classCallCheck(instance, Constructor) {
