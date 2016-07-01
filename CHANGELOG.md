@@ -1,6 +1,7 @@
 # Change log
 
 ## 0.9.x
+- add unit test on iphone devices
 - upgrade dependencies
 - fix weather-app
 

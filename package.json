@@ -55,7 +55,7 @@
     "test:ci:evergreen": "karma start karma.config.ci.js --browsers slChrome,slFirefox",
     "test:ci:safari": "karma start karma.config.ci.js --browsers slSafari7,slSafari8",
     "test:ci:android": "karma start karma.config.ci.js --browsers slAndroid4,slAndroid5",
-    "test:ci:iphone": "karma start karma.config.ci.js --browsers slIPhone7,slIPhone8,slIPhone9",
+    "test:ci:iphone": "karma start karma.config.ci.js --browsers slIPhone8,slIPhone9",
     "test:ci:copy": "npm run test:ci:ie && npm run test:ci:evergreen && npm run test:ci:safari && npm run test:ci:android && npm run test:ci:iphone",
     "test:ci": "npm run test:ci:iphone",
     "test": "npm run test:ci",

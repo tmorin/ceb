@@ -59,14 +59,6 @@ module.exports = function (config) {
             browserName: 'safari',
             version: '8'
         },
-        slIPhone7: {
-            base: 'SauceLabs',
-            browserName: 'Safari',
-            deviceName: 'iPhone Simulator',
-            version: '7.1',
-            platform: 'iOS',
-            deviceOrientation: 'portrait'
-        },
         slIPhone8: {
             base: 'SauceLabs',
             browserName: 'Safari',
@@ -79,7 +71,7 @@ module.exports = function (config) {
             base: 'SauceLabs',
             browserName: 'Safari',
             deviceName: 'iPhone Simulator',
-            version: '9.3',
+            version: '9.2',
             platform: 'iOS',
             deviceOrientation: 'portrait'
         }
