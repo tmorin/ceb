@@ -61,35 +61,27 @@ module.exports = function (config) {
         },
         slIPhone7: {
             base: 'SauceLabs',
-            browserName: 'iphone',
+            browserName: 'Safari',
             deviceName: 'iPhone Simulator',
             version: '7.1',
-            platform: 'OS X 10.10',
-            'device-orientation': 'portrait'
+            platform: 'iOS',
+            deviceOrientation: 'portrait'
         },
         slIPhone8: {
             base: 'SauceLabs',
-            browserName: 'iphone',
+            browserName: 'Safari',
             deviceName: 'iPhone Simulator',
             version: '8.4',
-            platform: 'OS X 10.10',
-            'device-orientation': 'portrait'
+            platform: 'iOS',
+            deviceOrientation: 'portrait'
         },
-        slIPad7: {
+        slIPhone9: {
             base: 'SauceLabs',
-            browserName: 'iphone',
-            deviceName: 'iPad Simulator',
-            version: '7.1',
-            platform: 'OS X 10.10',
-            'device-orientation': 'portrait'
-        },
-        slIPad8: {
-            base: 'SauceLabs',
-            browserName: 'iphone',
-            deviceName: 'iPad Simulator',
-            version: '8.4',
-            platform: 'OS X 10.10',
-            'device-orientation': 'portrait'
+            browserName: 'Safari',
+            deviceName: 'iPhone Simulator',
+            version: '9.3',
+            platform: 'iOS',
+            deviceOrientation: 'portrait'
         }
     };
 
