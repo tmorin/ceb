@@ -13,4 +13,4 @@ ceb.element(
 ).register('ceb-example');
 ```
 
-[CommonJS] files should be used with [webpack], [browserify] or any bundling tools.
+[CommonJS] files should be used with tools like [webpack] and [browserify].

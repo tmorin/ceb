@@ -39,6 +39,6 @@
     * [Todo App](/example/todo-app/README.md)
     * [Weather App](/example/weather-app/README.md)
 * [Testing](/doc/testing/README.md)
-* [API](api/index)
+* [API](/doc/api.md)
 * [Contributing](/CONTRIBUTING.md)
 * [Change Log](/CHANGELOG.md)

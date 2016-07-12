@@ -19,5 +19,5 @@ System.import('./dist/systemjs/ceb.js').then(function (ceb) {
 
 This snippet is covered by the [SystemJS example][live-loader-systemjs].
 
-Because [SystemJS] works with [AMD] and [UMD] modules, the dist file from `dist/umd/` can also be used.
+Because [SystemJS] works with [AMD] and [UMD] modules, the dist files from `dist/umd/` can also be used.
 However, [SystemJS] must configured to handle them.

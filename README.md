@@ -8,7 +8,7 @@
 
 `<ceb/>` is a library helping to develop [Custom Elements](http://w3c.github.io/webcomponents/spec/custom).
 
-It's core is a builder which executes others builders.
+Its core is a builder which executes others builders.
 By this way, `<ceb/>` is natively opened to extensions and builders easily sharable. 
 
 Obviously, `<ceb/>` exposes builders and helpers handling the common needs:

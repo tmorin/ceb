@@ -27,7 +27,7 @@ document.createElement('my-custom-element');
 By default the prototype of the future custom element is `Object.create(HTMLElement.prototype)`.
 The method `base()` can be used to override the default value.
 
-To extend a native HTML element, the method `base()` can also be to set the name of the native element.
+When extending a native HTML element, the method `base()` should also be used to set the name of the native element.
  
 See the [specification][custom-element-specification-registration] to get more information. 
 
