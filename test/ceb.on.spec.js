@@ -1,7 +1,18 @@
 /*jshint -W030 */
 
 import {element, template, on, dispatchMouseEvent} from '../src/ceb.js';
-import {listen} from './helper.js';
+
+function listen(el, type, limit, done) {
+    let counter = 0;
+    let listener = () => {
+        counter++;
+        if (counter === limit) {
+            done();
+            el.removeEventListener(type, listener);
+        }
+    };
+    el.addEventListener(type, listener);
+}
 
 describe('ceb.on()', function () {
     var sandbox, builder;
