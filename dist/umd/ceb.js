@@ -1274,7 +1274,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * The custom element builder.
-	 * Its goal is to provide a user friendly way to do it by some else (i.e. dedicated builders).
+	 * Its goal is to provide a user friendly way to build custom element by some else (i.e. dedicated builders).
 	 */
 
 	var ElementBuilder = function () {
