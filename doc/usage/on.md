@@ -1,13 +1,13 @@
 {% include "/doc/_urls.md" %}
 # on()
 
-The function `on()` returns a fresh `OnBuilder` providing services to define event listeners.
+The function `on()` returns a fresh `OnBuilder` providing services to register event listeners.
 
 The builder is able to simply listening events or handle event delegation.
 
 Listeners are added on `attachedCallback` and removed on `detachedCallback`.
 
-## Listen during the bubbling phase
+## Bubbling phase
 
 If the user clicks on the custom element or one of its children, the message _triggered by CEB-EXAMPLE_ will be logged.
 
@@ -20,7 +20,7 @@ element()
     .register('ceb-example');
 ```
 
-## Listen during the capture phase
+## Capture phase
 
 If the user clicks on the custom element or one of its children, the message _triggered by CEB-EXAMPLE_ will be logged.
 
@@ -67,9 +67,9 @@ element()
             <p class="message"></p>
             <button class="ok"><i class="fa fa-check"></i> Ok</button>
             <button class="cancel"><i class="fa fa-ban"></i> Cancel</button>
-        `)
+        `),
         on('click').delegate('button.ok').invoke((el, evt, target) => console.log('Ok! triggered by %s', target.tagName)),
-        on('click').delegate('button.cancel').invoke((el, evt, target) => console.log('Cancelled! triggered by %s', target.tagName))
+        on('click').delegate('button.cancel').invoke((el, evt, target) => console.log('Cancelled! triggered by %s', target.tagName)),
     )
     .register('ceb-example');
 ```

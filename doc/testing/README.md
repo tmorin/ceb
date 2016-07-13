@@ -30,7 +30,7 @@ The following snippet is coming from the `ceb-from`'s specification, `example/fo
 import './ceb-form.js';
 import {dispatchMouseEvent, dispatchHtmlEvent} from 'ceb';
 
-describe('ceb-form, () => {
+describe('ceb-form', () => {
    var sandbox, cebForm, submitBtn, resetBtn;
 
     beforeEach((done) => {
