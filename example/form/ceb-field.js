@@ -35,7 +35,7 @@ cebFieldBuilder.builders(
                 }
                 return message;
             });
-        }).reduce((string, messages) => [string].concat(messages).join(', '), '');
+        }).join(', ');
         el.$el.removeClass('has-error').find('.help-block.errors').remove();
         if (helpBlockContent) {
             el.$el.addClass('has-error').append(`<p class="help-block errors">${helpBlockContent}</p>`);

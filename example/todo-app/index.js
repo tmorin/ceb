@@ -1,4 +1,4 @@
-import 'document-register-element/build/document-register-element.js';
+import 'webcomponents.js/webcomponents-lite.js';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
