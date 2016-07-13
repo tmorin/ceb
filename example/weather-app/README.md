@@ -8,7 +8,7 @@ Locations and settings are stored using the localStorage API.
 
 `weather-app` uses only the CSS part of [bootstrap] and [weather-icons].
 
-The live example is alive [there][live-weather-app].
+The live example is alive [there](live-weather-app).
 
 ## UI elements
 

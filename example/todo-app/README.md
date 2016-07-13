@@ -9,7 +9,7 @@ The UI part is split into several custom elements and linked to the [redux] stuf
 The templates of the custom elements are compiled with [idomizer].
 Its integration is handled by the custom builder [idomify](../builders/idomify.md).
 
-The live example is alive [there][live-todo-app].
+The live example is alive [there](live-todo-app).
 
 ## Logic
 
