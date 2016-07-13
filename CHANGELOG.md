@@ -3,7 +3,7 @@
 ## 0.9.x
 - add unit test on iphone devices
 - upgrade dependencies
-- fix weather-app
+- deactivate weather-app due https issues
 
 ## 0.8.x
 - review dist files
