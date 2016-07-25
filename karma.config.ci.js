@@ -8,6 +8,16 @@ for (var k in base) {
     }
 }
 
+override.webpack.module.loaders[0] = {test: /\.js?$/, exclude: /node_modules|\.spec.js$/, loader: 'isparta'};
+override.webpack.module.loaders.push({test: /\.spec.js?$/, exclude: /node_modules/, loader: 'babel'});
+override.reporters.push('reporters');
+override.coverageReporter = {
+    reporters: [
+        {type: 'lcov', dir: 'coverage/', subdir: '.'}
+    ]
+};
+
+
 module.exports = function (config) {
 
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO ||
