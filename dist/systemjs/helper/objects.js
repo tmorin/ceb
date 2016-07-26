@@ -6,8 +6,6 @@ System.register(['./types.js'], function (_export, _context) {
     var isFunction;
     return {
         setters: [function (_typesJs) {
-            // obviously close to underscorejs and lodash ;)
-
             isFunction = _typesJs.isFunction;
         }],
         execute: function () {
@@ -30,6 +28,7 @@ System.register(['./types.js'], function (_export, _context) {
              * @param {...Object} [sources] the source objects
              * @returns {Object} the destination object
              */
+            // obviously close to underscorejs and lodash ;)
 
             _export('result', result);
 

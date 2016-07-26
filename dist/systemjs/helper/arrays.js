@@ -6,8 +6,6 @@ System.register(['./types.js'], function (_export, _context) {
     var isArray, isFunction;
     return {
         setters: [function (_typesJs) {
-            // obviously close to underscorejs and lodash ;)
-
             isArray = _typesJs.isArray;
             isFunction = _typesJs.isFunction;
         }],
@@ -31,6 +29,7 @@ System.register(['./types.js'], function (_export, _context) {
              * @param {...*} args the arguments to invoke the method with
              * @return {Array} the array of results
              */
+            // obviously close to underscorejs and lodash ;)
 
             _export('flatten', flatten);
 
