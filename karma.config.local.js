@@ -8,6 +8,18 @@ for (var k in base) {
     }
 }
 
+if (process.env.COVERAGE) {
+    console.log('---- CAPTURE COVERAGE ----');
+    override.webpack.module.loaders[0] = {test: /\.js?$/, exclude: /node_modules|\.spec.js$/, loader: 'isparta'};
+    override.webpack.module.loaders.push({test: /\.spec.js?$/, exclude: /node_modules/, loader: 'babel'});
+    override.reporters.push('coverage');
+    override.coverageReporter = {
+        reporters: [
+            {type: 'lcov', dir: 'coverage/', subdir: '.'}
+        ]
+    };
+}
+
 module.exports = function (config) {
 
     // config.browsers = ['PhantomJS', 'Chrome', 'IE'];

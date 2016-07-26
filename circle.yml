@@ -1,3 +1,8 @@
 machine:
   node:
     version: 4.0.0
+  environment:
+    COVERAGE: true
+test:
+  post:
+    - npm run coveralls

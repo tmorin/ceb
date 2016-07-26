@@ -35,7 +35,7 @@
     "url": "https://github.com/tmorin/ceb.git"
   },
   "scripts": {
-    "clean": "rimraf .publish _book dist lib *.zip *.tgz",
+    "clean": "rimraf .publish _book coverage dist lib *.zip *.tgz",
     "lint": "jshint . --reporter=node_modules/jshint-stylish",
     "build:commonjs": "babel --plugins transform-es2015-modules-commonjs src --out-dir lib",
     "build:systemjs": "babel --plugins transform-es2015-modules-systemjs src --out-dir dist/systemjs",
@@ -48,6 +48,7 @@
     "site:esdoc": "esdoc -c esdoc.json",
     "site:example": "webpack --config webpack.config.example.js",
     "site": "npm run site:doc && npm run site:esdoc && npm run site:example && ncp dist _book/live/dist",
+    "coveralls": "cat coverage/lcov.info | coveralls --verbose",
     "test:local": "karma start karma.config.local.js",
     "test:local:watch": "npm run test:local -- --auto-watch --no-single-run",
     "test:ci:ie": "karma start karma.config.ci.js --browsers slIe11,slIe10,slIe9",
@@ -55,9 +56,8 @@
     "test:ci:safari": "karma start karma.config.ci.js --browsers slSafari7,slSafari8",
     "test:ci:android": "karma start karma.config.ci.js --browsers slAndroid4,slAndroid5",
     "test:ci:iphone": "karma start karma.config.ci.js --browsers slIPhone8,slIPhone9",
-    "test:ci:deactivated": "npm run test:ci:ie && npm run test:ci:evergreen && npm run test:ci:safari && npm run test:ci:android && npm run test:ci:iphone",
-    "test:ci": "npm run test:ci:evergreen",
-    "test": "npm run test:ci && coveralls --verbose",
+    "test:ci": "npm run test:ci:ie && npm run test:ci:evergreen && npm run test:ci:safari && npm run test:ci:android && npm run test:ci:iphone",
+    "test": "npm run test:ci",
     "start": "webpack-dev-server --config webpack.config.example.js --inline --hot",
     "preversion": "npm run lint && npm run test:local",
     "version": "npm run build && git add -A dist",
