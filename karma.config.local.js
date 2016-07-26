@@ -10,8 +10,8 @@ for (var k in base) {
 
 if (process.env.COVERAGE) {
     console.log('---- CAPTURE COVERAGE ----');
-    override.webpack.module.loaders[0] = {test: /\.js?$/, exclude: /node_modules|\.spec.js$/, loader: 'isparta'};
-    override.webpack.module.loaders.push({test: /\.spec.js?$/, exclude: /node_modules/, loader: 'babel'});
+    override.webpack.module.loaders[0] = {test: /\.js?$/, exclude: /node_modules|\/example\/|\.spec.js$/, loader: 'isparta'};
+    override.webpack.module.loaders.push({test: /\/example\/|\.spec.js?$/, exclude: /node_modules/, loader: 'babel'});
     override.reporters.push('coverage');
     override.coverageReporter = {
         reporters: [
