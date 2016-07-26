@@ -6,8 +6,6 @@ System.register(['./converters.js'], function (_export, _context) {
     var toArray;
     return {
         setters: [function (_convertersJs) {
-            // obviously close to underscorejs and lodash ;)
-
             toArray = _convertersJs.toArray;
         }],
         execute: function () {
@@ -34,6 +32,7 @@ System.register(['./converters.js'], function (_export, _context) {
              * @param ctx the context
              * @returns {Function} the new bound function
              */
+            // obviously close to underscorejs and lodash ;)
 
             _export('partial', partial);
 
