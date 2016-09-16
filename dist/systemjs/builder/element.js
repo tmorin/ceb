@@ -3,7 +3,31 @@
 System.register(['../helper/types.js', '../helper/functions.js', '../helper/converters.js', '../helper/arrays.js'], function (_export, _context) {
     "use strict";
 
-    var isString, isFunction, partial, bind, toArray, flatten, invoke, _typeof, _createClass, LIFECYCLE_CALLBACKS, LIFECYCLE_EVENTS, ElementBuilder;
+    var isString, isFunction, partial, bind, toArray, flatten, invoke, _typeof, _createClass, LIFECYCLE_CALLBACKS, LIFECYCLE_EVENTS, ElementBuilder, Toto;
+
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+
+        return call && (typeof call === "object" || typeof call === "function") ? call : self;
+    }
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+    }
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -40,6 +64,60 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
      * The custom element builder.
      * Its goal is to provide a user friendly way to build custom element by some else (i.e. dedicated builders).
      */
+
+
+    /**
+     * Get a new custom element builder.
+     * @returns {ElementBuilder} the custom element builder
+     */
+    function element() {
+        return new ElementBuilder();
+    }
+
+    /*
+     function _possibleConstructorReturn(self, call) {
+     if (!self) {
+     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+     }
+     return call && (typeof call === "object" || typeof call === "function") ? call : self;
+     }
+    
+     function _inherits(subClass, superClass) {
+     if (typeof superClass !== "function" && superClass !== null) {
+     throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+     }
+     subClass.prototype = Object.create(superClass && superClass.prototype, {
+     constructor: {
+     value: subClass,
+     enumerable: false,
+     writable: true,
+     configurable: true
+     }
+     });
+     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+     }
+    
+     function _classCallCheck(instance, Constructor) {
+     if (!(instance instanceof Constructor)) {
+     throw new TypeError("Cannot call a class as a function");
+     }
+     }
+    
+     var Toto = function (_HTMLElement) {
+     _inherits(Toto, _HTMLElement);
+    
+     function Toto() {
+     _classCallCheck(this, Toto);
+    
+     return _possibleConstructorReturn(this, (Toto.__proto__ || Object.getPrototypeOf(Toto)).apply(this, arguments));
+     }
+    
+     return Toto;
+     }(HTMLElement);
+     */
+
+    _export('element', element);
+
     return {
         setters: [function (_helperTypesJs) {
             isString = _helperTypesJs.isString;
@@ -87,7 +165,6 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
 
                 /**
                  */
-
                 function ElementBuilder() {
                     _classCallCheck(this, ElementBuilder);
 
@@ -181,17 +258,34 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
 
                         LIFECYCLE_CALLBACKS.forEach(partial(applyLifecycle, this.context));
 
-                        var options = { prototype: this.context.p };
-
-                        if (isString(this.context.e)) {
-                            options.extends = this.context.e;
-                        }
-
                         this.context.events['before:registerElement'].forEach(function (fn) {
                             return fn(_this4.context);
                         });
 
-                        var CustomElement = document.registerElement(name, options);
+                        var CustomElement = void 0;
+
+                        if (false && window.customElements && isFunction(window.customElements.define)) {
+                            var CustomElementClass = function CustomElementClass() {};
+                            CustomElementClass.prototype = this.context.p;
+                            if (isString(this.context.e)) {
+                                window.customElements.define(name, CustomElementClass, {
+                                    extends: this.context.e
+                                });
+                            } else {
+                                window.customElements.define(name, CustomElementClass);
+                            }
+                        } else {
+                            if (isString(this.context.e)) {
+                                CustomElement = document.registerElement(name, {
+                                    prototype: this.context.p,
+                                    extends: this.context.e
+                                });
+                            } else {
+                                CustomElement = document.registerElement(name, {
+                                    prototype: this.context.p
+                                });
+                            }
+                        }
 
                         this.context.events['after:registerElement'].forEach(function (fn) {
                             return fn(CustomElement);
@@ -206,15 +300,17 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
 
             _export('ElementBuilder', ElementBuilder);
 
-            /**
-             * Get a new custom element builder.
-             * @returns {ElementBuilder} the custom element builder
-             */
-            function element() {
-                return new ElementBuilder();
-            }
+            Toto = function (_HTMLElement) {
+                _inherits(Toto, _HTMLElement);
 
-            _export('element', element);
+                function Toto() {
+                    _classCallCheck(this, Toto);
+
+                    return _possibleConstructorReturn(this, (Toto.__proto__ || Object.getPrototypeOf(Toto)).apply(this, arguments));
+                }
+
+                return Toto;
+            }(HTMLElement);
         }
     };
 });

@@ -39,5 +39,4 @@
     * [Todo App](/example/todo-app/README.md)
 * [Testing](/doc/testing/README.md)
 * [API](/doc/api.md)
-* [Contributing](/CONTRIBUTING.md)
 * [Change Log](/CHANGELOG.md)

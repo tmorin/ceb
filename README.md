@@ -72,12 +72,12 @@ cebExample.bar('foo'); // => dispatch the custom event 'bar' with the detail 'fo
 `<ceb/>` is available from [npm](https://www.npmjs.com/package/ceb) and [bower](http://bower.io/search/?q=ceb).
 
 From npm:
-```shell
+```bash
 npm install ceb
 ```
 
 From bower:
-```shell
+```bash
 bower install ceb
 ```
 

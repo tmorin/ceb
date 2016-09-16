@@ -11,6 +11,17 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
         }
     }
 
+    /**
+     * Get a new on builder.
+     * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
+     * @returns {OnBuilder} the on builder
+     */
+    function on(events) {
+        return new OnBuilder(events);
+    }
+
+    _export('on', on);
+
     return {
         setters: [function (_helperTypesJs) {
             isFunction = _helperTypesJs.isFunction;
@@ -81,7 +92,6 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                 /**
                  * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
                  */
-
                 function OnBuilder(events) {
                     _classCallCheck(this, OnBuilder);
 
@@ -229,17 +239,6 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
             }());
 
             _export('OnBuilder', OnBuilder);
-
-            /**
-             * Get a new on builder.
-             * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
-             * @returns {OnBuilder} the on builder
-             */
-            function on(events) {
-                return new OnBuilder(events);
-            }
-
-            _export('on', on);
         }
     };
 });

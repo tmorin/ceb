@@ -11,6 +11,52 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
         }
     }
 
+    /**
+     * Get the value from an attribute.
+     * @param {!HTMLElement} el an HTML element
+     * @param {!string} attrName the name of the attribute
+     * @param {!boolean} isBoolean true is the returned value should be a boolean
+     * @returns {string|boolean}
+     */
+    function getAttValue(el, attrName, isBoolean) {
+        if (isBoolean) {
+            return el.hasAttribute(attrName);
+        }
+        return el.getAttribute(attrName);
+    }
+
+    /**
+     * Set the value of an attribute.
+     * @param {!HTMLElement} el an HTML element
+     * @param {!string} attrName the name of the attribute
+     * @param {!boolean} isBoolean true is the value should be a boolean
+     * @param {string|boolean} value the value to set
+     */
+
+    _export('getAttValue', getAttValue);
+
+    function setAttValue(el, attrName, isBoolean, value) {
+        if (isBoolean) {
+            // Handle boolean value
+            if (value && !el.hasAttribute(attrName)) {
+                el.setAttribute(attrName, '');
+            } else if (!value && el.hasAttribute(attrName)) {
+                el.removeAttribute(attrName);
+            }
+        } else {
+            // Handle none boolean value
+            if ((isUndefined(value) || isNull(value)) && el.hasAttribute(attrName)) {
+                // There is no value, so the attribute must be removed
+                el.removeAttribute(attrName);
+            } else if (!isUndefined(value) && !isNull(value) && el.getAttribute(attrName) !== value) {
+                // Sync the attribute value with value
+                el.setAttribute(attrName, value);
+            }
+        }
+    }
+
+    _export('setAttValue', setAttValue);
+
     function getterFactory(attrName, isBoolean) {
         return function () {
             return getAttValue(this, attrName, isBoolean);
@@ -23,6 +69,17 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
             return setAttValue(this, attrName, isBoolean, attValue);
         };
     }
+
+    /**
+     * Get a new attribute builder.
+     * @param {!string} attrName the name of the attribute
+     * @returns {AttributeBuilder} the attribute builder
+     */
+    function attribute(attrName) {
+        return new AttributeBuilder(attrName);
+    }
+
+    _export('attribute', attribute);
 
     return {
         setters: [function (_helperTypesJs) {
@@ -54,51 +111,6 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
                 };
             }();
 
-            /**
-             * Get the value from an attribute.
-             * @param {!HTMLElement} el an HTML element
-             * @param {!string} attrName the name of the attribute
-             * @param {!boolean} isBoolean true is the returned value should be a boolean
-             * @returns {string|boolean}
-             */
-            function getAttValue(el, attrName, isBoolean) {
-                if (isBoolean) {
-                    return el.hasAttribute(attrName);
-                }
-                return el.getAttribute(attrName);
-            }
-
-            /**
-             * Set the value of an attribute.
-             * @param {!HTMLElement} el an HTML element
-             * @param {!string} attrName the name of the attribute
-             * @param {!boolean} isBoolean true is the value should be a boolean
-             * @param {string|boolean} value the value to set
-             */
-
-            _export('getAttValue', getAttValue);
-
-            function setAttValue(el, attrName, isBoolean, value) {
-                if (isBoolean) {
-                    // Handle boolean value
-                    if (value && !el.hasAttribute(attrName)) {
-                        el.setAttribute(attrName, '');
-                    } else if (!value && el.hasAttribute(attrName)) {
-                        el.removeAttribute(attrName);
-                    }
-                } else {
-                    // Handle none boolean value
-                    if ((isUndefined(value) || isNull(value)) && el.hasAttribute(attrName)) {
-                        // There is no value, so the attribute must be removed
-                        el.removeAttribute(attrName);
-                    } else if (!isUndefined(value) && !isNull(value) && el.getAttribute(attrName) !== value) {
-                        // Sync the attribute value with value
-                        el.setAttribute(attrName, value);
-                    }
-                }
-            }
-            _export('setAttValue', setAttValue);
-
             DEFAULT_DATA = {
                 bound: true,
                 getterFactory: getterFactory,
@@ -112,7 +124,6 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
                 /**
                  * @param {!string} attrName the name of the attribute
                  */
-
                 function AttributeBuilder(attrName) {
                     _classCallCheck(this, AttributeBuilder);
 
@@ -238,17 +249,6 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
             }());
 
             _export('AttributeBuilder', AttributeBuilder);
-
-            /**
-             * Get a new attribute builder.
-             * @param {!string} attrName the name of the attribute
-             * @returns {AttributeBuilder} the attribute builder
-             */
-            function attribute(attrName) {
-                return new AttributeBuilder(attrName);
-            }
-
-            _export('attribute', attribute);
         }
     };
 });

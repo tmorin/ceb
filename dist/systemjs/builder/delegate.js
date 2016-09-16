@@ -11,6 +11,17 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
         }
     }
 
+    /**
+     * Get a new delegate builder.
+     * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} builder a property, attribute or method builder
+     * @returns {DelegateBuilder} the delegate builder
+     */
+    function delegate(builder) {
+        return new DelegateBuilder(builder);
+    }
+
+    _export('delegate', delegate);
+
     return {
         setters: [function (_helperTypesJs) {
             isUndefined = _helperTypesJs.isUndefined;
@@ -45,7 +56,6 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
                 /**
                  * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} fieldBuilder the field builder
                  */
-
                 function DelegateBuilder(fieldBuilder) {
                     _classCallCheck(this, DelegateBuilder);
 
@@ -192,17 +202,6 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
             }());
 
             _export('DelegateBuilder', DelegateBuilder);
-
-            /**
-             * Get a new delegate builder.
-             * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} builder a property, attribute or method builder
-             * @returns {DelegateBuilder} the delegate builder
-             */
-            function delegate(builder) {
-                return new DelegateBuilder(builder);
-            }
-
-            _export('delegate', delegate);
         }
     };
 });

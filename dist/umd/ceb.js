@@ -554,7 +554,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    /**
 	     * @param {!string} attrName the name of the attribute
 	     */
-
 	    function AttributeBuilder(attrName) {
 	        _classCallCheck(this, AttributeBuilder);
 
@@ -768,7 +767,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    /**
 	     * @param {!string} propName the name of the property
 	     */
-
 	    function PropertyBuilder(propName) {
 	        _classCallCheck(this, PropertyBuilder);
 
@@ -1023,13 +1021,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * The delegate builder.
 	 * Its goal is to provide a way to delegate methods, properties and attributes.
 	 */
-
 	var DelegateBuilder = exports.DelegateBuilder = function () {
 
 	    /**
 	     * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} fieldBuilder the field builder
 	     */
-
 	    function DelegateBuilder(fieldBuilder) {
 	        _classCallCheck(this, DelegateBuilder);
 
@@ -1239,6 +1235,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _arrays = __webpack_require__(7);
 
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var LIFECYCLE_CALLBACKS = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
@@ -1281,7 +1281,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /**
 	     */
-
 	    function ElementBuilder() {
 	        _classCallCheck(this, ElementBuilder);
 
@@ -1397,17 +1396,34 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	            LIFECYCLE_CALLBACKS.forEach((0, _functions.partial)(applyLifecycle, this.context));
 
-	            var options = { prototype: this.context.p };
-
-	            if ((0, _types.isString)(this.context.e)) {
-	                options.extends = this.context.e;
-	            }
-
 	            this.context.events['before:registerElement'].forEach(function (fn) {
 	                return fn(_this4.context);
 	            });
 
-	            var CustomElement = document.registerElement(name, options);
+	            var CustomElement = void 0;
+
+	            if (false) {
+	                var CustomElementClass = function CustomElementClass() {};
+	                CustomElementClass.prototype = this.context.p;
+	                if ((0, _types.isString)(this.context.e)) {
+	                    window.customElements.define(name, CustomElementClass, {
+	                        extends: this.context.e
+	                    });
+	                } else {
+	                    window.customElements.define(name, CustomElementClass);
+	                }
+	            } else {
+	                if ((0, _types.isString)(this.context.e)) {
+	                    CustomElement = document.registerElement(name, {
+	                        prototype: this.context.p,
+	                        extends: this.context.e
+	                    });
+	                } else {
+	                    CustomElement = document.registerElement(name, {
+	                        prototype: this.context.p
+	                    });
+	                }
+	            }
 
 	            this.context.events['after:registerElement'].forEach(function (fn) {
 	                return fn(CustomElement);
@@ -1430,6 +1446,60 @@ return /******/ (function(modules) { // webpackBootstrap
 	function element() {
 	    return new ElementBuilder();
 	}
+
+	/*
+	 function _possibleConstructorReturn(self, call) {
+	 if (!self) {
+	 throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+	 }
+	 return call && (typeof call === "object" || typeof call === "function") ? call : self;
+	 }
+
+	 function _inherits(subClass, superClass) {
+	 if (typeof superClass !== "function" && superClass !== null) {
+	 throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+	 }
+	 subClass.prototype = Object.create(superClass && superClass.prototype, {
+	 constructor: {
+	 value: subClass,
+	 enumerable: false,
+	 writable: true,
+	 configurable: true
+	 }
+	 });
+	 if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+	 }
+
+	 function _classCallCheck(instance, Constructor) {
+	 if (!(instance instanceof Constructor)) {
+	 throw new TypeError("Cannot call a class as a function");
+	 }
+	 }
+
+	 var Toto = function (_HTMLElement) {
+	 _inherits(Toto, _HTMLElement);
+
+	 function Toto() {
+	 _classCallCheck(this, Toto);
+
+	 return _possibleConstructorReturn(this, (Toto.__proto__ || Object.getPrototypeOf(Toto)).apply(this, arguments));
+	 }
+
+	 return Toto;
+	 }(HTMLElement);
+	 */
+
+	var Toto = function (_HTMLElement) {
+	    _inherits(Toto, _HTMLElement);
+
+	    function Toto() {
+	        _classCallCheck(this, Toto);
+
+	        return _possibleConstructorReturn(this, (Toto.__proto__ || Object.getPrototypeOf(Toto)).apply(this, arguments));
+	    }
+
+	    return Toto;
+	}(HTMLElement);
 
 /***/ },
 /* 10 */
@@ -1458,13 +1528,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * The method builder.
 	 * Its goal is to provide a way to define a method.
 	 */
-
 	var MethodBuilder = exports.MethodBuilder = function () {
 
 	    /**
 	     * @param {!string} methName the name of the method
 	     */
-
 	    function MethodBuilder(methName) {
 	        _classCallCheck(this, MethodBuilder);
 
@@ -1610,13 +1678,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * The on builder.
 	 * Its goal is to provide a way to listen events coming from the custom element.
 	 */
-
 	var OnBuilder = exports.OnBuilder = function () {
 
 	    /**
 	     * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
 	     */
-
 	    function OnBuilder(events) {
 	        _classCallCheck(this, OnBuilder);
 
@@ -1941,7 +2007,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    /**
 	     * @param {!string|function(el: HTMLElement)} tpl the template as a string or a function
 	     */
-
 	    function TemplateBuilder(tpl) {
 	        _classCallCheck(this, TemplateBuilder);
 

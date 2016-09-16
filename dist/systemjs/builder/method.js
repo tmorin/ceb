@@ -11,6 +11,17 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
         }
     }
 
+    /**
+     * Get a new method builder.
+     * @param {!string} methName the name of the method
+     * @returns {MethodBuilder} the method builder
+     */
+    function method(methName) {
+        return new MethodBuilder(methName);
+    }
+
+    _export('method', method);
+
     return {
         setters: [function (_helperTypesJs) {
             isFunction = _helperTypesJs.isFunction;
@@ -44,7 +55,6 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                 /**
                  * @param {!string} methName the name of the method
                  */
-
                 function MethodBuilder(methName) {
                     _classCallCheck(this, MethodBuilder);
 
@@ -130,17 +140,6 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
             }());
 
             _export('MethodBuilder', MethodBuilder);
-
-            /**
-             * Get a new method builder.
-             * @param {!string} methName the name of the method
-             * @returns {MethodBuilder} the method builder
-             */
-            function method(methName) {
-                return new MethodBuilder(methName);
-            }
-
-            _export('method', method);
         }
     };
 });

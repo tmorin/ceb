@@ -11,6 +11,17 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
         }
     }
 
+    /**
+     * Get a new property builder.
+     * @param {!string} propName the name of the property
+     * @returns {PropertyBuilder} the property builder
+     */
+    function property(propName) {
+        return new PropertyBuilder(propName);
+    }
+
+    _export('property', property);
+
     return {
         setters: [function (_helperTypesJs) {
             isFunction = _helperTypesJs.isFunction;
@@ -49,7 +60,6 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                 /**
                  * @param {!string} propName the name of the property
                  */
-
                 function PropertyBuilder(propName) {
                     _classCallCheck(this, PropertyBuilder);
 
@@ -176,17 +186,6 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
             }());
 
             _export('PropertyBuilder', PropertyBuilder);
-
-            /**
-             * Get a new property builder.
-             * @param {!string} propName the name of the property
-             * @returns {PropertyBuilder} the property builder
-             */
-            function property(propName) {
-                return new PropertyBuilder(propName);
-            }
-
-            _export('property', property);
         }
     };
 });
