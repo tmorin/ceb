@@ -135,7 +135,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
             _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
                 return typeof obj;
             } : function (obj) {
-                return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+                return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
             };
 
             _createClass = function () {
@@ -264,27 +264,15 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
 
                         var CustomElement = void 0;
 
-                        if (false && window.customElements && isFunction(window.customElements.define)) {
-                            var CustomElementClass = function CustomElementClass() {};
-                            CustomElementClass.prototype = this.context.p;
-                            if (isString(this.context.e)) {
-                                window.customElements.define(name, CustomElementClass, {
-                                    extends: this.context.e
-                                });
-                            } else {
-                                window.customElements.define(name, CustomElementClass);
-                            }
+                        if (isString(this.context.e)) {
+                            CustomElement = document.registerElement(name, {
+                                prototype: this.context.p,
+                                extends: this.context.e
+                            });
                         } else {
-                            if (isString(this.context.e)) {
-                                CustomElement = document.registerElement(name, {
-                                    prototype: this.context.p,
-                                    extends: this.context.e
-                                });
-                            } else {
-                                CustomElement = document.registerElement(name, {
-                                    prototype: this.context.p
-                                });
-                            }
+                            CustomElement = document.registerElement(name, {
+                                prototype: this.context.p
+                            });
                         }
 
                         this.context.events['after:registerElement'].forEach(function (fn) {

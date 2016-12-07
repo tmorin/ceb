@@ -190,44 +190,44 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                             };
 
                             el.__cebOnHandlers = events.map(function (_ref) {
-                                var _ref2 = _slicedToArray(_ref, 2);
+                                var _ref2 = _slicedToArray(_ref, 2),
+                                    name = _ref2[0],
+                                    target = _ref2[1];
 
-                                var name = _ref2[0];
-                                var target = _ref2[1];
                                 return [name, target ? el.querySelector(target) : el];
                             }).filter(function (_ref3) {
-                                var _ref4 = _slicedToArray(_ref3, 2);
+                                var _ref4 = _slicedToArray(_ref3, 2),
+                                    name = _ref4[0],
+                                    target = _ref4[1];
 
-                                var name = _ref4[0];
-                                var target = _ref4[1];
                                 return !!target;
                             }).map(function (_ref5) {
-                                var _ref6 = _slicedToArray(_ref5, 2);
+                                var _ref6 = _slicedToArray(_ref5, 2),
+                                    name = _ref6[0],
+                                    target = _ref6[1];
 
-                                var name = _ref6[0];
-                                var target = _ref6[1];
                                 return [target, name, listener, capture];
                             }).concat(el.__cebOnHandlers);
 
                             el.__cebOnHandlers.forEach(function (_ref7) {
-                                var _ref8 = _slicedToArray(_ref7, 4);
+                                var _ref8 = _slicedToArray(_ref7, 4),
+                                    target = _ref8[0],
+                                    name = _ref8[1],
+                                    listener = _ref8[2],
+                                    capture = _ref8[3];
 
-                                var target = _ref8[0];
-                                var name = _ref8[1];
-                                var listener = _ref8[2];
-                                var capture = _ref8[3];
                                 return target.addEventListener(name, listener, capture);
                             });
                         });
 
                         on('before:detachedCallback').invoke(function (el) {
                             el.__cebOnHandlers.forEach(function (_ref9) {
-                                var _ref10 = _slicedToArray(_ref9, 4);
+                                var _ref10 = _slicedToArray(_ref9, 4),
+                                    target = _ref10[0],
+                                    name = _ref10[1],
+                                    listener = _ref10[2],
+                                    capture = _ref10[3];
 
-                                var target = _ref10[0];
-                                var name = _ref10[1];
-                                var listener = _ref10[2];
-                                var capture = _ref10[3];
                                 return target.removeEventListener(name, listener, capture);
                             });
                             el.__cebOnHandlers = [];
