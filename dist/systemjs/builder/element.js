@@ -3,31 +3,7 @@
 System.register(['../helper/types.js', '../helper/functions.js', '../helper/converters.js', '../helper/arrays.js'], function (_export, _context) {
     "use strict";
 
-    var isString, isFunction, partial, bind, toArray, flatten, invoke, _typeof, _createClass, LIFECYCLE_CALLBACKS, LIFECYCLE_EVENTS, ElementBuilder, Toto;
-
-    function _possibleConstructorReturn(self, call) {
-        if (!self) {
-            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-        }
-
-        return call && (typeof call === "object" || typeof call === "function") ? call : self;
-    }
-
-    function _inherits(subClass, superClass) {
-        if (typeof superClass !== "function" && superClass !== null) {
-            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-        }
-
-        subClass.prototype = Object.create(superClass && superClass.prototype, {
-            constructor: {
-                value: subClass,
-                enumerable: false,
-                writable: true,
-                configurable: true
-            }
-        });
-        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-    }
+    var isString, isFunction, partial, bind, toArray, flatten, invoke, _typeof, _createClass, LIFECYCLE_CALLBACKS, LIFECYCLE_EVENTS, ElementBuilder;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -73,48 +49,6 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
     function element() {
         return new ElementBuilder();
     }
-
-    /*
-     function _possibleConstructorReturn(self, call) {
-     if (!self) {
-     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
-     }
-     return call && (typeof call === "object" || typeof call === "function") ? call : self;
-     }
-    
-     function _inherits(subClass, superClass) {
-     if (typeof superClass !== "function" && superClass !== null) {
-     throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-     }
-     subClass.prototype = Object.create(superClass && superClass.prototype, {
-     constructor: {
-     value: subClass,
-     enumerable: false,
-     writable: true,
-     configurable: true
-     }
-     });
-     if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-     }
-    
-     function _classCallCheck(instance, Constructor) {
-     if (!(instance instanceof Constructor)) {
-     throw new TypeError("Cannot call a class as a function");
-     }
-     }
-    
-     var Toto = function (_HTMLElement) {
-     _inherits(Toto, _HTMLElement);
-    
-     function Toto() {
-     _classCallCheck(this, Toto);
-    
-     return _possibleConstructorReturn(this, (Toto.__proto__ || Object.getPrototypeOf(Toto)).apply(this, arguments));
-     }
-    
-     return Toto;
-     }(HTMLElement);
-     */
 
     _export('element', element);
 
@@ -287,18 +221,6 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
             }());
 
             _export('ElementBuilder', ElementBuilder);
-
-            Toto = function (_HTMLElement) {
-                _inherits(Toto, _HTMLElement);
-
-                function Toto() {
-                    _classCallCheck(this, Toto);
-
-                    return _possibleConstructorReturn(this, (Toto.__proto__ || Object.getPrototypeOf(Toto)).apply(this, arguments));
-                }
-
-                return Toto;
-            }(HTMLElement);
         }
     };
 });
