@@ -1,9 +1,9 @@
 'use strict';
 
-System.register(['./objects', './types'], function (_export, _context) {
+System.register(['./objects.js', './types.js'], function (_export, _context) {
     "use strict";
 
-    var assign, isFunction, CUSTOM_EVENT_ARG_NAMES, DEFAULT_CUSTOM_EVENT_OPTIONS, DEFAULT_MOUSE_EVENT_OPTIONS, MOUSE_EVENT_ARG_NAMES, DEFAULT_KEYBOARD_EVENT_OPTIONS, KEYBOARD_EVENT_ARG_NAMES;
+    var assign, isFunction, CUSTOM_EVENT_ARG_NAMES, DEFAULT_CUSTOM_EVENT_OPTIONS, DEFAULT_MOUSE_EVENT_OPTIONS, MOUSE_EVENT_ARG_NAMES, DEFAULT_KEYBOARD_EVENT_OPTIONS;
 
 
     /**
@@ -66,11 +66,14 @@ System.register(['./objects', './types'], function (_export, _context) {
             args = assign({}, DEFAULT_KEYBOARD_EVENT_OPTIONS, options);
         if (isFunction(KeyboardEvent)) {
             event = new KeyboardEvent(eventType, args);
+        } else if (navigator.userAgent.indexOf('Trident/') > -1) {
+            event = document.createEvent('KeyboardEvent');
+            // ie
+            event.initKeyboardEvent(eventType, args.bubbles, args.cancelable, args.view, args.key, args.location, args.modifiersList, args.repeat, args.locale);
         } else {
             event = document.createEvent('KeyboardEvent');
-            event.initKeyboardEvent.apply(event, [eventType].concat(KEYBOARD_EVENT_ARG_NAMES.map(function (name) {
-                return args[name];
-            })));
+            // w3c
+            event.initKeyboardEvent(eventType, args.bubbles, args.cancelable, args.view, args.char, args.key, args.location, args.modifiersList, args.repeat, args.locale);
         }
         return el.dispatchEvent(event);
     }
@@ -102,10 +105,10 @@ System.register(['./objects', './types'], function (_export, _context) {
     _export('dispatchHtmlEvent', dispatchHtmlEvent);
 
     return {
-        setters: [function (_objects) {
-            assign = _objects.assign;
-        }, function (_types) {
-            isFunction = _types.isFunction;
+        setters: [function (_objectsJs) {
+            assign = _objectsJs.assign;
+        }, function (_typesJs) {
+            isFunction = _typesJs.isFunction;
         }],
         execute: function () {
             CUSTOM_EVENT_ARG_NAMES = ['bubbles', 'cancelable', 'detail'];
@@ -134,6 +137,7 @@ System.register(['./objects', './types'], function (_export, _context) {
             DEFAULT_KEYBOARD_EVENT_OPTIONS = {
                 bubbles: true,
                 cancelable: true,
+                view: window,
                 char: '',
                 key: '',
                 location: 0,
@@ -146,9 +150,9 @@ System.register(['./objects', './types'], function (_export, _context) {
                 detail: 0,
                 keyCode: 0,
                 charCode: 0,
-                which: 0
+                which: 0,
+                modifiersList: ''
             };
-            KEYBOARD_EVENT_ARG_NAMES = ['bubbles', 'cancelable', 'view', 'char', 'key', 'location', 'modifiersList', 'repeat'];
         }
     };
 });

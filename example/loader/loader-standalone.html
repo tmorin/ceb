@@ -12,17 +12,15 @@
 <ceb-button></ceb-button>
 
 <script>
-    document.body.onload = function () {
-        var tpl = document.getElementById('ceb-button-template').textContent;
-        ceb.element().builders(
-            ceb.template(tpl),
-            ceb.delegate(ceb.attribute('name')).to('button'),
-            ceb.delegate(ceb.attribute('disabled').boolean()).to('button').property(),
-            ceb.delegate(ceb.attribute('label').value('click me')).to('button [x-ref=label]').property('textContent'),
-            ceb.delegate(ceb.attribute('icon').value('X')).to('button [x-ref=icon]').property('textContent'),
-            ceb.on('click button').invoke(function (el) {
-                el.label = (el.label === 'click me' ? 'clicked' : 'click me');
-            })
-        ).register('ceb-button');
-    }
+    var tpl = document.getElementById('ceb-button-template').textContent;
+    ceb.element().builders(
+        ceb.template(tpl),
+        ceb.delegate(ceb.attribute('name')).to('button'),
+        ceb.delegate(ceb.attribute('disabled').boolean()).to('button').property(),
+        ceb.delegate(ceb.attribute('label').value('click me')).to('button [x-ref=label]').property('textContent'),
+        ceb.delegate(ceb.attribute('icon').value('X')).to('button [x-ref=icon]').property('textContent'),
+        ceb.on('click button').invoke(function (el) {
+            el.label = (el.label === 'click me' ? 'clicked' : 'click me');
+        })
+    ).register('ceb-button');
 </script>

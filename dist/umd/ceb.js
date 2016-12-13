@@ -2049,6 +2049,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DEFAULT_KEYBOARD_EVENT_OPTIONS = {
 	    bubbles: true,
 	    cancelable: true,
+	    view: window,
 	    char: '',
 	    key: '',
 	    location: 0,
@@ -2061,10 +2062,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    detail: 0,
 	    keyCode: 0,
 	    charCode: 0,
-	    which: 0
+	    which: 0,
+	    modifiersList: ''
 	};
-
-	var KEYBOARD_EVENT_ARG_NAMES = ['bubbles', 'cancelable', 'view', 'char', 'key', 'location', 'modifiersList', 'repeat'];
 
 	/**
 	 * Create and dispatch a custom event.
@@ -2120,11 +2120,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        args = (0, _objects.assign)({}, DEFAULT_KEYBOARD_EVENT_OPTIONS, options);
 	    if ((0, _types.isFunction)(KeyboardEvent)) {
 	        event = new KeyboardEvent(eventType, args);
+	    } else if (navigator.userAgent.indexOf('Trident/') > -1) {
+	        event = document.createEvent('KeyboardEvent');
+	        // ie
+	        event.initKeyboardEvent(eventType, args.bubbles, args.cancelable, args.view, args.key, args.location, args.modifiersList, args.repeat, args.locale);
 	    } else {
 	        event = document.createEvent('KeyboardEvent');
-	        event.initKeyboardEvent.apply(event, [eventType].concat(KEYBOARD_EVENT_ARG_NAMES.map(function (name) {
-	            return args[name];
-	        })));
+	        // w3c
+	        event.initKeyboardEvent(eventType, args.bubbles, args.cancelable, args.view, args.char, args.key, args.location, args.modifiersList, args.repeat, args.locale);
 	    }
 	    return el.dispatchEvent(event);
 	}
