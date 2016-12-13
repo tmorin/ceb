@@ -1,5 +1,4 @@
 // obviously close to underscorejs and lodash ;)
-
 import {toArray} from './converters.js';
 
 /**

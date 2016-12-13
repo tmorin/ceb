@@ -1,6 +1,5 @@
 /*jshint -W030 */
-
-import {element, template, on, dispatchMouseEvent} from '../src/ceb.js';
+import {element, template, on, dispatchMouseEvent, dispatchKeyboardEvent} from '../src/ceb.js';
 
 function listen(el, type, limit, done) {
     let counter = 0;
@@ -15,7 +14,7 @@ function listen(el, type, limit, done) {
 }
 
 describe('ceb.on()', function () {
-    var sandbox, builder;
+    let sandbox, builder;
     beforeEach(() => {
         if (sandbox) {
             sandbox.parentNode.removeChild(sandbox);
@@ -28,19 +27,19 @@ describe('ceb.on()', function () {
         sandbox.innerHTML = '';
     });
 
-    context('listen events', () => {
-        var bubblingListener, captureListener, el;
+    context('listen mouse events', () => {
+        let bubblingListener, captureListener, el;
         beforeEach(done => {
             bubblingListener = sinon.spy();
             captureListener = sinon.spy();
 
             builder.builders(
-                on('click').invoke(bubblingListener),
+                on.mouse().invoke(bubblingListener),
                 on('click').invoke(captureListener).capture(),
                 template('<button>button</button>')
-            ).register('test-on-bubbling');
+            ).register('test-on-mouse-event');
 
-            sandbox.appendChild((el = document.createElement('test-on-bubbling')));
+            sandbox.appendChild((el = document.createElement('test-on-mouse-event')));
 
             setTimeout(() => {
                 listen(el, 'click', 1, done);
@@ -56,8 +55,36 @@ describe('ceb.on()', function () {
         });
     });
 
+    context('listen keyboard events', () => {
+        let bubblingListener, captureListener, el;
+        beforeEach(done => {
+            bubblingListener = sinon.spy();
+            captureListener = sinon.spy();
+
+            builder.builders(
+                on.keyboard().invoke(bubblingListener),
+                on('keypress').invoke(captureListener).capture(),
+                template('<input/>')
+            ).register('test-on-keyboard-event');
+
+            sandbox.appendChild((el = document.createElement('test-on-keyboard-event')));
+
+            setTimeout(() => {
+                listen(el, 'keypress', 1, done);
+                dispatchKeyboardEvent(el.querySelector('input'), 'keypress');
+            }, 10);
+        });
+        it('should invoke the bubbling and capture listeners', () => {
+            expect(bubblingListener).to.have.been.calledOnce;
+            expect(bubblingListener).to.be.calledWith(el, sinon.match(Object));
+
+            expect(captureListener).to.have.been.calledOnce;
+            expect(captureListener).to.be.calledWith(el, sinon.match(Object));
+        });
+    });
+
     context('listen events with delegated elements', () => {
-        var fn, fnI1, fnI, el;
+        let fn, fnI1, fnI, el;
         beforeEach(done => {
             fn = sinon.spy();
             fnI1 = sinon.spy();
@@ -91,7 +118,7 @@ describe('ceb.on()', function () {
     });
 
     context('skip propagation and default behavior', () => {
-        var wrapperListener, elListener, wrapper, el;
+        let wrapperListener, elListener, wrapper, el;
         beforeEach(done => {
             wrapperListener = sinon.spy();
             elListener = sinon.spy();

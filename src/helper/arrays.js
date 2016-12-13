@@ -1,5 +1,4 @@
 // obviously close to underscorejs and lodash ;)
-
 import {isArray, isFunction} from './types.js';
 
 /**

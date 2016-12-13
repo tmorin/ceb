@@ -11,5 +11,5 @@ export {flatten, invoke} from './helper/arrays.js';
 export {toArray, toCamelCase} from './helper/converters.js';
 export {bind, noop, partial} from './helper/functions.js';
 export {assign, result} from './helper/objects.js';
-export {dispatchCustomEvent, dispatchMouseEvent, dispatchHtmlEvent} from './helper/events.js';
+export {dispatchCustomEvent, dispatchMouseEvent, dispatchKeyboardEvent, dispatchHtmlEvent} from './helper/events.js';
 export {isArray, isFunction, isNull, isString, isUndefined} from './helper/types.js';

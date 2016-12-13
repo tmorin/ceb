@@ -50,7 +50,6 @@ element()
     .register('ceb-example');
 ```
 
-
 ## Event delegation
 
 If the user clicks on `p.message`, nothing will happened.
@@ -73,3 +72,22 @@ element()
     )
     .register('ceb-example');
 ```
+
+## To bind all mouse or keyboard events
+
+And helper can be used to get an instance of the builder ready to work with all mouse or keyboard events.
+
+- Mouse events: click, mousedown, mouseup, mouseover, mouseout, mousemove, contextmenu, dblclick
+- Keyboard events: keydown, keypress, keyup
+
+```javascript
+import {element, on} from 'ceb';
+element()
+    .builders(
+        on.mouse().invoke((el, evt) => console.log('Ok! %s on %s', evt.type, evt.target.tagName)),
+        on.keyboard().invoke((el, evt) => console.log('Ok! %s on %s', evt.type, evt.target.tagName))
+    )
+    .register('ceb-example');
+```
+
+These helpers can be use-full when event bubbles by children nodes have to be mutated, cloned and re-dispatch from the custom element it-self.

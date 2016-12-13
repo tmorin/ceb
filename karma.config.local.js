@@ -10,7 +10,11 @@ for (var k in base) {
 
 if (process.env.COVERAGE) {
     console.log('---- CAPTURE COVERAGE ----');
-    override.webpack.module.loaders[0] = {test: /\.js?$/, exclude: /node_modules|\/example\/|\.spec.js$/, loader: 'isparta'};
+    override.webpack.module.loaders[0] = {
+        test: /\.js?$/,
+        exclude: /node_modules|\/example\/|\.spec.js$/,
+        loader: 'isparta'
+    };
     override.webpack.module.loaders.push({test: /\/example\/|\.spec.js?$/, exclude: /node_modules/, loader: 'babel'});
     override.reporters.push('coverage');
     override.coverageReporter = {
@@ -29,6 +33,7 @@ module.exports = function (config) {
     // config.browsers = ['Chrome', 'PhantomJS'];
     // config.browsers = ['Firefox', 'PhantomJS'];
     override.browsers = ['PhantomJS'];
+    // override.browsers = ['Firefox'];
     // config.browsers = ['Chrome'];
     // config.browsers = ['IE'];
 

@@ -145,3 +145,19 @@ export class OnBuilder {
 export function on(events) {
     return new OnBuilder(events);
 }
+
+/**
+ * Get a new on builder already setup with all mouse events: click, mousedown, mouseup, mouseover, mouseout, mousemove, contextmenu, dblclick.
+ * @returns {OnBuilder}
+ */
+on.mouse = function () {
+    return on('click, mousedown, mouseup, mouseover, mouseout, mousemove, contextmenu, dblclick');
+};
+
+/**
+ * Get a new on builder already setup with all keyboard events: keydown, keypress, keyup.
+ * @returns {OnBuilder}
+ */
+on.keyboard = function () {
+    return on('keydown, keypress, keyup');
+};

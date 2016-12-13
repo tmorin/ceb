@@ -1,9 +1,8 @@
 /*jshint -W030 */
-
 import {dispatchCustomEvent, dispatchMouseEvent} from '../src/ceb.js';
 
 describe('ceb.events', () => {
-    var sandbox, wrapper, button, listener;
+    let sandbox, wrapper, button, listener;
     beforeEach(() => {
         if (sandbox) {
             sandbox.parentNode.removeChild(sandbox);

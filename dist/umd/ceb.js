@@ -221,6 +221,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return _events.dispatchMouseEvent;
 	  }
 	});
+	Object.defineProperty(exports, 'dispatchKeyboardEvent', {
+	  enumerable: true,
+	  get: function get() {
+	    return _events.dispatchKeyboardEvent;
+	  }
+	});
 	Object.defineProperty(exports, 'dispatchHtmlEvent', {
 	  enumerable: true,
 	  get: function get() {
@@ -1583,7 +1589,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -1632,7 +1638,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	    _createClass(OnBuilder, [{
-	        key: 'invoke',
+	        key: "invoke",
 	        value: function invoke(fn) {
 	            if ((0, _types.isFunction)(fn)) {
 	                this.data.invoke = fn;
@@ -1646,7 +1652,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: 'capture',
+	        key: "capture",
 	        value: function capture() {
 	            this.data.capture = true;
 	            return this;
@@ -1659,7 +1665,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: 'delegate',
+	        key: "delegate",
 	        value: function delegate(selector) {
 	            this.data.selector = selector;
 	            return this;
@@ -1671,7 +1677,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: 'prevent',
+	        key: "prevent",
 	        value: function prevent() {
 	            this.data.preventDefault = true;
 	            return this;
@@ -1683,7 +1689,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: 'stop',
+	        key: "stop",
 	        value: function stop() {
 	            this.data.stopPropagation = true;
 	            return this;
@@ -1695,7 +1701,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: 'skip',
+	        key: "skip",
 	        value: function skip() {
 	            return this.prevent().stop();
 	        }
@@ -1707,7 +1713,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: 'build',
+	        key: "build",
 	        value: function build(proto, on) {
 	            var events = this.data.events.split(',').map(function (event) {
 	                return event.trim().split(' ');
@@ -1807,6 +1813,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	function on(events) {
 	    return new OnBuilder(events);
 	}
+
+	/**
+	 * Get a new on builder already setup with all mouse events: click, mousedown, mouseup, mouseover, mouseout, mousemove, contextmenu, dblclick.
+	 * @returns {OnBuilder}
+	 */
+	on.mouse = function () {
+	    return on('click, mousedown, mouseup, mouseover, mouseout, mousemove, contextmenu, dblclick');
+	};
+
+	/**
+	 * Get a new on builder already setup with all keyboard events: keydown, keypress, keyup.
+	 * @returns {OnBuilder}
+	 */
+	on.keyboard = function () {
+	    return on('keydown, keypress, keyup');
+	};
 
 /***/ },
 /* 12 */
@@ -1986,20 +2008,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.dispatchCustomEvent = dispatchCustomEvent;
 	exports.dispatchMouseEvent = dispatchMouseEvent;
+	exports.dispatchKeyboardEvent = dispatchKeyboardEvent;
 	exports.dispatchHtmlEvent = dispatchHtmlEvent;
 
 	var _objects = __webpack_require__(4);
 
-	var CUSTOM_EVENT_ARG_NAMES = ['bubbles', 'cancelable', 'detail'];
+	var _types = __webpack_require__(1);
 
-	var MOUSE_EVENT_ARG_NAMES = ['bubbles', 'cancelable', 'view', 'detail', 'screenX', 'screenY', 'clientX', 'clientY', 'ctrlKey', 'altKey', 'shiftKey', 'metaKey', 'button', 'relatedTarget'];
+	var CUSTOM_EVENT_ARG_NAMES = ['bubbles', 'cancelable', 'detail'];
 
 	var DEFAULT_CUSTOM_EVENT_OPTIONS = {
 	    bubbles: true,
@@ -2024,6 +2047,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	    relatedTarget: null
 	};
 
+	var MOUSE_EVENT_ARG_NAMES = ['bubbles', 'cancelable', 'view', 'detail', 'screenX', 'screenY', 'clientX', 'clientY', 'ctrlKey', 'altKey', 'shiftKey', 'metaKey', 'button', 'relatedTarget'];
+
+	var DEFAULT_KEYBOARD_EVENT_OPTIONS = {
+	    bubbles: true,
+	    cancelable: true,
+	    char: "",
+	    key: "",
+	    location: 0,
+	    ctrlKey: false,
+	    shiftKey: false,
+	    altKey: false,
+	    metaKey: false,
+	    repeat: false,
+	    locale: "",
+	    detail: 0,
+	    keyCode: 0,
+	    charCode: 0,
+	    which: 0
+	};
+
+	var KEYBOARD_EVENT_ARG_NAMES = ['bubbles', 'cancelable', 'view', 'char', 'key', 'location', 'modifiersList', 'repeat'];
+
 	/**
 	 * Create and dispatch a custom event.
 	 * @param {!HTMLElement} el the element where the event will be dispatched
@@ -2046,7 +2091,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * Create and dispatch a mouse event (click, mouseover, etc.).
+	 * Create and dispatch a mouse event (click, mousedown, mouseup, mouseover, mouseout, mousemove, contextmenu, dblclick).
 	 * @param {!HTMLElement} el the element where the event will be dispatched
 	 * @param {!string} eventType the event type
 	 * @param {Object} [options] the options
@@ -2055,11 +2100,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	function dispatchMouseEvent(el, eventType, options) {
 	    var event = void 0,
 	        args = (0, _objects.assign)({}, DEFAULT_MOUSE_EVENT_OPTIONS, options);
-	    if (typeof MouseEvent === 'function') {
+	    if ((0, _types.isFunction)(MouseEvent)) {
 	        event = new MouseEvent(eventType, args);
 	    } else {
 	        event = document.createEvent('MouseEvents');
 	        event.initMouseEvent.apply(event, [eventType].concat(MOUSE_EVENT_ARG_NAMES.map(function (name) {
+	            return args[name];
+	        })));
+	    }
+	    return el.dispatchEvent(event);
+	}
+
+	/**
+	 * Create and dispatch a keyboard event (keydown, keypress, keyup).
+	 * @param {!HTMLElement} el the element where the event will be dispatched
+	 * @param {!string} eventType the event type
+	 * @param {Object} [options] the options
+	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
+	 */
+	function dispatchKeyboardEvent(el, eventType, options) {
+	    var event = void 0,
+	        args = (0, _objects.assign)({}, DEFAULT_KEYBOARD_EVENT_OPTIONS, options);
+	    if ((0, _types.isFunction)(KeyboardEvent)) {
+	        event = new KeyboardEvent(eventType, args);
+	    } else {
+	        event = document.createEvent('KeyboardEvent');
+	        event.initKeyboardEvent.apply(event, [eventType].concat(KEYBOARD_EVENT_ARG_NAMES.map(function (name) {
 	            return args[name];
 	        })));
 	    }

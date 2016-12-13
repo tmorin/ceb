@@ -1,9 +1,8 @@
 /*jshint -W030 */
-
 import {element, template} from '../src/ceb.js';
 
-describe('ceb.template()', ()=> {
-    var sandbox, builder;
+describe('ceb.template()', () => {
+    let sandbox, builder;
     beforeEach(() => {
         if (sandbox) {
             sandbox.parentNode.removeChild(sandbox);
@@ -18,13 +17,13 @@ describe('ceb.template()', ()=> {
 
     it('should apply a string template', () => {
         builder.builders(template(`<button></button>`)).register('ceb-template-string');
-        var el = document.createElement('ceb-template-string');
+        let el = document.createElement('ceb-template-string');
         expect(el.innerHTML).to.be.eq('<button></button>');
     });
 
     it('should apply a function template', () => {
         builder.builders(template(el => `<button>${el.tagName.toLowerCase()}</button>`)).register('ceb-template-function');
-        var el = document.createElement('ceb-template-function');
+        let el = document.createElement('ceb-template-function');
         expect(el.innerHTML).to.be.eq('<button>ceb-template-function</button>');
     });
 
@@ -42,7 +41,7 @@ describe('ceb.template()', ()=> {
         `;
 
         setTimeout(() => {
-            var el = sandbox.querySelector('ceb-template-node-lightdom');
+            let el = sandbox.querySelector('ceb-template-node-lightdom');
             expect(el.querySelector('.lightdom').textContent).to.be.eq('light DOM');
             expect(el.lightDOM).to.be.eq(el.querySelector('.lightdom').parentNode);
             done();
@@ -63,7 +62,7 @@ describe('ceb.template()', ()=> {
         `;
 
         setTimeout(() => {
-            var el = sandbox.querySelector('ceb-template-attr-lightdom');
+            let el = sandbox.querySelector('ceb-template-attr-lightdom');
             expect(el.querySelector('.lightdom').textContent).to.be.eq('light DOM');
             expect(el.lightDOM).to.be.eq(el.querySelector('.lightdom').parentNode);
             done();
@@ -90,7 +89,7 @@ describe('ceb.template()', ()=> {
         `;
 
         setTimeout(() => {
-            var el = sandbox.querySelector('ceb-template-embedded-parent');
+            let el = sandbox.querySelector('ceb-template-embedded-parent');
             expect(el.lightDOM.textContent.trim()).to.be.eq('light DOM');
             done();
         }, 20);
@@ -117,7 +116,7 @@ describe('ceb.template()', ()=> {
         `;
 
         setTimeout(() => {
-            var el = sandbox.querySelector('ceb-template-embedded-parent-v2');
+            let el = sandbox.querySelector('ceb-template-embedded-parent-v2');
             expect(el.lightDOM.textContent.trim()).to.be.contain('light DOM');
             expect(el.lightDOM.querySelector('#child1')).to.be.not.null;
             expect(el.lightDOM.querySelector('#child2')).to.be.not.null;
@@ -145,10 +144,10 @@ describe('ceb.template()', ()=> {
             </ceb-template-clone-parent>
         `;
 
-        var el = sandbox.querySelector('ceb-template-clone-parent');
+        let el = sandbox.querySelector('ceb-template-clone-parent');
 
         setTimeout(() => {
-            var clonedNode = el.cloneNode(true);
+            let clonedNode = el.cloneNode(true);
             sandbox.appendChild(clonedNode);
             setTimeout(() => {
                 expect(clonedNode.tagName).to.be.eq(el.tagName);

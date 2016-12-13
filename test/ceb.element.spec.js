@@ -1,9 +1,8 @@
 /*jshint -W030 */
-
 import {element} from '../src/ceb.js';
 
 describe('ceb.element()', () => {
-    var sandbox, builder, before, after;
+    let sandbox, builder, before, after;
     beforeEach(() => {
         if (sandbox) {
             sandbox.parentNode.removeChild(sandbox);
@@ -54,7 +53,7 @@ describe('ceb.element()', () => {
     });
 
     it('should handle before:registerElement and after:registerElement', () => {
-        var CustomElement = builder
+        let CustomElement = builder
             .on('before:registerElement').invoke(before)
             .on('after:registerElement').invoke(after)
             .register('test-registerElement');
@@ -69,7 +68,7 @@ describe('ceb.element()', () => {
             .on('before:createdCallback').invoke(before)
             .on('after:createdCallback').invoke(after)
             .register('test-createdCallback');
-        var el = document.createElement('test-createdCallback');
+        let el = document.createElement('test-createdCallback');
         expect(before).to.have.been.calledOnce;
         expect(before).to.have.been.calledWith(sinon.match(el));
         expect(after).to.have.been.calledOnce;
@@ -82,7 +81,7 @@ describe('ceb.element()', () => {
             .on('before:detachedCallback').invoke(before)
             .on('after:detachedCallback').invoke(after)
             .register('test-detachedCallback');
-        var el = document.createElement('test-detachedCallback');
+        let el = document.createElement('test-detachedCallback');
         sandbox.appendChild(el);
         setTimeout(() => {
             sandbox.removeChild(el);
@@ -101,7 +100,7 @@ describe('ceb.element()', () => {
             .on('before:attachedCallback').invoke(before)
             .on('after:attachedCallback').invoke(after)
             .register('test-attachedCallback');
-        var el = document.createElement('test-attachedCallback');
+        let el = document.createElement('test-attachedCallback');
         sandbox.appendChild(el);
         setTimeout(() => {
             expect(before).to.have.been.calledOnce;
@@ -117,7 +116,7 @@ describe('ceb.element()', () => {
             .on('before:attributeChangedCallback').invoke(before)
             .on('after:attributeChangedCallback').invoke(after)
             .register('test-attributeChangedCallback');
-        var el = document.createElement('test-attributeChangedCallback');
+        let el = document.createElement('test-attributeChangedCallback');
         el.setAttribute('name', 'value');
         setTimeout(() => {
             expect(before).to.have.been.calledOnce;
@@ -129,7 +128,7 @@ describe('ceb.element()', () => {
     });
 
     it('should handle builders', done => {
-        var build = sinon.spy();
+        let build = sinon.spy();
         builder.builders({build: build}).register('test-builders-handlers');
         setTimeout(() => {
             expect(build).to.have.been.calledOnce;

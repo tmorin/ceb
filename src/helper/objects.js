@@ -1,5 +1,4 @@
 // obviously close to underscorejs and lodash ;)
-
 import {isFunction} from './types.js';
 
 /**
