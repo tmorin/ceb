@@ -57,214 +57,226 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _element = __webpack_require__(9);
 
 	Object.defineProperty(exports, 'element', {
-	  enumerable: true,
-	  get: function get() {
-	    return _element.element;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _element.element;
+	    }
 	});
 
 	var _property = __webpack_require__(6);
 
 	Object.defineProperty(exports, 'property', {
-	  enumerable: true,
-	  get: function get() {
-	    return _property.property;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _property.property;
+	    }
 	});
 
 	var _attribute = __webpack_require__(5);
 
 	Object.defineProperty(exports, 'attribute', {
-	  enumerable: true,
-	  get: function get() {
-	    return _attribute.attribute;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _attribute.attribute;
+	    }
 	});
 	Object.defineProperty(exports, 'getAttValue', {
-	  enumerable: true,
-	  get: function get() {
-	    return _attribute.getAttValue;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _attribute.getAttValue;
+	    }
 	});
 	Object.defineProperty(exports, 'setAttValue', {
-	  enumerable: true,
-	  get: function get() {
-	    return _attribute.setAttValue;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _attribute.setAttValue;
+	    }
 	});
 
 	var _delegate = __webpack_require__(8);
 
 	Object.defineProperty(exports, 'delegate', {
-	  enumerable: true,
-	  get: function get() {
-	    return _delegate.delegate;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _delegate.delegate;
+	    }
 	});
 
 	var _method = __webpack_require__(10);
 
 	Object.defineProperty(exports, 'method', {
-	  enumerable: true,
-	  get: function get() {
-	    return _method.method;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _method.method;
+	    }
 	});
 
 	var _template = __webpack_require__(12);
 
 	Object.defineProperty(exports, 'template', {
-	  enumerable: true,
-	  get: function get() {
-	    return _template.template;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _template.template;
+	    }
 	});
 	Object.defineProperty(exports, 'applyTemplate', {
-	  enumerable: true,
-	  get: function get() {
-	    return _template.applyTemplate;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _template.applyTemplate;
+	    }
 	});
 
 	var _on = __webpack_require__(11);
 
 	Object.defineProperty(exports, 'on', {
-	  enumerable: true,
-	  get: function get() {
-	    return _on.on;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _on.on;
+	    }
 	});
 
 	var _arrays = __webpack_require__(7);
 
 	Object.defineProperty(exports, 'flatten', {
-	  enumerable: true,
-	  get: function get() {
-	    return _arrays.flatten;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _arrays.flatten;
+	    }
 	});
 	Object.defineProperty(exports, 'invoke', {
-	  enumerable: true,
-	  get: function get() {
-	    return _arrays.invoke;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _arrays.invoke;
+	    }
 	});
 
 	var _converters = __webpack_require__(2);
 
 	Object.defineProperty(exports, 'toArray', {
-	  enumerable: true,
-	  get: function get() {
-	    return _converters.toArray;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _converters.toArray;
+	    }
 	});
 	Object.defineProperty(exports, 'toCamelCase', {
-	  enumerable: true,
-	  get: function get() {
-	    return _converters.toCamelCase;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _converters.toCamelCase;
+	    }
 	});
 
 	var _functions = __webpack_require__(3);
 
 	Object.defineProperty(exports, 'bind', {
-	  enumerable: true,
-	  get: function get() {
-	    return _functions.bind;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _functions.bind;
+	    }
 	});
 	Object.defineProperty(exports, 'noop', {
-	  enumerable: true,
-	  get: function get() {
-	    return _functions.noop;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _functions.noop;
+	    }
 	});
 	Object.defineProperty(exports, 'partial', {
-	  enumerable: true,
-	  get: function get() {
-	    return _functions.partial;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _functions.partial;
+	    }
 	});
 
 	var _objects = __webpack_require__(4);
 
 	Object.defineProperty(exports, 'assign', {
-	  enumerable: true,
-	  get: function get() {
-	    return _objects.assign;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _objects.assign;
+	    }
 	});
 	Object.defineProperty(exports, 'result', {
-	  enumerable: true,
-	  get: function get() {
-	    return _objects.result;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _objects.result;
+	    }
 	});
 
 	var _events = __webpack_require__(13);
 
 	Object.defineProperty(exports, 'dispatchCustomEvent', {
-	  enumerable: true,
-	  get: function get() {
-	    return _events.dispatchCustomEvent;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _events.dispatchCustomEvent;
+	    }
 	});
 	Object.defineProperty(exports, 'dispatchMouseEvent', {
-	  enumerable: true,
-	  get: function get() {
-	    return _events.dispatchMouseEvent;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _events.dispatchMouseEvent;
+	    }
 	});
 	Object.defineProperty(exports, 'dispatchKeyboardEvent', {
-	  enumerable: true,
-	  get: function get() {
-	    return _events.dispatchKeyboardEvent;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _events.dispatchKeyboardEvent;
+	    }
 	});
 	Object.defineProperty(exports, 'dispatchHtmlEvent', {
-	  enumerable: true,
-	  get: function get() {
-	    return _events.dispatchHtmlEvent;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _events.dispatchHtmlEvent;
+	    }
+	});
+	Object.defineProperty(exports, 'dispatchClonedKeyboardEvent', {
+	    enumerable: true,
+	    get: function get() {
+	        return _events.dispatchClonedKeyboardEvent;
+	    }
+	});
+	Object.defineProperty(exports, 'dispatchClonedMouseEvent', {
+	    enumerable: true,
+	    get: function get() {
+	        return _events.dispatchClonedMouseEvent;
+	    }
 	});
 
 	var _types = __webpack_require__(1);
 
 	Object.defineProperty(exports, 'isArray', {
-	  enumerable: true,
-	  get: function get() {
-	    return _types.isArray;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _types.isArray;
+	    }
 	});
 	Object.defineProperty(exports, 'isFunction', {
-	  enumerable: true,
-	  get: function get() {
-	    return _types.isFunction;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _types.isFunction;
+	    }
 	});
 	Object.defineProperty(exports, 'isNull', {
-	  enumerable: true,
-	  get: function get() {
-	    return _types.isNull;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _types.isNull;
+	    }
 	});
 	Object.defineProperty(exports, 'isString', {
-	  enumerable: true,
-	  get: function get() {
-	    return _types.isString;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _types.isString;
+	    }
 	});
 	Object.defineProperty(exports, 'isUndefined', {
-	  enumerable: true,
-	  get: function get() {
-	    return _types.isUndefined;
-	  }
+	    enumerable: true,
+	    get: function get() {
+	        return _types.isUndefined;
+	    }
 	});
 
 /***/ },
@@ -2014,6 +2026,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.dispatchMouseEvent = dispatchMouseEvent;
 	exports.dispatchKeyboardEvent = dispatchKeyboardEvent;
 	exports.dispatchHtmlEvent = dispatchHtmlEvent;
+	exports.dispatchClonedMouseEvent = dispatchClonedMouseEvent;
+	exports.dispatchClonedKeyboardEvent = dispatchClonedKeyboardEvent;
 
 	var _objects = __webpack_require__(4);
 
@@ -2151,6 +2165,42 @@ return /******/ (function(modules) { // webpackBootstrap
 	        })));
 	    }
 	    return el.dispatchEvent(event);
+	}
+
+	/**
+	 * Dispatch from the given element a clone of the given mouse event.
+	 * @param {!HTMLElement} el the element
+	 * @param {!MouseEvent} inEvt the event
+	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
+	 */
+	function dispatchClonedMouseEvent(el, inEvt) {
+	    var outEvt = (0, _types.isFunction)(MouseEvent) ? new MouseEvent(eventType) : document.createEvent('MouseEvents');
+	    Object.keys(inEvt).filter(function (k) {
+	        return ['target'].indexOf(k) > -1;
+	    }).filter(function (k) {
+	        return !(0, _types.isFunction)(inEvt[k]);
+	    }).forEach(function (k) {
+	        return outEvt[k] = inEvt[k];
+	    });
+	    return el.dispatchEvent(outEvt);
+	}
+
+	/**
+	 * Dispatch from the given element a clone of the given keyboard event.
+	 * @param {!HTMLElement} el the element
+	 * @param {!KeyboardEvent} inEvt the event
+	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
+	 */
+	function dispatchClonedKeyboardEvent(el, inEvt) {
+	    var outEvt = (0, _types.isFunction)(KeyboardEvent) ? new KeyboardEvent(eventType) : document.createEvent('MouseEvents');
+	    Object.keys(inEvt).filter(function (k) {
+	        return ['target'].indexOf(k) > -1;
+	    }).filter(function (k) {
+	        return !(0, _types.isFunction)(inEvt[k]);
+	    }).forEach(function (k) {
+	        return outEvt[k] = inEvt[k];
+	    });
+	    return el.dispatchEvent(outEvt);
 	}
 
 /***/ }

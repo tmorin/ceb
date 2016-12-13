@@ -3,7 +3,7 @@
 System.register(['./objects.js', './types.js'], function (_export, _context) {
     "use strict";
 
-    var assign, isFunction, CUSTOM_EVENT_ARG_NAMES, DEFAULT_CUSTOM_EVENT_OPTIONS, DEFAULT_MOUSE_EVENT_OPTIONS, MOUSE_EVENT_ARG_NAMES, DEFAULT_KEYBOARD_EVENT_OPTIONS;
+    var assign, isFunction, isUndefined, CUSTOM_EVENT_ARG_NAMES, DEFAULT_CUSTOM_EVENT_OPTIONS, DEFAULT_MOUSE_EVENT_OPTIONS, MOUSE_EVENT_ARG_NAMES, DEFAULT_KEYBOARD_EVENT_OPTIONS;
 
 
     /**
@@ -102,13 +102,56 @@ System.register(['./objects.js', './types.js'], function (_export, _context) {
         return el.dispatchEvent(event);
     }
 
+    /**
+     * Dispatch from the given element a clone of the given mouse event.
+     * @param {!HTMLElement} el the element
+     * @param {!MouseEvent} inEvt the event
+     * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
+     */
+
     _export('dispatchHtmlEvent', dispatchHtmlEvent);
+
+    function dispatchClonedMouseEvent(el, inEvt) {
+        var outEvt = isFunction(MouseEvent) ? new MouseEvent(eventType) : document.createEvent('MouseEvents');
+        Object.keys(inEvt).filter(function (k) {
+            return ['target'].indexOf(k) > -1;
+        }).filter(function (k) {
+            return !isFunction(inEvt[k]);
+        }).forEach(function (k) {
+            return outEvt[k] = inEvt[k];
+        });
+        return el.dispatchEvent(outEvt);
+    }
+
+    /**
+     * Dispatch from the given element a clone of the given keyboard event.
+     * @param {!HTMLElement} el the element
+     * @param {!KeyboardEvent} inEvt the event
+     * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
+     */
+
+    _export('dispatchClonedMouseEvent', dispatchClonedMouseEvent);
+
+    function dispatchClonedKeyboardEvent(el, inEvt) {
+        var outEvt = isFunction(KeyboardEvent) ? new KeyboardEvent(eventType) : document.createEvent('MouseEvents');
+        Object.keys(inEvt).filter(function (k) {
+            return ['target'].indexOf(k) > -1;
+        }).filter(function (k) {
+            return !isFunction(inEvt[k]);
+        }).forEach(function (k) {
+            return outEvt[k] = inEvt[k];
+        });
+        return el.dispatchEvent(outEvt);
+    }
+
+    _export('dispatchClonedKeyboardEvent', dispatchClonedKeyboardEvent);
 
     return {
         setters: [function (_objectsJs) {
             assign = _objectsJs.assign;
         }, function (_typesJs) {
             isFunction = _typesJs.isFunction;
+            isUndefined = _typesJs.isUndefined;
         }],
         execute: function () {
             CUSTOM_EVENT_ARG_NAMES = ['bubbles', 'cancelable', 'detail'];
