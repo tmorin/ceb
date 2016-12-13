@@ -55,7 +55,7 @@ describe('ceb.on()', function () {
         });
     });
 
-    context('listen keyboard events', () => {
+    context.only('listen keyboard events', () => {
         let bubblingListener, captureListener, el;
         beforeEach(done => {
             console.log(typeof KeyboardEvent, navigator.appName, navigator.userAgent);
