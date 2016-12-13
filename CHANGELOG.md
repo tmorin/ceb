@@ -1,6 +1,7 @@
 # Change log
 
 ## 0.9.x
+- add dispatchKeyboardEvent utility
 - add unit test on iphone devices
 - upgrade dependencies
 - deactivate weather-app due https issues

@@ -50,6 +50,7 @@
     "site": "npm run site:doc && npm run site:esdoc && npm run site:example && ncp dist _book/live/dist",
     "coveralls": "cat coverage/lcov.info | coveralls --verbose",
     "test:local": "karma start karma.config.local.js",
+    "test:local:coverage": "COVERAGE=true karma start karma.config.local.js",
     "test:local:watch": "npm run test:local -- --auto-watch --no-single-run",
     "test:ci:ie": "karma start karma.config.ci.js --browsers slIe11,slIe10,slIe9",
     "test:ci:evergreen": "karma start karma.config.ci.js --browsers slChrome,slFirefox",

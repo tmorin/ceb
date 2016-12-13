@@ -1,5 +1,5 @@
 import {assign} from './objects.js';
-import {isFunction} from './types.js';
+import {isFunction, isUndefined} from './types.js';
 
 const CUSTOM_EVENT_ARG_NAMES = [
     'bubbles',
@@ -142,4 +142,34 @@ export function dispatchHtmlEvent(el, eventType, options) {
         event.initEvent.apply(event, [eventType].concat(MOUSE_EVENT_ARG_NAMES.map(name => args[name])));
     }
     return el.dispatchEvent(event);
+}
+
+/**
+ * Dispatch from the given element a clone of the given mouse event.
+ * @param {!HTMLElement} el the element
+ * @param {!MouseEvent} inEvt the event
+ * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
+ */
+export function dispatchClonedMouseEvent(el, inEvt) {
+    let outEvt = isFunction(MouseEvent) ? new MouseEvent(eventType) : document.createEvent('MouseEvents');
+    Object.keys(inEvt)
+        .filter(k => ['target'].indexOf(k) > -1)
+        .filter(k => !isFunction(inEvt[k]))
+        .forEach(k => outEvt[k] = inEvt[k]);
+    return el.dispatchEvent(outEvt);
+}
+
+/**
+ * Dispatch from the given element a clone of the given keyboard event.
+ * @param {!HTMLElement} el the element
+ * @param {!KeyboardEvent} inEvt the event
+ * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
+ */
+export function dispatchClonedKeyboardEvent(el, inEvt) {
+    let outEvt = isFunction(KeyboardEvent) ? new KeyboardEvent(eventType) : document.createEvent('MouseEvents');
+    Object.keys(inEvt)
+        .filter(k => ['target'].indexOf(k) > -1)
+        .filter(k => !isFunction(inEvt[k]))
+        .forEach(k => outEvt[k] = inEvt[k]);
+    return el.dispatchEvent(outEvt);
 }
