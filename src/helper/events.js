@@ -1,5 +1,5 @@
-import {assign} from './objects';
-import {isFunction} from './types';
+import {assign} from './objects.js';
+import {isFunction} from './types.js';
 
 const CUSTOM_EVENT_ARG_NAMES = [
     'bubbles',
