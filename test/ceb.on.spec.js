@@ -58,20 +58,21 @@ describe('ceb.on()', function () {
     context('listen keyboard events', () => {
         let bubblingListener, captureListener, el;
         beforeEach(done => {
+            console.log(typeof KeyboardEvent, navigator.appName, navigator.userAgent);
             bubblingListener = sinon.spy();
             captureListener = sinon.spy();
 
             builder.builders(
                 on.keyboard().invoke(bubblingListener),
-                on('keypress').invoke(captureListener).capture(),
+                on('keydown').invoke(captureListener).capture(),
                 template('<input/>')
             ).register('test-on-keyboard-event');
 
             sandbox.appendChild((el = document.createElement('test-on-keyboard-event')));
 
             setTimeout(() => {
-                listen(el, 'keypress', 1, done);
-                dispatchKeyboardEvent(el.querySelector('input'), 'keypress');
+                listen(el, 'keydown', 1, done);
+                dispatchKeyboardEvent(el.querySelector('input'), 'keydown');
             }, 10);
         });
         it('should invoke the bubbling and capture listeners', () => {

@@ -49,29 +49,34 @@ module.exports = function (config) {
             browserName: 'android',
             version: '5.0'
         },
-        slSafari7: {
-            base: 'SauceLabs',
-            browserName: 'safari',
-            version: '7'
-        },
         slSafari8: {
             base: 'SauceLabs',
             browserName: 'safari',
             version: '8'
         },
-        slIPhone8: {
+        slSafari9: {
             base: 'SauceLabs',
-            browserName: 'Safari',
-            deviceName: 'iPhone Simulator',
-            version: '8.4',
-            platform: 'iOS',
-            deviceOrientation: 'portrait'
+            browserName: 'safari',
+            version: '9'
+        },
+        slSafari10: {
+            base: 'SauceLabs',
+            browserName: 'safari',
+            version: '10'
         },
         slIPhone9: {
             base: 'SauceLabs',
             browserName: 'Safari',
             deviceName: 'iPhone Simulator',
             version: '9.2',
+            platform: 'iOS',
+            deviceOrientation: 'portrait'
+        },
+        slIPhone10: {
+            base: 'SauceLabs',
+            browserName: 'Safari',
+            deviceName: 'iPhone Simulator',
+            version: '10.0',
             platform: 'iOS',
             deviceOrientation: 'portrait'
         }

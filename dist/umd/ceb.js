@@ -401,7 +401,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {Function} the new bound function
 	 */
 	// obviously close to underscorejs and lodash ;)
-
 	function bind(fn, ctx) {
 	    return function () {
 	        return fn.apply(ctx, (0, _converters.toArray)(arguments));
@@ -449,7 +448,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @returns {Object} the destination object
 	 */
 	// obviously close to underscorejs and lodash ;)
-
 	function assign(destination) {
 	    for (var _len = arguments.length, sources = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
 	        sources[_key - 1] = arguments[_key];
@@ -984,7 +982,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @return {Array} the array of results
 	 */
 	// obviously close to underscorejs and lodash ;)
-
 	function invoke(objects, methName) {
 	    for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
 	        args[_key - 2] = arguments[_key];
@@ -1589,7 +1586,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -1638,7 +1635,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	    _createClass(OnBuilder, [{
-	        key: "invoke",
+	        key: 'invoke',
 	        value: function invoke(fn) {
 	            if ((0, _types.isFunction)(fn)) {
 	                this.data.invoke = fn;
@@ -1652,7 +1649,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: "capture",
+	        key: 'capture',
 	        value: function capture() {
 	            this.data.capture = true;
 	            return this;
@@ -1665,7 +1662,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: "delegate",
+	        key: 'delegate',
 	        value: function delegate(selector) {
 	            this.data.selector = selector;
 	            return this;
@@ -1677,7 +1674,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: "prevent",
+	        key: 'prevent',
 	        value: function prevent() {
 	            this.data.preventDefault = true;
 	            return this;
@@ -1689,7 +1686,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: "stop",
+	        key: 'stop',
 	        value: function stop() {
 	            this.data.stopPropagation = true;
 	            return this;
@@ -1701,7 +1698,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: "skip",
+	        key: 'skip',
 	        value: function skip() {
 	            return this.prevent().stop();
 	        }
@@ -1713,7 +1710,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	         */
 
 	    }, {
-	        key: "build",
+	        key: 'build',
 	        value: function build(proto, on) {
 	            var events = this.data.events.split(',').map(function (event) {
 	                return event.trim().split(' ');
@@ -2008,7 +2005,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -2052,15 +2049,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DEFAULT_KEYBOARD_EVENT_OPTIONS = {
 	    bubbles: true,
 	    cancelable: true,
-	    char: "",
-	    key: "",
+	    char: '',
+	    key: '',
 	    location: 0,
 	    ctrlKey: false,
 	    shiftKey: false,
 	    altKey: false,
 	    metaKey: false,
 	    repeat: false,
-	    locale: "",
+	    locale: '',
 	    detail: 0,
 	    keyCode: 0,
 	    charCode: 0,
