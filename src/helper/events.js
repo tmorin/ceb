@@ -50,6 +50,7 @@ const MOUSE_EVENT_ARG_NAMES = [
 const DEFAULT_KEYBOARD_EVENT_OPTIONS = {
     bubbles: true,
     cancelable: true,
+    view: window,
     char: '',
     key: '',
     location: 0,
@@ -62,19 +63,9 @@ const DEFAULT_KEYBOARD_EVENT_OPTIONS = {
     detail: 0,
     keyCode: 0,
     charCode: 0,
-    which: 0
+    which: 0,
+    modifiersList: ''
 };
-
-const KEYBOARD_EVENT_ARG_NAMES = [
-    'bubbles',
-    'cancelable',
-    'view',
-    'char',
-    'key',
-    'location',
-    'modifiersList',
-    'repeat'
-];
 
 /**
  * Create and dispatch a custom event.
@@ -123,9 +114,14 @@ export function dispatchKeyboardEvent(el, eventType, options) {
     let event, args = assign({}, DEFAULT_KEYBOARD_EVENT_OPTIONS, options);
     if (isFunction(KeyboardEvent)) {
         event = new KeyboardEvent(eventType, args);
+    } else if (navigator.userAgent.indexOf('Trident/') > -1) {
+        event = document.createEvent('KeyboardEvent');
+        // ie
+        event.initKeyboardEvent(eventType, args.bubbles, args.cancelable, args.view, args.key, args.location, args.modifiersList, args.repeat, args.locale);
     } else {
         event = document.createEvent('KeyboardEvent');
-        event.initKeyboardEvent.apply(event, [eventType].concat(KEYBOARD_EVENT_ARG_NAMES.map(name => args[name])));
+        // w3c
+        event.initKeyboardEvent(eventType, args.bubbles, args.cancelable, args.view, args.char, args.key, args.location, args.modifiersList, args.repeat, args.locale);
     }
     return el.dispatchEvent(event);
 }
