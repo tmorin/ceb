@@ -1,4 +1,4 @@
-{% include "./doc/_urls.md" %}
+{% include "/_urls.md" %}
 # Installation
 
 `<ceb/>` is distributed from [npm] and [bower].

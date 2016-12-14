@@ -1,4 +1,4 @@
-{% include "/doc/_urls.md" %}
+{% include "/_urls.md" %}
 # Testing
 
 Writing tests of custom elements can be a little bit tricky.
@@ -24,64 +24,65 @@ So, a sandbox has to be created and destroyed using the [mocha]'s hooks for each
 The sandbox content can be initialized by an HTML snippet.
 Obviously, additional variables can be initialized to avoid code duplication.
 
-The following snippet is coming from the `ceb-from`'s specification, `example/form/ceb-form.spec.js`.
+The following mocha's spec is coming from the `ceb`'s specification, `test/ceb.on.spec.js`.
 
 ```javascript
-import './ceb-form.js';
-import {dispatchMouseEvent, dispatchHtmlEvent} from 'ceb';
+import {element, template, on, dispatchCustomEvent} from '../src/ceb.js';
 
-describe('ceb-form', () => {
-   var sandbox, cebForm, submitBtn, resetBtn;
-
-    beforeEach((done) => {
-        if (sandbox) {
-            sandbox.parentNode.removeChild(sandbox);
-        }
-        document.body.appendChild((sandbox = document.createElement('div')));
-        sandbox.innerHTML = `
-            <form is="ceb-form" prevent-submit>
-                <input name="prop1" value="value1">
-                <input name="prop2" value="value2">
-                <button type="submit"></button>
-                <button type="reset"></button>
-            </form>
-        `;
-        cebForm = sandbox.querySelector('form');
-        submitBtn = sandbox.querySelector('[type="submit"]');
-        resetBtn = sandbox.querySelector('[type="reset"]');
-        setTimeout(() => done(), 100);
+describe('ceb.on()', function () {
+    // the sandbox is a div used to host DOM nodes required for the test, especially the tested custom element
+    let sandbox;
+    
+    // before each test case the sandbox is refreshed
+    beforeEach(() => {
+       if (sandbox) {
+           sandbox.parentNode.removeChild(sandbox);
+       }
+       document.body.appendChild((sandbox = document.createElement('div')));
     });
 
-    afterEach(() => {
-        sandbox.innerHTML = '';
+    // each test case has to be wrapped into a context or describe block
+    // in order to setup the sandbox and execute the required stuff, i.e. the GIVEN and WHEN statements
+    context('listening events', () => {
+        // the purpose of the test is to check events triggered from children of the custom element
+        // are listened
+        let bubblingListener, el;
+        beforeEach(done => {
+            // usage of sinon.js to be able to check the listener invokations
+            bubblingListener = sinon.spy();
+
+            // register the tested custom element
+            element().builders(
+                on('custom-event').invoke(bubblingListener),
+                template('<input/>')
+            ).register('test-on-custom-event');
+
+            // create and append the custom element to the sandbox
+            sandbox.appendChild((el = document.createElement('test-on-custom-event')));
+
+            // because the block beforeEach is async, the callback done() has to be called
+            // if sandbox is able to listen the triggered event, it's means the custom element was able to do it before
+            let listener = () => {
+                sandbox.removeEventListener('custom-event', listener);
+                done();
+            };
+            sandbox.addEventListener('custom-event', listener);
+
+            // manage the async "registration" of the custom element using a time out
+            setTimeout(() => {
+                // trigger the event from a child of the custom element
+                dispatchCustomEvent(el.querySelector('input'), 'custom-event');
+            }, 10);
+        });
+        it('should invoke the bubbling listeners', () => {
+            // the following expect statement check the invokation of the custom element's listener
+            // the assertion if based on chai.js
+            expect(bubblingListener).to.have.been.calledOnce;
+            expect(bubblingListener).to.be.calledWith(el, sinon.match(Object));
+        });
     });
 });
 ```
-
-Every thing looks good, except the following line: `setTimeout(() => done(), 100);`.
-Basically: it's ugly.
-However it's necessary because the custom elements are created synchronously or asynchronously according to the native and/or polyfill implementations.
-Presently, it's difficult and maybe impossible to know when the custom elements are really _ready_.
-
-## Dealing with events
-
-One of the functionality of `ceb-from` is to prevent the default behavior of the `submit` event.
-
-The following snippet is also coming from the `ceb-from`'s specification.
-It's goal is to test the statement described above.
-
-```javascript
-it('should prevent submit event', (done) => {
-    cebForm.addEventListener('submit', function listener(evt) {
-        expect(evt.defaultPrevented).to.be.true;
-        cebForm.removeEventListener(cebForm, listener);
-        done();
-    });
-    dispatchMouseEvent(submitBtn, 'click');
-});
-```
-There the _click_ event dispatched from the button will trigger the submit event from the _form_.
-
-`dispatchMouseEvent()` is an utility function provided by `<ceb/>`, helping to create and dispatch mouse events.
-`dispatchCustomEvent()` and `dispatchHtmlEvent()` are also available.
-
+The usage of `setTimeout()` is required to be sure the custom element is well registered.
+Indeed according to the implementation, the registration of custom elements is synchronous or not.
+It's mean: a couple of millisecond may be required between the insertion of the custom element into the DOM and its status `ready`. 

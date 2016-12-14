@@ -1,5 +1,3 @@
-'use strict';
-
 var base = require('./karma.config.base.js');
 var override = {};
 for (var k in base) {

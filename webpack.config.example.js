@@ -1,5 +1,3 @@
-'use strict';
-
 var path = require('path');
 var fs = require('fs');
 
@@ -15,15 +13,7 @@ config.entry = {
     'index': './example/index.js',
     'loader-amd': './example/loader/loader-amd.js',
     'loader-standalone': './example/loader/loader-standalone.js',
-    'loader-systemjs': './example/loader/loader-systemjs.js',
-    'address-selector': './example/address-selector/index.js',
-    'list': './example/list/index.js',
-    'list-plusplus': './example/list-plusplus/index.js',
-    'grid': './example/grid/index.js',
-    'templator': './example/templator/index.js',
-    'form': './example/form/index.js',
-    'todo-app': './example/todo-app/index.js'/*,
-     'weather-app': './example/weather-app/index.js'*/
+    'loader-systemjs': './example/loader/loader-systemjs.js'
 };
 
 config.output = {

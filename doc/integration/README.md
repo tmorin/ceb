@@ -1,4 +1,4 @@
-{% include "/doc/_urls.md" %}
+{% include "/_urls.md" %}
 # Integration
 
 According to the targeted browser, [polyfills](polyfills.md) should be added to handle properly the [Custom Element specification].

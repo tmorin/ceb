@@ -1,4 +1,4 @@
-{% include "/doc/_urls.md" %}
+{% include "/_urls.md" %}
 # template()
 
 The function `template()` returns a fresh `TemplateBuilder` providing services to define ... a template.

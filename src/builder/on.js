@@ -22,7 +22,7 @@ export class OnBuilder {
      * To do something when events occurred.
      * The target argument is by default the custom element.
      * When the delegate feature is used, target is the matched element.
-     * @param {!function(el: HTMLElement, evt: DOMEvent, target: HTMLElement)} fn the event's logic
+     * @param {!function(el: HTMLElement, evt: Event, target: HTMLElement)} fn the event's logic
      * @returns {OnBuilder} the builder
      */
     invoke(fn) {
@@ -79,7 +79,7 @@ export class OnBuilder {
 
     /**
      * Logic of the builder.
-     * @param {!ElementBuilder.context.proto} proto the prototype
+     * @param {!ElementBuilder.context.p} proto the prototype
      * @param {!ElementBuilder.on} on the method on
      */
     build(proto, on) {

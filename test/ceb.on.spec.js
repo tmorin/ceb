@@ -1,5 +1,5 @@
 /*jshint -W030 */
-import {element, template, on, dispatchMouseEvent, dispatchKeyboardEvent} from '../src/ceb.js';
+import {element, template, on, dispatchCustomEvent, dispatchClonedMouseEvent} from '../src/ceb.js';
 
 function listen(el, type, limit, done) {
     let counter = 0;
@@ -22,28 +22,28 @@ describe('ceb.on()', function () {
         document.body.appendChild((sandbox = document.createElement('div')));
         builder = element();
     });
-
     afterEach(() => {
         sandbox.innerHTML = '';
     });
 
-    context('listen mouse events', () => {
+    context('listen custom events', () => {
         let bubblingListener, captureListener, el;
         beforeEach(done => {
             bubblingListener = sinon.spy();
             captureListener = sinon.spy();
 
             builder.builders(
-                on.mouse().invoke(bubblingListener),
-                on('click').invoke(captureListener).capture(),
-                template('<button>button</button>')
-            ).register('test-on-mouse-event');
+                on('custom-event').invoke(bubblingListener),
+                on('custom-event').invoke(captureListener).capture(),
+                template('<input/>')
+            ).register('test-on-custom-event');
 
-            sandbox.appendChild((el = document.createElement('test-on-mouse-event')));
+            sandbox.appendChild((el = document.createElement('test-on-custom-event')));
+
+            listen(sandbox, 'custom-event', 1, done);
 
             setTimeout(() => {
-                listen(el, 'click', 1, done);
-                dispatchMouseEvent(el.querySelector('button'), 'click');
+                dispatchCustomEvent(el.querySelector('input'), 'custom-event');
             }, 10);
         });
         it('should invoke the bubbling and capture listeners', () => {
@@ -55,23 +55,24 @@ describe('ceb.on()', function () {
         });
     });
 
-    context('listen keyboard events', () => {
+    context('listen custom events on target', () => {
         let bubblingListener, captureListener, el;
         beforeEach(done => {
             bubblingListener = sinon.spy();
             captureListener = sinon.spy();
 
             builder.builders(
-                on.keyboard().invoke(bubblingListener),
-                on('keydown').invoke(captureListener).capture(),
+                on('custom-event input').invoke(bubblingListener),
+                on('custom-event input').invoke(captureListener).capture(),
                 template('<input/>')
-            ).register('test-on-keyboard-event');
+            ).register('test-on-custom-event-target');
 
-            sandbox.appendChild((el = document.createElement('test-on-keyboard-event')));
+            sandbox.appendChild((el = document.createElement('test-on-custom-event-target')));
+
+            listen(sandbox, 'custom-event', 1, done);
 
             setTimeout(() => {
-                listen(el, 'keydown', 1, done);
-                dispatchKeyboardEvent(el.querySelector('input'), 'keydown');
+                dispatchCustomEvent(el.querySelector('input'), 'custom-event');
             }, 10);
         });
         it('should invoke the bubbling and capture listeners', () => {
@@ -91,19 +92,20 @@ describe('ceb.on()', function () {
             fnI = sinon.spy();
 
             builder.builders(
-                on('click').invoke(fn),
-                on('click').delegate('.i1').invoke(fnI1),
-                on('click').delegate('i').invoke(fnI),
+                on('custom-event').invoke(fn),
+                on('custom-event').delegate('.i1').invoke(fnI1),
+                on('custom-event').delegate('i').invoke(fnI),
                 template(`<i class="i1"><b>i1</b></i><i class="i2"><b>i2</b></i>`)
             ).register('test-on-delegate');
 
             sandbox.appendChild((el = document.createElement('test-on-delegate')));
 
+            listen(sandbox, 'custom-event', 3, done);
+
             setTimeout(() => {
-                listen(el, 'click', 3, done);
-                dispatchMouseEvent(el.querySelector('.i1'), 'click');
-                dispatchMouseEvent(el.querySelector('.i2'), 'click');
-                dispatchMouseEvent(el.querySelector('.i1 b'), 'click');
+                dispatchCustomEvent(el.querySelector('.i1'), 'custom-event');
+                dispatchCustomEvent(el.querySelector('.i2'), 'custom-event');
+                dispatchCustomEvent(el.querySelector('.i1 b'), 'custom-event');
             }, 10);
         });
         it('should invoke listeners', () => {
@@ -124,7 +126,7 @@ describe('ceb.on()', function () {
             elListener = sinon.spy();
 
             builder.builders(
-                on('click').skip().invoke(elListener),
+                on('custom-event').skip().invoke(elListener),
                 template('<button>button</button>')
             ).register('test-on-skip');
 
@@ -132,11 +134,11 @@ describe('ceb.on()', function () {
             wrapper.appendChild((el = document.createElement('test-on-skip')));
             sandbox.appendChild(wrapper);
 
-            wrapper.addEventListener('click', wrapperListener);
+            wrapper.addEventListener('custom-event', wrapperListener);
 
             setTimeout(() => {
-                listen(el, 'click', 1, done);
-                dispatchMouseEvent(el.querySelector('button'), 'click');
+                listen(el, 'custom-event', 1, done);
+                dispatchCustomEvent(el.querySelector('button'), 'custom-event');
             }, 10);
         });
         it('should invoke listeners', () => {

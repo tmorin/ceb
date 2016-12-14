@@ -1,4 +1,4 @@
-{% include "/doc/_urls.md" %}
+{% include "/_urls.md" %}
 # Usage
 
 The entry point is the [element()](element.md) builder.
@@ -11,5 +11,3 @@ Then, the following builders can be used according to the purpose of the future 
 * [delegate()](delegate.md)
 * [on()](on.md)
 * [template()](template.md)
-
-Finally, the implementation of builders is covered by the page [Internal stuff](internal-stuff.md).

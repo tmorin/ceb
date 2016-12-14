@@ -1,6 +1,7 @@
 {
-  "gitbook": "3.1.x",
-  "title": "ceb custom-element-builder",
+  "gitbook": "3.2.x",
+  "title": "ceb: custom-element-builder",
+  "root": "./doc",
   "plugins": [
     "prism",
     "-highlight",
@@ -18,7 +19,7 @@
         "cookieDomain": "tmorin.github.io"
       }
     },
-    "sitemap":{
+    "sitemap": {
       "hostname": "https://tmorin.github.io/ceb/"
     }
   }

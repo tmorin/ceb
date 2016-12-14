@@ -1,4 +1,4 @@
-{% include "/doc/_urls.md" %}
+{% include "/_urls.md" %}
 # delegate()
 
 The function `delegate()` returns a fresh `DelegateBuilder` providing services to define delegations on properties, attributes and methods.

@@ -1,5 +1,3 @@
-'use strict';
-
 var webpack = require('webpack');
 var baseConfig = require('./webpack.config.base.js');
 var config = Object.assign({}, baseConfig);

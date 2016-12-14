@@ -1,4 +1,4 @@
-{% include "/doc/_urls.md" %}
+{% include "/_urls.md" %}
 # AMD
 
 Using the [UMD] file from `dist/umd/`:

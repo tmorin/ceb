@@ -51,7 +51,7 @@ function getterFactory(attrName, isBoolean) {
 
 function setterFactory(attrName, isBoolean, attSetter) {
     return function (value) {
-        var attValue = isFunction(attSetter) ? attSetter.call(this, this, value) : value;
+        const attValue = isFunction(attSetter) ? attSetter.call(this, this, value) : value;
         return setAttValue(this, attrName, isBoolean, attValue);
     };
 }
@@ -144,7 +144,7 @@ export class AttributeBuilder {
 
     /**
      * Logic of the builder.
-     * @param {!ElementBuilder.context.proto} proto the prototype
+     * @param {!ElementBuilder.context.p} proto the prototype
      * @param {!ElementBuilder.on} on the method on
      */
     build(proto, on) {

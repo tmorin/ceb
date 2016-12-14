@@ -93,7 +93,7 @@ System.register(['../helper/types.js', './property.js'], function (_export, _con
 
     /**
      * Get a new template builder.
-     * @param {!string|Function} tpl the string or function template
+     * @param {!string|function} tpl the string or function template
      * @returns {TemplateBuilder} the template builder
      */
     function template(tpl) {
@@ -148,7 +148,7 @@ System.register(['../helper/types.js', './property.js'], function (_export, _con
 
                 /**
                  * Logic of the builder.
-                 * @param {!ElementBuilder.context.proto} proto the prototype
+                 * @param {!ElementBuilder.context.p} proto the prototype
                  * @param {!ElementBuilder.on} on the method on
                  */
 

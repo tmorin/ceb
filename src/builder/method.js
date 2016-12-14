@@ -52,7 +52,7 @@ export class MethodBuilder {
 
     /**
      * Logic of the builder.
-     * @param {!ElementBuilder.context.proto} proto the prototype
+     * @param {!ElementBuilder.context.p} proto the prototype
      * @param {!ElementBuilder.on} on the method on
      */
     build(proto, on) {

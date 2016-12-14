@@ -1,4 +1,4 @@
-{% include "/doc/_urls.md" %}
+{% include "/_urls.md" %}
 # on()
 
 The function `on()` returns a fresh `OnBuilder` providing services to register event listeners.

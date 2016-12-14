@@ -1,4 +1,4 @@
-{% include "/doc/_urls.md" %}
+{% include "/_urls.md" %}
 # element()
 
 The function `element()` returns a fresh `ElementBuilder` providing services to register a ... custom element.

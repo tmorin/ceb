@@ -5,7 +5,7 @@ import {property} from './property.js';
  * The counter is used to generate unique DOM's id.
  * @type {number}
  */
-var counter = 0;
+let counter = 0;
 
 /**
  * The attribute name hosting the old light node id.
@@ -117,7 +117,7 @@ export class TemplateBuilder {
 
     /**
      * Logic of the builder.
-     * @param {!ElementBuilder.context.proto} proto the prototype
+     * @param {!ElementBuilder.context.p} proto the prototype
      * @param {!ElementBuilder.on} on the method on
      */
     build(proto, on) {
@@ -134,7 +134,7 @@ export class TemplateBuilder {
 
 /**
  * Get a new template builder.
- * @param {!string|Function} tpl the string or function template
+ * @param {!string|function} tpl the string or function template
  * @returns {TemplateBuilder} the template builder
  */
 export function template(tpl) {

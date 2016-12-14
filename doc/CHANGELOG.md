@@ -1,7 +1,11 @@
 # Change log
 
+## 1.0.x
+- `dispatchMouseEvent()` and `dispatchKeyboardEvent()` have been removed in favor of `dispatchClonedEvent()`
+- refactor documentation and examples focusing on use case instead of standalone applications
+
 ## 0.9.x
-- add dispatchKeyboardEvent utility
+- add `dispatchKeyboardEvent()` utility
 - add unit test on iphone devices
 - upgrade dependencies
 - deactivate weather-app due https issues

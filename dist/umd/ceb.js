@@ -57,226 +57,202 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 
 	var _element = __webpack_require__(9);
 
 	Object.defineProperty(exports, 'element', {
-	    enumerable: true,
-	    get: function get() {
-	        return _element.element;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _element.element;
+	  }
 	});
 
 	var _property = __webpack_require__(6);
 
 	Object.defineProperty(exports, 'property', {
-	    enumerable: true,
-	    get: function get() {
-	        return _property.property;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _property.property;
+	  }
 	});
 
 	var _attribute = __webpack_require__(5);
 
 	Object.defineProperty(exports, 'attribute', {
-	    enumerable: true,
-	    get: function get() {
-	        return _attribute.attribute;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _attribute.attribute;
+	  }
 	});
 	Object.defineProperty(exports, 'getAttValue', {
-	    enumerable: true,
-	    get: function get() {
-	        return _attribute.getAttValue;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _attribute.getAttValue;
+	  }
 	});
 	Object.defineProperty(exports, 'setAttValue', {
-	    enumerable: true,
-	    get: function get() {
-	        return _attribute.setAttValue;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _attribute.setAttValue;
+	  }
 	});
 
 	var _delegate = __webpack_require__(8);
 
 	Object.defineProperty(exports, 'delegate', {
-	    enumerable: true,
-	    get: function get() {
-	        return _delegate.delegate;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _delegate.delegate;
+	  }
 	});
 
 	var _method = __webpack_require__(10);
 
 	Object.defineProperty(exports, 'method', {
-	    enumerable: true,
-	    get: function get() {
-	        return _method.method;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _method.method;
+	  }
 	});
 
 	var _template = __webpack_require__(12);
 
 	Object.defineProperty(exports, 'template', {
-	    enumerable: true,
-	    get: function get() {
-	        return _template.template;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _template.template;
+	  }
 	});
 	Object.defineProperty(exports, 'applyTemplate', {
-	    enumerable: true,
-	    get: function get() {
-	        return _template.applyTemplate;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _template.applyTemplate;
+	  }
 	});
 
 	var _on = __webpack_require__(11);
 
 	Object.defineProperty(exports, 'on', {
-	    enumerable: true,
-	    get: function get() {
-	        return _on.on;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _on.on;
+	  }
 	});
 
 	var _arrays = __webpack_require__(7);
 
 	Object.defineProperty(exports, 'flatten', {
-	    enumerable: true,
-	    get: function get() {
-	        return _arrays.flatten;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _arrays.flatten;
+	  }
 	});
 	Object.defineProperty(exports, 'invoke', {
-	    enumerable: true,
-	    get: function get() {
-	        return _arrays.invoke;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _arrays.invoke;
+	  }
 	});
 
 	var _converters = __webpack_require__(2);
 
 	Object.defineProperty(exports, 'toArray', {
-	    enumerable: true,
-	    get: function get() {
-	        return _converters.toArray;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _converters.toArray;
+	  }
 	});
 	Object.defineProperty(exports, 'toCamelCase', {
-	    enumerable: true,
-	    get: function get() {
-	        return _converters.toCamelCase;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _converters.toCamelCase;
+	  }
 	});
 
 	var _functions = __webpack_require__(3);
 
 	Object.defineProperty(exports, 'bind', {
-	    enumerable: true,
-	    get: function get() {
-	        return _functions.bind;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _functions.bind;
+	  }
 	});
 	Object.defineProperty(exports, 'noop', {
-	    enumerable: true,
-	    get: function get() {
-	        return _functions.noop;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _functions.noop;
+	  }
 	});
 	Object.defineProperty(exports, 'partial', {
-	    enumerable: true,
-	    get: function get() {
-	        return _functions.partial;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _functions.partial;
+	  }
 	});
 
 	var _objects = __webpack_require__(4);
 
 	Object.defineProperty(exports, 'assign', {
-	    enumerable: true,
-	    get: function get() {
-	        return _objects.assign;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _objects.assign;
+	  }
 	});
 	Object.defineProperty(exports, 'result', {
-	    enumerable: true,
-	    get: function get() {
-	        return _objects.result;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _objects.result;
+	  }
 	});
 
 	var _events = __webpack_require__(13);
 
 	Object.defineProperty(exports, 'dispatchCustomEvent', {
-	    enumerable: true,
-	    get: function get() {
-	        return _events.dispatchCustomEvent;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _events.dispatchCustomEvent;
+	  }
 	});
-	Object.defineProperty(exports, 'dispatchMouseEvent', {
-	    enumerable: true,
-	    get: function get() {
-	        return _events.dispatchMouseEvent;
-	    }
-	});
-	Object.defineProperty(exports, 'dispatchKeyboardEvent', {
-	    enumerable: true,
-	    get: function get() {
-	        return _events.dispatchKeyboardEvent;
-	    }
-	});
-	Object.defineProperty(exports, 'dispatchHtmlEvent', {
-	    enumerable: true,
-	    get: function get() {
-	        return _events.dispatchHtmlEvent;
-	    }
-	});
-	Object.defineProperty(exports, 'dispatchClonedKeyboardEvent', {
-	    enumerable: true,
-	    get: function get() {
-	        return _events.dispatchClonedKeyboardEvent;
-	    }
-	});
-	Object.defineProperty(exports, 'dispatchClonedMouseEvent', {
-	    enumerable: true,
-	    get: function get() {
-	        return _events.dispatchClonedMouseEvent;
-	    }
+	Object.defineProperty(exports, 'dispatchClonedEvent', {
+	  enumerable: true,
+	  get: function get() {
+	    return _events.dispatchClonedEvent;
+	  }
 	});
 
 	var _types = __webpack_require__(1);
 
 	Object.defineProperty(exports, 'isArray', {
-	    enumerable: true,
-	    get: function get() {
-	        return _types.isArray;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _types.isArray;
+	  }
 	});
 	Object.defineProperty(exports, 'isFunction', {
-	    enumerable: true,
-	    get: function get() {
-	        return _types.isFunction;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _types.isFunction;
+	  }
 	});
 	Object.defineProperty(exports, 'isNull', {
-	    enumerable: true,
-	    get: function get() {
-	        return _types.isNull;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _types.isNull;
+	  }
 	});
 	Object.defineProperty(exports, 'isString', {
-	    enumerable: true,
-	    get: function get() {
-	        return _types.isString;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _types.isString;
+	  }
 	});
 	Object.defineProperty(exports, 'isUndefined', {
-	    enumerable: true,
-	    get: function get() {
-	        return _types.isUndefined;
-	    }
+	  enumerable: true,
+	  get: function get() {
+	    return _types.isUndefined;
+	  }
 	});
 
 /***/ },
@@ -662,7 +638,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        /**
 	         * Logic of the builder.
-	         * @param {!ElementBuilder.context.proto} proto the prototype
+	         * @param {!ElementBuilder.context.p} proto the prototype
 	         * @param {!ElementBuilder.on} on the method on
 	         */
 
@@ -873,7 +849,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        /**
 	         * Logic of the builder.
-	         * @param {!ElementBuilder.context.proto} proto the prototype
+	         * @param {!ElementBuilder.context.p} proto the prototype
 	         * @param {!ElementBuilder.on} on the method on
 	         */
 
@@ -1131,7 +1107,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        /**
 	         * Logic of the builder.
-	         * @param {!ElementBuilder.context.proto} proto the prototype
+	         * @param {!ElementBuilder.context.p} proto the prototype
 	         * @param {!ElementBuilder.on} on the method on
 	         */
 
@@ -1282,6 +1258,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	    };
 	}
+
+	/**
+	 * @typedef {Object} Builder
+	 * @description the base of a builder
+	 * @property {function(proto: Object, on: function)} build execute the business logic of the builder
+	 */
 
 	/**
 	 * The custom element builder.
@@ -1535,7 +1517,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        /**
 	         * Logic of the builder.
-	         * @param {!ElementBuilder.context.proto} proto the prototype
+	         * @param {!ElementBuilder.context.p} proto the prototype
 	         * @param {!ElementBuilder.on} on the method on
 	         */
 
@@ -1641,7 +1623,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * To do something when events occurred.
 	     * The target argument is by default the custom element.
 	     * When the delegate feature is used, target is the matched element.
-	     * @param {!function(el: HTMLElement, evt: DOMEvent, target: HTMLElement)} fn the event's logic
+	     * @param {!function(el: HTMLElement, evt: Event, target: HTMLElement)} fn the event's logic
 	     * @returns {OnBuilder} the builder
 	     */
 
@@ -1717,7 +1699,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        /**
 	         * Logic of the builder.
-	         * @param {!ElementBuilder.context.proto} proto the prototype
+	         * @param {!ElementBuilder.context.p} proto the prototype
 	         * @param {!ElementBuilder.on} on the method on
 	         */
 
@@ -1979,7 +1961,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /**
 	     * Logic of the builder.
-	     * @param {!ElementBuilder.context.proto} proto the prototype
+	     * @param {!ElementBuilder.context.p} proto the prototype
 	     * @param {!ElementBuilder.on} on the method on
 	     */
 
@@ -2004,7 +1986,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * Get a new template builder.
-	 * @param {!string|Function} tpl the string or function template
+	 * @param {!string|function} tpl the string or function template
 	 * @returns {TemplateBuilder} the template builder
 	 */
 
@@ -2023,11 +2005,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: true
 	});
 	exports.dispatchCustomEvent = dispatchCustomEvent;
-	exports.dispatchMouseEvent = dispatchMouseEvent;
-	exports.dispatchKeyboardEvent = dispatchKeyboardEvent;
-	exports.dispatchHtmlEvent = dispatchHtmlEvent;
-	exports.dispatchClonedMouseEvent = dispatchClonedMouseEvent;
-	exports.dispatchClonedKeyboardEvent = dispatchClonedKeyboardEvent;
+	exports.dispatchClonedEvent = dispatchClonedEvent;
 
 	var _objects = __webpack_require__(4);
 
@@ -2041,53 +2019,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    detail: null
 	};
 
-	var DEFAULT_MOUSE_EVENT_OPTIONS = {
-	    bubbles: true,
-	    cancelable: true,
-	    view: window,
-	    detail: 0,
-	    screenX: 0,
-	    screenY: 0,
-	    clientX: 0,
-	    clientY: 0,
-	    ctrlKey: false,
-	    altKey: false,
-	    shiftKey: false,
-	    metaKey: false,
-	    button: 0,
-	    relatedTarget: null
-	};
-
-	var MOUSE_EVENT_ARG_NAMES = ['bubbles', 'cancelable', 'view', 'detail', 'screenX', 'screenY', 'clientX', 'clientY', 'ctrlKey', 'altKey', 'shiftKey', 'metaKey', 'button', 'relatedTarget'];
-
-	var DEFAULT_KEYBOARD_EVENT_OPTIONS = {
-	    bubbles: true,
-	    cancelable: true,
-	    view: window,
-	    char: '',
-	    key: '',
-	    location: 0,
-	    ctrlKey: false,
-	    shiftKey: false,
-	    altKey: false,
-	    metaKey: false,
-	    repeat: false,
-	    locale: '',
-	    detail: 0,
-	    keyCode: 0,
-	    charCode: 0,
-	    which: 0,
-	    modifiersList: ''
-	};
-
-	/**
-	 * Create and dispatch a custom event.
-	 * @param {!HTMLElement} el the element where the event will be dispatched
-	 * @param {!string} eventType the event type
-	 * @param {Object} [options] the options
-	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
-	 */
-	function dispatchCustomEvent(el, eventType, options) {
+	function createCustomEvent(eventType, options) {
 	    var event = void 0,
 	        args = (0, _objects.assign)({}, DEFAULT_CUSTOM_EVENT_OPTIONS, options);
 	    if (typeof CustomEvent === 'function') {
@@ -2098,105 +2030,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return args[name];
 	        })));
 	    }
-	    return el.dispatchEvent(event);
+	    return event;
 	}
 
 	/**
-	 * Create and dispatch a mouse event (click, mousedown, mouseup, mouseover, mouseout, mousemove, contextmenu, dblclick).
+	 * Create and dispatch a custom event.
 	 * @param {!HTMLElement} el the element where the event will be dispatched
 	 * @param {!string} eventType the event type
 	 * @param {Object} [options] the options
 	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
 	 */
-	function dispatchMouseEvent(el, eventType, options) {
-	    var event = void 0,
-	        args = (0, _objects.assign)({}, DEFAULT_MOUSE_EVENT_OPTIONS, options);
-	    if ((0, _types.isFunction)(MouseEvent)) {
-	        event = new MouseEvent(eventType, args);
-	    } else {
-	        event = document.createEvent('MouseEvents');
-	        event.initMouseEvent.apply(event, [eventType].concat(MOUSE_EVENT_ARG_NAMES.map(function (name) {
-	            return args[name];
-	        })));
-	    }
-	    return el.dispatchEvent(event);
+	function dispatchCustomEvent(el, eventType, options) {
+	    return el.dispatchEvent(createCustomEvent(eventType, options));
 	}
 
 	/**
-	 * Create and dispatch a keyboard event (keydown, keypress, keyup).
-	 * @param {!HTMLElement} el the element where the event will be dispatched
-	 * @param {!string} eventType the event type
-	 * @param {Object} [options] the options
+	 * Create and dispatch an event based on another one.
+	 * The properties of the base event not found into the new one will be copied.
+	 * @param el the element where the new event will be dispatched
+	 * @param inEvt the base event
 	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
 	 */
-	function dispatchKeyboardEvent(el, eventType, options) {
-	    var event = void 0,
-	        args = (0, _objects.assign)({}, DEFAULT_KEYBOARD_EVENT_OPTIONS, options);
-	    if ((0, _types.isFunction)(KeyboardEvent)) {
-	        event = new KeyboardEvent(eventType, args);
-	    } else if (navigator.userAgent.indexOf('Trident/') > -1) {
-	        event = document.createEvent('KeyboardEvent');
-	        // ie
-	        event.initKeyboardEvent(eventType, args.bubbles, args.cancelable, args.view, args.key, args.location, args.modifiersList, args.repeat, args.locale);
-	    } else {
-	        event = document.createEvent('KeyboardEvent');
-	        // w3c
-	        event.initKeyboardEvent(eventType, args.bubbles, args.cancelable, args.view, args.char, args.key, args.location, args.modifiersList, args.repeat, args.locale);
-	    }
-	    return el.dispatchEvent(event);
-	}
-
-	/**
-	 * Create and dispatch an HTML event (change, etc.).
-	 * @param {!HTMLElement} el the element where the event will be dispatched
-	 * @param {!string} eventType the event type
-	 * @param {Object} [options] the options
-	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
-	 */
-	function dispatchHtmlEvent(el, eventType, options) {
-	    var event = void 0,
-	        args = (0, _objects.assign)({}, DEFAULT_MOUSE_EVENT_OPTIONS, options);
-	    if (typeof HTMLEvents === 'function') {
-	        event = new Events(eventType, args);
-	    } else {
-	        event = document.createEvent('HTMLEvents');
-	        event.initEvent.apply(event, [eventType].concat(MOUSE_EVENT_ARG_NAMES.map(function (name) {
-	            return args[name];
-	        })));
-	    }
-	    return el.dispatchEvent(event);
-	}
-
-	/**
-	 * Dispatch from the given element a clone of the given mouse event.
-	 * @param {!HTMLElement} el the element
-	 * @param {!MouseEvent} inEvt the event
-	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
-	 */
-	function dispatchClonedMouseEvent(el, inEvt) {
-	    var outEvt = (0, _types.isFunction)(MouseEvent) ? new MouseEvent(eventType) : document.createEvent('MouseEvents');
-	    Object.keys(inEvt).filter(function (k) {
-	        return ['target'].indexOf(k) > -1;
-	    }).filter(function (k) {
-	        return !(0, _types.isFunction)(inEvt[k]);
-	    }).forEach(function (k) {
-	        return outEvt[k] = inEvt[k];
+	function dispatchClonedEvent(el, inEvt) {
+	    var outEvt = createCustomEvent(inEvt.type, {
+	        bubbles: inEvt.bubbles,
+	        cancelable: inEvt.cancelable,
+	        view: inEvt.view,
+	        detail: inEvt
 	    });
-	    return el.dispatchEvent(outEvt);
-	}
-
-	/**
-	 * Dispatch from the given element a clone of the given keyboard event.
-	 * @param {!HTMLElement} el the element
-	 * @param {!KeyboardEvent} inEvt the event
-	 * @returns {boolean} false if at least one of the event handlers which handled this event called Event.preventDefault(). Otherwise it returns true.
-	 */
-	function dispatchClonedKeyboardEvent(el, inEvt) {
-	    var outEvt = (0, _types.isFunction)(KeyboardEvent) ? new KeyboardEvent(eventType) : document.createEvent('MouseEvents');
+	    var keys = Object.keys(outEvt);
 	    Object.keys(inEvt).filter(function (k) {
-	        return ['target'].indexOf(k) > -1;
-	    }).filter(function (k) {
 	        return !(0, _types.isFunction)(inEvt[k]);
+	    }).filter(function (k) {
+	        return keys.indexOf(k) < 0;
 	    }).forEach(function (k) {
 	        return outEvt[k] = inEvt[k];
 	    });

@@ -1,4 +1,4 @@
-{% include "/doc/_urls.md" %}
+{% include "/_urls.md" %}
 # Polyfills
 
 Even if `<ceb/>` is transpilled from [ES2015] to [es5] with [babel], the babel polyfill is not necessary. 

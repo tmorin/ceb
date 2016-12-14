@@ -148,4 +148,20 @@ describe('ceb.delegate()', function () {
         }, 10);
     });
 
+    it('should delegate a method invocation to the target another method', (done) => {
+        builder.builders(
+            delegate(method('do')).to('button').method('click')
+        ).register('test-delegate-meth-to-alt-meth');
+        let el = document.createElement('test-delegate-meth-to-alt-meth');
+        sandbox.appendChild(el);
+        setTimeout(() => {
+            let button = el.querySelector('button');
+            sinon.spy(button, 'click');
+            el.do();
+
+            expect(button.click).to.be.have.been.called;
+            done();
+        }, 10);
+    });
+
 });

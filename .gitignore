@@ -1,7 +1,7 @@
 /.idea
 /.publish
 /_book
-/npm-debug.log
+/npm-debug*
 /lib
 /node_modules
 /coverage

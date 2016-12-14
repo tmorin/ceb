@@ -1,4 +1,4 @@
-{% include "/doc/_urls.md" %}
+{% include "/_urls.md" %}
 # method()
 
 The function `method()` returns a fresh `MethodBuilder` providing services to define a method and ... more.

@@ -1,4 +1,4 @@
-{% include "/doc/_urls.md" %}
+{% include "/_urls.md" %}
 # SystemJS
 
 Using the dedicated [SystemJS] files from `dist/systemjs/`:

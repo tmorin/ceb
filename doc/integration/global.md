@@ -1,4 +1,4 @@
-{% include "/doc/_urls.md" %}
+{% include "/_urls.md" %}
 # As a global variable
 
 Using the [UMD] file from `dist/umd/`:

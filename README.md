@@ -1,10 +1,9 @@
-# `<ceb/>` <small>custom-element-builder</small>
+# `<ceb/>` custom-element-builder
 
 [![Circle CI](https://circleci.com/gh/tmorin/ceb.svg?style=svg)](https://circleci.com/gh/tmorin/ceb)
 [![Dependency Status](https://david-dm.org/tmorin/ceb.svg)](https://david-dm.org/tmorin/ceb)
 [![devDependency Status](https://david-dm.org/tmorin/ceb/dev-status.svg)](https://david-dm.org/tmorin/ceb#info=devDependencies)
 [![Coverage Status](https://coveralls.io/repos/github/tmorin/ceb/badge.svg?branch=master)](https://coveralls.io/github/tmorin/ceb?branch=master)
-
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 
 `<ceb/>` is a library helping to develop [Custom Elements](http://w3c.github.io/webcomponents/spec/custom).
@@ -53,7 +52,7 @@ export default CebExample;
 
 ```javascript
 // create an instance of ceb-example
-var cebExample = document.createElement('ceb-example');
+let cebExample = document.createElement('ceb-example');
 
 // by default foo is 0
 console.log(cebExample.foo) // => 0

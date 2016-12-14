@@ -32,6 +32,12 @@ function applyLifecycle(context, name) {
 }
 
 /**
+ * @typedef {Object} Builder
+ * @description the base of a builder
+ * @property {function(proto: Object, on: function)} build execute the business logic of the builder
+ */
+
+/**
  * The custom element builder.
  * Its goal is to provide a user friendly way to build custom element by some else (i.e. dedicated builders).
  */

@@ -1,4 +1,4 @@
-{% include "/doc/_urls.md" %}
+{% include "/_urls.md" %}
 # CommonJS
 
 By default, the [npm package][npm] loads the [CommonJS] files from `lib/`.
