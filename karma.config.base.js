@@ -12,7 +12,7 @@ module.exports = {
         'node_modules/document-register-element/build/document-register-element.js',
         //'node_modules/webcomponents.js/webcomponents-lite.min.js',
         'test/**/*.spec.js',
-        //'example/**/*.spec.js'
+        'example/**/*.spec.js'
     ],
 
     exclude: [],
