@@ -10,10 +10,7 @@ var config = Object.assign({}, baseConfig);
 var HTTP_PORT = 3000;
 
 config.entry = {
-    'index': './example/index.js',
-    'loader-amd': './example/loader/loader-amd.js',
-    'loader-standalone': './example/loader/loader-standalone.js',
-    'loader-systemjs': './example/loader/loader-systemjs.js'
+    'index': './example/index.js'
 };
 
 config.output = {

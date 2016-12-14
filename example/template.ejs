@@ -4,48 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ceb - <%= htmlWebpackPlugin.options.title || "home"%></title>
+    <title>ceb - <%= htmlWebpackPlugin.options.title || "home" %></title>
     <% var filename = htmlWebpackPlugin.options.filename; %>
     <% if (filename === 'loader-systemjs.html') { %>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.18.4/system-polyfills.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.18.4/system.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.18.4/system-polyfills.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.18.4/system.js"></script>
     <% } %>
     <% if (filename === 'loader-amd.html') { %>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.22/require.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.22/require.min.js"></script>
     <% } %>
 </head>
 <body>
-<div class="container">
+
+<header>
     <h1>
-        <code>&lt;ceb/&gt;</code> <small>examples</small>
+        <code>&lt;ceb/&gt;</code>
+        <small>examples</small>
     </h1>
-    <div class="row">
+    <nav>
+        <%
+        htmlWebpackPlugin.options.all.forEach(function (item) {
+            var link = item + '.html';
+        %>
+        <li>
+            <a href="<%= link %>"><%= item %></a>
+        </li>
+        <% }); %>
+    </nav>
+    <hr>
+</header>
 
-        <div class="col-sm-3">
-            <ul class="nav nav-pills nav-stacked">
-                <%
-                htmlWebpackPlugin.options.all.forEach(function (item) {
-                var link = item + '.html';
-                var isActive = htmlWebpackPlugin.options.filename === link;
-                %>
-                <li class="<%= isActive ? 'active' : '' %>" >
-                    <a href="<%= link %>"><%= item %></a>
-                </li>
-                <% }); %>
-            </ul>
-        </div>
+<div id="content"></div>
 
-        <div class="col-sm-9">
-            <% if (htmlWebpackPlugin.options.filename !== 'index.html') { %>
-            <h2><%= htmlWebpackPlugin.options.title %></h2>
-            <% } %>
-            <div id="content">
-                <%= htmlWebpackPlugin.options.content %>
-            </div>
-        </div>
-
-    </div>
-</div>
 <!-- ga -->
 </body>
 </html>
