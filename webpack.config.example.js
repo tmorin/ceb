@@ -33,11 +33,13 @@ Object.keys(config.entry).forEach(function (chunk, i, all) {
         template: './example/template.ejs',
         inject: 'head',
         chunks: ['commons', chunk],
-        filename: chunk + '.html'
+        filename: chunk + '.html',
+        htmlContent: fs.readFileSync(config.entry[chunk].replace('.js', '.html'))
     }));
 });
 
 config.devServer = {
+    contentBase: '_book/live',
     noInfo: false,
     hot: true,
     inline: true,
