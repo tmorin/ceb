@@ -6,7 +6,8 @@ module.exports = {
             {test: /\.js?$/, exclude: /node_modules/, loader: 'babel'},
             {test: /\.css$/, loader: 'style!css'},
             {test: /\.less/, loader: 'style!css!less'},
-            {test: /\.html/, loader: 'raw'}
+            {test: /\.html/, loader: 'raw'},
+            {test: /\.md$/, loader: 'raw!markdown'}
         ]
     },
     output: {

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Import the polyfill to provide the CustomElement implementation if required-->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/document-register-element/1.3.0/document-register-element.js"></script>
+  <!-- Import the ceb library -->
+  <script src="live/dist/umd/ceb.min.js"></script>
+</head>
+<body>
+
+<!-- Define and register the CustomElement 'ceb-input'. -->
+<script>
+  (function () {
+    // Get from the namespace 'ceb' the method 'element()' providing the ElementBuilder.
+    // This method is the entry point of the ceb's API
+    var builder = ceb.element();
+
+
+    // The builder has to be configured to register a custom element based on HTMLInputElement's prototype and name.
+    builder.base(
+      Object.create(HTMLInputElement.prototype),
+      'input'
+    );
+
+    // Finally the custom element is registered with the name 'ceb-input'
+    builder.register('ceb-input');
+  })();
+</script>
+
+<!-- 'ceb-input' elements can be created from HTML ... -->
+<input is="ceb-input" placeholder="created from HTML">
+
+<!-- ... or from the DOM API. -->
+<script>
+  var cebInput = document.createElement('input', 'ceb-input');
+  cebInput.placeholder = 'created from the DOM API';
+  document.body.appendChild(cebInput);
+</script>
+
+</body>
+</html>

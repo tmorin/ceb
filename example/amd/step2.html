@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Import the polyfill to provide the CustomElement implementation if required. -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/document-register-element/1.3.0/document-register-element.js"></script>
+  <!-- Import require.js -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js"></script>
+</head>
+<body>
+
+<script id="template" type="text/html">
+  <p>
+    I am <code></code>,
+    and I have been created from the ceb AMD module.
+  </p>
+</script>
+
+<!-- Use the feature exposes by the ceb module. -->
+<script>
+  require(['live/dist/umd/ceb.min.js'], function (ceb) {
+    // get the element builder
+    ceb.element()
+      .builders(
+        // initialize the content
+        ceb.template(document.querySelector('#template').textContent),
+        // update the initialized content when the custom element is created
+        ceb.method('createdCallback').invoke(function (el) {
+          el.querySelector('code').textContent = el.tagName;
+        })
+      )
+      // register the custom element
+      .register('ceb-with-amd');
+  });
+</script>
+
+<!-- create the custom element  -->
+<ceb-with-amd></ceb-with-amd>
+
+</body>
+</html>

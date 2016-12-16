@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Import the polyfill to provide the CustomElement implementation if required-->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/document-register-element/1.3.0/document-register-element.js"></script>
+  <!-- Import the ceb library -->
+  <script src="live/dist/umd/ceb.min.js"></script>
+</head>
+<body>
+
+<!-- Define an event listener handling the case conversion while the user is typing. -->
+<script>
+  (function () {
+    var builder = ceb.element();
+
+    builder.base(
+      Object.create(HTMLInputElement.prototype),
+      'input'
+    );
+
+    function toCase(v, c) {
+      if (c === 'lower') {
+        return v && v.toLowerCase();
+      } else if (c === 'upper') {
+        return v && v.toUpperCase();
+      }
+      return v;
+    }
+
+    builder.builders(
+      ceb.attribute('ceb-case').listen(function (el, oldVal, newVal) {
+        el.value = toCase(el.value, newVal);
+      })
+    );
+
+    // The builder 'on()' is used to listen the DOM events input and change.
+    // There, the listener will transform the value each time the user is typing.
+    builder.builders(
+      ceb.on('input').invoke(function (el) {
+        el.value = toCase(el.value, el.cebCase);
+      })
+    );
+
+    builder.register('ceb-input');
+  })();
+</script>
+
+<input is="ceb-input" ceb-case="upper" value="should be upper">
+
+<script>
+  var cebInput = document.createElement('input', 'ceb-input');
+  cebInput.value = 'should be upper';
+  cebInput.cebCase = 'upper';
+  document.body.appendChild(cebInput);
+</script>
+
+</body>
+</html>

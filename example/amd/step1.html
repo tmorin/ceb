@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Import the polyfill to provide the CustomElement implementation if required. -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/document-register-element/1.3.0/document-register-element.js"></script>
+  <!-- Import require.js -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.2/require.min.js"></script>
+</head>
+<body>
+
+<!-- Load the AMD ceb module. -->
+<script>
+  require(['live/dist/umd/ceb.min.js'], function (ceb) {
+    // 'ceb' exposes the ceb's API
+    document.body.innerHTML = '<code>&lt;ceb/&gt;</code> is ready to be used!';
+  });
+</script>
+
+</body>
+</html>

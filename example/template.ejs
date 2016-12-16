@@ -7,27 +7,7 @@
     <title>ceb - <%= htmlWebpackPlugin.options.title || "home" %></title>
 </head>
 <body>
-
-<header>
-    <h1>
-        <code>&lt;ceb/&gt;</code>
-        <small>examples</small>
-    </h1>
-    <nav>
-        <%
-        htmlWebpackPlugin.options.all.forEach(function (item) {
-            var link = item + '.html';
-        %>
-        <li>
-            <a href="<%= link %>"><%= item %></a>
-        </li>
-        <% }); %>
-    </nav>
-    <hr>
-</header>
-
-<div id="content"><%= htmlWebpackPlugin.options.htmlContent %></div>
-
+<%= htmlWebpackPlugin.options.htmlContent %>
 <!-- ga -->
 </body>
 </html>

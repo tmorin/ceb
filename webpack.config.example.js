@@ -39,7 +39,7 @@ Object.keys(config.entry).forEach(function (chunk, i, all) {
 });
 
 config.devServer = {
-    contentBase: '_book/live',
+    contentBase: '_book',
     noInfo: false,
     hot: true,
     inline: true,
