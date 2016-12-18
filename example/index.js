@@ -6,9 +6,10 @@ import CodeMirror from 'codemirror-minified/lib/codemirror.js';
 import 'codemirror-minified/mode/javascript/javascript.js';
 import 'codemirror-minified/mode/htmlmixed/htmlmixed.js';
 import cebInput from './ceb-input';
+import cebVideo from './ceb-video';
 import amd from './amd';
 
-const tutorials = {cebInput, amd};
+const tutorials = {cebVideo, cebInput, amd};
 
 element().builders(
     template(`
