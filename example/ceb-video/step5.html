@@ -157,49 +157,6 @@
   );
 </script>
 
-<!-- Expose the API of the video element from the custom element. -->
-<script>
-  cebVideoBuilder.builders(
-    // attributes
-    ceb.delegate(ceb.attribute('src')).to('video'),
-    ceb.delegate(ceb.attribute('crossorigin')).to('video'),
-    ceb.delegate(ceb.attribute('poster')).to('video'),
-    ceb.delegate(ceb.attribute('preload')).to('video'),
-    ceb.delegate(ceb.attribute('autoplay').boolean()).to('video'),
-    ceb.delegate(ceb.attribute('mediagroup')).to('video'),
-    ceb.delegate(ceb.attribute('loop').boolean()).to('video'),
-    ceb.delegate(ceb.attribute('muted').boolean()).to('video'),
-    ceb.delegate(ceb.attribute('width')).to('video'),
-    ceb.delegate(ceb.attribute('height')).to('video'),
-    // properties
-    ceb.delegate(ceb.property('error')).to('video'),
-    ceb.delegate(ceb.property('currentSrc')).to('video'),
-    ceb.delegate(ceb.property('networkState')).to('video'),
-    ceb.delegate(ceb.property('readyState')).to('video'),
-    ceb.delegate(ceb.property('seeking')).to('video'),
-    ceb.delegate(ceb.property('currentTime')).to('video'),
-    ceb.delegate(ceb.property('duration')).to('video'),
-    ceb.delegate(ceb.property('paused')).to('video'),
-    ceb.delegate(ceb.property('defaultPlaybackRate')).to('video'),
-    ceb.delegate(ceb.property('playbackRate')).to('video'),
-    ceb.delegate(ceb.property('played')).to('video'),
-    ceb.delegate(ceb.property('seekable')).to('video'),
-    ceb.delegate(ceb.property('ended')).to('video'),
-    ceb.delegate(ceb.property('controller')).to('video'),
-    ceb.delegate(ceb.property('volume')).to('video'),
-    ceb.delegate(ceb.property('defaultMuted')).to('video'),
-    ceb.delegate(ceb.property('audioTracks')).to('video'),
-    ceb.delegate(ceb.property('videoTracks')).to('video'),
-    ceb.delegate(ceb.property('textTracks')).to('video'),
-    // methods
-    ceb.delegate(ceb.method('canPlayType')).to('video'),
-    ceb.delegate(ceb.method('getStartDate')).to('video'),
-    ceb.delegate(ceb.method('play')).to('video'),
-    ceb.delegate(ceb.method('pause')).to('video'),
-    ceb.delegate(ceb.method('addTextTrack')).to('video')
-  );
-</script>
-
 <script>
   cebVideoBuilder.register('ceb-video');
 </script>
@@ -211,27 +168,6 @@
   <source src="https://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4"
           type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"'/>
 </ceb-video>
-
-<!-- Management of external controls showing how-to play with the video's API from the ceb-element it-self -->
-<br>
-<fieldset>
-  <legend>External controls</legend>
-  <button id="toggle-controls">Togglet controls</button>
-  <button id="play-pause">Toggle play/pause</button>
-</fieldset>
-<script>
-  var cebVideo = document.querySelector('ceb-video');
-  document.querySelector('#toggle-controls').addEventListener('click', function () {
-    cebVideo.controls = !cebVideo.controls;
-  });
-  document.querySelector('#play-pause').addEventListener('click', function () {
-    if (cebVideo.paused) {
-      cebVideo.play();
-    } else {
-      cebVideo.pause();
-    }
-  });
-</script>
 
 </body>
 </html>

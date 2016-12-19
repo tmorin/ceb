@@ -120,86 +120,6 @@
   );
 </script>
 
-<!-- Manage volume. -->
-<script>
-  cebVideoBuilder.builders(
-    // The sound controls have to be synchronized with the video state.
-    ceb.on('canplay video, volumechange video').invoke(function (el) {
-      el.querySelector('.controls [name=mute]').hidden = el.video.muted;
-      el.querySelector('.controls [name=unmute]').hidden = !el.video.muted;
-      el.querySelector('.controls [name=volume]').value = el.video.volume;
-    }),
-    // When the mute or un-mute button are pressed, the video has to be muted or not accordingly.
-    ceb.on('click').delegate('.controls [name=mute], .controls [name=unmute]').invoke(function (el) {
-      el.video.muted = !el.video.muted;
-    }),
-    // When the state of range input controlling the volume is updated, the video element has to be updated as well.
-    ceb.on('input,change').delegate('.controls [name=volume]').invoke(function (el, evt, input) {
-      el.video.volume = input.value;
-    })
-  );
-</script>
-
-<!-- Manage duration. -->
-<script>
-  cebVideoBuilder.builders(
-    // The input range managing the video progress has to be synchronized with the video state.
-    ceb.on('loadeddata video, timeupdate video').invoke(function (el) {
-      el.querySelector('.controls [name=duration]').max = el.video.duration;
-      el.querySelector('.controls [name=duration]').value = el.video.currentTime;
-    }),
-    // When the state of the input range managing the video progress is update, the video element has to be updated.
-    ceb.on('change,input').delegate('.controls [name=duration]').invoke(function (el, evt) {
-      if (!el.video.seeking) {
-        el.video.currentTime = evt.target.value;
-      }
-    })
-  );
-</script>
-
-<!-- Expose the API of the video element from the custom element. -->
-<script>
-  cebVideoBuilder.builders(
-    // attributes
-    ceb.delegate(ceb.attribute('src')).to('video'),
-    ceb.delegate(ceb.attribute('crossorigin')).to('video'),
-    ceb.delegate(ceb.attribute('poster')).to('video'),
-    ceb.delegate(ceb.attribute('preload')).to('video'),
-    ceb.delegate(ceb.attribute('autoplay').boolean()).to('video'),
-    ceb.delegate(ceb.attribute('mediagroup')).to('video'),
-    ceb.delegate(ceb.attribute('loop').boolean()).to('video'),
-    ceb.delegate(ceb.attribute('muted').boolean()).to('video'),
-    ceb.delegate(ceb.attribute('width')).to('video'),
-    ceb.delegate(ceb.attribute('height')).to('video'),
-    // properties
-    ceb.delegate(ceb.property('error')).to('video'),
-    ceb.delegate(ceb.property('currentSrc')).to('video'),
-    ceb.delegate(ceb.property('networkState')).to('video'),
-    ceb.delegate(ceb.property('readyState')).to('video'),
-    ceb.delegate(ceb.property('seeking')).to('video'),
-    ceb.delegate(ceb.property('currentTime')).to('video'),
-    ceb.delegate(ceb.property('duration')).to('video'),
-    ceb.delegate(ceb.property('paused')).to('video'),
-    ceb.delegate(ceb.property('defaultPlaybackRate')).to('video'),
-    ceb.delegate(ceb.property('playbackRate')).to('video'),
-    ceb.delegate(ceb.property('played')).to('video'),
-    ceb.delegate(ceb.property('seekable')).to('video'),
-    ceb.delegate(ceb.property('ended')).to('video'),
-    ceb.delegate(ceb.property('controller')).to('video'),
-    ceb.delegate(ceb.property('volume')).to('video'),
-    ceb.delegate(ceb.property('defaultMuted')).to('video'),
-    ceb.delegate(ceb.property('audioTracks')).to('video'),
-    ceb.delegate(ceb.property('videoTracks')).to('video'),
-    ceb.delegate(ceb.property('textTracks')).to('video'),
-    // methods
-    ceb.delegate(ceb.method('canPlayType')).to('video'),
-    ceb.delegate(ceb.method('getStartDate')).to('video'),
-    ceb.delegate(ceb.method('play')).to('video'),
-    ceb.delegate(ceb.method('pause')).to('video'),
-    ceb.delegate(ceb.method('addTextTrack')).to('video')
-  );
-</script>
-
 <script>
   cebVideoBuilder.register('ceb-video');
 </script>
@@ -211,27 +131,6 @@
   <source src="https://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4"
           type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"'/>
 </ceb-video>
-
-<!-- Management of external controls showing how-to play with the video's API from the ceb-element it-self -->
-<br>
-<fieldset>
-  <legend>External controls</legend>
-  <button id="toggle-controls">Togglet controls</button>
-  <button id="play-pause">Toggle play/pause</button>
-</fieldset>
-<script>
-  var cebVideo = document.querySelector('ceb-video');
-  document.querySelector('#toggle-controls').addEventListener('click', function () {
-    cebVideo.controls = !cebVideo.controls;
-  });
-  document.querySelector('#play-pause').addEventListener('click', function () {
-    if (cebVideo.paused) {
-      cebVideo.play();
-    } else {
-      cebVideo.pause();
-    }
-  });
-</script>
 
 </body>
 </html>

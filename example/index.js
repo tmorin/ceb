@@ -9,7 +9,7 @@ import cebInput from './ceb-input';
 import cebVideo from './ceb-video';
 import amd from './amd';
 
-const tutorials = {cebVideo, cebInput, amd};
+const tutorials = {cebInput, cebVideo, amd};
 
 element().builders(
     template(`
