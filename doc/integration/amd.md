@@ -1,4 +1,3 @@
-{% include "/_urls.md" %}
 # AMD
 
 Using the [UMD] file from `dist/umd/`:
@@ -12,5 +11,4 @@ require(['dist/umd/ceb'], function (ceb) {
     ).register('ceb-example');
 });
 ```
-
-This snippet is covered by the [AMD example][live-loader-amd].
+[UMD]: https://github.com/umdjs/umd

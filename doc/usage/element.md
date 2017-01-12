@@ -1,4 +1,3 @@
-{% include "/_urls.md" %}
 # element()
 
 The function `element()` returns a fresh `ElementBuilder` providing services to register a ... custom element.
@@ -82,3 +81,5 @@ const MyCustomElement = element()
 
 Builders are executed sequentially when `register()` is called.
 That means, `attribute('att1')` will be executed first and `attribute('att2')` will be the last one.
+
+[custom-element-specification-registration]: http://w3c.github.io/webcomponents/spec/custom/#api-element-registration-options

@@ -1,4 +1,3 @@
-{% include "/_urls.md" %}
 # Testing
 
 Writing tests of custom elements can be a little bit tricky.
@@ -86,3 +85,14 @@ describe('ceb.on()', function () {
 The usage of `setTimeout()` is required to be sure the custom element is well registered.
 Indeed according to the implementation, the registration of custom elements is synchronous or not.
 It's mean: a couple of millisecond may be required between the insertion of the custom element into the DOM and its status `ready`. 
+
+[mocha]: http://mochajs.org
+[ES2015]: http://www.ecma-international.org/ecma-262/6.0
+[BDD]: https://fr.wikipedia.org/wiki/Behavior_driven_development
+[ES5]: http://www.ecma-international.org/ecma-262/5.1
+[karma]: http://karma-runner.github.io
+[webpack]: https://webpack.github.io
+[babel]: http://babeljs.io
+[circle-ci]: https://circleci.com/gh/tmorin/ceb
+[Sauce Labs]: https://saucelabs.com/u/customelementbuilder
+[PhantomJS]: http://phantomjs.org

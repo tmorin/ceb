@@ -1,4 +1,3 @@
-{% include "/_urls.md" %}
 # property()
 
 The function `property()` returns a fresh `PropertyBuilder` providing services to define ... a property.

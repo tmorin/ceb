@@ -1,7 +1,6 @@
-{% include "/_urls.md" %}
 # Integration
 
-According to the targeted browser, [polyfills](polyfills.md) should be added to handle properly the [Custom Element specification].
+According to the targeted browser, [polyfills](polyfills.md) should be added to handle properly the [Custom Element specification][Custom Elements (v0)].
 
 Finally, `<ceb/>` can be integrated from many ways:
 
@@ -10,3 +9,5 @@ Finally, `<ceb/>` can be integrated from many ways:
 * [SystemJS](systemjs.md)
 * [CommonJS](commonjs.md)
 * [ES2015](es2015.md)
+
+[Custom Elements (v0)]: https://www.w3.org/TR/2016/WD-custom-elements-20160226

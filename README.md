@@ -6,7 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/tmorin/ceb/badge.svg?branch=master)](https://coveralls.io/github/tmorin/ceb?branch=master)
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 
-`<ceb/>` is a library helping to develop [Custom Elements](http://w3c.github.io/webcomponents/spec/custom).
+`<ceb/>` is a library helping to develop [Custom Elements (v0)](https://www.w3.org/TR/2016/WD-custom-elements-20160226).
 
 Its core is a builder which executes others builders.
 By this way, `<ceb/>` is natively opened to extensions and builders easily sharable. 
@@ -21,6 +21,8 @@ Obviously, `<ceb/>` exposes builders and helpers handling the common needs:
 - event dispatching
 - type checking
 - etc.
+
+A [ceb's playground](http://tmorin.github.io/ceb/live) is available showing how-to build simple and more complex Custom Elements.
 
 ## Quick overview
 

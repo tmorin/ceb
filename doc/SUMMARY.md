@@ -1,4 +1,3 @@
-{% include "_urls.md" %}
 # Table of Contents
 
 * [Installation](INSTALL.md)

@@ -1,4 +1,3 @@
-{% include "/_urls.md" %}
 # Installation
 
 `<ceb/>` is distributed from [npm] and [bower].
@@ -90,3 +89,11 @@ Publish to npm repo
 ```bash
 npm publish
 ```
+
+[npm]: https://www.npmjs.com/package/ceb
+[bower]: http://bower.io/search/?q=ceb
+[UMD]: https://github.com/umdjs/umd
+[SystemJS]: https://github.com/systemjs/systemjs
+[AMD]: https://github.com/amdjs/amdjs-api
+[CommonJS]: http://www.commonjs.org
+[babel]: http://babeljs.io

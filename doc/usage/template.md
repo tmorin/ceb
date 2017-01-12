@@ -1,4 +1,3 @@
-{% include "/_urls.md" %}
 # template()
 
 The function `template()` returns a fresh `TemplateBuilder` providing services to define ... a template.
@@ -96,3 +95,5 @@ Will be closed to the following HTML fragment:
     </button>
 </ceb-example>
 ```
+
+[caniuse.com]: http://caniuse.com/#search=Shadow%20DOM

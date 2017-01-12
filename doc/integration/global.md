@@ -1,4 +1,3 @@
-{% include "/_urls.md" %}
 # As a global variable
 
 Using the [UMD] file from `dist/umd/`:
@@ -25,4 +24,4 @@ Using the [UMD] file from `dist/umd/`:
 }(this));
 ```
 
-This snippet is covered by the [standalone example][live-loader-standalone].
+[UMD]: https://github.com/umdjs/umd

@@ -34,23 +34,14 @@
 [HTML5 form]: https://html.spec.whatwg.org/multipage/forms.html
 [HTML5 script]: https://html.spec.whatwg.org/multipage/scripting.html#the-script-element
 
+[Custom Elements (v0)]: https://www.w3.org/TR/2016/WD-custom-elements-20160226
+[Custom Elements (latest)]: https://www.w3.org/TR/custom-elements
 [Custom Element specification]: http://w3c.github.io/webcomponents/spec/custom
 [custom-element-specification-registration]: http://w3c.github.io/webcomponents/spec/custom/#api-element-registration-options
 
 [ceb API]: http://tmorin.github.io/ceb/api
 
-[live]: http://tmorin.github.io/ceb/live
-[live-address-selector]: http://tmorin.github.io/ceb/live/address-selector.html
-[live-form]: http://tmorin.github.io/ceb/live/form.html
-[live-grid]: http://tmorin.github.io/ceb/live/grid.html
-[live-list]: http://tmorin.github.io/ceb/live/list.html
-[live-list-plusplus]: http://tmorin.github.io/ceb/live/list-plusplus.html
-[live-templator]: http://tmorin.github.io/ceb/live/templator.html
-[live-todo-app]: http://tmorin.github.io/ceb/live/todo-app.html
-[live-weather-app]: http://tmorin.github.io/ceb/live/weather-app.html
-[live-loader-amd]: http://tmorin.github.io/ceb/live/loader-amd.html
-[live-loader-standalone]: http://tmorin.github.io/ceb/live/loader-standalone.html
-[live-loader-systemjs]: http://tmorin.github.io/ceb/live/loader-systemjs.html
+[ceb's playground]: http://tmorin.github.io/ceb/live
 
 [npm]: https://www.npmjs.com/package/ceb
 [bower]: http://bower.io/search/?q=ceb
