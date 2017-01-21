@@ -1,3 +1,3 @@
 # API
 
-The API documentation is available <a href="../api" target="_blank">there</a>.
+The API documentation is available <a href="api/index.html" target="_blank">there</a>.
