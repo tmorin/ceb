@@ -37,15 +37,13 @@ module.exports = function (config) {
             browserName: 'internet explorer',
             version: '9'
         },
-        slAndroid4: {
-            base: 'SauceLabs',
-            browserName: 'android',
-            version: '4.4'
-        },
         slAndroid5: {
             base: 'SauceLabs',
-            browserName: 'android',
-            version: '5.0'
+            browserName: 'Browser',
+            deviceName: 'Android Emulator',
+            deviceOrientation: 'portrait',
+            platformVersion: '5.1',
+            platformName: 'Android'
         },
         slSafari8: {
             base: 'SauceLabs',
