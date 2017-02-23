@@ -113,23 +113,21 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                         if (data.wrappers.length) {
                             on('before:createdCallback').invoke(function (el) {
                                 if (isFunction(el[data.methName])) {
-                                    (function () {
-                                        var lastIndex = data.wrappers.length - 1,
-                                            original = el[data.methName],
-                                            target = function target() {
-                                            var args = toArray(arguments);
-                                            if (!data.native) {
-                                                args.shift();
-                                            }
-                                            original.apply(el, args);
-                                        };
-                                        el[data.methName] = data.wrappers.reduce(function (next, current, index) {
-                                            if (index === lastIndex) {
-                                                return bind(data.native ? partial(current, next) : partial(current, next, el), el);
-                                            }
-                                            return bind(partial(current, next), el);
-                                        }, target);
-                                    })();
+                                    var lastIndex = data.wrappers.length - 1,
+                                        original = el[data.methName],
+                                        target = function target() {
+                                        var args = toArray(arguments);
+                                        if (!data.native) {
+                                            args.shift();
+                                        }
+                                        original.apply(el, args);
+                                    };
+                                    el[data.methName] = data.wrappers.reduce(function (next, current, index) {
+                                        if (index === lastIndex) {
+                                            return bind(data.native ? partial(current, next) : partial(current, next, el), el);
+                                        }
+                                        return bind(partial(current, next), el);
+                                    }, target);
                                 }
                             });
                         }

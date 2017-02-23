@@ -143,29 +143,27 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                         }
 
                         if (data.listeners.length > 0) {
-                            (function () {
-                                descriptor.configurable = false;
-                                delete descriptor.writable;
-                                data.descriptorValue = false;
-                                var _propName = '__' + data.propName + 'LastSetValue';
-                                if (!descriptor.get) {
-                                    descriptor.get = function () {
-                                        return this[_propName];
-                                    };
-                                }
-                                descriptor.set = function (newVal) {
-                                    var _this = this;
-
-                                    var oldVal = this[_propName];
-                                    this[_propName] = newVal;
-                                    if (data.setter) {
-                                        data.setter.call(this, this, newVal);
-                                    }
-                                    data.listeners.forEach(function (listener) {
-                                        listener.call(_this, _this, oldVal, newVal);
-                                    });
+                            descriptor.configurable = false;
+                            delete descriptor.writable;
+                            data.descriptorValue = false;
+                            var _propName = '__' + data.propName + 'LastSetValue';
+                            if (!descriptor.get) {
+                                descriptor.get = function () {
+                                    return this[_propName];
                                 };
-                            })();
+                            }
+                            descriptor.set = function (newVal) {
+                                var _this = this;
+
+                                var oldVal = this[_propName];
+                                this[_propName] = newVal;
+                                if (data.setter) {
+                                    data.setter.call(this, this, newVal);
+                                }
+                                data.listeners.forEach(function (listener) {
+                                    listener.call(_this, _this, oldVal, newVal);
+                                });
+                            };
                         }
 
                         if (data.descriptorValue) {
