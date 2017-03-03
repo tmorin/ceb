@@ -37,6 +37,14 @@ module.exports = function (config) {
             browserName: 'internet explorer',
             version: '9'
         },
+        slAndroid6: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            deviceName: 'Samsung Galaxy S6 Device',
+            deviceOrientation: 'portrait',
+            platformVersion: '6.0',
+            platformName: 'Android'
+        },
         slAndroid5: {
             base: 'SauceLabs',
             browserName: 'Browser',
