@@ -20,7 +20,10 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
         proto[name] = function () {
             var _this = this;
 
-            var args = [this].concat(toArray(arguments));
+            var args = toArray(arguments);
+            if (args[0] != this) {
+                args.unshift(this);
+            }
 
             beforeFns.forEach(function (fn) {
                 return fn.apply(_this, args);
@@ -186,6 +189,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                     value: function register(name) {
                         var _this4 = this;
 
+                        this.context.elName = name;
                         this.context.events['before:builders'].forEach(function (fn) {
                             return fn(_this4.context);
                         });

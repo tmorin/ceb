@@ -103,8 +103,8 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                         if (data.invoke) {
                             proto[data.methName] = function () {
                                 var args = toArray(arguments);
-                                if (!data.native) {
-                                    args = [this].concat(args);
+                                if (!data.native && args[0] != this) {
+                                    args.unshift(this);
                                 }
                                 return data.invoke.apply(this, args);
                             };

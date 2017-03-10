@@ -19,7 +19,10 @@ function applyLifecycle(context, name) {
         afterFns = context.events['after:' + name];
 
     proto[name] = function () {
-        let args = [this].concat(toArray(arguments));
+        let args = toArray(arguments);
+        if (args[0] != this) {
+            args.unshift(this);
+        }
 
         beforeFns.forEach(fn => fn.apply(this, args));
 
@@ -121,6 +124,7 @@ export class ElementBuilder {
      * @returns {Element} the custom element Type
      */
     register(name) {
+        this.context.elName = name;
         this.context.events['before:builders'].forEach(fn => fn(this.context));
 
         invoke(this.context.builders, 'build', this.context.p, bind(this.on, this));

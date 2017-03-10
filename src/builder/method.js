@@ -60,9 +60,9 @@ export class MethodBuilder {
 
         if (data.invoke) {
             proto[data.methName] = function () {
-                var args = toArray(arguments);
-                if (!data.native) {
-                    args = [this].concat(args);
+                let args = toArray(arguments);
+                if (!data.native && args[0] != this) {
+                    args.unshift(this);
                 }
                 return data.invoke.apply(this, args);
             };

@@ -1067,7 +1067,10 @@ function applyLifecycle(context, name) {
     proto[name] = function () {
         var _this = this;
 
-        var args = [this].concat((0, _converters.toArray)(arguments));
+        var args = (0, _converters.toArray)(arguments);
+        if (args[0] != this) {
+            args.unshift(this);
+        }
 
         beforeFns.forEach(function (fn) {
             return fn.apply(_this, args);
@@ -1201,6 +1204,7 @@ var ElementBuilder = function () {
         value: function register(name) {
             var _this4 = this;
 
+            this.context.elName = name;
             this.context.events['before:builders'].forEach(function (fn) {
                 return fn(_this4.context);
             });
@@ -1354,8 +1358,8 @@ var MethodBuilder = exports.MethodBuilder = function () {
             if (data.invoke) {
                 proto[data.methName] = function () {
                     var args = (0, _converters.toArray)(arguments);
-                    if (!data.native) {
-                        args = [this].concat(args);
+                    if (!data.native && args[0] != this) {
+                        args.unshift(this);
                     }
                     return data.invoke.apply(this, args);
                 };

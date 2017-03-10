@@ -9,17 +9,15 @@ module.exports = {
     frameworks: ['mocha', 'sinon-chai'],
 
     files: [
-        'node_modules/document-register-element/build/document-register-element.js',
-        //'node_modules/webcomponents.js/webcomponents-lite.min.js',
-        'test/**/*.spec.js',
-        'example/**/*.spec.js'
+        // 'node_modules/document-register-element/build/document-register-element.js',
+        'node_modules/webcomponents.js/webcomponents-lite.min.js',
+        'test/**/*.spec.js'
     ],
 
     exclude: [],
 
     preprocessors: {
-        'test/**/*.spec.js': ['webpack', 'sourcemap'],
-        'example/**/*.spec.js': ['webpack', 'sourcemap']
+        'test/**/*.spec.js': ['webpack', 'sourcemap']
     },
 
     webpack: Object.assign({}, webpackDevConfig, {
