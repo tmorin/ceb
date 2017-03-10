@@ -65,6 +65,7 @@ System.register(['./builder/element.js', './builder/property.js', './builder/att
       var _exportObj11 = {};
       _exportObj11.assign = _helperObjectsJs.assign;
       _exportObj11.result = _helperObjectsJs.result;
+      _exportObj11.getSuper = _helperObjectsJs.getSuper;
 
       _export(_exportObj11);
     }, function (_helperEventsJs) {

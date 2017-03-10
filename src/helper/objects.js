@@ -27,3 +27,12 @@ export function assign(destination, ...sources) {
         }, target);
     });
 }
+
+/**
+ * Get the prototype of the extended class.
+ * @param object the object
+ * @returns {Object} the prototype of the extended class
+ */
+export function getSuper(object) {
+    return Object.getPrototypeOf(Object.getPrototypeOf(object));
+}

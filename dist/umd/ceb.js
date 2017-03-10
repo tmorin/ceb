@@ -279,6 +279,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.result = result;
 exports.assign = assign;
+exports.getSuper = getSuper;
 
 var _types = __webpack_require__(0);
 
@@ -312,6 +313,15 @@ function assign(destination) {
             return target;
         }, target);
     });
+}
+
+/**
+ * Get the prototype of the extended class.
+ * @param object the object
+ * @returns {Object} the prototype of the extended class
+ */
+function getSuper(object) {
+    return Object.getPrototypeOf(Object.getPrototypeOf(object));
 }
 
 /***/ }),
@@ -2173,6 +2183,12 @@ Object.defineProperty(exports, 'result', {
   enumerable: true,
   get: function get() {
     return _objects.result;
+  }
+});
+Object.defineProperty(exports, 'getSuper', {
+  enumerable: true,
+  get: function get() {
+    return _objects.getSuper;
   }
 });
 

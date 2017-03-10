@@ -40,7 +40,19 @@ System.register(['./types.js'], function (_export, _context) {
             }, target);
         });
     }
+
+    /**
+     * Get the prototype of the extended class.
+     * @param object the object
+     * @returns {Object} the prototype of the extended class
+     */
+
     _export('assign', assign);
+
+    function getSuper(object) {
+        return Object.getPrototypeOf(Object.getPrototypeOf(object));
+    }
+    _export('getSuper', getSuper);
 
     return {
         setters: [function (_typesJs) {
