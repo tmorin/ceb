@@ -1,6 +1,6 @@
 'use strict';
 
-var webpackDevConfig = require('./webpack.config.development.js');
+const webpackDevConfig = require('./config.standalone');
 
 module.exports = {
 

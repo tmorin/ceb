@@ -1,6 +1,6 @@
-var base = require('./karma.config.base.js');
-var override = {};
-for (var k in base) {
+const base = require('./karma.config.base.js');
+const override = {};
+for (let k in base) {
     if (base.hasOwnProperty(k)) {
         override[k] = base[k];
     }
