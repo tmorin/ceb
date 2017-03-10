@@ -8,12 +8,12 @@ for (let k in base) {
 
 if (process.env.COVERAGE) {
     console.log('---- CAPTURE COVERAGE ----');
-    override.webpack.module.loaders[0] = {
+    override.webpack.module.rules[0] = {
         test: /\.js?$/,
         exclude: /node_modules|\/example\/|\.spec.js$/,
-        loader: 'isparta'
+        loader: 'isparta-loader'
     };
-    override.webpack.module.loaders.push({test: /\/example\/|\.spec.js?$/, exclude: /node_modules/, loader: 'babel'});
+    override.webpack.module.rules.push({test: /\/example\/|\.spec.js?$/, exclude: /node_modules/, loader: 'babel-loader'});
     override.reporters.push('coverage');
     override.coverageReporter = {
         reporters: [
