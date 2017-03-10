@@ -1,5 +1,6 @@
 import {isFunction} from '../helper/types.js';
 import {property} from './property.js';
+import Builder from './Builder';
 
 /**
  * The counter is used to generate unique DOM's id.
@@ -103,12 +104,13 @@ export function applyTemplate(el, tpl) {
  * The template builder.
  * Its goal is to provide a way to fill the content of a custom element.
  */
-export class TemplateBuilder {
+export class TemplateBuilder extends Builder {
 
     /**
      * @param {!string|function(el: HTMLElement)} tpl the template as a string or a function
      */
     constructor(tpl) {
+        super();
         /**
          * @ignore
          */

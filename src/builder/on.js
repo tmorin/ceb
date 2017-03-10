@@ -1,17 +1,19 @@
 import {isFunction} from '../helper/types.js';
 import {noop} from '../helper/functions.js';
 import {toArray} from '../helper/converters.js';
+import Builder from './Builder';
 
 /**
  * The on builder.
  * Its goal is to provide a way to listen events coming from the custom element.
  */
-export class OnBuilder {
+export class OnBuilder extends Builder {
 
     /**
      * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
      */
     constructor(events) {
+        super();
         /**
          * @ignore
          */

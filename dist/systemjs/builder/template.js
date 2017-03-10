@@ -1,14 +1,38 @@
 'use strict';
 
-System.register(['../helper/types.js', './property.js'], function (_export, _context) {
+System.register(['../helper/types.js', './property.js', './Builder'], function (_export, _context) {
     "use strict";
 
-    var isFunction, property, _createClass, counter, OLD_CONTENT_ID_ATTR_NAME, CONTENT_ATTR_REG_EX, CONTENT_NODE_REG_EX, TemplateBuilder;
+    var isFunction, property, Builder, _createClass, counter, OLD_CONTENT_ID_ATTR_NAME, CONTENT_ATTR_REG_EX, CONTENT_NODE_REG_EX, TemplateBuilder;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
             throw new TypeError("Cannot call a class as a function");
         }
+    }
+
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+
+        return call && (typeof call === "object" || typeof call === "function") ? call : self;
+    }
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
 
     /**
@@ -107,6 +131,8 @@ System.register(['../helper/types.js', './property.js'], function (_export, _con
             isFunction = _helperTypesJs.isFunction;
         }, function (_propertyJs) {
             property = _propertyJs.property;
+        }, function (_Builder2) {
+            Builder = _Builder2.default;
         }],
         execute: function () {
             _createClass = function () {
@@ -132,7 +158,8 @@ System.register(['../helper/types.js', './property.js'], function (_export, _con
             CONTENT_ATTR_REG_EX = /ceb\-content/im;
             CONTENT_NODE_REG_EX = /<content><\/content>/im;
 
-            _export('TemplateBuilder', TemplateBuilder = function () {
+            _export('TemplateBuilder', TemplateBuilder = function (_Builder) {
+                _inherits(TemplateBuilder, _Builder);
 
                 /**
                  * @param {!string|function(el: HTMLElement)} tpl the template as a string or a function
@@ -140,10 +167,13 @@ System.register(['../helper/types.js', './property.js'], function (_export, _con
                 function TemplateBuilder(tpl) {
                     _classCallCheck(this, TemplateBuilder);
 
+                    var _this = _possibleConstructorReturn(this, (TemplateBuilder.__proto__ || Object.getPrototypeOf(TemplateBuilder)).call(this));
+
                     /**
                      * @ignore
                      */
-                    this.data = { tpl: tpl };
+                    _this.data = { tpl: tpl };
+                    return _this;
                 }
 
                 /**
@@ -169,7 +199,7 @@ System.register(['../helper/types.js', './property.js'], function (_export, _con
                 }]);
 
                 return TemplateBuilder;
-            }());
+            }(Builder));
 
             _export('TemplateBuilder', TemplateBuilder);
         }

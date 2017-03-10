@@ -73,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -182,6 +182,46 @@ function toCamelCase() {
 
 
 Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @interface
+ */
+var Builder = function () {
+  function Builder() {
+    _classCallCheck(this, Builder);
+  }
+
+  /**
+   * Build execute the business logic of the builder.
+   * @param {!Object} proto the builders
+   * @param {!function} on the builders
+   */
+
+
+  _createClass(Builder, [{
+    key: "build",
+    value: function build(proto, on) {}
+  }]);
+
+  return Builder;
+}();
+
+exports.default = Builder;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.partial = partial;
@@ -228,7 +268,7 @@ function noop() {
 }
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -275,7 +315,7 @@ function assign(destination) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -294,11 +334,21 @@ exports.attribute = attribute;
 
 var _types = __webpack_require__(0);
 
-var _objects = __webpack_require__(3);
+var _objects = __webpack_require__(4);
 
 var _converters = __webpack_require__(1);
 
+var _Builder2 = __webpack_require__(2);
+
+var _Builder3 = _interopRequireDefault(_Builder2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
  * Get the value from an attribute.
@@ -367,7 +417,8 @@ var DEFAULT_DATA = {
  * Its goal is to provide a way to define an attribute.
  */
 
-var AttributeBuilder = function () {
+var AttributeBuilder = function (_Builder) {
+    _inherits(AttributeBuilder, _Builder);
 
     /**
      * @param {!string} attrName the name of the attribute
@@ -378,11 +429,14 @@ var AttributeBuilder = function () {
         /**
          * @ignore
          */
-        this.data = (0, _objects.assign)({
+        var _this = _possibleConstructorReturn(this, (AttributeBuilder.__proto__ || Object.getPrototypeOf(AttributeBuilder)).call(this));
+
+        _this.data = (0, _objects.assign)({
             attrName: attrName,
             propName: (0, _converters.toCamelCase)(attrName),
             listeners: []
         }, DEFAULT_DATA);
+        return _this;
     }
 
     /**
@@ -530,7 +584,7 @@ var AttributeBuilder = function () {
     }]);
 
     return AttributeBuilder;
-}();
+}(_Builder3.default);
 
 /**
  * Get a new attribute builder.
@@ -545,7 +599,7 @@ function attribute(attrName) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -562,9 +616,19 @@ exports.property = property;
 
 var _types = __webpack_require__(0);
 
-var _objects = __webpack_require__(3);
+var _objects = __webpack_require__(4);
+
+var _Builder2 = __webpack_require__(2);
+
+var _Builder3 = _interopRequireDefault(_Builder2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var DEFAULT_DATA = {
     enumerable: true,
@@ -577,7 +641,8 @@ var DEFAULT_DATA = {
  * Its goal is to provide a way to define a property.
  */
 
-var PropertyBuilder = function () {
+var PropertyBuilder = function (_Builder) {
+    _inherits(PropertyBuilder, _Builder);
 
     /**
      * @param {!string} propName the name of the property
@@ -588,7 +653,10 @@ var PropertyBuilder = function () {
         /**
          * @ignore
          */
-        this.data = (0, _objects.assign)({ propName: propName, listeners: [] }, DEFAULT_DATA);
+        var _this = _possibleConstructorReturn(this, (PropertyBuilder.__proto__ || Object.getPrototypeOf(PropertyBuilder)).call(this));
+
+        _this.data = (0, _objects.assign)({ propName: propName, listeners: [] }, DEFAULT_DATA);
+        return _this;
     }
 
     /**
@@ -716,7 +784,7 @@ var PropertyBuilder = function () {
                     };
                 }
                 descriptor.set = function (newVal) {
-                    var _this = this;
+                    var _this2 = this;
 
                     var oldVal = this[_propName];
                     this[_propName] = newVal;
@@ -724,7 +792,7 @@ var PropertyBuilder = function () {
                         data.setter.call(this, this, newVal);
                     }
                     data.listeners.forEach(function (listener) {
-                        listener.call(_this, _this, oldVal, newVal);
+                        listener.call(_this2, _this2, oldVal, newVal);
                     });
                 };
             }
@@ -744,7 +812,7 @@ var PropertyBuilder = function () {
     }]);
 
     return PropertyBuilder;
-}();
+}(_Builder3.default);
 
 /**
  * Get a new property builder.
@@ -759,7 +827,7 @@ function property(propName) {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -808,7 +876,7 @@ function invoke(objects, methName) {
 }
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -827,15 +895,26 @@ var _types = __webpack_require__(0);
 
 var _converters = __webpack_require__(1);
 
-var _attribute = __webpack_require__(4);
+var _attribute = __webpack_require__(5);
+
+var _Builder2 = __webpack_require__(2);
+
+var _Builder3 = _interopRequireDefault(_Builder2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
  * The delegate builder.
  * Its goal is to provide a way to delegate methods, properties and attributes.
  */
-var DelegateBuilder = exports.DelegateBuilder = function () {
+var DelegateBuilder = exports.DelegateBuilder = function (_Builder) {
+    _inherits(DelegateBuilder, _Builder);
 
     /**
      * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} fieldBuilder the field builder
@@ -846,18 +925,21 @@ var DelegateBuilder = exports.DelegateBuilder = function () {
         /**
          * @ignore
          */
-        this.fieldBuilder = fieldBuilder;
+        var _this = _possibleConstructorReturn(this, (DelegateBuilder.__proto__ || Object.getPrototypeOf(DelegateBuilder)).call(this));
+
+        _this.fieldBuilder = fieldBuilder;
         /**
          * @ignore
          */
-        this.data = {};
+        _this.data = {};
         if (fieldBuilder.data.attrName) {
-            this.data.attrName = fieldBuilder.data.attrName;
-        } else if (this.fieldBuilder.data.propName) {
-            this.data.propName = fieldBuilder.data.propName;
-        } else if (this.fieldBuilder.data.methName) {
-            this.data.methName = fieldBuilder.data.methName;
+            _this.data.attrName = fieldBuilder.data.attrName;
+        } else if (_this.fieldBuilder.data.propName) {
+            _this.data.propName = fieldBuilder.data.propName;
+        } else if (_this.fieldBuilder.data.methName) {
+            _this.data.methName = fieldBuilder.data.methName;
         }
+        return _this;
     }
 
     /**
@@ -1011,7 +1093,7 @@ var DelegateBuilder = exports.DelegateBuilder = function () {
     }]);
 
     return DelegateBuilder;
-}();
+}(_Builder3.default);
 
 /**
  * Get a new delegate builder.
@@ -1025,7 +1107,7 @@ function delegate(builder) {
 }
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1044,11 +1126,11 @@ exports.element = element;
 
 var _types = __webpack_require__(0);
 
-var _functions = __webpack_require__(2);
+var _functions = __webpack_require__(3);
 
 var _converters = __webpack_require__(1);
 
-var _arrays = __webpack_require__(6);
+var _arrays = __webpack_require__(7);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1087,12 +1169,6 @@ function applyLifecycle(context, name) {
 }
 
 /**
- * @typedef {Object} Builder
- * @description the base of a builder
- * @property {function(proto: Object, on: function)} build execute the business logic of the builder
- */
-
-/**
  * The custom element builder.
  * Its goal is to provide a user friendly way to build custom element by some else (i.e. dedicated builders).
  */
@@ -1119,6 +1195,7 @@ var ElementBuilder = function () {
          * @type {Object}
          * @property {!Object} p - the prototype
          * @property {!string} e - the name of a native element
+         * @property {!string} n - the name of a future element
          * @desc the context of the builder
          */
         this.context = { p: p, builders: builders, events: events };
@@ -1175,7 +1252,7 @@ var ElementBuilder = function () {
         }
 
         /**
-         * To register call back on events.
+         * To register callbacks on events.
          * @param {!string} event the event name
          * @returns {Object} the on builder.
          * @property {function(callback: function)} invoke - to register the callback
@@ -1204,7 +1281,7 @@ var ElementBuilder = function () {
         value: function register(name) {
             var _this4 = this;
 
-            this.context.elName = name;
+            this.context.n = name;
             this.context.events['before:builders'].forEach(function (fn) {
                 return fn(_this4.context);
             });
@@ -1257,7 +1334,7 @@ function element() {
 }
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1274,17 +1351,28 @@ exports.method = method;
 
 var _types = __webpack_require__(0);
 
-var _functions = __webpack_require__(2);
+var _functions = __webpack_require__(3);
 
 var _converters = __webpack_require__(1);
 
+var _Builder2 = __webpack_require__(2);
+
+var _Builder3 = _interopRequireDefault(_Builder2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
  * The method builder.
  * Its goal is to provide a way to define a method.
  */
-var MethodBuilder = exports.MethodBuilder = function () {
+var MethodBuilder = exports.MethodBuilder = function (_Builder) {
+    _inherits(MethodBuilder, _Builder);
 
     /**
      * @param {!string} methName the name of the method
@@ -1295,7 +1383,10 @@ var MethodBuilder = exports.MethodBuilder = function () {
         /**
          * @ignore
          */
-        this.data = { methName: methName, wrappers: [] };
+        var _this = _possibleConstructorReturn(this, (MethodBuilder.__proto__ || Object.getPrototypeOf(MethodBuilder)).call(this));
+
+        _this.data = { methName: methName, wrappers: [] };
+        return _this;
     }
 
     /**
@@ -1390,7 +1481,7 @@ var MethodBuilder = exports.MethodBuilder = function () {
     }]);
 
     return MethodBuilder;
-}();
+}(_Builder3.default);
 
 /**
  * Get a new method builder.
@@ -1404,7 +1495,7 @@ function method(methName) {
 }
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1423,17 +1514,28 @@ exports.on = on;
 
 var _types = __webpack_require__(0);
 
-var _functions = __webpack_require__(2);
+var _functions = __webpack_require__(3);
 
 var _converters = __webpack_require__(1);
 
+var _Builder2 = __webpack_require__(2);
+
+var _Builder3 = _interopRequireDefault(_Builder2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
  * The on builder.
  * Its goal is to provide a way to listen events coming from the custom element.
  */
-var OnBuilder = exports.OnBuilder = function () {
+var OnBuilder = exports.OnBuilder = function (_Builder) {
+    _inherits(OnBuilder, _Builder);
 
     /**
      * @param {!string} events a list of tuple 'event target' separated by comas, the target is optional
@@ -1444,7 +1546,10 @@ var OnBuilder = exports.OnBuilder = function () {
         /**
          * @ignore
          */
-        this.data = { events: events, invoke: _functions.noop };
+        var _this = _possibleConstructorReturn(this, (OnBuilder.__proto__ || Object.getPrototypeOf(OnBuilder)).call(this));
+
+        _this.data = { events: events, invoke: _functions.noop };
+        return _this;
     }
 
     /**
@@ -1620,7 +1725,7 @@ var OnBuilder = exports.OnBuilder = function () {
     }]);
 
     return OnBuilder;
-}();
+}(_Builder3.default);
 
 /**
  * Get a new on builder.
@@ -1650,7 +1755,7 @@ on.keyboard = function () {
 };
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1668,9 +1773,19 @@ exports.template = template;
 
 var _types = __webpack_require__(0);
 
-var _property = __webpack_require__(5);
+var _property = __webpack_require__(6);
+
+var _Builder2 = __webpack_require__(2);
+
+var _Builder3 = _interopRequireDefault(_Builder2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
  * The counter is used to generate unique DOM's id.
@@ -1774,7 +1889,8 @@ function applyTemplate(el, tpl) {
  * Its goal is to provide a way to fill the content of a custom element.
  */
 
-var TemplateBuilder = exports.TemplateBuilder = function () {
+var TemplateBuilder = exports.TemplateBuilder = function (_Builder) {
+    _inherits(TemplateBuilder, _Builder);
 
     /**
      * @param {!string|function(el: HTMLElement)} tpl the template as a string or a function
@@ -1785,7 +1901,10 @@ var TemplateBuilder = exports.TemplateBuilder = function () {
         /**
          * @ignore
          */
-        this.data = { tpl: tpl };
+        var _this = _possibleConstructorReturn(this, (TemplateBuilder.__proto__ || Object.getPrototypeOf(TemplateBuilder)).call(this));
+
+        _this.data = { tpl: tpl };
+        return _this;
     }
 
     /**
@@ -1811,7 +1930,7 @@ var TemplateBuilder = exports.TemplateBuilder = function () {
     }]);
 
     return TemplateBuilder;
-}();
+}(_Builder3.default);
 
 /**
  * Get a new template builder.
@@ -1825,7 +1944,7 @@ function template(tpl) {
 }
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1837,7 +1956,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.dispatchCustomEvent = dispatchCustomEvent;
 exports.dispatchClonedEvent = dispatchClonedEvent;
 
-var _objects = __webpack_require__(3);
+var _objects = __webpack_require__(4);
 
 var _types = __webpack_require__(0);
 
@@ -1900,7 +2019,7 @@ function dispatchClonedEvent(el, inEvt) {
 }
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1910,7 +2029,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _element = __webpack_require__(8);
+var _element = __webpack_require__(9);
 
 Object.defineProperty(exports, 'element', {
   enumerable: true,
@@ -1919,7 +2038,7 @@ Object.defineProperty(exports, 'element', {
   }
 });
 
-var _property = __webpack_require__(5);
+var _property = __webpack_require__(6);
 
 Object.defineProperty(exports, 'property', {
   enumerable: true,
@@ -1928,7 +2047,7 @@ Object.defineProperty(exports, 'property', {
   }
 });
 
-var _attribute = __webpack_require__(4);
+var _attribute = __webpack_require__(5);
 
 Object.defineProperty(exports, 'attribute', {
   enumerable: true,
@@ -1949,7 +2068,7 @@ Object.defineProperty(exports, 'setAttValue', {
   }
 });
 
-var _delegate = __webpack_require__(7);
+var _delegate = __webpack_require__(8);
 
 Object.defineProperty(exports, 'delegate', {
   enumerable: true,
@@ -1958,7 +2077,7 @@ Object.defineProperty(exports, 'delegate', {
   }
 });
 
-var _method = __webpack_require__(9);
+var _method = __webpack_require__(10);
 
 Object.defineProperty(exports, 'method', {
   enumerable: true,
@@ -1967,7 +2086,7 @@ Object.defineProperty(exports, 'method', {
   }
 });
 
-var _template = __webpack_require__(11);
+var _template = __webpack_require__(12);
 
 Object.defineProperty(exports, 'template', {
   enumerable: true,
@@ -1982,7 +2101,7 @@ Object.defineProperty(exports, 'applyTemplate', {
   }
 });
 
-var _on = __webpack_require__(10);
+var _on = __webpack_require__(11);
 
 Object.defineProperty(exports, 'on', {
   enumerable: true,
@@ -1991,7 +2110,7 @@ Object.defineProperty(exports, 'on', {
   }
 });
 
-var _arrays = __webpack_require__(6);
+var _arrays = __webpack_require__(7);
 
 Object.defineProperty(exports, 'flatten', {
   enumerable: true,
@@ -2021,7 +2140,7 @@ Object.defineProperty(exports, 'toCamelCase', {
   }
 });
 
-var _functions = __webpack_require__(2);
+var _functions = __webpack_require__(3);
 
 Object.defineProperty(exports, 'bind', {
   enumerable: true,
@@ -2042,7 +2161,7 @@ Object.defineProperty(exports, 'partial', {
   }
 });
 
-var _objects = __webpack_require__(3);
+var _objects = __webpack_require__(4);
 
 Object.defineProperty(exports, 'assign', {
   enumerable: true,
@@ -2057,7 +2176,7 @@ Object.defineProperty(exports, 'result', {
   }
 });
 
-var _events = __webpack_require__(12);
+var _events = __webpack_require__(13);
 
 Object.defineProperty(exports, 'dispatchCustomEvent', {
   enumerable: true,

@@ -1,14 +1,38 @@
 'use strict';
 
-System.register(['../helper/types.js', '../helper/objects.js'], function (_export, _context) {
+System.register(['../helper/types.js', '../helper/objects.js', './Builder'], function (_export, _context) {
     "use strict";
 
-    var isFunction, isUndefined, result, assign, _createClass, DEFAULT_DATA, PropertyBuilder;
+    var isFunction, isUndefined, result, assign, Builder, _createClass, DEFAULT_DATA, PropertyBuilder;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
             throw new TypeError("Cannot call a class as a function");
         }
+    }
+
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+
+        return call && (typeof call === "object" || typeof call === "function") ? call : self;
+    }
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
 
     /**
@@ -29,6 +53,8 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
         }, function (_helperObjectsJs) {
             result = _helperObjectsJs.result;
             assign = _helperObjectsJs.assign;
+        }, function (_Builder2) {
+            Builder = _Builder2.default;
         }],
         execute: function () {
             _createClass = function () {
@@ -55,7 +81,8 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                 descriptorValue: true
             };
 
-            _export('PropertyBuilder', PropertyBuilder = function () {
+            _export('PropertyBuilder', PropertyBuilder = function (_Builder) {
+                _inherits(PropertyBuilder, _Builder);
 
                 /**
                  * @param {!string} propName the name of the property
@@ -63,10 +90,13 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                 function PropertyBuilder(propName) {
                     _classCallCheck(this, PropertyBuilder);
 
+                    var _this = _possibleConstructorReturn(this, (PropertyBuilder.__proto__ || Object.getPrototypeOf(PropertyBuilder)).call(this));
+
                     /**
                      * @ignore
                      */
-                    this.data = assign({ propName: propName, listeners: [] }, DEFAULT_DATA);
+                    _this.data = assign({ propName: propName, listeners: [] }, DEFAULT_DATA);
+                    return _this;
                 }
 
                 /**
@@ -153,7 +183,7 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                                 };
                             }
                             descriptor.set = function (newVal) {
-                                var _this = this;
+                                var _this2 = this;
 
                                 var oldVal = this[_propName];
                                 this[_propName] = newVal;
@@ -161,7 +191,7 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                                     data.setter.call(this, this, newVal);
                                 }
                                 data.listeners.forEach(function (listener) {
-                                    listener.call(_this, _this, oldVal, newVal);
+                                    listener.call(_this2, _this2, oldVal, newVal);
                                 });
                             };
                         }
@@ -181,7 +211,7 @@ System.register(['../helper/types.js', '../helper/objects.js'], function (_expor
                 }]);
 
                 return PropertyBuilder;
-            }());
+            }(Builder));
 
             _export('PropertyBuilder', PropertyBuilder);
         }

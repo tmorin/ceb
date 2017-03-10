@@ -1,6 +1,7 @@
 import {isFunction, isUndefined, isNull} from '../helper/types.js';
 import {result, assign} from '../helper/objects.js';
 import {toCamelCase} from '../helper/converters.js';
+import Builder from './Builder';
 
 /**
  * Get the value from an attribute.
@@ -68,12 +69,13 @@ const DEFAULT_DATA = {
  * The attribute builder.
  * Its goal is to provide a way to define an attribute.
  */
-export class AttributeBuilder {
+export class AttributeBuilder extends Builder {
 
     /**
      * @param {!string} attrName the name of the attribute
      */
     constructor(attrName) {
+        super();
         /**
          * @ignore
          */

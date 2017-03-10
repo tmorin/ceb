@@ -1,17 +1,19 @@
 import {isFunction} from '../helper/types.js';
 import {partial, bind} from '../helper/functions.js';
 import {toArray} from '../helper/converters.js';
+import Builder from './Builder';
 
 /**
  * The method builder.
  * Its goal is to provide a way to define a method.
  */
-export class MethodBuilder {
+export class MethodBuilder extends Builder {
 
     /**
      * @param {!string} methName the name of the method
      */
     constructor(methName) {
+        super();
         /**
          * @ignore
          */

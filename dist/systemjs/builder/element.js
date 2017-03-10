@@ -40,12 +40,6 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
     }
 
     /**
-     * @typedef {Object} Builder
-     * @description the base of a builder
-     * @property {function(proto: Object, on: function)} build execute the business logic of the builder
-     */
-
-    /**
      * The custom element builder.
      * Its goal is to provide a user friendly way to build custom element by some else (i.e. dedicated builders).
      */
@@ -126,6 +120,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                      * @type {Object}
                      * @property {!Object} p - the prototype
                      * @property {!string} e - the name of a native element
+                     * @property {!string} n - the name of a future element
                      * @desc the context of the builder
                      */
                     this.context = { p: p, builders: builders, events: events };
@@ -189,7 +184,7 @@ System.register(['../helper/types.js', '../helper/functions.js', '../helper/conv
                     value: function register(name) {
                         var _this4 = this;
 
-                        this.context.elName = name;
+                        this.context.n = name;
                         this.context.events['before:builders'].forEach(function (fn) {
                             return fn(_this4.context);
                         });

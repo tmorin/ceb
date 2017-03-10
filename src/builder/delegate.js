@@ -1,17 +1,19 @@
 import {isUndefined, isFunction} from '../helper/types.js';
 import {toArray} from '../helper/converters.js';
 import {getAttValue, setAttValue} from './attribute.js';
+import Builder from './Builder';
 
 /**
  * The delegate builder.
  * Its goal is to provide a way to delegate methods, properties and attributes.
  */
-export class DelegateBuilder {
+export class DelegateBuilder extends Builder {
 
     /**
      * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} fieldBuilder the field builder
      */
     constructor(fieldBuilder) {
+        super();
         /**
          * @ignore
          */

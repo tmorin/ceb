@@ -1,14 +1,38 @@
 'use strict';
 
-System.register(['../helper/types.js', '../helper/converters.js', './attribute.js'], function (_export, _context) {
+System.register(['../helper/types.js', '../helper/converters.js', './attribute.js', './Builder'], function (_export, _context) {
     "use strict";
 
-    var isUndefined, isFunction, toArray, getAttValue, setAttValue, _createClass, DelegateBuilder;
+    var isUndefined, isFunction, toArray, getAttValue, setAttValue, Builder, _createClass, DelegateBuilder;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
             throw new TypeError("Cannot call a class as a function");
         }
+    }
+
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+
+        return call && (typeof call === "object" || typeof call === "function") ? call : self;
+    }
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
 
     /**
@@ -31,6 +55,8 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
         }, function (_attributeJs) {
             getAttValue = _attributeJs.getAttValue;
             setAttValue = _attributeJs.setAttValue;
+        }, function (_Builder2) {
+            Builder = _Builder2.default;
         }],
         execute: function () {
             _createClass = function () {
@@ -51,7 +77,8 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
                 };
             }();
 
-            _export('DelegateBuilder', DelegateBuilder = function () {
+            _export('DelegateBuilder', DelegateBuilder = function (_Builder) {
+                _inherits(DelegateBuilder, _Builder);
 
                 /**
                  * @param {!PropertyBuilder|AttributeBuilder|MethodBuilder} fieldBuilder the field builder
@@ -59,21 +86,24 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
                 function DelegateBuilder(fieldBuilder) {
                     _classCallCheck(this, DelegateBuilder);
 
+                    var _this = _possibleConstructorReturn(this, (DelegateBuilder.__proto__ || Object.getPrototypeOf(DelegateBuilder)).call(this));
+
                     /**
                      * @ignore
                      */
-                    this.fieldBuilder = fieldBuilder;
+                    _this.fieldBuilder = fieldBuilder;
                     /**
                      * @ignore
                      */
-                    this.data = {};
+                    _this.data = {};
                     if (fieldBuilder.data.attrName) {
-                        this.data.attrName = fieldBuilder.data.attrName;
-                    } else if (this.fieldBuilder.data.propName) {
-                        this.data.propName = fieldBuilder.data.propName;
-                    } else if (this.fieldBuilder.data.methName) {
-                        this.data.methName = fieldBuilder.data.methName;
+                        _this.data.attrName = fieldBuilder.data.attrName;
+                    } else if (_this.fieldBuilder.data.propName) {
+                        _this.data.propName = fieldBuilder.data.propName;
+                    } else if (_this.fieldBuilder.data.methName) {
+                        _this.data.methName = fieldBuilder.data.methName;
                     }
+                    return _this;
                 }
 
                 /**
@@ -199,7 +229,7 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
                 }]);
 
                 return DelegateBuilder;
-            }());
+            }(Builder));
 
             _export('DelegateBuilder', DelegateBuilder);
         }

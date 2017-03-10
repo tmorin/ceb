@@ -1,14 +1,38 @@
 'use strict';
 
-System.register(['../helper/types.js', '../helper/objects.js', '../helper/converters.js'], function (_export, _context) {
+System.register(['../helper/types.js', '../helper/objects.js', '../helper/converters.js', './Builder'], function (_export, _context) {
     "use strict";
 
-    var isFunction, isUndefined, isNull, result, assign, toCamelCase, _createClass, DEFAULT_DATA, AttributeBuilder;
+    var isFunction, isUndefined, isNull, result, assign, toCamelCase, Builder, _createClass, DEFAULT_DATA, AttributeBuilder;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
             throw new TypeError("Cannot call a class as a function");
         }
+    }
+
+    function _possibleConstructorReturn(self, call) {
+        if (!self) {
+            throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+        }
+
+        return call && (typeof call === "object" || typeof call === "function") ? call : self;
+    }
+
+    function _inherits(subClass, superClass) {
+        if (typeof superClass !== "function" && superClass !== null) {
+            throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+        }
+
+        subClass.prototype = Object.create(superClass && superClass.prototype, {
+            constructor: {
+                value: subClass,
+                enumerable: false,
+                writable: true,
+                configurable: true
+            }
+        });
+        if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
     }
 
     /**
@@ -91,6 +115,8 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
             assign = _helperObjectsJs.assign;
         }, function (_helperConvertersJs) {
             toCamelCase = _helperConvertersJs.toCamelCase;
+        }, function (_Builder2) {
+            Builder = _Builder2.default;
         }],
         execute: function () {
             _createClass = function () {
@@ -119,7 +145,8 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
                 setAttValue: setAttValue
             };
 
-            _export('AttributeBuilder', AttributeBuilder = function () {
+            _export('AttributeBuilder', AttributeBuilder = function (_Builder) {
+                _inherits(AttributeBuilder, _Builder);
 
                 /**
                  * @param {!string} attrName the name of the attribute
@@ -127,14 +154,17 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
                 function AttributeBuilder(attrName) {
                     _classCallCheck(this, AttributeBuilder);
 
+                    var _this = _possibleConstructorReturn(this, (AttributeBuilder.__proto__ || Object.getPrototypeOf(AttributeBuilder)).call(this));
+
                     /**
                      * @ignore
                      */
-                    this.data = assign({
+                    _this.data = assign({
                         attrName: attrName,
                         propName: toCamelCase(attrName),
                         listeners: []
                     }, DEFAULT_DATA);
+                    return _this;
                 }
 
                 /**
@@ -242,7 +272,7 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
                 }]);
 
                 return AttributeBuilder;
-            }());
+            }(Builder));
 
             _export('AttributeBuilder', AttributeBuilder);
         }

@@ -35,12 +35,6 @@ function applyLifecycle(context, name) {
 }
 
 /**
- * @typedef {Object} Builder
- * @description the base of a builder
- * @property {function(proto: Object, on: function)} build execute the business logic of the builder
- */
-
-/**
  * The custom element builder.
  * Its goal is to provide a user friendly way to build custom element by some else (i.e. dedicated builders).
  */
@@ -64,6 +58,7 @@ export class ElementBuilder {
          * @type {Object}
          * @property {!Object} p - the prototype
          * @property {!string} e - the name of a native element
+         * @property {!string} n - the name of a future element
          * @desc the context of the builder
          */
         this.context = {p, builders, events};
@@ -105,7 +100,7 @@ export class ElementBuilder {
     }
 
     /**
-     * To register call back on events.
+     * To register callbacks on events.
      * @param {!string} event the event name
      * @returns {Object} the on builder.
      * @property {function(callback: function)} invoke - to register the callback
@@ -124,7 +119,7 @@ export class ElementBuilder {
      * @returns {Element} the custom element Type
      */
     register(name) {
-        this.context.elName = name;
+        this.context.n = name;
         this.context.events['before:builders'].forEach(fn => fn(this.context));
 
         invoke(this.context.builders, 'build', this.context.p, bind(this.on, this));
