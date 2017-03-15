@@ -1,5 +1,5 @@
 /*jshint -W030 */
-import {element, property, attribute, method, delegate} from '../src/ceb.js';
+import {element, property, attribute, method, delegate, template} from '../src/ceb.js';
 
 describe('ceb.delegate()', function () {
     let sandbox, builder;
@@ -132,8 +132,9 @@ describe('ceb.delegate()', function () {
 
     /* METHOD */
 
-    it('should delegate a method invocation to the target matching method', (done) => {
+    it('should delegate a method invocation to the matching method', (done) => {
         builder.builders(
+            template('<button></button>'),
             delegate(method('click')).to('button')
         ).register('test-delegate-meth-to-meth');
         let el = document.createElement('test-delegate-meth-to-meth');
@@ -144,12 +145,14 @@ describe('ceb.delegate()', function () {
             el.click();
 
             expect(button.click).to.be.have.been.called;
+            expect(button.click).to.have.been.calledWith();
             done();
         }, 10);
     });
 
-    it('should delegate a method invocation to the target another method', (done) => {
+    it('should delegate a method invocation to another method', (done) => {
         builder.builders(
+            template('<button></button>'),
             delegate(method('do')).to('button').method('click')
         ).register('test-delegate-meth-to-alt-meth');
         let el = document.createElement('test-delegate-meth-to-alt-meth');
@@ -160,6 +163,25 @@ describe('ceb.delegate()', function () {
             el.do();
 
             expect(button.click).to.be.have.been.called;
+            expect(button.click).to.have.been.calledWith();
+            done();
+        }, 10);
+    });
+
+    it('should delegate a method invocation to a native method', (done) => {
+        builder.builders(
+            template('<button></button>'),
+            delegate(method('do').native()).to('button').method('click')
+        ).register('test-delegate-meth-to-native-meth');
+        let el = document.createElement('test-delegate-meth-to-native-meth');
+        sandbox.appendChild(el);
+        setTimeout(() => {
+            let button = el.querySelector('button');
+            sinon.spy(button, 'click');
+            el.do();
+
+            expect(button.click).to.be.have.been.called;
+            expect(button.click).to.have.been.calledWith();
             done();
         }, 10);
     });

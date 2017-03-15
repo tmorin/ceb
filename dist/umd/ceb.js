@@ -1086,11 +1086,13 @@ var DelegateBuilder = exports.DelegateBuilder = function (_Builder) {
                     }
                 };
             } else if (fieldBuilderData.methName) {
+                var isNative = fieldBuilderData.native;
+                fieldBuilderData.native = false;
                 fieldBuilderData.invoke = function (el) {
                     var target = el.querySelector(data.selector);
                     if ((0, _types.isFunction)(target[targetedMethName])) {
                         var args = (0, _converters.toArray)(arguments);
-                        if (!fieldBuilderData.native) {
+                        if (!isNative) {
                             args.shift();
                         }
                         return target[targetedMethName].apply(target, args);

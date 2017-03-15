@@ -149,11 +149,13 @@ export class DelegateBuilder extends Builder {
                 }
             };
         } else if (fieldBuilderData.methName) {
+            const isNative = fieldBuilderData.native;
+            fieldBuilderData.native = false;
             fieldBuilderData.invoke = function (el) {
                 let target = el.querySelector(data.selector);
                 if (isFunction(target[targetedMethName])) {
                     let args = toArray(arguments);
-                    if (!fieldBuilderData.native) {
+                    if (!isNative) {
                         args.shift();
                     }
                     return target[targetedMethName].apply(target, args);

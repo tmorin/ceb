@@ -212,11 +212,13 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
                                 }
                             };
                         } else if (fieldBuilderData.methName) {
+                            var isNative = fieldBuilderData.native;
+                            fieldBuilderData.native = false;
                             fieldBuilderData.invoke = function (el) {
                                 var target = el.querySelector(data.selector);
                                 if (isFunction(target[targetedMethName])) {
                                     var args = toArray(arguments);
-                                    if (!fieldBuilderData.native) {
+                                    if (!isNative) {
                                         args.shift();
                                     }
                                     return target[targetedMethName].apply(target, args);
