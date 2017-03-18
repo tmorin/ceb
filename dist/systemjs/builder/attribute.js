@@ -238,13 +238,15 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
                                 }
                             }
                             if (data.listeners.length > 0) {
-                                var oldValue = data.boolean ? false : null;
-                                var setValue = el[data.propName];
-                                if (oldValue !== setValue) {
-                                    data.listeners.forEach(function (listener) {
-                                        return listener.call(el, el, oldValue, setValue);
-                                    });
-                                }
+                                (function () {
+                                    var oldValue = data.boolean ? false : null;
+                                    var setValue = el[data.propName];
+                                    if (oldValue !== setValue) {
+                                        data.listeners.forEach(function (listener) {
+                                            return listener.call(el, el, oldValue, setValue);
+                                        });
+                                    }
+                                })();
                             }
                         });
 
@@ -258,13 +260,15 @@ System.register(['../helper/types.js', '../helper/objects.js', '../helper/conver
                                     }
                                 }
                                 if (data.listeners.length > 0) {
-                                    var oldValue = data.boolean ? oldVal === '' : oldVal;
-                                    var setValue = data.boolean ? newVal === '' : newVal;
-                                    if (oldValue !== setValue) {
-                                        data.listeners.forEach(function (listener) {
-                                            return listener.call(el, el, oldValue, setValue);
-                                        });
-                                    }
+                                    (function () {
+                                        var oldValue = data.boolean ? oldVal === '' : oldVal;
+                                        var setValue = data.boolean ? newVal === '' : newVal;
+                                        if (oldValue !== setValue) {
+                                            data.listeners.forEach(function (listener) {
+                                                return listener.call(el, el, oldValue, setValue);
+                                            });
+                                        }
+                                    })();
                                 }
                             }
                         });

@@ -212,18 +212,20 @@ System.register(['../helper/types.js', '../helper/converters.js', './attribute.j
                                 }
                             };
                         } else if (fieldBuilderData.methName) {
-                            var isNative = fieldBuilderData.native;
-                            fieldBuilderData.native = false;
-                            fieldBuilderData.invoke = function (el) {
-                                var target = el.querySelector(data.selector);
-                                if (isFunction(target[targetedMethName])) {
-                                    var args = toArray(arguments);
-                                    if (!isNative) {
-                                        args.shift();
+                            (function () {
+                                var isNative = fieldBuilderData.native;
+                                fieldBuilderData.native = false;
+                                fieldBuilderData.invoke = function (el) {
+                                    var target = el.querySelector(data.selector);
+                                    if (isFunction(target[targetedMethName])) {
+                                        var args = toArray(arguments);
+                                        if (!isNative) {
+                                            args.shift();
+                                        }
+                                        return target[targetedMethName].apply(target, args);
                                     }
-                                    return target[targetedMethName].apply(target, args);
-                                }
-                            };
+                                };
+                            })();
                         }
 
                         this.fieldBuilder.build(proto, on);
