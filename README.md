@@ -82,10 +82,12 @@ From bower:
 bower install ceb
 ```
 
-From CDN ([unpkg](https://unpkg.com)):
+`<ceb/>` can also be fetched from a [unpkg](https://unpkg.com), a CDN:
+
 ```html
 <script src="https://unpkg.com/ceb/dist/umd/ceb.js"></script>
 ```
+
 ```html
 <script src="https://unpkg.com/ceb/dist/umd/ceb.min.js"></script>
 ```

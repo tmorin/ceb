@@ -12,14 +12,6 @@ From [bower]:
 bower install ceb
 ```
 
-From CDN ([unpkg](https://unpkg.com)):
-```html
-<script src="https://unpkg.com/ceb/dist/umd/ceb.js"></script>
-```
-```html
-<script src="https://unpkg.com/ceb/dist/umd/ceb.min.js"></script>
-```
-
 Both packages expose `<ceb/>` from the following directories:
 
 * `dist/`
@@ -31,6 +23,15 @@ Both packages expose `<ceb/>` from the following directories:
 * `src/`
   * [babel] + preset-es2015 (ES2015)
 
+`<ceb/>` can also be fetched from a [unpkg](https://unpkg.com), a CDN:
+
+```html
+<script src="https://unpkg.com/ceb/dist/umd/ceb.js"></script>
+```
+
+```html
+<script src="https://unpkg.com/ceb/dist/umd/ceb.min.js"></script>
+```
 
 ## Setting up development environment
 
