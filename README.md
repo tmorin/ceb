@@ -82,6 +82,14 @@ From bower:
 bower install ceb
 ```
 
+From CDN ([unpkg](https://unpkg.com)):
+```html
+<script src="https://unpkg.com/ceb/dist/umd/ceb.js"></script>
+```
+```html
+<script src="https://unpkg.com/ceb/dist/umd/ceb.min.js"></script>
+```
+
 ## License
 
 Released under the [MIT license](http://opensource.org/licenses/MIT).

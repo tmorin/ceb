@@ -12,6 +12,14 @@ From [bower]:
 bower install ceb
 ```
 
+From CDN ([unpkg](https://unpkg.com)):
+```html
+<script src="https://unpkg.com/ceb/dist/umd/ceb.js"></script>
+```
+```html
+<script src="https://unpkg.com/ceb/dist/umd/ceb.min.js"></script>
+```
+
 Both packages expose `<ceb/>` from the following directories:
 
 * `dist/`
