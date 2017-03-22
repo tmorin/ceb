@@ -1,7 +1,7 @@
 {
     "node": true,
     "browser": true,
-    "esnext": true,
     "curly": true,
-    "quotmark": "single"
+    "quotmark": "single",
+    "esversion": 6
 }
