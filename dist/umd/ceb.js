@@ -560,15 +560,13 @@ var AttributeBuilder = function (_Builder) {
                     }
                 }
                 if (data.listeners.length > 0) {
-                    (function () {
-                        var oldValue = data.boolean ? false : null;
-                        var setValue = el[data.propName];
-                        if (oldValue !== setValue) {
-                            data.listeners.forEach(function (listener) {
-                                return listener.call(el, el, oldValue, setValue);
-                            });
-                        }
-                    })();
+                    var oldValue = data.boolean ? false : null;
+                    var setValue = el[data.propName];
+                    if (oldValue !== setValue) {
+                        data.listeners.forEach(function (listener) {
+                            return listener.call(el, el, oldValue, setValue);
+                        });
+                    }
                 }
             });
 
@@ -582,15 +580,13 @@ var AttributeBuilder = function (_Builder) {
                         }
                     }
                     if (data.listeners.length > 0) {
-                        (function () {
-                            var oldValue = data.boolean ? oldVal === '' : oldVal;
-                            var setValue = data.boolean ? newVal === '' : newVal;
-                            if (oldValue !== setValue) {
-                                data.listeners.forEach(function (listener) {
-                                    return listener.call(el, el, oldValue, setValue);
-                                });
-                            }
-                        })();
+                        var oldValue = data.boolean ? oldVal === '' : oldVal;
+                        var setValue = data.boolean ? newVal === '' : newVal;
+                        if (oldValue !== setValue) {
+                            data.listeners.forEach(function (listener) {
+                                return listener.call(el, el, oldValue, setValue);
+                            });
+                        }
                     }
                 }
             });
@@ -788,29 +784,27 @@ var PropertyBuilder = function (_Builder) {
             }
 
             if (data.listeners.length > 0) {
-                (function () {
-                    descriptor.configurable = false;
-                    delete descriptor.writable;
-                    data.descriptorValue = false;
-                    var _propName = '__' + data.propName + 'LastSetValue';
-                    if (!descriptor.get) {
-                        descriptor.get = function () {
-                            return this[_propName];
-                        };
-                    }
-                    descriptor.set = function (newVal) {
-                        var _this2 = this;
-
-                        var oldVal = this[_propName];
-                        this[_propName] = newVal;
-                        if (data.setter) {
-                            data.setter.call(this, this, newVal);
-                        }
-                        data.listeners.forEach(function (listener) {
-                            listener.call(_this2, _this2, oldVal, newVal);
-                        });
+                descriptor.configurable = false;
+                delete descriptor.writable;
+                data.descriptorValue = false;
+                var _propName = '__' + data.propName + 'LastSetValue';
+                if (!descriptor.get) {
+                    descriptor.get = function () {
+                        return this[_propName];
                     };
-                })();
+                }
+                descriptor.set = function (newVal) {
+                    var _this2 = this;
+
+                    var oldVal = this[_propName];
+                    this[_propName] = newVal;
+                    if (data.setter) {
+                        data.setter.call(this, this, newVal);
+                    }
+                    data.listeners.forEach(function (listener) {
+                        listener.call(_this2, _this2, oldVal, newVal);
+                    });
+                };
             }
 
             if (data.descriptorValue) {
@@ -1092,20 +1086,18 @@ var DelegateBuilder = exports.DelegateBuilder = function (_Builder) {
                     }
                 };
             } else if (fieldBuilderData.methName) {
-                (function () {
-                    var isNative = fieldBuilderData.native;
-                    fieldBuilderData.native = false;
-                    fieldBuilderData.invoke = function (el) {
-                        var target = el.querySelector(data.selector);
-                        if ((0, _types.isFunction)(target[targetedMethName])) {
-                            var args = (0, _converters.toArray)(arguments);
-                            if (!isNative) {
-                                args.shift();
-                            }
-                            return target[targetedMethName].apply(target, args);
+                var isNative = fieldBuilderData.native;
+                fieldBuilderData.native = false;
+                fieldBuilderData.invoke = function (el) {
+                    var target = el.querySelector(data.selector);
+                    if ((0, _types.isFunction)(target[targetedMethName])) {
+                        var args = (0, _converters.toArray)(arguments);
+                        if (!isNative) {
+                            args.shift();
                         }
-                    };
-                })();
+                        return target[targetedMethName].apply(target, args);
+                    }
+                };
             }
 
             this.fieldBuilder.build(proto, on);
@@ -1479,23 +1471,21 @@ var MethodBuilder = exports.MethodBuilder = function (_Builder) {
             if (data.wrappers.length) {
                 on('before:createdCallback').invoke(function (el) {
                     if ((0, _types.isFunction)(el[data.methName])) {
-                        (function () {
-                            var lastIndex = data.wrappers.length - 1,
-                                original = el[data.methName],
-                                target = function target() {
-                                var args = (0, _converters.toArray)(arguments);
-                                if (!data.native) {
-                                    args.shift();
-                                }
-                                original.apply(el, args);
-                            };
-                            el[data.methName] = data.wrappers.reduce(function (next, current, index) {
-                                if (index === lastIndex) {
-                                    return (0, _functions.bind)(data.native ? (0, _functions.partial)(current, next) : (0, _functions.partial)(current, next, el), el);
-                                }
-                                return (0, _functions.bind)((0, _functions.partial)(current, next), el);
-                            }, target);
-                        })();
+                        var lastIndex = data.wrappers.length - 1,
+                            original = el[data.methName],
+                            target = function target() {
+                            var args = (0, _converters.toArray)(arguments);
+                            if (!data.native) {
+                                args.shift();
+                            }
+                            original.apply(el, args);
+                        };
+                        el[data.methName] = data.wrappers.reduce(function (next, current, index) {
+                            if (index === lastIndex) {
+                                return (0, _functions.bind)(data.native ? (0, _functions.partial)(current, next) : (0, _functions.partial)(current, next, el), el);
+                            }
+                            return (0, _functions.bind)((0, _functions.partial)(current, next), el);
+                        }, target);
                     }
                 });
             }

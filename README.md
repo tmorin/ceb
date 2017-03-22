@@ -2,7 +2,7 @@
 
 [![Circle CI](https://circleci.com/gh/tmorin/ceb.svg?style=svg)](https://circleci.com/gh/tmorin/ceb)
 [![Dependency Status](https://david-dm.org/tmorin/ceb.svg)](https://david-dm.org/tmorin/ceb)
-[![devDependency Status](https://david-dm.org/tmorin/ceb/dev-status.svg)](https://david-dm.org/tmorin/ceb#info=devDependencies)
+[![devDependency Status](https://david-dm.org/tmorin/ceb/dev-status.svg)](https://david-dm.org/tmorin/ceb?type=dev)
 [![Coverage Status](https://coveralls.io/repos/github/tmorin/ceb/badge.svg?branch=master)](https://coveralls.io/github/tmorin/ceb?branch=master)
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/customelementbuilder.svg)](https://saucelabs.com/u/customelementbuilder)
 
