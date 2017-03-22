@@ -6,3 +6,4 @@ machine:
 test:
   post:
     - npm run coveralls
+    - mv coverage/lcov-report/* $CIRCLE_ARTIFACTS
