@@ -48,7 +48,7 @@
     "build:umd:min": "webpack --config webpack.prd.js",
     "build": "npm run build:clean && npm run build:lib && npm run build:umd && npm run build:umd:min",
     "prerelease": "standard-version --skip.changelog --skip.tag --prerelease alpha",
-    "prerelease:publish": "git push --tags && git push --all && npm publish --tag canary",
+    "prerelease:publish": "git push --tags && git push --all && npm publish --tag canary --tag latest",
     "book:build": "mdbook clean && mdbook build",
     "book:publish": "cd public && git init && git commit --allow-empty -m 'update site' && git checkout -b gh-pages && git add . && git commit -am 'update site, [skip ci]' && git push git@github.com:tmorin/ceb gh-pages --force && cd .."
   },
