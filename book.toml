@@ -1,0 +1,16 @@
+[book]
+title = "<ceb/> ~ Custom Element Builder"
+authors = ["Thibault Morin"]
+description = "The book presents the usage of the library ceb."
+language = "en"
+src = "book"
+
+[build]
+build-dir = "public"
+
+[output.html]
+git-repository-url = "https://github.com/tmorin/ceb/"
+git-repository-icon = "fa-github"
+
+[output.html.search]
+enable = true

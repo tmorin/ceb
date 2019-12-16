@@ -1,9 +1,0 @@
-machine:
-  node:
-    version: 6
-  environment:
-    COVERAGE: true
-test:
-  post:
-    - npm run coveralls
-    - mv coverage/lcov-report/* $CIRCLE_ARTIFACTS

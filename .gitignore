@@ -1,7 +1,6 @@
 /.idea
-/.publish
-/_book
-/npm-debug*
+/.tmp
+/public
+/dist
 /lib
 /node_modules
-/coverage
