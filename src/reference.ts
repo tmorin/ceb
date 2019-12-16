@@ -9,7 +9,7 @@ export class ReferenceBuilder implements Builder {
 
     constructor(
         private propName: string,
-        private selectors = `#${propName}`,
+        private selectors: string,
         private isArray = false,
         private isShadow = false
     ) {
@@ -20,7 +20,7 @@ export class ReferenceBuilder implements Builder {
      * @param propName the property name
      */
     static get(propName: string) {
-        return new ReferenceBuilder(propName);
+        return new ReferenceBuilder(propName, `#${propName}`);
     }
 
     /**
