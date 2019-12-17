@@ -1,5 +1,8 @@
 # `<ceb/>` ~ custom-element-builder
 
+[![npm version](https://badge.fury.io/js/%40tmorin%2Fceb.svg)](https://badge.fury.io/js/%40tmorin%2Fceb)
+[![builds.sr.ht status](https://builds.sr.ht/~tmorin/ceb/main.yml.svg)](https://builds.sr.ht/~tmorin/ceb/main.yml?)
+
 > `<ceb/>` is a library helping to develop [Custom Elements (v1)].
 Its core is a builder which executes others builders.
 By this way, `<ceb/>` is natively opened to extensions and builders easily sharable.
