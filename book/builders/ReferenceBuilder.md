@@ -40,7 +40,7 @@ const builder = ReferenceBuilder.get('activeLiList').selector('li.active').array
 
 By default, the builder binds the property relative to the light DOM.
 
-The method `ReferenceBuilder#shadow()` can be used to bind the property relative to the  shadow DOM.
+The method `ReferenceBuilder#shadow()` can be used to bind the property relative to the shadow DOM.
 
 ```javascript
 import {ReferenceBuilder} from '@tmorin/ceb'

@@ -32,7 +32,7 @@ export class AttributeBuilder implements Builder {
 
     constructor(
         private attrName: string,
-        private value: boolean | string = undefined,
+        private defaultValue: boolean | string = undefined,
         private isBoolean = false,
         private listeners: Array<AttributeListener> = []
     ) {
@@ -60,7 +60,7 @@ export class AttributeBuilder implements Builder {
      * @param value the default value
      */
     default(value: string | boolean) {
-        this.value = value;
+        this.defaultValue = value;
         return this;
     }
 
@@ -83,18 +83,18 @@ export class AttributeBuilder implements Builder {
         hooks.after('connectedCallback', el => {
             if (!el[defaultValuePropName]
                 && !el.hasAttribute(this.attrName)
-                && this.value !== undefined
-                && this.value !== false
-                && this.value !== null
+                && this.defaultValue !== undefined
+                && this.defaultValue !== false
+                && this.defaultValue !== null
             ) {
                 el[defaultValuePropName] = true;
-                el.setAttribute(this.attrName, this.isBoolean ? '' : this.value as string);
+                el.setAttribute(this.attrName, this.isBoolean ? '' : this.defaultValue as string);
             }
         });
 
         // reacts on attribute values
         hooks.before('attributeChangedCallback', (el, attrName, oldValue, newValue) => {
-            // Synchronize the attribute value with its properties
+            // invokes listeners
             if (attrName === this.attrName) {
                 if (this.listeners.length > 0) {
                     const oldVal = this.isBoolean ? oldValue === '' : oldValue;

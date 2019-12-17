@@ -9,3 +9,4 @@
   - [OnBuilder](./builders/OnBuilder.md)
   - [TemplateBuilder](./builders/TemplateBuilder.md)
   - [ReferenceBuilder](./builders/ReferenceBuilder.md)
+  - [AttributeDelegateBuilder](./builders/AttributeDelegateBuilder.md)

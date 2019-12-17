@@ -11,3 +11,4 @@ Then, other builders can be used to enhance it:
 - [OnBuilder](./OnBuilder.md): to listen to DOM events
 - [TemplateBuilder](./TemplateBuilder.md): to initialize the light or shadow DOM
 - [ReferenceBuilder](./ReferenceBuilder.md): to get reference of children nodes
+- [AttributeDelegateBuilder](./AttributeDelegateBuilder.md): to delegate attribute mutations to child nodes
