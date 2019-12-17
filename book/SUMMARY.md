@@ -1,6 +1,7 @@
 # Summary
 
 - [Custom Element Builder](./README.md)
+- [Installation](./Installation.md)
 - [The builders](./builders/README.md)
   - [ElementBuilder](./builders/ElementBuilder.md)
   - [AttributeBuilder](./builders/AttributeBuilder.md)
