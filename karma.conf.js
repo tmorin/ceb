@@ -45,6 +45,17 @@ module.exports = (config) => {
             sl_chrome: {
                 base: 'SauceLabs',
                 browserName: 'chrome'
+            },
+            sl_edge: {
+                base: 'SauceLabs',
+                browserName: 'MicrosoftEdge'
+            },
+            sl_android: {
+                base: 'SauceLabs',
+                deviceName: 'Android GoogleAPI Emulator',
+                platformName: 'Android',
+                platformVersion: '9.0',
+                browserName: 'Chrome'
             }
         },
 

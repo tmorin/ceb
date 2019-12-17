@@ -32,7 +32,7 @@ describe('ReferenceBuilder', () => {
         assert.strictEqual(element.lis.length, 2);
     });
 
-    it.only('should get reference from shadow DOM', () => {
+    it('should get reference from shadow DOM', () => {
         class ShouldGetFromShadowDOM extends HTMLElement {
             readonly ul: HTMLUListElement;
             readonly anId: HTMLUListElement;

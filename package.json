@@ -39,9 +39,9 @@
   "types": "lib/ceb.d.ts",
   "unpkg": "dist/ceb.min.js",
   "scripts": {
-    "test": "karma start --single-run --no-auto-watch --no-colors --browsers sl_firefox",
+    "test": "karma start --single-run --no-auto-watch --browsers sl_firefox,sl_chrome,sl_edge,sl_android",
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox",
-    "test:local": "karma start --single-run --no-auto-watch --no-colors --browsers Firefox",
+    "test:local": "karma start --single-run --no-auto-watch --browsers Firefox",
     "build:clean": "rimraf dist lib *.tgz",
     "build:lib": "tsc",
     "build:umd": "webpack --config webpack.dev.js",
