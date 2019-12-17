@@ -27,7 +27,7 @@ tasks:
       npm ci --no-progress
   - test: |
       cd ceb
-      npm test
+      BUILD_NUMBER="ceb-${JOB_ID}" npm test
   - build: |
       cd ceb
       npm run build

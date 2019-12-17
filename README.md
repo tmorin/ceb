@@ -2,7 +2,6 @@
 
 [![npm version](https://badge.fury.io/js/%40tmorin%2Fceb.svg)](https://badge.fury.io/js/%40tmorin%2Fceb)
 [![builds.sr.ht status](https://builds.sr.ht/~tmorin/ceb/main.yml.svg)](https://builds.sr.ht/~tmorin/ceb/main.yml?)
-[![Build Status](https://app.saucelabs.com/buildstatus/thibaultmorin)](https://app.saucelabs.com/builds/7b31bd1809e343aaadfdf58b923315ff)
 
 > `<ceb/>` is a library helping to develop [Custom Elements (v1)].
 Its core is a builder which executes others builders.

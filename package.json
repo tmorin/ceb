@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tmorin/ceb.git"
+    "url": "git@github.com:tmorin/ceb.git"
   },
   "author": {
     "name": "Thibault Morin",
@@ -39,7 +39,7 @@
   "types": "lib/ceb.d.ts",
   "unpkg": "dist/ceb.min.js",
   "scripts": {
-    "test": "karma start --single-run --no-auto-watch --browsers sl_firefox,sl_chrome,sl_edge,sl_android",
+    "test": "karma start --single-run --no-auto-watch --browsers sl_firefox,sl_chrome ",
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox",
     "test:local": "karma start --single-run --no-auto-watch --browsers Firefox",
     "build:clean": "rimraf dist lib *.tgz",

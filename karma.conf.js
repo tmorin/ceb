@@ -61,12 +61,14 @@ module.exports = (config) => {
 
         sauceLabs: {
             testName: 'ceb - unit testing',
-            recordVideo: false,
-            recordScreenshots: false,
+            build: process.env.BUILD_NUMBER,
+            tags: ['ceb'],
+            recordVideo: true,
+            recordScreenshots: true,
             connectOptions: {
                 verbose: true,
                 verboseDebugging: true,
-                connectRetries: 5,
+                connectRetries: 3,
                 connectRetryTimeout: 5000
             }
         }
