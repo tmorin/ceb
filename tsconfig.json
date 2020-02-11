@@ -14,5 +14,14 @@
   },
   "include": [
     "src"
-  ]
+  ],
+  "typedocOptions": {
+    "inputFiles": [
+      "./src/ceb.ts"
+    ],
+    "readme": "none",
+    "mode": "file",
+    "entryPoint": "'ceb'",
+    "out": "public/api"
+  }
 }

@@ -1,6 +1,6 @@
-# DelegateBuilder
+# AttributeDelegateBuilder
 
-The class `AttributeDelegateBuilder` provides services to delegate the mutations of an attribute to targets (i.e. child nodes).
+The class `AttributeDelegateBuilder` provides services to delegate the mutations of an attribute to targets (i.e. a child nodes).
 
 The static method `AttributeDelegateBuilder.get(attributeBuilder)` returns a fresh builder.
 The builder expects the instance of an `AttributeBuilder`.
@@ -19,6 +19,8 @@ import {DelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
 const builder = DelegateBuilder.attribute(AttributeBuilder.get('an-attribute'))
 ```
 
+The builder and underlying decorators are also technically documented: [AttributeDelegateBuilder](../api/classes/attributedelegatebuilder.html).
+
 ## Set the selector
 
 The method `AttributeDelegateBuilder#to(selector)` has to be used to define the selector.
@@ -26,7 +28,7 @@ The selector is mandatory otherwise the builder won't be able to identify the ta
 
 ```javascript
 import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
-// add a listener to the custom element listening to `click` events
+// delegate the accesses to the attribute 'an-attribute'
 const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
     .to('button');
 ```
@@ -39,7 +41,7 @@ The method `AttributeDelegateBuilder#shadow()` can be used to select targets rel
 
 ```javascript
 import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
-// add a listener to the custom element listening to `click` events
+// delegate the accesses to the attribute 'an-attribute'
 const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
     .to('button')
     .shadow();
@@ -53,7 +55,7 @@ The method `AttributeDelegateBuilder#attribute(toAttrName)` can be used to force
 
 ```javascript
 import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
-// add a listener to the custom element listening to `click` events
+// delegate the accesses to the attribute 'an-attribute'
 const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
     .to('button')
     .attribute('another-attribute');
@@ -65,10 +67,25 @@ The method `AttributeDelegateBuilder#property(toPropName)` can be used to force 
 
 ```javascript
 import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
-// add a listener to the custom element listening to `click` events
+// delegate the accesses to the attribute 'an-attribute'
 const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
     .to('button')
     .property('aProperty');
+```
+
+## The decorator
+
+Attribute delegations can also be defined using a decorator.
+
+```javascript
+import {ElementBuilder, AttributeDelegateBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element<MyCustomElement>()
+// define an attribute delegation
+@AttributeDelegateBuilder.delegate('value', 'input')
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+}
 ```
 
 ## Example

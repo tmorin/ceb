@@ -1,6 +1,27 @@
 import {Builder, CustomElementConstructor} from './builder';
 import {HooksRegistration} from './hook';
 import {toArray} from './utilities';
+import {ElementBuilder} from './element';
+
+/**
+ * The options of the decorator: `ReferenceBuilder.reference()`.
+ */
+export interface ReferenceDecoratorOptions {
+    /**
+     * The CSS selector used to identify the DOM element(s).
+     */
+    selector?: string
+    /**
+     * The property can be an array.
+     * In this case, the output is an array of matched elements.
+     */
+    isArray?: boolean
+    /**
+     * By default, the builder uses the `querySelector` method of the CustomElement.
+     * With this option, the builder will use the `querySelector` method of the attached (and opened) shadow DOM.
+     */
+    isShadow?: boolean
+}
 
 /**
  * Reference builder provides services to bind a property to a embedded DOM element.
@@ -21,6 +42,26 @@ export class ReferenceBuilder implements Builder {
      */
     static get(propName: string) {
         return new ReferenceBuilder(propName, `#${propName}`);
+    }
+
+    /**
+     * Property Decorator used to get embedded HTML elements.
+     * @param options the options
+     */
+    static reference(options: ReferenceDecoratorOptions = {}) {
+        return function (target: HTMLElement, propName: string) {
+            const id = `field-${propName}`;
+            const builder = ElementBuilder.getOrSet(target, id, ReferenceBuilder.get(propName));
+            if (options.selector) {
+                builder.selector(options.selector)
+            }
+            if (options.isArray) {
+                builder.array();
+            }
+            if (options.isShadow) {
+                builder.shadow();
+            }
+        }
     }
 
     /**

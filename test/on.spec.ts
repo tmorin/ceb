@@ -18,7 +18,7 @@ function listen(el: Node, type: string, limit: number, done: Function) {
     el.addEventListener(type, listener);
 }
 
-describe('OnBuilder', () => {
+describe('on', () => {
     let sandbox;
 
     beforeEach(function () {

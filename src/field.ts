@@ -1,7 +1,11 @@
-import {toKebabCase} from './utilities';
+import {toCamelCase, toKebabCase} from './utilities';
 import {Builder, CustomElementConstructor} from './builder';
 import {HooksRegistration} from './hook';
+import {ElementBuilder} from './element';
 
+/**
+ * The data of the field listener.
+ */
 export interface FieldListenerData {
     /**
      * The property name.
@@ -21,12 +25,49 @@ export interface FieldListenerData {
     newVal: any
 }
 
+/**
+ * The field listener.
+ */
 export interface FieldListener {
     /**
      * @param el the custom element
      * @param data the data
      */
     (el: HTMLElement, data: FieldListenerData): void
+}
+
+/**
+ * The options of the decorator: `FieldBuilder.field()`.
+ */
+export interface FieldDecoratorOptions {
+    /**
+     * To override the name of the attribute.
+     */
+    attrName?: string
+    /**
+     * When the value is truthy, the attribute's value is "".
+     * When the value is falsy, the attribute is removed.
+     */
+    boolean?: boolean
+}
+
+/**
+ * The options of the decorator: `FieldBuilder.listen()`.
+ */
+export interface ListenerFieldDecoratorOptions {
+    /**
+     * To specify the name of the property.
+     */
+    propName?: string
+    /**
+     * The prefix to strip  to get the field name.
+     * By default, the prefix is `on`.
+     */
+    prefix?: string
+}
+
+function getPrefix(value: string) {
+    return value ? value : 'on';
 }
 
 /**
@@ -45,7 +86,40 @@ export class FieldBuilder implements Builder {
     }
 
     /**
-     * Provides a fresh build.
+     * Property Decorator used to bind a property to an attribute.
+     * @param options the options
+     */
+    static field(options: FieldDecoratorOptions = {}) {
+        return function (target: HTMLElement, propName: string) {
+            const id = `field-${propName}`;
+            const builder = ElementBuilder.getOrSet(target, id, FieldBuilder.get(propName));
+            if (options.boolean) {
+                builder.boolean();
+            }
+            if (options.attrName) {
+                builder.attribute(options.attrName);
+            }
+        }
+    }
+
+    /**
+     * Method Decorator used to register a listener listening to field changes.
+     * @param options the options
+     */
+    static listen(options: ListenerFieldDecoratorOptions = {}) {
+        return function (target: any, methName: string, descriptor: PropertyDescriptor) {
+            const prefix = getPrefix(options.prefix);
+            const propName = options.propName || toCamelCase(toKebabCase(methName.replace(prefix, '')));
+            const id = `field-${propName}`;
+            ElementBuilder.getOrSet(target, id, FieldBuilder.get(propName)).listener((el, data) => {
+                const fn = descriptor.value as Function;
+                fn.call(el, data);
+            });
+        }
+    }
+
+    /**
+     * Provide a fresh builder.
      * @param propName the property name
      */
     static get(propName: string) {
@@ -125,7 +199,7 @@ export class FieldBuilder implements Builder {
         // handles the default value
         hooks.after('connectedCallback', el => {
             const defaultValueDescriptor = Object.getOwnPropertyDescriptor(el, defaultValuePropName);
-            // applies the default value if the its description has been found
+            // applies the default value if its description has been found
             if (!el.hasAttribute(this.attrName) && defaultValueDescriptor) {
                 const defaultValue = defaultValueDescriptor.value;
                 if (defaultValue !== undefined && defaultValue !== false) {

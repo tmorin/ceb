@@ -1,15 +1,36 @@
 import {Builder} from './builder';
 import {toArray} from './utilities';
 import {HooksRegistration} from './hook';
+import {ElementBuilder} from './element';
 
+/**
+ * A event listener.
+ */
 export interface OnListener {
     (el: HTMLElement, evt: Event, target: Element): void
 }
 
+/**
+ * A useless function.
+ */
 const noop = () => {
 };
 
+/**
+ * Event clauses `[[<name>,<target>]]` => `[['click', 'button'], ['click', 'a.button']]`.
+ */
 type Clauses = Array<Array<string>>
+
+/**
+ * The options of the decorator: `OnBuilder.listen()`.
+ */
+export interface ListenerOnDecoratorOptions {
+    forceCapture?: boolean
+    forcePreventDefault?: boolean
+    forceStopPropagation?: boolean
+    selector?: string
+    isShadow?: boolean
+}
 
 /**
  * The on builder provides services to listen to DOM events.
@@ -34,6 +55,36 @@ export class OnBuilder implements Builder {
      */
     static get(clauses: string) {
         return new OnBuilder(clauses);
+    }
+
+    /**
+     * Method Decorator used to register a listener listening to event changes.
+     * @param clauses the clauses
+     * @param options the options
+     */
+    static listen(clauses: string, options: ListenerOnDecoratorOptions = {}) {
+        return function (target: any, methName: string, descriptor: PropertyDescriptor) {
+            const id = `on-${clauses}`;
+            const builder = ElementBuilder.getOrSet(target, id, OnBuilder.get(clauses)).invoke((el, data) => {
+                const fn = descriptor.value as Function;
+                fn.call(el, data);
+            });
+            if (options.forceCapture) {
+                builder.capture();
+            }
+            if (options.forcePreventDefault) {
+                builder.prevent();
+            }
+            if (options.forceStopPropagation) {
+                builder.stop();
+            }
+            if (options.isShadow) {
+                builder.shadow();
+            }
+            if (options.selector) {
+                builder.delegate(options.selector);
+            }
+        }
     }
 
     /**

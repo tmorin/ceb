@@ -5,7 +5,7 @@ import {getTagName} from './helpers';
 import * as sinon from 'sinon';
 import {SinonSpy} from 'sinon';
 
-describe('FieldBuilder', () => {
+describe('field', () => {
     let sandbox;
 
     beforeEach(function () {

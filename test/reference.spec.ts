@@ -4,7 +4,7 @@ import {ElementBuilder} from '../src/ceb';
 import {getTagName} from './helpers';
 import {ReferenceBuilder} from '../src/reference';
 
-describe('ReferenceBuilder', () => {
+describe('reference', () => {
     let sandbox;
 
     beforeEach(function () {

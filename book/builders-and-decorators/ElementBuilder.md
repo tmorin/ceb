@@ -18,6 +18,8 @@ class MyCustomElement extends HTMLElement {
 const builder = ElementBuilder.get(MyCustomElement)
 ```
 
+The builder and underlying decorators are also technically documented: [ElementBuilder](../api/classes/elementbuilder.html).
+
 ## Registering a new custom element
 
 A custom element is registered with the method `ElementBuilder#register()`.
@@ -34,6 +36,20 @@ class MyCustomElement extends HTMLElement {
 const builder = ElementBuilder.get(MyCustomElement)
 // register the custom element
 builder.register()
+```
+
+The custom element can also be registered by a decorator.
+
+```javascript
+import {ElementBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element<MyCustomElement>()
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+    constructor() {
+        super()
+    }
+}
 ```
 
 By default, the name of the custom element is the kebab case of the class name.
@@ -73,6 +89,23 @@ builder.extends('button')
 builder.register()
 ```
 
+The extended HTML element can also be provided with the decorator.
+
+```javascript
+import {ElementBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element<MyCustomButton>({
+    // provides the tag name of HTMLButtonElement
+    extends: 'button'
+})
+// defines the custom element class
+class MyCustomButton extends HTMLButtonElement {
+    constructor() {
+        super()
+    }
+}
+```
+
 Once registered, the custom element can be created.
 
 ```html
@@ -101,10 +134,27 @@ class MyCustomElementBis extends HTMLElement {
 }
 // creates the builder
 const builder = ElementBuilder.get(MyCustomElementBis)
-// override the default tag name
+// overrides the default tag name
 builder.name('another-name')
 // register the custom element
 builder.register()
+```
+
+The name of the custom element can also be provided with the decorator.
+
+```javascript
+import {ElementBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element<MyCustomElementBis>({
+    // overrides the default tag name
+    name: 'another-name'
+})
+// defines the custom element class
+class MyCustomElementBis extends HTMLButtonElement {
+    constructor() {
+        super()
+    }
+}
 ```
 
 In this case, the name of the custom element is `another-name`.

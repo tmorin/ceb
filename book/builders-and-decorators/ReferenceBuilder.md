@@ -11,6 +11,8 @@ import {ReferenceBuilder} from '@tmorin/ceb'
 const builder = ReferenceBuilder.get('myInput')
 ```
 
+The builder and underlying decorators are also technically documented: [ReferenceBuilder](../api/classes/referencebuilder.html).
+
 ## Default selector
 
 By default, the builder binds the property to a child having the same id.
@@ -46,6 +48,22 @@ The method `ReferenceBuilder#shadow()` can be used to bind the property relative
 import {ReferenceBuilder} from '@tmorin/ceb'
 // initializes the shadow DOM of the custom element
 const builder = ReferenceBuilder.get('button').shadow()
+```
+
+## The decorator
+
+References can also be defined using decorators.
+
+```javascript
+import {ElementBuilder, ReferenceBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element<MyCustomElement>()
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+    // define the reference
+    @ReferenceBuilder.reference({isShadow: true, selector: 'ul'})
+    readonly ul: HTMLUListElement;
+}
 ```
 
 ## Example

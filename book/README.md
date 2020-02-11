@@ -6,7 +6,8 @@ By this way, `<ceb/>` is natively opened to extensions and builders easily shara
 
 `<ceb/>` is released under the [MIT license].
 
-The source code is available on GitHub: https://github.com/tmorin/ceb
+The source code is available on GitHub: [github.com/tmorin/ceb].
 
 [Custom Elements (v1)]: https://html.spec.whatwg.org/multipage/custom-elements.html
 [MIT license]: http://opensource.org/licenses/MIT
+[github.com/tmorin/ceb]: https://github.com/tmorin/ceb

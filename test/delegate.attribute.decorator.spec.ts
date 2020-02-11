@@ -1,15 +1,33 @@
 import '@webcomponents/webcomponentsjs';
 import * as assert from 'assert';
-import {AttributeBuilder, AttributeDelegateBuilder, DelegateBuilder, ElementBuilder} from '../src/ceb';
-import {getTagName} from './helpers';
+import {AttributeDelegateBuilder, ElementBuilder} from '../src/ceb';
 
-describe('AttributeDelegateBuilder', () => {
+describe('delegate.attribute.decorator', () => {
     let sandbox;
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'));
     });
     it('should delegate attribute', () => {
-        class ElBuilderShouldDelegateAttrToAttr extends HTMLElement {
+        const tagName = 'el-delegate-attribute';
+
+        @ElementBuilder.element<TestElement>({name: tagName})
+        @AttributeDelegateBuilder.delegate('value', 'input', {
+            defaultValue: 'default value'
+        })
+        @AttributeDelegateBuilder.delegate('disabled', 'input', {
+            isBoolean: true,
+            defaultValue: true
+        })
+        @AttributeDelegateBuilder.delegate('alt-type', 'input', {
+            toAttrName: 'type',
+            defaultValue: 'text'
+        })
+        @AttributeDelegateBuilder.delegate('label', 'button', {
+            isShadow: true,
+            toPropName: 'textContent',
+            defaultValue: 'default label'
+        })
+        class TestElement extends HTMLElement {
             constructor() {
                 super();
                 this.attachShadow({mode: 'open'});
@@ -21,18 +39,7 @@ describe('AttributeDelegateBuilder', () => {
             }
         }
 
-        ElementBuilder.get(ElBuilderShouldDelegateAttrToAttr).builder(
-            DelegateBuilder.attribute(AttributeBuilder.get('value').default('default value'))
-                .to('input'),
-            DelegateBuilder.attribute(AttributeBuilder.get('disabled').boolean().default(true))
-                .to('input'),
-            DelegateBuilder.attribute(AttributeBuilder.get('alt-type').default('text'))
-                .to('input').attribute('type'),
-            DelegateBuilder.attribute(AttributeBuilder.get('label').default('default label'))
-                .to('button').shadow().property('textContent'),
-        ).register();
-        const tagName = getTagName(ElBuilderShouldDelegateAttrToAttr);
-        const element = sandbox.appendChild(document.createElement(tagName)) as ElBuilderShouldDelegateAttrToAttr;
+        const element = sandbox.appendChild(document.createElement(tagName)) as TestElement;
         assert.ok(sandbox.querySelector(tagName));
 
         assert.strictEqual(element.getAttribute('value'), 'default value');

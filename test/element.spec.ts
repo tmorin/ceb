@@ -6,7 +6,7 @@ import * as sinon from 'sinon';
 import {SinonSpy} from 'sinon';
 import {toKebabCase} from '../src/utilities';
 
-describe('ElementBuilder', () => {
+describe('element', () => {
     let sandbox;
 
     beforeEach(function () {

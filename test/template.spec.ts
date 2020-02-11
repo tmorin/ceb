@@ -4,7 +4,7 @@ import {ElementBuilder} from '../src/ceb';
 import {getTagName} from './helpers';
 import {TemplateBuilder} from '../src/template';
 
-describe('TemplateBuilder', () => {
+describe('template', () => {
     let sandbox;
 
     beforeEach(function () {

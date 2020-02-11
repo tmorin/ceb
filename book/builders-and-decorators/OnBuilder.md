@@ -13,6 +13,8 @@ import {OnBuilder} from '@tmorin/ceb'
 const builder = OnBuilder.get('click, dblclick')
 ```
 
+The builder and underlying decorators are also technically documented: [OnBuilder](../api/classes/onbuilder.html).
+
 ## Listening to events from the custom element
 
 By default, the listeners are added to the custom element it-self.
@@ -21,7 +23,7 @@ By default, the listeners are added to the custom element it-self.
 import {OnBuilder} from '@tmorin/ceb'
 // add a listener to the custom element listening to `click` events
 const builder = OnBuilder.get('click').invoke((el, evt, target) => {
-    console.log(el.tagName, evt.type, target.tagName)
+    console.log(el.tagName, evt.type, target.tagName);
     console.assert(el.tagName === target.tagName)
 })
 ```
@@ -35,8 +37,8 @@ The query selector targeting the child node has to be given next to the DOM even
 import {OnBuilder} from '@tmorin/ceb'
 // add a listener to the first child button listening to `click` events
 const builder = OnBuilder.get('click button').invoke((el, evt, target) => {
-    console.log(el.tagName, evt.type, target.tagName)
-    console.assert(el.tagName !== target.tagName)
+    console.log(el.tagName, evt.type, target.tagName);
+    console.assert(el.tagName !== target.tagName);
     console.assert('BUTTON' === target.tagName)
 })
 ```
@@ -63,9 +65,9 @@ The method `Event#preventDefault()` and `Event#stopPropagation()` can be automat
 ```javascript
 import {OnBuilder} from '@tmorin/ceb'
 // add a listener listening `submit` events and preventing the default behavior
-const builder = OnBuilder.get('submit').prevent()
+const builder = OnBuilder.get('submit').prevent();
 // add a listener listening `submit` events and stopping the event propagation
-const builder = OnBuilder.get('button').stop()
+const builder = OnBuilder.get('button').stop();
 // add a listener listening `submit` events and preventing the default behavior as well as stopping the event propagation
 const builder = OnBuilder.get('button').skip()
 ```
@@ -94,6 +96,24 @@ So that, the listener only listen to events coming from the shadow DOM.
 import {OnBuilder} from '@tmorin/ceb'
 // add a listener listening `click` events coming from the shadow DOM
 const builder = OnBuilder.get('click').shadow()
+```
+
+## The decorator
+
+On listeners can also be defined using decorator.
+
+```javascript
+import {ElementBuilder, OnBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element<MyCustomElement>();
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+    // defines the listener
+    @OnBuilder.listen('event-name')
+    on(data: Event) {
+        console.log(data);
+    }
+}
 ```
 
 ## Example

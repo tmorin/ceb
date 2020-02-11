@@ -11,6 +11,24 @@ export interface HookRegistry {
 }
 
 /**
+ * The options of the decorator:`ElementBuilder.element()`.
+ */
+export interface ElementDecoratorOptions<T extends HTMLElement> {
+    /**
+     * Override the name of the custom element.
+     */
+    name?: string,
+    /**
+     * Set the extended HTML element.
+     */
+    extends?: string,
+    /**
+     * Set a pre-configured builder.
+     */
+    builder?: ElementBuilder<T>
+}
+
+/**
  * The element builder provides services to define and register CustomElement.
  */
 export class ElementBuilder<T extends HTMLElement> implements HooksRegistration {
@@ -24,6 +42,43 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
     ) {
     }
 
+    /**
+     * Get or set builder to a target.
+     * @param target the target
+     * @param id the id used to identify the builder
+     * @param builder the builder
+     */
+    static getOrSet<B extends Builder>(target: HTMLElement, id: string, builder: B): B {
+        if (!target['_cebBuilders']) {
+            target['_cebBuilders'] = {};
+        }
+        if (!target['_cebBuilders'][id]) {
+            target['_cebBuilders'][id] = builder;
+        }
+        return target['_cebBuilders'][id];
+    }
+
+    /**
+     * Class decorator used to register a CustomElement.
+     * @param options the options
+     */
+    static element<T extends HTMLElement>(options: ElementDecoratorOptions<T> = {}) {
+        return function (constructor: CustomElementConstructor<T>) {
+            const builder = options.builder ? options.builder : ElementBuilder.get(constructor);
+            if (options.name) {
+                builder.name(options.name);
+            }
+            if (options.extends) {
+                builder.extends(options.extends);
+            }
+            return builder.register();
+        }
+    }
+
+    /**
+     * Provide a fresh builder.
+     * @param constructor the constructor.
+     */
     static get<T extends HTMLElement>(constructor: CustomElementConstructor<T>) {
         const name = toKebabCase(constructor.name || '');
         return new ElementBuilder<T>(name, constructor);
@@ -126,7 +181,9 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
      */
     register(): CustomElementConstructor<T> {
         const OriginalClass = this.elConstructor;
-        const builders = this.builders;
+        const altBuilders: Array<Builder> = Object.values(OriginalClass.prototype['_cebBuilders'] || {});
+        delete OriginalClass.prototype['_cebBuilders'];
+        const builders = [...this.builders, ...altBuilders];
         const hooks = this;
 
         // @ts-ignore
@@ -177,6 +234,7 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
                 hooks.invoke('after', 'attributeChangedCallback', callback => callback(this, name, oldValue, newValue));
             }
         };
+
 
         builders.forEach(builder => builder.build(Wrapper, this));
 

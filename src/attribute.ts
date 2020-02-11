@@ -1,7 +1,11 @@
 import {toCamelCase, toKebabCase} from './utilities';
 import {Builder, CustomElementConstructor} from './builder';
 import {HooksRegistration} from './hook';
+import {ElementBuilder} from './element';
 
+/**
+ * The data of the attribute listener.
+ */
 export interface AttributeListenerData {
     /**
      * The attribute name.
@@ -17,12 +21,41 @@ export interface AttributeListenerData {
     newVal: any
 }
 
+/**
+ * The attribute listener.
+ */
 export interface AttributeListener {
     /**
      * @param el the custom element
      * @param data the data
      */
     (el: HTMLElement, data: AttributeListenerData): void
+}
+
+/**
+ * The options of the decorator: `AttributeBuilder.listen()`.
+ */
+export interface ListenerAttributeDecoratorOptions {
+    /**
+     * The attribute name.
+     */
+    attrName?: string
+    /**
+     * The prefix to strip  to get the attribute name.
+     * If `true`, the prefix will be `on`.
+     */
+    prefix?: boolean | string
+    /**
+     * When the value is truthy, the attribute's value is "" otherwise the attribute is removed.
+     */
+    isBoolean?: boolean
+}
+
+function getPrefix(prefix?: boolean | string): string {
+    if (typeof prefix === 'string') {
+        return prefix;
+    }
+    return prefix === false ? '' : 'on';
 }
 
 /**
@@ -39,11 +72,30 @@ export class AttributeBuilder implements Builder {
     }
 
     /**
-     * Provides a fresh build.
+     * Provide a fresh builder.
      * @param attrName the attribute name
      */
     static get(attrName: string) {
         return new AttributeBuilder(toKebabCase(attrName));
+    }
+
+    /**
+     * Method Decorator used to register a listener listening to attribute changes.
+     * @param options the options
+     */
+    static listen(options: ListenerAttributeDecoratorOptions = {}) {
+        return function (target: any, methName: string, descriptor: PropertyDescriptor) {
+            const prefix = getPrefix(options.prefix);
+            const attrName = options.attrName || toKebabCase(methName.replace(prefix, ''));
+            const id = `attribute-${attrName}`;
+            const builder = ElementBuilder.getOrSet(target, id, AttributeBuilder.get(attrName)).listener((el, data) => {
+                const fn = descriptor.value as Function;
+                fn.call(el, data);
+            });
+            if (options.isBoolean) {
+                builder.boolean();
+            }
+        }
     }
 
     /**

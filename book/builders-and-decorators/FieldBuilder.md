@@ -13,6 +13,8 @@ import {FieldBuilder} from '@tmorin/ceb'
 const builder = FieldBuilder.get('aField')
 ```
 
+The builder and underlying decorators are also technically documented: [FieldBuilder](../api/classes/fieldbuilder.html).
+
 ## Boolean value
 
 By default a field is a string value.
@@ -52,6 +54,27 @@ import {FieldBuilder} from '@tmorin/ceb'
 const builder = FieldBuilder.get('aField').listener((el, data) => {
     console.log(el.tagName, data.propName, data.attrName, data.oldVal, data.newVal);
 })
+```
+
+## The decorators
+
+Fields can also be defined using decorators.
+
+```javascript
+import {ElementBuilder, FieldBuilder, FieldListenerData} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element<MyCustomElement>();
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+    // defines the field
+    @FieldBuilder.field()
+    altName = 'a field';
+    // defines the listener
+    @FieldBuilder.listen()
+    onAltName(data: FieldListenerData) {
+        console.log(data);
+    }
+}
 ```
 
 ## An example

@@ -11,6 +11,8 @@ import {TemplateBuilder} from '@tmorin/ceb'
 const builder = TemplateBuilder.get('<strong>the content</strong>')
 ```
 
+The builder and underlying decorators are also technically documented: [TemplateBuilder](../api/classes/templatebuilder.html).
+
 ## Initialize the shadow DOM
 
 By default, the builder initializes the light DOM of the custom element.
@@ -20,6 +22,21 @@ The method `TemplateBuilder#shadow(focus)` can be used to force the initializati
 import {TemplateBuilder} from '@tmorin/ceb'
 // initializes the shadow DOM of the custom element
 const builder = TemplateBuilder.get('a content').shadow()
+```
+
+## The decorator
+
+Templates can also be defined using decorators.
+
+```javascript
+import {ElementBuilder, TemplateBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element<MyCustomElement>()
+// define the template
+@TemplateBuilder.template({content: '<p><input></p>', isShadow: true})
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+}
 ```
 
 ## Example

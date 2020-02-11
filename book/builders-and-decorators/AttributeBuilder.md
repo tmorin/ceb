@@ -11,6 +11,8 @@ import {AttributeBuilder} from '@tmorin/ceb'
 const builder = AttributeBuilder.get('an-attribute')
 ```
 
+The builder and underlying decorators are also technically documented: [AttributeBuilder](../api/classes/attributebuilder.html).
+
 ## Boolean value
 
 By default an attribute is a string value.
@@ -57,6 +59,24 @@ import {AttributeBuilder} from '@tmorin/ceb'
 const builder = AttributeBuilder.get('an-attribute').listener((el, data) => {
     console.log(el.tagName, data.attrName, data.oldVal, data.newVal);
 })
+```
+
+## The decorator
+
+Attributes can also be defined using a decorator.
+
+```javascript
+import {ElementBuilder, AttributeBuilder, AttributeListenerData} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element<MyCustomElement>()
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+    // bind the method to the attribute 'an-attribute'
+    @AttributeBuilder.listen()
+    onAnAttribute(data: AttributeListenerData) {
+        console.log(data);
+    }
+}
 ```
 
 ## An example

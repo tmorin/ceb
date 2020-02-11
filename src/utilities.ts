@@ -20,22 +20,6 @@ export function toKebabCase(value: string = '') {
 }
 
 /**
- * Checks if value is undefined.
- * @param value the value to check
- */
-export function isUndefined(value?: any): boolean {
-    return value === undefined;
-}
-
-/**
- * Checks if value is null.
- * @param value the value to check
- */
-export function isNull(value?: any): boolean {
-    return value === null;
-}
-
-/**
  * Converts value to an array.
  * @param value the value to convert
  */
