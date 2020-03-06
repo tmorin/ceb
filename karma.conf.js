@@ -1,5 +1,9 @@
 const webpackDev = require('./webpack.dev');
 
+if (!process.env.CHROME_BIN) {
+    process.env.CHROME_BIN = require('puppeteer').executablePath();
+}
+
 module.exports = (config) => {
     config.set({
         frameworks: ['mocha'],
@@ -69,7 +73,7 @@ module.exports = (config) => {
                 verbose: true,
                 verboseDebugging: true,
                 connectRetries: 3,
-                connectRetryTimeout: 5000
+                connectRetryTimeout: 10000
             }
         }
     });

@@ -8,6 +8,10 @@ sources:
 secrets:
   - acf6b9a6-072c-47ec-8af0-304017a5fcec
   - 287002e6-a9ea-4a23-b61f-2be49055b936
+packages:
+  - xvfb
+  - firefox
+  - chromium-browser
 tasks:
   - git: |
       cd ceb
@@ -27,7 +31,8 @@ tasks:
       npm ci --no-progress
   - test: |
       cd ceb
-      BUILD_NUMBER="ceb-${JOB_ID}" npm test
+      CHROME_BIN=/usr/bin/chromium-browser npm run test:ci
+  #      BUILD_NUMBER="ceb-${JOB_ID}" npm test:sl
   - build: |
       cd ceb
       npm run build
