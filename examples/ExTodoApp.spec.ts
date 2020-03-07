@@ -1,4 +1,3 @@
-import '@webcomponents/webcomponentsjs';
 import './ExTodoApp';
 import {ExTodoApp} from './ExTodoApp';
 import {ExTodoItem} from './ExTodoItem';

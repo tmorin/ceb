@@ -1,4 +1,3 @@
-import '@webcomponents/webcomponentsjs';
 import './ExFormField';
 import {ExFormField} from './ExFormField';
 import {toArray} from '../src/utilities';

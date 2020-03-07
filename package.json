@@ -52,7 +52,6 @@
     "@tmorin/udom": "^0.6.0",
     "@types/mocha": "^7.0.2",
     "@types/sinon": "^7.5.2",
-    "@webcomponents/webcomponentsjs": "^2.4.2",
     "karma": "^4.4.1",
     "karma-chrome-launcher": "^3.1.0",
     "karma-cli": "^2.0.0",
