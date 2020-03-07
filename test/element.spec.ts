@@ -1,4 +1,3 @@
-import '@webcomponents/webcomponentsjs';
 import * as assert from 'assert';
 import {ElementBuilder} from '../src/ceb';
 import {getTagName} from './helpers';

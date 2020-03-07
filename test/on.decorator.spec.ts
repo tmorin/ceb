@@ -1,4 +1,3 @@
-import '@webcomponents/webcomponentsjs';
 import * as sinon from 'sinon';
 import {SinonSpy} from 'sinon';
 import * as assert from 'assert';

@@ -1,4 +1,3 @@
-import '@webcomponents/webcomponentsjs';
 import * as assert from 'assert';
 import {ElementBuilder, TemplateBuilder} from '../src/ceb';
 
