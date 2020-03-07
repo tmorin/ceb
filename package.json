@@ -5,20 +5,12 @@
   "description": "ceb (custom-element-builder) is a library helping to develop Custom Elements.",
   "keywords": [
     "custom-element-builder",
-    "web-components",
-    "Web",
-    "Components",
-    "Component",
-    "Custom",
-    "Element",
-    "Elements",
-    "DOM",
-    "W3C",
-    "FRP",
-    "functional",
-    "reactive",
-    "template",
-    "builder"
+    "custom-elements-v1",
+    "custom-elements",
+    "custom-element",
+    "typescript",
+    "typescript-library",
+    "javascript-library"
   ],
   "homepage": "https://tmorin.github.io/ceb",
   "bugs": {
