@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/tmorin/ceb/compare/v2.0.0...v2.0.1) (2020-03-10)
+
+
+### Bug Fixes
+
+* add missing badges ([6806c9d](https://github.com/tmorin/ceb/commit/6806c9de7628003412b7616eae90378f7d071592))
+
 ## [2.0.0](https://github.com/tmorin/ceb/compare/v1.0.4...v2.0.0) (2020-03-10)
 
 
