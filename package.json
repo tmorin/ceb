@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb",
-  "version": "2.0.0-alpha.13",
+  "version": "2.0.0-alpha.14",
   "license": "MIT",
   "description": "ceb (custom-element-builder) is a library helping to develop Custom Elements.",
   "keywords": [
@@ -40,6 +40,8 @@
     "build:umd": "webpack --config webpack.dev.js",
     "build:umd:min": "webpack --config webpack.prd.js",
     "build": "npm run build:clean && npm run build:lib && npm run build:umd && npm run build:umd:min",
+    "release": "npm run build && standard-version",
+    "release:publish": "git push --tags && git push --all && npm publish --tag latest",
     "prerelease": "npm run build && standard-version --skip.changelog --skip.tag --prerelease alpha",
     "prerelease:publish": "git push --tags && git push --all && npm publish --tag canary --tag latest",
     "book:typedoc": "typedoc",
