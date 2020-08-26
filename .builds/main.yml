@@ -1,4 +1,4 @@
-image: ubuntu/latest
+image: ubuntu/lts
 environment:
   MDBOOK_VERSION: "0.3.5"
   SAUCE_CONNECT_DOWNLOAD_ON_INSTALL: "true"
