@@ -39,42 +39,6 @@ module.exports = (config) => {
 
         junitReporter: {
             outputDir: '.tmp/junit'
-        },
-
-        customLaunchers: {
-            sl_firefox: {
-                base: 'SauceLabs',
-                browserName: 'firefox'
-            },
-            sl_chrome: {
-                base: 'SauceLabs',
-                browserName: 'chrome'
-            },
-            sl_edge: {
-                base: 'SauceLabs',
-                browserName: 'MicrosoftEdge'
-            },
-            sl_android: {
-                base: 'SauceLabs',
-                deviceName: 'Android GoogleAPI Emulator',
-                platformName: 'Android',
-                platformVersion: '9.0',
-                browserName: 'Chrome'
-            }
-        },
-
-        sauceLabs: {
-            testName: 'ceb - unit testing',
-            build: process.env.BUILD_NUMBER,
-            tags: ['ceb'],
-            recordVideo: true,
-            recordScreenshots: true,
-            connectOptions: {
-                verbose: true,
-                verboseDebugging: true,
-                connectRetries: 3,
-                connectRetryTimeout: 10000
-            }
         }
     });
 };

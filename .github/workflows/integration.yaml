@@ -1,0 +1,38 @@
+name: Integration
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@tmorin'
+      - name: udpate apt
+        run: sudo apt-get update
+      - name: install apt dependencies
+        run: sudo apt-get install -y xvfb firefox chromium-browser
+      - name: install mdbook
+        run: wget https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz -O - | tar -xz -C /tmp
+        env:
+          MDBOOK_VERSION: '0.4.2'
+      - name: install dependencies
+        run: npm ci
+      - name: test package
+        run: npm run test:ci
+        env:
+          CHROME_BIN: '/usr/bin/chromium-browser'
+      - name: build package
+        run: npm run build
+      - name: build typedoc
+        run: npm run doc:typedoc
+      - name: build book
+        run: /tmp/mdbook clean && /tmp/mdbook build
