@@ -1,5 +1,6 @@
 # `<ceb/>` ~ custom-element-builder
 
+[![npm version](https://badge.fury.io/js/%40tmorin%2Fceb.svg)](https://badge.fury.io/js/%40tmorin%2Fceb)
 [![Integration](https://github.com/tmorin/ceb/workflows/Integration/badge.svg?branch=master)](https://github.com/tmorin/ceb/actions?query=workflow%3AIntegration+branch%3Amaster)
 [![manual](https://img.shields.io/badge/-manual-informational.svg)](https://tmorin.github.io/ceb/)
 [![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api)
