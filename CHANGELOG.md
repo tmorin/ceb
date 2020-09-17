@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/tmorin/ceb/compare/v2.0.1...v2.1.0) (2020-09-17)
+
+
+### Features
+
+* prevent double registrations ([3c9e86f](https://github.com/tmorin/ceb/commit/3c9e86f6d86fbc16918347dafabbef64ef222cc4))
+
 ### [2.0.1](https://github.com/tmorin/ceb/compare/v2.0.0...v2.0.1) (2020-03-10)
 
 
