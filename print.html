@@ -1,0 +1,833 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>&lt;ceb/&gt; ~ Custom Element Builder</title>
+        
+        <meta name="robots" content="noindex" />
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="The book presents the usage of the library ceb.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.5.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.6.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.7.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> PropertyDelegateBuilder</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">&lt;ceb/&gt; ~ Custom Element Builder</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        <a href="https://github.com/tmorin/ceb/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#ceb--custom-element-builder" id="ceb--custom-element-builder">&lt;ceb/&gt; ~ Custom Element Builder</a></h1>
+<p><code>&lt;ceb/&gt;</code> is a library helping to develop <a href="https://html.spec.whatwg.org/multipage/custom-elements.html">Custom Elements (v1)</a>.
+Its core is a builder which executes others builders.
+By this way, <code>&lt;ceb/&gt;</code> is natively opened to extensions and builders easily sharable.</p>
+<p><code>&lt;ceb/&gt;</code> is released under the <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+<p>The source code is available on GitHub: <a href="https://github.com/tmorin/ceb">github.com/tmorin/ceb</a>.</p>
+<h1><a class="header" href="#installation" id="installation">Installation</a></h1>
+<p>From npm or yarn or ... from npm what?</p>
+<pre><code class="language-bash">npm install @tmorin/ceb
+</code></pre>
+<p>And also directly in the browser via <a href="https://unpkg.com">unpkg.com</a></p>
+<pre><code class="language-html">&lt;!-- the optimized Universal Module Definition --&gt;
+&lt;script src=&quot;https://unpkg.com/@tmorin/ceb/dist/ceb.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<pre><code class="language-html">&lt;!-- the not optimized Universal Module Definition --&gt;
+&lt;script src=&quot;https://unpkg.com/@tmorin/ceb/dist/ceb.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<h1><a class="header" href="#the-builders-and-decorators" id="the-builders-and-decorators">The builders and decorators</a></h1>
+<p><code>&lt;ceb/&gt;</code> provides several built-in builders handling the common requirements.
+For each builder, decorators counter-parts are available.</p>
+<p>First, the custom element has to be registered using the builder <a href="builders-and-decorators/ElementBuilder.html">ElementBuilder</a>.</p>
+<p>Then, other builders can be used to enhance it:</p>
+<ul>
+<li><a href="builders-and-decorators/AttributeBuilder.html">AttributeBuilder</a>: to define attributes and react on changes</li>
+<li><a href="builders-and-decorators/FieldBuilder.html">FieldBuilder</a>: to define fields (property/attribute) and react on changes</li>
+<li><a href="builders-and-decorators/OnBuilder.html">OnBuilder</a>: to listen to DOM events</li>
+<li><a href="builders-and-decorators/TemplateBuilder.html">TemplateBuilder</a>: to initialize the light or shadow DOM</li>
+<li><a href="builders-and-decorators/ReferenceBuilder.html">ReferenceBuilder</a>: to get reference of children nodes</li>
+<li><a href="builders-and-decorators/AttributeDelegateBuilder.html">AttributeDelegateBuilder</a>: to delegate attribute mutations to child nodes</li>
+<li><a href="builders-and-decorators/PropertyDelegateBuilder.html">PropertyDelegateBuilder</a>: to delegate the property accesses to a single child node</li>
+</ul>
+<h1><a class="header" href="#elementbuilder" id="elementbuilder">ElementBuilder</a></h1>
+<p>The class <code>ElementBuilder</code> provides services to enhance and register a custom element.
+It's the main builder, the entry point of the library.</p>
+<p>The static method <code>CustomElement.get(constructor)</code> returns a fresh builder.
+The method expects the constructor of the custom element.</p>
+<pre><code class="language-javascript">import {ElementBuilder} from '@tmorin/ceb'
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+    constructor() {
+        super()
+    }
+}
+// creates the builder
+const builder = ElementBuilder.get(MyCustomElement)
+</code></pre>
+<p>The builder and underlying decorators are also technically documented: <a href="builders-and-decorators/../api/classes/elementbuilder.html">ElementBuilder</a>.</p>
+<h2><a class="header" href="#registering-a-new-custom-element" id="registering-a-new-custom-element">Registering a new custom element</a></h2>
+<p>A custom element is registered with the method <code>ElementBuilder#register()</code>.</p>
+<pre><code class="language-javascript">import {ElementBuilder} from '@tmorin/ceb'
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+    constructor() {
+        super();
+    }
+}
+// creates the builder
+const builder = ElementBuilder.get(MyCustomElement)
+// register the custom element
+builder.register()
+</code></pre>
+<p>The custom element can also be registered by a decorator.</p>
+<pre><code class="language-javascript">import {ElementBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element&lt;MyCustomElement&gt;()
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+    constructor() {
+        super()
+    }
+}
+</code></pre>
+<p>By default, the name of the custom element is the kebab case of the class name.
+So, <code>MyCustomElement</code> becomes <code>my-custom-element</code>.</p>
+<p>Once registered, the custom element can be created as any other HTML elements.</p>
+<pre><code class="language-html">&lt;!-- creates the custom element in HTML as any other HTML elements --&gt;
+&lt;my-custom-element&gt;&lt;/my-custom-element&gt;
+</code></pre>
+<pre><code class="language-javascript">// creates the custom element from its tag name
+const myCustomElement = document.createElement('my-custom-element')
+// appends the custom element as any other regular HTML element
+document.body.append(myCustomElement)
+</code></pre>
+<h2><a class="header" href="#extending-a-built-in-element" id="extending-a-built-in-element">Extending a built-in element</a></h2>
+<p>To register custom element which extends a built-in HTML elements, the tag name of the extended element has to be provided using the method <code>ElementBuilder#extends()</code>.</p>
+<pre><code class="language-javascript">import {ElementBuilder} from '@tmorin/ceb'
+// defines the custom element class
+class MyCustomButton extends HTMLButtonElement {
+    constructor() {
+        super()
+    }
+}
+// creates the builder
+const builder = ElementBuilder.get(MyCustomButton)
+// provides the tag name of HTMLButtonElement
+builder.extends('button')
+// register the custom element
+builder.register()
+</code></pre>
+<p>The extended HTML element can also be provided with the decorator.</p>
+<pre><code class="language-javascript">import {ElementBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element&lt;MyCustomButton&gt;({
+    // provides the tag name of HTMLButtonElement
+    extends: 'button'
+})
+// defines the custom element class
+class MyCustomButton extends HTMLButtonElement {
+    constructor() {
+        super()
+    }
+}
+</code></pre>
+<p>Once registered, the custom element can be created.</p>
+<pre><code class="language-html">&lt;!-- creates the extended HTML element using the `is` attribute --&gt;
+&lt;button is=&quot;my-custom-button&quot;&gt;&lt;/button&gt;
+</code></pre>
+<pre><code class="language-javascript">// creates the extended HTML element
+const myCustomElement = document.createElement('button', {is: 'my-custom-button'})
+// appends the extended HTML element as any other regular HTML element
+document.body.append(myCustomElement)
+</code></pre>
+<h2><a class="header" href="#overriding-the-name-of-the-custom-element" id="overriding-the-name-of-the-custom-element">Overriding the name of the custom element</a></h2>
+<p>The name of the custom element can be overridden using the method <code>ElementBuilder#name(tagName)</code>.</p>
+<pre><code class="language-javascript">import {ElementBuilder} from '@tmorin/ceb'
+// defines the custom element class
+class MyCustomElementBis extends HTMLElement {
+    constructor() {
+        super()
+    }
+}
+// creates the builder
+const builder = ElementBuilder.get(MyCustomElementBis)
+// overrides the default tag name
+builder.name('another-name')
+// register the custom element
+builder.register()
+</code></pre>
+<p>The name of the custom element can also be provided with the decorator.</p>
+<pre><code class="language-javascript">import {ElementBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element&lt;MyCustomElementBis&gt;({
+    // overrides the default tag name
+    name: 'another-name'
+})
+// defines the custom element class
+class MyCustomElementBis extends HTMLButtonElement {
+    constructor() {
+        super()
+    }
+}
+</code></pre>
+<p>In this case, the name of the custom element is <code>another-name</code>.</p>
+<pre><code class="language-html">&lt;!-- creates the custom element in HTML as any other HTML elements --&gt;
+&lt;another-name&gt;&lt;/another-name&gt;
+</code></pre>
+<h2><a class="header" href="#an-example" id="an-example">An example</a></h2>
+<p>The registered custom element is a simple element having the text content <code>Hello! I'm &lt;the element's name&gt;.</code>.</p>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-user="tmorin" data-slug-hash="abzmRvm" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="ceb - ElementBuilder">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/abzmRvm">
+  ceb - ElementBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<h1><a class="header" href="#attributebuilder" id="attributebuilder">AttributeBuilder</a></h1>
+<p>The class <code>AttributeBuilder</code> provides services to initialize an attribute and react on changes.</p>
+<p>The static method <code>AttributeBuilder.get(attrName)</code> returns a fresh builder.
+The builder expects the name of the attribute in kebab case.</p>
+<pre><code class="language-javascript">import {AttributeBuilder} from '@tmorin/ceb'
+// creates the builder
+const builder = AttributeBuilder.get('an-attribute')
+</code></pre>
+<p>The builder and underlying decorators are also technically documented: <a href="builders-and-decorators/../api/classes/attributebuilder.html">AttributeBuilder</a>.</p>
+<h2><a class="header" href="#boolean-value" id="boolean-value">Boolean value</a></h2>
+<p>By default an attribute is a string value.
+The method <code>AttributeBuilder#boolean()</code> can be used to force a boolean one.</p>
+<pre><code class="language-javascript">import {AttributeBuilder} from '@tmorin/ceb'
+// creates the builder
+const builder = AttributeBuilder.get('a-boolean-attribute').boolean()
+</code></pre>
+<p>The value <code>true</code> means the attribute exists: <code>element.hasAttribute('a-boolean-value') === true</code>.
+When <code>true</code>, the value of the attribute is an empty string.</p>
+<p>The value <code>false</code> means the attribute doesn't exist: <code>element.hasAttribute('a-boolean-value') === false</code>.</p>
+<h2><a class="header" href="#default-value" id="default-value">Default value</a></h2>
+<p>Once instantiated, an attribute can have a default value.
+The method <code>AttributeBuilder#default(value)</code> can be used to set the default value.</p>
+<pre><code class="language-javascript">import {AttributeBuilder} from '@tmorin/ceb'
+// creates the builder and set the default value `a default value`
+const builder = AttributeBuilder.get('an-attribute').default('a default value')
+</code></pre>
+<p>An attribute of type boolean can also have a default value.</p>
+<pre><code class="language-javascript">import {AttributeBuilder} from '@tmorin/ceb'
+// creates the builder and set the default value `false`
+const builder = AttributeBuilder.get('an-attribute').boolean().default(true)
+</code></pre>
+<h2><a class="header" href="#reacting-on-changes" id="reacting-on-changes">Reacting on changes</a></h2>
+<p>Listeners can be registered in order to react on attribute changes.
+The method <code>AttributeBuilder#listener(listener)</code> can be used to set the default value.</p>
+<pre><code class="language-javascript">import {AttributeBuilder} from '@tmorin/ceb'
+// creates the builder and add a listener
+const builder = AttributeBuilder.get('an-attribute').listener((el, data) =&gt; {
+    console.log(el.tagName, data.attrName, data.oldVal, data.newVal);
+})
+</code></pre>
+<h2><a class="header" href="#the-decorator" id="the-decorator">The decorator</a></h2>
+<p>Attributes can also be defined using a decorator.</p>
+<pre><code class="language-javascript">import {ElementBuilder, AttributeBuilder, AttributeListenerData} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element&lt;MyCustomElement&gt;()
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+    // bind the method to the attribute 'an-attribute'
+    @AttributeBuilder.listen()
+    onAnAttribute(data: AttributeListenerData) {
+        console.log(data);
+    }
+}
+</code></pre>
+<h2><a class="header" href="#an-example-1" id="an-example-1">An example</a></h2>
+<p>The registered custom element is the item of a todo list.
+Its API is two attributes.
+The first one, <code>content</code>, is the description of the task.
+The second one, <code>done</code>, is a boolean saying if the task is done or not.</p>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-user="tmorin" data-slug-hash="vYEXVKd" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="ceb - AttributeBuilder">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/vYEXVKd">
+  ceb - AttributeBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<h1><a class="header" href="#fieldbuilder" id="fieldbuilder">FieldBuilder</a></h1>
+<p>The class <code>FieldBuilder</code> provides services to define fields.
+A field is an attribute bound to a property.
+The value is hosted by the attribute but it can be mutated using the bound property.</p>
+<p>The static method <code>FieldBuilder.get(attrName)</code> returns a fresh builder.
+The builder expects the name of the property in camel case.</p>
+<pre><code class="language-javascript">import {FieldBuilder} from '@tmorin/ceb'
+// creates the builder
+const builder = FieldBuilder.get('aField')
+</code></pre>
+<p>The builder and underlying decorators are also technically documented: <a href="builders-and-decorators/../api/classes/fieldbuilder.html">FieldBuilder</a>.</p>
+<h2><a class="header" href="#boolean-value-1" id="boolean-value-1">Boolean value</a></h2>
+<p>By default a field is a string value.
+The method <code>FieldBuilder#boolean()</code> can be used to force a boolean one.</p>
+<pre><code class="language-javascript">import {FieldBuilder} from '@tmorin/ceb'
+// creates the builder
+const builder = FieldBuilder.get('aBooleanField').boolean()
+</code></pre>
+<p>The value <code>true</code> means the attribute exists: <code>element.hasAttribute('a-boolean-value') === true</code>.
+When <code>true</code>, the value of the attribute is an empty string.</p>
+<p>The value <code>false</code> means the attribute doesn't exist: <code>element.hasAttribute('a-boolean-value') === false</code>.</p>
+<h2><a class="header" href="#attribute-name" id="attribute-name">Attribute name</a></h2>
+<p>By default, the attribute name is the kebab case of the property name.
+It can be overridden using the method <code>FieldBuilder#attribute(attrName)</code>.</p>
+<pre><code class="language-javascript">import {FieldBuilder} from '@tmorin/ceb'
+// creates the builder and overrides the attribute name
+const builder = FieldBuilder.get('aField').attribute('another-attribute-name')
+</code></pre>
+<h2><a class="header" href="#reacting-on-changes-1" id="reacting-on-changes-1">Reacting on changes</a></h2>
+<p>Listeners can be registered in order to react on field changes.
+The method <code>FieldBuilder#listener(listener)</code> can be used to set the default value.</p>
+<pre><code class="language-javascript">import {FieldBuilder} from '@tmorin/ceb'
+// creates the builder and add a listener
+const builder = FieldBuilder.get('aField').listener((el, data) =&gt; {
+    console.log(el.tagName, data.propName, data.attrName, data.oldVal, data.newVal);
+})
+</code></pre>
+<h2><a class="header" href="#the-decorators" id="the-decorators">The decorators</a></h2>
+<p>Fields can also be defined using decorators.</p>
+<pre><code class="language-javascript">import {ElementBuilder, FieldBuilder, FieldListenerData} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element&lt;MyCustomElement&gt;();
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+    // defines the field
+    @FieldBuilder.field()
+    altName = 'a field';
+    // defines the listener
+    @FieldBuilder.listen()
+    onAltName(data: FieldListenerData) {
+        console.log(data);
+    }
+}
+</code></pre>
+<h2><a class="header" href="#an-example-2" id="an-example-2">An example</a></h2>
+<p>The registered custom element is the item of a todo list.
+Its API is two fields.
+The first one, <code>content</code>, is the description of the task.
+The second one, <code>done</code>, is a boolean saying if the task is done or not.</p>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-user="tmorin" data-slug-hash="xxbEyRg" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="ceb - FieldBuilder">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/xxbEyRg">
+  ceb - FieldBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<h1><a class="header" href="#onbuilder" id="onbuilder">OnBuilder</a></h1>
+<p>The class <code>OnBuilder</code> provides services to listen to DOM events.
+Listeners are added on <code>connectedCallback</code> and removed on <code>disconnectedCallback</code>.</p>
+<p>The static method <code>OnBuilder.get(clauses)</code> returns a fresh builder.
+The builder expects the clauses defining the event types to listen to and eventually a query selector.
+Clauses have to be separated by comas.</p>
+<pre><code class="language-javascript">import {OnBuilder} from '@tmorin/ceb'
+// creates the builder
+const builder = OnBuilder.get('click, dblclick')
+</code></pre>
+<p>The builder and underlying decorators are also technically documented: <a href="builders-and-decorators/../api/classes/onbuilder.html">OnBuilder</a>.</p>
+<h2><a class="header" href="#listening-to-events-from-the-custom-element" id="listening-to-events-from-the-custom-element">Listening to events from the custom element</a></h2>
+<p>By default, the listeners are added to the custom element it-self.</p>
+<pre><code class="language-javascript">import {OnBuilder} from '@tmorin/ceb'
+// add a listener to the custom element listening to `click` events
+const builder = OnBuilder.get('click').invoke((el, evt, target) =&gt; {
+    console.log(el.tagName, evt.type, target.tagName);
+    console.assert(el.tagName === target.tagName)
+})
+</code></pre>
+<h2><a class="header" href="#listening-to-events-from-a-child-node" id="listening-to-events-from-a-child-node">Listening to events from a child node</a></h2>
+<p>The listeners can also be added to a child node.
+The query selector targeting the child node has to be given next to the DOM event type.</p>
+<pre><code class="language-javascript">import {OnBuilder} from '@tmorin/ceb'
+// add a listener to the first child button listening to `click` events
+const builder = OnBuilder.get('click button').invoke((el, evt, target) =&gt; {
+    console.log(el.tagName, evt.type, target.tagName);
+    console.assert(el.tagName !== target.tagName);
+    console.assert('BUTTON' === target.tagName)
+})
+</code></pre>
+<h2><a class="header" href="#bubbling-and-capture-phase" id="bubbling-and-capture-phase">Bubbling and capture phase</a></h2>
+<p>By default, the listeners are invoked on the bubbling phase.
+The method <code>OnBuilder#capture()</code> can be used to force the capture phase.</p>
+<pre><code class="language-javascript">import {OnBuilder} from '@tmorin/ceb'
+// add a listener listening `click` events on the capture phase
+const builder = OnBuilder.get('click button').capture()
+</code></pre>
+<p>More information are available on developer.mozilla.org about <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#Event_bubbling_and_capture">event bubbling and capture</a>.</p>
+<h2><a class="header" href="#eventpreventdefault-and-eventstoppropagation" id="eventpreventdefault-and-eventstoppropagation">event.preventDefault() and event.stopPropagation()</a></h2>
+<p>The method <code>Event#preventDefault()</code> and <code>Event#stopPropagation()</code> can be automatically called.</p>
+<pre><code class="language-javascript">import {OnBuilder} from '@tmorin/ceb'
+// add a listener listening `submit` events and preventing the default behavior
+const builder = OnBuilder.get('submit').prevent();
+// add a listener listening `submit` events and stopping the event propagation
+const builder = OnBuilder.get('button').stop();
+// add a listener listening `submit` events and preventing the default behavior as well as stopping the event propagation
+const builder = OnBuilder.get('button').skip()
+</code></pre>
+<h2><a class="header" href="#event-delegation" id="event-delegation">Event delegation</a></h2>
+<p>Event delegation allows us to attach a single event listener, to a parent element, that will fire for all descendants matching a selector, whether those descendants exist now or are added in the future.
+<a href="https://learn.jquery.com/events/event-delegation">c.f. JQuery doc</a></p>
+<p>The method <code>OnBuilder#delegate(selector)</code> is used to define the selector.</p>
+<pre><code class="language-javascript">import {OnBuilder} from '@tmorin/ceb'
+// add a listener listening `click` events on children matching the selector `li button.delete`
+const builder = OnBuilder.get('click').delegate('li button.delete')
+</code></pre>
+<h2><a class="header" href="#shadow-dom" id="shadow-dom">Shadow DOM</a></h2>
+<p>By default, the listeners are listening events coming from the light DOM.</p>
+<p>The method <code>OnBuilder#shadow()</code> adds the listener to the <code>shadowRoot</code> property.
+So that, the listener only listen to events coming from the shadow DOM.</p>
+<pre><code class="language-javascript">import {OnBuilder} from '@tmorin/ceb'
+// add a listener listening `click` events coming from the shadow DOM
+const builder = OnBuilder.get('click').shadow()
+</code></pre>
+<h2><a class="header" href="#the-decorator-1" id="the-decorator-1">The decorator</a></h2>
+<p>On listeners can also be defined using decorator.</p>
+<pre><code class="language-javascript">import {ElementBuilder, OnBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element&lt;MyCustomElement&gt;();
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+    // defines the listener
+    @OnBuilder.listen('event-name')
+    on(data: Event) {
+        console.log(data);
+    }
+}
+</code></pre>
+<h2><a class="header" href="#example" id="example">Example</a></h2>
+<p>The registered custom element is an extension of the <code>ul</code> element.
+It reacts on <code>click</code> events coming from <code>button</code>.
+When a button is clicked, its parent <code>li</code> is removed from the DOM.</p>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-user="tmorin" data-slug-hash="LYERaao" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="ceb ~ OnBuilder">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/LYERaao">
+  ceb ~ OnBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<h1><a class="header" href="#templatebuilder" id="templatebuilder">TemplateBuilder</a></h1>
+<p>The class <code>TemplateBuilder</code> provides service to initialize the HTML content of the custom element.</p>
+<p>The static method <code>TemplateBuilder.get(content)</code> returns a fresh builder.
+The builder expects a content in string or a function providing it.</p>
+<pre><code class="language-javascript">import {TemplateBuilder} from '@tmorin/ceb'
+// creates the builder
+const builder = TemplateBuilder.get('&lt;strong&gt;the content&lt;/strong&gt;')
+</code></pre>
+<p>The builder and underlying decorators are also technically documented: <a href="builders-and-decorators/../api/classes/templatebuilder.html">TemplateBuilder</a>.</p>
+<h2><a class="header" href="#initialize-the-shadow-dom" id="initialize-the-shadow-dom">Initialize the shadow DOM</a></h2>
+<p>By default, the builder initializes the light DOM of the custom element.
+The method <code>TemplateBuilder#shadow(focus)</code> can be used to force the initialization of a shadow DOM.</p>
+<pre><code class="language-javascript">import {TemplateBuilder} from '@tmorin/ceb'
+// initializes the shadow DOM of the custom element
+const builder = TemplateBuilder.get('a content').shadow()
+</code></pre>
+<h2><a class="header" href="#the-decorator-2" id="the-decorator-2">The decorator</a></h2>
+<p>Templates can also be defined using decorators.</p>
+<pre><code class="language-javascript">import {ElementBuilder, TemplateBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element&lt;MyCustomElement&gt;()
+// define the template
+@TemplateBuilder.template({content: '&lt;p&gt;&lt;input&gt;&lt;/p&gt;', isShadow: true})
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+}
+</code></pre>
+<h2><a class="header" href="#example-1" id="example-1">Example</a></h2>
+<p>The registered custom element is initialized with a shadow DOM wrapping its light DOM.</p>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-user="tmorin" data-slug-hash="BayQzPK" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="&amp;lt;/ceb&amp;gt; ~ TemplateBuilder">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/BayQzPK">
+  &lt;/ceb&gt; ~ TemplateBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<h1><a class="header" href="#referencebuilder" id="referencebuilder">ReferenceBuilder</a></h1>
+<p>The class <code>ReferenceBuilder</code> provides services to bind a property to a embedded DOM element.</p>
+<p>The static method <code>ReferenceBuilder.get(propName)</code> returns a fresh builder.
+The builder expects the name of the property in camel case.</p>
+<pre><code class="language-javascript">import {ReferenceBuilder} from '@tmorin/ceb'
+// creates the builder
+const builder = ReferenceBuilder.get('myInput')
+</code></pre>
+<p>The builder and underlying decorators are also technically documented: <a href="builders-and-decorators/../api/classes/referencebuilder.html">ReferenceBuilder</a>.</p>
+<h2><a class="header" href="#default-selector" id="default-selector">Default selector</a></h2>
+<p>By default, the builder binds the property to a child having the same id.
+For instance, the property <code>propName</code> is bound to the selector <code>#propName</code>.</p>
+<p>The method <code>ReferenceBuilder#selector(selector)</code> can be used to override the default selector.</p>
+<pre><code class="language-javascript">import {ReferenceBuilder} from '@tmorin/ceb'
+// initializes the shadow DOM of the custom element
+const builder = ReferenceBuilder.get('myInput').selector('input.my-input')
+</code></pre>
+<h2><a class="header" href="#bind-to-list-of-elements" id="bind-to-list-of-elements">Bind to list of elements</a></h2>
+<p>By default, the builder binds the property to a single element.</p>
+<p>The method <code>ReferenceBuilder#array()</code> can be used to bind the property to a list of matching elements.</p>
+<pre><code class="language-javascript">import {ReferenceBuilder} from '@tmorin/ceb'
+// initializes the shadow DOM of the custom element
+const builder = ReferenceBuilder.get('activeLiList').selector('li.active').array()
+</code></pre>
+<h2><a class="header" href="#bind-relative-to-the-shadow-dom" id="bind-relative-to-the-shadow-dom">Bind relative to the shadow DOM</a></h2>
+<p>By default, the builder binds the property relative to the light DOM.</p>
+<p>The method <code>ReferenceBuilder#shadow()</code> can be used to bind the property relative to the shadow DOM.</p>
+<pre><code class="language-javascript">import {ReferenceBuilder} from '@tmorin/ceb'
+// initializes the shadow DOM of the custom element
+const builder = ReferenceBuilder.get('button').shadow()
+</code></pre>
+<h2><a class="header" href="#the-decorator-3" id="the-decorator-3">The decorator</a></h2>
+<p>References can also be defined using decorators.</p>
+<pre><code class="language-javascript">import {ElementBuilder, ReferenceBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element&lt;MyCustomElement&gt;()
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+    // define the reference
+    @ReferenceBuilder.reference({isShadow: true, selector: 'ul'})
+    readonly ul: HTMLUListElement;
+}
+</code></pre>
+<h2><a class="header" href="#example-2" id="example-2">Example</a></h2>
+<p>The registered custom element counts the number of selected <code>li</code> and displays it.</p>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-user="tmorin" data-slug-hash="LYEbRLE" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="&amp;lt;/ceb&amp;gt; ~ ReferenceBuilder">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/LYEbRLE">
+  &lt;/ceb&gt; ~ ReferenceBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<h1><a class="header" href="#attributedelegatebuilder" id="attributedelegatebuilder">AttributeDelegateBuilder</a></h1>
+<p>The class <code>AttributeDelegateBuilder</code> provides services to delegate the mutations of an attribute to targets (i.e. a child nodes).</p>
+<p>The static method <code>AttributeDelegateBuilder.get(attributeBuilder)</code> returns a fresh builder.
+The builder expects the instance of an <code>AttributeBuilder</code>.</p>
+<pre><code class="language-javascript">import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
+// creates the builder
+const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
+</code></pre>
+<p>Alternatively, <code>DelegateBuilder.attribute(attributeBuilder)</code> can also be used.</p>
+<pre><code class="language-javascript">import {DelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
+// creates the builder
+const builder = DelegateBuilder.attribute(AttributeBuilder.get('an-attribute'))
+</code></pre>
+<p>The builder and underlying decorators are also technically documented: <a href="builders-and-decorators/../api/classes/attributedelegatebuilder.html">AttributeDelegateBuilder</a>.</p>
+<h2><a class="header" href="#set-the-selector" id="set-the-selector">Set the selector</a></h2>
+<p>The method <code>AttributeDelegateBuilder#to(selector)</code> has to be used to define the selector.
+The selector is mandatory otherwise the builder won't be able to identify the targets.</p>
+<pre><code class="language-javascript">import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
+// delegate the accesses to the attribute 'an-attribute'
+const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
+    .to('button');
+</code></pre>
+<h2><a class="header" href="#shadow-dom-1" id="shadow-dom-1">Shadow DOM</a></h2>
+<p>By default, the builder selects targets relative to the light DOM.</p>
+<p>The method <code>AttributeDelegateBuilder#shadow()</code> can be used to select targets relative to the shadow DOM.</p>
+<pre><code class="language-javascript">import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
+// delegate the accesses to the attribute 'an-attribute'
+const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
+    .to('button')
+    .shadow();
+</code></pre>
+<h2><a class="header" href="#bind-to-another-attribute" id="bind-to-another-attribute">Bind to another attribute</a></h2>
+<p>By default, the builder mutates the same targets' attribute.</p>
+<p>The method <code>AttributeDelegateBuilder#attribute(toAttrName)</code> can be used to force another attribute name.</p>
+<pre><code class="language-javascript">import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
+// delegate the accesses to the attribute 'an-attribute'
+const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
+    .to('button')
+    .attribute('another-attribute');
+</code></pre>
+<h2><a class="header" href="#bind-to-a-property" id="bind-to-a-property">Bind to a property</a></h2>
+<p>The method <code>AttributeDelegateBuilder#property(toPropName)</code> can be used to force the mutation of a property.</p>
+<pre><code class="language-javascript">import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
+// delegate the accesses to the attribute 'an-attribute'
+const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
+    .to('button')
+    .property('aProperty');
+</code></pre>
+<h2><a class="header" href="#the-decorator-4" id="the-decorator-4">The decorator</a></h2>
+<p>Attribute delegations can also be defined using a decorator.</p>
+<pre><code class="language-javascript">import {ElementBuilder, AttributeDelegateBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element&lt;MyCustomElement&gt;()
+// define an attribute delegation
+@AttributeDelegateBuilder.delegate('value', 'input')
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+}
+</code></pre>
+<h2><a class="header" href="#example-3" id="example-3">Example</a></h2>
+<p>The registered custom element is composed of an <code>input</code> and a button <code>button</code>.
+The boolean attribute <code>disabled</code> is delegated to both <code>input</code> and <code>button</code>.
+The attribute <code>placeolder</code> is delegated to the <code>input</code>.
+The attribute <code>label</code> is delegated to the <code>textContent</code> property of the <code>button</code>.</p>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-user="tmorin" data-slug-hash="XWJNOwN" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="&amp;lt;/ceb&amp;gt; ~ AttributeDelegateBuilder">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/XWJNOwN">
+  &lt;/ceb&gt; ~ AttributeDelegateBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<h1><a class="header" href="#propertydelegatebuilder" id="propertydelegatebuilder">PropertyDelegateBuilder</a></h1>
+<p>The class <code>PropertyDelegateBuilder</code> provides services to delegate the accesses of a property to a single target (i.e. a child node).</p>
+<p>The static method <code>PropertyDelegateBuilder.get(propName)</code> returns a fresh builder.
+The builder expects the name of a property.</p>
+<pre><code class="language-javascript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
+// creates the builder
+const builder = PropertyDelegateBuilder.get('aProperty')
+</code></pre>
+<p>Alternatively, <code>DelegateBuilder.property(propName)</code> can also be used.</p>
+<pre><code class="language-javascript">import {DelegateBuilder} from '@tmorin/ceb'
+// creates the builder
+const builder = DelegateBuilder.property('aProperty')
+</code></pre>
+<p>The builder and underlying decorators are also technically documented: <a href="builders-and-decorators/../api/classes/propertydelegatebuilder.html">PropertyDelegateBuilder</a>.</p>
+<h2><a class="header" href="#set-the-selector-1" id="set-the-selector-1">Set the selector</a></h2>
+<p>The method <code>PropertyDelegateBuilder#to(selector)</code> has to be used to define the selector.
+The selector is mandatory otherwise the builder won't be able to identify the targets.</p>
+<pre><code class="language-javascript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
+// delegate the accesses to the property 'aProperty'
+const builder = PropertyDelegateBuilder.get('aProperty')
+    .to('button');
+</code></pre>
+<h2><a class="header" href="#shadow-dom-2" id="shadow-dom-2">Shadow DOM</a></h2>
+<p>By default, the builder selects targets relative to the light DOM.</p>
+<p>The method <code>PropertyDelegateBuilder#shadow()</code> can be used to select targets relative to the shadow DOM.</p>
+<pre><code class="language-javascript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
+// delegate the accesses to the property 'aProperty'
+const builder = PropertyDelegateBuilder.get('aProperty')
+    .to('button')
+    .shadow();
+</code></pre>
+<h2><a class="header" href="#bind-to-another-property" id="bind-to-another-property">Bind to another property</a></h2>
+<p>By default, the builder mutates the same targets' property.</p>
+<p>The method <code>PropertyDelegateBuilder#property(toPropName)</code> can be used to force another property name.</p>
+<pre><code class="language-javascript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
+// delegate the accesses to the property 'aProperty'
+const builder = PropertyDelegateBuilder.get('aProperty')
+    .to('button')
+    .property('anotherProperty');
+</code></pre>
+<h2><a class="header" href="#bind-to-an-attribute" id="bind-to-an-attribute">Bind to an attribute</a></h2>
+<p>The method <code>PropertyDelegateBuilder#attribute(toAttrName)</code> can be used to force the mutation of a attribute.</p>
+<pre><code class="language-javascript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
+// delegate the accesses to the property 'aProperty'
+const builder = PropertyDelegateBuilder.get('aProperty')
+    .to('button')
+    .attribute('an-attribute');
+</code></pre>
+<p>The option <code>PropertyDelegateBuilder#boolean()</code> can be used if the attribute is a <code>boolean</code>.</p>
+<pre><code class="language-javascript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
+// delegate the accesses to the property 'aProperty'
+const builder = PropertyDelegateBuilder.get('aProperty')
+    .to('button')
+    .attribute('a-boolean-attribute')
+    .boolean();
+</code></pre>
+<h2><a class="header" href="#the-decorator-5" id="the-decorator-5">The decorator</a></h2>
+<p>Property delegations can also be defined using a decorator.</p>
+<pre><code class="language-javascript">import {ElementBuilder, PropertyDelegateBuilder} from '@tmorin/ceb'
+// register the custom element
+@ElementBuilder.element&lt;MyCustomElement&gt;()
+// defines the custom element class
+class MyCustomElement extends HTMLElement {
+    // define an attribute delegation
+    @PropertyDelegateBuilder.delegate('input')
+    aProperty = 'a value'
+}
+</code></pre>
+<h2><a class="header" href="#example-4" id="example-4">Example</a></h2>
+<p>The registered custom element is composed of an <code>input</code>.
+The boolean property <code>disabled</code> is delegated to both <code>input</code>.
+The property <code>placeholder</code> is delegated to the <code>placeholder</code> attribute of the <code>input</code>.</p>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-user="tmorin" data-slug-hash="eYNeNwa" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="&amp;lt;/ceb&amp;gt; ~ PropertyDelegateBuilder">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/eYNeNwa">
+  &lt;/ceb&gt; ~ PropertyDelegateBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>
