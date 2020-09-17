@@ -180,6 +180,11 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
      * The output is a "Wrapper" which extends the CustomElement class.
      */
     register(): CustomElementConstructor<T> {
+
+        if (customElements.get(this.elName)) {
+            return customElements.get(this.elName);
+        }
+
         const OriginalClass = this.elConstructor;
         const altBuilders: Array<Builder> = Object.values(OriginalClass.prototype['_cebBuilders'] || {});
         delete OriginalClass.prototype['_cebBuilders'];
