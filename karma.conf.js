@@ -11,13 +11,12 @@ module.exports = (config) => {
         reporters: ['progress', 'junit'],
 
         files: [
-            {pattern: 'test/*.spec.ts', watched: false},
-            {pattern: 'examples/*.spec.ts', watched: false}
+            {pattern: '{examples,src,test}/**/*.spec.ts', watched: false},
+            {pattern: '{examples,src,test}/**/*', watched: true, included: false, served: false}
         ],
 
         preprocessors: {
-            'test/*.spec.ts': ['webpack'],
-            'examples/*.spec.ts': ['webpack']
+            '{examples,src,test}/**/*.spec.ts': ['webpack']
         },
 
         webpack: {
