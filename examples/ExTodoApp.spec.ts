@@ -1,3 +1,4 @@
+import '../test/fix_global';
 import './ExTodoApp';
 import {ExTodoApp} from './ExTodoApp';
 import {ExTodoItem} from './ExTodoItem';

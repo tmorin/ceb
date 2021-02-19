@@ -1,3 +1,4 @@
+import '../test/fix_global';
 import './ExFormField';
 import {ExFormField} from './ExFormField';
 import {toArray} from '../src/utilities';

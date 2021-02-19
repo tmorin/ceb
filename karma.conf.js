@@ -6,7 +6,7 @@ if (!process.env.CHROME_BIN) {
 
 module.exports = (config) => {
     config.set({
-        frameworks: ['mocha'],
+        frameworks: ['mocha', 'webpack'],
 
         reporters: ['progress', 'junit'],
 

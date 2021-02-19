@@ -6,5 +6,12 @@ module.exports = merge(common, {
     devtool: 'inline-source-map',
     output: {
         filename: 'dist/ceb.js'
+    },
+    resolve: {
+        fallback: {
+            util: require.resolve('util'),
+            assert: require.resolve('assert'),
+            process: require.resolve('process'),
+        }
     }
 });

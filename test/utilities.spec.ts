@@ -1,3 +1,4 @@
+import './fix_global';
 import {toCamelCase, toKebabCase} from '../src/utilities';
 import * as assert from 'assert';
 

@@ -1,3 +1,4 @@
+import './fix_global';
 import * as assert from 'assert';
 import {AttributeBuilder, AttributeListenerData, ElementBuilder} from '../src/ceb';
 import sinon from 'sinon';

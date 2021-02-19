@@ -1,3 +1,4 @@
+import './fix_global';
 import * as assert from 'assert';
 import {AttributeDelegateBuilder, ElementBuilder} from '../src/ceb';
 
