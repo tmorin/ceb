@@ -13,12 +13,18 @@ describe('ExFormField', () => {
 
     it('should get reference from public DOM', () => {
         sandbox.innerHTML = `
+<style>
+ex-form-field {
+}
+</style>
 <form name="a-sample-form">
-    <ex-form-field label="Firstname">
+    <ex-form-field label="Firstname" helper="The firstname of your name.">
         <input type="text" name="firstname" value="foo" required="" />
     </ex-form-field>
     <ex-form-field label="Lastname">
-        <input type="text" name="lastname" required="" />
+        <div>
+            <input type="text" name="lastname" required="" />
+        </div>
     </ex-form-field>
     <p>
         <button type="submit">submit</button>

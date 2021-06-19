@@ -1,30 +1,58 @@
-import {CustomElementConstructor, ElementBuilder, FieldBuilder, ReferenceBuilder} from '../src/ceb';
-import {TemplateBuilder} from '../src/template';
+import {
+    AttributeDelegateBuilder,
+    ElementBuilder,
+    FieldBuilder,
+    OnBuilder,
+    ReferenceBuilder,
+    TemplateBuilder
+} from '../src/ceb';
+import {toArray} from "../src/utilities";
 
-const template = `
+const focusableElementSelector = `a[href]:not([tabindex='-1']),
+area[href]:not([tabindex='-1']),
+input:not([disabled]):not([tabindex='-1']),
+select:not([disabled]):not([tabindex='-1']),
+textarea:not([disabled]):not([tabindex='-1']),
+button:not([disabled]):not([tabindex='-1']),
+iframe:not([tabindex='-1']),
+[tabindex]:not([tabindex='-1']),
+[contentEditable=true]:not([tabindex='-1'])`;
+
+@ElementBuilder.element<ExFormField>()
+@TemplateBuilder.template({
+    content: `
+<style>
+:host {
+    display: block;
+    padding: 0.5em 0;
+}
+:host #helper {
+    font-size: smaller;
+}
+:host([hidden]) {
+    display: none
+}
+</style>
 <label id="label"></label>
 <div id="controls"><slot></slot></div>
 <div id="helper"></div>
-`.trim();
-
+`.trim(), isShadow: true
+})
+@AttributeDelegateBuilder.delegate('label', '#label', {isShadow: true, toPropName: 'textContent'})
+@AttributeDelegateBuilder.delegate('helper', '#helper', {isShadow: true, toPropName: 'textContent'})
 export class ExFormField extends HTMLElement {
-    label: string;
-    helper: string;
-    private readonly labelElement: HTMLElement;
-    private readonly helperElement: HTMLElement;
+    @FieldBuilder.field()
+    readonly label: string;
 
-    render() {
-        this.labelElement.textContent = this.label;
-        this.helperElement.textContent = this.helper;
+    @ReferenceBuilder.reference({isShadow: true, selector: '#controls slot'})
+    readonly slotElement: HTMLSlotElement;
+
+    @OnBuilder.listen('click #label', {isShadow: true})
+    on() {
+        for (const element of toArray<Element>(this.querySelectorAll(focusableElementSelector))) {
+            if (element instanceof HTMLElement) {
+                element.focus();
+            }
+        }
     }
 }
-
-export default ElementBuilder.get(ExFormField).builder(
-    FieldBuilder.get('label').listener((el: ExFormField) => el.render()),
-    ReferenceBuilder.get('labelElement').shadow().selector('#label'),
-
-    FieldBuilder.get('helper').listener((el: ExFormField) => el.render()),
-    ReferenceBuilder.get('helperElement').shadow().selector('#helper'),
-
-    TemplateBuilder.get(template).shadow()
-).register() as CustomElementConstructor<ExFormField>;

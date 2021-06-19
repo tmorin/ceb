@@ -60,7 +60,7 @@ export class AttributeDelegateBuilder implements Builder {
      * @param selector The CSS selector used to identify the DOM element(s).
      * @param options the options
      */
-    static delegate<T extends HTMLElement>(attrName: string, selector: string, options: AttributeDelegateDecoratorOptions) {
+    static delegate<T extends HTMLElement>(attrName: string, selector: string, options: AttributeDelegateDecoratorOptions = {}) {
         return function (constructor: CustomElementConstructor<T>) {
             const attrId = `attribute-${attrName}`;
             const deleId = `delegate-attribute-${attrName}`;
