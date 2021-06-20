@@ -102,9 +102,9 @@ class MyCustomElement extends HTMLElement {
 
 ## Example
 
-The registered custom element is composed of an `input`.
-The boolean property `disabled` is delegated to both `input`.
-The property `placeholder` is delegated to the `placeholder` attribute of the `input`.
+The registered custom element is composed of a single `input`.
+The boolean property `disabled` is delegated to the attribute `disabled` of the `input`.
+The property `placeholder` is delegated to the attribute `placeholder` of the `input`.
 
 <p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-user="tmorin" data-slug-hash="eYNeNwa" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="&amp;lt;/ceb&amp;gt; ~ PropertyDelegateBuilder">
   <span>See the Pen <a href="https://codepen.io/tmorin/pen/eYNeNwa">
