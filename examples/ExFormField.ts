@@ -42,7 +42,10 @@ iframe:not([tabindex='-1']),
 @AttributeDelegateBuilder.delegate('helper', '#helper', {isShadow: true, toPropName: 'textContent'})
 export class ExFormField extends HTMLElement {
     @FieldBuilder.field()
-    readonly label: string;
+    label: string;
+
+    @FieldBuilder.field()
+    helper: string;
 
     @ReferenceBuilder.reference({isShadow: true, selector: '#controls slot'})
     readonly slotElement: HTMLSlotElement;
