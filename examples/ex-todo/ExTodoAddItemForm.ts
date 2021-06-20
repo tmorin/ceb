@@ -1,4 +1,4 @@
-import {CustomElementConstructor, ElementBuilder, OnBuilder, TemplateBuilder} from '../src/ceb';
+import {CustomElementConstructor, ElementBuilder, OnBuilder, TemplateBuilder} from '../../src/ceb';
 
 const template = `
 <form name="add-item">

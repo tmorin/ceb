@@ -1,4 +1,4 @@
-import {CustomElementConstructor, ElementBuilder, OnBuilder, ReferenceBuilder, TemplateBuilder} from '../src/ceb';
+import {CustomElementConstructor, ElementBuilder, OnBuilder, ReferenceBuilder, TemplateBuilder} from '../../src/ceb';
 import './ExTodoAddItemForm';
 import './ExTodoCleanItems';
 import './ExTodoItemList';

@@ -1,8 +1,8 @@
-import '../test/fix_global';
+import '../../test/fix_global';
 import './ExTodoApp';
 import {ExTodoApp} from './ExTodoApp';
 import {ExTodoItem} from './ExTodoItem';
-import {toArray} from '../src/utilities';
+import {toArray} from '../../src/utilities';
 import * as assert from 'assert';
 
 describe('ExTodoApp', () => {

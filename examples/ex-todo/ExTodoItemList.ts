@@ -1,4 +1,4 @@
-import {CustomElementConstructor, ElementBuilder, ReferenceBuilder} from '../src/ceb';
+import {CustomElementConstructor, ElementBuilder, ReferenceBuilder} from '../../src/ceb';
 import './ExTodoItem';
 import {ExTodoItem} from './ExTodoItem';
 
