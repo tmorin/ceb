@@ -7,13 +7,24 @@
         
         <meta name="robots" content="noindex" />
         
+        
+
+
+        <!-- Custom HTML head -->
+        
+
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="The book presents the usage of the library ceb.">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
         <link rel="shortcut icon" href="favicon.png">
+        
         <link rel="stylesheet" href="css/variables.css">
         <link rel="stylesheet" href="css/general.css">
         <link rel="stylesheet" href="css/chrome.css">
@@ -21,8 +32,9 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
 
         <!-- Highlight.js Stylesheets -->
         <link rel="stylesheet" href="highlight.css">
@@ -38,7 +50,7 @@
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
             var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
@@ -83,7 +95,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.5.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.6.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.7.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> PropertyDelegateBuilder</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.5.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.6.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.7.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/ex-form-field.html"><strong aria-hidden="true">4.1.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="examples/ex-todo.html"><strong aria-hidden="true">4.2.</strong> ex-todo</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -761,15 +773,60 @@ class MyCustomElement extends HTMLElement {
 }
 </code></pre>
 <h2><a class="header" href="#example-4" id="example-4">Example</a></h2>
-<p>The registered custom element is composed of an <code>input</code>.
-The boolean property <code>disabled</code> is delegated to both <code>input</code>.
-The property <code>placeholder</code> is delegated to the <code>placeholder</code> attribute of the <code>input</code>.</p>
+<p>The registered custom element is composed of a single <code>input</code>.
+The boolean property <code>disabled</code> is delegated to the attribute <code>disabled</code> of the <code>input</code>.
+The property <code>placeholder</code> is delegated to the attribute <code>placeholder</code> of the <code>input</code>.</p>
 <p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-user="tmorin" data-slug-hash="eYNeNwa" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="&amp;lt;/ceb&amp;gt; ~ PropertyDelegateBuilder">
   <span>See the Pen <a href="https://codepen.io/tmorin/pen/eYNeNwa">
   &lt;/ceb&gt; ~ PropertyDelegateBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<h1><a class="header" href="#examples" id="examples">Examples</a></h1>
+<p>The Git Repository provides examples to demonstrate the usage of <code>&lt;ceb/&gt;</code> features:</p>
+<ul>
+<li><a href="examples/ex-form-field.html">ex-form-field</a> : a simple Custom Element to wrap FORM controls</li>
+<li><a href="examples/ex-todo.html">ex-todo</a> : a simple application to manage a list of todo items.</li>
+</ul>
+<h1><a class="header" href="#ex-form-field" id="ex-form-field">ex-form-field</a></h1>
+<p><em>The source code of the implementation and, the test of this example are available in the Git repository of <code>&lt;ceb/&gt;</code> : <code>examples/ex-form-field</code>.</em></p>
+<p>This example demonstrates how to leverage on some builders and annotations to create a custom element able to wrap FORM elements with a label and, a helper text.
+Both fields can be accessed and mutated with the respective attributes and properties.
+Additionally, when the user clicks on the label element, the focus is dynamically propagated to the first focusable wrapper elements.</p>
+<p>For instance the following snippet wrap an input text with the label <code>Firstname</code> and the helper text <code>The firstname of your name.</code> :</p>
+<pre><code class="language-html">&lt;ex-form-field label=&quot;Firstname&quot; helper=&quot;The firstname of your name.&quot;&gt;
+    &lt;input type=&quot;text&quot; name=&quot;firstname&quot; value=&quot;foo&quot; required=&quot;&quot; /&gt;
+&lt;/ex-form-field&gt;
+</code></pre>
+<p>With Mozilla Firefox, the initial Flatten DOM related to the Custom Element looks like :</p>
+<p><img src="examples/ex-form-field_initial_flatten_dom.png" alt="The initial Flatten DOM" /></p>
+<p>The Custom Element <code>ex-form-field</code> involves the following native <code>&lt;ceb/&gt;</code> builders :</p>
+<table><thead><tr><th>Builders</th><th>Comment</th></tr></thead><tbody>
+<tr><td><code>ElementBuilder</code></td><td>The builder registers the Custom Element.</td></tr>
+<tr><td><code>TemplateBuilder</code></td><td>The builder is used as an annotation and define the content of the Custom Element's Shadow DOM at its creation.</td></tr>
+<tr><td><code>FieldBuilder</code></td><td>The builder is used as an annotation to define the two Custom Element's API items: the label and the helper text.</td></tr>
+<tr><td><code>AttributeDelegateBuilder</code></td><td>The builder is used as an annotation to delegate the mutations of the API items (i.e. the label and the helper text) to the respective DOM elements.</td></tr>
+<tr><td><code>OnBuilder</code> and <code>ReferenceBuilder</code></td><td>Both builders are used to react on click event on the label element in order to delegate the focus to the first focusable wrapped FORM control.</td></tr>
+</tbody></table>
+<h1><a class="header" href="#ex-todo" id="ex-todo">ex-todo</a></h1>
+<p><em>The source code of the implementation and, the test of this example are available in the Git repository of <code>&lt;ceb/&gt;</code> : <code>examples/ex-todo</code>.</em></p>
+<p>This example demonstrates how to implement an application managing a simple list of todo item with Custom Element and the native <code>&lt;ceb/&gt;</code> builders</p>
+<table><thead><tr><th>Custom Element</th><th>Comment</th></tr></thead><tbody>
+<tr><td><code>ex-todo-app</code></td><td>Displays the application and handles the commands <code>ex-todo-add-item</code> and <code>ex-todo-clean-items</code></td></tr>
+<tr><td><code>ex-todo-add-item-form</code></td><td>Displays a form to submit items. On submissions the Custom Event <code>ex-todo-add-item</code> is dispatched.</td></tr>
+<tr><td><code>ex-todo-clean-items</code></td><td>Displays a form to trigger the cleaning of completed items. On submissions the Custom Event <code>ex-todo-clean-items</code> is dispatched.</td></tr>
+<tr><td><code>ex-todo-item-list</code></td><td>Displays a list of <code>ex-todo-item</code></td></tr>
+<tr><td><code>ex-todo-item</code></td><td>Displays a form to mutate the content and status of an item.</td></tr>
+</tbody></table>
+<p>For instance the following snippet instantiates the application :</p>
+<pre><code class="language-html">&lt;ex-todo-app&gt;&lt;/ex-todo-app&gt;
+</code></pre>
+<p>Right after its instanciation, the initial Flatten DOM looks like :</p>
+<p><img src="examples/ex-todo_initial_flatten_dom.png" alt="the initial Flatten DOM" /></p>
+<p>After the creation of two items where one is flagged as &quot;completed&quot;, then the application looks like :</p>
+<p><img src="examples/ex-todo_usage_display.png" alt="the application" /></p>
+<p>And the respective Flatten DOM looks like :</p>
+<p><img src="examples/ex-todo_usage_flatten_dom.png" alt="the Flatten DOM" /></p>
 
                     </main>
 
@@ -797,10 +854,10 @@ The property <code>placeholder</code> is delegated to the <code>placeholder</cod
         
 
         
-        
+
         
         <script type="text/javascript">
-            window.playpen_copyable = true;
+            window.playground_copyable = true;
         </script>
         
 
