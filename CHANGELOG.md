@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/tmorin/ceb/compare/v2.1.0...v2.2.0) (2021-07-18)
+
+
+### Features
+
+* **documentation:** document the examples ([4d2d98a](https://github.com/tmorin/ceb/commit/4d2d98a0e2928ba59fa25b27edf3ba4d04d089aa))
+* improve packaging with webpack 5 ([db09259](https://github.com/tmorin/ceb/commit/db092596d45afbc04204871cea01234517cb6dbe))
+
+
+### Bug Fixes
+
+* **delegate:** the option argument of the decorator is now optional ([c5a7ad6](https://github.com/tmorin/ceb/commit/c5a7ad63bc8cdc9d8319468692d717f2f5c127fb))
+* **documentation:** fix the example description in PropertyDelegateBuilder.md ([81523be](https://github.com/tmorin/ceb/commit/81523be55382e6052b58a0007060af4edea3ecba))
+
 ## [2.1.0](https://github.com/tmorin/ceb/compare/v2.0.1...v2.1.0) (2020-09-17)
 
 
