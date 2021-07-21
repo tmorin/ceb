@@ -2,7 +2,7 @@
 
 _The source code of the implementation and, the test of this example are available in the Git repository of `<ceb/>` : `examples/ex-form-field`._
 
-This example demonstrates how to leverage on some builders and annotations to create a custom element able to wrap FORM elements with a label and, a helper text.
+This example demonstrates how to leverage on some builders and decorators to create a custom element able to wrap FORM elements with a label and, a helper text.
 Both fields can be accessed and mutated with the respective attributes and properties.
 Additionally, when the user clicks on the label element, the focus is dynamically propagated to the first focusable wrapper elements.
 
@@ -23,7 +23,7 @@ The Custom Element `ex-form-field` involves the following native `<ceb/>` builde
 |Builders|Comment|
 |---|---|
 |`ElementBuilder`|The builder registers the Custom Element.|
-|`TemplateBuilder`|The builder is used as an annotation and define the content of the Custom Element's Shadow DOM at its creation.|
-|`FieldBuilder`|The builder is used as an annotation to define the two Custom Element's API items: the label and the helper text.|
-|`AttributeDelegateBuilder`|The builder is used as an annotation to delegate the mutations of the API items (i.e. the label and the helper text) to the respective DOM elements.|
+|`TemplateBuilder`|The builder is used as a decorator and define the content of the Custom Element's Shadow DOM at its creation.|
+|`FieldBuilder`|The builder is used as a decorator to define the two Custom Element's API items: the label and the helper text.|
+|`AttributeDelegateBuilder`|The builder is used as a decorator to delegate the mutations of the API items (i.e. the label and the helper text) to the respective DOM elements.|
 |`OnBuilder` and `ReferenceBuilder`|Both builders are used to react on click event on the label element in order to delegate the focus to the first focusable wrapped FORM control.|

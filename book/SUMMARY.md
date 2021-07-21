@@ -12,5 +12,6 @@
   - [AttributeDelegateBuilder](builders-and-decorators/AttributeDelegateBuilder.md)
   - [PropertyDelegateBuilder](builders-and-decorators/PropertyDelegateBuilder.md)
 - [Examples](examples/README.md)
+  - [ex-greeting](examples/ex-greeting.md)
   - [ex-form-field](examples/ex-form-field.md)
   - [ex-todo](examples/ex-todo.md)
