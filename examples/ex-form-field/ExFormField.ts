@@ -5,7 +5,7 @@ import {
     OnBuilder,
     ReferenceBuilder,
     TemplateBuilder
-} from '../../src/ceb'
+} from '../../src'
 
 // An hard coded list of selector helping to select only focusable elements.
 const focusableElementSelector = `a[href]:not([tabindex='-1']),

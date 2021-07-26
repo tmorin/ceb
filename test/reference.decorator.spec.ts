@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import {ElementBuilder, ReferenceBuilder} from '../src/ceb'
+import {ElementBuilder, ReferenceBuilder} from '../src'
 
 describe('reference.decorator', () => {
     let sandbox

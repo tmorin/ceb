@@ -5,7 +5,7 @@ import {
     OnBuilder,
     ReferenceBuilder,
     TemplateBuilder
-} from '../../src/ceb'
+} from '../../src'
 
 const template = `
 <style>

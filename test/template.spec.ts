@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import {ElementBuilder} from '../src/ceb'
+import {ElementBuilder} from '../src'
 import {getTagName} from './helpers'
 import {TemplateBuilder} from '../src/template'
 

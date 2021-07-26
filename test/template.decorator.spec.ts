@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import {ElementBuilder, TemplateBuilder} from '../src/ceb'
+import {ElementBuilder, TemplateBuilder} from '../src'
 
 describe('template.decorator', () => {
     let sandbox

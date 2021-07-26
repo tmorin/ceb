@@ -1,6 +1,6 @@
 import './helpers'
 import {assert} from 'chai'
-import {AttributeBuilder, AttributeListenerData, ElementBuilder} from '../src/ceb'
+import {AttributeBuilder, AttributeListenerData, ElementBuilder} from '../src'
 import sinon from 'sinon'
 
 describe('attribute.decorator', () => {

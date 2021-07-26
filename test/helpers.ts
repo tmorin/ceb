@@ -1,5 +1,5 @@
 import process from 'process'
-import {utilities} from '../src/ceb'
+import {utilities} from '../src'
 
 global.process = process
 

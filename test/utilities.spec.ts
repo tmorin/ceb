@@ -1,4 +1,4 @@
-import {utilities} from '../src/ceb'
+import {utilities} from '../src'
 import {assert} from 'chai'
 
 describe('utilities', () => {

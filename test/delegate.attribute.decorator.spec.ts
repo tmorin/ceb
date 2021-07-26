@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import {AttributeDelegateBuilder, ElementBuilder} from '../src/ceb'
+import {AttributeDelegateBuilder, ElementBuilder} from '../src'
 
 describe('delegate.attribute.decorator', () => {
     let sandbox

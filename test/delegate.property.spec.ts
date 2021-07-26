@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import {DelegateBuilder, ElementBuilder} from '../src/ceb'
+import {DelegateBuilder, ElementBuilder} from '../src'
 import {getTagName} from './helpers'
 
 describe('delegate.property', () => {

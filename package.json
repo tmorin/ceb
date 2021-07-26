@@ -27,8 +27,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "lib/ceb.js",
-  "types": "lib/ceb.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "unpkg": "dist/ceb.min.js",
   "scripts": {
     "alpha": "npm run build && standard-version --skip.changelog --skip.tag --prerelease alpha",

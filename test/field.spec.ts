@@ -1,6 +1,6 @@
 import './helpers'
 import {assert} from 'chai'
-import {ElementBuilder, FieldBuilder} from '../src/ceb'
+import {ElementBuilder, FieldBuilder} from '../src'
 import {getTagName} from './helpers'
 import sinon, {SinonSpy} from 'sinon'
 

@@ -1,7 +1,7 @@
 import './helpers'
 import sinon, {SinonSpy} from 'sinon'
 import {assert} from 'chai'
-import {ElementBuilder, OnBuilder} from '../src/ceb'
+import {ElementBuilder, OnBuilder} from '../src'
 import {getTagName} from './helpers'
 
 function listen(el: Node, type: string, limit: number, done: Function) {

@@ -1,7 +1,7 @@
 import './helpers'
 import sinon, {SinonSpy} from 'sinon'
 import {assert} from 'chai'
-import {ElementBuilder} from '../src/ceb'
+import {ElementBuilder} from '../src'
 import {OnBuilder} from '../src/on'
 
 function listen(el: Node, type: string, limit: number, done: Function) {

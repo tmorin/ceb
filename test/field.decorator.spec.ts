@@ -1,6 +1,6 @@
 import './helpers'
 import {assert} from 'chai'
-import {ElementBuilder, FieldBuilder, FieldListenerData} from '../src/ceb'
+import {ElementBuilder, FieldBuilder, FieldListenerData} from '../src'
 import sinon from 'sinon'
 
 describe('field.decorator', () => {
