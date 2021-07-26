@@ -1,7 +1,7 @@
-import {toCamelCase, toKebabCase} from './utilities';
-import {Builder, CustomElementConstructor} from './builder';
-import {HooksRegistration} from './hook';
-import {ElementBuilder} from './element';
+import {toCamelCase, toKebabCase} from './utilities'
+import {Builder, CustomElementConstructor} from './builder'
+import {HooksRegistration} from './hook'
+import {ElementBuilder} from './element'
 
 /**
  * The data of the attribute listener.
@@ -53,9 +53,9 @@ export interface ListenerAttributeDecoratorOptions {
 
 function getPrefix(prefix?: boolean | string): string {
     if (typeof prefix === 'string') {
-        return prefix;
+        return prefix
     }
-    return prefix === false ? '' : 'on';
+    return prefix === false ? '' : 'on'
 }
 
 /**
@@ -76,7 +76,7 @@ export class AttributeBuilder implements Builder {
      * @param attrName the attribute name
      */
     static get(attrName: string) {
-        return new AttributeBuilder(toKebabCase(attrName));
+        return new AttributeBuilder(toKebabCase(attrName))
     }
 
     /**
@@ -85,15 +85,15 @@ export class AttributeBuilder implements Builder {
      */
     static listen(options: ListenerAttributeDecoratorOptions = {}) {
         return function (target: any, methName: string, descriptor: PropertyDescriptor) {
-            const prefix = getPrefix(options.prefix);
-            const attrName = options.attrName || toKebabCase(methName.replace(prefix, ''));
-            const id = `attribute-${attrName}`;
+            const prefix = getPrefix(options.prefix)
+            const attrName = options.attrName || toKebabCase(methName.replace(prefix, ''))
+            const id = `attribute-${attrName}`
             const builder = ElementBuilder.getOrSet(target, id, AttributeBuilder.get(attrName)).listener((el, data) => {
-                const fn = descriptor.value as Function;
-                fn.call(el, data);
-            });
+                const fn = descriptor.value as Function
+                fn.call(el, data)
+            })
             if (options.isBoolean) {
-                builder.boolean();
+                builder.boolean()
             }
         }
     }
@@ -103,8 +103,8 @@ export class AttributeBuilder implements Builder {
      * When the value is falsy, the attribute is removed.
      */
     boolean() {
-        this.isBoolean = true;
-        return this;
+        this.isBoolean = true
+        return this
     }
 
     /**
@@ -112,8 +112,8 @@ export class AttributeBuilder implements Builder {
      * @param value the default value
      */
     default(value: string | boolean) {
-        this.defaultValue = value;
-        return this;
+        this.defaultValue = value
+        return this
     }
 
     /**
@@ -121,15 +121,15 @@ export class AttributeBuilder implements Builder {
      * @param listener the listener
      */
     listener(listener: AttributeListener) {
-        this.listeners.push(listener);
-        return this;
+        this.listeners.push(listener)
+        return this
     }
 
     build(Constructor: CustomElementConstructor<HTMLElement>, hooks: HooksRegistration) {
-        const defaultValuePropName = '__cebAttributeDefaultValue_' + toCamelCase(this.attrName);
+        const defaultValuePropName = '__cebAttributeDefaultValue_' + toCamelCase(this.attrName)
 
         // registers the attribute to observe
-        Constructor['observedAttributes'].push(this.attrName);
+        Constructor['observedAttributes'].push(this.attrName)
 
         // set the default value
         hooks.after('connectedCallback', el => {
@@ -139,24 +139,24 @@ export class AttributeBuilder implements Builder {
                 && this.defaultValue !== false
                 && this.defaultValue !== null
             ) {
-                el[defaultValuePropName] = true;
-                el.setAttribute(this.attrName, this.isBoolean ? '' : this.defaultValue as string);
+                el[defaultValuePropName] = true
+                el.setAttribute(this.attrName, this.isBoolean ? '' : this.defaultValue as string)
             }
-        });
+        })
 
         // reacts on attribute values
         hooks.before('attributeChangedCallback', (el, attrName, oldValue, newValue) => {
             // invokes listeners
             if (attrName === this.attrName) {
                 if (this.listeners.length > 0) {
-                    const oldVal = this.isBoolean ? oldValue === '' : oldValue;
-                    const newVal = this.isBoolean ? newValue === '' : newValue;
+                    const oldVal = this.isBoolean ? oldValue === '' : oldValue
+                    const newVal = this.isBoolean ? newValue === '' : newValue
                     if (oldValue !== newValue) {
-                        this.listeners.forEach(listener => listener(el, {attrName, oldVal, newVal}));
+                        this.listeners.forEach(listener => listener(el, {attrName, oldVal, newVal}))
                     }
                 }
             }
-        });
+        })
     }
 
 }

@@ -16,7 +16,7 @@ module.exports = {
     },
     output: {
         library: 'ceb',
-        libraryTarget: 'umd',
+        libraryTarget: 'umd2',
         path: path.resolve(__dirname)
     }
 };

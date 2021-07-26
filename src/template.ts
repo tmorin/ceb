@@ -1,6 +1,6 @@
-import {Builder, CustomElementConstructor} from './builder';
-import {HooksRegistration} from './hook';
-import {ElementBuilder} from './element';
+import {Builder, CustomElementConstructor} from './builder'
+import {HooksRegistration} from './hook'
+import {ElementBuilder} from './element'
 
 /**
  * A content factory.
@@ -45,7 +45,7 @@ export class TemplateBuilder implements Builder {
      * @param content the initial content
      */
     static get(content: string | ContentFactory) {
-        return new TemplateBuilder(content);
+        return new TemplateBuilder(content)
     }
 
     /**
@@ -54,10 +54,10 @@ export class TemplateBuilder implements Builder {
      */
     static template<T extends HTMLElement>(options: TemplateDecoratorOptions<T> = {}) {
         return function (constructor: CustomElementConstructor<T>) {
-            const id = 'template';
-            const builder = ElementBuilder.getOrSet(constructor.prototype, id, TemplateBuilder.get(options.content || ''));
+            const id = 'template'
+            const builder = ElementBuilder.getOrSet(constructor.prototype, id, TemplateBuilder.get(options.content || ''))
             if (options.isShadow) {
-                builder.shadow(options.isShadowWithFocusDelegation);
+                builder.shadow(options.isShadowWithFocusDelegation)
             }
         }
     }
@@ -68,36 +68,36 @@ export class TemplateBuilder implements Builder {
      * @param focus when true the focus will be delegated to the shadow DOM
      */
     shadow(focus?: boolean) {
-        this.isShadow = true;
-        this.isFocusDelegation = focus;
-        return this;
+        this.isShadow = true
+        this.isFocusDelegation = focus
+        return this
     }
 
     build(Constructor: CustomElementConstructor<HTMLElement>, hooks: HooksRegistration) {
-        const defaultHtmlPropName = '__cebTemplateDefaultHtml';
+        const defaultHtmlPropName = '__cebTemplateDefaultHtml'
 
         hooks.before('constructorCallback', el => {
             // resolve the HTML content
-            const html: string = typeof this.content === 'function' ? this.content(el) : this.content;
+            const html: string = typeof this.content === 'function' ? this.content(el) : this.content
 
             if (this.isShadow) {
                 // creates and initializes the shadow root
-                el.attachShadow({mode: 'open', delegatesFocus: this.isFocusDelegation});
-                el.shadowRoot.innerHTML = html;
+                el.attachShadow({mode: 'open', delegatesFocus: this.isFocusDelegation})
+                el.shadowRoot.innerHTML = html
             } else {
                 // keep the HTML content, for the first `connectedCallback`
-                el[defaultHtmlPropName] = html;
+                el[defaultHtmlPropName] = html
             }
-        });
+        })
 
         hooks.before('connectedCallback', el => {
             if (el[defaultHtmlPropName]) {
                 // resolve the HTML content and injects it
-                el.innerHTML = el[defaultHtmlPropName];
+                el.innerHTML = el[defaultHtmlPropName]
                 // delete the resolved HTML content to avoid overrides
-                delete el[defaultHtmlPropName];
+                delete el[defaultHtmlPropName]
             }
-        });
+        })
     }
 
 }

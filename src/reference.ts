@@ -1,7 +1,6 @@
-import {Builder, CustomElementConstructor} from './builder';
-import {HooksRegistration} from './hook';
-import {toArray} from './utilities';
-import {ElementBuilder} from './element';
+import {Builder, CustomElementConstructor} from './builder'
+import {HooksRegistration} from './hook'
+import {ElementBuilder} from './element'
 
 /**
  * The options of the decorator: `ReferenceBuilder.reference()`.
@@ -41,7 +40,7 @@ export class ReferenceBuilder implements Builder {
      * @param propName the property name
      */
     static get(propName: string) {
-        return new ReferenceBuilder(propName, `#${propName}`);
+        return new ReferenceBuilder(propName, `#${propName}`)
     }
 
     /**
@@ -50,16 +49,16 @@ export class ReferenceBuilder implements Builder {
      */
     static reference(options: ReferenceDecoratorOptions = {}) {
         return function (target: HTMLElement, propName: string) {
-            const id = `field-${propName}`;
-            const builder = ElementBuilder.getOrSet(target, id, ReferenceBuilder.get(propName));
+            const id = `field-${propName}`
+            const builder = ElementBuilder.getOrSet(target, id, ReferenceBuilder.get(propName))
             if (options.selector) {
                 builder.selector(options.selector)
             }
             if (options.isArray) {
-                builder.array();
+                builder.array()
             }
             if (options.isShadow) {
-                builder.shadow();
+                builder.shadow()
             }
         }
     }
@@ -69,8 +68,8 @@ export class ReferenceBuilder implements Builder {
      * @param selector the selector
      */
     selector(selector: string) {
-        this.selectors = selector;
-        return this;
+        this.selectors = selector
+        return this
     }
 
     /**
@@ -78,8 +77,8 @@ export class ReferenceBuilder implements Builder {
      * In this case, the output is an array of matched elements.
      */
     array() {
-        this.isArray = true;
-        return this;
+        this.isArray = true
+        return this
     }
 
     /**
@@ -87,22 +86,22 @@ export class ReferenceBuilder implements Builder {
      * With this option, the builder will use the `querySelector` method of the attached (and opened) shadow DOM.
      */
     shadow() {
-        this.isShadow = true;
-        return this;
+        this.isShadow = true
+        return this
     }
 
     build(Constructor: CustomElementConstructor<HTMLElement>, hooks: HooksRegistration) {
-        const selectors = this.selectors;
-        const isArray = this.isArray;
-        const isShadow = this.isShadow;
+        const selectors = this.selectors
+        const isArray = this.isArray
+        const isShadow = this.isShadow
 
         hooks.before('constructorCallback', el => {
             Object.defineProperty(el, this.propName, {
                 get(): any {
-                    const base = isShadow ? el.shadowRoot : el;
-                    return isArray ? toArray(base.querySelectorAll(selectors)) : base.querySelector(selectors)
+                    const base = isShadow ? el.shadowRoot : el
+                    return isArray ? Array.from(base.querySelectorAll(selectors)) : base.querySelector(selectors)
                 }
-            });
-        });
+            })
+        })
     }
 }

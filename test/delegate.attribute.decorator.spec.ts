@@ -1,14 +1,13 @@
-import './fix_global';
-import * as assert from 'assert';
-import {AttributeDelegateBuilder, ElementBuilder} from '../src/ceb';
+import {assert} from 'chai'
+import {AttributeDelegateBuilder, ElementBuilder} from '../src/ceb'
 
 describe('delegate.attribute.decorator', () => {
-    let sandbox;
+    let sandbox
     beforeEach(function () {
-        sandbox = document.body.appendChild(document.createElement('div'));
-    });
+        sandbox = document.body.appendChild(document.createElement('div'))
+    })
     it('should delegate attribute', () => {
-        const tagName = 'el-delegate-attribute';
+        const tagName = 'el-delegate-attribute'
 
         @ElementBuilder.element<TestElement>({name: tagName})
         @AttributeDelegateBuilder.delegate('value', 'input', {
@@ -29,29 +28,29 @@ describe('delegate.attribute.decorator', () => {
         })
         class TestElement extends HTMLElement {
             constructor() {
-                super();
-                this.attachShadow({mode: 'open'});
-                this.shadowRoot.innerHTML = `<slot></slot><button></button>`;
+                super()
+                this.attachShadow({mode: 'open'})
+                this.shadowRoot.innerHTML = `<slot></slot><button></button>`
             }
 
             connectedCallback() {
-                this.innerHTML = `<input/>`;
+                this.innerHTML = `<input/>`
             }
         }
 
-        const element = sandbox.appendChild(document.createElement(tagName)) as TestElement;
-        assert.ok(sandbox.querySelector(tagName));
+        const element = sandbox.appendChild(document.createElement(tagName)) as TestElement
+        assert.ok(sandbox.querySelector(tagName))
 
-        assert.strictEqual(element.getAttribute('value'), 'default value');
-        assert.strictEqual(element.querySelector('input').getAttribute('value'), 'default value');
+        assert.strictEqual(element.getAttribute('value'), 'default value')
+        assert.strictEqual(element.querySelector('input').getAttribute('value'), 'default value')
 
-        assert.strictEqual(element.hasAttribute('disabled'), true);
-        assert.strictEqual(element.querySelector('input').hasAttribute('disabled'), true);
+        assert.strictEqual(element.hasAttribute('disabled'), true)
+        assert.strictEqual(element.querySelector('input').hasAttribute('disabled'), true)
 
-        assert.strictEqual(element.getAttribute('alt-type'), 'text');
-        assert.strictEqual(element.querySelector('input').getAttribute('type'), 'text');
+        assert.strictEqual(element.getAttribute('alt-type'), 'text')
+        assert.strictEqual(element.querySelector('input').getAttribute('type'), 'text')
 
-        assert.strictEqual(element.getAttribute('label'), 'default label');
-        assert.strictEqual(element.shadowRoot.querySelector('button').textContent, 'default label');
-    });
-});
+        assert.strictEqual(element.getAttribute('label'), 'default label')
+        assert.strictEqual(element.shadowRoot.querySelector('button').textContent, 'default label')
+    })
+})

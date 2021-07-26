@@ -1,6 +1,6 @@
-import {toKebabCase} from './utilities';
-import {Builder, CustomElementConstructor} from './builder';
-import {HookCallbacks, HooksRegistration} from './hook';
+import {toKebabCase} from './utilities'
+import {Builder, CustomElementConstructor} from './builder'
+import {HookCallbacks, HooksRegistration} from './hook'
 
 export interface HookRegistry {
     [key: string]: {
@@ -50,12 +50,12 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
      */
     static getOrSet<B extends Builder>(target: HTMLElement, id: string, builder: B): B {
         if (!target['_cebBuilders']) {
-            target['_cebBuilders'] = {};
+            target['_cebBuilders'] = {}
         }
         if (!target['_cebBuilders'][id]) {
-            target['_cebBuilders'][id] = builder;
+            target['_cebBuilders'][id] = builder
         }
-        return target['_cebBuilders'][id];
+        return target['_cebBuilders'][id]
     }
 
     /**
@@ -64,14 +64,14 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
      */
     static element<T extends HTMLElement>(options: ElementDecoratorOptions<T> = {}) {
         return function (constructor: CustomElementConstructor<T>) {
-            const builder = options.builder ? options.builder : ElementBuilder.get(constructor);
+            const builder = options.builder ? options.builder : ElementBuilder.get(constructor)
             if (options.name) {
-                builder.name(options.name);
+                builder.name(options.name)
             }
             if (options.extends) {
-                builder.extends(options.extends);
+                builder.extends(options.extends)
             }
-            return builder.register();
+            return builder.register()
         }
     }
 
@@ -80,8 +80,8 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
      * @param constructor the constructor.
      */
     static get<T extends HTMLElement>(constructor: CustomElementConstructor<T>) {
-        const name = toKebabCase(constructor.name || '');
-        return new ElementBuilder<T>(name, constructor);
+        const name = toKebabCase(constructor.name || '')
+        return new ElementBuilder<T>(name, constructor)
     }
 
     /**
@@ -90,8 +90,8 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
      * @param tagName the tag name
      */
     name(tagName: string) {
-        this.elName = tagName;
-        return this;
+        this.elName = tagName
+        return this
     }
 
     /**
@@ -99,8 +99,8 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
      * @param tagName the tag name
      */
     extends(tagName: string) {
-        this.elExtends = tagName;
-        return this;
+        this.elExtends = tagName
+        return this
     }
 
     /**
@@ -108,8 +108,8 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
      * @param builders a list of builders
      */
     builder(...builders: Array<Builder>) {
-        this.builders.push.apply(this.builders, builders);
-        return this;
+        this.builders.push.apply(this.builders, builders)
+        return this
     }
 
     /**
@@ -125,8 +125,8 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
                 after: []
             }
         }
-        this.hooks[name].before.push(callback);
-        return this;
+        this.hooks[name].before.push(callback)
+        return this
     }
 
     /**
@@ -142,8 +142,8 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
                 after: []
             }
         }
-        this.hooks[name].between.push(callback);
-        return this;
+        this.hooks[name].between.push(callback)
+        return this
     }
 
     /**
@@ -159,8 +159,8 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
                 after: []
             }
         }
-        this.hooks[name].after.push(callback);
-        return this;
+        this.hooks[name].after.push(callback)
+        return this
     }
 
     /**
@@ -171,7 +171,7 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
      */
     invoke(type: 'before' | 'between' | 'after', name: string, cb: (callback: Function) => void) {
         if (this.hooks[name]) {
-            this.hooks[name][type].forEach(callback => cb(callback));
+            this.hooks[name][type].forEach(callback => cb(callback))
         }
     }
 
@@ -182,73 +182,73 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
     register(): CustomElementConstructor<T> {
 
         if (customElements.get(this.elName)) {
-            return customElements.get(this.elName);
+            return customElements.get(this.elName)
         }
 
-        const OriginalClass = this.elConstructor;
-        const altBuilders: Array<Builder> = Object.values(OriginalClass.prototype['_cebBuilders'] || {});
-        delete OriginalClass.prototype['_cebBuilders'];
-        const builders = [...this.builders, ...altBuilders];
-        const hooks = this;
+        const OriginalClass = this.elConstructor
+        const altBuilders: Array<Builder> = Object.values(OriginalClass.prototype['_cebBuilders'] || {})
+        delete OriginalClass.prototype['_cebBuilders']
+        const builders = [...this.builders, ...altBuilders]
+        const hooks = this
 
         // @ts-ignore
         const Wrapper = class CebWrapper extends OriginalClass {
 
-            static observedAttributes: Array<string> = [];
+            static observedAttributes: Array<string> = []
 
             constructor() {
-                super();
-                hooks.invoke('before', 'constructorCallback', callback => callback(this));
-                hooks.invoke('between', 'constructorCallback', callback => callback(this));
-                hooks.invoke('after', 'constructorCallback', callback => callback(this));
+                super()
+                hooks.invoke('before', 'constructorCallback', callback => callback(this))
+                hooks.invoke('between', 'constructorCallback', callback => callback(this))
+                hooks.invoke('after', 'constructorCallback', callback => callback(this))
             }
 
             connectedCallback() {
-                hooks.invoke('before', 'connectedCallback', callback => callback(this));
-                hooks.invoke('between', 'connectedCallback', callback => callback(this));
+                hooks.invoke('before', 'connectedCallback', callback => callback(this))
+                hooks.invoke('between', 'connectedCallback', callback => callback(this))
                 if (super['connectedCallback']) {
-                    super['connectedCallback']();
+                    super['connectedCallback']()
                 }
-                hooks.invoke('after', 'connectedCallback', callback => callback(this));
+                hooks.invoke('after', 'connectedCallback', callback => callback(this))
             }
 
             disconnectedCallback() {
-                hooks.invoke('before', 'disconnectedCallback', callback => callback(this));
-                hooks.invoke('between', 'disconnectedCallback', callback => callback(this));
+                hooks.invoke('before', 'disconnectedCallback', callback => callback(this))
+                hooks.invoke('between', 'disconnectedCallback', callback => callback(this))
                 if (super['disconnectedCallback']) {
-                    super['disconnectedCallback']();
+                    super['disconnectedCallback']()
                 }
-                hooks.invoke('after', 'disconnectedCallback', callback => callback(this));
+                hooks.invoke('after', 'disconnectedCallback', callback => callback(this))
             }
 
             adoptedCallback() {
-                hooks.invoke('before', 'adoptedCallback', callback => callback(this));
-                hooks.invoke('between', 'adoptedCallback', callback => callback(this));
+                hooks.invoke('before', 'adoptedCallback', callback => callback(this))
+                hooks.invoke('between', 'adoptedCallback', callback => callback(this))
                 if (super['adoptedCallback']) {
-                    super['adoptedCallback']();
+                    super['adoptedCallback']()
                 }
-                hooks.invoke('after', 'adoptedCallback', callback => callback(this));
+                hooks.invoke('after', 'adoptedCallback', callback => callback(this))
             }
 
             attributeChangedCallback(name: string, oldValue: null | string, newValue: null | string) {
-                hooks.invoke('before', 'attributeChangedCallback', callback => callback(this, name, oldValue, newValue));
-                hooks.invoke('between', 'attributeChangedCallback', callback => callback(this, name, oldValue, newValue));
+                hooks.invoke('before', 'attributeChangedCallback', callback => callback(this, name, oldValue, newValue))
+                hooks.invoke('between', 'attributeChangedCallback', callback => callback(this, name, oldValue, newValue))
                 if (super['attributeChangedCallback']) {
-                    super['attributeChangedCallback'](name, oldValue, newValue);
+                    super['attributeChangedCallback'](name, oldValue, newValue)
                 }
-                hooks.invoke('after', 'attributeChangedCallback', callback => callback(this, name, oldValue, newValue));
+                hooks.invoke('after', 'attributeChangedCallback', callback => callback(this, name, oldValue, newValue))
             }
-        };
+        }
 
 
-        builders.forEach(builder => builder.build(Wrapper, this));
+        builders.forEach(builder => builder.build(Wrapper, this))
 
         customElements.define(this.elName, Wrapper, {
             extends: this.elExtends
-        });
+        })
 
         // @ts-ignore
-        return Wrapper;
+        return Wrapper
     }
 
 }

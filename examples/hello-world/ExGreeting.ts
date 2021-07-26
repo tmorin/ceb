@@ -1,4 +1,4 @@
-import {ElementBuilder, FieldBuilder, FieldListenerData, ReferenceBuilder, TemplateBuilder} from '../../src/ceb';
+import {ElementBuilder, FieldBuilder, FieldListenerData, ReferenceBuilder, TemplateBuilder} from '../../src/ceb'
 
 @ElementBuilder.element<ExGreeting>()
 @TemplateBuilder.template({

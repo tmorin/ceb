@@ -1,7 +1,6 @@
-import {Builder} from './builder';
-import {toArray} from './utilities';
-import {HooksRegistration} from './hook';
-import {ElementBuilder} from './element';
+import {Builder} from './builder'
+import {HooksRegistration} from './hook'
+import {ElementBuilder} from './element'
 
 /**
  * A event listener.
@@ -14,7 +13,7 @@ export interface OnListener {
  * A useless function.
  */
 const noop = () => {
-};
+}
 
 /**
  * Event clauses `[[<name>,<target>]]` => `[['click', 'button'], ['click', 'a.button']]`.
@@ -54,7 +53,7 @@ export class OnBuilder implements Builder {
      * @param clauses the clauses
      */
     static get(clauses: string) {
-        return new OnBuilder(clauses);
+        return new OnBuilder(clauses)
     }
 
     /**
@@ -64,25 +63,25 @@ export class OnBuilder implements Builder {
      */
     static listen(clauses: string, options: ListenerOnDecoratorOptions = {}) {
         return function (target: any, methName: string, descriptor: PropertyDescriptor) {
-            const id = `on-${clauses}`;
+            const id = `on-${clauses}`
             const builder = ElementBuilder.getOrSet(target, id, OnBuilder.get(clauses)).invoke((el, data) => {
-                const fn = descriptor.value as Function;
-                fn.call(el, data);
-            });
+                const fn = descriptor.value as Function
+                fn.call(el, data)
+            })
             if (options.forceCapture) {
-                builder.capture();
+                builder.capture()
             }
             if (options.forcePreventDefault) {
-                builder.prevent();
+                builder.prevent()
             }
             if (options.forceStopPropagation) {
-                builder.stop();
+                builder.stop()
             }
             if (options.isShadow) {
-                builder.shadow();
+                builder.shadow()
             }
             if (options.selector) {
-                builder.delegate(options.selector);
+                builder.delegate(options.selector)
             }
         }
     }
@@ -91,8 +90,8 @@ export class OnBuilder implements Builder {
      * Force the listener execution on the capture phase.
      */
     capture() {
-        this.forceCapture = true;
-        return this;
+        this.forceCapture = true
+        return this
     }
 
     /**
@@ -100,31 +99,31 @@ export class OnBuilder implements Builder {
      * @param listener the callback
      */
     invoke(listener: OnListener) {
-        this.callback = listener;
-        return this;
+        this.callback = listener
+        return this
     }
 
     /**
      * Force the usage of `preventDefault()` once the event is received.
      */
     prevent() {
-        this.forcePreventDefault = true;
-        return this;
+        this.forcePreventDefault = true
+        return this
     }
 
     /**
      * Force the usage of `stopPropagation()` once the event is received.
      */
     stop() {
-        this.forceStopPropagation = true;
-        return this;
+        this.forceStopPropagation = true
+        return this
     }
 
     /**
      * Apply `.prevent()` and `.stop()`.
      */
     skip() {
-        return this.prevent().stop();
+        return this.prevent().stop()
     }
 
     /**
@@ -135,8 +134,8 @@ export class OnBuilder implements Builder {
      * @param selector the selector
      */
     delegate(selector: string) {
-        this.selector = selector;
-        return this;
+        this.selector = selector
+        return this
     }
 
     /**
@@ -144,67 +143,67 @@ export class OnBuilder implements Builder {
      * With this option, the builder will listen to from the attached (and opened) shadow DOM.
      */
     shadow() {
-        this.isShadow = true;
-        return this;
+        this.isShadow = true
+        return this
     }
 
     build(Constructor: Function, hooks: HooksRegistration) {
 
-        const clauses: Clauses = this.clauses.split(',').map(event => event.trim().split(' '));
-        const capture = this.forceCapture;
-        const callback = this.callback;
-        const selector = this.selector;
-        const stopPropagation = this.forceStopPropagation;
-        const preventDefault = this.forcePreventDefault;
+        const clauses: Clauses = this.clauses.split(',').map(event => event.trim().split(' '))
+        const capture = this.forceCapture
+        const callback = this.callback
+        const selector = this.selector
+        const stopPropagation = this.forceStopPropagation
+        const preventDefault = this.forcePreventDefault
 
         hooks.before('connectedCallback', el => {
-            const base = this.isShadow ? el.shadowRoot : el;
+            const base = this.isShadow ? el.shadowRoot : el
 
             const listener = evt => {
                 if (selector) {
-                    const target = toArray(base.querySelectorAll(selector))
+                    const target = Array.from(base.querySelectorAll(selector))
                         .filter((candidate: HTMLElement) => {
-                            const isTarget = candidate === evt.target;
-                            const isChild = candidate.contains(evt.target);
+                            const isTarget = candidate === evt.target
+                            const isChild = candidate.contains(evt.target)
                             return isTarget || isChild
-                        })[0];
+                        })[0]
                     if (target) {
                         if (stopPropagation) {
-                            evt.stopPropagation();
+                            evt.stopPropagation()
                         }
                         if (preventDefault) {
-                            evt.preventDefault();
+                            evt.preventDefault()
                         }
-                        callback(el, evt, target as HTMLElement);
+                        callback(el, evt, target as HTMLElement)
                     }
                 } else {
                     if (stopPropagation) {
-                        evt.stopPropagation();
+                        evt.stopPropagation()
                     }
                     if (preventDefault) {
-                        evt.preventDefault();
+                        evt.preventDefault()
                     }
-                    callback(el, evt, el);
+                    callback(el, evt, el)
                 }
-            };
+            }
 
             el['__cebOnHandlers'] = clauses
                 .map(([name, target]) => [name, target ? base.querySelector(target) : base])
                 .filter(([, target]) => !!target)
                 .map(([name, target]) => [target, name, listener, capture])
-                .concat(el['__cebOnHandlers'] || []);
+                .concat(el['__cebOnHandlers'] || [])
 
             el['__cebOnHandlers'].forEach(([target, name, listener, capture]) => {
                 target.addEventListener(name, listener, capture)
-            });
-        });
+            })
+        })
 
         hooks.before('disconnectedCallback', el => {
             el['__cebOnHandlers'].forEach(
                 ([target, name, listener, capture]) => target.removeEventListener(name, listener, capture)
-            );
-            el['__cebOnHandlers'] = [];
-        });
+            )
+            el['__cebOnHandlers'] = []
+        })
     }
 
 }

@@ -5,8 +5,7 @@ import {
     OnBuilder,
     ReferenceBuilder,
     TemplateBuilder
-} from '../../src/ceb';
-import {toArray} from "../../src/utilities";
+} from '../../src/ceb'
 
 // An hard coded list of selector helping to select only focusable elements.
 const focusableElementSelector = `a[href]:not([tabindex='-1']),
@@ -17,7 +16,7 @@ textarea:not([disabled]):not([tabindex='-1']),
 button:not([disabled]):not([tabindex='-1']),
 iframe:not([tabindex='-1']),
 [tabindex]:not([tabindex='-1']),
-[contentEditable=true]:not([tabindex='-1'])`;
+[contentEditable=true]:not([tabindex='-1'])`
 
 // Register the class ExFormField as a regular Custom Element.
 @ElementBuilder.element<ExFormField>()
@@ -27,11 +26,11 @@ iframe:not([tabindex='-1']),
     content: `
 <style>
 :host {
-    display: block;
-    padding: 0.5em 0;
+    display: block
+    padding: 0.5em 0
 }
 :host #helper {
-    font-size: smaller;
+    font-size: smaller
 }
 :host([hidden]) {
     display: none
@@ -49,22 +48,22 @@ iframe:not([tabindex='-1']),
 export class ExFormField extends HTMLElement {
     // This field is an API to mutated the enclosed `label#label` element.
     @FieldBuilder.field()
-    label: string;
+    label: string
 
     // This field is an API to mutated the enclosed `div#helper` element.
     @FieldBuilder.field()
-    helper: string;
+    helper: string
 
     // This property is reference to the light DOM accessible from the Shadow DOM.
     @ReferenceBuilder.reference({isShadow: true, selector: '#controls slot'})
-    readonly slotElement: HTMLSlotElement;
+    readonly slotElement: HTMLSlotElement
 
     // The listener reacts on clicks on the `label#label` to delegate focus on the first focusable control.
     @OnBuilder.listen('click #label', {isShadow: true})
     on() {
-        for (const element of toArray<Element>(this.querySelectorAll(focusableElementSelector))) {
+        for (const element of Array.from<Element>(this.querySelectorAll(focusableElementSelector))) {
             if (element instanceof HTMLElement) {
-                element.focus();
+                element.focus()
             }
         }
     }

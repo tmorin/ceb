@@ -1,14 +1,13 @@
-import './fix_global';
-import * as assert from 'assert';
-import {ElementBuilder, TemplateBuilder} from '../src/ceb';
+import {assert} from 'chai'
+import {ElementBuilder, TemplateBuilder} from '../src/ceb'
 
 describe('template.decorator', () => {
-    let sandbox;
+    let sandbox
     beforeEach(function () {
-        sandbox = document.body.appendChild(document.createElement('div'));
-    });
+        sandbox = document.body.appendChild(document.createElement('div'))
+    })
     it('should set shadow template', () => {
-        const tagName = 'template-decorator';
+        const tagName = 'template-decorator'
 
         @ElementBuilder.element<TestElement>({
             name: tagName
@@ -17,8 +16,8 @@ describe('template.decorator', () => {
         class TestElement extends HTMLElement {
         }
 
-        const element: TestElement = sandbox.appendChild(document.createElement(tagName));
-        assert.ok(sandbox.querySelector(tagName));
-        assert.ok(element.shadowRoot.querySelector('input'));
-    });
-});
+        const element: TestElement = sandbox.appendChild(document.createElement(tagName))
+        assert.ok(sandbox.querySelector(tagName))
+        assert.ok(element.shadowRoot.querySelector('input'))
+    })
+})

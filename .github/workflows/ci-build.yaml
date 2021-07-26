@@ -24,7 +24,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Test package
-        run: npm run test:ci
+        run: npm test
         env:
           CHROME_BIN: '/usr/bin/chromium-browser'
       - name: Build package

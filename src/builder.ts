@@ -1,7 +1,7 @@
-import {HooksRegistration} from './hook';
+import {HooksRegistration} from './hook'
 
 export interface CustomElementConstructor<T extends HTMLElement> {
-    new(...args: any[]): T;
+    new(...args: any[]): T
 }
 
 /**

@@ -9,8 +9,7 @@ module.exports = merge(common, {
     },
     resolve: {
         fallback: {
-            util: require.resolve('util'),
-            assert: require.resolve('assert'),
+            util: false,
             process: require.resolve('process'),
         }
     }

@@ -5,7 +5,7 @@
 export function toCamelCase(string = '') {
     return string.toLowerCase()
         .split('-')
-        .map((part, index) => index ? part.charAt(0).toUpperCase() + part.slice(1) : part).join('');
+        .map((part, index) => index ? part.charAt(0).toUpperCase() + part.slice(1) : part).join('')
 }
 
 /**
@@ -16,13 +16,5 @@ export function toKebabCase(value: string = '') {
     return !value ? value : value
         .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
         .map(x => x.toLowerCase())
-        .join('-');
-}
-
-/**
- * Converts value to an array.
- * @param value the value to convert
- */
-export function toArray<T>(value: any): Array<T> {
-    return Array.prototype.slice.call(value);
+        .join('-')
 }

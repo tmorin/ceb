@@ -1,7 +1,7 @@
-import {Builder, CustomElementConstructor} from './builder';
-import {HooksRegistration} from './hook';
-import {AttributeBuilder} from './attribute';
-import {ElementBuilder} from './element';
+import {Builder, CustomElementConstructor} from './builder'
+import {HooksRegistration} from './hook'
+import {AttributeBuilder} from './attribute'
+import {ElementBuilder} from './element'
 
 /**
  * The options of the decorator: `AttributeDelegateBuilder.delegate()`.
@@ -43,7 +43,7 @@ export class AttributeDelegateBuilder implements Builder {
         private toPropName?: string,
         private isShadow = false
     ) {
-        this.toAttrName = this.builder['attrName'];
+        this.toAttrName = this.builder['attrName']
     }
 
     /**
@@ -51,7 +51,7 @@ export class AttributeDelegateBuilder implements Builder {
      * @param builder the attribute builder
      */
     static get(builder: AttributeBuilder) {
-        return new AttributeDelegateBuilder(builder);
+        return new AttributeDelegateBuilder(builder)
     }
 
     /**
@@ -62,25 +62,25 @@ export class AttributeDelegateBuilder implements Builder {
      */
     static delegate<T extends HTMLElement>(attrName: string, selector: string, options: AttributeDelegateDecoratorOptions = {}) {
         return function (constructor: CustomElementConstructor<T>) {
-            const attrId = `attribute-${attrName}`;
-            const deleId = `delegate-attribute-${attrName}`;
-            const attrBuilder = ElementBuilder.getOrSet(constructor.prototype, attrId, AttributeBuilder.get(attrName));
-            const deleBuilder = ElementBuilder.getOrSet(constructor.prototype, deleId, DelegateBuilder.attribute(attrBuilder));
+            const attrId = `attribute-${attrName}`
+            const deleId = `delegate-attribute-${attrName}`
+            const attrBuilder = ElementBuilder.getOrSet(constructor.prototype, attrId, AttributeBuilder.get(attrName))
+            const deleBuilder = ElementBuilder.getOrSet(constructor.prototype, deleId, DelegateBuilder.attribute(attrBuilder))
             if (options.isBoolean) {
-                attrBuilder.boolean();
+                attrBuilder.boolean()
             }
             if (options.defaultValue) {
-                attrBuilder.default(options.defaultValue);
+                attrBuilder.default(options.defaultValue)
             }
-            deleBuilder.to(selector);
+            deleBuilder.to(selector)
             if (options.isShadow) {
-                deleBuilder.shadow();
+                deleBuilder.shadow()
             }
             if (options.toAttrName) {
-                deleBuilder.attribute(options.toAttrName);
+                deleBuilder.attribute(options.toAttrName)
             }
             if (options.toPropName) {
-                deleBuilder.property(options.toPropName);
+                deleBuilder.property(options.toPropName)
             }
         }
     }
@@ -90,7 +90,7 @@ export class AttributeDelegateBuilder implements Builder {
      * @param selector the selector
      */
     to(selector: string) {
-        this.selector = selector;
+        this.selector = selector
         return this
     }
 
@@ -99,9 +99,9 @@ export class AttributeDelegateBuilder implements Builder {
      * @param toAttrName the attribute name.
      */
     attribute(toAttrName: string) {
-        this.toAttrName = toAttrName;
-        this.toPropName = undefined;
-        return this;
+        this.toAttrName = toAttrName
+        this.toPropName = undefined
+        return this
     }
 
     /**
@@ -109,9 +109,9 @@ export class AttributeDelegateBuilder implements Builder {
      * @param toPropName the property name.
      */
     property(toPropName: string) {
-        this.toAttrName = undefined;
-        this.toPropName = toPropName;
-        return this;
+        this.toAttrName = undefined
+        this.toPropName = toPropName
+        return this
     }
 
     /**
@@ -119,30 +119,30 @@ export class AttributeDelegateBuilder implements Builder {
      * This option forces the selection into the shadow DOM.
      */
     shadow() {
-        this.isShadow = true;
-        return this;
+        this.isShadow = true
+        return this
     }
 
     build(Constructor: CustomElementConstructor<HTMLElement>, hooks: HooksRegistration) {
         this.builder
             .listener((el, data) => this.delegateValue(el, data.newVal))
-            .build(Constructor, hooks);
+            .build(Constructor, hooks)
     }
 
     private delegateValue(el: HTMLElement, newVal: any) {
-        const base = this.isShadow ? el.shadowRoot : el;
-        const targets = base.querySelectorAll(this.selector);
+        const base = this.isShadow ? el.shadowRoot : el
+        const targets = base.querySelectorAll(this.selector)
         if (targets.length > 0) {
             if (this.toAttrName) {
                 if (typeof newVal === 'string') {
-                    targets.forEach(t => t.setAttribute(this.toAttrName, newVal));
+                    targets.forEach(t => t.setAttribute(this.toAttrName, newVal))
                 } else if (newVal === true) {
-                    targets.forEach(t => t.setAttribute(this.toAttrName, ''));
+                    targets.forEach(t => t.setAttribute(this.toAttrName, ''))
                 } else {
-                    targets.forEach(t => t.removeAttribute(this.toAttrName));
+                    targets.forEach(t => t.removeAttribute(this.toAttrName))
                 }
             } else if (this.toPropName) {
-                targets.forEach(t => t[this.toPropName] = newVal);
+                targets.forEach(t => t[this.toPropName] = newVal)
             }
         }
     }
@@ -186,7 +186,7 @@ export class PropertyDelegateBuilder implements Builder {
         private isShadow = false,
         private isBoolean = false
     ) {
-        this.toPropName = propName;
+        this.toPropName = propName
     }
 
     /**
@@ -194,7 +194,7 @@ export class PropertyDelegateBuilder implements Builder {
      * @param propName the property name
      */
     static get(propName: string) {
-        return new PropertyDelegateBuilder(propName);
+        return new PropertyDelegateBuilder(propName)
     }
 
     /**
@@ -204,20 +204,20 @@ export class PropertyDelegateBuilder implements Builder {
      */
     static delegate(selector: string, options: PropertyDelegateDecoratorOptions = {}) {
         return function (target: HTMLElement, propName: string) {
-            const id = `delegate-property-${propName}`;
-            const builder = ElementBuilder.getOrSet(target, id, PropertyDelegateBuilder.get(propName));
-            builder.to(selector);
+            const id = `delegate-property-${propName}`
+            const builder = ElementBuilder.getOrSet(target, id, PropertyDelegateBuilder.get(propName))
+            builder.to(selector)
             if (options.isBoolean) {
-                builder.boolean();
+                builder.boolean()
             }
             if (options.toAttrName) {
-                builder.attribute(options.toAttrName);
+                builder.attribute(options.toAttrName)
             }
             if (options.toPropName) {
-                builder.property(options.toPropName);
+                builder.property(options.toPropName)
             }
             if (options.isShadow) {
-                builder.shadow();
+                builder.shadow()
             }
         }
     }
@@ -227,7 +227,7 @@ export class PropertyDelegateBuilder implements Builder {
      * @param selector the selector
      */
     to(selector: string) {
-        this.selector = selector;
+        this.selector = selector
         return this
     }
 
@@ -236,9 +236,9 @@ export class PropertyDelegateBuilder implements Builder {
      * @param toAttrName the attribute name.
      */
     attribute(toAttrName: string) {
-        this.toAttrName = toAttrName;
-        this.toPropName = undefined;
-        return this;
+        this.toAttrName = toAttrName
+        this.toPropName = undefined
+        return this
     }
 
     /**
@@ -246,9 +246,9 @@ export class PropertyDelegateBuilder implements Builder {
      * @param toPropName the property name.
      */
     property(toPropName: string) {
-        this.toAttrName = undefined;
-        this.toPropName = toPropName;
-        return this;
+        this.toAttrName = undefined
+        this.toPropName = toPropName
+        return this
     }
 
     /**
@@ -257,8 +257,8 @@ export class PropertyDelegateBuilder implements Builder {
      * When the value is falsy, the attribute is removed.
      */
     boolean() {
-        this.isBoolean = true;
-        return this;
+        this.isBoolean = true
+        return this
     }
 
     /**
@@ -266,41 +266,41 @@ export class PropertyDelegateBuilder implements Builder {
      * This option forces the selection into the shadow DOM.
      */
     shadow() {
-        this.isShadow = true;
-        return this;
+        this.isShadow = true
+        return this
     }
 
     build(Constructor: Function, hooks: HooksRegistration) {
-        const defaultValuePropName = '__cebDelegatePropertyDefaultValue_' + this.propName;
+        const defaultValuePropName = '__cebDelegatePropertyDefaultValue_' + this.propName
         // registers mutation observer
         hooks.before('constructorCallback', el => {
-            const builder = this;
-            const base = this.isShadow ? el.shadowRoot : el;
+            const builder = this
+            const base = this.isShadow ? el.shadowRoot : el
             // get the initial descriptor if existing to get the default value
-            const initialDescriptor = Object.getOwnPropertyDescriptor(el, this.propName);
+            const initialDescriptor = Object.getOwnPropertyDescriptor(el, this.propName)
             // creates or overrides the property to intercept both getter and setter
             Object.defineProperty(el, this.propName, {
                 get(): any {
-                    const target = base.querySelector(builder.selector);
+                    const target = base.querySelector(builder.selector)
                     if (builder.toAttrName) {
-                        return builder.isBoolean ? target.hasAttribute(builder.toAttrName) : target.getAttribute(builder.toAttrName);
+                        return builder.isBoolean ? target.hasAttribute(builder.toAttrName) : target.getAttribute(builder.toAttrName)
                     }
-                    return target[builder.toPropName || builder.propName];
+                    return target[builder.toPropName || builder.propName]
                 },
                 set(value: any): void {
-                    const target = base.querySelector(builder.selector);
+                    const target = base.querySelector(builder.selector)
                     if (builder.toAttrName) {
                         if (value === false || value === undefined || value === null) {
-                            target.removeAttribute(builder.toAttrName);
+                            target.removeAttribute(builder.toAttrName)
                         } else {
-                            target.setAttribute(builder.toAttrName, builder.isBoolean ? '' : value);
+                            target.setAttribute(builder.toAttrName, builder.isBoolean ? '' : value)
                         }
                     } else {
-                        target[builder.toPropName || builder.propName] = value;
+                        target[builder.toPropName || builder.propName] = value
                     }
                 }
-            });
-            const defaultValue = initialDescriptor && initialDescriptor.value;
+            })
+            const defaultValue = initialDescriptor && initialDescriptor.value
             if (defaultValue !== undefined && defaultValue !== false) {
                 // the default value cannot be set has attribute value as long as the element is not attached
                 // so the value is kept into a transient property
@@ -309,19 +309,19 @@ export class PropertyDelegateBuilder implements Builder {
                     enumerable: false,
                     writable: false,
                     configurable: true
-                });
+                })
             }
-        });
+        })
         // handles the default value
         hooks.after('connectedCallback', el => {
-            const defaultValueDescriptor = Object.getOwnPropertyDescriptor(el, defaultValuePropName);
+            const defaultValueDescriptor = Object.getOwnPropertyDescriptor(el, defaultValuePropName)
             // applies the default value if its description has been found
             if (defaultValueDescriptor) {
-                el[this.propName] = defaultValueDescriptor.value;
+                el[this.propName] = defaultValueDescriptor.value
             }
             // the default value shouldn't be set if the element is then moved into the DOM
-            delete el[defaultValuePropName];
-        });
+            delete el[defaultValuePropName]
+        })
     }
 }
 
@@ -335,7 +335,7 @@ export class DelegateBuilder {
      * @param builder the attribute builder
      */
     static attribute(builder: AttributeBuilder) {
-        return AttributeDelegateBuilder.get(builder);
+        return AttributeDelegateBuilder.get(builder)
     }
 
     /**
@@ -343,7 +343,7 @@ export class DelegateBuilder {
      * @param propName the property name
      */
     static property(propName: string) {
-        return PropertyDelegateBuilder.get(propName);
+        return PropertyDelegateBuilder.get(propName)
     }
 
 }
