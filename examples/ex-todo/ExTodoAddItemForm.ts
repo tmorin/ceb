@@ -1,4 +1,4 @@
-import {CustomElementConstructor, ElementBuilder, OnBuilder, TemplateBuilder} from '../../src'
+import {CustomElementConstructor, ElementBuilder, OnBuilder, ContentBuilder} from '../../src'
 
 const template = `
 <form name="add-item">
@@ -11,7 +11,7 @@ export class ExTodoAddItemForm extends HTMLElement {
 }
 
 export default ElementBuilder.get(ExTodoAddItemForm).builder(
-    TemplateBuilder.get(template),
+    ContentBuilder.get(template),
     OnBuilder.get('submit').delegate('form').prevent().invoke((el, evt, form: HTMLFormElement) => {
         const text = (form.elements.namedItem('text') as HTMLInputElement).value
         el.dispatchEvent(new CustomEvent<string>('ex-todo-add-item', {

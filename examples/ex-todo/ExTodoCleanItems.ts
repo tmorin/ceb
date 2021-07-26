@@ -1,4 +1,4 @@
-import {CustomElementConstructor, ElementBuilder, OnBuilder, TemplateBuilder} from '../../src'
+import {CustomElementConstructor, ElementBuilder, OnBuilder, ContentBuilder} from '../../src'
 
 const template = `
 <form name="clean-items">
@@ -10,7 +10,7 @@ export class ExTodoCleanItems extends HTMLElement {
 }
 
 export default ElementBuilder.get(ExTodoCleanItems).builder(
-    TemplateBuilder.get(template),
+    ContentBuilder.get(template),
     OnBuilder.get('submit').prevent().invoke((el) => {
         el.dispatchEvent(new CustomEvent<string>('ex-todo-clean-items', {
             bubbles: true,

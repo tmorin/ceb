@@ -14,15 +14,15 @@ A simple Custom Element displaying a greeting text:
 
 ```typescript
 import {
-    ElementBuilder, 
-  FieldBuilder, 
-  FieldListenerData, 
-  ReferenceBuilder, 
-  TemplateBuilder
+  ElementBuilder,
+  FieldBuilder,
+  FieldListenerData,
+  ReferenceBuilder,
+  ContentBuilder
 } from "ceb";
 
 @ElementBuilder.element<ExGreeting>()
-@TemplateBuilder.template({
+@ContentBuilder.content({
   content: "<p>Hello, <span id='name'></span>!</p>",
   isShadow: true
 })

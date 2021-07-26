@@ -11,14 +11,6 @@ import {PropertyDelegateBuilder} from '@tmorin/ceb'
 const builder = PropertyDelegateBuilder.get('aProperty')
 ```
 
-Alternatively, `DelegateBuilder.property(propName)` can also be used.
-
-```javascript
-import {DelegateBuilder} from '@tmorin/ceb'
-// creates the builder
-const builder = DelegateBuilder.property('aProperty')
-```
-
 The builder and underlying decorators are also technically documented: [PropertyDelegateBuilder](../api/classes/propertydelegatebuilder.html).
 
 ## Set the selector

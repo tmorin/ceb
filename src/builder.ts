@@ -1,5 +1,9 @@
 import {HooksRegistration} from './hook'
 
+/**
+ * The constructor of a Custom Element
+ * @protected
+ */
 export interface CustomElementConstructor<T extends HTMLElement> {
     new(...args: any[]): T
 }

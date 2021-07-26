@@ -1,7 +1,20 @@
+
 import {toKebabCase} from './utilities'
 import {Builder, CustomElementConstructor} from './builder'
 import {HookCallbacks, HooksRegistration} from './hook'
 
+/**
+ * @module
+ * @category Builder
+ */
+
+
+/**
+ * The registry of registered hooks.
+ *
+ * The is API is dedicated for developer of Builders.
+ * @protected
+ */
 export interface HookRegistry {
     [key: string]: {
         before: Array<Function>
@@ -11,9 +24,10 @@ export interface HookRegistry {
 }
 
 /**
- * The options of the decorator:`ElementBuilder.element()`.
+ * The options of the decorator {@link ElementBuilder.element}.
+ * @template T The type of the Custom Element.
  */
-export interface ElementDecoratorOptions<T extends HTMLElement> {
+export type ElementDecoratorOptions<T extends HTMLElement> = {
     /**
      * Override the name of the custom element.
      */
@@ -28,12 +42,40 @@ export interface ElementDecoratorOptions<T extends HTMLElement> {
     builder?: ElementBuilder<T>
 }
 
+const PROPERTY_NAME_BUILDERS = "_ceb_builders"
+
 /**
- * The element builder provides services to define and register CustomElement.
+ * The builder provides services to define and register CustomElement.
+ *
+ * @example With the decorator API - Register an element
+ * ```typescript
+ * import {ElementBuilder} from "ceb"
+ * @ElementBuilder.element<HelloWorld>()
+ * class HelloWorld extends HTMLElement {
+ *     connectedCallback() {
+ *         this.textContent = "Hello, World!"
+ *     }
+ * }
+ * ```
+ * @example With the decorator API - Register a specialization of HTMLInputElement
+ * ```typescript
+ * import {ElementBuilder} from "ceb"
+ * @ElementBuilder.element<MyInput>({
+ *     extends: "input",
+ *     name: "x-input"
+ * })
+ * class MyInput extends HTMLInputElement {
+ *     connectedCallback() {
+ *         this.placeholder = "Type your name!"
+ *     }
+ * }
+ * ```
+ *
+ * @template T The type of the Custom Element.
  */
 export class ElementBuilder<T extends HTMLElement> implements HooksRegistration {
 
-    constructor(
+    private constructor(
         private elName: string,
         private elConstructor: CustomElementConstructor<T>,
         private elExtends?: string,
@@ -44,18 +86,21 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
 
     /**
      * Get or set builder to a target.
+     *
+     * The is API is dedicated for developer of Builders.
+     * @protected
      * @param target the target
      * @param id the id used to identify the builder
      * @param builder the builder
      */
     static getOrSet<B extends Builder>(target: HTMLElement, id: string, builder: B): B {
-        if (!target['_cebBuilders']) {
-            target['_cebBuilders'] = {}
+        if (!target[PROPERTY_NAME_BUILDERS]) {
+            target[PROPERTY_NAME_BUILDERS] = {}
         }
-        if (!target['_cebBuilders'][id]) {
-            target['_cebBuilders'][id] = builder
+        if (!target[PROPERTY_NAME_BUILDERS][id]) {
+            target[PROPERTY_NAME_BUILDERS][id] = builder
         }
-        return target['_cebBuilders'][id]
+        return target[PROPERTY_NAME_BUILDERS][id]
     }
 
     /**
@@ -114,6 +159,9 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
 
     /**
      * Register a hook which will be invoked before the execution of regular hooks.
+     *
+     * The is API is dedicated for developer of Builders.
+     * @protected
      * @param name the name
      * @param callback the callback
      */
@@ -131,6 +179,9 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
 
     /**
      * Register a hook.
+     *
+     * The is API is dedicated for developer of Builders.
+     * @protected
      * @param name the name
      * @param callback the callback
      */
@@ -148,6 +199,9 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
 
     /**
      * Register a hook which will be invoked after the execution of regular hooks.
+     *
+     * The is API is dedicated for developer of Builders.
+     * @protected
      * @param name the name
      * @param callback the callback
      */
@@ -165,6 +219,9 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
 
     /**
      * Invokes the registered hooks.
+     *
+     * The is API is dedicated for developer of Builders.
+     * @protected
      * @param type the type
      * @param name the name
      * @param cb the callback
@@ -186,8 +243,8 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
         }
 
         const OriginalClass = this.elConstructor
-        const altBuilders: Array<Builder> = Object.values(OriginalClass.prototype['_cebBuilders'] || {})
-        delete OriginalClass.prototype['_cebBuilders']
+        const altBuilders: Array<Builder> = Object.values(OriginalClass.prototype[PROPERTY_NAME_BUILDERS] || {})
+        delete OriginalClass.prototype[PROPERTY_NAME_BUILDERS]
         const builders = [...this.builders, ...altBuilders]
         const hooks = this
 
@@ -239,7 +296,6 @@ export class ElementBuilder<T extends HTMLElement> implements HooksRegistration 
                 hooks.invoke('after', 'attributeChangedCallback', callback => callback(this, name, oldValue, newValue))
             }
         }
-
 
         builders.forEach(builder => builder.build(Wrapper, this))
 

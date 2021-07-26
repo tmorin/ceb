@@ -4,9 +4,9 @@ import {HooksRegistration} from './hook'
 import {ElementBuilder} from './element'
 
 /**
- * The data of the field listener.
+ * The data of provided by a {@link FieldListener}.
  */
-export interface FieldListenerData {
+export type FieldListenerData = {
     /**
      * The property name.
      */
@@ -37,9 +37,9 @@ export interface FieldListener {
 }
 
 /**
- * The options of the decorator: `FieldBuilder.field()`.
+ * The options of the decorator {@link FieldBuilder.field}.
  */
-export interface FieldDecoratorOptions {
+export type  FieldDecoratorOptions = {
     /**
      * To override the name of the attribute.
      */
@@ -52,9 +52,9 @@ export interface FieldDecoratorOptions {
 }
 
 /**
- * The options of the decorator: `FieldBuilder.listen()`.
+ * The options of the decorator {@link FieldBuilder.listen}.
  */
-export interface ListenerFieldDecoratorOptions {
+export type ListenerFieldDecoratorOptions = {
     /**
      * To specify the name of the property.
      */
@@ -71,13 +71,40 @@ function getPrefix(value: string) {
 }
 
 /**
- * The field builder provides services to define fields.
+ * The builder provides services to define fields.
  * A field is an attribute bound to a property.
  * The value is hosted by the attribute but it can be mutated using the bound property.
+ *
+ * @example With the builder API - Define the field `value` and react on changes
+ * ```typescript
+ * import {ElementBuilder, FieldBuilder} from "ceb"
+ * class HelloWorld extends HTMLElement {
+ *     value = "World"
+ * }
+ * ElementBuilder.get().builder(
+ *     FieldBuilder.get("name").listener(
+ *         (el, data) => el.textContent = `Hello, ${data.newVal}!`
+ *     )
+ * ).register()
+ * ```
+ *
+ * @example With the decorator API - Define the field `value` and react on changes
+ * ```typescript
+ * import {ElementBuilder, FieldBuilder} from "ceb"
+ * @ElementBuilder.element()
+ * class HelloWorld extends HTMLElement {
+ *     @FieldBuilder.field()
+ *     value = "World"
+ *     @FieldBuilder.listen()
+ *     onValue(data) {
+ *         this.textContent = `Hello, ${data.newVal}!`
+ *     }
+ * }
+ * ```
  */
 export class FieldBuilder implements Builder {
 
-    constructor(
+    private constructor(
         private propName: string,
         private attrName: string,
         private isBoolean = false,
@@ -154,8 +181,12 @@ export class FieldBuilder implements Builder {
         return this
     }
 
+    /**
+     * The is API is dedicated for developer of Builders.
+     * @protected
+     */
     build(Constructor: CustomElementConstructor<HTMLElement>, hooks: HooksRegistration) {
-        const defaultValuePropName = '__cebFieldDefaultValue_' + this.propName
+        const defaultValuePropName = '__ceb_field_default_value_' + this.propName
 
         // registers the attribute to observe
         Constructor['observedAttributes'].push(this.attrName)

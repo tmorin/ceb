@@ -4,7 +4,7 @@ import {
     FieldBuilder,
     OnBuilder,
     ReferenceBuilder,
-    TemplateBuilder
+    ContentBuilder
 } from '../../src'
 
 const template = `
@@ -40,7 +40,7 @@ export class ExTodoItem extends HTMLElement {
 }
 
 export default ElementBuilder.get(ExTodoItem).builder(
-    TemplateBuilder.get(template).shadow(true),
+    ContentBuilder.get(template).shadow(true),
 
     FieldBuilder.get('done').listener((el: ExTodoItem) => el.render()).boolean(),
     ReferenceBuilder.get('doneEl').shadow().selector('input[name=done]'),

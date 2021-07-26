@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import {AttributeBuilder, DelegateBuilder, ElementBuilder} from '../src'
+import {AttributeBuilder, AttributeDelegateBuilder, ElementBuilder} from '../src'
 import {getTagName} from './helpers'
 
 describe('delegate.attribute', () => {
@@ -21,13 +21,13 @@ describe('delegate.attribute', () => {
         }
 
         ElementBuilder.get(ElBuilderShouldDelegateAttr).builder(
-            DelegateBuilder.attribute(AttributeBuilder.get('value').default('default value'))
+            AttributeDelegateBuilder.get(AttributeBuilder.get('value').default('default value'))
                 .to('input'),
-            DelegateBuilder.attribute(AttributeBuilder.get('disabled').boolean().default(true))
+            AttributeDelegateBuilder.get(AttributeBuilder.get('disabled').boolean().default(true))
                 .to('input'),
-            DelegateBuilder.attribute(AttributeBuilder.get('alt-type').default('text'))
+            AttributeDelegateBuilder.get(AttributeBuilder.get('alt-type').default('text'))
                 .to('input').attribute('type'),
-            DelegateBuilder.attribute(AttributeBuilder.get('label').default('default label'))
+            AttributeDelegateBuilder.get(AttributeBuilder.get('label').default('default label'))
                 .to('button').shadow().property('textContent'),
         ).register()
         const tagName = getTagName(ElBuilderShouldDelegateAttr)

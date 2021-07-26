@@ -1,11 +1,11 @@
-import {Builder, CustomElementConstructor} from './builder'
-import {HooksRegistration} from './hook'
-import {ElementBuilder} from './element'
+import {Builder, CustomElementConstructor} from "./builder"
+import {HooksRegistration} from "./hook"
+import {ElementBuilder} from "./element"
 
 /**
- * The options of the decorator: `ReferenceBuilder.reference()`.
+ * The options of the decorator {@link ReferenceBuilder.reference}.
  */
-export interface ReferenceDecoratorOptions {
+export type ReferenceDecoratorOptions ={
     /**
      * The CSS selector used to identify the DOM element(s).
      */
@@ -23,11 +23,38 @@ export interface ReferenceDecoratorOptions {
 }
 
 /**
- * Reference builder provides services to bind a property to a embedded DOM element.
+ * The builder provides services to select a DOM node or a set of DOM nodes from a readonly property, i.e. `get prop { ... }`.
+ *
+ * @example With the builder API - Get a reference of an `input` element
+ * ```typescript
+ * import {ElementBuilder, ReferenceBuilder} from "ceb"
+ * class HelloWorld extends HTMLElement {
+ *     readonly inputElement: HTMLInputElement
+ *     connectedCallback() {
+ *         this.innerHTML = `Hello, <input value="World">!`
+ *     }
+ * }
+ * ElementBuilder.get().builder(
+ *     ReferenceBuilder.get("inputElement").selector('input')
+ * ).register()
+ * ```
+ *
+ * @example With the decorator API - Get a reference of an `input` element
+ * ```typescript
+ * import {ElementBuilder, ReferenceBuilder} from "ceb"
+ * @ElementBuilder.element()
+ * class HelloWorld extends HTMLElement {
+ *     @ReferenceBuilder.reference({selector: "input"})
+ *     readonly input: HTMLInputElement
+ *     connectedCallback() {
+ *         this.innerHTML = `Hello, <input value="World">!`
+ *     }
+ * }
+ * ```
  */
 export class ReferenceBuilder implements Builder {
 
-    constructor(
+    private constructor(
         private propName: string,
         private selectors: string,
         private isArray = false,
@@ -90,12 +117,16 @@ export class ReferenceBuilder implements Builder {
         return this
     }
 
+    /**
+     * The is API is dedicated for developer of Builders.
+     * @protected
+     */
     build(Constructor: CustomElementConstructor<HTMLElement>, hooks: HooksRegistration) {
         const selectors = this.selectors
         const isArray = this.isArray
         const isShadow = this.isShadow
 
-        hooks.before('constructorCallback', el => {
+        hooks.before("constructorCallback", el => {
             Object.defineProperty(el, this.propName, {
                 get(): any {
                     const base = isShadow ? el.shadowRoot : el

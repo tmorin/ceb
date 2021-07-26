@@ -10,7 +10,7 @@ Then, other builders can be used to enhance it:
 - [AttributeBuilder](AttributeBuilder.md): to define attributes and react on changes
 - [FieldBuilder](FieldBuilder.md): to define fields (property/attribute) and react on changes
 - [OnBuilder](OnBuilder.md): to listen to DOM events
-- [TemplateBuilder](TemplateBuilder.md): to initialize the light or shadow DOM
+- [ContentBuilder](book/builders-and-decorators/ContentBuilder.md): to initialize the light or shadow DOM
 - [ReferenceBuilder](ReferenceBuilder.md): to get reference of children nodes
 - [AttributeDelegateBuilder](AttributeDelegateBuilder.md): to delegate attribute mutations to child nodes
 - [PropertyDelegateBuilder](PropertyDelegateBuilder.md): to delegate the property accesses to a single child node

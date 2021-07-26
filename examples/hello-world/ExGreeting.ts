@@ -1,7 +1,7 @@
-import {ElementBuilder, FieldBuilder, FieldListenerData, ReferenceBuilder, TemplateBuilder} from '../../src'
+import {ElementBuilder, FieldBuilder, FieldListenerData, ReferenceBuilder, ContentBuilder} from '../../src'
 
 @ElementBuilder.element<ExGreeting>()
-@TemplateBuilder.template({
+@ContentBuilder.content({
     content: "<p>Hello, <span id='name'></span>!</p>",
     isShadow: true
 })

@@ -36,7 +36,7 @@
     "alpha:publish": "git push --all && npm publish --tag canary",
     "build": "npm run build:clean && npm run build:lib && npm run build:umd && npm run build:umd:min",
     "build:clean": "rimraf .tmp dist lib *.tgz",
-    "build:lib": "tsc",
+    "build:lib": "tsc -p tsconfig.build.json",
     "build:umd": "webpack --config webpack.dev.js",
     "build:umd:min": "webpack --config webpack.prd.js",
     "doc:book": "mdbook clean && mdbook build",

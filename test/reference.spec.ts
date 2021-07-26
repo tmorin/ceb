@@ -1,7 +1,6 @@
 import {assert} from 'chai'
-import {ElementBuilder} from '../src'
+import {ElementBuilder, ReferenceBuilder} from '../src'
 import {getTagName} from './helpers'
-import {ReferenceBuilder} from '../src/reference'
 
 describe('reference', () => {
     let sandbox

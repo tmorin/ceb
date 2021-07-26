@@ -30,16 +30,16 @@ export class ExGreeting extends HTMLElement {
 
 ## Initialize the Shadow DOM
 
-To Shadow DOM of `ex-greeting` is initialized with the decorator `@TemplateBuilder.template` is used :
+To Shadow DOM of `ex-greeting` is initialized with the decorator `@ContentBuilder.content` is used :
 
 ```typescript
 import {
   ElementBuilder,
-  TemplateBuilder
+  ContentBuilder
 } from "ceb";
 
 @ElementBuilder.element<ExGreeting>()
-@TemplateBuilder.template({
+@ContentBuilder.content({
   content: `<p>Hello, <span id="name"></span>!</p>`,
   isShadow: true
 })
@@ -54,12 +54,12 @@ The target of the greeting is capture with the field `name` using the decorator 
 ```typescript
 import {
   ElementBuilder,
-  TemplateBuilder,
+  ContentBuilder,
   FieldBuilder
 } from "ceb";
 
 @ElementBuilder.element<ExGreeting>()
-@TemplateBuilder.template({
+@ContentBuilder.content({
   content: `<p>Hello, <span id="name"></span>!</p>`,
   isShadow: true
 })
@@ -81,13 +81,13 @@ The decorator `ReferenceBuilder.reference` retrieves the reference of the elemen
 ```typescript
 import {
   ElementBuilder,
-  TemplateBuilder,
+  ContentBuilder,
   FieldBuilder,
   ReferenceBuilder
 } from "ceb";
 
 @ElementBuilder.element<ExGreeting>()
-@TemplateBuilder.template({
+@ContentBuilder.content({
   content: `<p>Hello, <span id="name"></span>!</p>`,
   isShadow: true
 })
@@ -108,13 +108,13 @@ Finally, the decorator `FieldBuilder.listen` handles the mutation of the field `
 ```typescript
 import {
   ElementBuilder,
-  TemplateBuilder,
+  ContentBuilder,
   FieldBuilder,
   ReferenceBuilder,
 } from "ceb";
 
 @ElementBuilder.element<ExGreeting>()
-@TemplateBuilder.template({
+@ContentBuilder.content({
   content: `<p>Hello, <span id="name"></span>!</p>`,
   isShadow: true
 })
@@ -142,13 +142,13 @@ Alternatively, the decorator `AttributeDelegateBuilder.delegate` can be used to 
 ```typescript
 import {
   ElementBuilder,
-  TemplateBuilder,
+  ContentBuilder,
   FieldBuilder,
   AttributeDelegateBuilder
 } from "ceb";
 
 @ElementBuilder.element<ExGreeting>()
-@TemplateBuilder.template({
+@ContentBuilder.content({
   content: `<p>Hello, <span id="name"></span>!</p>`,
   isShadow: true
 })

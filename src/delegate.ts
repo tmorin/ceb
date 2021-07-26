@@ -4,9 +4,9 @@ import {AttributeBuilder} from './attribute'
 import {ElementBuilder} from './element'
 
 /**
- * The options of the decorator: `AttributeDelegateBuilder.delegate()`.
+ * The options of the decorator {@link AttributeDelegateBuilder.delegate}.
  */
-export interface AttributeDelegateDecoratorOptions {
+export type AttributeDelegateDecoratorOptions = {
     /**
      * When the value is truthy, the attribute's value is "" otherwise the attribute is removed.
      */
@@ -33,10 +33,37 @@ export interface AttributeDelegateDecoratorOptions {
 }
 
 /**
- * The AttributeDelegateBuilder delegates the access of an attribute to an embedded element.
+ * The builder delegates the accesses of an attribute to an embedded element.
+ *
+ * @example With the builder API - Delegate the accesses of the attribute `value` to an embedded input element
+ * ```typescript
+ * import {ElementBuilder, AttributeBuilder, AttributeDelegateBuilder} from "ceb"
+ * class HelloWorld extends HTMLElement {
+ *     connectedCallback() {
+ *         this.innerHTML = `Hello, <input>!`
+ *     }
+ * }
+ * ElementBuilder.get().builder(
+ *     AttributeDelegateBuilder.get(
+ *         AttributeBuilder.get("value")
+ *     ).to("input")
+ * ).register()
+ * ```
+ *
+ * @example With the decorator API - Delegate the accesses of the attribute `value` to an embedded input element
+ * ```typescript
+ * import {ElementBuilder, AttributeDelegateBuilder} from "ceb"
+ * @ElementBuilder.element()
+ * @AttributeDelegateBuilder.delegate('value', 'input')
+ * class HelloWorld extends HTMLElement {
+ *     connectedCallback() {
+ *         this.innerHTML = `Hello, <input>!`
+ *     }
+ * }
+ * ```
  */
 export class AttributeDelegateBuilder implements Builder {
-    constructor(
+    private constructor(
         private readonly builder: AttributeBuilder,
         private selector?: string,
         private toAttrName?: string,
@@ -65,7 +92,7 @@ export class AttributeDelegateBuilder implements Builder {
             const attrId = `attribute-${attrName}`
             const deleId = `delegate-attribute-${attrName}`
             const attrBuilder = ElementBuilder.getOrSet(constructor.prototype, attrId, AttributeBuilder.get(attrName))
-            const deleBuilder = ElementBuilder.getOrSet(constructor.prototype, deleId, DelegateBuilder.attribute(attrBuilder))
+            const deleBuilder = ElementBuilder.getOrSet(constructor.prototype, deleId, AttributeDelegateBuilder.get(attrBuilder))
             if (options.isBoolean) {
                 attrBuilder.boolean()
             }
@@ -123,6 +150,10 @@ export class AttributeDelegateBuilder implements Builder {
         return this
     }
 
+    /**
+     * The is API is dedicated for developer of Builders.
+     * @protected
+     */
     build(Constructor: CustomElementConstructor<HTMLElement>, hooks: HooksRegistration) {
         this.builder
             .listener((el, data) => this.delegateValue(el, data.newVal))
@@ -149,9 +180,9 @@ export class AttributeDelegateBuilder implements Builder {
 }
 
 /**
- * The options of the decorator: `PropertyDelegateBuilder.delegate()`.
+ * The options of the decorator {@link PropertyDelegateBuilder.delegate}.
  */
-export interface PropertyDelegateDecoratorOptions {
+export type PropertyDelegateDecoratorOptions = {
     /**
      * Only used when delegating to an attribute.
      * When the value is truthy, the attribute's value is "" otherwise the attribute is removed.
@@ -175,10 +206,37 @@ export interface PropertyDelegateDecoratorOptions {
 }
 
 /**
- * The PropertyDelegateBuilder delegates the access of a property to an embedded element.
+ * The builder delegates the accesses of a property to an embedded element.
+ *
+ * @example With the builder API - Delegate the accesses of the property `value` to an embedded input element
+ * ```typescript
+ * import {ElementBuilder, PropertyDelegateBuilder} from "ceb"
+ * class HelloWorld extends HTMLElement {
+ *     value: string = "World"
+ *     connectedCallback() {
+ *         this.innerHTML = `Hello, <input>!`
+ *     }
+ * }
+ * ElementBuilder.get().builder(
+ *     PropertyDelegateBuilder.get("value").to("input")
+ * ).register()
+ * ```
+ *
+ * @example With the decorator API - Delegate the accesses of the property `value` to an embedded input element
+ * ```typescript
+ * import {ElementBuilder, PropertyDelegateBuilder} from "ceb"
+ * @ElementBuilder.element()
+ * @PropertyDelegateBuilder.delegate('value', 'input')
+ * class HelloWorld extends HTMLElement {
+ *     value: string = "World"
+ *     connectedCallback() {
+ *         this.innerHTML = `Hello, <input>!`
+ *     }
+ * }
+ * ```
  */
 export class PropertyDelegateBuilder implements Builder {
-    constructor(
+    private constructor(
         private readonly propName: string,
         private selector?: string,
         private toAttrName?: string,
@@ -270,8 +328,12 @@ export class PropertyDelegateBuilder implements Builder {
         return this
     }
 
+    /**
+     * The is API is dedicated for developer of Builders.
+     * @protected
+     */
     build(Constructor: Function, hooks: HooksRegistration) {
-        const defaultValuePropName = '__cebDelegatePropertyDefaultValue_' + this.propName
+        const defaultValuePropName = '__ceb_delegate_property_default_value_' + this.propName
         // registers mutation observer
         hooks.before('constructorCallback', el => {
             const builder = this
@@ -323,27 +385,4 @@ export class PropertyDelegateBuilder implements Builder {
             delete el[defaultValuePropName]
         })
     }
-}
-
-/**
- * Facade regrouping builder factories about delegation.
- */
-export class DelegateBuilder {
-
-    /**
-     * Create a fresh AttributeDelegateBuilder.
-     * @param builder the attribute builder
-     */
-    static attribute(builder: AttributeBuilder) {
-        return AttributeDelegateBuilder.get(builder)
-    }
-
-    /**
-     * Create a fresh PropertyDelegateBuilder.
-     * @param propName the property name
-     */
-    static property(propName: string) {
-        return PropertyDelegateBuilder.get(propName)
-    }
-
 }

@@ -1,4 +1,4 @@
-import {CustomElementConstructor, ElementBuilder, OnBuilder, ReferenceBuilder, TemplateBuilder} from '../../src'
+import {CustomElementConstructor, ElementBuilder, OnBuilder, ReferenceBuilder, ContentBuilder} from '../../src'
 import './ExTodoAddItemForm'
 import './ExTodoCleanItems'
 import './ExTodoItemList'
@@ -25,7 +25,7 @@ export class ExTodoApp extends HTMLElement {
 }
 
 export default ElementBuilder.get(ExTodoApp).builder(
-    TemplateBuilder.get(template),
+    ContentBuilder.get(template),
     ReferenceBuilder.get('itemList').selector('ex-todo-item-list'),
     OnBuilder.get('ex-todo-add-item').invoke((el: ExTodoApp, evt: CustomEvent<string>) => el.onAddItem(evt.detail)),
     OnBuilder.get('ex-todo-clean-items').invoke((el: ExTodoApp) => el.onCleanItems())

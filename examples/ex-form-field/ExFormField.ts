@@ -4,7 +4,7 @@ import {
     FieldBuilder,
     OnBuilder,
     ReferenceBuilder,
-    TemplateBuilder
+    ContentBuilder
 } from '../../src'
 
 // An hard coded list of selector helping to select only focusable elements.
@@ -21,8 +21,8 @@ iframe:not([tabindex='-1']),
 // Register the class ExFormField as a regular Custom Element.
 @ElementBuilder.element<ExFormField>()
 // Define the content of the shadow DOM of the Custom Element at its creation.
-// The template expects to host a light DOM of FORM controls enclosed within a default `slot` element.
-@TemplateBuilder.template({
+// The content expects to host a light DOM of FORM controls enclosed within a default `slot` element.
+@ContentBuilder.content({
     content: `
 <style>
 :host {

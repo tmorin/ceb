@@ -4,9 +4,9 @@ import {HooksRegistration} from './hook'
 import {ElementBuilder} from './element'
 
 /**
- * The data of the attribute listener.
+ * The data of provided by an {@link AttributeListener}.
  */
-export interface AttributeListenerData {
+export type AttributeListenerData = {
     /**
      * The attribute name.
      */
@@ -33,9 +33,9 @@ export interface AttributeListener {
 }
 
 /**
- * The options of the decorator: `AttributeBuilder.listen()`.
+ * The options of the decorator {@link AttributeBuilder.listen}.
  */
-export interface ListenerAttributeDecoratorOptions {
+export type ListenerAttributeDecoratorOptions = {
     /**
      * The attribute name.
      */
@@ -59,11 +59,35 @@ function getPrefix(prefix?: boolean | string): string {
 }
 
 /**
- * The attribute builder provides services to initialize an attribute and react on changes.
+ * The builder provides services to initialize an attribute and react on changes.
+ *
+ * @example With the builder API - Define the attribute `value` and react on changes
+ * ```typescript
+ * import {ElementBuilder, AttributeBuilder} from "ceb"
+ * class HelloWorld extends HTMLElement {
+ * }
+ * ElementBuilder.get().builder(
+ *     AttributeBuilder.get("value").default("World").listener(
+ *         (el, data) => el.textContent = `Hello, ${data.newVal}!`
+ *     )
+ * ).register()
+ * ```
+ *
+ * @example With the decorator API - Define the attribute `value` and react on changes
+ * ```typescript
+ * import {ElementBuilder, AttributeBuilder} from "ceb"
+ * @ElementBuilder.element()
+ * class HelloWorld extends HTMLElement {
+ *     @AttributeBuilder.listen()
+ *     onValue(data) {
+ *         this.textContent = `Hello, ${data.newVal}!`
+ *     }
+ * }
+ * ```
  */
 export class AttributeBuilder implements Builder {
 
-    constructor(
+    private constructor(
         private attrName: string,
         private defaultValue: boolean | string = undefined,
         private isBoolean = false,
@@ -125,8 +149,12 @@ export class AttributeBuilder implements Builder {
         return this
     }
 
+    /**
+     * The is API is dedicated for developer of Builders.
+     * @protected
+     */
     build(Constructor: CustomElementConstructor<HTMLElement>, hooks: HooksRegistration) {
-        const defaultValuePropName = '__cebAttributeDefaultValue_' + toCamelCase(this.attrName)
+        const defaultValuePropName = '__ceb_attribute_default_value_' + toCamelCase(this.attrName)
 
         // registers the attribute to observe
         Constructor['observedAttributes'].push(this.attrName)
