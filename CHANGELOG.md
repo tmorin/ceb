@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.3](https://github.com/tmorin/ceb/compare/v2.3.2...v2.3.3) (2021-07-27)
+
+
+### Bug Fixes
+
+* **template:** the template parameters were not exposed with the decorator ([6a32a6d](https://github.com/tmorin/ceb/commit/6a32a6d25eb16393c304aca1fe9d444d619943a1))
+
 ### [2.3.2](https://github.com/tmorin/ceb/compare/v2.3.1...v2.3.2) (2021-07-27)
 
 

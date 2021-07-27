@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "license": "MIT",
   "description": "ceb (custom-element-builder) is a library helping to develop Custom Elements.",
   "keywords": [
