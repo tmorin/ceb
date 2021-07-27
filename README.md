@@ -9,6 +9,36 @@
 Its core is a builder which executes others builders.
 By this way, `<ceb/>` is natively opened to extensions and builders easily sharable.
 
+## Quickly
+
+```typescript
+import {ElementBuilder, FieldBuilder, TemplateBuilder} from "ceb"
+
+// Define the Custom Element
+@ElementBuilder.element<ExGreeting>()
+export class ExGreeting extends HTMLElement {
+  // Bind the property `name` to the attribute `name`
+  @FieldBuilder.field()
+  name = "World"
+
+  // Define the template of the custom element
+  @TemplateBuilder.template()
+  private render() {
+    return html`<p>Hello, ${this.name}!</p>`
+  }
+  
+  // Render the template when the name change
+  @FieldBuilder.listen()
+  private onName() {
+    this.render()
+  }
+}
+```
+
+```html
+<ex-greeting name="John Doe" />
+```
+
 ## Install
 
 From npm or yarn or ... from npm what?

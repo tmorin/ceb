@@ -4,7 +4,7 @@ The class `TemplateBuilder` provides service to patch the DOM of the custom elem
 
 The static method `TemplateBuilder.get()` returns a fresh builder.
 
-```javascript
+```typescript
 import {ContentBuilder} from '@tmorin/ceb'
 // creates the builder
 const builder = TemplateBuilder.get()
@@ -151,7 +151,7 @@ Then the Light DOM becomes:
 
 Templates can also be defined using decorators.
 
-```javascript
+```typescript
 import {ElementBuilder, TemplateBuilder} from '@tmorin/ceb'
 // register the custom element
 @ElementBuilder.element<MyCustomElement>()

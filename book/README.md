@@ -13,38 +13,31 @@ The source code is available on GitHub: [github.com/tmorin/ceb].
 A simple Custom Element displaying a greeting text:
 
 ```typescript
-import {
-  ElementBuilder,
-  FieldBuilder,
-  FieldListenerData,
-  ReferenceBuilder,
-  ContentBuilder
-} from "ceb";
+import {ElementBuilder, FieldBuilder, TemplateBuilder} from "ceb"
 
+// Define the Custom Element
 @ElementBuilder.element<ExGreeting>()
-@ContentBuilder.content({
-  content: "<p>Hello, <span id='name'></span>!</p>",
-  isShadow: true
-})
 export class ExGreeting extends HTMLElement {
-  @ReferenceBuilder.reference({
-    selector: "span#name",
-    isShadow: true
-  })
-  span: HTMLSpanElement
-
+  // Bind the property `name` to the attribute `name`
   @FieldBuilder.field()
-  name: string = "World"
+  name = "World"
 
+  // Define the template of the custom element
+  @TemplateBuilder.template()
+  private render() {
+    return html`<p>Hello, ${this.name}!</p>`
+  }
+  
+  // Render the template when the name change
   @FieldBuilder.listen()
-  private onName(data: FieldListenerData) {
-    this.span.textContent = data.newVal
+  private onName() {
+    this.render()
   }
 }
 ```
 
 ```html
-<ex-greeting name="World" />
+<ex-greeting name="John Doe" />
 ```
 
 [Custom Elements (v1)]: https://html.spec.whatwg.org/multipage/custom-elements.html
