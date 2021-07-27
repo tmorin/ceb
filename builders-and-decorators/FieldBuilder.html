@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html" class="active"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.5.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.6.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.7.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">4.1.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">4.2.</strong> ex-todo</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.3.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.4.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html" class="active"><strong aria-hidden="true">3.5.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.6.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">4.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">4.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">4.3.</strong> ex-todo</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -169,7 +169,7 @@ A field is an attribute bound to a property.
 The value is hosted by the attribute but it can be mutated using the bound property.</p>
 <p>The static method <code>FieldBuilder.get(attrName)</code> returns a fresh builder.
 The builder expects the name of the property in camel case.</p>
-<pre><code class="language-javascript">import {FieldBuilder} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {FieldBuilder} from '@tmorin/ceb'
 // creates the builder
 const builder = FieldBuilder.get('aField')
 </code></pre>
@@ -177,7 +177,7 @@ const builder = FieldBuilder.get('aField')
 <h2><a class="header" href="#boolean-value" id="boolean-value">Boolean value</a></h2>
 <p>By default a field is a string value.
 The method <code>FieldBuilder#boolean()</code> can be used to force a boolean one.</p>
-<pre><code class="language-javascript">import {FieldBuilder} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {FieldBuilder} from '@tmorin/ceb'
 // creates the builder
 const builder = FieldBuilder.get('aBooleanField').boolean()
 </code></pre>
@@ -187,14 +187,14 @@ When <code>true</code>, the value of the attribute is an empty string.</p>
 <h2><a class="header" href="#attribute-name" id="attribute-name">Attribute name</a></h2>
 <p>By default, the attribute name is the kebab case of the property name.
 It can be overridden using the method <code>FieldBuilder#attribute(attrName)</code>.</p>
-<pre><code class="language-javascript">import {FieldBuilder} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {FieldBuilder} from '@tmorin/ceb'
 // creates the builder and overrides the attribute name
 const builder = FieldBuilder.get('aField').attribute('another-attribute-name')
 </code></pre>
 <h2><a class="header" href="#reacting-on-changes" id="reacting-on-changes">Reacting on changes</a></h2>
 <p>Listeners can be registered in order to react on field changes.
 The method <code>FieldBuilder#listener(listener)</code> can be used to set the default value.</p>
-<pre><code class="language-javascript">import {FieldBuilder} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {FieldBuilder} from '@tmorin/ceb'
 // creates the builder and add a listener
 const builder = FieldBuilder.get('aField').listener((el, data) =&gt; {
     console.log(el.tagName, data.propName, data.attrName, data.oldVal, data.newVal);
@@ -202,7 +202,7 @@ const builder = FieldBuilder.get('aField').listener((el, data) =&gt; {
 </code></pre>
 <h2><a class="header" href="#the-decorators" id="the-decorators">The decorators</a></h2>
 <p>Fields can also be defined using decorators.</p>
-<pre><code class="language-javascript">import {ElementBuilder, FieldBuilder, FieldListenerData} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {ElementBuilder, FieldBuilder, FieldListenerData} from '@tmorin/ceb'
 // register the custom element
 @ElementBuilder.element&lt;MyCustomElement&gt;();
 // defines the custom element class
@@ -222,19 +222,19 @@ class MyCustomElement extends HTMLElement {
 Its API is two fields.
 The first one, <code>content</code>, is the description of the task.
 The second one, <code>done</code>, is a boolean saying if the task is done or not.</p>
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-user="tmorin" data-slug-hash="xxbEyRg" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="ceb - FieldBuilder">
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="xxbEyRg" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
   <span>See the Pen <a href="https://codepen.io/tmorin/pen/xxbEyRg">
-  ceb - FieldBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  &lt;/ceb&gt; - FieldBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../builders-and-decorators/AttributeBuilder.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../builders-and-decorators/TemplateBuilder.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
@@ -252,7 +252,7 @@ The second one, <code>done</code>, is a boolean saying if the task is done or no
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../builders-and-decorators/AttributeBuilder.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../builders-and-decorators/TemplateBuilder.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 

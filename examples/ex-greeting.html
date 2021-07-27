@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>AttributeBuilder - &lt;ceb/&gt; ~ Custom Element Builder</title>
+        <title>ex-greeting - &lt;ceb/&gt; ~ Custom Element Builder</title>
         
         
 
@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html" class="active"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.3.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.4.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.5.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.6.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">4.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">4.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">4.3.</strong> ex-todo</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.3.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.4.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.5.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.6.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html" class="active"><strong aria-hidden="true">4.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">4.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">4.3.</strong> ex-todo</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,84 +163,155 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#attributebuilder" id="attributebuilder">AttributeBuilder</a></h1>
-<p>The class <code>AttributeBuilder</code> provides services to initialize an attribute and react on changes.</p>
-<p>The static method <code>AttributeBuilder.get(attrName)</code> returns a fresh builder.
-The builder expects the name of the attribute in kebab case.</p>
-<pre><code class="language-typescript">import {AttributeBuilder} from '@tmorin/ceb'
-// creates the builder
-const builder = AttributeBuilder.get('an-attribute')
-</code></pre>
-<p>The builder and underlying decorators are also technically documented: <a href="../api/classes/attributebuilder.html">AttributeBuilder</a>.</p>
-<h2><a class="header" href="#boolean-value" id="boolean-value">Boolean value</a></h2>
-<p>By default an attribute is a string value.
-The method <code>AttributeBuilder#boolean()</code> can be used to force a boolean one.</p>
-<pre><code class="language-typescript">import {AttributeBuilder} from '@tmorin/ceb'
-// creates the builder
-const builder = AttributeBuilder.get('a-boolean-attribute').boolean()
-</code></pre>
-<p>The value <code>true</code> means the attribute exists: <code>element.hasAttribute('a-boolean-value') === true</code>.
-When <code>true</code>, the value of the attribute is an empty string.</p>
-<p>The value <code>false</code> means the attribute doesn't exist: <code>element.hasAttribute('a-boolean-value') === false</code>.</p>
-<h2><a class="header" href="#default-value" id="default-value">Default value</a></h2>
-<p>Once instantiated, an attribute can have a default value.
-The method <code>AttributeBuilder#default(value)</code> can be used to set the default value.</p>
-<pre><code class="language-typescript">import {AttributeBuilder} from '@tmorin/ceb'
-// creates the builder and set the default value `a default value`
-const builder = AttributeBuilder.get('an-attribute').default('a default value')
-</code></pre>
-<p>An attribute of type boolean can also have a default value.</p>
-<pre><code class="language-typescript">import {AttributeBuilder} from '@tmorin/ceb'
-// creates the builder and set the default value `false`
-const builder = AttributeBuilder.get('an-attribute').boolean().default(true)
-</code></pre>
-<h2><a class="header" href="#reacting-on-changes" id="reacting-on-changes">Reacting on changes</a></h2>
-<p>Listeners can be registered in order to react on attribute changes.
-The method <code>AttributeBuilder#listener(listener)</code> can be used to set the default value.</p>
-<pre><code class="language-typescript">import {AttributeBuilder} from '@tmorin/ceb'
-// creates the builder and add a listener
-const builder = AttributeBuilder.get('an-attribute').listener((el, data) =&gt; {
-    console.log(el.tagName, data.attrName, data.oldVal, data.newVal);
-})
-</code></pre>
-<h2><a class="header" href="#the-decorator" id="the-decorator">The decorator</a></h2>
-<p>Attributes can also be defined using a decorator.</p>
-<pre><code class="language-typescript">import {ElementBuilder, AttributeBuilder, AttributeListenerData} from '@tmorin/ceb'
-// register the custom element
-@ElementBuilder.element&lt;MyCustomElement&gt;()
-// defines the custom element class
-class MyCustomElement extends HTMLElement {
-    // bind the method to the attribute 'an-attribute'
-    @AttributeBuilder.listen()
-    onAnAttribute(data: AttributeListenerData) {
-        console.log(data);
-    }
+                        <h1><a class="header" href="#ex-greeting" id="ex-greeting">ex-greeting</a></h1>
+<p><em>The source code of the implementation and, the test of this example are available in the Git repository
+of <code>&lt;ceb/&gt;</code> : <code>examples/ex-greeting</code>.</em></p>
+<p>This example demonstrates how to leverage on some builders and decorators to create a Custom Element which displays a greeting message.</p>
+<h2><a class="header" href="#initiate-the-custom-element-class" id="initiate-the-custom-element-class">Initiate the Custom Element class</a></h2>
+<p>The Custom Element <code>ex-greeting</code> is a regular ES6 class which extends HTMLElement :</p>
+<pre><code class="language-typescript">export class ExGreeting extends HTMLElement {
 }
 </code></pre>
-<h2><a class="header" href="#an-example" id="an-example">An example</a></h2>
-<p>The registered custom element is the item of a todo list.
-Its API is two attributes.
-The first one, <code>content</code>, is the description of the task.
-The second one, <code>done</code>, is a boolean saying if the task is done or not.</p>
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="vYEXVKd" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/vYEXVKd">
-  &lt;/ceb&gt; - AttributeBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+<h2><a class="header" href="#register-the-custom-element" id="register-the-custom-element">Register the Custom Element</a></h2>
+<p>To register <code>ex-greeting</code>, the decorator <code>@ElementBuilder.element</code> is used:</p>
+<pre><code class="language-typescript">import {
+  ElementBuilder
+} from &quot;ceb&quot;;
+
+@ElementBuilder.element&lt;ExGreeting&gt;()
+export class ExGreeting extends HTMLElement {
+}
+</code></pre>
+<h2><a class="header" href="#initialize-the-shadow-dom" id="initialize-the-shadow-dom">Initialize the Shadow DOM</a></h2>
+<p>To Shadow DOM of <code>ex-greeting</code> is initialized with the decorator <code>@ContentBuilder.content</code> is used :</p>
+<pre><code class="language-typescript">import {
+  ElementBuilder,
+  ContentBuilder
+} from &quot;ceb&quot;;
+
+@ElementBuilder.element&lt;ExGreeting&gt;()
+@ContentBuilder.content({
+  content: `&lt;p&gt;Hello, &lt;span id=&quot;name&quot;&gt;&lt;/span&gt;!&lt;/p&gt;`,
+  isShadow: true
+})
+export class ExGreeting extends HTMLElement {
+}
+</code></pre>
+<h2><a class="header" href="#capture-the-name" id="capture-the-name">Capture the name</a></h2>
+<p>The target of the greeting is capture with the field <code>name</code> using the decorator <code>FieldBuilder.field</code> :</p>
+<pre><code class="language-typescript">import {
+  ElementBuilder,
+  ContentBuilder,
+  FieldBuilder
+} from &quot;ceb&quot;;
+
+@ElementBuilder.element&lt;ExGreeting&gt;()
+@ContentBuilder.content({
+  content: `&lt;p&gt;Hello, &lt;span id=&quot;name&quot;&gt;&lt;/span&gt;!&lt;/p&gt;`,
+  isShadow: true
+})
+export class ExGreeting extends HTMLElement {
+  @FieldBuilder.field()
+  name: string = &quot;World&quot;
+}
+</code></pre>
+<h2><a class="header" href="#update-the-shadow-dom-with-the-captured-name" id="update-the-shadow-dom-with-the-captured-name">Update the Shadow DOM with the captured name</a></h2>
+<p>Each time the field <code>name</code> mutates, the element selected by <code>span#name</code> has to be updated with the new value.
+There are two ways to handle it with the built-in <code>&lt;ceb/&gt;</code> builders : the craft style and the delegated one.</p>
+<h3><a class="header" href="#the--craft-style" id="the--craft-style">The  craft style</a></h3>
+<p>The decorator <code>ReferenceBuilder.reference</code> retrieves the reference of the element <code>span#name</code>.</p>
+<pre><code class="language-typescript">import {
+  ElementBuilder,
+  ContentBuilder,
+  FieldBuilder,
+  ReferenceBuilder
+} from &quot;ceb&quot;;
+
+@ElementBuilder.element&lt;ExGreeting&gt;()
+@ContentBuilder.content({
+  content: `&lt;p&gt;Hello, &lt;span id=&quot;name&quot;&gt;&lt;/span&gt;!&lt;/p&gt;`,
+  isShadow: true
+})
+export class ExGreeting extends HTMLElement {
+  @FieldBuilder.field()
+  name: string = &quot;World&quot;
+  
+  @ReferenceBuilder.reference({
+    selector: &quot;span#name&quot;,
+    isShadow: true
+  })
+  span: HTMLSpanElement
+}
+</code></pre>
+<p>Finally, the decorator <code>FieldBuilder.listen</code> handles the mutation of the field <code>name</code> to</p>
+<pre><code class="language-typescript">import {
+  ElementBuilder,
+  ContentBuilder,
+  FieldBuilder,
+  ReferenceBuilder,
+} from &quot;ceb&quot;;
+
+@ElementBuilder.element&lt;ExGreeting&gt;()
+@ContentBuilder.content({
+  content: `&lt;p&gt;Hello, &lt;span id=&quot;name&quot;&gt;&lt;/span&gt;!&lt;/p&gt;`,
+  isShadow: true
+})
+export class ExGreeting extends HTMLElement {
+  @FieldBuilder.field()
+  name: string = &quot;World&quot;
+  
+  @ReferenceBuilder.reference({
+    selector: &quot;span#name&quot;,
+    isShadow: true
+  })
+  span: HTMLSpanElement
+
+  @FieldBuilder.listen()
+  private onName(data: FieldListenerData) {
+    this.span.textContent = data.newVal
+  }
+}
+</code></pre>
+<h3><a class="header" href="#the-delegated-fashion" id="the-delegated-fashion">The delegated fashion</a></h3>
+<p>Alternatively, the decorator <code>AttributeDelegateBuilder.delegate</code> can be used to automatically binds the mutation of the field <code>name</code> to the property <code>textContent</code> of the selected element <code>span#name</code> :</p>
+<pre><code class="language-typescript">import {
+  ElementBuilder,
+  ContentBuilder,
+  FieldBuilder,
+  AttributeDelegateBuilder
+} from &quot;ceb&quot;;
+
+@ElementBuilder.element&lt;ExGreeting&gt;()
+@ContentBuilder.content({
+  content: `&lt;p&gt;Hello, &lt;span id=&quot;name&quot;&gt;&lt;/span&gt;!&lt;/p&gt;`,
+  isShadow: true
+})
+@AttributeDelegateBuilder.delegate(
+  &quot;name&quot;,
+  &quot;span#name&quot;,
+  {
+    isShadow: true,
+    toPropName: &quot;textContent&quot;
+  }
+)
+export class ExGreeting extends HTMLElement {
+  @FieldBuilder.field()
+  name: string = &quot;World&quot;
+}
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../builders-and-decorators/ElementBuilder.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../examples/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../builders-and-decorators/ContentBuilder.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../examples/ex-form-field.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -252,13 +323,13 @@ The second one, <code>done</code>, is a boolean saying if the task is done or no
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../builders-and-decorators/ElementBuilder.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../examples/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../builders-and-decorators/ContentBuilder.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../examples/ex-form-field.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

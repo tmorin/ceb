@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.5.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.6.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.7.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-form-field.html" class="active"><strong aria-hidden="true">4.1.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">4.2.</strong> ex-todo</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.3.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.4.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.5.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.6.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">4.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html" class="active"><strong aria-hidden="true">4.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">4.3.</strong> ex-todo</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -165,7 +165,7 @@
                     <main>
                         <h1><a class="header" href="#ex-form-field" id="ex-form-field">ex-form-field</a></h1>
 <p><em>The source code of the implementation and, the test of this example are available in the Git repository of <code>&lt;ceb/&gt;</code> : <code>examples/ex-form-field</code>.</em></p>
-<p>This example demonstrates how to leverage on some builders and annotations to create a custom element able to wrap FORM elements with a label and, a helper text.
+<p>This example demonstrates how to leverage on some builders and decorators to create a custom element able to wrap FORM elements with a label and, a helper text.
 Both fields can be accessed and mutated with the respective attributes and properties.
 Additionally, when the user clicks on the label element, the focus is dynamically propagated to the first focusable wrapper elements.</p>
 <p>For instance the following snippet wrap an input text with the label <code>Firstname</code> and the helper text <code>The firstname of your name.</code> :</p>
@@ -178,9 +178,9 @@ Additionally, when the user clicks on the label element, the focus is dynamicall
 <p>The Custom Element <code>ex-form-field</code> involves the following native <code>&lt;ceb/&gt;</code> builders :</p>
 <table><thead><tr><th>Builders</th><th>Comment</th></tr></thead><tbody>
 <tr><td><code>ElementBuilder</code></td><td>The builder registers the Custom Element.</td></tr>
-<tr><td><code>TemplateBuilder</code></td><td>The builder is used as an annotation and define the content of the Custom Element's Shadow DOM at its creation.</td></tr>
-<tr><td><code>FieldBuilder</code></td><td>The builder is used as an annotation to define the two Custom Element's API items: the label and the helper text.</td></tr>
-<tr><td><code>AttributeDelegateBuilder</code></td><td>The builder is used as an annotation to delegate the mutations of the API items (i.e. the label and the helper text) to the respective DOM elements.</td></tr>
+<tr><td><code>ContentBuilder</code></td><td>The builder is used as a decorator and define the content of the Custom Element's Shadow DOM at its creation.</td></tr>
+<tr><td><code>FieldBuilder</code></td><td>The builder is used as a decorator to define the two Custom Element's API items: the label and the helper text.</td></tr>
+<tr><td><code>AttributeDelegateBuilder</code></td><td>The builder is used as a decorator to delegate the mutations of the API items (i.e. the label and the helper text) to the respective DOM elements.</td></tr>
 <tr><td><code>OnBuilder</code> and <code>ReferenceBuilder</code></td><td>Both builders are used to react on click event on the label element in order to delegate the focus to the first focusable wrapped FORM control.</td></tr>
 </tbody></table>
 
@@ -189,7 +189,7 @@ Additionally, when the user clicks on the label element, the focus is dynamicall
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../examples/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../examples/ex-greeting.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
@@ -207,7 +207,7 @@ Additionally, when the user clicks on the label element, the focus is dynamicall
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../examples/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../examples/ex-greeting.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 

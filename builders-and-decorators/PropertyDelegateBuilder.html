@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.5.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.6.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.7.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegateBuilder.html" class="active"><strong aria-hidden="true">3.8.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">4.1.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">4.2.</strong> ex-todo</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.3.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.4.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.5.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.6.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegateBuilder.html" class="active"><strong aria-hidden="true">3.9.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">4.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">4.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">4.3.</strong> ex-todo</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -167,20 +167,15 @@
 <p>The class <code>PropertyDelegateBuilder</code> provides services to delegate the accesses of a property to a single target (i.e. a child node).</p>
 <p>The static method <code>PropertyDelegateBuilder.get(propName)</code> returns a fresh builder.
 The builder expects the name of a property.</p>
-<pre><code class="language-javascript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
 // creates the builder
 const builder = PropertyDelegateBuilder.get('aProperty')
-</code></pre>
-<p>Alternatively, <code>DelegateBuilder.property(propName)</code> can also be used.</p>
-<pre><code class="language-javascript">import {DelegateBuilder} from '@tmorin/ceb'
-// creates the builder
-const builder = DelegateBuilder.property('aProperty')
 </code></pre>
 <p>The builder and underlying decorators are also technically documented: <a href="../api/classes/propertydelegatebuilder.html">PropertyDelegateBuilder</a>.</p>
 <h2><a class="header" href="#set-the-selector" id="set-the-selector">Set the selector</a></h2>
 <p>The method <code>PropertyDelegateBuilder#to(selector)</code> has to be used to define the selector.
 The selector is mandatory otherwise the builder won't be able to identify the targets.</p>
-<pre><code class="language-javascript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
 // delegate the accesses to the property 'aProperty'
 const builder = PropertyDelegateBuilder.get('aProperty')
     .to('button');
@@ -188,7 +183,7 @@ const builder = PropertyDelegateBuilder.get('aProperty')
 <h2><a class="header" href="#shadow-dom" id="shadow-dom">Shadow DOM</a></h2>
 <p>By default, the builder selects targets relative to the light DOM.</p>
 <p>The method <code>PropertyDelegateBuilder#shadow()</code> can be used to select targets relative to the shadow DOM.</p>
-<pre><code class="language-javascript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
 // delegate the accesses to the property 'aProperty'
 const builder = PropertyDelegateBuilder.get('aProperty')
     .to('button')
@@ -197,22 +192,22 @@ const builder = PropertyDelegateBuilder.get('aProperty')
 <h2><a class="header" href="#bind-to-another-property" id="bind-to-another-property">Bind to another property</a></h2>
 <p>By default, the builder mutates the same targets' property.</p>
 <p>The method <code>PropertyDelegateBuilder#property(toPropName)</code> can be used to force another property name.</p>
-<pre><code class="language-javascript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
 // delegate the accesses to the property 'aProperty'
 const builder = PropertyDelegateBuilder.get('aProperty')
     .to('button')
     .property('anotherProperty');
 </code></pre>
 <h2><a class="header" href="#bind-to-an-attribute" id="bind-to-an-attribute">Bind to an attribute</a></h2>
-<p>The method <code>PropertyDelegateBuilder#attribute(toAttrName)</code> can be used to force the mutation of a attribute.</p>
-<pre><code class="language-javascript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
+<p>The method <code>PropertyDelegateBuilder#attribute(toAttrName)</code> can be used to force the mutation of an attribute.</p>
+<pre><code class="language-typescript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
 // delegate the accesses to the property 'aProperty'
 const builder = PropertyDelegateBuilder.get('aProperty')
     .to('button')
     .attribute('an-attribute');
 </code></pre>
 <p>The option <code>PropertyDelegateBuilder#boolean()</code> can be used if the attribute is a <code>boolean</code>.</p>
-<pre><code class="language-javascript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {PropertyDelegateBuilder} from '@tmorin/ceb'
 // delegate the accesses to the property 'aProperty'
 const builder = PropertyDelegateBuilder.get('aProperty')
     .to('button')
@@ -221,7 +216,7 @@ const builder = PropertyDelegateBuilder.get('aProperty')
 </code></pre>
 <h2><a class="header" href="#the-decorator" id="the-decorator">The decorator</a></h2>
 <p>Property delegations can also be defined using a decorator.</p>
-<pre><code class="language-javascript">import {ElementBuilder, PropertyDelegateBuilder} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {ElementBuilder, PropertyDelegateBuilder} from '@tmorin/ceb'
 // register the custom element
 @ElementBuilder.element&lt;MyCustomElement&gt;()
 // defines the custom element class
@@ -235,12 +230,12 @@ class MyCustomElement extends HTMLElement {
 <p>The registered custom element is composed of a single <code>input</code>.
 The boolean property <code>disabled</code> is delegated to the attribute <code>disabled</code> of the <code>input</code>.
 The property <code>placeholder</code> is delegated to the attribute <code>placeholder</code> of the <code>input</code>.</p>
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-user="tmorin" data-slug-hash="eYNeNwa" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="&amp;lt;/ceb&amp;gt; ~ PropertyDelegateBuilder">
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="eYNeNwa" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
   <span>See the Pen <a href="https://codepen.io/tmorin/pen/eYNeNwa">
   &lt;/ceb&gt; ~ PropertyDelegateBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 
                     </main>
 
