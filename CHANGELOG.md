@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.2](https://github.com/tmorin/ceb/compare/v2.3.1...v2.3.2) (2021-07-27)
+
+
+### Bug Fixes
+
+* **book:** api was not deployed ([9f1cc64](https://github.com/tmorin/ceb/commit/9f1cc64b139b2858e20d7477f30a65de3d443eb1))
+* **book:** api was not deployed ([4229a17](https://github.com/tmorin/ceb/commit/4229a17b90fba5ea3d162fda446b879e8ec2da36))
+
 ### [2.3.1](https://github.com/tmorin/ceb/compare/v2.3.0...v2.3.1) (2021-07-27)
 
 
