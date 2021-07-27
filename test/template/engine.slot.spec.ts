@@ -20,11 +20,11 @@ describe("patcher/engine/slot", function () {
             engine.closeElement()
         }
         Engine.updateElement(el, render, {greyDom: true})
-        expect(el.innerHTML).to.be.eq(`<div>Hello, <fc-slot><strong>World</strong></fc-slot>!</div>`)
+        expect(el.innerHTML).to.be.eq(`<div>Hello, <ceb-slot><strong>World</strong></ceb-slot>!</div>`)
 
-        el.querySelector("fc-slot").innerHTML = `<u>John <strong>Doe</strong></u>`
+        el.querySelector("ceb-slot").innerHTML = `<u>John <strong>Doe</strong></u>`
         Engine.updateElement(el, render, {greyDom: true})
-        expect(el.innerHTML).to.be.eq(`<div>Hello, <fc-slot><u>John <strong>Doe</strong></u></fc-slot>!</div>`)
+        expect(el.innerHTML).to.be.eq(`<div>Hello, <ceb-slot><u>John <strong>Doe</strong></u></ceb-slot>!</div>`)
     })
     it("should handle a chain of Grey DOM", function () {
         el.innerHTML = `<ul>
@@ -53,7 +53,7 @@ describe("patcher/engine/slot", function () {
         Engine.updateElement(el.querySelector("render-b"), renderFactor("b"), {greyDom: true})
         Engine.updateElement(el.querySelector("render-c"), renderFactor("c"), {greyDom: true})
 
-        const strong = el.querySelector("ul render-c li fc-slot ul render-b li fc-slot ul render-a li fc-slot strong");
+        const strong = el.querySelector("ul render-c li ceb-slot ul render-b li ceb-slot ul render-a li ceb-slot strong");
         expect(strong.textContent).to.be.eq("Doe")
     })
     it("should handle custom elements", function () {
@@ -137,7 +137,7 @@ describe("patcher/engine/slot", function () {
         expect(firstLiSlot().firstChild.firstChild.textContent).to.be.eq("person")
         expect(secondLiSlot().firstChild.firstChild.textContent).to.be.eq("alt name")
         expect(liSlotAlt().firstChild.firstChild.textContent).to.be.eq("(title:unknown) ")
-        expect(liSlotAlt().firstChild.innerHTML).to.be.eq("<small>(title:unknown) </small><fc-slot>John <strong>Doe</strong></fc-slot>")
+        expect(liSlotAlt().firstChild.innerHTML).to.be.eq("<small>(title:unknown) </small><ceb-slot>John <strong>Doe</strong></ceb-slot>")
     })
     it("should handle custom elements bis", function () {
         class ChildSlot extends HTMLElement {
@@ -175,6 +175,6 @@ describe("patcher/engine/slot", function () {
         customElements.define("child-slot", ChildSlot)
 
         el.innerHTML = `<parent-slot><div>John Doe</div></parent-slot>`
-        expect(el.querySelector("parent-slot div.parent child-slot div.child fc-slot").textContent).to.be.eq("John Doe")
+        expect(el.querySelector("parent-slot div.parent child-slot div.child ceb-slot").textContent).to.be.eq("John Doe")
     })
 })

@@ -373,7 +373,7 @@ export class Engine {
      * Append a slot element.
      */
     slot(): void {
-        this.containerElement[Engine.PROP_NAME_SLOT] = this.handleElement("fc-slot", {
+        this.containerElement[Engine.PROP_NAME_SLOT] = this.handleElement("ceb-slot", {
             options: {
                 skip: true
             }

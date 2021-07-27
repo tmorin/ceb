@@ -8,7 +8,7 @@ const PREFIX_CEB_VALUE_INDEX = "{{ceb_value_index:"
 const SUFFIX_CEB_VALUE_INDEX = "}}"
 const PREFIX_CEB_PROPERTY = "p:"
 const PREFIX_CEB_OPTION = "o:"
-const PROTECTED_TAGS = ["slot", "ceb-slot"]
+const PROTECTED_TAGS = {"slot": true, "ceb-slot": true}
 
 function toCamelCase(string = '') {
     return string.toLowerCase()
