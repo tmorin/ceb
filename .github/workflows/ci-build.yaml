@@ -31,6 +31,8 @@ jobs:
         run: npm run build
       - name: Build typedoc
         run: npm run doc:typedoc
+      - name: Build typedoc
+        run: npm run doc:typedoc
       - name: Build book
         run: /tmp/mdbook clean && /tmp/mdbook build
       - name: Publish package
