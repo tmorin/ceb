@@ -6,7 +6,7 @@ It's the main builder, the entry point of the library.
 The static method `CustomElement.get(constructor)` returns a fresh builder.
 The method expects the constructor of the custom element.
 
-```javascript
+```typescript
 import {ElementBuilder} from '@tmorin/ceb'
 // defines the custom element class
 class MyCustomElement extends HTMLElement {
@@ -24,7 +24,7 @@ The builder and underlying decorators are also technically documented: [ElementB
 
 A custom element is registered with the method `ElementBuilder#register()`.
 
-```javascript
+```typescript
 import {ElementBuilder} from '@tmorin/ceb'
 // defines the custom element class
 class MyCustomElement extends HTMLElement {
@@ -40,7 +40,7 @@ builder.register()
 
 The custom element can also be registered by a decorator.
 
-```javascript
+```typescript
 import {ElementBuilder} from '@tmorin/ceb'
 // register the custom element
 @ElementBuilder.element<MyCustomElement>()
@@ -62,7 +62,7 @@ Once registered, the custom element can be created as any other HTML elements.
 <my-custom-element></my-custom-element>
 ```
 
-```javascript
+```typescript
 // creates the custom element from its tag name
 const myCustomElement = document.createElement('my-custom-element')
 // appends the custom element as any other regular HTML element
@@ -73,7 +73,7 @@ document.body.append(myCustomElement)
 
 To register custom element which extends a built-in HTML elements, the tag name of the extended element has to be provided using the method `ElementBuilder#extends()`.
 
-```javascript
+```typescript
 import {ElementBuilder} from '@tmorin/ceb'
 // defines the custom element class
 class MyCustomButton extends HTMLButtonElement {
@@ -91,7 +91,7 @@ builder.register()
 
 The extended HTML element can also be provided with the decorator.
 
-```javascript
+```typescript
 import {ElementBuilder} from '@tmorin/ceb'
 // register the custom element
 @ElementBuilder.element<MyCustomButton>({
@@ -113,7 +113,7 @@ Once registered, the custom element can be created.
 <button is="my-custom-button"></button>
 ```
 
-```javascript
+```typescript
 // creates the extended HTML element
 const myCustomElement = document.createElement('button', {is: 'my-custom-button'})
 // appends the extended HTML element as any other regular HTML element
@@ -124,7 +124,7 @@ document.body.append(myCustomElement)
 
 The name of the custom element can be overridden using the method `ElementBuilder#name(tagName)`.
 
-```javascript
+```typescript
 import {ElementBuilder} from '@tmorin/ceb'
 // defines the custom element class
 class MyCustomElementBis extends HTMLElement {
@@ -142,7 +142,7 @@ builder.register()
 
 The name of the custom element can also be provided with the decorator.
 
-```javascript
+```typescript
 import {ElementBuilder} from '@tmorin/ceb'
 // register the custom element
 @ElementBuilder.element<MyCustomElementBis>({
@@ -168,9 +168,9 @@ In this case, the name of the custom element is `another-name`.
 
 The registered custom element is a simple element having the text content `Hello! I'm <the element's name>.`.
 
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-user="tmorin" data-slug-hash="abzmRvm" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="ceb - ElementBuilder">
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="abzmRvm" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
   <span>See the Pen <a href="https://codepen.io/tmorin/pen/abzmRvm">
-  ceb - ElementBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  &lt;/ceb&gt; - ElementBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
-<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
