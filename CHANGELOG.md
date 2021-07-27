@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.1](https://github.com/tmorin/ceb/compare/v2.3.0...v2.3.1) (2021-07-27)
+
+
+### Bug Fixes
+
+* **book:** simplify the welcoming Custom Element ([a670264](https://github.com/tmorin/ceb/commit/a670264044c823d81ebaa988c4e2e545e3b97c70))
+
 ## [2.3.0](https://github.com/tmorin/ceb/compare/v2.2.0...v2.3.0) (2021-07-27)
 
 
