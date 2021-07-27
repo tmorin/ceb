@@ -1,0 +1,681 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>OnBuilder | @tmorin/ceb</title>
+	<meta name="description" content="Documentation for @tmorin/ceb">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">@tmorin/ceb</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../index.html">@tmorin/ceb</a>
+				</li>
+				<li>
+					<a href="OnBuilder.html">OnBuilder</a>
+				</li>
+			</ul>
+			<h1>Class OnBuilder</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The on builder provides services to listen to DOM events.
+						Listeners are added on <code>connectedCallback</code> and removed on <code>disconnectedCallback</code>.</p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt>example</dt>
+						<dd><p>With the builder API - Listen to <code>change</code> events</p>
+							<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">ElementBuilder</span><span style="color: #000000">, </span><span style="color: #001080">OnBuilder</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;ceb&quot;</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">HelloWorld</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">HTMLElement</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #795E26">connectedCallback</span><span style="color: #000000">() {</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">innerHTML</span><span style="color: #000000"> = </span><span style="color: #A31515">`&lt;input&gt;`</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">}</span>
+<span style="color: #001080">ElementBuilder</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">().</span><span style="color: #795E26">builder</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #001080">OnBuilder</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;change&quot;</span><span style="color: #000000">).</span><span style="color: #795E26">invoke</span><span style="color: #000000">(</span>
+<span style="color: #000000">        (</span><span style="color: #001080">el</span><span style="color: #000000">, </span><span style="color: #001080">evt</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">info</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Hello, %s!&quot;</span><span style="color: #000000">, </span><span style="color: #001080">evt</span><span style="color: #000000">.</span><span style="color: #001080">target</span><span style="color: #000000">.</span><span style="color: #001080">value</span><span style="color: #000000">)</span>
+<span style="color: #000000">    )</span>
+<span style="color: #000000">).</span><span style="color: #795E26">register</span><span style="color: #000000">()</span>
+</code></pre>
+						</dd>
+						<dt>example</dt>
+						<dd><p>With the decorator API - Listen to <code>change</code> events</p>
+							<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">ElementBuilder</span><span style="color: #000000">, </span><span style="color: #001080">OnBuilder</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;ceb&quot;</span>
+<span style="color: #000000">@</span><span style="color: #001080">ElementBuilder</span><span style="color: #000000">.</span><span style="color: #795E26">element</span><span style="color: #000000">()</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">HelloWorld</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">HTMLElement</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #795E26">connectedCallback</span><span style="color: #000000">() {</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">this</span><span style="color: #000000">.</span><span style="color: #001080">innerHTML</span><span style="color: #000000"> = </span><span style="color: #A31515">`&lt;input&gt;`</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">    @</span><span style="color: #001080">OnBuilder</span><span style="color: #000000">.</span><span style="color: #795E26">listen</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;change&quot;</span><span style="color: #000000">)</span>
+<span style="color: #000000">    </span><span style="color: #795E26">onChange</span><span style="color: #000000">(</span><span style="color: #001080">evt</span><span style="color: #000000">) {</span>
+<span style="color: #000000">        </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">info</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Hello, %s!&quot;</span><span style="color: #000000">, </span><span style="color: #001080">evt</span><span style="color: #000000">.</span><span style="color: #001080">target</span><span style="color: #000000">.</span><span style="color: #001080">value</span><span style="color: #000000">)</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">}</span>
+</code></pre>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">OnBuilder</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/Builder.html" class="tsd-signature-type" data-tsd-kind="Interface">Builder</a></li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-private"><a href="OnBuilder.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="OnBuilder.html#build" class="tsd-kind-icon">build</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="OnBuilder.html#capture" class="tsd-kind-icon">capture</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="OnBuilder.html#delegate" class="tsd-kind-icon">delegate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="OnBuilder.html#invoke" class="tsd-kind-icon">invoke</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="OnBuilder.html#prevent" class="tsd-kind-icon">prevent</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="OnBuilder.html#shadow" class="tsd-kind-icon">shadow</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="OnBuilder.html#skip" class="tsd-kind-icon">skip</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="OnBuilder.html#stop" class="tsd-kind-icon">stop</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="OnBuilder.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="OnBuilder.html#listen" class="tsd-kind-icon">listen</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-private">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>OnBuilder<span class="tsd-signature-symbol">(</span>clauses<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><a href="../interfaces/OnListener.html" class="tsd-signature-type" data-tsd-kind="Interface">OnListener</a>, forceCapture<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, forcePreventDefault<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, forceStopPropagation<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, selector<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, isShadow<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/b3bde68/src/on.ts#L70">on.ts:70</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>clauses: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <a href="../interfaces/OnListener.html" class="tsd-signature-type" data-tsd-kind="Interface">OnListener</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+								<li>
+									<h5>forceCapture: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
+								</li>
+								<li>
+									<h5>forcePreventDefault: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
+								</li>
+								<li>
+									<h5>forceStopPropagation: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
+								</li>
+								<li>
+									<h5>selector: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+								<li>
+									<h5>isShadow: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+					<a name="build" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> build</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">build<span class="tsd-signature-symbol">(</span>Constructor<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span>, hooks<span class="tsd-signature-symbol">: </span><a href="../interfaces/HooksRegistration.html" class="tsd-signature-type" data-tsd-kind="Interface">HooksRegistration</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/Builder.html">Builder</a>.<a href="../interfaces/Builder.html#build">build</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/b3bde68/src/on.ts#L184">on.ts:184</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>The is API is dedicated for developer of Builders.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>Constructor: <span class="tsd-signature-type">Function</span></h5>
+								</li>
+								<li>
+									<h5>hooks: <a href="../interfaces/HooksRegistration.html" class="tsd-signature-type" data-tsd-kind="Interface">HooksRegistration</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="capture" class="tsd-anchor"></a>
+					<h3>capture</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">capture<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/b3bde68/src/on.ts#L122">on.ts:122</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Force the listener execution on the capture phase.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="delegate" class="tsd-anchor"></a>
+					<h3>delegate</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">delegate<span class="tsd-signature-symbol">(</span>selector<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/b3bde68/src/on.ts#L166">on.ts:166</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Event delegation allows us to attach a single event listener, to a parent element,
+										that will fire for all descendants matching a selector,
+										whether those descendants exist now or are added in the future.
+									<a href="https://learn.jquery.com/events/event-delegation">c.f. JQuery doc</a></p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>selector: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the selector</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="invoke" class="tsd-anchor"></a>
+					<h3>invoke</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">invoke<span class="tsd-signature-symbol">(</span>listener<span class="tsd-signature-symbol">: </span><a href="../interfaces/OnListener.html" class="tsd-signature-type" data-tsd-kind="Interface">OnListener</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/b3bde68/src/on.ts#L131">on.ts:131</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Register the listener.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>listener: <a href="../interfaces/OnListener.html" class="tsd-signature-type" data-tsd-kind="Interface">OnListener</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the callback</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="prevent" class="tsd-anchor"></a>
+					<h3>prevent</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">prevent<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/b3bde68/src/on.ts#L139">on.ts:139</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Force the usage of <code>preventDefault()</code> once the event is received.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="shadow" class="tsd-anchor"></a>
+					<h3>shadow</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">shadow<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/b3bde68/src/on.ts#L175">on.ts:175</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>By default, the builder listen to events from the CustomElement DOM.
+									With this option, the builder will listen to from the attached (and opened) shadow DOM.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="skip" class="tsd-anchor"></a>
+					<h3>skip</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">skip<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/b3bde68/src/on.ts#L155">on.ts:155</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Apply <code>.prevent()</code> and <code>.stop()</code>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="stop" class="tsd-anchor"></a>
+					<h3>stop</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">stop<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/b3bde68/src/on.ts#L147">on.ts:147</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Force the usage of <code>stopPropagation()</code> once the event is received.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="get" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> get</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>clauses<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/b3bde68/src/on.ts#L85">on.ts:85</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Provide a fresh builder.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>clauses: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the clauses</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="listen" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> listen</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">listen<span class="tsd-signature-symbol">(</span>clauses<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><a href="../index.html#ListenerOnDecoratorOptions" class="tsd-signature-type" data-tsd-kind="Type alias">ListenerOnDecoratorOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, methName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, descriptor<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PropertyDescriptor</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/b3bde68/src/on.ts#L94">on.ts:94</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Method Decorator used to register a listener listening to event changes.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>clauses: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the clauses</p>
+									</div>
+								</li>
+								<li>
+									<h5>options: <a href="../index.html#ListenerOnDecoratorOptions" class="tsd-signature-type" data-tsd-kind="Type alias">ListenerOnDecoratorOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the options</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, methName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, descriptor<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PropertyDescriptor</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter-signature">
+									<ul class="tsd-signatures tsd-kind-type-literal">
+										<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, methName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, descriptor<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PropertyDescriptor</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+									</ul>
+									<ul class="tsd-descriptions">
+										<li class="tsd-description">
+											<h4 class="tsd-parameters-title">Parameters</h4>
+											<ul class="tsd-parameters">
+												<li>
+													<h5>target: <span class="tsd-signature-type">any</span></h5>
+												</li>
+												<li>
+													<h5>methName: <span class="tsd-signature-type">string</span></h5>
+												</li>
+												<li>
+													<h5>descriptor: <span class="tsd-signature-type">PropertyDescriptor</span></h5>
+												</li>
+											</ul>
+											<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../index.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="AttributeBuilder.html" class="tsd-kind-icon">Attribute<wbr>Builder</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="AttributeDelegateBuilder.html" class="tsd-kind-icon">Attribute<wbr>Delegate<wbr>Builder</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="ContentBuilder.html" class="tsd-kind-icon">Content<wbr>Builder</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="ElementBuilder.html" class="tsd-kind-icon">Element<wbr>Builder</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="FieldBuilder.html" class="tsd-kind-icon">Field<wbr>Builder</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
+						<a href="OnBuilder.html" class="tsd-kind-icon">On<wbr>Builder</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-private">
+								<a href="OnBuilder.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="OnBuilder.html#build" class="tsd-kind-icon">build</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="OnBuilder.html#capture" class="tsd-kind-icon">capture</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="OnBuilder.html#delegate" class="tsd-kind-icon">delegate</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="OnBuilder.html#invoke" class="tsd-kind-icon">invoke</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="OnBuilder.html#prevent" class="tsd-kind-icon">prevent</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="OnBuilder.html#shadow" class="tsd-kind-icon">shadow</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="OnBuilder.html#skip" class="tsd-kind-icon">skip</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="OnBuilder.html#stop" class="tsd-kind-icon">stop</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="OnBuilder.html#get" class="tsd-kind-icon">get</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="OnBuilder.html#listen" class="tsd-kind-icon">listen</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class">
+						<a href="PropertyDelegateBuilder.html" class="tsd-kind-icon">Property<wbr>Delegate<wbr>Builder</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="ReferenceBuilder.html" class="tsd-kind-icon">Reference<wbr>Builder</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="TemplateBuilder.html" class="tsd-kind-icon">Template<wbr>Builder</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/AttributeListener.html" class="tsd-kind-icon">Attribute<wbr>Listener</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/Builder.html" class="tsd-kind-icon">Builder</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="../interfaces/ContentFactory.html" class="tsd-kind-icon">Content<wbr>Factory</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter tsd-is-protected">
+						<a href="../interfaces/CustomElementConstructor.html" class="tsd-kind-icon">Custom<wbr>Element<wbr>Constructor</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/FieldListener.html" class="tsd-kind-icon">Field<wbr>Listener</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-protected">
+						<a href="../interfaces/HookRegistry.html" class="tsd-kind-icon">Hook<wbr>Registry</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-protected">
+						<a href="../interfaces/HooksRegistration.html" class="tsd-kind-icon">Hooks<wbr>Registration</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/OnListener.html" class="tsd-kind-icon">On<wbr>Listener</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/Template.html" class="tsd-kind-icon">Template</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#AttributeDelegateDecoratorOptions" class="tsd-kind-icon">Attribute<wbr>Delegate<wbr>Decorator<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#AttributeListenerData" class="tsd-kind-icon">Attribute<wbr>Listener<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="../index.html#ContentDecoratorOptions" class="tsd-kind-icon">Content<wbr>Decorator<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="../index.html#ElementDecoratorOptions" class="tsd-kind-icon">Element<wbr>Decorator<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#FieldDecoratorOptions" class="tsd-kind-icon">Field<wbr>Decorator<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#FieldListenerData" class="tsd-kind-icon">Field<wbr>Listener<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-protected">
+						<a href="../index.html#HookCallbacks" class="tsd-kind-icon">Hook<wbr>Callbacks</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#ListenerAttributeDecoratorOptions" class="tsd-kind-icon">Listener<wbr>Attribute<wbr>Decorator<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#ListenerFieldDecoratorOptions" class="tsd-kind-icon">Listener<wbr>Field<wbr>Decorator<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#ListenerOnDecoratorOptions" class="tsd-kind-icon">Listener<wbr>OnDecorator<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#PropertyDelegateDecoratorOptions" class="tsd-kind-icon">Property<wbr>Delegate<wbr>Decorator<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#ReferenceDecoratorOptions" class="tsd-kind-icon">Reference<wbr>Decorator<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="../index.html#TemplateDecoratorOptions" class="tsd-kind-icon">Template<wbr>Decorator<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#UpdateElementParameters" class="tsd-kind-icon">Update<wbr>Element<wbr>Parameters</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../index.html#html" class="tsd-kind-icon">html</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
