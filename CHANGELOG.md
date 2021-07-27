@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/tmorin/ceb/compare/v2.2.0...v2.3.0) (2021-07-27)
+
+
+### Features
+
+* **documentation:** add new example, `ex-greeting` ([0ca053d](https://github.com/tmorin/ceb/commit/0ca053d855d674dfc37eb7f1dd3b10f7a06f7f45))
+* **template:** integrate a DOM patcher process ([40e9efd](https://github.com/tmorin/ceb/commit/40e9efd5cddfb1eb513273cb243d2f433405d0b5))
+* **template:** the slot elements should be handled ([53821fb](https://github.com/tmorin/ceb/commit/53821fb4e1f2d613b3dab95bc959a5a4a3a6be3d))
+
 ## [2.2.0](https://github.com/tmorin/ceb/compare/v2.1.0...v2.2.0) (2021-07-18)
 
 
