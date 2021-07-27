@@ -166,7 +166,7 @@
                         <h1><a class="header" href="#templatebuilder" id="templatebuilder">TemplateBuilder</a></h1>
 <p>The class <code>TemplateBuilder</code> provides service to patch the DOM of the custom element.</p>
 <p>The static method <code>TemplateBuilder.get()</code> returns a fresh builder.</p>
-<pre><code class="language-javascript">import {ContentBuilder} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {ContentBuilder} from '@tmorin/ceb'
 // creates the builder
 const builder = TemplateBuilder.get()
 </code></pre>
@@ -263,7 +263,7 @@ ElementBuilder.get().builder(TemplateBuilder.get().options({
 </code></pre>
 <h2><a class="header" href="#the-decorator" id="the-decorator">The decorator</a></h2>
 <p>Templates can also be defined using decorators.</p>
-<pre><code class="language-javascript">import {ElementBuilder, TemplateBuilder} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {ElementBuilder, TemplateBuilder} from '@tmorin/ceb'
 // register the custom element
 @ElementBuilder.element&lt;MyCustomElement&gt;()
 // defines the custom element class

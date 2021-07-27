@@ -171,36 +171,29 @@ By this way, <code>&lt;ceb/&gt;</code> is natively opened to extensions and buil
 <p>The source code is available on GitHub: <a href="https://github.com/tmorin/ceb">github.com/tmorin/ceb</a>.</p>
 <hr />
 <p>A simple Custom Element displaying a greeting text:</p>
-<pre><code class="language-typescript">import {
-  ElementBuilder,
-  FieldBuilder,
-  FieldListenerData,
-  ReferenceBuilder,
-  ContentBuilder
-} from &quot;ceb&quot;;
+<pre><code class="language-typescript">import {ElementBuilder, FieldBuilder, TemplateBuilder} from &quot;ceb&quot;
 
+// Define the Custom Element
 @ElementBuilder.element&lt;ExGreeting&gt;()
-@ContentBuilder.content({
-  content: &quot;&lt;p&gt;Hello, &lt;span id='name'&gt;&lt;/span&gt;!&lt;/p&gt;&quot;,
-  isShadow: true
-})
 export class ExGreeting extends HTMLElement {
-  @ReferenceBuilder.reference({
-    selector: &quot;span#name&quot;,
-    isShadow: true
-  })
-  span: HTMLSpanElement
-
+  // Bind the property `name` to the attribute `name`
   @FieldBuilder.field()
-  name: string = &quot;World&quot;
+  name = &quot;World&quot;
 
+  // Define the template of the custom element
+  @TemplateBuilder.template()
+  private render() {
+    return html`&lt;p&gt;Hello, ${this.name}!&lt;/p&gt;`
+  }
+  
+  // Render the template when the name change
   @FieldBuilder.listen()
-  private onName(data: FieldListenerData) {
-    this.span.textContent = data.newVal
+  private onName() {
+    this.render()
   }
 }
 </code></pre>
-<pre><code class="language-html">&lt;ex-greeting name=&quot;World&quot; /&gt;
+<pre><code class="language-html">&lt;ex-greeting name=&quot;John Doe&quot; /&gt;
 </code></pre>
 
                     </main>

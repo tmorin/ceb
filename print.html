@@ -173,36 +173,29 @@ By this way, <code>&lt;ceb/&gt;</code> is natively opened to extensions and buil
 <p>The source code is available on GitHub: <a href="https://github.com/tmorin/ceb">github.com/tmorin/ceb</a>.</p>
 <hr />
 <p>A simple Custom Element displaying a greeting text:</p>
-<pre><code class="language-typescript">import {
-  ElementBuilder,
-  FieldBuilder,
-  FieldListenerData,
-  ReferenceBuilder,
-  ContentBuilder
-} from &quot;ceb&quot;;
+<pre><code class="language-typescript">import {ElementBuilder, FieldBuilder, TemplateBuilder} from &quot;ceb&quot;
 
+// Define the Custom Element
 @ElementBuilder.element&lt;ExGreeting&gt;()
-@ContentBuilder.content({
-  content: &quot;&lt;p&gt;Hello, &lt;span id='name'&gt;&lt;/span&gt;!&lt;/p&gt;&quot;,
-  isShadow: true
-})
 export class ExGreeting extends HTMLElement {
-  @ReferenceBuilder.reference({
-    selector: &quot;span#name&quot;,
-    isShadow: true
-  })
-  span: HTMLSpanElement
-
+  // Bind the property `name` to the attribute `name`
   @FieldBuilder.field()
-  name: string = &quot;World&quot;
+  name = &quot;World&quot;
 
+  // Define the template of the custom element
+  @TemplateBuilder.template()
+  private render() {
+    return html`&lt;p&gt;Hello, ${this.name}!&lt;/p&gt;`
+  }
+  
+  // Render the template when the name change
   @FieldBuilder.listen()
-  private onName(data: FieldListenerData) {
-    this.span.textContent = data.newVal
+  private onName() {
+    this.render()
   }
 }
 </code></pre>
-<pre><code class="language-html">&lt;ex-greeting name=&quot;World&quot; /&gt;
+<pre><code class="language-html">&lt;ex-greeting name=&quot;John Doe&quot; /&gt;
 </code></pre>
 <h1><a class="header" href="#installation" id="installation">Installation</a></h1>
 <p>From npm or yarn or ... from npm what?</p>
@@ -359,7 +352,7 @@ class MyCustomElementBis extends HTMLButtonElement {
 <p>The registered custom element is a simple element having the text content <code>Hello! I'm &lt;the element's name&gt;.</code>.</p>
 <p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="abzmRvm" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
   <span>See the Pen <a href="https://codepen.io/tmorin/pen/abzmRvm">
-  &lt;/ceb&gt; - ElementBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  &lt;/ceb&gt; ~ ElementBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
@@ -424,7 +417,7 @@ The first one, <code>content</code>, is the description of the task.
 The second one, <code>done</code>, is a boolean saying if the task is done or not.</p>
 <p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="vYEXVKd" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
   <span>See the Pen <a href="https://codepen.io/tmorin/pen/vYEXVKd">
-  &lt;/ceb&gt; - AttributeBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  &lt;/ceb&gt; ~ AttributeBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
@@ -466,7 +459,7 @@ class MyCustomElement extends HTMLElement {
 <h1><a class="header" href="#templatebuilder" id="templatebuilder">TemplateBuilder</a></h1>
 <p>The class <code>TemplateBuilder</code> provides service to patch the DOM of the custom element.</p>
 <p>The static method <code>TemplateBuilder.get()</code> returns a fresh builder.</p>
-<pre><code class="language-javascript">import {ContentBuilder} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {ContentBuilder} from '@tmorin/ceb'
 // creates the builder
 const builder = TemplateBuilder.get()
 </code></pre>
@@ -563,7 +556,7 @@ ElementBuilder.get().builder(TemplateBuilder.get().options({
 </code></pre>
 <h2><a class="header" href="#the-decorator-2" id="the-decorator-2">The decorator</a></h2>
 <p>Templates can also be defined using decorators.</p>
-<pre><code class="language-javascript">import {ElementBuilder, TemplateBuilder} from '@tmorin/ceb'
+<pre><code class="language-typescript">import {ElementBuilder, TemplateBuilder} from '@tmorin/ceb'
 // register the custom element
 @ElementBuilder.element&lt;MyCustomElement&gt;()
 // defines the custom element class
@@ -647,7 +640,7 @@ The first one, <code>content</code>, is the description of the task.
 The second one, <code>done</code>, is a boolean saying if the task is done or not.</p>
 <p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="xxbEyRg" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
   <span>See the Pen <a href="https://codepen.io/tmorin/pen/xxbEyRg">
-  &lt;/ceb&gt; - FieldBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  &lt;/ceb&gt; ~ FieldBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
