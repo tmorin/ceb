@@ -21,6 +21,10 @@ export type TemplateDecoratorOptions<T extends HTMLElement> = {
      * The name of the method which implement the render process, by default it is `render()`.
      */
     methName?: string
+    /**
+     * The parameters of template engine.
+     */
+    parameters?: UpdateElementParameters
 }
 
 /**
@@ -59,7 +63,7 @@ export class TemplateBuilder implements Builder {
         private isShadow = false,
         private isFocusDelegation?: boolean,
         private methName: string = "render",
-        private templateOptions: UpdateElementParameters = {},
+        private tplParams: UpdateElementParameters = {},
     ) {
     }
 
@@ -80,6 +84,9 @@ export class TemplateBuilder implements Builder {
             const builder = ElementBuilder.getOrSet(target, id, TemplateBuilder.get().method(methName))
             if (options.isShadow) {
                 builder.shadow(options.isShadowWithFocusDelegation)
+            }
+            if (options.parameters) {
+                builder.parameters(options.parameters)
             }
         }
     }
@@ -105,11 +112,11 @@ export class TemplateBuilder implements Builder {
     }
 
     /**
-     * Override the default render options.
-     * @param options the render options
+     * Override the default render parameters.
+     * @param parameters the parameters of the template engine
      */
-    options(options: UpdateElementParameters) {
-        this.templateOptions = options
+    parameters(parameters: UpdateElementParameters) {
+        this.tplParams = parameters
         return this
     }
 
@@ -122,10 +129,10 @@ export class TemplateBuilder implements Builder {
             // wrap the default render function to render the template in call
             if (typeof el[this.methName] === 'function') {
                 const original: Function = el[this.methName]
-                const options = this.templateOptions
+                const parameters = this.tplParams
                 el[this.methName] = function (): Template {
                     const template: Template = original.apply(el, arguments)
-                    template.render(el, options)
+                    template.render(el, parameters)
                     return template
                 }
             }

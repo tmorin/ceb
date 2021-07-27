@@ -442,7 +442,7 @@ export class Engine {
 }
 
 /**
- * Parameters of te update element process.
+ * Parameters of the update element process.
  */
 export type UpdateElementParameters = {
     /**
