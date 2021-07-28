@@ -11,7 +11,7 @@ import {ContentBuilder} from '@tmorin/ceb'
 const builder = ContentBuilder.get('<strong>the content</strong>')
 ```
 
-The builder and underlying decorators are also technically documented: [ContentBuilder](../api/classes/contentbuilder.html).
+The builder and underlying decorators are also technically documented: [ContentBuilder](../api/classes/ContentBuilder.html).
 
 ## Initialize the shadow DOM
 

@@ -11,7 +11,7 @@ import {AttributeBuilder} from '@tmorin/ceb'
 const builder = AttributeBuilder.get('an-attribute')
 ```
 
-The builder and underlying decorators are also technically documented: [AttributeBuilder](../api/classes/attributebuilder.html).
+The builder and underlying decorators are also technically documented: [AttributeBuilder](../api/classes/AttributeBuilder.html).
 
 ## Boolean value
 

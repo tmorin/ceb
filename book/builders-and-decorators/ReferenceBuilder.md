@@ -11,7 +11,7 @@ import {ReferenceBuilder} from '@tmorin/ceb'
 const builder = ReferenceBuilder.get('myInput')
 ```
 
-The builder and underlying decorators are also technically documented: [ReferenceBuilder](../api/classes/referencebuilder.html).
+The builder and underlying decorators are also technically documented: [ReferenceBuilder](../api/classes/ReferenceBuilder.html).
 
 ## Default selector
 

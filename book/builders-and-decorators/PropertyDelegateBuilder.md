@@ -11,7 +11,7 @@ import {PropertyDelegateBuilder} from '@tmorin/ceb'
 const builder = PropertyDelegateBuilder.get('aProperty')
 ```
 
-The builder and underlying decorators are also technically documented: [PropertyDelegateBuilder](../api/classes/propertydelegatebuilder.html).
+The builder and underlying decorators are also technically documented: [PropertyDelegateBuilder](../api/classes/PropertyDelegateBuilder.html).
 
 ## Set the selector
 

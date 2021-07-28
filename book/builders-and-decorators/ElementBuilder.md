@@ -18,7 +18,7 @@ class MyCustomElement extends HTMLElement {
 const builder = ElementBuilder.get(MyCustomElement)
 ```
 
-The builder and underlying decorators are also technically documented: [ElementBuilder](../api/classes/elementbuilder.html).
+The builder and underlying decorators are also technically documented: [ElementBuilder](../api/classes/ElementBuilder.html).
 
 ## Registering a new custom element
 

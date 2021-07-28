@@ -11,7 +11,7 @@ import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
 const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
 ```
 
-The builder and underlying decorators are also technically documented: [AttributeDelegateBuilder](../api/classes/attributedelegatebuilder.html).
+The builder and underlying decorators are also technically documented: [AttributeDelegateBuilder](../api/classes/AttributeDelegateBuilder.html).
 
 ## Set the selector
 

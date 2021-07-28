@@ -13,7 +13,7 @@ import {FieldBuilder} from '@tmorin/ceb'
 const builder = FieldBuilder.get('aField')
 ```
 
-The builder and underlying decorators are also technically documented: [FieldBuilder](../api/classes/fieldbuilder.html).
+The builder and underlying decorators are also technically documented: [FieldBuilder](../api/classes/FieldBuilder.html).
 
 ## Boolean value
 

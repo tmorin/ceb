@@ -10,7 +10,7 @@ import {ContentBuilder} from '@tmorin/ceb'
 const builder = TemplateBuilder.get()
 ```
 
-The builder and underlying decorators are also technically documented: [TemplateBuilder](../api/classes/templatebuilder.html).
+The builder and underlying decorators are also technically documented: [TemplateBuilder](../api/classes/TemplateBuilder.html).
 
 ## The method, the template and the DOM
 

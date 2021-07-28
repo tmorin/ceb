@@ -13,7 +13,7 @@ import {OnBuilder} from '@tmorin/ceb'
 const builder = OnBuilder.get('click, dblclick')
 ```
 
-The builder and underlying decorators are also technically documented: [OnBuilder](../api/classes/onbuilder.html).
+The builder and underlying decorators are also technically documented: [OnBuilder](../api/classes/OnBuilder.html).
 
 ## Listening to events from the custom element
 
