@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.4](https://github.com/tmorin/ceb/compare/v2.3.3...v2.3.4) (2021-07-28)
+
+
+### Bug Fixes
+
+* **documentation:** external links to the API were broken ([bc03206](https://github.com/tmorin/ceb/commit/bc03206f8a6349cd50e9ea1bcf37e934db636645))
+
 ### [2.3.3](https://github.com/tmorin/ceb/compare/v2.3.2...v2.3.3) (2021-07-27)
 
 
