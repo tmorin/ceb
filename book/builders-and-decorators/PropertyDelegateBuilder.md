@@ -13,6 +13,19 @@ const builder = PropertyDelegateBuilder.get('aProperty')
 
 The builder and underlying decorators are also technically documented: [PropertyDelegateBuilder](../api/classes/PropertyDelegateBuilder.html).
 
+## An example
+
+The registered custom element is composed of a single `input`.
+The boolean property `disabled` is delegated to the attribute `disabled` of the `input`.
+The property `placeholder` is delegated to the attribute `placeholder` of the `input`.
+
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="eYNeNwa" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/eYNeNwa">
+  &lt;/ceb&gt; ~ PropertyDelegateBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
 ## Set the selector
 
 The method `PropertyDelegateBuilder#to(selector)` has to be used to define the selector.
@@ -91,16 +104,3 @@ class MyCustomElement extends HTMLElement {
     aProperty = 'a value'
 }
 ```
-
-## Example
-
-The registered custom element is composed of a single `input`.
-The boolean property `disabled` is delegated to the attribute `disabled` of the `input`.
-The property `placeholder` is delegated to the attribute `placeholder` of the `input`.
-
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="eYNeNwa" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/eYNeNwa">
-  &lt;/ceb&gt; ~ PropertyDelegateBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>

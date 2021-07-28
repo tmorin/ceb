@@ -13,6 +13,17 @@ const builder = ReferenceBuilder.get('myInput')
 
 The builder and underlying decorators are also technically documented: [ReferenceBuilder](../api/classes/ReferenceBuilder.html).
 
+## An example
+
+The registered custom element counts the number of selected `li` and displays it.
+
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="LYEbRLE" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/LYEbRLE">
+  &lt;/ceb&gt; ~ ReferenceBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
 ## Default selector
 
 By default, the builder binds the property to a child having the same id.
@@ -65,14 +76,3 @@ class MyCustomElement extends HTMLElement {
     readonly ul: HTMLUListElement;
 }
 ```
-
-## Example
-
-The registered custom element counts the number of selected `li` and displays it.
-
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="LYEbRLE" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/LYEbRLE">
-  &lt;/ceb&gt; ~ ReferenceBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>

@@ -13,6 +13,17 @@ const builder = ContentBuilder.get('<strong>the content</strong>')
 
 The builder and underlying decorators are also technically documented: [ContentBuilder](../api/classes/ContentBuilder.html).
 
+## An example
+
+The registered custom element is initialized with a shadow DOM wrapping its light DOM.
+
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="BayQzPK" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/BayQzPK">
+  &lt;/ceb&gt; ~ ContentBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
 ## Initialize the shadow DOM
 
 By default, the builder initializes the light DOM of the custom element.
@@ -38,14 +49,3 @@ import {ElementBuilder, ContentBuilder} from '@tmorin/ceb'
 class MyCustomElement extends HTMLElement {
 }
 ```
-
-## Example
-
-The registered custom element is initialized with a shadow DOM wrapping its light DOM.
-
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="BayQzPK" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/BayQzPK">
-  &lt;/ceb&gt; ~ ContentBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>

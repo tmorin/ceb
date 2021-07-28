@@ -15,6 +15,19 @@ const builder = OnBuilder.get('click, dblclick')
 
 The builder and underlying decorators are also technically documented: [OnBuilder](../api/classes/OnBuilder.html).
 
+## An example
+
+The registered custom element is an extension of the `ul` element.
+It reacts on `click` events coming from `button`.
+When a button is clicked, its parent `li` is removed from the DOM.
+
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="LYERaao" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/LYERaao">
+  &lt;/ceb&gt; ~ OnBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
 ## Listening to events from the custom element
 
 By default, the listeners are added to the custom element it-self.
@@ -115,17 +128,3 @@ class MyCustomElement extends HTMLElement {
     }
 }
 ```
-
-## Example
-
-The registered custom element is an extension of the `ul` element.
-It reacts on `click` events coming from `button`.
-When a button is clicked, its parent `li` is removed from the DOM.
-
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="LYERaao" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/LYERaao">
-  &lt;/ceb&gt; ~ OnBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
-

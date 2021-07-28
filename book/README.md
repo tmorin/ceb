@@ -12,33 +12,23 @@ The source code is available on GitHub: [github.com/tmorin/ceb].
 
 A simple Custom Element displaying a greeting text:
 
-```typescript
-import {ElementBuilder, FieldBuilder, TemplateBuilder} from "ceb"
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="XWRZwVG" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/XWRZwVG">
+  &lt;ceb/&gt; ~ SimpleGreeting</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 
-// Define the Custom Element
-@ElementBuilder.element<ExGreeting>()
-export class ExGreeting extends HTMLElement {
-  // Bind the property `name` to the attribute `name`
-  @FieldBuilder.field()
-  name = "World"
+---
 
-  // Define the template of the custom element
-  @TemplateBuilder.template()
-  private render() {
-    return html`<p>Hello, ${this.name}!</p>`
-  }
-  
-  // Render the template when the name change
-  @FieldBuilder.listen()
-  private onName() {
-    this.render()
-  }
-}
-```
+A Custom Element extengins the `<p>` element to display a greeting text:
 
-```html
-<ex-greeting name="John Doe" />
-```
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="mdmXYvm" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/mdmXYvm">
+  &lt;ceb/&gt; ~ SimpleGreetingParagraph</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 
 [Custom Elements (v1)]: https://html.spec.whatwg.org/multipage/custom-elements.html
 [MIT license]: http://opensource.org/licenses/MIT

@@ -13,6 +13,20 @@ const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'
 
 The builder and underlying decorators are also technically documented: [AttributeDelegateBuilder](../api/classes/AttributeDelegateBuilder.html).
 
+## An example
+
+The registered custom element is composed of an `input` and a button `button`.
+The boolean attribute `disabled` is delegated to both `input` and `button`.
+The attribute `placeolder` is delegated to the `input`.
+The attribute `label` is delegated to the `textContent` property of the `button`.
+
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="XWJNOwN" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/XWJNOwN">
+  &lt;/ceb&gt; ~ AttributeDelegateBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+
 ## Set the selector
 
 The method `AttributeDelegateBuilder#to(selector)` has to be used to define the selector.
@@ -79,17 +93,3 @@ import {ElementBuilder, AttributeDelegateBuilder} from '@tmorin/ceb'
 class MyCustomElement extends HTMLElement {
 }
 ```
-
-## Example
-
-The registered custom element is composed of an `input` and a button `button`.
-The boolean attribute `disabled` is delegated to both `input` and `button`.
-The attribute `placeolder` is delegated to the `input`.
-The attribute `label` is delegated to the `textContent` property of the `button`.
-
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="XWJNOwN" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/XWJNOwN">
-  &lt;/ceb&gt; ~ AttributeDelegateBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
