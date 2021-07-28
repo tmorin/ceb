@@ -1,7 +1,7 @@
 import {toCamelCase, toKebabCase} from './utilities'
 import {Builder, CustomElementConstructor} from './builder'
 import {HooksRegistration} from './hook'
-import {ElementBuilder} from './element'
+import {ElementBuilder} from "./element";
 
 /**
  * The data of provided by an {@link AttributeListener}.
@@ -22,165 +22,236 @@ export type AttributeListenerData = {
 }
 
 /**
- * The attribute listener.
+ * The attribute listener is invoked for each observed mutation of the attribute value.
+ * @template E the type of the Custom Element
  */
-export interface AttributeListener {
+export interface AttributeListener<E extends HTMLElement> {
     /**
-     * @param el the custom element
-     * @param data the data
+     * @param el the Custom Element
+     * @param data the data which describes the mutation
      */
-    (el: HTMLElement, data: AttributeListenerData): void
+    (el: E, data: AttributeListenerData): void
 }
 
 /**
- * The options of the decorator {@link AttributeBuilder.listen}.
- */
-export type ListenerAttributeDecoratorOptions = {
-    /**
-     * The attribute name.
-     */
-    attrName?: string
-    /**
-     * The prefix to strip  to get the attribute name.
-     * If `true`, the prefix will be `on`.
-     */
-    prefix?: boolean | string
-    /**
-     * When the value is truthy, the attribute's value is "" otherwise the attribute is removed.
-     */
-    isBoolean?: boolean
-}
-
-function getPrefix(prefix?: boolean | string): string {
-    if (typeof prefix === 'string') {
-        return prefix
-    }
-    return prefix === false ? '' : 'on'
-}
-
-/**
- * The builder provides services to initialize an attribute and react on changes.
+ * The builder handles the initialization of an attribute as well as the registration of its listeners.
  *
- * @example With the builder API - Define the attribute `value` and react on changes
- * ```typescript
- * import {ElementBuilder, AttributeBuilder} from "ceb"
- * class HelloWorld extends HTMLElement {
- * }
- * ElementBuilder.get().builder(
- *     AttributeBuilder.get("value").default("World").listener(
- *         (el, data) => el.textContent = `Hello, ${data.newVal}!`
- *     )
- * ).register()
- * ```
+ * The default value of the attribute can be provided using {@link AttributeBuilder.default}.
  *
- * @example With the decorator API - Define the attribute `value` and react on changes
- * ```typescript
- * import {ElementBuilder, AttributeBuilder} from "ceb"
- * @ElementBuilder.element()
- * class HelloWorld extends HTMLElement {
- *     @AttributeBuilder.listen()
- *     onValue(data) {
- *         this.textContent = `Hello, ${data.newVal}!`
- *     }
- * }
- * ```
+ * The kind of the attribute can be _String_ or _Boolean_.
+ * The default kind of an attribute is _String_, the switch to _Boolean_ can be done explicitly with {@link AttributeBuilder.boolean}
+ * or implicitly when a default value (`true` or `false`) is provided with {@link AttributeBuilder.default}.
+ *
+ * According the kind of the attribute, the creation of the attribute in the DOM differs.
+ * About the kind _Boolean_, when the value is `true` then the attribute DOM node is added and set with an empty string
+ * otherwise, nothing occurs.
+ * About the kind _String_, when the value is not `undefined` and not `null` then the attribute DOM node is added and
+ * set with the value otherwise, nothing occurs.
+ *
+ * The listeners of the attribute values are simple callback functions, c.f. {@link AttributeListener}.
+ * They can be registered with {@link AttributeBuilder.listener}.
+ *
+ * Finally, the builder can be registered using the method {@link ElementBuilder.builder} of the main builder (i.e. {@link ElementBuilder}).
+ * However, it can also be registered with the decorative style using the decorator {@link AttributeBuilder.decorate}.
+ *
+ * @template E the type of the Custom Element
  */
-export class AttributeBuilder implements Builder {
+export class AttributeBuilder<E extends HTMLElement = HTMLElement> implements Builder<E> {
 
     private constructor(
-        private attrName: string,
-        private defaultValue: boolean | string = undefined,
-        private isBoolean = false,
-        private listeners: Array<AttributeListener> = []
+        private _attrName: string,
+        private _defaultValue: boolean | string = undefined,
+        private _isBoolean = false,
+        private _listeners: Array<AttributeListener<E>> = []
     ) {
     }
 
     /**
      * Provide a fresh builder.
-     * @param attrName the attribute name
+     * @param attrName the attribute name, it's optional only when the decorator API (i.e. {@link AttributeBuilder.decorate}) is used
+     * @template E the type of the Custom Element
      */
-    static get(attrName: string) {
-        return new AttributeBuilder(toKebabCase(attrName))
+    static get<E extends HTMLElement>(attrName?: string) {
+        return new AttributeBuilder<E>(toKebabCase(attrName))
     }
 
     /**
-     * Method Decorator used to register a listener listening to attribute changes.
-     * @param options the options
+     * Override the kind of the attribute.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, AttributeBuilder} from "ceb"
+     * class HelloWorld extends HTMLElement {
+     *     connectedCallback() {
+     *         this.textContent = `Hello, World!`
+     *         if (this.hasAttribute("br")) {
+     *             this.appendChild(document.createElement("br"))
+     *         }
+     *     }
+     * }
+     * ElementBuilder.get(HelloWorld).builder(
+     *     AttributeBuilder.get("br").boolean().default(true)
+     * ).register()
+     * ```
      */
-    static listen(options: ListenerAttributeDecoratorOptions = {}) {
-        return function (target: any, methName: string, descriptor: PropertyDescriptor) {
-            const prefix = getPrefix(options.prefix)
-            const attrName = options.attrName || toKebabCase(methName.replace(prefix, ''))
-            const id = `attribute-${attrName}`
-            const builder = ElementBuilder.getOrSet(target, id, AttributeBuilder.get(attrName)).listener((el, data) => {
+    boolean() {
+        this._isBoolean = true
+        return this
+    }
+
+    /**
+     * Set the default value of the attribute.
+     *
+     * If the value is a `boolean`, then the kind of the attribute value is set to `boolean` too.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, AttributeBuilder} from "ceb"
+     * class HelloWorld extends HTMLElement {
+     *     connectedCallback() {
+     *         this.textContent = `Hello, ${this.getAttribute("name")}!`
+     *     }
+     * }
+     * ElementBuilder.get(HelloWorld).builder(
+     *     AttributeBuilder.get("name").default("World")
+     * ).register()
+     * ```
+     *
+     * @param value the default value
+     */
+    default(value: string | boolean) {
+        this._defaultValue = value
+        if (typeof value !== "undefined" && value !== null) {
+            this._isBoolean = typeof value === "boolean"
+        }
+        return this
+    }
+
+    /**
+     * Register a listener which will be invoked when the attribute value mutate.
+     *
+     * A listener is callback function ({@link AttributeListener}) which have two arguments:
+     * 1. the custom element
+     * 2. the data describing the mutation c.f. {@link AttributeListenerData}
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, AttributeBuilder} from "ceb"
+     * class HelloWorld extends HTMLElement {
+     * }
+     * ElementBuilder.get(HelloWorld).builder(
+     *     AttributeBuilder.get("name")
+     *         .default("World")
+     *         .listener((el, data) =>
+     *             el.textContent = `Hello, ${data.newVal}!`)
+     * ).register()
+     * ```
+     *
+     * @param listener the listener
+     */
+    listener(listener: AttributeListener<E>) {
+        this._listeners.push(listener)
+        return this
+    }
+
+    /**
+     * Decorates the listener method which is invoked each time the attribute value mutate.
+     *
+     * When the attribute name is not specified (i.e. `@AttributeBuilder.get()`), then it's discovered from the decorated method name.
+     * The pattern is `<prefix><AttributeNameInCamelCase>`, where `<prefix>` is by default `on`.
+     *
+     * @example Discovery of the attribute name
+     * ```typescript
+     * import {ElementBuilder, AttributeBuilder} from "ceb"
+     * @ElementBuilder.get<HelloWorld>().decorate()
+     * class HelloWorld extends HTMLElement {
+     *     @AttributeBuilder.get().decorate()
+     *     onValue(data) {
+     *         // ...
+     *     }
+     * }
+     * ```
+     *
+     * @example Discovery of the attribute name with a custom prefix
+     * ```typescript
+     * import {ElementBuilder, AttributeBuilder} from "ceb"
+     * @ElementBuilder.get<HelloWorld>().decorate()
+     * class HelloWorld extends HTMLElement {
+     *     @AttributeBuilder.get().decorate("listen")
+     *     listenDataValue(data) {
+     *         // ...
+     *     }
+     * }
+     * ```
+     *
+     * @example Skip the attribute name discovery
+     * ```typescript
+     * import {ElementBuilder, AttributeBuilder} from "ceb"
+     * @ElementBuilder.get<HelloWorld>().decorate()
+     * class HelloWorld extends HTMLElement {
+     *     @AttributeBuilder.get("foo-bar").decorate()
+     *     listen(data) {
+     *         // ...
+     *     }
+     * }
+     * ```
+     *
+     * @param prefix the prefix used to discover the attribute name from the method name
+     */
+    decorate(prefix = "on"): MethodDecorator {
+        const builder = this
+        return function (target: E, methName: string, descriptor: PropertyDescriptor) {
+            if (!builder._attrName) {
+                builder._attrName = toKebabCase(
+                    methName.replace(prefix, '')
+                )
+            }
+            builder.listener((el, data) => {
                 const fn = descriptor.value as Function
                 fn.call(el, data)
             })
-            if (options.isBoolean) {
-                builder.boolean()
-            }
+            ElementBuilder.getOrSet(target, `attribute-${builder._attrName}`, builder)
         }
     }
 
     /**
-     * When the value is truthy, the attribute's value is "".
-     * When the value is falsy, the attribute is removed.
-     */
-    boolean() {
-        this.isBoolean = true
-        return this
-    }
-
-    /**
-     * Set a default value when the attribute is unbound.
-     * @param value the default value
-     */
-    default(value: string | boolean) {
-        this.defaultValue = value
-        return this
-    }
-
-    /**
-     * Register a listener which will be invoked when the attribute's value changed.
-     * @param listener the listener
-     */
-    listener(listener: AttributeListener) {
-        this.listeners.push(listener)
-        return this
-    }
-
-    /**
-     * The is API is dedicated for developer of Builders.
+     * This API is dedicated for developer of Builders.
      * @protected
      */
-    build(Constructor: CustomElementConstructor<HTMLElement>, hooks: HooksRegistration) {
-        const defaultValuePropName = '__ceb_attribute_default_value_' + toCamelCase(this.attrName)
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>) {
+        if (!this._attrName) {
+            throw new TypeError("AttributeBuilder - the attribute name is missing")
+        }
+
+        const defaultValuePropName = '__ceb_attribute_default_value_' + toCamelCase(this._attrName)
 
         // registers the attribute to observe
-        Constructor['observedAttributes'].push(this.attrName)
+        if (Constructor['observedAttributes'].indexOf(this._attrName) < 0) {
+            Constructor['observedAttributes'].push(this._attrName)
+        }
 
         // set the default value
         hooks.after('connectedCallback', el => {
             if (!el[defaultValuePropName]
-                && !el.hasAttribute(this.attrName)
-                && this.defaultValue !== undefined
-                && this.defaultValue !== false
-                && this.defaultValue !== null
+                && !el.hasAttribute(this._attrName)
+                && this._defaultValue !== undefined
+                && this._defaultValue !== false
+                && this._defaultValue !== null
             ) {
                 el[defaultValuePropName] = true
-                el.setAttribute(this.attrName, this.isBoolean ? '' : this.defaultValue as string)
+                el.setAttribute(this._attrName, this._isBoolean ? '' : this._defaultValue as string)
             }
         })
 
         // reacts on attribute values
         hooks.before('attributeChangedCallback', (el, attrName, oldValue, newValue) => {
             // invokes listeners
-            if (attrName === this.attrName) {
-                if (this.listeners.length > 0) {
-                    const oldVal = this.isBoolean ? oldValue === '' : oldValue
-                    const newVal = this.isBoolean ? newValue === '' : newValue
+            if (attrName === this._attrName) {
+                if (this._listeners.length > 0) {
+                    const oldVal = this._isBoolean ? oldValue === '' : oldValue
+                    const newVal = this._isBoolean ? newValue === '' : newValue
                     if (oldValue !== newValue) {
-                        this.listeners.forEach(listener => listener(el, {attrName, oldVal, newVal}))
+                        this._listeners.forEach(listener => listener(el, {attrName, oldVal, newVal}))
                     }
                 }
             }

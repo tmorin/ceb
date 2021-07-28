@@ -19,11 +19,11 @@ describe("patcher/engine/slot", function () {
             engine.text("!")
             engine.closeElement()
         }
-        Engine.updateElement(el, render, {greyDom: true})
+        Engine.update(el, render, {greyDom: true})
         expect(el.innerHTML).to.be.eq(`<div>Hello, <ceb-slot><strong>World</strong></ceb-slot>!</div>`)
 
         el.querySelector("ceb-slot").innerHTML = `<u>John <strong>Doe</strong></u>`
-        Engine.updateElement(el, render, {greyDom: true})
+        Engine.update(el, render, {greyDom: true})
         expect(el.innerHTML).to.be.eq(`<div>Hello, <ceb-slot><u>John <strong>Doe</strong></u></ceb-slot>!</div>`)
     })
     it("should handle a chain of Grey DOM", function () {
@@ -49,9 +49,9 @@ describe("patcher/engine/slot", function () {
             engine.closeElement()
         }
 
-        Engine.updateElement(el.querySelector("render-a"), renderFactor("a"), {greyDom: true})
-        Engine.updateElement(el.querySelector("render-b"), renderFactor("b"), {greyDom: true})
-        Engine.updateElement(el.querySelector("render-c"), renderFactor("c"), {greyDom: true})
+        Engine.update(el.querySelector("render-a"), renderFactor("a"), {greyDom: true})
+        Engine.update(el.querySelector("render-b"), renderFactor("b"), {greyDom: true})
+        Engine.update(el.querySelector("render-c"), renderFactor("c"), {greyDom: true})
 
         const strong = el.querySelector("ul render-c li ceb-slot ul render-b li ceb-slot ul render-a li ceb-slot strong");
         expect(strong.textContent).to.be.eq("Doe")
@@ -67,7 +67,7 @@ describe("patcher/engine/slot", function () {
             }
 
             render() {
-                Engine.updateElement(this, (engine: Engine) => {
+                Engine.update(this, (engine: Engine) => {
                     engine.openElement("li")
                     engine.text(this.getAttribute("label"))
                     engine.slot()
@@ -90,7 +90,7 @@ describe("patcher/engine/slot", function () {
             }
 
             render() {
-                Engine.updateElement(this, (engine: Engine) => {
+                Engine.update(this, (engine: Engine) => {
                     engine.openElement("li")
                     const title = this.getAttribute("title")
                     if (title) {
@@ -146,7 +146,7 @@ describe("patcher/engine/slot", function () {
             }
 
             render() {
-                Engine.updateElement(this, (engine: Engine) => {
+                Engine.update(this, (engine: Engine) => {
                     engine.openElement("div", {attributes: [["class", "child"]]})
                     engine.text("child")
                     engine.slot()
@@ -161,7 +161,7 @@ describe("patcher/engine/slot", function () {
             }
 
             render() {
-                Engine.updateElement(this, (engine: Engine) => {
+                Engine.update(this, (engine: Engine) => {
                     engine.openElement("div", {attributes: [["class", "parent"]]})
                     engine.text("parent")
                     engine.openElement("child-slot", {options: {slot: true}})

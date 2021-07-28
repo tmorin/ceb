@@ -11,7 +11,7 @@ describe("patcher/engine/key", function () {
         el = document.body.appendChild(document.createElement("div"))
     })
     it("should handle referenced element", function () {
-        Engine.updateElement(el, (engine: Engine) => {
+        Engine.update(el, (engine: Engine) => {
             engine.openElement("ul")
             engine.openElement("li", {attributes: [["name", "A"]], options: {key: 'A'}})
             engine.text('A')
@@ -25,7 +25,7 @@ describe("patcher/engine/key", function () {
         const liB = el.querySelector("li[name=B]")
         expect(liA.getAttribute("name")).eq('A')
         expect(liB.getAttribute("name")).eq('B')
-        Engine.updateElement(el, (engine: Engine) => {
+        Engine.update(el, (engine: Engine) => {
             engine.openElement("ul")
             engine.openElement("li", {attributes: [["name", "B bis"]], options: {key: 'B'}})
             engine.text('B bis')

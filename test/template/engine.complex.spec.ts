@@ -11,7 +11,7 @@ describe("patcher/engine/complex", () => {
     })
     it("should render a complex structure", () => {
         el.innerHTML = ``
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.openElement("ul")
             engine.openElement("li")
             engine.text("liA")

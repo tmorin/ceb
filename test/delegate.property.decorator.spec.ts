@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import {ElementBuilder, PropertyDelegateBuilder} from '../src'
+import {ElementBuilder, PropertyDelegationBuilder} from '../src'
 
 describe('delegate.property.decorator', () => {
     let sandbox
@@ -7,17 +7,17 @@ describe('delegate.property.decorator', () => {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
     it('should delegate property', () => {
-        const tagName = 'el-delegate-property'
+        const tagName = 'delegate-property-decorator'
 
-        @ElementBuilder.element<TestElement>({name: tagName})
+        @ElementBuilder.get().name(tagName).decorate()
         class TestElement extends HTMLElement {
-            @PropertyDelegateBuilder.delegate('input')
+            @PropertyDelegationBuilder.get().to("input").decorate()
             value = 'default value'
-            @PropertyDelegateBuilder.delegate('input', {isBoolean: true})
+            @PropertyDelegationBuilder.get().to("input").boolean().decorate()
             disabled = true
-            @PropertyDelegateBuilder.delegate('input', {toAttrName: 'type'})
+            @PropertyDelegationBuilder.get().to("input").attribute("type").decorate()
             altType = 'text'
-            @PropertyDelegateBuilder.delegate('button', {isShadow: true, toPropName: 'textContent'})
+            @PropertyDelegationBuilder.get().to("button").shadow().property('textContent').decorate()
             label = 'default label'
 
             constructor() {

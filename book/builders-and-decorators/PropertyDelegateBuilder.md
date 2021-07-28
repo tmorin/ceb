@@ -6,7 +6,7 @@ The static method `PropertyDelegateBuilder.get(propName)` returns a fresh builde
 The builder expects the name of a property.
 
 ```typescript
-import {PropertyDelegateBuilder} from '@tmorin/ceb'
+import {PropertyDelegateBuilder} from "@tmorin/ceb"
 // creates the builder
 const builder = PropertyDelegateBuilder.get('aProperty')
 ```
@@ -32,7 +32,7 @@ The method `PropertyDelegateBuilder#to(selector)` has to be used to define the s
 The selector is mandatory otherwise the builder won't be able to identify the targets.
 
 ```typescript
-import {PropertyDelegateBuilder} from '@tmorin/ceb'
+import {PropertyDelegateBuilder} from "@tmorin/ceb"
 // delegate the accesses to the property 'aProperty'
 const builder = PropertyDelegateBuilder.get('aProperty')
     .to('button');
@@ -45,7 +45,7 @@ By default, the builder selects targets relative to the light DOM.
 The method `PropertyDelegateBuilder#shadow()` can be used to select targets relative to the shadow DOM.
 
 ```typescript
-import {PropertyDelegateBuilder} from '@tmorin/ceb'
+import {PropertyDelegateBuilder} from "@tmorin/ceb"
 // delegate the accesses to the property 'aProperty'
 const builder = PropertyDelegateBuilder.get('aProperty')
     .to('button')
@@ -59,7 +59,7 @@ By default, the builder mutates the same targets' property.
 The method `PropertyDelegateBuilder#property(toPropName)` can be used to force another property name.
 
 ```typescript
-import {PropertyDelegateBuilder} from '@tmorin/ceb'
+import {PropertyDelegateBuilder} from "@tmorin/ceb"
 // delegate the accesses to the property 'aProperty'
 const builder = PropertyDelegateBuilder.get('aProperty')
     .to('button')
@@ -71,7 +71,7 @@ const builder = PropertyDelegateBuilder.get('aProperty')
 The method `PropertyDelegateBuilder#attribute(toAttrName)` can be used to force the mutation of an attribute.
 
 ```typescript
-import {PropertyDelegateBuilder} from '@tmorin/ceb'
+import {PropertyDelegateBuilder} from "@tmorin/ceb"
 // delegate the accesses to the property 'aProperty'
 const builder = PropertyDelegateBuilder.get('aProperty')
     .to('button')
@@ -81,7 +81,7 @@ const builder = PropertyDelegateBuilder.get('aProperty')
 The option `PropertyDelegateBuilder#boolean()` can be used if the attribute is a `boolean`.
 
 ```typescript
-import {PropertyDelegateBuilder} from '@tmorin/ceb'
+import {PropertyDelegateBuilder} from "@tmorin/ceb"
 // delegate the accesses to the property 'aProperty'
 const builder = PropertyDelegateBuilder.get('aProperty')
     .to('button')
@@ -94,9 +94,9 @@ const builder = PropertyDelegateBuilder.get('aProperty')
 Property delegations can also be defined using a decorator.
 
 ```typescript
-import {ElementBuilder, PropertyDelegateBuilder} from '@tmorin/ceb'
+import {ElementBuilder, PropertyDelegateBuilder} from "@tmorin/ceb"
 // register the custom element
-@ElementBuilder.element<MyCustomElement>()
+@ElementBuilder.get<MyCustomElement>().decorate()
 // defines the custom element class
 class MyCustomElement extends HTMLElement {
     // define an attribute delegation

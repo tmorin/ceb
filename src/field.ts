@@ -26,190 +26,245 @@ export type FieldListenerData = {
 }
 
 /**
- * The field listener.
+ * The field listener is invoked for each observed mutation of the field value.
  */
-export interface FieldListener {
+export interface FieldListener<E extends HTMLElement> {
     /**
      * @param el the custom element
-     * @param data the data
+     * @param data the data which describes the mutation
+     * @template E the type of the Custom Element
      */
-    (el: HTMLElement, data: FieldListenerData): void
+    (el: E, data: FieldListenerData): void
 }
 
 /**
- * The options of the decorator {@link FieldBuilder.field}.
- */
-export type  FieldDecoratorOptions = {
-    /**
-     * To override the name of the attribute.
-     */
-    attrName?: string
-    /**
-     * When the value is truthy, the attribute's value is "".
-     * When the value is falsy, the attribute is removed.
-     */
-    boolean?: boolean
-}
-
-/**
- * The options of the decorator {@link FieldBuilder.listen}.
- */
-export type ListenerFieldDecoratorOptions = {
-    /**
-     * To specify the name of the property.
-     */
-    propName?: string
-    /**
-     * The prefix to strip  to get the field name.
-     * By default, the prefix is `on`.
-     */
-    prefix?: string
-}
-
-function getPrefix(value: string) {
-    return value ? value : 'on'
-}
-
-/**
- * The builder provides services to define fields.
- * A field is an attribute bound to a property.
- * The value is hosted by the attribute but it can be mutated using the bound property.
+ * The builder binds a property to an attribute.
+ * So that, the value is available and mutable from both sides.
  *
- * @example With the builder API - Define the field `value` and react on changes
- * ```typescript
- * import {ElementBuilder, FieldBuilder} from "ceb"
- * class HelloWorld extends HTMLElement {
- *     value = "World"
- * }
- * ElementBuilder.get().builder(
- *     FieldBuilder.get("name").listener(
- *         (el, data) => el.textContent = `Hello, ${data.newVal}!`
- *     )
- * ).register()
- * ```
+ * Because of the binding with an attribute, the type of the property has to be either a `string` or a `boolean`.
+ * That means, the kind of the field can be _String_ or _Boolean_.
+ * The default kind of a field is _String_, the switch to _Boolean_ has to be done explicitly with {@link FieldBuilder.boolean}.
  *
- * @example With the decorator API - Define the field `value` and react on changes
- * ```typescript
- * import {ElementBuilder, FieldBuilder} from "ceb"
- * @ElementBuilder.element()
- * class HelloWorld extends HTMLElement {
- *     @FieldBuilder.field()
- *     value = "World"
- *     @FieldBuilder.listen()
- *     onValue(data) {
- *         this.textContent = `Hello, ${data.newVal}!`
- *     }
- * }
- * ```
+ * By default, the name of the attribute is the the kebab case (`KebabCase_notation` => `kebab-case-notation`) of the property name.
+ * However, the attribute name can be overridden with {@link FieldBuilder.attribute}.
+ *
+ * The listeners of the field values are simple callback functions, c.f. {@link FieldListener}.
+ * They can be registered with {@link FieldBuilder.listener}.
+ *
+ * Finally, the builder can be registered using the method {@link ElementBuilder.builder} of the main builder (i.e. {@link ElementBuilder}).
+ * However, it can also be registered with the decorative style using the decorator {@link FieldBuilder.decorate}.
+ *
+ * @template E the type of the Custom Element
  */
-export class FieldBuilder implements Builder {
+export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builder<E> {
 
     private constructor(
-        private propName: string,
-        private attrName: string,
-        private isBoolean = false,
-        private listeners: Array<FieldListener> = []
+        private _propName?: string,
+        private _attrName?: string,
+        private _isBoolean = false,
+        private _listeners: Array<FieldListener<E>> = []
     ) {
     }
 
     /**
-     * Property Decorator used to bind a property to an attribute.
-     * @param options the options
-     */
-    static field(options: FieldDecoratorOptions = {}) {
-        return function (target: HTMLElement, propName: string) {
-            const id = `field-${propName}`
-            const builder = ElementBuilder.getOrSet(target, id, FieldBuilder.get(propName))
-            if (options.boolean) {
-                builder.boolean()
-            }
-            if (options.attrName) {
-                builder.attribute(options.attrName)
-            }
-        }
-    }
-
-    /**
-     * Method Decorator used to register a listener listening to field changes.
-     * @param options the options
-     */
-    static listen(options: ListenerFieldDecoratorOptions = {}) {
-        return function (target: any, methName: string, descriptor: PropertyDescriptor) {
-            const prefix = getPrefix(options.prefix)
-            const propName = options.propName || toCamelCase(toKebabCase(methName.replace(prefix, '')))
-            const id = `field-${propName}`
-            ElementBuilder.getOrSet(target, id, FieldBuilder.get(propName)).listener((el, data) => {
-                const fn = descriptor.value as Function
-                fn.call(el, data)
-            })
-        }
-    }
-
-    /**
      * Provide a fresh builder.
-     * @param propName the property name
+     * @param propName the property name, it's optional only when the decorator API (i.e. {@link FieldBuilder.decorate} or {@link FieldBuilder.decorate}) is used
+     * @template E the type of the Custom Element
      */
-    static get(propName: string) {
-        const attrName = toKebabCase(propName)
-        return new FieldBuilder(propName, attrName)
+    static get<E extends HTMLElement>(propName?: string) {
+        return new FieldBuilder<E>(propName, toKebabCase(propName))
     }
 
     /**
      * Override the default attribute name.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, FieldBuilder} from "ceb"
+     * class HelloWorld extends HTMLElement {
+     *     name = "World"
+     *     connectedCallback() {
+     *         this.textContent = `Hello, ${this.name}!`
+     *     }
+     * }
+     * ElementBuilder.get(HelloWorld).builder(
+     *     FieldBuilder.get("name").attribute("alt-name")
+     * ).register()
+     * ```
+     *
      * @param attrName the attribute name
      */
     attribute(attrName: string) {
-        this.attrName = attrName
+        this._attrName = attrName
         return this
     }
 
     /**
-     * When the value is truthy, the attribute's value is "".
-     * When the value is falsy, the attribute is removed.
+     * Override the kind of the field.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, FieldBuilder} from "ceb"
+     * class HelloWorld extends HTMLElement {
+     *     show = true
+     *     connectedCallback() {
+     *         this.textContent = `Hello, ${this.show ? "World" : "<i>hidden</i>"}!`
+     *     }
+     * }
+     * ElementBuilder.get(HelloWorld).builder(
+     *     FieldBuilder.get("show").boolean()
+     * ).register()
+     * ```
      */
     boolean() {
-        this.isBoolean = true
+        this._isBoolean = true
         return this
     }
 
     /**
-     * Register a listener which will be invoked when the attribute's value changed.
+     * Register a listener which will be invoked when the field value mutate.
+     *
+     * A listener is callback function ({@link FieldListener}) which have two arguments:
+     * 1. the custom element
+     * 2. the data describing the mutation c.f. {@link FieldListenerData}
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, FieldBuilder} from "ceb"
+     * class HelloWorld extends HTMLElement {
+     *     name = "World"
+     * }
+     * ElementBuilder.get(HelloWorld).builder(
+     *     FieldBuilder.get("name")
+     *         .listener((el, data) =>
+     *             el.textContent = `Hello, ${data.newVal}!`)
+     * ).register()
+     * ```
+     *
      * @param listener the listener
      */
-    listener(listener: FieldListener) {
-        this.listeners.push(listener)
+    listener(listener: FieldListener<E>) {
+        this._listeners.push(listener)
         return this
     }
 
+
     /**
-     * The is API is dedicated for developer of Builders.
+     * Decorates the property of the field.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, FieldBuilder} from "ceb"
+     * @ElementBuilder.get<HelloWorld>().decorate()
+     * class HelloWorld extends HTMLElement {
+     *     @FieldBuilder.get().boolean().decorate()
+     *     show = true
+     *     connectedCallback() {
+     *         this.textContent = `Hello, ${this.show ? "World" : "<i>hidden</i>"}!`
+     *     }
+     * }
+     * ```
+     */
+    decorate(): PropertyDecorator
+
+    /**
+     * Decorates the listener method which is invoked each time the field value mutate.
+     *
+     * When the property name is not specified (i.e. `@FieldBuilder.get()`), then it's discovered from the decorated method name.
+     * The pattern is `<prefix><PropertyNameInCamelCase>`, where `<prefix>` is by default `on`.
+     *
+     * @example Discovery of the property name
+     * ```typescript
+     * import {ElementBuilder, FieldBuilder} from "ceb"
+     * @ElementBuilder.get<HelloWorld>().decorate()
+     * class HelloWorld extends HTMLElement {
+     *     @FieldBuilder.get().decorate()
+     *     value = "World"
+     *     @FieldBuilder.get().decorate()
+     *     onValue(data) {
+     *         this.textContent = `Hello, ${this.value}!`
+     *     }
+     * }
+     * ```
+     *
+     * @example Discovery of the property name with a custom prefix
+     * ```typescript
+     * import {ElementBuilder, FieldBuilder} from "ceb"
+     * @ElementBuilder.get<HelloWorld>().decorate()
+     * class HelloWorld extends HTMLElement {
+     *     @FieldBuilder.get().decorate()
+     *     value = "World"
+     *     @FieldBuilder.get().decorate("listen")
+     *     listenValue(data) {
+     *         this.textContent = `Hello, ${this.value}!`
+     *     }
+     * }
+     * ```
+     *
+     * @example Skip the property name discovery
+     * ```typescript
+     * import {ElementBuilder, FieldBuilder} from "ceb"
+     * @ElementBuilder.get<HelloWorld>().decorate()
+     * class HelloWorld extends HTMLElement {
+     *     @FieldBuilder.get().decorate()
+     *     value = "World"
+     *     @FieldBuilder.get("value").decorate()
+     *     listen(data) {
+     *         this.textContent = `Hello, ${this.value}!`
+     *     }
+     * }
+     * ```
+     *
+     * @param prefix the prefix used to discover the property name from the method name
+     */
+    decorate(prefix?: string): MethodDecorator
+
+    decorate(prefix?: string): PropertyDecorator | MethodDecorator {
+        return (target: E, propOrMethName: string, methDescriptor?: PropertyDescriptor): void => {
+            if (methDescriptor) {
+                this.decorateMeth(target, propOrMethName, methDescriptor, prefix)
+            } else {
+                this.decorateProp(target, propOrMethName)
+            }
+        }
+    }
+
+    /**
+     * This API is dedicated for developer of Builders.
      * @protected
      */
-    build(Constructor: CustomElementConstructor<HTMLElement>, hooks: HooksRegistration) {
-        const defaultValuePropName = '__ceb_field_default_value_' + this.propName
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>) {
+        if (!this._propName) {
+            throw new TypeError("FieldBuilder - the property name is missing")
+        }
+        if (!this._attrName) {
+            throw new TypeError("FieldBuilder - the attribute name is missing")
+        }
+
+        const defaultValuePropName = '__ceb_field_default_value_' + this._propName
 
         // registers the attribute to observe
-        Constructor['observedAttributes'].push(this.attrName)
+        Constructor['observedAttributes'].push(this._attrName)
 
         // registers mutation observer
         hooks.before('constructorCallback', el => {
             const builder = this
 
             // get the initial descriptor if existing to get the default value
-            const initialDescriptor = Object.getOwnPropertyDescriptor(el, this.propName)
+            const initialDescriptor = Object.getOwnPropertyDescriptor(el, this._propName)
 
             // creates or overrides the property to intercept both getter and setter
-            Object.defineProperty(el, this.propName, {
+            Object.defineProperty(el, this._propName, {
                 get(): any {
                     // get the value from the bound attribute
-                    return builder.isBoolean ? el.hasAttribute(builder.attrName) : el.getAttribute(builder.attrName)
+                    return builder._isBoolean ? el.hasAttribute(builder._attrName) : el.getAttribute(builder._attrName)
                 },
                 set(value: any): void {
                     // updates the bound attribute
                     if (value === false || value === undefined || value === null) {
-                        el.removeAttribute(builder.attrName)
+                        el.removeAttribute(builder._attrName)
                     } else {
-                        el.setAttribute(builder.attrName, builder.isBoolean ? '' : value)
+                        el.setAttribute(builder._attrName, builder._isBoolean ? '' : value)
                     }
                 }
             })
@@ -231,10 +286,10 @@ export class FieldBuilder implements Builder {
         hooks.after('connectedCallback', el => {
             const defaultValueDescriptor = Object.getOwnPropertyDescriptor(el, defaultValuePropName)
             // applies the default value if its description has been found
-            if (!el.hasAttribute(this.attrName) && defaultValueDescriptor) {
+            if (!el.hasAttribute(this._attrName) && defaultValueDescriptor) {
                 const defaultValue = defaultValueDescriptor.value
                 if (defaultValue !== undefined && defaultValue !== false) {
-                    el.setAttribute(this.attrName, this.isBoolean ? '' : defaultValue)
+                    el.setAttribute(this._attrName, this._isBoolean ? '' : defaultValue)
                 }
             }
             // the default value shouldn't be set if the element is then moved into the DOM
@@ -244,18 +299,18 @@ export class FieldBuilder implements Builder {
         // reacts on attribute values
         hooks.before('attributeChangedCallback', (el, attrName, attrOldVal, attrNewVal) => {
             // manages only expected attribute name
-            if (attrName === this.attrName) {
-                const propName = this.propName
-                const oldVal = this.isBoolean ? attrOldVal === '' : attrOldVal
-                const newVal = this.isBoolean ? attrNewVal === '' : attrNewVal
+            if (attrName === this._attrName) {
+                const propName = this._propName
+                const oldVal = this._isBoolean ? attrOldVal === '' : attrOldVal
+                const newVal = this._isBoolean ? attrNewVal === '' : attrNewVal
 
                 if (el[propName] !== newVal) {
                     // updates the property only if needed
                     el[propName] = newVal
                 } else if (oldVal !== newVal) {
                     // executes listeners because value has been updated
-                    if (this.listeners.length > 0) {
-                        this.listeners.forEach(listener => listener(el, {
+                    if (this._listeners.length > 0) {
+                        this._listeners.forEach(listener => listener(el, {
                             propName,
                             attrName,
                             oldVal,
@@ -265,6 +320,58 @@ export class FieldBuilder implements Builder {
                 }
             }
         })
+    }
+
+    private decorateProp(target: E, propName: string) {
+        if (!this._propName) {
+            this._propName = propName
+        }
+        if (!this._attrName) {
+            this._attrName = toKebabCase(this._propName)
+        }
+        const id = `field-${this._propName}`
+        const builder = ElementBuilder.getOrSet(target, id, this)
+        if (builder !== this) {
+            builder.mergeBuilder(this, true)
+        }
+    }
+
+    private decorateMeth(target: E, methName: string, descriptor: PropertyDescriptor, prefix = "on") {
+        if (!this._propName) {
+            this._propName = toCamelCase(
+                toKebabCase(methName.replace(prefix, ''))
+            )
+        }
+        const id = `field-${this._propName}`
+        const builder = ElementBuilder.getOrSet(target, id, this)
+        if (builder !== this) {
+            builder.mergeBuilder(this, false)
+        }
+        builder.listener((el, data) => {
+            const fn = descriptor.value as Function
+            fn.call(el, data)
+        })
+    }
+
+    private mergeBuilder(builder: FieldBuilder, isMaster: boolean) {
+        if (isMaster) {
+            if (!this._attrName) {
+                this._attrName = builder._attrName
+            }
+            if (!this._propName) {
+                this._propName = builder._propName
+            }
+            if (!this._isBoolean) {
+                this._isBoolean = builder._isBoolean
+            }
+            if (builder._listeners) {
+                builder._listeners.forEach(listener => this._listeners.push(listener))
+            }
+        } else {
+            if (this._listeners) {
+                this._listeners.forEach(listener => builder._listeners.push(listener))
+            }
+        }
     }
 
 }

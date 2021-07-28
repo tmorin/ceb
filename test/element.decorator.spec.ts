@@ -9,9 +9,7 @@ describe('element.decorator', () => {
     it('should create with decorator', () => {
         const tagName = 'test-element'
 
-        @ElementBuilder.element<TestElement>({
-            name: tagName
-        })
+        @ElementBuilder.get().name(tagName).decorate()
         class TestElement extends HTMLElement {
             altName = 'a name'
 
@@ -28,10 +26,7 @@ describe('element.decorator', () => {
     it('should create a customized built-in element with decorator', () => {
         const tagName = 'input-test'
 
-        @ElementBuilder.element<InputTestElement>({
-            name: tagName,
-            extends: 'input'
-        })
+        @ElementBuilder.get().name(tagName).extends("input").decorate()
         class InputTestElement extends HTMLInputElement {
             altName = 'a name'
 

@@ -23,7 +23,7 @@ describe("patcher/engine/custom-element", function () {
 
         window.customElements.define("test-regular-custom-element", TestRegularCustomElement)
         el.innerHTML = ``
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.openElement("div")
             engine.openElement("test-regular-custom-element")
             engine.closeElement()
@@ -31,7 +31,7 @@ describe("patcher/engine/custom-element", function () {
         })
         expect(el.innerHTML).to.be.eq(`<div><test-regular-custom-element>initial text content</test-regular-custom-element></div>`)
         el.querySelector("test-regular-custom-element").textContent = "updated text content"
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.openElement("div")
             engine.openElement("test-regular-custom-element")
             engine.closeElement()
@@ -48,7 +48,7 @@ describe("patcher/engine/custom-element", function () {
 
         window.customElements.define("test-input-custom-element", TestInputCustomElement, {extends: "input"})
         el.innerHTML = ``
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.openElement("div")
             engine.voidElement("input", {
                     attributes: [["is", "test-input-custom-element"]]
@@ -71,7 +71,7 @@ describe("patcher/engine/custom-element", function () {
 
         window.customElements.define("test-attributes-custom-element", TestAttributesCustomElement, {extends: "input"})
         el.innerHTML = ``
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.openElement("div")
             engine.voidElement("input", {
                     attributes: [["is", "test-attributes-custom-element"]]

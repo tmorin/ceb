@@ -5,7 +5,7 @@ The class `TemplateBuilder` provides service to patch the DOM of the custom elem
 The static method `TemplateBuilder.get()` returns a fresh builder.
 
 ```typescript
-import {ContentBuilder} from '@tmorin/ceb'
+import {ContentBuilder} from "@tmorin/ceb"
 // creates the builder
 const builder = TemplateBuilder.get()
 ```
@@ -84,7 +84,7 @@ To activate it, the option `greyDom`.
 Write the content `Hello, World!` in the `<p>` element:
 
 ```typescript
-import {html, Template} from '@tmorin/ceb'
+import {html, Template} from "@tmorin/ceb"
 const name = "World"
 const template: Template = html`<p>Hello, ${name}!</p>`
 ```
@@ -94,7 +94,7 @@ const template: Template = html`<p>Hello, ${name}!</p>`
 Set the value `foo` to the attribute `bar`:
 
 ```typescript
-import {html, Template} from '@tmorin/ceb'
+import {html, Template} from "@tmorin/ceb"
 const value = "foo"
 const template: Template = html`<input bar="${value}">`
 ```
@@ -102,7 +102,7 @@ const template: Template = html`<input bar="${value}">`
 Set boolean values, the `checked` attribute won't be rendered because its value is `false`:
 
 ```typescript
-import {html, Template} from '@tmorin/ceb'
+import {html, Template} from "@tmorin/ceb"
 const checked = false
 const template: Template = html`<input required disabled="" checked="${checked}">`
 ```
@@ -112,7 +112,7 @@ const template: Template = html`<input required disabled="" checked="${checked}"
 Set the value `foo` to the property `bar`:
 
 ```typescript
-import {html, Template} from '@tmorin/ceb'
+import {html, Template} from "@tmorin/ceb"
 const value = "Foo"
 const template: Template = html`<input p:bar="${value}">`
 ```
@@ -122,7 +122,7 @@ const template: Template = html`<input p:bar="${value}">`
 The special attribute `o:skip`, notify the template engine that the children of the element should not be processed.
 
 ```typescript
-import {html, Template} from '@tmorin/ceb'
+import {html, Template} from "@tmorin/ceb"
 const template: Template = html`<div><ul o:skip></ul></div>`
 ```
 
@@ -163,9 +163,9 @@ Then the Light DOM becomes:
 Templates can also be defined using decorators.
 
 ```typescript
-import {ElementBuilder, TemplateBuilder} from '@tmorin/ceb'
+import {ElementBuilder, TemplateBuilder} from "@tmorin/ceb"
 // register the custom element
-@ElementBuilder.element<MyCustomElement>()
+@ElementBuilder.get<MyCustomElement>().decorate()
 // defines the custom element class
 class MyCustomElement extends HTMLElement {
   name = "World"

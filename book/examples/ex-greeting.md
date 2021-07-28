@@ -137,14 +137,14 @@ export class ExGreeting extends HTMLElement {
 
 ### The delegated fashion
 
-Alternatively, the decorator `AttributeDelegateBuilder.delegate` can be used to automatically binds the mutation of the field `name` to the property `textContent` of the selected element `span#name` :
+Alternatively, the decorator `AttributePropagationBuilder.delegate` can be used to automatically binds the mutation of the field `name` to the property `textContent` of the selected element `span#name` :
 
 ```typescript
 import {
   ElementBuilder,
   ContentBuilder,
   FieldBuilder,
-  AttributeDelegateBuilder
+  AttributePropagationBuilder
 } from "ceb";
 
 @ElementBuilder.element<ExGreeting>()
@@ -152,7 +152,7 @@ import {
   content: `<p>Hello, <span id="name"></span>!</p>`,
   isShadow: true
 })
-@AttributeDelegateBuilder.delegate(
+@AttributePropagationBuilder.delegate(
   "name",
   "span#name",
   {

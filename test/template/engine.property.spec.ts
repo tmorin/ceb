@@ -12,7 +12,7 @@ describe("patcher/engine/property", () => {
     })
     it("should set property", () => {
         el.innerHTML = ""
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.voidElement(
                 "input",
                 {
@@ -31,7 +31,7 @@ describe("patcher/engine/property", () => {
     })
     it("should unset property", () => {
         el.innerHTML = ""
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.openElement(
                 "p",
                 {
@@ -43,7 +43,7 @@ describe("patcher/engine/property", () => {
         const p = el.firstElementChild as HTMLParagraphElement
         expect(p).to.have.property("keyA")
         expect(p[Engine.PROP_NAME_UPDATED_PROPERTIES]).to.include.members(["keyA"])
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.openElement("p")
             engine.closeElement()
         })

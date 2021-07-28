@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import {ElementBuilder, html, TemplateBuilder, Template} from '../src'
+import {ElementBuilder, html, Template, TemplateBuilder} from '../src'
 
 describe('template/literal', () => {
     let sandbox
@@ -11,13 +11,11 @@ describe('template/literal', () => {
     it('should template DOM HTML', () => {
         const tagName = 'template-decorator'
 
-        @ElementBuilder.element<TestElement>({
-            name: tagName
-        })
+        @ElementBuilder.get().name(tagName).decorate()
         class TestElement extends HTMLElement {
             name = "Foo"
 
-            @TemplateBuilder.template()
+            @TemplateBuilder.get().decorate()
             render(): Template {
                 return html`<p><input value="${this.name}"></p>`
             }

@@ -15,7 +15,7 @@ By this way, `<ceb/>` is natively opened to extensions and builders easily shara
 import {ElementBuilder, FieldBuilder, TemplateBuilder} from "ceb"
 
 // Define the Custom Element
-@ElementBuilder.element<ExGreeting>()
+@ElementBuilder.get<ExGreeting>().element()
 export class ExGreeting extends HTMLElement {
   // Bind the property `name` to the attribute `name`
   @FieldBuilder.field()

@@ -3,108 +3,110 @@ import {HooksRegistration} from './hook'
 import {ElementBuilder} from './element'
 
 /**
- * A content factory.
+ * A factory which produces the initial HTML content of a Custom Element.
  */
-export interface ContentFactory {
-    <T extends Element>(el: T): string
+export interface ContentFactory<E extends Element> {
+    /**
+     * The factory function.
+     * @template T the type of the Custom Element
+     * @param el the Custom Element
+     */
+    (el: E): string
 }
 
 /**
- * The options of the decorator {@link ContentBuilder.content}.
- */
-export type ContentDecoratorOptions<T extends Element> = {
-    /**
-     * The initial content.
-     */
-    content?: string | ContentFactory
-    /**
-     * By default, the content is appended as child of the CustomElement.
-     * With this options, an opened shadow DOM will be attached and the content append to it.
-     */
-    isShadow?: boolean
-    /**
-     * With this option the focus will be delegated to the shadow DOM.
-     */
-    isShadowWithFocusDelegation?: boolean
-}
-
-/**
- * The builder provides services to initialize the HTML content of the CustomElement.
+ * The builder handles the initialization of the HTML content of the Custom Element.
  *
- * @example With the builder API - Initialize the element content
- * ```typescript
- * import {ElementBuilder, ContentBuilder} from "ceb"
- * class HelloWorld extends HTMLElement {
- * }
- * ElementBuilder.get().builder(
- *     ContentBuilder.get(`Hello, World!`)
- * ).register()
- * ```
+ * The content can be provided as a string value or a factory function (c.f. {@link ContentFactory}) when the builder is created with {@link ContentBuilder.get}.
  *
- * @example With the decorator API - Initialize the element content
- * ```typescript
- * import {ElementBuilder, ContentBuilder} from "ceb"
- * @ElementBuilder.element()
- * @ContentBuilder.content(`Hello, World!`)
- * class HelloWorld extends HTMLElement {
- * }
+ * By default, the builder injects the content as children of the Custom Element into the Light DOM on the lifecycle callback `connectedCallback`.
+ * However, the builder can inject the content within the Shadow DOM with {@link ContentBuilder.shadow}.
+ *
+ * Finally, the builder can be registered using the method {@link ElementBuilder.builder} of the main builder (i.e. {@link ElementBuilder}).
+ * However, it can also be registered with the decorative style using the decorator {@link ContentBuilder.decorate}.
+ *
+ * @template E the type of the Custom Element
  */
-export class ContentBuilder implements Builder {
+export class ContentBuilder<E extends HTMLElement = HTMLElement> implements Builder<E> {
 
     private constructor(
-        private content: string | ContentFactory,
-        private isShadow = false,
-        private isFocusDelegation?: boolean
+        private _content: string | ContentFactory<E>,
+        private _isShadow = false,
+        private _isFocusDelegation?: boolean
     ) {
     }
 
     /**
      * Provide a fresh builder.
      * @param content the initial content
+     * @template E the type of the Custom Element
      */
-    static get(content: string | ContentFactory) {
-        return new ContentBuilder(content)
+    static get<E extends HTMLElement>(content: string | ContentFactory<E>) {
+        return new ContentBuilder<E>(content)
     }
 
     /**
-     * Class decorator used to define a content.
-     * @param options the options
-     */
-    static content<T extends HTMLElement>(options: ContentDecoratorOptions<T> = {}) {
-        return function (constructor: CustomElementConstructor<T>) {
-            const id = 'content'
-            const builder = ElementBuilder.getOrSet(constructor.prototype, id, ContentBuilder.get(options.content || ''))
-            if (options.isShadow) {
-                builder.shadow(options.isShadowWithFocusDelegation)
-            }
-        }
-    }
-
-    /**
-     * By default, the content is appended as child of the CustomElement,
-     * With this options, an opened shadow DOM will be attached and the content append to it.
-     * @param focus when true the focus will be delegated to the shadow DOM
+     * Forces the content injection into the Shadow DOM.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, ContentBuilder} from "ceb"
+     * class HelloWorld extends HTMLElement {
+     * }
+     * ElementBuilder.get().builder(
+     *     ContentBuilder.get(`Hello, World!`).shadow()
+     * ).register()
+     * ```
+     *
+     * @param focus when `true`, the focus is delegated to the shadow DOM
      */
     shadow(focus?: boolean) {
-        this.isShadow = true
-        this.isFocusDelegation = focus
+        this._isShadow = true
+        this._isFocusDelegation = focus
         return this
     }
 
     /**
-     * The is API is dedicated for developer of Builders.
+     * Decorate the Custom Element class.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, ContentBuilder} from "ceb"
+     * @ElementBuilder.get<HelloWorld>().decorate()
+     * @ContentBuilder.get(`Hello, World!`).decorate()
+     * class HelloWorld extends HTMLElement {
+     * }
+     * ```
+     */
+    decorate(): ClassDecorator {
+        const builder = this
+        // @ts-ignore
+        return function (constructor: CustomElementConstructor<E>) {
+            const id = 'content'
+            ElementBuilder.getOrSet(constructor.prototype, id, builder)
+        }
+    }
+
+    /**
+     * This API is dedicated for developer of Builders.
      * @protected
      */
-    build(Constructor: CustomElementConstructor<HTMLElement>, hooks: HooksRegistration) {
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>) {
+        if (!this._content) {
+            throw new TypeError("ContentBuilder - the content is missing")
+        }
+
         const defaultHtmlPropName = '__ceb_content_default_html'
 
         hooks.before('constructorCallback', el => {
             // resolve the HTML content
-            const html: string = typeof this.content === 'function' ? this.content(el) : this.content
+            const html: string = typeof this._content === 'function' ? this._content(el) : this._content
 
-            if (this.isShadow) {
+            if (this._isShadow) {
                 // creates and initializes the shadow root
-                el.attachShadow({mode: 'open', delegatesFocus: this.isFocusDelegation})
+                if (!el.shadowRoot) {
+                    el.attachShadow({mode: 'open', delegatesFocus: this._isFocusDelegation})
+                }
                 el.shadowRoot.innerHTML = html
             } else {
                 // keep the HTML content, for the first `connectedCallback`

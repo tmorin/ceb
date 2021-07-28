@@ -1,17 +1,17 @@
-# AttributeDelegateBuilder
+# AttributePropagationBuilder
 
-The class `AttributeDelegateBuilder` provides services to delegate the mutations of an attribute to targets (i.e. a child nodes).
+The class `AttributePropagationBuilder` provides services to delegate the mutations of an attribute to targets (i.e. a child nodes).
 
-The static method `AttributeDelegateBuilder.get(attributeBuilder)` returns a fresh builder.
+The static method `AttributePropagationBuilder.get(attributeBuilder)` returns a fresh builder.
 The builder expects the instance of an `AttributeBuilder`.
 
 ```typescript
-import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
+import {AttributePropagationBuilder, AttributeBuilder} from "@tmorin/ceb"
 // creates the builder
-const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
+const builder = AttributePropagationBuilder.get(AttributeBuilder.get('an-attribute'))
 ```
 
-The builder and underlying decorators are also technically documented: [AttributeDelegateBuilder](../api/classes/AttributeDelegateBuilder.html).
+The builder and underlying decorators are also technically documented: [AttributePropagationBuilder](../api/classes/AttributePropagationBuilder.html).
 
 ## An example
 
@@ -22,20 +22,20 @@ The attribute `label` is delegated to the `textContent` property of the `button`
 
 <p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="XWJNOwN" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
   <span>See the Pen <a href="https://codepen.io/tmorin/pen/XWJNOwN">
-  &lt;/ceb&gt; ~ AttributeDelegateBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  &lt;/ceb&gt; ~ AttributePropagationBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 
 ## Set the selector
 
-The method `AttributeDelegateBuilder#to(selector)` has to be used to define the selector.
+The method `AttributePropagationBuilder#to(selector)` has to be used to define the selector.
 The selector is mandatory otherwise the builder won't be able to identify the targets.
 
 ```typescript
-import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
+import {AttributePropagationBuilder, AttributeBuilder} from "@tmorin/ceb"
 // delegate the accesses to the attribute 'an-attribute'
-const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
+const builder = AttributePropagationBuilder.get(AttributeBuilder.get('an-attribute'))
     .to('button');
 ```
 
@@ -43,12 +43,12 @@ const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'
 
 By default, the builder selects targets relative to the light DOM.
 
-The method `AttributeDelegateBuilder#shadow()` can be used to select targets relative to the shadow DOM.
+The method `AttributePropagationBuilder#shadow()` can be used to select targets relative to the shadow DOM.
 
 ```typescript
-import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
+import {AttributePropagationBuilder, AttributeBuilder} from "@tmorin/ceb"
 // delegate the accesses to the attribute 'an-attribute'
-const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
+const builder = AttributePropagationBuilder.get(AttributeBuilder.get('an-attribute'))
     .to('button')
     .shadow();
 ```
@@ -57,24 +57,24 @@ const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'
 
 By default, the builder mutates the same targets' attribute.
 
-The method `AttributeDelegateBuilder#attribute(toAttrName)` can be used to force another attribute name.
+The method `AttributePropagationBuilder#attribute(toAttrName)` can be used to force another attribute name.
 
 ```typescript
-import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
+import {AttributePropagationBuilder, AttributeBuilder} from "@tmorin/ceb"
 // delegate the accesses to the attribute 'an-attribute'
-const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
+const builder = AttributePropagationBuilder.get(AttributeBuilder.get('an-attribute'))
     .to('button')
     .attribute('another-attribute');
 ```
 
 ## Bind to a property
 
-The method `AttributeDelegateBuilder#property(toPropName)` can be used to force the mutation of a property.
+The method `AttributePropagationBuilder#property(toPropName)` can be used to force the mutation of a property.
 
 ```typescript
-import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
+import {AttributePropagationBuilder, AttributeBuilder} from "@tmorin/ceb"
 // delegate the accesses to the attribute 'an-attribute'
-const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
+const builder = AttributePropagationBuilder.get(AttributeBuilder.get('an-attribute'))
     .to('button')
     .property('aProperty');
 ```
@@ -84,11 +84,11 @@ const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'
 Attribute delegations can also be defined using a decorator.
 
 ```typescript
-import {ElementBuilder, AttributeDelegateBuilder} from '@tmorin/ceb'
+import {ElementBuilder, AttributePropagationBuilder} from "@tmorin/ceb"
 // register the custom element
-@ElementBuilder.element<MyCustomElement>()
+@ElementBuilder.get<MyCustomElement>().decorate()
 // define an attribute delegation
-@AttributeDelegateBuilder.delegate('value', 'input')
+@AttributePropagationBuilder.delegate('value', 'input')
 // defines the custom element class
 class MyCustomElement extends HTMLElement {
 }

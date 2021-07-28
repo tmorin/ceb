@@ -7,7 +7,7 @@ The static method `CustomElement.get(constructor)` returns a fresh builder.
 The method expects the constructor of the custom element.
 
 ```typescript
-import {ElementBuilder} from '@tmorin/ceb'
+import {ElementBuilder} from "@tmorin/ceb"
 // defines the custom element class
 class MyCustomElement extends HTMLElement {
     constructor() {
@@ -36,7 +36,7 @@ The registered custom element is a simple element having the text content `Hello
 A custom element is registered with the method `ElementBuilder#register()`.
 
 ```typescript
-import {ElementBuilder} from '@tmorin/ceb'
+import {ElementBuilder} from "@tmorin/ceb"
 // defines the custom element class
 class MyCustomElement extends HTMLElement {
     constructor() {
@@ -52,9 +52,9 @@ builder.register()
 The custom element can also be registered by a decorator.
 
 ```typescript
-import {ElementBuilder} from '@tmorin/ceb'
+import {ElementBuilder} from "@tmorin/ceb"
 // register the custom element
-@ElementBuilder.element<MyCustomElement>()
+@ElementBuilder.get<MyCustomElement>().decorate()
 // defines the custom element class
 class MyCustomElement extends HTMLElement {
     constructor() {
@@ -85,7 +85,7 @@ document.body.append(myCustomElement)
 To register custom element which extends a built-in HTML elements, the tag name of the extended element has to be provided using the method `ElementBuilder#extends()`.
 
 ```typescript
-import {ElementBuilder} from '@tmorin/ceb'
+import {ElementBuilder} from "@tmorin/ceb"
 // defines the custom element class
 class MyCustomButton extends HTMLButtonElement {
     constructor() {
@@ -95,7 +95,7 @@ class MyCustomButton extends HTMLButtonElement {
 // creates the builder
 const builder = ElementBuilder.get(MyCustomButton)
 // provides the tag name of HTMLButtonElement
-builder.extends('button')
+builder.extends("button")
 // register the custom element
 builder.register()
 ```
@@ -103,12 +103,9 @@ builder.register()
 The extended HTML element can also be provided with the decorator.
 
 ```typescript
-import {ElementBuilder} from '@tmorin/ceb'
+import {ElementBuilder} from "@tmorin/ceb"
 // register the custom element
-@ElementBuilder.element<MyCustomButton>({
-    // provides the tag name of HTMLButtonElement
-    extends: 'button'
-})
+@ElementBuilder.get<MyCustomButton>().extends("button").decorate()
 // defines the custom element class
 class MyCustomButton extends HTMLButtonElement {
     constructor() {
@@ -126,7 +123,7 @@ Once registered, the custom element can be created.
 
 ```typescript
 // creates the extended HTML element
-const myCustomElement = document.createElement('button', {is: 'my-custom-button'})
+const myCustomElement = document.createElement("button", {is: "my-custom-button"})
 // appends the extended HTML element as any other regular HTML element
 document.body.append(myCustomElement)
 ```
@@ -136,7 +133,7 @@ document.body.append(myCustomElement)
 The name of the custom element can be overridden using the method `ElementBuilder#name(tagName)`.
 
 ```typescript
-import {ElementBuilder} from '@tmorin/ceb'
+import {ElementBuilder} from "@tmorin/ceb"
 // defines the custom element class
 class MyCustomElementBis extends HTMLElement {
     constructor() {
@@ -146,7 +143,7 @@ class MyCustomElementBis extends HTMLElement {
 // creates the builder
 const builder = ElementBuilder.get(MyCustomElementBis)
 // overrides the default tag name
-builder.name('another-name')
+builder.name("another-name")
 // register the custom element
 builder.register()
 ```
@@ -154,12 +151,9 @@ builder.register()
 The name of the custom element can also be provided with the decorator.
 
 ```typescript
-import {ElementBuilder} from '@tmorin/ceb'
+import {ElementBuilder} from "@tmorin/ceb"
 // register the custom element
-@ElementBuilder.element<MyCustomElementBis>({
-    // overrides the default tag name
-    name: 'another-name'
-})
+@ElementBuilder.get<MyCustomElementBis>().name("another-name").decorate()
 // defines the custom element class
 class MyCustomElementBis extends HTMLButtonElement {
     constructor() {

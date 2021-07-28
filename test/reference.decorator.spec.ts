@@ -9,15 +9,13 @@ describe('reference.decorator', () => {
     it('should manage reference', () => {
         const tagName = 'reference-decorator'
 
-        @ElementBuilder.element<TestElement>({
-            name: tagName
-        })
+        @ElementBuilder.get().name(tagName).decorate()
         class TestElement extends HTMLElement {
-            @ReferenceBuilder.reference({isShadow: true, selector: 'ul'})
+            @ReferenceBuilder.get().selector("ul").shadow().decorate()
             readonly ul: HTMLUListElement
-            @ReferenceBuilder.reference({isShadow: true})
+            @ReferenceBuilder.get().shadow().decorate()
             readonly anId: HTMLUListElement
-            @ReferenceBuilder.reference({isShadow: true, isArray: true, selector: 'li'})
+            @ReferenceBuilder.get().shadow().array().selector("li").decorate()
             readonly lis: Array<HTMLLIElement>
         }
 

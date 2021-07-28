@@ -10,7 +10,7 @@
   - [ContentBuilder](builders-and-decorators/ContentBuilder.md)
   - [TemplateBuilder](builders-and-decorators/TemplateBuilder.md)
   - [ReferenceBuilder](builders-and-decorators/ReferenceBuilder.md)
-  - [AttributeDelegateBuilder](builders-and-decorators/AttributeDelegateBuilder.md)
+  - [AttributePropagationBuilder](builders-and-decorators/AttributePropagationBuilder.md)
   - [PropertyDelegateBuilder](builders-and-decorators/PropertyDelegateBuilder.md)
 - [Examples](examples/README.md)
   - [ex-greeting](examples/ex-greeting.md)

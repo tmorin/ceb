@@ -25,5 +25,5 @@ The Custom Element `ex-form-field` involves the following native `<ceb/>` builde
 |`ElementBuilder`|The builder registers the Custom Element.|
 |`ContentBuilder`|The builder is used as a decorator and define the content of the Custom Element's Shadow DOM at its creation.|
 |`FieldBuilder`|The builder is used as a decorator to define the two Custom Element's API items: the label and the helper text.|
-|`AttributeDelegateBuilder`|The builder is used as a decorator to delegate the mutations of the API items (i.e. the label and the helper text) to the respective DOM elements.|
+|`AttributePropagationBuilder`|The builder is used as a decorator to delegate the mutations of the API items (i.e. the label and the helper text) to the respective DOM elements.|
 |`OnBuilder` and `ReferenceBuilder`|Both builders are used to react on click event on the label element in order to delegate the focus to the first focusable wrapped FORM control.|

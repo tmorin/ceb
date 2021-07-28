@@ -274,64 +274,41 @@ export class Engine {
     ) {
     }
 
-    private handleNode(value: string, nodeType: number, createNode: NodeFactory): void {
-        const parentElement = this.contexts.get().element
-        const index = this.contexts.get().nextIndex()
-        let currentNode = parentElement.childNodes.item(index)
-        if (currentNode) {
-            if (currentNode.nodeType !== nodeType) {
-                parentElement.insertBefore(createNode(this.document, value), currentNode)
-            } else {
-                currentNode.nodeValue = value
-            }
-        } else {
-            parentElement.appendChild(createNode(this.document, value))
-        }
-    }
-
-    private handleElement(name: string, parameters: Parameters = createDefaultParams()): Element {
-        const parentElement = this.contexts.get().element
-
-        const index = this.contexts.get().nextIndex()
-        const currentNode = parentElement.childNodes.item(index)
-
-        const key = parameters?.options?.key
-        let referencedElement: Element = getReferencedElement(parentElement, key)
-
-        let currentElement: Element
-        if (referencedElement) {
-            currentElement = referencedElement
-            if (currentNode !== referencedElement) {
-                currentElement = parentElement.insertBefore(referencedElement, currentNode);
-            }
-        } else if (currentNode) {
-            if (currentNode instanceof Element) {
-                currentElement = currentNode
-                const currentTagName = currentElement.tagName.toLowerCase()
-                const tagName = name.toLowerCase()
-                if (currentTagName.localeCompare(tagName) !== 0) {
-                    currentElement = parentElement.insertBefore(
-                        createElement(this.document, name, parameters.attributes),
-                        currentNode
-                    )
+    /**
+     * Update the given HTML element and the underlying descendants.
+     * The operations orchestrating the updates are driven by a given function.
+     * @param destination the destination of the update
+     * @param render the function expressing the update operations
+     * @param parameter parameters of the Update Element process
+     */
+    static update(destination: DocumentFragment | Element, render: RenderFunction, parameter?: UpdateParameters) {
+        let lightFrag = null
+        if (parameter?.greyDom) {
+            if (!destination[Engine.PROP_NAME_SLOT]) {
+                lightFrag = destination.ownerDocument.createDocumentFragment()
+                while (destination.childNodes.length > 0) {
+                    lightFrag.appendChild(destination.removeChild(destination.firstChild))
                 }
-            } else {
-                currentElement = parentElement.insertBefore(
-                    createElement(this.document, name, parameters.attributes),
-                    currentNode
-                )
+                destination[Engine.PROP_NAME_SLOT] = destination
             }
-        } else {
-            currentElement = this.contexts.get().element.appendChild(
-                createElement(this.document, name, parameters.attributes)
-            )
         }
 
-        setReferencedElement(parentElement, key, currentElement)
-        updateAttributes(currentElement, parameters.attributes)
-        updateProperties(currentElement, parameters.properties)
+        // `as Element` is fine because DocumentFragment can only be a container
+        const contexts = new Contexts(destination as Element)
+        const engine = new Engine(destination as Element, contexts)
 
-        return currentElement
+        render(engine)
+        removeRemainingNodes(contexts)
+
+        if (lightFrag) {
+            let slotElement = destination[Engine.PROP_NAME_SLOT]
+            if (slotElement !== destination) {
+                while (slotElement[Engine.PROP_NAME_SLOT]) {
+                    slotElement = slotElement[Engine.PROP_NAME_SLOT]
+                }
+            }
+            slotElement.appendChild(lightFrag)
+        }
     }
 
     /**
@@ -404,47 +381,72 @@ export class Engine {
         )
     }
 
-    /**
-     * Update the given HTML element and the underlying descendants.
-     * The operations orchestrating the updates are driven by a given function.
-     * @param element the element to update
-     * @param render the function expressing the update operations
-     * @param parameter parameters of the Update Element process
-     */
-    static updateElement(element: Element, render: RenderFunction, parameter?: UpdateElementParameters) {
-        let lightFrag = null
-        if (parameter?.greyDom) {
-            if (!element[Engine.PROP_NAME_SLOT]) {
-                lightFrag = element.ownerDocument.createDocumentFragment()
-                while (element.childNodes.length > 0) {
-                    lightFrag.appendChild(element.removeChild(element.firstChild))
-                }
-                element[Engine.PROP_NAME_SLOT] = element
+    private handleNode(value: string, nodeType: number, createNode: NodeFactory): void {
+        const parentElement = this.contexts.get().element
+        const index = this.contexts.get().nextIndex()
+        let currentNode = parentElement.childNodes.item(index)
+        if (currentNode) {
+            if (currentNode.nodeType !== nodeType) {
+                parentElement.insertBefore(createNode(this.document, value), currentNode)
+            } else {
+                currentNode.nodeValue = value
             }
+        } else {
+            parentElement.appendChild(createNode(this.document, value))
+        }
+    }
+
+    private handleElement(name: string, parameters: Parameters = createDefaultParams()): Element {
+        const parentElement = this.contexts.get().element
+
+        const index = this.contexts.get().nextIndex()
+        const currentNode = parentElement.childNodes.item(index)
+
+        const key = parameters?.options?.key
+        let referencedElement: Element = getReferencedElement(parentElement, key)
+
+        let currentElement: Element
+        if (referencedElement) {
+            currentElement = referencedElement
+            if (currentNode !== referencedElement) {
+                currentElement = parentElement.insertBefore(referencedElement, currentNode);
+            }
+        } else if (currentNode) {
+            if (currentNode instanceof Element) {
+                currentElement = currentNode
+                const currentTagName = currentElement.tagName.toLowerCase()
+                const tagName = name.toLowerCase()
+                if (currentTagName.localeCompare(tagName) !== 0) {
+                    currentElement = parentElement.insertBefore(
+                        createElement(this.document, name, parameters.attributes),
+                        currentNode
+                    )
+                }
+            } else {
+                currentElement = parentElement.insertBefore(
+                    createElement(this.document, name, parameters.attributes),
+                    currentNode
+                )
+            }
+        } else {
+            currentElement = this.contexts.get().element.appendChild(
+                createElement(this.document, name, parameters.attributes)
+            )
         }
 
-        const contexts = new Contexts(element)
-        const engine = new Engine(element, contexts)
-        render(engine)
-        removeRemainingNodes(contexts)
+        setReferencedElement(parentElement, key, currentElement)
+        updateAttributes(currentElement, parameters.attributes)
+        updateProperties(currentElement, parameters.properties)
 
-        if (lightFrag) {
-            let slotElement = element[Engine.PROP_NAME_SLOT]
-            if (slotElement !== element) {
-                while (slotElement[Engine.PROP_NAME_SLOT]) {
-                    slotElement = slotElement[Engine.PROP_NAME_SLOT]
-                }
-            }
-            slotElement.appendChild(lightFrag)
-        }
+        return currentElement
     }
 
 }
 
 /**
- * Parameters of the update element process.
+ * Parameters of the update process.
  */
-export type UpdateElementParameters = {
+export type UpdateParameters = {
     /**
      * When true, the Grey DOM feature is handled.
      * That means at the creation of the element, the children discovered from the Light DOM will moved to found the slot element.

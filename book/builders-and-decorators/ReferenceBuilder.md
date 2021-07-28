@@ -6,7 +6,7 @@ The static method `ReferenceBuilder.get(propName)` returns a fresh builder.
 The builder expects the name of the property in camel case.
 
 ```typescript
-import {ReferenceBuilder} from '@tmorin/ceb'
+import {ReferenceBuilder} from "@tmorin/ceb"
 // creates the builder
 const builder = ReferenceBuilder.get('myInput')
 ```
@@ -32,7 +32,7 @@ For instance, the property `propName` is bound to the selector `#propName`.
 The method `ReferenceBuilder#selector(selector)` can be used to override the default selector.
 
 ```typescript
-import {ReferenceBuilder} from '@tmorin/ceb'
+import {ReferenceBuilder} from "@tmorin/ceb"
 // initializes the shadow DOM of the custom element
 const builder = ReferenceBuilder.get('myInput').selector('input.my-input')
 ```
@@ -44,7 +44,7 @@ By default, the builder binds the property to a single element.
 The method `ReferenceBuilder#array()` can be used to bind the property to a list of matching elements.
 
 ```typescript
-import {ReferenceBuilder} from '@tmorin/ceb'
+import {ReferenceBuilder} from "@tmorin/ceb"
 // initializes the shadow DOM of the custom element
 const builder = ReferenceBuilder.get('activeLiList').selector('li.active').array()
 ```
@@ -56,7 +56,7 @@ By default, the builder binds the property relative to the light DOM.
 The method `ReferenceBuilder#shadow()` can be used to bind the property relative to the shadow DOM.
 
 ```typescript
-import {ReferenceBuilder} from '@tmorin/ceb'
+import {ReferenceBuilder} from "@tmorin/ceb"
 // initializes the shadow DOM of the custom element
 const builder = ReferenceBuilder.get('button').shadow()
 ```
@@ -66,9 +66,9 @@ const builder = ReferenceBuilder.get('button').shadow()
 References can also be defined using decorators.
 
 ```typescript
-import {ElementBuilder, ReferenceBuilder} from '@tmorin/ceb'
+import {ElementBuilder, ReferenceBuilder} from "@tmorin/ceb"
 // register the custom element
-@ElementBuilder.element<MyCustomElement>()
+@ElementBuilder.get<MyCustomElement>().decorate()
 // defines the custom element class
 class MyCustomElement extends HTMLElement {
     // define the reference

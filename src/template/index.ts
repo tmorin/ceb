@@ -1,2 +1,2 @@
-export {Template, html, UpdateElementParameters} from './literal'
+export {html, UpdateParameters} from './literal'
 export * from './builder'

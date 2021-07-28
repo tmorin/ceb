@@ -11,7 +11,7 @@ describe("patcher/engine/attribute", () => {
     })
     it("should set attributes", () => {
         el.innerHTML = ""
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.voidElement(
                 "input",
                 {
@@ -27,7 +27,7 @@ describe("patcher/engine/attribute", () => {
     })
     it("should set boolean attributes", () => {
         el.innerHTML = ""
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.voidElement(
                 "input",
                 {
@@ -41,7 +41,7 @@ describe("patcher/engine/attribute", () => {
     })
     it("should unset attributes", () => {
         el.innerHTML = `<p class="a_class_name"></p>`
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.openElement("p")
             engine.closeElement()
         })
@@ -50,7 +50,7 @@ describe("patcher/engine/attribute", () => {
     })
     it("should update attributes", () => {
         el.innerHTML = `<input type="number" value="1">`
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.voidElement(
                 "input",
                 {

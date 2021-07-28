@@ -11,7 +11,7 @@ describe("patcher/engine/mutate", () => {
     })
     it("should add nodes inside an element ", () => {
         el.innerHTML = ""
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.text("a text before")
             engine.openElement("p")
             engine.text("a text inside")
@@ -19,7 +19,7 @@ describe("patcher/engine/mutate", () => {
             engine.text("a text after")
         })
         expect(el.innerHTML).to.be.eq("a text before<p>a text inside</p>a text after")
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.text("a text before")
             engine.openElement("p")
             engine.text("a text inside")
@@ -32,7 +32,7 @@ describe("patcher/engine/mutate", () => {
     })
     it("should remove nodes inside an element ", () => {
         el.innerHTML = ""
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.text("a text before")
             engine.openElement("p")
             engine.text("a text inside")
@@ -42,7 +42,7 @@ describe("patcher/engine/mutate", () => {
             engine.text("a text after")
         })
         expect(el.innerHTML).to.be.eq("a text before<p>a text inside and another text inside</p>a text after")
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.text("a text before")
             engine.openElement("p")
             engine.text("a text inside")
@@ -53,7 +53,7 @@ describe("patcher/engine/mutate", () => {
     })
     it("should replace nodes inside an element ", () => {
         el.innerHTML = ""
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.text("a text before")
             engine.openElement("p")
             engine.text("a text inside")
@@ -61,7 +61,7 @@ describe("patcher/engine/mutate", () => {
             engine.text("a text after")
         })
         expect(el.innerHTML).to.be.eq("a text before<p>a text inside</p>a text after")
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.text("a text before")
             engine.openElement("p")
             engine.text("another text inside")

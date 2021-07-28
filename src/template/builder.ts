@@ -1,151 +1,195 @@
 import {Builder, CustomElementConstructor} from "../builder";
-import {UpdateElementParameters} from "./engine";
 import {ElementBuilder} from "../element";
 import {HooksRegistration} from "../hook";
-import {Template} from "./literal";
+
 
 /**
- * The options of the decorator {@link TemplateBuilder.template}.
+ * A template updates the children of an element.
+ * @template P The type of the template parameters.
  */
-export type TemplateDecoratorOptions<T extends HTMLElement> = {
+export interface Template<P = any> {
     /**
-     * By default, the template is appended as child of the CustomElement,
-     * With this options, an opened shadow DOM will be attached and the template append to it.
+     * Render the template.
+     * @param destination the destination node
+     * @param parameters the parameters of the rendering
      */
-    isShadow?: boolean
-    /**
-     * With this option the focus will be delegated to the shadow DOM.
-     */
-    isShadowWithFocusDelegation?: boolean
-    /**
-     * The name of the method which implement the render process, by default it is `render()`.
-     */
-    methName?: string
-    /**
-     * The parameters of template engine.
-     */
-    parameters?: UpdateElementParameters
+    render(destination: DocumentFragment | Element, parameters?: P): void
 }
 
 /**
- * The builder provides services to patch the HTML content of the CustomElement.
+ * The builder handles the integration of a templating solution to update the content of the Custom Element.
  *
- * @example With the builder API - Render the content with {@link html}
- * ```typescript
- * import {ElementBuilder, TemplateBuilder} from "ceb"
- * class HelloWorld extends HTMLElement {
- *     value = "World"
- *     render() {
- *         return html`Hello, ${this.value}!`
- *     }
- * }
- * ElementBuilder.get().builder(
- *     TemplateBuilder.get()
- * ).register()
- * ```
+ * Firstly, the integration of the templating solution has to be defined in a method, by default the method name is `render`.
+ * The implementation of the method (i.e. the method `render`) must return an instance of {@link Template}.
  *
- * @example With the decorator API - Render the content with {@link html}
- * ```typescript
- * import {ElementBuilder, TemplateBuilder} from "ceb"
- * @ElementBuilder.element()
- * class HelloWorld extends HTMLElement {
- *     value = "World"
- *     @TemplateBuilder.template()
- *     render() {
- *         return html`Hello, ${this.value}!`
- *     }
- * }
- * ```
+ * Secondly, the render method is wrapped by the builder in order to render the {@link Template} once returned.
+ * That means, each time the render method is invoked, the returned {@link Template} is rendered automatically.
+ * The wrapping is also responsible to select the right destination of the template: Light DOM vs Shadow DOM.
+ *
+ * By default, the template is rendered into the Light DOM of the Custom Element.
+ * However, the builder can render the template into the Shadow DOM with {@link TemplateBuilder.shadow}.
+ *
+ * By default, the name of the wrapped method is `render`.
+ * However, the name can be changed with {@link TemplateBuilder.method}.
+ *
+ * When a {@link Template} is rendered, template parameters can be provided to the {@link Template.render} method.
+ * The template parameters can be set with {@link TemplateBuilder.parameters}.
+ *
+ * The library provides built-in template solution: {@link html}.
+ *
+ * Finally, the builder can be registered using the method {@link ElementBuilder.builder} of the main builder (i.e. {@link ElementBuilder}).
+ * However, it can also be registered with the decorative style using the decorator {@link TemplateBuilder.decorate}.
+ *
+ * @template E the type of the Custom Element
+ * @template P The type of the template parameters.
  */
-export class TemplateBuilder implements Builder {
+export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
 
-    constructor(
-        private isShadow = false,
-        private isFocusDelegation?: boolean,
-        private methName: string = "render",
-        private tplParams: UpdateElementParameters = {},
+    private constructor(
+        private _isShadow = false,
+        private _isFocusDelegation?: boolean,
+        private _methName = "render",
+        private _parameters?: P,
     ) {
     }
 
     /**
-     * Provide a fresh builder.
+     * Provides a fresh builder.
+     * @template E the type of the Custom Element
+     * @template P The type of the template parameters.
      */
-    static get() {
-        return new TemplateBuilder()
+    static get<E extends HTMLElement, P>() {
+        return new TemplateBuilder<E, P>()
     }
 
     /**
-     * Method decorator used to define a template.
-     * @param options the options
+     * Forces the rendering into the Shadow DOM.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, TemplateBuilder, html} from "ceb"
+     * class HelloWorld extends HTMLElement {
+     *     value = "World"
+     *     render() {
+     *         return html`Hello, ${this.value}!`
+     *     }
+     * }
+     * ElementBuilder.get().builder(
+     *     TemplateBuilder.get().shadow()
+     * ).register()
+     * ```
+     *
+     * @param focus when true the focus will be delegated to the shadow DOM
      */
-    static template<T extends HTMLElement>(options: TemplateDecoratorOptions<T> = {}) {
-        return function (target: any, methName: string, _: PropertyDescriptor) {
+    shadow(focus?: boolean) {
+        this._isShadow = true
+        this._isFocusDelegation = focus
+        return this
+    }
+
+    /**
+     * Overrides the default render method name.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, TemplateBuilder, html} from "ceb"
+     * class HelloWorld extends HTMLElement {
+     *     value = "World"
+     *     doRender() {
+     *         return html`Hello, ${this.value}!`
+     *     }
+     * }
+     * ElementBuilder.get().builder(
+     *     TemplateBuilder.get().method("doRender")
+     * ).register()
+     * ```
+     *
+     * @param methName the render method name
+     */
+    method(methName: string) {
+        this._methName = methName
+        return this
+    }
+
+    /**
+     * Set render parameters.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, TemplateBuilder, html, UpdateParameters} from "ceb"
+     * class HelloWorld extends HTMLElement {
+     *     value = "World"
+     *     doRender() {
+     *         return html`Hello, ${this.value}!`
+     *     }
+     * }
+     * ElementBuilder.get().builder(
+     *     TemplateBuilder.get<UpdateParameters>()
+     *         .parameters({ greyDom: true })
+     * ).register()
+     * ```
+     *
+     * @param parameters the parameters
+     */
+    parameters(parameters: P) {
+        this._parameters = parameters
+        return this
+    }
+
+    /**
+     * Decorates the render method.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, TemplateBuilder, html} from "ceb"
+     * @ElementBuilder.get<HelloWorld>().decorate()
+     * class HelloWorld extends HTMLElement {
+     *     value = "World"
+     *     @TemplateBuilder.get().decorate()
+     *     render() {
+     *         return html`Hello, ${this.value}!`
+     *     }
+     * }
+     * ```
+     */
+    decorate<E extends HTMLElement>(): MethodDecorator {
+        const builder = this
+        return function (target: E, methName: string, _: PropertyDescriptor) {
+            if (!builder._methName) {
+                builder._methName = methName
+            }
             const id = 'template'
-            const builder = ElementBuilder.getOrSet(target, id, TemplateBuilder.get().method(methName))
-            if (options.isShadow) {
-                builder.shadow(options.isShadowWithFocusDelegation)
-            }
-            if (options.parameters) {
-                builder.parameters(options.parameters)
-            }
+            ElementBuilder.getOrSet(target, id, builder)
         }
     }
 
     /**
-     * By default, the template is appended as child of the CustomElement,
-     * With this options, an opened shadow DOM will be attached and the template append to it.
-     * @param focus when true the focus will be delegated to the shadow DOM
-     */
-    shadow(focus?: boolean) {
-        this.isShadow = true
-        this.isFocusDelegation = focus
-        return this
-    }
-
-    /**
-     * Override the default render method name.
-     * @param methName the render method name
-     */
-    method(methName: string) {
-        this.methName = methName
-        return this
-    }
-
-    /**
-     * Override the default render parameters.
-     * @param parameters the parameters of the template engine
-     */
-    parameters(parameters: UpdateElementParameters) {
-        this.tplParams = parameters
-        return this
-    }
-
-    /**
-     * The is API is dedicated for developer of Builders.
+     * This API is dedicated for developer of Builders.
      * @protected
      */
-    build(Constructor: CustomElementConstructor<HTMLElement>, hooks: HooksRegistration) {
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>) {
         hooks.before('constructorCallback', el => {
             // wrap the default render function to render the template in call
-            if (typeof el[this.methName] === 'function') {
-                const original: Function = el[this.methName]
-                const parameters = this.tplParams
-                el[this.methName] = function (): Template {
-                    const template: Template = original.apply(el, arguments)
-                    template.render(el, parameters)
+            if (typeof el[this._methName] === 'function') {
+                const original: Function = el[this._methName]
+                const parameters = this._parameters
+                const isShadow = this._isShadow;
+                el[this._methName] = function (): Template<P> {
+                    const template: Template<P> = original.apply(el, arguments)
+                    template.render(isShadow ? el.shadowRoot : el, parameters)
                     return template
                 }
             }
 
-            if (this.isShadow) {
+            if (this._isShadow && !el.shadowRoot) {
                 // creates and initializes the shadow root
-                el.attachShadow({mode: 'open', delegatesFocus: this.isFocusDelegation})
+                el.attachShadow({mode: 'open', delegatesFocus: this._isFocusDelegation})
             }
         })
 
         hooks.before('connectedCallback', el => {
-            if (typeof el[this.methName] === "function") {
-                el[this.methName]()
+            if (typeof el[this._methName] === "function") {
+                el[this._methName]()
             }
         })
     }

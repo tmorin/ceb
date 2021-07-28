@@ -6,7 +6,7 @@ The static method `AttributeBuilder.get(attrName)` returns a fresh builder.
 The builder expects the name of the attribute in kebab case.
 
 ```typescript
-import {AttributeBuilder} from '@tmorin/ceb'
+import {AttributeBuilder} from "@tmorin/ceb"
 // creates the builder
 const builder = AttributeBuilder.get('an-attribute')
 ```
@@ -33,7 +33,7 @@ By default an attribute is a string value.
 The method `AttributeBuilder#boolean()` can be used to force a boolean one.
 
 ```typescript
-import {AttributeBuilder} from '@tmorin/ceb'
+import {AttributeBuilder} from "@tmorin/ceb"
 // creates the builder
 const builder = AttributeBuilder.get('a-boolean-attribute').boolean()
 ```
@@ -49,7 +49,7 @@ Once instantiated, an attribute can have a default value.
 The method `AttributeBuilder#default(value)` can be used to set the default value.
 
 ```typescript
-import {AttributeBuilder} from '@tmorin/ceb'
+import {AttributeBuilder} from "@tmorin/ceb"
 // creates the builder and set the default value `a default value`
 const builder = AttributeBuilder.get('an-attribute').default('a default value')
 ```
@@ -57,7 +57,7 @@ const builder = AttributeBuilder.get('an-attribute').default('a default value')
 An attribute of type boolean can also have a default value.
 
 ```typescript
-import {AttributeBuilder} from '@tmorin/ceb'
+import {AttributeBuilder} from "@tmorin/ceb"
 // creates the builder and set the default value `false`
 const builder = AttributeBuilder.get('an-attribute').boolean().default(true)
 ```
@@ -68,7 +68,7 @@ Listeners can be registered in order to react on attribute changes.
 The method `AttributeBuilder#listener(listener)` can be used to set the default value.
 
 ```typescript
-import {AttributeBuilder} from '@tmorin/ceb'
+import {AttributeBuilder} from "@tmorin/ceb"
 // creates the builder and add a listener
 const builder = AttributeBuilder.get('an-attribute').listener((el, data) => {
     console.log(el.tagName, data.attrName, data.oldVal, data.newVal);
@@ -80,13 +80,13 @@ const builder = AttributeBuilder.get('an-attribute').listener((el, data) => {
 Attributes can also be defined using a decorator.
 
 ```typescript
-import {ElementBuilder, AttributeBuilder, AttributeListenerData} from '@tmorin/ceb'
+import {ElementBuilder, AttributeBuilder, AttributeListenerData} from "@tmorin/ceb"
 // register the custom element
-@ElementBuilder.element<MyCustomElement>()
+@ElementBuilder.get<MyCustomElement>().decorate()
 // defines the custom element class
 class MyCustomElement extends HTMLElement {
     // bind the method to the attribute 'an-attribute'
-    @AttributeBuilder.listen()
+    @AttributeBuilder.get().decorate()
     onAnAttribute(data: AttributeListenerData) {
         console.log(data);
     }

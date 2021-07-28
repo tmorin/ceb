@@ -1,6 +1,5 @@
 import {assert} from 'chai'
 import {ContentBuilder, ElementBuilder} from '../src'
-import {getTagName} from './helpers'
 
 describe('content', () => {
     let sandbox
@@ -10,29 +9,44 @@ describe('content', () => {
     })
 
     it('should set HTML content', () => {
-        class ShouldSetHtmlContent extends HTMLElement {
+        const tagName = "content-set-string";
+
+        class TestElement extends HTMLElement {
         }
 
-        ElementBuilder.get(ShouldSetHtmlContent)
-            .builder(
-                ContentBuilder.get(`<p><input></p>`)
-            ).register()
-        const tagName = getTagName(ShouldSetHtmlContent)
-        const element: ShouldSetHtmlContent = sandbox.appendChild(document.createElement(tagName))
+        ElementBuilder.get(TestElement).name(tagName).builder(
+            ContentBuilder.get(`<p><input></p>`)
+        ).register()
+        const element: TestElement = sandbox.appendChild(document.createElement(tagName))
         assert.ok(sandbox.querySelector(tagName))
         assert.ok(element.querySelector('input'))
     })
 
-    it('should set shadow content', () => {
-        class ShouldSetShadowContent extends HTMLElement {
+    it('should set HTML content by function', () => {
+        const tagName = "content-set-function";
+
+        class TestElement extends HTMLElement {
+            name = "World"
         }
 
-        ElementBuilder.get(ShouldSetShadowContent)
-            .builder(
-                ContentBuilder.get(`<p><input></p>`).shadow()
-            ).register()
-        const tagName = getTagName(ShouldSetShadowContent)
-        const element: ShouldSetShadowContent = sandbox.appendChild(document.createElement(tagName))
+        ElementBuilder.get(TestElement).name(tagName).builder(
+            ContentBuilder.get<TestElement>((el) => `<p>${el.name}</p>`)
+        ).register()
+        const element: TestElement = sandbox.appendChild(document.createElement(tagName))
+        assert.ok(sandbox.querySelector(tagName))
+        assert.ok(element.querySelector('p'))
+    })
+
+    it('should set shadow content', () => {
+        const tagName = "content-shadow";
+
+        class TestElement extends HTMLElement {
+        }
+
+        ElementBuilder.get(TestElement).name(tagName).builder(
+            ContentBuilder.get(`<p><input></p>`).shadow()
+        ).register()
+        const element: TestElement = sandbox.appendChild(document.createElement(tagName))
         assert.ok(sandbox.querySelector(tagName))
         assert.ok(element.shadowRoot.querySelector('input'))
     })

@@ -8,7 +8,7 @@ The builder expects the clauses defining the event types to listen to and eventu
 Clauses have to be separated by comas.
 
 ```typescript
-import {OnBuilder} from '@tmorin/ceb'
+import {OnBuilder} from "@tmorin/ceb"
 // creates the builder
 const builder = OnBuilder.get('click, dblclick')
 ```
@@ -33,7 +33,7 @@ When a button is clicked, its parent `li` is removed from the DOM.
 By default, the listeners are added to the custom element it-self.
 
 ```typescript
-import {OnBuilder} from '@tmorin/ceb'
+import {OnBuilder} from "@tmorin/ceb"
 // add a listener to the custom element listening to `click` events
 const builder = OnBuilder.get('click').invoke((el, evt, target) => {
     console.log(el.tagName, evt.type, target.tagName);
@@ -47,7 +47,7 @@ The listeners can also be added to a child node.
 The query selector targeting the child node has to be given next to the DOM event type.
 
 ```typescript
-import {OnBuilder} from '@tmorin/ceb'
+import {OnBuilder} from "@tmorin/ceb"
 // add a listener to the first child button listening to `click` events
 const builder = OnBuilder.get('click button').invoke((el, evt, target) => {
     console.log(el.tagName, evt.type, target.tagName);
@@ -62,7 +62,7 @@ By default, the listeners are invoked on the bubbling phase.
 The method `OnBuilder#capture()` can be used to force the capture phase.
 
 ```typescript
-import {OnBuilder} from '@tmorin/ceb'
+import {OnBuilder} from "@tmorin/ceb"
 // add a listener listening `click` events on the capture phase
 const builder = OnBuilder.get('click button').capture()
 ```
@@ -76,7 +76,7 @@ More information are available on developer.mozilla.org about [event bubbling an
 The method `Event#preventDefault()` and `Event#stopPropagation()` can be automatically called.
 
 ```typescript
-import {OnBuilder} from '@tmorin/ceb'
+import {OnBuilder} from "@tmorin/ceb"
 // add a listener listening `submit` events and preventing the default behavior
 const builderA = OnBuilder.get('submit').prevent();
 // add a listener listening `submit` events and stopping the event propagation
@@ -93,7 +93,7 @@ Event delegation allows us to attach a single event listener, to a parent elemen
 The method `OnBuilder#delegate(selector)` is used to define the selector.
 
 ```typescript
-import {OnBuilder} from '@tmorin/ceb'
+import {OnBuilder} from "@tmorin/ceb"
 // add a listener listening `click` events on children matching the selector `li button.delete`
 const builder = OnBuilder.get('click').delegate('li button.delete')
 ```
@@ -106,7 +106,7 @@ The method `OnBuilder#shadow()` adds the listener to the `shadowRoot` property.
 So that, the listener only listen to events coming from the shadow DOM.
 
 ```typescript
-import {OnBuilder} from '@tmorin/ceb'
+import {OnBuilder} from "@tmorin/ceb"
 // add a listener listening `click` events coming from the shadow DOM
 const builder = OnBuilder.get('click').shadow()
 ```
@@ -116,9 +116,9 @@ const builder = OnBuilder.get('click').shadow()
 On listeners can also be defined using decorator.
 
 ```typescript
-import {ElementBuilder, OnBuilder} from '@tmorin/ceb'
+import {ElementBuilder, OnBuilder} from "@tmorin/ceb"
 // register the custom element
-@ElementBuilder.element<MyCustomElement>()
+@ElementBuilder.get<MyCustomElement>().decorate()
 // defines the custom element class
 class MyCustomElement extends HTMLElement {
     // defines the listener

@@ -9,10 +9,8 @@ describe('content.decorator', () => {
     it('should set shadow content', () => {
         const tagName = 'content-decorator'
 
-        @ElementBuilder.element<TestElement>({
-            name: tagName
-        })
-        @ContentBuilder.content({content: '<p><input></p>', isShadow: true})
+        @ElementBuilder.get().name(tagName).decorate()
+        @ContentBuilder.get('<p><input></p>').shadow().decorate()
         class TestElement extends HTMLElement {
         }
 

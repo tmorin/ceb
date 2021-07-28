@@ -12,7 +12,7 @@ describe("patcher/engine/options", () => {
     describe("preserveChildren", function () {
         it("should preserve children", () => {
             el.innerHTML = `<div><ul class="a_call_name"><li>liA</li><li>liB</li></ul></div>`
-            Engine.updateElement(el, (engine) => {
+            Engine.update(el, (engine) => {
                 engine.openElement("div")
                 engine.openElement("ul", {
                     attributes: [["class", "another_call_name"]],

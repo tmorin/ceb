@@ -13,5 +13,5 @@ Then, other builders can be used to enhance it:
 - [ContentBuilder](book/builders-and-decorators/ContentBuilder.md): to initialize the light or shadow DOM
 - [TemplateBuilder](book/builders-and-decorators/TemplateBuilder.md): to path the DOM of the custom element
 - [ReferenceBuilder](ReferenceBuilder.md): to get reference of children nodes
-- [AttributeDelegateBuilder](AttributeDelegateBuilder.md): to delegate attribute mutations to child nodes
+- [AttributePropagationBuilder](AttributePropagationBuilder.md): to delegate attribute mutations to child nodes
 - [PropertyDelegateBuilder](PropertyDelegateBuilder.md): to delegate the property accesses to a single child node

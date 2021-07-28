@@ -11,7 +11,7 @@ describe("patcher/engine/simple", () => {
     })
     it("should render a simple element", () => {
         el.innerHTML = ""
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.openElement("p")
             engine.closeElement()
         })
@@ -19,7 +19,7 @@ describe("patcher/engine/simple", () => {
     })
     it("should render a simple void element", () => {
         el.innerHTML = ""
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.voidElement("input")
         })
         expect(el.innerHTML).to.be.eq("<input>")
@@ -29,14 +29,14 @@ describe("patcher/engine/simple", () => {
     })
     it("should render a simple comment node", () => {
         el.innerHTML = ""
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.comment("a comment")
         })
         expect(el.innerHTML).to.be.eq("<!--a comment-->")
     })
     it("should render a simple p element and a text node", () => {
         el.innerHTML = ""
-        Engine.updateElement(el, (engine) => {
+        Engine.update(el, (engine) => {
             engine.openElement("p")
             engine.text("hello")
             engine.closeElement()

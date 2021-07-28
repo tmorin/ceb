@@ -11,11 +11,9 @@ describe('field.decorator', () => {
     it('should create field', () => {
         const tagName = 'el-default-field'
 
-        @ElementBuilder.element<TestElement>({
-            name: tagName
-        })
+        @ElementBuilder.get().name(tagName).decorate()
         class TestElement extends HTMLElement {
-            @FieldBuilder.field()
+            @FieldBuilder.get().decorate()
             altName = 'a field'
         }
 
@@ -27,11 +25,9 @@ describe('field.decorator', () => {
     it('should create boolean field', () => {
         const tagName = 'el-boolean-field'
 
-        @ElementBuilder.element<TestElement>({
-            name: tagName
-        })
+        @ElementBuilder.get().name(tagName).decorate()
         class TestElement extends HTMLElement {
-            @FieldBuilder.field({boolean: true})
+            @FieldBuilder.get().boolean().decorate()
             altName = true
         }
 
@@ -43,11 +39,9 @@ describe('field.decorator', () => {
     it('should override attribute name', () => {
         const tagName = 'el-attribute-field'
 
-        @ElementBuilder.element<TestElement>({
-            name: tagName
-        })
+        @ElementBuilder.get().name(tagName).decorate()
         class TestElement extends HTMLElement {
-            @FieldBuilder.field({attrName: 'an-attribute'})
+            @FieldBuilder.get().attribute('an-attribute').decorate()
             altName = 'a field'
         }
 
@@ -60,14 +54,12 @@ describe('field.decorator', () => {
         const tagName = 'el-listen-field'
         const listener = sinon.spy()
 
-        @ElementBuilder.element<TestElement>({
-            name: tagName
-        })
+        @ElementBuilder.get().name(tagName).decorate()
         class TestElement extends HTMLElement {
-            @FieldBuilder.field()
+            @FieldBuilder.get().decorate()
             altName = 'a field'
 
-            @FieldBuilder.listen()
+            @FieldBuilder.get().decorate()
             onAltName(data: FieldListenerData) {
                 listener(data)
             }
@@ -85,14 +77,12 @@ describe('field.decorator', () => {
         const tagName = 'el-listen-field-with-prefix'
         const listener = sinon.spy()
 
-        @ElementBuilder.element<TestElement>({
-            name: tagName
-        })
+        @ElementBuilder.get().name(tagName).decorate()
         class TestElement extends HTMLElement {
-            @FieldBuilder.field()
+            @FieldBuilder.get().decorate()
             altName = 'a field'
 
-            @FieldBuilder.listen({prefix: 'on_'})
+            @FieldBuilder.get().decorate('on_')
             on_altName(data: FieldListenerData) {
                 listener(data)
             }
@@ -110,14 +100,12 @@ describe('field.decorator', () => {
         const tagName = 'el-listen-field-alternate-attribute'
         const listener = sinon.spy()
 
-        @ElementBuilder.element<TestElement>({
-            name: tagName
-        })
+        @ElementBuilder.get().name(tagName).decorate()
         class TestElement extends HTMLElement {
-            @FieldBuilder.field({attrName: 'an-attribute'})
+            @FieldBuilder.get().attribute('an-attribute').decorate()
             altName = 'a field'
 
-            @FieldBuilder.listen()
+            @FieldBuilder.get().decorate()
             onAltName(data: FieldListenerData) {
                 listener(data)
             }

@@ -1,7 +1,8 @@
-import {Attributes, Engine, Options, Parameters, Properties, UpdateElementParameters} from "./engine"
+import {Attributes, Engine, Options, Parameters, Properties, UpdateParameters} from "./engine"
 import {Attribute, parse} from "./parser"
+import {Template} from "./builder";
 
-export {UpdateElementParameters} from "./engine"
+export {UpdateParameters} from "./engine"
 
 const PATTERN_CEB_VALUE_INDEX = /{{ceb_value_index:([0-9]+)}}/gm
 const PREFIX_CEB_VALUE_INDEX = "{{ceb_value_index:"
@@ -83,22 +84,9 @@ function generateParameters(tagAttrs: Array<Attribute> = [], args: Array<any>): 
     return {attributes, properties, options}
 }
 
-/**
- * A template updates a DOM element from a set of operations.
- * The operations are discovered during the parsing of a _html literal_ statement, c.f. {@link html}.
- */
-export interface Template {
-    /**
-     * Update the content of an element.
-     * @param element the element where render the template
-     * @param parameters the parameters of the rendering
-     */
-    render(element: Element, parameters?: UpdateElementParameters): void
-}
-
 type Operation = (engine: Engine) => void
 
-class Operations implements Template {
+class Operations implements Template<UpdateParameters> {
     constructor(
         private readonly operations: Array<Operation> = []
     ) {
@@ -112,8 +100,8 @@ class Operations implements Template {
         }
     }
 
-    render(element: Element, parameters?: UpdateElementParameters) {
-        Engine.updateElement(element, engine => {
+    render(destination: DocumentFragment | Element, parameters?: UpdateParameters) {
+        Engine.update(destination, engine => {
             this.operations.forEach(operation => operation(engine))
         }, parameters)
     }
@@ -136,7 +124,7 @@ const stringsCaches = new WeakMap<TemplateStringsArray, string>()
  * template.render(document.body)
  * ```
  */
-export function html(strings: TemplateStringsArray, ...args: Array<any>): Template {
+export function html(strings: TemplateStringsArray, ...args: Array<any>): Template<UpdateParameters> {
     if (!stringsCaches.has(strings)) {
         stringsCaches.set(strings, strings.map(
             (text, index) =>

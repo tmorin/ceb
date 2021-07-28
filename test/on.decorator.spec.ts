@@ -1,8 +1,7 @@
 import './helpers'
 import sinon, {SinonSpy} from 'sinon'
 import {assert} from 'chai'
-import {ElementBuilder} from '../src'
-import {OnBuilder} from '../src/on'
+import {ElementBuilder, OnBuilder} from '../src'
 
 function listen(el: Node, type: string, limit: number, done: Function) {
     let counter = 0
@@ -27,9 +26,9 @@ describe('on.decorator', () => {
         beforeEach(done => {
             bubblingListener = sinon.spy()
 
-            @ElementBuilder.element<TestElement>({name: tagName})
+            @ElementBuilder.get().name(tagName).decorate()
             class TestElement extends HTMLElement {
-                @OnBuilder.listen('custom-event')
+                @OnBuilder.get().decorate()
                 onCustomEvent(data: Event) {
                     bubblingListener(data)
                 }

@@ -12,9 +12,9 @@ describe('attribute.decorator', () => {
         const tagName = 'el-default-values'
         const listener = sinon.spy()
 
-        @ElementBuilder.element<TestElement>({name: tagName})
+        @ElementBuilder.get().name(tagName).decorate()
         class TestElement extends HTMLElement {
-            @AttributeBuilder.listen()
+            @AttributeBuilder.get().decorate()
             onAnAttribute(data: AttributeListenerData) {
                 listener(data)
             }
@@ -30,9 +30,9 @@ describe('attribute.decorator', () => {
         const tagName = 'el-boolean-values'
         const listener = sinon.spy()
 
-        @ElementBuilder.element<TestElement>({name: tagName})
+        @ElementBuilder.get<TestElement>().name(tagName).decorate()
         class TestElement extends HTMLElement {
-            @AttributeBuilder.listen({isBoolean: true})
+            @AttributeBuilder.get().boolean().decorate()
             onAnAttribute(data: AttributeListenerData) {
                 listener(data)
             }
@@ -52,9 +52,9 @@ describe('attribute.decorator', () => {
         const tagName = 'el-with-default-prefix'
         const listener = sinon.spy()
 
-        @ElementBuilder.element<TestElement>({name: tagName})
+        @ElementBuilder.get<TestElement>().name(tagName).decorate()
         class TestElement extends HTMLElement {
-            @AttributeBuilder.listen({prefix: true})
+            @AttributeBuilder.get().decorate()
             onAnAttribute(data: AttributeListenerData) {
                 listener(data)
             }
@@ -70,9 +70,9 @@ describe('attribute.decorator', () => {
         const tagName = 'el-with-custom-prefix'
         const listener = sinon.spy()
 
-        @ElementBuilder.element<TestElement>({name: tagName})
+        @ElementBuilder.get<TestElement>().name(tagName).decorate()
         class TestElement extends HTMLElement {
-            @AttributeBuilder.listen({prefix: 'on_'})
+            @AttributeBuilder.get().decorate('on_')
             on_anAttribute(data: AttributeListenerData) {
                 listener(data)
             }
@@ -88,9 +88,9 @@ describe('attribute.decorator', () => {
         const tagName = 'el-with-no-prefix'
         const listener = sinon.spy()
 
-        @ElementBuilder.element<TestElement>({name: tagName})
+        @ElementBuilder.get<TestElement>().name(tagName).decorate()
         class TestElement extends HTMLElement {
-            @AttributeBuilder.listen({prefix: false})
+            @AttributeBuilder.get().decorate("")
             anAttribute(data: AttributeListenerData) {
                 listener(data)
             }

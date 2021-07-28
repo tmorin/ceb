@@ -8,7 +8,7 @@ The static method `FieldBuilder.get(attrName)` returns a fresh builder.
 The builder expects the name of the property in camel case.
 
 ```typescript
-import {FieldBuilder} from '@tmorin/ceb'
+import {FieldBuilder} from "@tmorin/ceb"
 // creates the builder
 const builder = FieldBuilder.get('aField')
 ```
@@ -35,7 +35,7 @@ By default a field is a string value.
 The method `FieldBuilder#boolean()` can be used to force a boolean one.
 
 ```typescript
-import {FieldBuilder} from '@tmorin/ceb'
+import {FieldBuilder} from "@tmorin/ceb"
 // creates the builder
 const builder = FieldBuilder.get('aBooleanField').boolean()
 ```
@@ -51,7 +51,7 @@ By default, the attribute name is the kebab case of the property name.
 It can be overridden using the method `FieldBuilder#attribute(attrName)`.
 
 ```typescript
-import {FieldBuilder} from '@tmorin/ceb'
+import {FieldBuilder} from "@tmorin/ceb"
 // creates the builder and overrides the attribute name
 const builder = FieldBuilder.get('aField').attribute('another-attribute-name')
 ```
@@ -62,7 +62,7 @@ Listeners can be registered in order to react on field changes.
 The method `FieldBuilder#listener(listener)` can be used to set the default value.
 
 ```typescript
-import {FieldBuilder} from '@tmorin/ceb'
+import {FieldBuilder} from "@tmorin/ceb"
 // creates the builder and add a listener
 const builder = FieldBuilder.get('aField').listener((el, data) => {
     console.log(el.tagName, data.propName, data.attrName, data.oldVal, data.newVal);
@@ -74,9 +74,9 @@ const builder = FieldBuilder.get('aField').listener((el, data) => {
 Fields can also be defined using decorators.
 
 ```typescript
-import {ElementBuilder, FieldBuilder, FieldListenerData} from '@tmorin/ceb'
+import {ElementBuilder, FieldBuilder, FieldListenerData} from "@tmorin/ceb"
 // register the custom element
-@ElementBuilder.element<MyCustomElement>();
+@ElementBuilder.get<MyCustomElement>().decorate()
 // defines the custom element class
 class MyCustomElement extends HTMLElement {
     // defines the field

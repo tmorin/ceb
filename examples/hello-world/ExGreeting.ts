@@ -1,21 +1,15 @@
-import {ElementBuilder, FieldBuilder, FieldListenerData, ReferenceBuilder, ContentBuilder} from '../../src'
+import {ContentBuilder, ElementBuilder, FieldBuilder, FieldListenerData, ReferenceBuilder} from '../../src'
 
-@ElementBuilder.element<ExGreeting>()
-@ContentBuilder.content({
-    content: "<p>Hello, <span id='name'></span>!</p>",
-    isShadow: true
-})
+@ElementBuilder.get<ExGreeting>().decorate()
+@ContentBuilder.get(`<p>Hello, <span id="name"></span>!</p>`).shadow().decorate()
 export class ExGreeting extends HTMLElement {
-    @ReferenceBuilder.reference({
-        selector: "span#name",
-        isShadow: true
-    })
+    @ReferenceBuilder.get().shadow().selector( "span#name").decorate()
     span: HTMLSpanElement
 
-    @FieldBuilder.field()
+    @FieldBuilder.get().decorate()
     name: string = "World"
 
-    @FieldBuilder.listen()
+    @FieldBuilder.get().decorate()
     private onName(data: FieldListenerData) {
         this.span.textContent = data.newVal
     }

@@ -1,6 +1,5 @@
 import {assert} from 'chai'
-import {ElementBuilder, PropertyDelegateBuilder} from '../src'
-import {getTagName} from './helpers'
+import {ElementBuilder, PropertyDelegationBuilder} from '../src'
 
 describe('delegate.property', () => {
     let sandbox
@@ -8,7 +7,9 @@ describe('delegate.property', () => {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
     it('should delegate property', () => {
-        class ElBuilderShouldDelegateProp extends HTMLElement {
+        const tagName = 'delegate-property'
+
+        class TestElement extends HTMLElement {
             value = 'default value'
             disabled = true
             altType = 'text'
@@ -25,18 +26,18 @@ describe('delegate.property', () => {
             }
         }
 
-        ElementBuilder.get(ElBuilderShouldDelegateProp).builder(
-            PropertyDelegateBuilder.get('value')
+        ElementBuilder.get(TestElement).name(tagName).builder(
+            PropertyDelegationBuilder.get('value')
                 .to('input'),
-            PropertyDelegateBuilder.get('disabled')
+            PropertyDelegationBuilder.get('disabled')
                 .to('input').boolean(),
-            PropertyDelegateBuilder.get('altType')
+            PropertyDelegationBuilder.get('altType')
                 .to('input').attribute('type'),
-            PropertyDelegateBuilder.get('label')
+            PropertyDelegationBuilder.get('label')
                 .to('button').shadow().property('textContent'),
         ).register()
-        const tagName = getTagName(ElBuilderShouldDelegateProp)
-        const element: ElBuilderShouldDelegateProp = sandbox.appendChild(document.createElement(tagName))
+
+        const element: TestElement = sandbox.appendChild(document.createElement(tagName))
         assert.ok(sandbox.querySelector(tagName))
 
         assert.strictEqual(element.value, 'default value')
