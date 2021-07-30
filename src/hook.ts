@@ -1,43 +1,44 @@
 /**
  * The callbacks executed by the hooks.
+ * @template E the type of the Custom Element
  *
  * This API is dedicated for developer of Builders.
  * @protected
  */
-export type HookCallbacks<T extends HTMLElement = HTMLElement> = {
-    'constructorCallback': (el: T) => void
-    'connectedCallback': (el: T) => void
-    'disconnectedCallback': (el: T) => void
-    'adoptedCallback': (el: T) => void
-    'attributeChangedCallback': (el: T, attName: string, oldVal: string | null, newVal: string | null) => void
+export type HookCallbacks<E extends HTMLElement = HTMLElement> = {
+    'constructorCallback': (el: E) => void
+    'connectedCallback': (el: E) => void
+    'disconnectedCallback': (el: E) => void
+    'adoptedCallback': (el: E) => void
+    'attributeChangedCallback': (el: E, attName: string, oldVal: string | null, newVal: string | null) => void
 }
 
 /**
  * A HooksRegistration provides a way to execute logic according to the Custom Element life cycle.
- * @template the type of the Custom Element
+ * @template E the type of the Custom Element
  *
  * This API is dedicated for developer of Builders.
  * @protected
  */
-export interface HooksRegistration<T extends HTMLElement = HTMLElement> {
+export interface HooksRegistration<E extends HTMLElement = HTMLElement> {
     /**
      * Register a hook which will be invoked before the execution of regular hooks.
      * @param name the name
      * @param callback the callback
      */
-    before<K extends keyof HookCallbacks<T>>(name: K, callback: HookCallbacks<T>[K])
+    before<K extends keyof HookCallbacks<E>>(name: K, callback: HookCallbacks<E>[K])
 
     /**
      * Register a hook.
      * @param name the name
      * @param callback the callback
      */
-    on<K extends keyof HookCallbacks<T>>(name: K, callback: HookCallbacks<T>[K])
+    on<K extends keyof HookCallbacks<E>>(name: K, callback: HookCallbacks<E>[K])
 
     /**
      * Register a hook which will be invoked after the execution of regular hooks.
      * @param name the name
      * @param callback the callback
      */
-    after<K extends keyof HookCallbacks<T>>(name: K, callback: HookCallbacks<T>[K])
+    after<K extends keyof HookCallbacks<E>>(name: K, callback: HookCallbacks<E>[K])
 }

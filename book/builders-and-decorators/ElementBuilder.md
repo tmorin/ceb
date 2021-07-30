@@ -1,170 +1,98 @@
 # ElementBuilder
 
-The class `ElementBuilder` provides services to enhance and register a custom element.
+The class `ElementBuilder` provides services to enhance and register a Custom Element.
 It's the main builder, the entry point of the library.
 
-The static method `CustomElement.get(constructor)` returns a fresh builder.
-The method expects the constructor of the custom element.
+The reference documentation is there: [ElementBuilder](../api/classes/ElementBuilder.html).
 
-```typescript
-import {ElementBuilder} from "@tmorin/ceb"
-// defines the custom element class
-class MyCustomElement extends HTMLElement {
-    constructor() {
-        super()
-    }
-}
-// creates the builder
-const builder = ElementBuilder.get(MyCustomElement)
-```
+## Challenge yourself
 
-The builder and underlying decorators are also technically documented: [ElementBuilder](../api/classes/ElementBuilder.html).
+Will you be able to ...
+1. change the tag name to `<my-greeting></my-greeting>` without changing the class name?
+2. transform `SimpleGreeting` as an extension of `h1`, so that can be created with `<h1 is="my-greeting"></h1>`? <small>the class of `h1` is `HTMLHeadingElement`</small>
 
-## An example
-
-The registered custom element is a simple element having the text content `Hello! I'm <the element's name>.`.
-
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="abzmRvm" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/abzmRvm">
-  &lt;/ceb&gt; ~ ElementBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="ExmLwwd" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/ExmLwwd">
+  &lt;ceb/&gt; ~ challenge/ElementBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 
-## Registering a new custom element
-
-A custom element is registered with the method `ElementBuilder#register()`.
+## Define a regular Custom Element
 
 ```typescript
 import {ElementBuilder} from "@tmorin/ceb"
-// defines the custom element class
-class MyCustomElement extends HTMLElement {
-    constructor() {
-        super();
-    }
+// defines and register the custom element class
+@ElementBuilder.get().decorate()
+class SimpleGreeting extends HTMLElement {
+  constructor(public name = "World") {
+    super();
+  }
+  connectedCallback() {
+    this.textContent = `Hello, ${this.name}!`
+  }
 }
-// creates the builder
-const builder = ElementBuilder.get(MyCustomElement)
-// register the custom element
-builder.register()
 ```
 
-The custom element can also be registered by a decorator.
+Once registered, the Custom Element can be created with three different styles: markup, Object-Oriented and, hybrid.
+
+The first one relies on the tag name of the Custom Element within the markup of an HTML document.
+
+```typescript
+document.body.innerHTML = `<simple-greeting></simple-greeting>`
+```
+
+The second one relies on the Object-Oriented nature of the Custom Element.
+Basically, the class can be instantiated, and the created object can be then append to the DOM.
+
+```typescript
+const helloJohn: SimpleGreeting = new SimpleGreeting("John")
+document.body.appendChild(helloJohn)
+```
+
+The last one lies between the markup and OO style.
+
+```typescript
+const helloDoe: SimpleGreeting = document.createElement("simple-greeting")
+helloDoe.name = "Doe"
+document.body.appendChild(helloDoe)
+```
+
+## Define an extension of a native Element
 
 ```typescript
 import {ElementBuilder} from "@tmorin/ceb"
-// register the custom element
-@ElementBuilder.get<MyCustomElement>().decorate()
-// defines the custom element class
-class MyCustomElement extends HTMLElement {
-    constructor() {
-        super()
-    }
+// defines and register the custom element class
+@ElementBuilder.get().extends("p").decorate()
+class SimpleGreetingParagraph extends HTMLParagraphElement {
+  constructor(public name = "World") {
+    super();
+  }
+  connectedCallback() {
+    this.textContent = `Hello, ${this.name}!`
+  }
 }
 ```
 
-By default, the name of the custom element is the kebab case of the class name.
-So, `MyCustomElement` becomes `my-custom-element`.
+Once registered, the Custom Element can be created like the regular one.
+However, because of the extension of a native Element, the creation expects additional information. 
 
-Once registered, the custom element can be created as any other HTML elements.
-
-```html
-<!-- creates the custom element in HTML as any other HTML elements -->
-<my-custom-element></my-custom-element>
-```
-
+The creation with the markup style:
 ```typescript
-// creates the custom element from its tag name
-const myCustomElement = document.createElement('my-custom-element')
-// appends the custom element as any other regular HTML element
-document.body.append(myCustomElement)
+document.body.innerHTML = `<p is="simple-greeting-paragraph"></p>`
 ```
 
-## Extending a built-in element
-
-To register custom element which extends a built-in HTML elements, the tag name of the extended element has to be provided using the method `ElementBuilder#extends()`.
-
+The creation with the Object-Oriented style:
 ```typescript
-import {ElementBuilder} from "@tmorin/ceb"
-// defines the custom element class
-class MyCustomButton extends HTMLButtonElement {
-    constructor() {
-        super()
-    }
-}
-// creates the builder
-const builder = ElementBuilder.get(MyCustomButton)
-// provides the tag name of HTMLButtonElement
-builder.extends("button")
-// register the custom element
-builder.register()
+const helloJohn: SimpleGreetingParagraph = new SimpleGreeting("John")
+document.body.appendChild(helloJohn)
 ```
 
-The extended HTML element can also be provided with the decorator.
-
+The creation with the hybrid style:
 ```typescript
-import {ElementBuilder} from "@tmorin/ceb"
-// register the custom element
-@ElementBuilder.get<MyCustomButton>().extends("button").decorate()
-// defines the custom element class
-class MyCustomButton extends HTMLButtonElement {
-    constructor() {
-        super()
-    }
-}
-```
-
-Once registered, the custom element can be created.
-
-```html
-<!-- creates the extended HTML element using the `is` attribute -->
-<button is="my-custom-button"></button>
-```
-
-```typescript
-// creates the extended HTML element
-const myCustomElement = document.createElement("button", {is: "my-custom-button"})
-// appends the extended HTML element as any other regular HTML element
-document.body.append(myCustomElement)
-```
-
-## Overriding the name of the custom element
-
-The name of the custom element can be overridden using the method `ElementBuilder#name(tagName)`.
-
-```typescript
-import {ElementBuilder} from "@tmorin/ceb"
-// defines the custom element class
-class MyCustomElementBis extends HTMLElement {
-    constructor() {
-        super()
-    }
-}
-// creates the builder
-const builder = ElementBuilder.get(MyCustomElementBis)
-// overrides the default tag name
-builder.name("another-name")
-// register the custom element
-builder.register()
-```
-
-The name of the custom element can also be provided with the decorator.
-
-```typescript
-import {ElementBuilder} from "@tmorin/ceb"
-// register the custom element
-@ElementBuilder.get<MyCustomElementBis>().name("another-name").decorate()
-// defines the custom element class
-class MyCustomElementBis extends HTMLButtonElement {
-    constructor() {
-        super()
-    }
-}
-```
-
-In this case, the name of the custom element is `another-name`.
-
-```html
-<!-- creates the custom element in HTML as any other HTML elements -->
-<another-name></another-name>
+const helloDoe: SimpleGreetingParagraph = document.createElement("p", {
+    extends: "is"
+})
+helloDoe.name = "Doe"
+document.body.appendChild(helloDoe)
 ```

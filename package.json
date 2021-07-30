@@ -8,6 +8,9 @@
     "custom-elements-v1",
     "custom-elements",
     "custom-element",
+    "template",
+    "template-engine",
+    "template-literal",
     "typescript",
     "typescript-library",
     "javascript-library"

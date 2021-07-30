@@ -8,7 +8,7 @@ import {ElementBuilder} from './element'
 export interface ContentFactory<E extends Element> {
     /**
      * The factory function.
-     * @template T the type of the Custom Element
+     * @template E the type of the Custom Element
      * @param el the Custom Element
      */
     (el: E): string

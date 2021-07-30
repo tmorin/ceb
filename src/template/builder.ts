@@ -35,7 +35,7 @@ export interface Template<P = any> {
  * When a {@link Template} is rendered, template parameters can be provided to the {@link Template.render} method.
  * The template parameters can be set with {@link TemplateBuilder.parameters}.
  *
- * The library provides built-in template solution: {@link html}.
+ * The library provides a built-in template solution: {@link html}.
  *
  * Finally, the builder can be registered using the method {@link ElementBuilder.builder} of the main builder (i.e. {@link ElementBuilder}).
  * However, it can also be registered with the decorative style using the decorator {@link TemplateBuilder.decorate}.

@@ -111,11 +111,9 @@ const stringsCaches = new WeakMap<TemplateStringsArray, string>()
 
 /**
  * This function is a [tag function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates)
- * which converts a [literal statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literal)
- * to a {@link Template}.
+ * which converts a [literal statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literal) to a {@link Template}.
  * The template can then be used to update the DOM.
- * @param strings the strings
- * @param args the arguments
+ *
  * @example Render a simple greeting
  * ```typescript
  * import {html, Template} from 'ceb'
@@ -123,6 +121,9 @@ const stringsCaches = new WeakMap<TemplateStringsArray, string>()
  * const template : Template = html`<p>Hello, ${name}!</p>`
  * template.render(document.body)
  * ```
+ *
+ * @param strings the strings
+ * @param args the arguments
  */
 export function html(strings: TemplateStringsArray, ...args: Array<any>): Template<UpdateParameters> {
     if (!stringsCaches.has(strings)) {

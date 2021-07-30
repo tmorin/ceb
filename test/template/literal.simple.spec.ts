@@ -20,4 +20,23 @@ describe("patcher/literal/simple", function () {
         template.render(el)
         expect(el.innerHTML).to.be.eq(`<p>hello world</p>`)
     })
+    it("should handle undefined values", function () {
+        const name = undefined
+        const template = html`<p>hello ${name}</p>`
+        template.render(el)
+        expect(el.innerHTML).to.be.eq(`<p>hello </p>`)
+    })
+    it("should handle null values", function () {
+        const name = null
+        const template = html`<p>hello ${name}</p>`
+        template.render(el)
+        expect(el.innerHTML).to.be.eq(`<p>hello </p>`)
+    })
+    it("should handle value first", function () {
+        const before = "before"
+        const after = "after"
+        const template = html`${before} A ${after} B`
+        template.render(el)
+        expect(el.innerHTML).to.be.eq(`before A after B`)
+    })
 })

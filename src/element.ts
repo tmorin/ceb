@@ -33,7 +33,7 @@ const PROPERTY_NAME_BUILDERS = "_ceb_builders"
  * Finally, the registration of the Custom Element can be done with a _regular_ way using the method {@link ElementBuilder.register}.
  * However, the registration can also be done with the decorative style using the decorator {@link ElementBuilder.decorate}.
  *
- * @template T the type of the Custom Element
+ * @template E the type of the Custom Element
  */
 export class ElementBuilder<E extends HTMLElement = HTMLElement> {
 

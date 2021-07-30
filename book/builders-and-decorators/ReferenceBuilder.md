@@ -1,78 +1,18 @@
 # ReferenceBuilder
 
-The class `ReferenceBuilder` provides services to bind a property to a embedded DOM element.
+The builder enhances a readonly property to execute a CSS Selector once the property is get.
+So that, a property of the Custom Element can always be related to a child element or a set of child elements.
 
-The static method `ReferenceBuilder.get(propName)` returns a fresh builder.
-The builder expects the name of the property in camel case.
+The reference documentation is there: [ReferenceBuilder](../api/classes/ReferenceBuilder.html).
 
-```typescript
-import {ReferenceBuilder} from "@tmorin/ceb"
-// creates the builder
-const builder = ReferenceBuilder.get('myInput')
-```
+## Challenge yourself
 
-The builder and underlying decorators are also technically documented: [ReferenceBuilder](../api/classes/ReferenceBuilder.html).
+Will you be able to ...
+1. implement the method `sayHelloJohnDoe()` to display `Hello, Johne Doe!`?
 
-## An example
-
-The registered custom element counts the number of selected `li` and displays it.
-
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="LYEbRLE" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/LYEbRLE">
-  &lt;/ceb&gt; ~ ReferenceBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="zYwjaMy" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/zYwjaMy">
+  &lt;ceb/&gt; ~ challenge/ReferenceBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
-
-## Default selector
-
-By default, the builder binds the property to a child having the same id.
-For instance, the property `propName` is bound to the selector `#propName`.
-
-The method `ReferenceBuilder#selector(selector)` can be used to override the default selector.
-
-```typescript
-import {ReferenceBuilder} from "@tmorin/ceb"
-// initializes the shadow DOM of the custom element
-const builder = ReferenceBuilder.get('myInput').selector('input.my-input')
-```
-
-## Bind to list of elements
-
-By default, the builder binds the property to a single element.
-
-The method `ReferenceBuilder#array()` can be used to bind the property to a list of matching elements.
-
-```typescript
-import {ReferenceBuilder} from "@tmorin/ceb"
-// initializes the shadow DOM of the custom element
-const builder = ReferenceBuilder.get('activeLiList').selector('li.active').array()
-```
-
-## Bind relative to the shadow DOM
-
-By default, the builder binds the property relative to the light DOM.
-
-The method `ReferenceBuilder#shadow()` can be used to bind the property relative to the shadow DOM.
-
-```typescript
-import {ReferenceBuilder} from "@tmorin/ceb"
-// initializes the shadow DOM of the custom element
-const builder = ReferenceBuilder.get('button').shadow()
-```
-
-## The decorator
-
-References can also be defined using decorators.
-
-```typescript
-import {ElementBuilder, ReferenceBuilder} from "@tmorin/ceb"
-// register the custom element
-@ElementBuilder.get<MyCustomElement>().decorate()
-// defines the custom element class
-class MyCustomElement extends HTMLElement {
-    // define the reference
-    @ReferenceBuilder.reference({isShadow: true, selector: 'ul'})
-    readonly ul: HTMLUListElement;
-}
-```

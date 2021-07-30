@@ -23,7 +23,7 @@ import {
   ElementBuilder
 } from "ceb";
 
-@ElementBuilder.element<ExGreeting>()
+@ElementBuilder.get().decorate()
 export class ExGreeting extends HTMLElement {
 }
 ```
@@ -38,11 +38,10 @@ import {
   ContentBuilder
 } from "ceb";
 
-@ElementBuilder.element<ExGreeting>()
-@ContentBuilder.content({
-  content: `<p>Hello, <span id="name"></span>!</p>`,
-  isShadow: true
-})
+@ElementBuilder.get().decorate()
+@ContentBuilder.get(`<p>Hello, <span id="name"></span>!</p>`)
+  .shadow()
+  .decorate()
 export class ExGreeting extends HTMLElement {
 }
 ```
@@ -58,13 +57,12 @@ import {
   FieldBuilder
 } from "ceb";
 
-@ElementBuilder.element<ExGreeting>()
-@ContentBuilder.content({
-  content: `<p>Hello, <span id="name"></span>!</p>`,
-  isShadow: true
-})
+@ElementBuilder.get().decorate()
+@ContentBuilder.get(`<p>Hello, <span id="name"></span>!</p>`)
+  .shadow()
+  .decorate()
 export class ExGreeting extends HTMLElement {
-  @FieldBuilder.field()
+  @FieldBuilder.get().decorate()
   name: string = "World"
 }
 ```
@@ -86,19 +84,18 @@ import {
   ReferenceBuilder
 } from "ceb";
 
-@ElementBuilder.element<ExGreeting>()
-@ContentBuilder.content({
-  content: `<p>Hello, <span id="name"></span>!</p>`,
-  isShadow: true
-})
+@ElementBuilder.get().decorate()
+@ContentBuilder.get(`<p>Hello, <span id="name"></span>!</p>`)
+  .shadow()
+  .decorate()
 export class ExGreeting extends HTMLElement {
-  @FieldBuilder.field()
+  @FieldBuilder.get().decorate()
   name: string = "World"
   
-  @ReferenceBuilder.reference({
-    selector: "span#name",
-    isShadow: true
-  })
+  @ReferenceBuilder.get()
+    .shadow()
+    .selector("span#name")
+    .decorate()
   span: HTMLSpanElement
 }
 ```
@@ -113,22 +110,21 @@ import {
   ReferenceBuilder,
 } from "ceb";
 
-@ElementBuilder.element<ExGreeting>()
-@ContentBuilder.content({
-  content: `<p>Hello, <span id="name"></span>!</p>`,
-  isShadow: true
-})
+@ElementBuilder.get().decorate()
+@ContentBuilder.get(`<p>Hello, <span id="name"></span>!</p>`)
+  .shadow()
+  .decorate()
 export class ExGreeting extends HTMLElement {
-  @FieldBuilder.field()
+  @FieldBuilder.get().decorate()
   name: string = "World"
-  
-  @ReferenceBuilder.reference({
-    selector: "span#name",
-    isShadow: true
-  })
+
+  @ReferenceBuilder.get()
+    .shadow()
+    .selector("span#name")
+    .decorate()
   span: HTMLSpanElement
 
-  @FieldBuilder.listen()
+  @FieldBuilder.get().decorate()
   private onName(data: FieldListenerData) {
     this.span.textContent = data.newVal
   }
@@ -147,21 +143,16 @@ import {
   AttributePropagationBuilder
 } from "ceb";
 
-@ElementBuilder.element<ExGreeting>()
-@ContentBuilder.content({
-  content: `<p>Hello, <span id="name"></span>!</p>`,
-  isShadow: true
-})
-@AttributePropagationBuilder.delegate(
-  "name",
-  "span#name",
-  {
-    isShadow: true,
-    toPropName: "textContent"
-  }
-)
+@ElementBuilder.get().decorate()
+@ContentBuilder.get(`<p>Hello, <span id="name"></span>!</p>`)
+  .shadow()
+  .decorate()
+@AttributePropagationBuilder.get("name")
+  .shadow()
+  .to("span#name")
+  .property("textContent")
 export class ExGreeting extends HTMLElement {
-  @FieldBuilder.field()
+  @FieldBuilder.get().decorate()
   name: string = "World"
 }
 ```

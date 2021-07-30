@@ -291,15 +291,14 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      * @param prefix the prefix used to discover the event name from the method name
      */
     decorate(prefix = "on"): MethodDecorator {
-        const builder = this
-        return function (target: E, methName: string, descriptor: PropertyDescriptor) {
-            if (!builder._clauses) {
-                builder._clauses = toKebabCase(
+        return (target: E, methName: string, descriptor: PropertyDescriptor) => {
+            if (!this._clauses) {
+                this._clauses = toKebabCase(
                     methName.replace(prefix, '')
                 )
             }
-            const id = `on-${builder._clauses}`
-            ElementBuilder.getOrSet(target, id, builder).invoke((el, data, target) => {
+            const id = `on-${this._clauses}`
+            ElementBuilder.getOrSet(target, id, this).invoke((el, data, target) => {
                 const fn = descriptor.value as Function
                 fn.call(el, data, target)
             })

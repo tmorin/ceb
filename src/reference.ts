@@ -3,7 +3,7 @@ import {HooksRegistration} from "./hook"
 import {ElementBuilder} from "./element"
 
 /**
- * The builder enhances a readonly property to execute a CSS Selector once the property is get, i.e. `get prop { ... }`.
+ * The builder enhances a readonly property to execute a CSS Selector once the property is get.
  * So that, a property of the Custom Element can always be related to a child element or a set of child elements.
  *
  * By default, the CSS selector targets a child element by its identifier (i.e. the attribute `id`) : `#<PROPERTY NAME>`.

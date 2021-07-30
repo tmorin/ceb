@@ -27,7 +27,7 @@ import {ElementBuilder} from "./element"
  */
 export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> implements Builder<E> {
     private constructor(
-        private readonly _attrBuilder: AttributeBuilder,
+        private readonly _attrBuilder: AttributeBuilder<E>,
         private readonly _fromAttrName = _attrBuilder["_attrName"],
         private _toAttrName = _attrBuilder["_attrName"],
         private _toPropName?: string,
@@ -41,7 +41,7 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
      * @param attrNameOrBuilder the attribute name or builder
      * @template E the type of the Custom Element
      */
-    static get<E extends HTMLElement>(attrNameOrBuilder: string | AttributeBuilder) {
+    static get<E extends HTMLElement>(attrNameOrBuilder: string | AttributeBuilder<E>) {
         return new AttributePropagationBuilder<E>(
             typeof attrNameOrBuilder === "string"
                 ? AttributeBuilder.get(attrNameOrBuilder)
@@ -169,13 +169,12 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
      * ```
      */
     decorate<T extends HTMLElement>(): ClassDecorator {
-        const builder = this
         // @ts-ignore
-        return function (constructor: CustomElementConstructor<T>) {
-            const attrId = `attribute-${builder._fromAttrName}`
-            ElementBuilder.getOrSet(constructor.prototype, attrId, builder._attrBuilder)
+        return (constructor: CustomElementConstructor<T>) => {
+            const attrId = `attribute-${this._fromAttrName}`
+            ElementBuilder.getOrSet(constructor.prototype, attrId, this._attrBuilder)
             const deleId = `delegate-${attrId}`
-            ElementBuilder.getOrSet(constructor.prototype, deleId, builder)
+            ElementBuilder.getOrSet(constructor.prototype, deleId, this)
         }
     }
 
@@ -188,11 +187,13 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
             throw new TypeError("AttributePropagationBuilder - the attribute builder is missing")
         }
         this._attrBuilder
-            .listener((el, data) => this.delegateValue(el, data.newVal))
+            .listener((el, data) => {
+                this.propagateValue(el, data.newVal)
+            })
             .build(Constructor, hooks)
     }
 
-    private delegateValue(el: HTMLElement, newVal: any) {
+    private propagateValue(el: E, newVal: any) {
         const base = this._isShadow ? el.shadowRoot : el
         const targets = base.querySelectorAll(this._selector)
         if (targets.length > 0) {

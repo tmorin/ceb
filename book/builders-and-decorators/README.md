@@ -1,9 +1,8 @@
-# The builders and decorators
+# Builders and decorators
 
 `<ceb/>` provides several built-in builders handling the common requirements.
-For each builder, decorators counter-parts are available.
 
-First, the custom element has to be registered using the builder [ElementBuilder](ElementBuilder.md).
+Firstly, the custom element has to be registered using the builder [ElementBuilder](ElementBuilder.md).
 
 Then, other builders can be used to enhance it:
 
@@ -14,4 +13,4 @@ Then, other builders can be used to enhance it:
 - [TemplateBuilder](book/builders-and-decorators/TemplateBuilder.md): to path the DOM of the custom element
 - [ReferenceBuilder](ReferenceBuilder.md): to get reference of children nodes
 - [AttributePropagationBuilder](AttributePropagationBuilder.md): to delegate attribute mutations to child nodes
-- [PropertyDelegateBuilder](PropertyDelegateBuilder.md): to delegate the property accesses to a single child node
+- [PropertyDelegationBuilder](book/builders-and-decorators/PropertyDelegationBuilder.md): to delegate the property accesses to a single child node
