@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/tmorin/ceb/compare/v2.3.4...v3.0.0) (2021-07-31)
+
+
+### ⚠ BREAKING CHANGES
+
+* review the builder descriptions in the book
+* the decorators are now terminal methods of builders
+
+### Features
+
+* **documentation:** improve examples ([e7af32c](https://github.com/tmorin/ceb/commit/e7af32cde63f1de78a762a210367d45aad653033))
+
+
+* review the builder descriptions in the book ([e9bb2b8](https://github.com/tmorin/ceb/commit/e9bb2b89df48784b8cb30c12180b60834b924593))
+* the decorators are now terminal methods of builders ([e3773de](https://github.com/tmorin/ceb/commit/e3773de251aa87f1dd754f1097354803649fde95))
+
 ### [2.3.4](https://github.com/tmorin/ceb/compare/v2.3.3...v2.3.4) (2021-07-28)
 
 
