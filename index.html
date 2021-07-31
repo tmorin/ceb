@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html" class="active"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/ex-greeting.html"><strong aria-hidden="true">4.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="examples/ex-form-field.html"><strong aria-hidden="true">4.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="examples/ex-todo.html"><strong aria-hidden="true">4.3.</strong> ex-todo</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html" class="active"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> Builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/AttributePropagationBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributePropagationBuilder</a></li><li class="chapter-item expanded "><a href="builders-and-decorators/PropertyDelegationBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegationBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="templating/index.html"><strong aria-hidden="true">4.</strong> Templating</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="templating/grey_dom.html"><strong aria-hidden="true">4.1.</strong> The Grey DOM</a></li><li class="chapter-item expanded "><a href="templating/template_literal.html"><strong aria-hidden="true">4.2.</strong> Template literal</a></li></ol></li><li class="chapter-item expanded "><a href="examples/index.html"><strong aria-hidden="true">5.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/ex-greeting.html"><strong aria-hidden="true">5.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="examples/ex-form-field.html"><strong aria-hidden="true">5.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="examples/ex-todo.html"><strong aria-hidden="true">5.3.</strong> ex-todo</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -167,34 +167,16 @@
 <p><code>&lt;ceb/&gt;</code> is a library helping to develop <a href="https://html.spec.whatwg.org/multipage/custom-elements.html">Custom Elements (v1)</a>.
 Its core is a builder which executes others builders.
 By this way, <code>&lt;ceb/&gt;</code> is natively opened to extensions and builders easily sharable.</p>
+<p>A simple Custom Element displaying a greeting text:</p>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="XWRZwVG" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/XWRZwVG">
+  &lt;ceb/&gt; ~ SimpleGreeting</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+<hr />
 <p><code>&lt;ceb/&gt;</code> is released under the <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
 <p>The source code is available on GitHub: <a href="https://github.com/tmorin/ceb">github.com/tmorin/ceb</a>.</p>
-<hr />
-<p>A simple Custom Element displaying a greeting text:</p>
-<pre><code class="language-typescript">import {ElementBuilder, FieldBuilder, TemplateBuilder} from &quot;ceb&quot;
-
-// Define the Custom Element
-@ElementBuilder.element&lt;ExGreeting&gt;()
-export class ExGreeting extends HTMLElement {
-  // Bind the property `name` to the attribute `name`
-  @FieldBuilder.field()
-  name = &quot;World&quot;
-
-  // Define the template of the custom element
-  @TemplateBuilder.template()
-  private render() {
-    return html`&lt;p&gt;Hello, ${this.name}!&lt;/p&gt;`
-  }
-  
-  // Render the template when the name change
-  @FieldBuilder.listen()
-  private onName() {
-    this.render()
-  }
-}
-</code></pre>
-<pre><code class="language-html">&lt;ex-greeting name=&quot;John Doe&quot; /&gt;
-</code></pre>
 
                     </main>
 

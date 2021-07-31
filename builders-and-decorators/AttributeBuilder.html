@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html" class="active"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">4.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">4.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">4.3.</strong> ex-todo</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> Builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html" class="active"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributePropagationBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributePropagationBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegationBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegationBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../templating/index.html"><strong aria-hidden="true">4.</strong> Templating</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../templating/grey_dom.html"><strong aria-hidden="true">4.1.</strong> The Grey DOM</a></li><li class="chapter-item expanded "><a href="../templating/template_literal.html"><strong aria-hidden="true">4.2.</strong> Template literal</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">5.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">5.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">5.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">5.3.</strong> ex-todo</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -164,67 +164,17 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#attributebuilder" id="attributebuilder">AttributeBuilder</a></h1>
-<p>The class <code>AttributeBuilder</code> provides services to initialize an attribute and react on changes.</p>
-<p>The static method <code>AttributeBuilder.get(attrName)</code> returns a fresh builder.
-The builder expects the name of the attribute in kebab case.</p>
-<pre><code class="language-typescript">import {AttributeBuilder} from '@tmorin/ceb'
-// creates the builder
-const builder = AttributeBuilder.get('an-attribute')
-</code></pre>
-<p>The builder and underlying decorators are also technically documented: <a href="../api/classes/AttributeBuilder.html">AttributeBuilder</a>.</p>
-<h2><a class="header" href="#boolean-value" id="boolean-value">Boolean value</a></h2>
-<p>By default an attribute is a string value.
-The method <code>AttributeBuilder#boolean()</code> can be used to force a boolean one.</p>
-<pre><code class="language-typescript">import {AttributeBuilder} from '@tmorin/ceb'
-// creates the builder
-const builder = AttributeBuilder.get('a-boolean-attribute').boolean()
-</code></pre>
-<p>The value <code>true</code> means the attribute exists: <code>element.hasAttribute('a-boolean-value') === true</code>.
-When <code>true</code>, the value of the attribute is an empty string.</p>
-<p>The value <code>false</code> means the attribute doesn't exist: <code>element.hasAttribute('a-boolean-value') === false</code>.</p>
-<h2><a class="header" href="#default-value" id="default-value">Default value</a></h2>
-<p>Once instantiated, an attribute can have a default value.
-The method <code>AttributeBuilder#default(value)</code> can be used to set the default value.</p>
-<pre><code class="language-typescript">import {AttributeBuilder} from '@tmorin/ceb'
-// creates the builder and set the default value `a default value`
-const builder = AttributeBuilder.get('an-attribute').default('a default value')
-</code></pre>
-<p>An attribute of type boolean can also have a default value.</p>
-<pre><code class="language-typescript">import {AttributeBuilder} from '@tmorin/ceb'
-// creates the builder and set the default value `false`
-const builder = AttributeBuilder.get('an-attribute').boolean().default(true)
-</code></pre>
-<h2><a class="header" href="#reacting-on-changes" id="reacting-on-changes">Reacting on changes</a></h2>
-<p>Listeners can be registered in order to react on attribute changes.
-The method <code>AttributeBuilder#listener(listener)</code> can be used to set the default value.</p>
-<pre><code class="language-typescript">import {AttributeBuilder} from '@tmorin/ceb'
-// creates the builder and add a listener
-const builder = AttributeBuilder.get('an-attribute').listener((el, data) =&gt; {
-    console.log(el.tagName, data.attrName, data.oldVal, data.newVal);
-})
-</code></pre>
-<h2><a class="header" href="#the-decorator" id="the-decorator">The decorator</a></h2>
-<p>Attributes can also be defined using a decorator.</p>
-<pre><code class="language-typescript">import {ElementBuilder, AttributeBuilder, AttributeListenerData} from '@tmorin/ceb'
-// register the custom element
-@ElementBuilder.element&lt;MyCustomElement&gt;()
-// defines the custom element class
-class MyCustomElement extends HTMLElement {
-    // bind the method to the attribute 'an-attribute'
-    @AttributeBuilder.listen()
-    onAnAttribute(data: AttributeListenerData) {
-        console.log(data);
-    }
-}
-</code></pre>
-<h2><a class="header" href="#an-example" id="an-example">An example</a></h2>
-<p>The registered custom element is the item of a todo list.
-Its API is two attributes.
-The first one, <code>content</code>, is the description of the task.
-The second one, <code>done</code>, is a boolean saying if the task is done or not.</p>
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="vYEXVKd" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/vYEXVKd">
-  &lt;/ceb&gt; ~ AttributeBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+<p>The builder handles the initialization of an attribute as well as the registration of its listeners.</p>
+<p>The reference documentation is there: <a href="../api/classes/AttributeBuilder.html">AttributeBuilder</a>.</p>
+<h2><a class="header" href="#challenge-yourself" id="challenge-yourself">Challenge yourself</a></h2>
+<p>Will you be able to ...</p>
+<ol>
+<li>display <code>Hello, Joen Doe!</code> just setting the attribute <code>name</code>?</li>
+<li>change the attribute name to <code>alt-name</code> without changing the method name?</li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="rNmvGqq" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/rNmvGqq">
+  &lt;ceb/&gt; ~ challenge/AttributeBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>

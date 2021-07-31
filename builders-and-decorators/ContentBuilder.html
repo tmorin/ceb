@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html" class="active"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">4.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">4.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">4.3.</strong> ex-todo</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> Builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html" class="active"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributePropagationBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributePropagationBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegationBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegationBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../templating/index.html"><strong aria-hidden="true">4.</strong> Templating</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../templating/grey_dom.html"><strong aria-hidden="true">4.1.</strong> The Grey DOM</a></li><li class="chapter-item expanded "><a href="../templating/template_literal.html"><strong aria-hidden="true">4.2.</strong> Template literal</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">5.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">5.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">5.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">5.3.</strong> ex-todo</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -164,37 +164,17 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#contentbuilder" id="contentbuilder">ContentBuilder</a></h1>
-<p>The class <code>ContentBuilder</code> provides service to initialize the HTML content of the custom element.</p>
-<p>The static method <code>ContentBuilder.get(content)</code> returns a fresh builder.
-The builder expects a content in string or a function providing it.</p>
-<pre><code class="language-typescript">import {ContentBuilder} from '@tmorin/ceb'
-// creates the builder
-const builder = ContentBuilder.get('&lt;strong&gt;the content&lt;/strong&gt;')
-</code></pre>
-<p>The builder and underlying decorators are also technically documented: <a href="../api/classes/ContentBuilder.html">ContentBuilder</a>.</p>
-<h2><a class="header" href="#initialize-the-shadow-dom" id="initialize-the-shadow-dom">Initialize the shadow DOM</a></h2>
-<p>By default, the builder initializes the light DOM of the custom element.
-The method <code>ContentBuilder#shadow(focus)</code> can be used to force the initialization of a shadow DOM.</p>
-<pre><code class="language-typescript">import {ContentBuilder} from '@tmorin/ceb'
-// initializes the shadow DOM of the custom element
-const builder = ContentBuilder.get('a content').shadow()
-</code></pre>
-<h2><a class="header" href="#the-decorator" id="the-decorator">The decorator</a></h2>
-<p>Templates can also be defined using decorators.</p>
-<pre><code class="language-typescript">import {ElementBuilder, ContentBuilder} from '@tmorin/ceb'
-// register the custom element
-@ElementBuilder.element&lt;MyCustomElement&gt;()
-// define the template
-@ContentBuilder.template({content: '&lt;p&gt;&lt;input&gt;&lt;/p&gt;', isShadow: true})
-// defines the custom element class
-class MyCustomElement extends HTMLElement {
-}
-</code></pre>
-<h2><a class="header" href="#example" id="example">Example</a></h2>
-<p>The registered custom element is initialized with a shadow DOM wrapping its light DOM.</p>
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="BayQzPK" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/BayQzPK">
-  &lt;/ceb&gt; ~ ContentBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+<p>The builder handles the initialization of the HTML content of the Custom Element.</p>
+<p>The reference documentation is there: <a href="../api/classes/ContentBuilder.html">ContentBuilder</a>.</p>
+<h2><a class="header" href="#challenge-yourself" id="challenge-yourself">Challenge yourself</a></h2>
+<p>Will you be able ...</p>
+<ol>
+<li>to display <code>Hello, Joen Doe!</code>?</li>
+<li>to render into a Shadow DOM?</li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="LYymeaB" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/LYymeaB">
+  &lt;ceb/&gt; ~ challenge/ContentBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>

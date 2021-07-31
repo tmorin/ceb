@@ -58,7 +58,7 @@
 					<a href="HooksRegistration.html">HooksRegistration</a>
 				</li>
 			</ul>
-			<h1>Interface HooksRegistration</h1>
+			<h1>Interface HooksRegistration&lt;E&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -70,8 +70,21 @@
 					<div class="lead">
 						<p>A HooksRegistration provides a way to execute logic according to the Custom Element life cycle.</p>
 					</div>
-					<p>The is API is dedicated for developer of Builders.</p>
 				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>E<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span> = <span class="tsd-signature-type">HTMLElement</span></h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>the type of the Custom Element</p>
+								<p>This API is dedicated for developer of Builders.</p>
+							</div>
+						</div>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
@@ -79,12 +92,6 @@
 					<li>
 						<span class="target">HooksRegistration</span>
 					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel">
-				<h3>Implemented by</h3>
-				<ul class="tsd-hierarchy">
-					<li><a href="../classes/ElementBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">ElementBuilder</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -108,13 +115,13 @@
 					<a name="after" class="tsd-anchor"></a>
 					<h3>after</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">after&lt;K&gt;<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, callback<span class="tsd-signature-symbol">: </span><a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">after&lt;K&gt;<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, callback<span class="tsd-signature-symbol">: </span><a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/1bbfc36/src/hook.ts#L41">hook.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/5d29a47/src/hook.ts#L43">hook.ts:43</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -125,7 +132,7 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a></h4>
+									<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -137,7 +144,7 @@
 									</div>
 								</li>
 								<li>
-									<h5>callback: <a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span></h5>
+									<h5>callback: <a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>the callback</p>
 									</div>
@@ -151,13 +158,13 @@
 					<a name="before" class="tsd-anchor"></a>
 					<h3>before</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">before&lt;K&gt;<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, callback<span class="tsd-signature-symbol">: </span><a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">before&lt;K&gt;<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, callback<span class="tsd-signature-symbol">: </span><a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/1bbfc36/src/hook.ts#L27">hook.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/5d29a47/src/hook.ts#L29">hook.ts:29</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -168,7 +175,7 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a></h4>
+									<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -180,7 +187,7 @@
 									</div>
 								</li>
 								<li>
-									<h5>callback: <a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span></h5>
+									<h5>callback: <a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>the callback</p>
 									</div>
@@ -194,13 +201,13 @@
 					<a name="on" class="tsd-anchor"></a>
 					<h3>on</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">on&lt;K&gt;<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, callback<span class="tsd-signature-symbol">: </span><a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">on&lt;K&gt;<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">K</span>, callback<span class="tsd-signature-symbol">: </span><a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/1bbfc36/src/hook.ts#L34">hook.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/5d29a47/src/hook.ts#L36">hook.ts:36</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -211,7 +218,7 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a></h4>
+									<h4>K<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">keyof </span><a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -223,7 +230,7 @@
 									</div>
 								</li>
 								<li>
-									<h5>callback: <a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span></h5>
+									<h5>callback: <a href="../index.html#HookCallbacks" class="tsd-signature-type" data-tsd-kind="Type alias">HookCallbacks</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">K</span><span class="tsd-signature-symbol">]</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>the callback</p>
 									</div>
@@ -245,37 +252,37 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/AttributeBuilder.html" class="tsd-kind-icon">Attribute<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/AttributeDelegateBuilder.html" class="tsd-kind-icon">Attribute<wbr>Delegate<wbr>Builder</a>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="../classes/AttributePropagationBuilder.html" class="tsd-kind-icon">Attribute<wbr>Propagation<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/ContentBuilder.html" class="tsd-kind-icon">Content<wbr>Builder</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/ElementBuilder.html" class="tsd-kind-icon">Element<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/FieldBuilder.html" class="tsd-kind-icon">Field<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/OnBuilder.html" class="tsd-kind-icon">On<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/PropertyDelegateBuilder.html" class="tsd-kind-icon">Property<wbr>Delegate<wbr>Builder</a>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="../classes/PropertyDelegationBuilder.html" class="tsd-kind-icon">Property<wbr>Delegation<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/ReferenceBuilder.html" class="tsd-kind-icon">Reference<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/TemplateBuilder.html" class="tsd-kind-icon">Template<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-interface">
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="AttributeListener.html" class="tsd-kind-icon">Attribute<wbr>Listener</a>
 					</li>
-					<li class=" tsd-kind-interface">
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="Builder.html" class="tsd-kind-icon">Builder</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
@@ -284,7 +291,7 @@
 					<li class=" tsd-kind-interface tsd-has-type-parameter tsd-is-protected">
 						<a href="CustomElementConstructor.html" class="tsd-kind-icon">Custom<wbr>Element<wbr>Constructor</a>
 					</li>
-					<li class=" tsd-kind-interface">
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="FieldListener.html" class="tsd-kind-icon">Field<wbr>Listener</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-protected">
@@ -292,7 +299,7 @@
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-is-protected">
+					<li class="current tsd-kind-interface tsd-has-type-parameter tsd-is-protected">
 						<a href="HooksRegistration.html" class="tsd-kind-icon">Hooks<wbr>Registration</a>
 						<ul>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
@@ -308,53 +315,23 @@
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface">
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="OnListener.html" class="tsd-kind-icon">On<wbr>Listener</a>
 					</li>
-					<li class=" tsd-kind-interface">
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="Template.html" class="tsd-kind-icon">Template</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#AttributeDelegateDecoratorOptions" class="tsd-kind-icon">Attribute<wbr>Delegate<wbr>Decorator<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../index.html#AttributeListenerData" class="tsd-kind-icon">Attribute<wbr>Listener<wbr>Data</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="../index.html#ContentDecoratorOptions" class="tsd-kind-icon">Content<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="../index.html#ElementDecoratorOptions" class="tsd-kind-icon">Element<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#FieldDecoratorOptions" class="tsd-kind-icon">Field<wbr>Decorator<wbr>Options</a>
-					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../index.html#FieldListenerData" class="tsd-kind-icon">Field<wbr>Listener<wbr>Data</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-is-protected">
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-protected">
 						<a href="../index.html#HookCallbacks" class="tsd-kind-icon">Hook<wbr>Callbacks</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#ListenerAttributeDecoratorOptions" class="tsd-kind-icon">Listener<wbr>Attribute<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#ListenerFieldDecoratorOptions" class="tsd-kind-icon">Listener<wbr>Field<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#ListenerOnDecoratorOptions" class="tsd-kind-icon">Listener<wbr>OnDecorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#PropertyDelegateDecoratorOptions" class="tsd-kind-icon">Property<wbr>Delegate<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#ReferenceDecoratorOptions" class="tsd-kind-icon">Reference<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="../index.html#TemplateDecoratorOptions" class="tsd-kind-icon">Template<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#UpdateElementParameters" class="tsd-kind-icon">Update<wbr>Element<wbr>Parameters</a>
+						<a href="../index.html#UpdateParameters" class="tsd-kind-icon">Update<wbr>Parameters</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../index.html#html" class="tsd-kind-icon">html</a>
@@ -373,7 +350,6 @@
 				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
@@ -381,9 +357,6 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>

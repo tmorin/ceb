@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>AttributeDelegateBuilder - &lt;ceb/&gt; ~ Custom Element Builder</title>
+        <title>PropertyDelegationBuilder - &lt;ceb/&gt; ~ Custom Element Builder</title>
         
         
 
@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeDelegateBuilder.html" class="active"><strong aria-hidden="true">3.8.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">4.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">4.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">4.3.</strong> ex-todo</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> Builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributePropagationBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributePropagationBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegationBuilder.html" class="active"><strong aria-hidden="true">3.9.</strong> PropertyDelegationBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../templating/index.html"><strong aria-hidden="true">4.</strong> Templating</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../templating/grey_dom.html"><strong aria-hidden="true">4.1.</strong> The Grey DOM</a></li><li class="chapter-item expanded "><a href="../templating/template_literal.html"><strong aria-hidden="true">4.2.</strong> Template literal</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">5.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">5.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">5.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">5.3.</strong> ex-todo</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,68 +163,18 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#attributedelegatebuilder" id="attributedelegatebuilder">AttributeDelegateBuilder</a></h1>
-<p>The class <code>AttributeDelegateBuilder</code> provides services to delegate the mutations of an attribute to targets (i.e. a child nodes).</p>
-<p>The static method <code>AttributeDelegateBuilder.get(attributeBuilder)</code> returns a fresh builder.
-The builder expects the instance of an <code>AttributeBuilder</code>.</p>
-<pre><code class="language-typescript">import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
-// creates the builder
-const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
-</code></pre>
-<p>The builder and underlying decorators are also technically documented: <a href="../api/classes/AttributeDelegateBuilder.html">AttributeDelegateBuilder</a>.</p>
-<h2><a class="header" href="#set-the-selector" id="set-the-selector">Set the selector</a></h2>
-<p>The method <code>AttributeDelegateBuilder#to(selector)</code> has to be used to define the selector.
-The selector is mandatory otherwise the builder won't be able to identify the targets.</p>
-<pre><code class="language-typescript">import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
-// delegate the accesses to the attribute 'an-attribute'
-const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
-    .to('button');
-</code></pre>
-<h2><a class="header" href="#shadow-dom" id="shadow-dom">Shadow DOM</a></h2>
-<p>By default, the builder selects targets relative to the light DOM.</p>
-<p>The method <code>AttributeDelegateBuilder#shadow()</code> can be used to select targets relative to the shadow DOM.</p>
-<pre><code class="language-typescript">import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
-// delegate the accesses to the attribute 'an-attribute'
-const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
-    .to('button')
-    .shadow();
-</code></pre>
-<h2><a class="header" href="#bind-to-another-attribute" id="bind-to-another-attribute">Bind to another attribute</a></h2>
-<p>By default, the builder mutates the same targets' attribute.</p>
-<p>The method <code>AttributeDelegateBuilder#attribute(toAttrName)</code> can be used to force another attribute name.</p>
-<pre><code class="language-typescript">import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
-// delegate the accesses to the attribute 'an-attribute'
-const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
-    .to('button')
-    .attribute('another-attribute');
-</code></pre>
-<h2><a class="header" href="#bind-to-a-property" id="bind-to-a-property">Bind to a property</a></h2>
-<p>The method <code>AttributeDelegateBuilder#property(toPropName)</code> can be used to force the mutation of a property.</p>
-<pre><code class="language-typescript">import {AttributeDelegateBuilder, AttributeBuilder} from '@tmorin/ceb'
-// delegate the accesses to the attribute 'an-attribute'
-const builder = AttributeDelegateBuilder.get(AttributeBuilder.get('an-attribute'))
-    .to('button')
-    .property('aProperty');
-</code></pre>
-<h2><a class="header" href="#the-decorator" id="the-decorator">The decorator</a></h2>
-<p>Attribute delegations can also be defined using a decorator.</p>
-<pre><code class="language-typescript">import {ElementBuilder, AttributeDelegateBuilder} from '@tmorin/ceb'
-// register the custom element
-@ElementBuilder.element&lt;MyCustomElement&gt;()
-// define an attribute delegation
-@AttributeDelegateBuilder.delegate('value', 'input')
-// defines the custom element class
-class MyCustomElement extends HTMLElement {
-}
-</code></pre>
-<h2><a class="header" href="#example" id="example">Example</a></h2>
-<p>The registered custom element is composed of an <code>input</code> and a button <code>button</code>.
-The boolean attribute <code>disabled</code> is delegated to both <code>input</code> and <code>button</code>.
-The attribute <code>placeolder</code> is delegated to the <code>input</code>.
-The attribute <code>label</code> is delegated to the <code>textContent</code> property of the <code>button</code>.</p>
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="XWJNOwN" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/XWJNOwN">
-  &lt;/ceb&gt; ~ AttributeDelegateBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+                        <h1><a class="header" href="#propertydelegationbuilder" id="propertydelegationbuilder">PropertyDelegationBuilder</a></h1>
+<p>The builder delegates the accesses of a property to an embedded element.</p>
+<p>The reference documentation is there: <a href="../api/classes/PropertyDelegationBuilder.html">PropertyDelegationBuilder</a>.</p>
+<h2><a class="header" href="#challenge-yourself" id="challenge-yourself">Challenge yourself</a></h2>
+<p>Will you be able to ...</p>
+<ol>
+<li>delegate the property <code>value</code> to the attribute <code>placeholder</code> of the <code>input</code>?</li>
+<li>delegate the property <code>frozen</code> to the property <code>disabled</code> of the <code>input</code>?</li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="QWvrBNr" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/QWvrBNr">
+  &lt;ceb/&gt; ~ challenge/PropertyDelegationBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
@@ -234,13 +184,13 @@ The attribute <code>label</code> is delegated to the <code>textContent</code> pr
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="../builders-and-decorators/ReferenceBuilder.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../builders-and-decorators/AttributePropagationBuilder.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="../builders-and-decorators/PropertyDelegateBuilder.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../templating/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -252,13 +202,13 @@ The attribute <code>label</code> is delegated to the <code>textContent</code> pr
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a rel="prev" href="../builders-and-decorators/ReferenceBuilder.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../builders-and-decorators/AttributePropagationBuilder.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a rel="next" href="../builders-and-decorators/PropertyDelegateBuilder.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../templating/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 

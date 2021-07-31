@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html" class="active"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">4.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">4.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">4.3.</strong> ex-todo</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> Builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html" class="active"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributePropagationBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributePropagationBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegationBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegationBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../templating/index.html"><strong aria-hidden="true">4.</strong> Templating</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../templating/grey_dom.html"><strong aria-hidden="true">4.1.</strong> The Grey DOM</a></li><li class="chapter-item expanded "><a href="../templating/template_literal.html"><strong aria-hidden="true">4.2.</strong> Template literal</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">5.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">5.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">5.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">5.3.</strong> ex-todo</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -163,92 +163,18 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#onbuilder" id="onbuilder">OnBuilder</a></h1>
-<p>The class <code>OnBuilder</code> provides services to listen to DOM events.
-Listeners are added on <code>connectedCallback</code> and removed on <code>disconnectedCallback</code>.</p>
-<p>The static method <code>OnBuilder.get(clauses)</code> returns a fresh builder.
-The builder expects the clauses defining the event types to listen to and eventually a query selector.
-Clauses have to be separated by comas.</p>
-<pre><code class="language-typescript">import {OnBuilder} from '@tmorin/ceb'
-// creates the builder
-const builder = OnBuilder.get('click, dblclick')
-</code></pre>
-<p>The builder and underlying decorators are also technically documented: <a href="../api/classes/OnBuilder.html">OnBuilder</a>.</p>
-<h2><a class="header" href="#listening-to-events-from-the-custom-element" id="listening-to-events-from-the-custom-element">Listening to events from the custom element</a></h2>
-<p>By default, the listeners are added to the custom element it-self.</p>
-<pre><code class="language-typescript">import {OnBuilder} from '@tmorin/ceb'
-// add a listener to the custom element listening to `click` events
-const builder = OnBuilder.get('click').invoke((el, evt, target) =&gt; {
-    console.log(el.tagName, evt.type, target.tagName);
-    console.assert(el.tagName === target.tagName)
-})
-</code></pre>
-<h2><a class="header" href="#listening-to-events-from-a-child-node" id="listening-to-events-from-a-child-node">Listening to events from a child node</a></h2>
-<p>The listeners can also be added to a child node.
-The query selector targeting the child node has to be given next to the DOM event type.</p>
-<pre><code class="language-typescript">import {OnBuilder} from '@tmorin/ceb'
-// add a listener to the first child button listening to `click` events
-const builder = OnBuilder.get('click button').invoke((el, evt, target) =&gt; {
-    console.log(el.tagName, evt.type, target.tagName);
-    console.assert(el.tagName !== target.tagName);
-    console.assert('BUTTON' === target.tagName)
-})
-</code></pre>
-<h2><a class="header" href="#bubbling-and-capture-phase" id="bubbling-and-capture-phase">Bubbling and capture phase</a></h2>
-<p>By default, the listeners are invoked on the bubbling phase.
-The method <code>OnBuilder#capture()</code> can be used to force the capture phase.</p>
-<pre><code class="language-typescript">import {OnBuilder} from '@tmorin/ceb'
-// add a listener listening `click` events on the capture phase
-const builder = OnBuilder.get('click button').capture()
-</code></pre>
-<p>More information are available on developer.mozilla.org about <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#Event_bubbling_and_capture">event bubbling and capture</a>.</p>
-<h2><a class="header" href="#eventpreventdefault-and-eventstoppropagation" id="eventpreventdefault-and-eventstoppropagation">event.preventDefault() and event.stopPropagation()</a></h2>
-<p>The method <code>Event#preventDefault()</code> and <code>Event#stopPropagation()</code> can be automatically called.</p>
-<pre><code class="language-typescript">import {OnBuilder} from '@tmorin/ceb'
-// add a listener listening `submit` events and preventing the default behavior
-const builderA = OnBuilder.get('submit').prevent();
-// add a listener listening `submit` events and stopping the event propagation
-const builderB = OnBuilder.get('button').stop();
-// add a listener listening `submit` events and preventing the default behavior as well as stopping the event propagation
-const builderC = OnBuilder.get('button').skip()
-</code></pre>
-<h2><a class="header" href="#event-delegation" id="event-delegation">Event delegation</a></h2>
-<p>Event delegation allows us to attach a single event listener, to a parent element, that will fire for all descendants matching a selector, whether those descendants exist now or are added in the future.
-<a href="https://learn.jquery.com/events/event-delegation">c.f. JQuery doc</a></p>
-<p>The method <code>OnBuilder#delegate(selector)</code> is used to define the selector.</p>
-<pre><code class="language-typescript">import {OnBuilder} from '@tmorin/ceb'
-// add a listener listening `click` events on children matching the selector `li button.delete`
-const builder = OnBuilder.get('click').delegate('li button.delete')
-</code></pre>
-<h2><a class="header" href="#shadow-dom" id="shadow-dom">Shadow DOM</a></h2>
-<p>By default, the listeners are listening events coming from the light DOM.</p>
-<p>The method <code>OnBuilder#shadow()</code> adds the listener to the <code>shadowRoot</code> property.
-So that, the listener only listen to events coming from the shadow DOM.</p>
-<pre><code class="language-typescript">import {OnBuilder} from '@tmorin/ceb'
-// add a listener listening `click` events coming from the shadow DOM
-const builder = OnBuilder.get('click').shadow()
-</code></pre>
-<h2><a class="header" href="#the-decorator" id="the-decorator">The decorator</a></h2>
-<p>On listeners can also be defined using decorator.</p>
-<pre><code class="language-typescript">import {ElementBuilder, OnBuilder} from '@tmorin/ceb'
-// register the custom element
-@ElementBuilder.element&lt;MyCustomElement&gt;()
-// defines the custom element class
-class MyCustomElement extends HTMLElement {
-    // defines the listener
-    @OnBuilder.listen('event-name')
-    on(data: Event) {
-        console.log(data);
-    }
-}
-</code></pre>
-<h2><a class="header" href="#example" id="example">Example</a></h2>
-<p>The registered custom element is an extension of the <code>ul</code> element.
-It reacts on <code>click</code> events coming from <code>button</code>.
-When a button is clicked, its parent <code>li</code> is removed from the DOM.</p>
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="LYERaao" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/LYERaao">
-  &lt;/ceb&gt; ~ OnBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+                        <h1><a class="header" href="#fieldbuilder" id="fieldbuilder">FieldBuilder</a></h1>
+<p>The builder handles the addition and removal of DOM event listeners.</p>
+<p>The reference documentation is there: <a href="../api/classes/OnBuilder.html">OnBuilder</a>.</p>
+<h2><a class="header" href="#challenge-yourself" id="challenge-yourself">Challenge yourself</a></h2>
+<p>Will you be able to ...</p>
+<ol>
+<li>display <code>Hello, World!</code> only when the <code>click</code> event comes from a <code>button</code>? <small>c.f. Event Delegation ;)</small></li>
+<li>display <code>Hello, World!</code> only on double click? <small>there is a native event for that ;)</small></li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="KKmRyWG" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/KKmRyWG">
+  &lt;ceb/&gt; ~ challenge/OnBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>

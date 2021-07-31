@@ -58,7 +58,7 @@
 					<a href="Template.html">Template</a>
 				</li>
 			</ul>
-			<h1>Interface Template</h1>
+			<h1>Interface Template&lt;P&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -68,10 +68,22 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A template updates a DOM element from a set of operations.
-						The operations are discovered during the parsing of a <em>html literal</em> statement, c.f. <a href="../index.html#html">html</a>.</p>
+						<p>A template updates the children of an element.</p>
 					</div>
 				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>P = <span class="tsd-signature-type">any</span></h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The type of the template parameters.</p>
+							</div>
+						</div>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
@@ -100,30 +112,30 @@
 					<a name="render" class="tsd-anchor"></a>
 					<h3>render</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">render<span class="tsd-signature-symbol">(</span>element<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span>, parameters<span class="tsd-signature-symbol">?: </span><a href="../index.html#UpdateElementParameters" class="tsd-signature-type" data-tsd-kind="Type alias">UpdateElementParameters</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">render<span class="tsd-signature-symbol">(</span>destination<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DocumentFragment</span>, parameters<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/1bbfc36/src/template/literal.ts#L96">template/literal.ts:96</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/5d29a47/src/template/builder.ts#L16">template/builder.ts:16</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Update the content of an element.</p>
+									<p>Render the template.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>element: <span class="tsd-signature-type">Element</span></h5>
+									<h5>destination: <span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">DocumentFragment</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>the element where render the template</p>
+										<p>the destination node</p>
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> parameters: <a href="../index.html#UpdateElementParameters" class="tsd-signature-type" data-tsd-kind="Type alias">UpdateElementParameters</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> parameters: <span class="tsd-signature-type">P</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>the parameters of the rendering</p>
 									</div>
@@ -145,37 +157,37 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/AttributeBuilder.html" class="tsd-kind-icon">Attribute<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/AttributeDelegateBuilder.html" class="tsd-kind-icon">Attribute<wbr>Delegate<wbr>Builder</a>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="../classes/AttributePropagationBuilder.html" class="tsd-kind-icon">Attribute<wbr>Propagation<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/ContentBuilder.html" class="tsd-kind-icon">Content<wbr>Builder</a>
 					</li>
 					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/ElementBuilder.html" class="tsd-kind-icon">Element<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/FieldBuilder.html" class="tsd-kind-icon">Field<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/OnBuilder.html" class="tsd-kind-icon">On<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-class">
-						<a href="../classes/PropertyDelegateBuilder.html" class="tsd-kind-icon">Property<wbr>Delegate<wbr>Builder</a>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="../classes/PropertyDelegationBuilder.html" class="tsd-kind-icon">Property<wbr>Delegation<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/ReferenceBuilder.html" class="tsd-kind-icon">Reference<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/TemplateBuilder.html" class="tsd-kind-icon">Template<wbr>Builder</a>
 					</li>
-					<li class=" tsd-kind-interface">
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="AttributeListener.html" class="tsd-kind-icon">Attribute<wbr>Listener</a>
 					</li>
-					<li class=" tsd-kind-interface">
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="Builder.html" class="tsd-kind-icon">Builder</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
@@ -184,21 +196,21 @@
 					<li class=" tsd-kind-interface tsd-has-type-parameter tsd-is-protected">
 						<a href="CustomElementConstructor.html" class="tsd-kind-icon">Custom<wbr>Element<wbr>Constructor</a>
 					</li>
-					<li class=" tsd-kind-interface">
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="FieldListener.html" class="tsd-kind-icon">Field<wbr>Listener</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-is-protected">
 						<a href="HookRegistry.html" class="tsd-kind-icon">Hook<wbr>Registry</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-is-protected">
+					<li class=" tsd-kind-interface tsd-has-type-parameter tsd-is-protected">
 						<a href="HooksRegistration.html" class="tsd-kind-icon">Hooks<wbr>Registration</a>
 					</li>
-					<li class=" tsd-kind-interface">
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="OnListener.html" class="tsd-kind-icon">On<wbr>Listener</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface">
+					<li class="current tsd-kind-interface tsd-has-type-parameter">
 						<a href="Template.html" class="tsd-kind-icon">Template</a>
 						<ul>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
@@ -209,46 +221,16 @@
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#AttributeDelegateDecoratorOptions" class="tsd-kind-icon">Attribute<wbr>Delegate<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
 						<a href="../index.html#AttributeListenerData" class="tsd-kind-icon">Attribute<wbr>Listener<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="../index.html#ContentDecoratorOptions" class="tsd-kind-icon">Content<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="../index.html#ElementDecoratorOptions" class="tsd-kind-icon">Element<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#FieldDecoratorOptions" class="tsd-kind-icon">Field<wbr>Decorator<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../index.html#FieldListenerData" class="tsd-kind-icon">Field<wbr>Listener<wbr>Data</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-is-protected">
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-protected">
 						<a href="../index.html#HookCallbacks" class="tsd-kind-icon">Hook<wbr>Callbacks</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#ListenerAttributeDecoratorOptions" class="tsd-kind-icon">Listener<wbr>Attribute<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#ListenerFieldDecoratorOptions" class="tsd-kind-icon">Listener<wbr>Field<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#ListenerOnDecoratorOptions" class="tsd-kind-icon">Listener<wbr>OnDecorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#PropertyDelegateDecoratorOptions" class="tsd-kind-icon">Property<wbr>Delegate<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#ReferenceDecoratorOptions" class="tsd-kind-icon">Reference<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="../index.html#TemplateDecoratorOptions" class="tsd-kind-icon">Template<wbr>Decorator<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-type-alias">
-						<a href="../index.html#UpdateElementParameters" class="tsd-kind-icon">Update<wbr>Element<wbr>Parameters</a>
+						<a href="../index.html#UpdateParameters" class="tsd-kind-icon">Update<wbr>Parameters</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../index.html#html" class="tsd-kind-icon">html</a>
@@ -267,7 +249,6 @@
 				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
@@ -275,9 +256,6 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>

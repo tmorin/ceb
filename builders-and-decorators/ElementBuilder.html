@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html" class="active"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">4.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">4.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">4.3.</strong> ex-todo</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> Builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html" class="active"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributePropagationBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributePropagationBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegationBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegationBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../templating/index.html"><strong aria-hidden="true">4.</strong> Templating</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../templating/grey_dom.html"><strong aria-hidden="true">4.1.</strong> The Grey DOM</a></li><li class="chapter-item expanded "><a href="../templating/template_literal.html"><strong aria-hidden="true">4.2.</strong> Template literal</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">5.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">5.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">5.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">5.3.</strong> ex-todo</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -164,138 +164,77 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#elementbuilder" id="elementbuilder">ElementBuilder</a></h1>
-<p>The class <code>ElementBuilder</code> provides services to enhance and register a custom element.
+<p>The class <code>ElementBuilder</code> provides services to enhance and register a Custom Element.
 It's the main builder, the entry point of the library.</p>
-<p>The static method <code>CustomElement.get(constructor)</code> returns a fresh builder.
-The method expects the constructor of the custom element.</p>
-<pre><code class="language-typescript">import {ElementBuilder} from '@tmorin/ceb'
-// defines the custom element class
-class MyCustomElement extends HTMLElement {
-    constructor() {
-        super()
-    }
-}
-// creates the builder
-const builder = ElementBuilder.get(MyCustomElement)
-</code></pre>
-<p>The builder and underlying decorators are also technically documented: <a href="../api/classes/ElementBuilder.html">ElementBuilder</a>.</p>
-<h2><a class="header" href="#registering-a-new-custom-element" id="registering-a-new-custom-element">Registering a new custom element</a></h2>
-<p>A custom element is registered with the method <code>ElementBuilder#register()</code>.</p>
-<pre><code class="language-typescript">import {ElementBuilder} from '@tmorin/ceb'
-// defines the custom element class
-class MyCustomElement extends HTMLElement {
-    constructor() {
-        super();
-    }
-}
-// creates the builder
-const builder = ElementBuilder.get(MyCustomElement)
-// register the custom element
-builder.register()
-</code></pre>
-<p>The custom element can also be registered by a decorator.</p>
-<pre><code class="language-typescript">import {ElementBuilder} from '@tmorin/ceb'
-// register the custom element
-@ElementBuilder.element&lt;MyCustomElement&gt;()
-// defines the custom element class
-class MyCustomElement extends HTMLElement {
-    constructor() {
-        super()
-    }
-}
-</code></pre>
-<p>By default, the name of the custom element is the kebab case of the class name.
-So, <code>MyCustomElement</code> becomes <code>my-custom-element</code>.</p>
-<p>Once registered, the custom element can be created as any other HTML elements.</p>
-<pre><code class="language-html">&lt;!-- creates the custom element in HTML as any other HTML elements --&gt;
-&lt;my-custom-element&gt;&lt;/my-custom-element&gt;
-</code></pre>
-<pre><code class="language-typescript">// creates the custom element from its tag name
-const myCustomElement = document.createElement('my-custom-element')
-// appends the custom element as any other regular HTML element
-document.body.append(myCustomElement)
-</code></pre>
-<h2><a class="header" href="#extending-a-built-in-element" id="extending-a-built-in-element">Extending a built-in element</a></h2>
-<p>To register custom element which extends a built-in HTML elements, the tag name of the extended element has to be provided using the method <code>ElementBuilder#extends()</code>.</p>
-<pre><code class="language-typescript">import {ElementBuilder} from '@tmorin/ceb'
-// defines the custom element class
-class MyCustomButton extends HTMLButtonElement {
-    constructor() {
-        super()
-    }
-}
-// creates the builder
-const builder = ElementBuilder.get(MyCustomButton)
-// provides the tag name of HTMLButtonElement
-builder.extends('button')
-// register the custom element
-builder.register()
-</code></pre>
-<p>The extended HTML element can also be provided with the decorator.</p>
-<pre><code class="language-typescript">import {ElementBuilder} from '@tmorin/ceb'
-// register the custom element
-@ElementBuilder.element&lt;MyCustomButton&gt;({
-    // provides the tag name of HTMLButtonElement
-    extends: 'button'
-})
-// defines the custom element class
-class MyCustomButton extends HTMLButtonElement {
-    constructor() {
-        super()
-    }
-}
-</code></pre>
-<p>Once registered, the custom element can be created.</p>
-<pre><code class="language-html">&lt;!-- creates the extended HTML element using the `is` attribute --&gt;
-&lt;button is=&quot;my-custom-button&quot;&gt;&lt;/button&gt;
-</code></pre>
-<pre><code class="language-typescript">// creates the extended HTML element
-const myCustomElement = document.createElement('button', {is: 'my-custom-button'})
-// appends the extended HTML element as any other regular HTML element
-document.body.append(myCustomElement)
-</code></pre>
-<h2><a class="header" href="#overriding-the-name-of-the-custom-element" id="overriding-the-name-of-the-custom-element">Overriding the name of the custom element</a></h2>
-<p>The name of the custom element can be overridden using the method <code>ElementBuilder#name(tagName)</code>.</p>
-<pre><code class="language-typescript">import {ElementBuilder} from '@tmorin/ceb'
-// defines the custom element class
-class MyCustomElementBis extends HTMLElement {
-    constructor() {
-        super()
-    }
-}
-// creates the builder
-const builder = ElementBuilder.get(MyCustomElementBis)
-// overrides the default tag name
-builder.name('another-name')
-// register the custom element
-builder.register()
-</code></pre>
-<p>The name of the custom element can also be provided with the decorator.</p>
-<pre><code class="language-typescript">import {ElementBuilder} from '@tmorin/ceb'
-// register the custom element
-@ElementBuilder.element&lt;MyCustomElementBis&gt;({
-    // overrides the default tag name
-    name: 'another-name'
-})
-// defines the custom element class
-class MyCustomElementBis extends HTMLButtonElement {
-    constructor() {
-        super()
-    }
-}
-</code></pre>
-<p>In this case, the name of the custom element is <code>another-name</code>.</p>
-<pre><code class="language-html">&lt;!-- creates the custom element in HTML as any other HTML elements --&gt;
-&lt;another-name&gt;&lt;/another-name&gt;
-</code></pre>
-<h2><a class="header" href="#an-example" id="an-example">An example</a></h2>
-<p>The registered custom element is a simple element having the text content <code>Hello! I'm &lt;the element's name&gt;.</code>.</p>
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="abzmRvm" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/abzmRvm">
-  &lt;/ceb&gt; ~ ElementBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+<p>The reference documentation is there: <a href="../api/classes/ElementBuilder.html">ElementBuilder</a>.</p>
+<h2><a class="header" href="#challenge-yourself" id="challenge-yourself">Challenge yourself</a></h2>
+<p>Will you be able to ...</p>
+<ol>
+<li>change the tag name to <code>&lt;my-greeting&gt;&lt;/my-greeting&gt;</code> without changing the class name?</li>
+<li>transform <code>SimpleGreeting</code> as an extension of <code>h1</code>, so that can be created with <code>&lt;h1 is=&quot;my-greeting&quot;&gt;&lt;/h1&gt;</code>? <small>the class of <code>h1</code> is <code>HTMLHeadingElement</code></small></li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="ExmLwwd" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/ExmLwwd">
+  &lt;ceb/&gt; ~ challenge/ElementBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+<h2><a class="header" href="#define-a-regular-custom-element" id="define-a-regular-custom-element">Define a regular Custom Element</a></h2>
+<pre><code class="language-typescript">import {ElementBuilder} from &quot;@tmorin/ceb&quot;
+// defines and register the custom element class
+@ElementBuilder.get().decorate()
+class SimpleGreeting extends HTMLElement {
+  constructor(public name = &quot;World&quot;) {
+    super();
+  }
+  connectedCallback() {
+    this.textContent = `Hello, ${this.name}!`
+  }
+}
+</code></pre>
+<p>Once registered, the Custom Element can be created with three different styles: markup, Object-Oriented and, hybrid.</p>
+<p>The first one relies on the tag name of the Custom Element within the markup of an HTML document.</p>
+<pre><code class="language-typescript">document.body.innerHTML = `&lt;simple-greeting&gt;&lt;/simple-greeting&gt;`
+</code></pre>
+<p>The second one relies on the Object-Oriented nature of the Custom Element.
+Basically, the class can be instantiated, and the created object can be then append to the DOM.</p>
+<pre><code class="language-typescript">const helloJohn: SimpleGreeting = new SimpleGreeting(&quot;John&quot;)
+document.body.appendChild(helloJohn)
+</code></pre>
+<p>The last one lies between the markup and OO style.</p>
+<pre><code class="language-typescript">const helloDoe: SimpleGreeting = document.createElement(&quot;simple-greeting&quot;)
+helloDoe.name = &quot;Doe&quot;
+document.body.appendChild(helloDoe)
+</code></pre>
+<h2><a class="header" href="#define-an-extension-of-a-native-element" id="define-an-extension-of-a-native-element">Define an extension of a native Element</a></h2>
+<pre><code class="language-typescript">import {ElementBuilder} from &quot;@tmorin/ceb&quot;
+// defines and register the custom element class
+@ElementBuilder.get().extends(&quot;p&quot;).decorate()
+class SimpleGreetingParagraph extends HTMLParagraphElement {
+  constructor(public name = &quot;World&quot;) {
+    super();
+  }
+  connectedCallback() {
+    this.textContent = `Hello, ${this.name}!`
+  }
+}
+</code></pre>
+<p>Once registered, the Custom Element can be created like the regular one.
+However, because of the extension of a native Element, the creation expects additional information. </p>
+<p>The creation with the markup style:</p>
+<pre><code class="language-typescript">document.body.innerHTML = `&lt;p is=&quot;simple-greeting-paragraph&quot;&gt;&lt;/p&gt;`
+</code></pre>
+<p>The creation with the Object-Oriented style:</p>
+<pre><code class="language-typescript">const helloJohn: SimpleGreetingParagraph = new SimpleGreeting(&quot;John&quot;)
+document.body.appendChild(helloJohn)
+</code></pre>
+<p>The creation with the hybrid style:</p>
+<pre><code class="language-typescript">const helloDoe: SimpleGreetingParagraph = document.createElement(&quot;p&quot;, {
+    extends: &quot;is&quot;
+})
+helloDoe.name = &quot;Doe&quot;
+document.body.appendChild(helloDoe)
+</code></pre>
 
                     </main>
 

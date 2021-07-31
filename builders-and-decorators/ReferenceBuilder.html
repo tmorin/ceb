@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> The builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html" class="active"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeDelegateBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributeDelegateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegateBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegateBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">4.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">4.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">4.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">4.3.</strong> ex-todo</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/index.html"><strong aria-hidden="true">3.</strong> Builders and decorators</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../builders-and-decorators/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/ReferenceBuilder.html" class="active"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/AttributePropagationBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributePropagationBuilder</a></li><li class="chapter-item expanded "><a href="../builders-and-decorators/PropertyDelegationBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegationBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../templating/index.html"><strong aria-hidden="true">4.</strong> Templating</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../templating/grey_dom.html"><strong aria-hidden="true">4.1.</strong> The Grey DOM</a></li><li class="chapter-item expanded "><a href="../templating/template_literal.html"><strong aria-hidden="true">4.2.</strong> Template literal</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">5.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">5.1.</strong> ex-greeting</a></li><li class="chapter-item expanded "><a href="../examples/ex-form-field.html"><strong aria-hidden="true">5.2.</strong> ex-form-field</a></li><li class="chapter-item expanded "><a href="../examples/ex-todo.html"><strong aria-hidden="true">5.3.</strong> ex-todo</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -164,53 +164,17 @@
                 <div id="content" class="content">
                     <main>
                         <h1><a class="header" href="#referencebuilder" id="referencebuilder">ReferenceBuilder</a></h1>
-<p>The class <code>ReferenceBuilder</code> provides services to bind a property to a embedded DOM element.</p>
-<p>The static method <code>ReferenceBuilder.get(propName)</code> returns a fresh builder.
-The builder expects the name of the property in camel case.</p>
-<pre><code class="language-typescript">import {ReferenceBuilder} from '@tmorin/ceb'
-// creates the builder
-const builder = ReferenceBuilder.get('myInput')
-</code></pre>
-<p>The builder and underlying decorators are also technically documented: <a href="../api/classes/ReferenceBuilder.html">ReferenceBuilder</a>.</p>
-<h2><a class="header" href="#default-selector" id="default-selector">Default selector</a></h2>
-<p>By default, the builder binds the property to a child having the same id.
-For instance, the property <code>propName</code> is bound to the selector <code>#propName</code>.</p>
-<p>The method <code>ReferenceBuilder#selector(selector)</code> can be used to override the default selector.</p>
-<pre><code class="language-typescript">import {ReferenceBuilder} from '@tmorin/ceb'
-// initializes the shadow DOM of the custom element
-const builder = ReferenceBuilder.get('myInput').selector('input.my-input')
-</code></pre>
-<h2><a class="header" href="#bind-to-list-of-elements" id="bind-to-list-of-elements">Bind to list of elements</a></h2>
-<p>By default, the builder binds the property to a single element.</p>
-<p>The method <code>ReferenceBuilder#array()</code> can be used to bind the property to a list of matching elements.</p>
-<pre><code class="language-typescript">import {ReferenceBuilder} from '@tmorin/ceb'
-// initializes the shadow DOM of the custom element
-const builder = ReferenceBuilder.get('activeLiList').selector('li.active').array()
-</code></pre>
-<h2><a class="header" href="#bind-relative-to-the-shadow-dom" id="bind-relative-to-the-shadow-dom">Bind relative to the shadow DOM</a></h2>
-<p>By default, the builder binds the property relative to the light DOM.</p>
-<p>The method <code>ReferenceBuilder#shadow()</code> can be used to bind the property relative to the shadow DOM.</p>
-<pre><code class="language-typescript">import {ReferenceBuilder} from '@tmorin/ceb'
-// initializes the shadow DOM of the custom element
-const builder = ReferenceBuilder.get('button').shadow()
-</code></pre>
-<h2><a class="header" href="#the-decorator" id="the-decorator">The decorator</a></h2>
-<p>References can also be defined using decorators.</p>
-<pre><code class="language-typescript">import {ElementBuilder, ReferenceBuilder} from '@tmorin/ceb'
-// register the custom element
-@ElementBuilder.element&lt;MyCustomElement&gt;()
-// defines the custom element class
-class MyCustomElement extends HTMLElement {
-    // define the reference
-    @ReferenceBuilder.reference({isShadow: true, selector: 'ul'})
-    readonly ul: HTMLUListElement;
-}
-</code></pre>
-<h2><a class="header" href="#example" id="example">Example</a></h2>
-<p>The registered custom element counts the number of selected <code>li</code> and displays it.</p>
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="LYEbRLE" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/LYEbRLE">
-  &lt;/ceb&gt; ~ ReferenceBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+<p>The builder enhances a readonly property to execute a CSS Selector once the property is get.
+So that, a property of the Custom Element can always be related to a child element or a set of child elements.</p>
+<p>The reference documentation is there: <a href="../api/classes/ReferenceBuilder.html">ReferenceBuilder</a>.</p>
+<h2><a class="header" href="#challenge-yourself" id="challenge-yourself">Challenge yourself</a></h2>
+<p>Will you be able to ...</p>
+<ol>
+<li>implement the method <code>sayHelloJohnDoe()</code> to display <code>Hello, Johne Doe!</code>?</li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="zYwjaMy" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/zYwjaMy">
+  &lt;ceb/&gt; ~ challenge/ReferenceBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
   on <a href="https://codepen.io">CodePen</a>.</span>
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
@@ -226,7 +190,7 @@ class MyCustomElement extends HTMLElement {
                         
 
                         
-                            <a rel="next" href="../builders-and-decorators/AttributeDelegateBuilder.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../builders-and-decorators/AttributePropagationBuilder.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -244,7 +208,7 @@ class MyCustomElement extends HTMLElement {
                 
 
                 
-                    <a rel="next" href="../builders-and-decorators/AttributeDelegateBuilder.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../builders-and-decorators/AttributePropagationBuilder.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
