@@ -8,7 +8,7 @@ The reference documentation is there: [ReferenceBuilder](../api/classes/Referenc
 ## Challenge yourself
 
 Will you be able to ...
-1. implement the method `sayHelloJohnDoe()` to display `Hello, Johne Doe!`?
+1. implement the method `sayHelloJohnDoe()` to display `Hello, John Doe!`?
 
 <p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="zYwjaMy" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
   <span>See the Pen <a href="https://codepen.io/tmorin/pen/zYwjaMy">

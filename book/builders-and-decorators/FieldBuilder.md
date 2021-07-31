@@ -8,7 +8,7 @@ The reference documentation is there: [FieldBuilder](../api/classes/FieldBuilder
 ## Challenge yourself
 
 Will you be able to ...
-1. display `Hello, Joen Doe!` just setting the property `name`?
+1. display `Hello, John Doe!` just setting the property `name`?
 2. change the attribute name to `alt-name` without changing the property name?
 
 <p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="mdmLqEW" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
