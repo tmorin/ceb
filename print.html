@@ -282,7 +282,7 @@ document.body.appendChild(helloDoe)
 <h2><a class="header" href="#challenge-yourself-1" id="challenge-yourself-1">Challenge yourself</a></h2>
 <p>Will you be able to ...</p>
 <ol>
-<li>display <code>Hello, Joen Doe!</code> just setting the attribute <code>name</code>?</li>
+<li>display <code>Hello, John Doe!</code> just setting the attribute <code>name</code>?</li>
 <li>change the attribute name to <code>alt-name</code> without changing the method name?</li>
 </ol>
 <p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="rNmvGqq" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
@@ -298,7 +298,7 @@ So that, the value is available and mutable from both sides.</p>
 <h2><a class="header" href="#challenge-yourself-2" id="challenge-yourself-2">Challenge yourself</a></h2>
 <p>Will you be able to ...</p>
 <ol>
-<li>display <code>Hello, Joen Doe!</code> just setting the property <code>name</code>?</li>
+<li>display <code>Hello, John Doe!</code> just setting the property <code>name</code>?</li>
 <li>change the attribute name to <code>alt-name</code> without changing the property name?</li>
 </ol>
 <p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="mdmLqEW" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
@@ -328,7 +328,7 @@ So that, the value is available and mutable from both sides.</p>
 <h2><a class="header" href="#challenge-yourself-4" id="challenge-yourself-4">Challenge yourself</a></h2>
 <p>Will you be able ...</p>
 <ol>
-<li>to display <code>Hello, Joen Doe!</code>?</li>
+<li>to display <code>Hello, John Doe!</code>?</li>
 <li>to render into a Shadow DOM?</li>
 </ol>
 <p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="LYymeaB" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
@@ -360,7 +360,7 @@ So that, a property of the Custom Element can always be related to a child eleme
 <h2><a class="header" href="#challenge-yourself-6" id="challenge-yourself-6">Challenge yourself</a></h2>
 <p>Will you be able to ...</p>
 <ol>
-<li>implement the method <code>sayHelloJohnDoe()</code> to display <code>Hello, Johne Doe!</code>?</li>
+<li>implement the method <code>sayHelloJohnDoe()</code> to display <code>Hello, John Doe!</code>?</li>
 </ol>
 <p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="zYwjaMy" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
   <span>See the Pen <a href="https://codepen.io/tmorin/pen/zYwjaMy">
@@ -402,8 +402,8 @@ That means, each time the attribute is mutated, the mutation is propagated to se
 <h1><a class="header" href="#templating" id="templating">Templating</a></h1>
 <p><code>&lt;ceb/&gt;</code> provides a built-in solution for templating which can be directly used with the <a href="templating/../builders-and-decorators/TemplateBuilder.html">TemplateBuilder</a>.</p>
 <p>The solution relies on a built-in engine which <em>patches</em> the DOM incrementally.
-The implementation and the underlying APItemplating is similar to <a href="https://google.github.io/incremental-dom">incremental-dom</a>.
-The main difference is the full support of Custom Elements, especially the handling of a <a href="templating/grey_dom.html">Grey DOM</a>.</p>
+The implementation and the underlying API templating is similar to <a href="https://google.github.io/incremental-dom">incremental-dom</a>.
+The main difference is the full support of Custom Elements, especially the handling of a <a href="templating/grey_dom.html">Grey DOM</a>, or <em>scope</em>.</p>
 <p>Its main API is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates">Tagged Templates</a>.
 Its usage is cover in the <a href="templating/template_literal.html">Template literal</a> section.</p>
 <h1><a class="header" href="#the-light-grey-and-shadow-doms" id="the-light-grey-and-shadow-doms">The Light, Grey and Shadow DOMs</a></h1>
@@ -473,9 +473,9 @@ class HelloWorld extends HTMLElement {
   }
 }
 
-ElementBuilder.get().builder(TemplateBuilder.get().parameters({
-  greyDom: true // activate the Grey DOM feature
-})).register()
+ElementBuilder.get().builder(
+    TemplateBuilder.get().grey()
+).register()
 </code></pre>
 <p>When the following statement is created and rendered:</p>
 <pre><code class="language-html">&lt;hello-worlder&gt;John Do&lt;/hello-worlder&gt;
