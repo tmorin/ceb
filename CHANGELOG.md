@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/tmorin/ceb/compare/v3.0.0...v3.1.0) (2021-08-01)
+
+
+### Features
+
+* **template:** the Grey DOM (or scope) switch should be natively handled by the builder ([ec48c22](https://github.com/tmorin/ceb/commit/ec48c22d5f71b847453792e3d865dc166dc69f11))
+
+
+### Bug Fixes
+
+* **documentation:** fix typo ([8a43a26](https://github.com/tmorin/ceb/commit/8a43a26b374025853736a08deab7503dfa96ab8c))
+
 ## [3.0.0](https://github.com/tmorin/ceb/compare/v2.3.4...v3.0.0) (2021-07-31)
 
 
