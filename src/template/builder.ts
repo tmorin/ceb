@@ -2,6 +2,15 @@ import {Builder, CustomElementConstructor} from "../builder";
 import {ElementBuilder} from "../element";
 import {HooksRegistration} from "../hook";
 
+/**
+ * The common parameters of the rendering.
+ */
+export type TemplateParameters = {
+    /**
+     * When true, the rendering solution render the template with a _scope_.
+     */
+    greyDom: boolean
+}
 
 /**
  * A template updates the children of an element.
@@ -13,7 +22,7 @@ export interface Template<P = any> {
      * @param destination the destination node
      * @param parameters the parameters of the rendering
      */
-    render(destination: DocumentFragment | Element, parameters?: P): void
+    render(destination: DocumentFragment | Element, parameters?: TemplateParameters & P): void
 }
 
 /**
@@ -28,6 +37,7 @@ export interface Template<P = any> {
  *
  * By default, the template is rendered into the Light DOM of the Custom Element.
  * However, the builder can render the template into the Shadow DOM with {@link TemplateBuilder.shadow}.
+ * Another switch, {@link TemplateBuilder.grey} can be used to force the rendering into a _scope_.
  *
  * By default, the name of the wrapped method is `render`.
  * However, the name can be changed with {@link TemplateBuilder.method}.
@@ -46,6 +56,7 @@ export interface Template<P = any> {
 export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
 
     private constructor(
+        private _isGrey = false,
         private _isShadow = false,
         private _isFocusDelegation?: boolean,
         private _methName = "render",
@@ -65,6 +76,8 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
     /**
      * Forces the rendering into the Shadow DOM.
      *
+     * ${@link TemplateBuilder.shadow} and ${@link TemplateBuilder.grey} are exclusives.
+     *
      * @example
      * ```typescript
      * import {ElementBuilder, TemplateBuilder, html} from "ceb"
@@ -82,8 +95,35 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      * @param focus when true the focus will be delegated to the shadow DOM
      */
     shadow(focus?: boolean) {
+        this._isGrey = false
         this._isShadow = true
         this._isFocusDelegation = focus
+        return this
+    }
+
+    /**
+     * Forces the rendering into the Grey DOM.
+     *
+     * ${@link TemplateBuilder.shadow} and ${@link TemplateBuilder.grey} are exclusives.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, TemplateBuilder, html} from "ceb"
+     * class HelloWorld extends HTMLElement {
+     *     value = "World"
+     *     render() {
+     *         return html`Hello, ${this.value}!`
+     *     }
+     * }
+     * ElementBuilder.get().builder(
+     *     TemplateBuilder.get().grey()
+     * ).register()
+     * ```
+     */
+    grey() {
+        this._isGrey = true
+        this._isShadow = false
+        this._isFocusDelegation = undefined
         return this
     }
 
@@ -172,11 +212,15 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
             // wrap the default render function to render the template in call
             if (typeof el[this._methName] === 'function') {
                 const original: Function = el[this._methName]
-                const parameters = this._parameters
                 const isShadow = this._isShadow;
+                const greyDom = this._isGrey;
+                const parameters = this._parameters
                 el[this._methName] = function (): Template<P> {
                     const template: Template<P> = original.apply(el, arguments)
-                    template.render(isShadow ? el.shadowRoot : el, parameters)
+                    template.render(
+                        isShadow ? el.shadowRoot : el,
+                        Object.assign({greyDom}, parameters)
+                    )
                     return template
                 }
             }

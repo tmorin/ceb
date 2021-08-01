@@ -449,7 +449,7 @@ export class Engine {
 export type UpdateParameters = {
     /**
      * When true, the Grey DOM feature is handled.
-     * That means at the creation of the element, the children discovered from the Light DOM will moved to found the slot element.
+     * That means at the creation of the element, the children discovered from the Light DOM will moved to the found slot element.
      * Somehow it create a Grey DOM lying between the Light DOM and the Shadow DOM.
      */
     greyDom?: boolean

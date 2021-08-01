@@ -89,9 +89,9 @@ class HelloWorld extends HTMLElement {
   }
 }
 
-ElementBuilder.get().builder(TemplateBuilder.get().parameters({
-  greyDom: true // activate the Grey DOM feature
-})).register()
+ElementBuilder.get().builder(
+    TemplateBuilder.get().grey()
+).register()
 ```
 
 When the following statement is created and rendered:

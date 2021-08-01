@@ -1,6 +1,6 @@
 import {Attributes, Engine, Options, Parameters, Properties, UpdateParameters} from "./engine"
 import {Attribute, parse} from "./parser"
-import {Template} from "./builder";
+import {Template, TemplateParameters} from "./builder";
 
 export {UpdateParameters} from "./engine"
 
@@ -100,10 +100,10 @@ class Operations implements Template<UpdateParameters> {
         }
     }
 
-    render(destination: DocumentFragment | Element, parameters?: UpdateParameters) {
+    render(destination: DocumentFragment | Element, parameters?: TemplateParameters & UpdateParameters) {
         Engine.update(destination, engine => {
             this.operations.forEach(operation => operation(engine))
-        }, parameters)
+        }, Object.assign({greyDom: parameters?.greyDom}, parameters))
     }
 }
 

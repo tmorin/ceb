@@ -31,6 +31,23 @@ describe('template/literal', () => {
         assert.strictEqual(element.querySelector('input').value, "Bar")
     })
 
+    it('should render into Grey DOM', () => {
+        const tagName = "template-literal-grey"
+
+        class TestElement extends HTMLElement {
+            render(): Template {
+                return html`<p>Hello, <ceb-slot></ceb-slot>!</p>`
+            }
+        }
+
+        ElementBuilder.get(TestElement).name(tagName).builder(
+            TemplateBuilder.get().grey()
+        ).register()
+        sandbox.innerHTML = `<${tagName}>World</${tagName}>`
+        const element: TestElement = sandbox.querySelector(tagName)
+        assert.strictEqual(element.innerHTML, `<p>Hello, <ceb-slot>World</ceb-slot>!</p>`)
+    })
+
     it('should render into Shadow DOM', () => {
         const tagName = "template-literal-shadow"
 
