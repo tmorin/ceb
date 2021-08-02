@@ -14,7 +14,7 @@ export default ElementBuilder.get(ExTodoAddItemForm).builder(
     ContentBuilder.get(template),
     OnBuilder.get('submit').delegate('form').prevent().invoke((el, evt, form: HTMLFormElement) => {
         const text = (form.elements.namedItem('text') as HTMLInputElement).value
-        el.dispatchEvent(new CustomEvent<string>('ex-todo-add-item', {
+        el.dispatchEvent(new CustomEvent<string>("ex-todo-add-item", {
             bubbles: true,
             cancelable: false,
             detail: text

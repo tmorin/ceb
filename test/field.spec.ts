@@ -5,16 +5,14 @@ import {getTagName} from './helpers'
 import sinon, {SinonSpy} from 'sinon'
 
 describe('field', () => {
-    let sandbox
-
+    let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
-
     it('should manage string and boolean fields', () => {
         class ShouldManageStringBooleanFields extends HTMLElement {
             altString = 'a default string'
-            altStringNoDefault
+            altStringNoDefault: any
             altBoolean = true
             altBooleanBis = false
         }
@@ -27,7 +25,7 @@ describe('field', () => {
                 FieldBuilder.get('altBooleanBis').boolean()
             ).register()
         const tagName = getTagName(ShouldManageStringBooleanFields)
-        const element: ShouldManageStringBooleanFields = sandbox.appendChild(document.createElement(tagName))
+        const element = sandbox.appendChild(document.createElement(tagName) as ShouldManageStringBooleanFields)
         assert.ok(sandbox.querySelector(tagName))
 
         // check default values
@@ -64,8 +62,8 @@ describe('field', () => {
         const spy3: SinonSpy = sinon.spy()
 
         class ShouldListenDefaultValue extends HTMLElement {
-            altString = 'a default value'
-            altStringBis
+            altString: string | null = 'a default value'
+            altStringBis: any
             altBoolean = true
         }
 
@@ -76,7 +74,7 @@ describe('field', () => {
                 FieldBuilder.get('altStringBis').listener(spy3)
             ).register()
         const tagName = getTagName(ShouldListenDefaultValue)
-        const el: ShouldListenDefaultValue = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as ShouldListenDefaultValue)
         assert.ok(sandbox.querySelector(tagName))
         assert.ok(spy1.calledOnce)
         assert.ok(spy2.calledOnce)
@@ -106,7 +104,7 @@ describe('field', () => {
                 FieldBuilder.get('altString').attribute('alt-attr')
             ).register()
         const tagName = getTagName(ShouldBindToAnotherAttribute)
-        const el: ShouldBindToAnotherAttribute = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as ShouldBindToAnotherAttribute)
         assert.ok(sandbox.querySelector(tagName))
 
         assert.strictEqual(el.getAttribute('alt-attr'), 'a default value')
@@ -120,8 +118,8 @@ describe('field', () => {
     it('should get default value from HTML', () => {
         class FieldShouldGetDefaultFromHtml extends HTMLElement {
             altString = 'a default value'
-            altStringBis: string
-            altBoolean: boolean
+            altStringBis?: string
+            altBoolean?: boolean
         }
 
         ElementBuilder.get(FieldShouldGetDefaultFromHtml)
@@ -132,7 +130,7 @@ describe('field', () => {
             ).register()
         const tagName = getTagName(FieldShouldGetDefaultFromHtml)
         sandbox.innerHTML = '<field-should-get-default-from-html alt-string="a new string" alt-string-bis="a new bis string" alt-boolean=""/>'
-        const el: FieldShouldGetDefaultFromHtml = sandbox.querySelector(tagName)
+        const el = sandbox.querySelector(tagName) as FieldShouldGetDefaultFromHtml
         assert.ok(el)
 
         assert.strictEqual(el.getAttribute('alt-string'), 'a new string')

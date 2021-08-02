@@ -193,13 +193,12 @@ export class PropertyDelegationBuilder<E extends HTMLElement = HTMLElement> impl
      * ```
      */
     decorate(): PropertyDecorator {
-        const builder = this
-        return function (target: E, propName: string) {
-            if (!builder._propName) {
-                builder._propName = propName
+        return (target: Object, propName: string | symbol) => {
+            if (!this._propName) {
+                this._propName = propName.toString()
             }
-            const id = `delegate-property-${propName}`
-            ElementBuilder.getOrSet(target, id, builder)
+            const id = `delegate-property-${this._propName}`
+            ElementBuilder.getOrSet(target, id, this)
         }
     }
 
@@ -207,32 +206,45 @@ export class PropertyDelegationBuilder<E extends HTMLElement = HTMLElement> impl
      * This API is dedicated for developer of Builders.
      * @protected
      */
-    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>) {
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & { [k: string]: any }>) {
         if (!this._propName) {
             throw new TypeError("PropertyDelegationBuilder - the property name is missing")
         }
         if (!this._selector) {
             throw new TypeError("PropertyDelegationBuilder - the CSS selector is missing")
         }
+        const _propName: string = this._propName
+        const _selector: string = this._selector
 
-        const defaultValuePropName = "__ceb_delegate_property_default_value_" + this._propName
+        const defaultValuePropName = "__ceb_delegate_property_default_value_" + _propName
+
         // registers mutation observer
-        hooks.before("constructorCallback", el => {
+        hooks.before("constructorCallback", (el) => {
             const builder = this
             const base = this._isShadow ? el.shadowRoot : el
+            if (!base) {
+                throw new Error("PropertyDelegationBuilder - shadow DOM is targeted but no doesn't exist")
+            }
             // get the initial descriptor if existing to get the default value
-            const initialDescriptor = Object.getOwnPropertyDescriptor(el, this._propName)
+            const initialDescriptor = Object.getOwnPropertyDescriptor(el, _propName)
             // creates or overrides the property to intercept both getter and setter
-            Object.defineProperty(el, this._propName, {
+            Object.defineProperty(el, _propName, {
                 get(): any {
-                    const target = base.querySelector(builder._selector)
+                    const target = base.querySelector(_selector) as Element & { [k: string]: any }
+                    if (!target) {
+                        return
+                    }
                     if (builder._toAttrName) {
                         return builder._isBoolean ? target.hasAttribute(builder._toAttrName) : target.getAttribute(builder._toAttrName)
                     }
-                    return target[builder._toPropName || builder._propName]
+                    const propName: string = builder._toPropName || _propName
+                    return target[propName]
                 },
                 set(value: any): void {
-                    const target = base.querySelector(builder._selector)
+                    const target = base.querySelector(_selector) as Element & { [k: string]: any }
+                    if (!target) {
+                        return
+                    }
                     if (builder._toAttrName) {
                         if (value === false || value === undefined || value === null) {
                             target.removeAttribute(builder._toAttrName)
@@ -240,7 +252,8 @@ export class PropertyDelegationBuilder<E extends HTMLElement = HTMLElement> impl
                             target.setAttribute(builder._toAttrName, builder._isBoolean ? "" : value)
                         }
                     } else {
-                        target[builder._toPropName || builder._propName] = value
+                        const propName: string = builder._toPropName || _propName
+                        target[propName] = value
                     }
                 }
             })
@@ -257,11 +270,12 @@ export class PropertyDelegationBuilder<E extends HTMLElement = HTMLElement> impl
             }
         })
         // handles the default value
-        hooks.after("connectedCallback", el => {
+        hooks.after("connectedCallback", (el) => {
             const defaultValueDescriptor = Object.getOwnPropertyDescriptor(el, defaultValuePropName)
             // applies the default value if its description has been found
             if (defaultValueDescriptor) {
-                el[this._propName] = defaultValueDescriptor.value
+                // @ts-ignore
+                el[_propName] = defaultValueDescriptor.value
             }
             // the default value shouldn't be set if the element is then moved into the DOM
             delete el[defaultValuePropName]

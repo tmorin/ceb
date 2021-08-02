@@ -26,19 +26,19 @@ export interface HooksRegistration<E extends HTMLElement = HTMLElement> {
      * @param name the name
      * @param callback the callback
      */
-    before<K extends keyof HookCallbacks<E>>(name: K, callback: HookCallbacks<E>[K])
+    before<K extends keyof HookCallbacks<E>>(name: K, callback: HookCallbacks<E>[K]): void
 
     /**
      * Register a hook.
      * @param name the name
      * @param callback the callback
      */
-    on<K extends keyof HookCallbacks<E>>(name: K, callback: HookCallbacks<E>[K])
+    on<K extends keyof HookCallbacks<E>>(name: K, callback: HookCallbacks<E>[K]): void
 
     /**
      * Register a hook which will be invoked after the execution of regular hooks.
      * @param name the name
      * @param callback the callback
      */
-    after<K extends keyof HookCallbacks<E>>(name: K, callback: HookCallbacks<E>[K])
+    after<K extends keyof HookCallbacks<E>>(name: K, callback: HookCallbacks<E>[K]): void
 }

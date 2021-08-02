@@ -2,10 +2,10 @@ import {expect} from "chai";
 import {html} from "../../src";
 
 describe("patcher/literal/simple", function () {
-    let el
+    let el: HTMLDivElement
     beforeEach(() => {
         if (el) {
-            el.parentNode.removeChild(el)
+            el.parentNode?.removeChild(el)
         }
         el = document.body.appendChild(document.createElement("div"))
     })

@@ -2,8 +2,7 @@ import {assert} from 'chai'
 import {ElementBuilder, html, Template, TemplateBuilder} from '../src'
 
 describe('template/literal', () => {
-    let sandbox
-
+    let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
@@ -22,13 +21,13 @@ describe('template/literal', () => {
         ElementBuilder.get(TestElement).name(tagName).builder(
             TemplateBuilder.get()
         ).register()
-        const element: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const element = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         assert.ok(element.querySelector('input'))
-        assert.strictEqual(element.querySelector('input').value, "Foo")
+        assert.strictEqual(element.querySelector('input')?.value, "Foo")
         element.name = "Bar"
         element.render()
-        assert.strictEqual(element.querySelector('input').value, "Bar")
+        assert.strictEqual(element.querySelector('input')?.value, "Bar")
     })
 
     it('should render into Grey DOM', () => {
@@ -44,7 +43,7 @@ describe('template/literal', () => {
             TemplateBuilder.get().grey()
         ).register()
         sandbox.innerHTML = `<${tagName}>World</${tagName}>`
-        const element: TestElement = sandbox.querySelector(tagName)
+        const element = sandbox.querySelector(tagName) as TestElement
         assert.strictEqual(element.innerHTML, `<p>Hello, <ceb-slot>World</ceb-slot>!</p>`)
     })
 
@@ -62,13 +61,13 @@ describe('template/literal', () => {
         ElementBuilder.get(TestElement).name(tagName).builder(
             TemplateBuilder.get().shadow()
         ).register()
-        const element: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const element = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
-        assert.ok(element.shadowRoot.querySelector('input'))
-        assert.strictEqual(element.shadowRoot.querySelector('input').value, "Foo")
+        assert.ok(element.shadowRoot?.querySelector('input'))
+        assert.strictEqual(element.shadowRoot?.querySelector('input')?.value, "Foo")
         element.name = "Bar"
         element.render()
-        assert.strictEqual(element.shadowRoot.querySelector('input').value, "Bar")
+        assert.strictEqual(element.shadowRoot?.querySelector('input')?.value, "Bar")
     })
 
 })

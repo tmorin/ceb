@@ -6,8 +6,7 @@ import sinon, {SinonSpy} from 'sinon'
 
 
 describe('element', () => {
-    let sandbox
-
+    let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
@@ -29,14 +28,14 @@ describe('element', () => {
             altName: string
         }
 
-        const tagName = utilities.toKebabCase('MyCustomElement')
+        const tagName = utilities.toKebabCase("MyCustomElement")
         ElementBuilder
             .get(class extends HTMLElement implements IMyCustomElement {
                 public altName = 'my name'
             })
             .name(tagName)
             .register()
-        const element: IMyCustomElement = sandbox.appendChild(document.createElement(tagName))
+        const element = sandbox.appendChild(document.createElement(tagName) as IMyCustomElement)
         assert.ok(sandbox.querySelector(tagName))
         assert.strictEqual(element.altName, 'my name')
     })

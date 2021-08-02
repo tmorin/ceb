@@ -4,7 +4,7 @@ import {AttributeBuilder, AttributeListenerData, ElementBuilder} from '../src'
 import sinon from 'sinon'
 
 describe('attribute.decorator', () => {
-    let sandbox
+    let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
@@ -20,7 +20,7 @@ describe('attribute.decorator', () => {
             }
         }
 
-        const el: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         el.setAttribute('an-attribute', 'new name')
         assert.ok(listener.called)
@@ -38,7 +38,7 @@ describe('attribute.decorator', () => {
             }
         }
 
-        const el: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         el.setAttribute('an-attribute', '')
         assert.ok(listener.called)
@@ -60,7 +60,7 @@ describe('attribute.decorator', () => {
             }
         }
 
-        const el: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         el.setAttribute('an-attribute', 'new name')
         assert.ok(listener.called)
@@ -78,7 +78,7 @@ describe('attribute.decorator', () => {
             }
         }
 
-        const el: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         el.setAttribute('an-attribute', 'new name')
         assert.ok(listener.called)
@@ -96,7 +96,7 @@ describe('attribute.decorator', () => {
             }
         }
 
-        const el: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         el.setAttribute('an-attribute', 'new name')
         assert.ok(listener.called)

@@ -2,11 +2,10 @@ import {Engine} from "../../src/template/engine"
 import {expect} from "chai"
 
 describe("patcher/engine/key", function () {
-    let el
-
+    let el: HTMLDivElement
     beforeEach(() => {
         if (el) {
-            el.parentNode.removeChild(el)
+            el.parentNode?.removeChild(el)
         }
         el = document.body.appendChild(document.createElement("div"))
     })
@@ -21,8 +20,8 @@ describe("patcher/engine/key", function () {
             engine.closeElement()
             engine.closeElement()
         })
-        const liA = el.querySelector("li[name=A]")
-        const liB = el.querySelector("li[name=B]")
+        const liA = el.querySelector("li[name=A]") as HTMLLIElement
+        const liB = el.querySelector("li[name=B]") as HTMLLIElement
         expect(liA.getAttribute("name")).eq('A')
         expect(liB.getAttribute("name")).eq('B')
         Engine.update(el, (engine: Engine) => {

@@ -5,8 +5,7 @@ import {getTagName} from './helpers'
 import sinon, {SinonSpy} from 'sinon'
 
 describe('attribute', () => {
-    let sandbox
-
+    let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
@@ -22,7 +21,7 @@ describe('attribute', () => {
             AttributeBuilder.get('alt-boolean-bis').boolean()
         ).register()
         const tagName = getTagName(ShouldManageStringBooleanValues)
-        const el: ShouldManageStringBooleanValues = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as ShouldManageStringBooleanValues)
         assert.ok(sandbox.querySelector(tagName))
 
         assert.strictEqual(el.getAttribute('alt-string'), 'a default value')
@@ -87,7 +86,7 @@ describe('attribute', () => {
         ).register()
         const tagName = getTagName(AttributeShouldGetDefaultFromHtml)
         sandbox.innerHTML = '<attribute-should-get-default-from-html alt-string="a new string" alt-string-bis="a new bis string" alt-boolean=""/>'
-        const el: AttributeShouldGetDefaultFromHtml = sandbox.querySelector(tagName)
+        const el = sandbox.querySelector(tagName) as AttributeShouldGetDefaultFromHtml
         assert.ok(el)
 
         assert.strictEqual(el.getAttribute('alt-string'), 'a new string')

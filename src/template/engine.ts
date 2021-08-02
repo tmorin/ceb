@@ -1,4 +1,55 @@
 /**
+ * @private
+ */
+export type ContextItem = Element & HTMLElement & DocumentFragment & {
+    /**
+     * The value refers to a property name which should be used by Custom Element only.
+     * The purpose of the property is to list attribute names which won't be mutated.
+     * @example Preserve the type and min of an extended input
+     * ```typescript
+     * class OnlyPositiveNumberInput extends HTMLInputElement {
+     *   __ceb_engine_preserve_attributes = ["type", "min"]
+     *   constructor() {
+     *     super()
+     *     this.type = "number"
+     *     this.min = "0"
+     *   }
+     * }
+     * ```
+     */
+    __ceb_engine_preserve_attributes?: Array<string>
+    /**
+     * The value refers to a property name which should be used by Custom Element only.
+     * The purpose of the property is to prevent the mutation of the child nodes.
+     * @example Preserve the child nodes of Custom Element
+     * ```typescript
+     * class SimpleCustomElement extends HTMLElement {
+     *   __ceb_engine_preserve_children = true
+     *   constructor() {
+     *     super()
+     *   }
+     *   connectedCallback() {
+     *     this.textContent = "an initial text content"
+     *   }
+     * }
+     * ```
+     */
+    __ceb_engine_preserve_children?: boolean
+    /**
+     * The value refers to a property name which is only used internally.
+     * @private
+     */
+    __ceb_engine_updated_properties?: Array<string>
+    /**
+     * The value refers to a property name which is only used internally.
+     * @private
+     */
+    __ceb_engine_slot?: ContextItem
+
+    [key: string]: any
+}
+
+/**
  * The map of attributes.
  */
 export type Attributes = Array<[string, string | number | boolean]>
@@ -38,15 +89,26 @@ export type RenderFunction = (engine: Engine) => void
 
 type NodeFactory = (document: Document, text?: string) => Node
 
-function sanitize(value) {
-    return value === undefined || value === null ? '' : value
+function sanitize(value?: string | number | boolean): string {
+    return value === undefined || value === null ? '' : value.toString()
 }
 
 class Context {
     constructor(
-        public readonly element: Element,
+        public readonly _element: ContextItem | null,
         private index: number = -1
     ) {
+    }
+
+    get isManaged() {
+        return !!this._element
+    }
+
+    get element(): ContextItem {
+        if (!this._element) {
+            throw new Error("the context has no element")
+        }
+        return this._element
     }
 
     nextIndex() {
@@ -61,12 +123,12 @@ class Context {
 
 class Contexts {
     constructor(
-        private readonly element: Element,
+        private readonly element: ContextItem,
         private readonly stack: Array<Context> = [new Context(element)]
     ) {
     }
 
-    start(element: Element): void {
+    start(element: ContextItem | null): void {
         this.stack.unshift(new Context(element))
     }
 
@@ -99,28 +161,32 @@ function createCommentNode(document: Document, text?: string): Node {
     return document.createComment(sanitize(text))
 }
 
-function createElement(document: Document, name: string, attrs: Attributes = []): Element {
+function createElement(document: Document, name: string, attrs: Attributes = []): ContextItem {
     const isIndex = attrs.findIndex(([key]) => key === "is")
     return isIndex > -1
-        ? document.createElement(name, {is: attrs[isIndex][1] as string})
-        : document.createElement(name)
+        ? document.createElement(name, {is: attrs[isIndex][1] as string}) as ContextItem
+        : document.createElement(name) as ContextItem
 }
 
 function removeRemainingNodes(contexts: Contexts) {
-    const parentElement = contexts.get().element
-    if (parentElement && parentElement[Engine.PROP_NAME_SLOT] !== parentElement) {
-        const lastIndex = contexts.get().lastIndex()
-        if (lastIndex > -1) {
-            while (parentElement.childNodes.length > lastIndex) {
-                parentElement.removeChild(parentElement.lastChild)
+    if (contexts.get().isManaged) {
+        const parentElement = contexts.get().element
+        if (parentElement.__ceb_engine_slot !== parentElement) {
+            const lastIndex = contexts.get().lastIndex()
+            if (lastIndex > -1) {
+                while (parentElement.childNodes.length > lastIndex) {
+                    if (parentElement.lastChild) {
+                        parentElement.removeChild(parentElement.lastChild)
+                    }
+                }
             }
         }
     }
 }
 
-function updateAttributes(element: Element, attributes: Attributes = []) {
-    const preservedAttributes: Array<string> = element[Engine.PROP_NAME_PRESERVE_ATTRIBUTES] || []
-    const updatedAttributes = []
+function updateAttributes(element: ContextItem, attributes: Attributes = []) {
+    const preservedAttributes: Array<string> = element.__ceb_engine_preserve_attributes || []
+    const updatedAttributes: Array<string> = []
     for (const entry of attributes) {
         const name = entry[0]
         if (preservedAttributes.indexOf(name) < 0) {
@@ -146,45 +212,47 @@ function updateAttributes(element: Element, attributes: Attributes = []) {
         .forEach((attr) => element.removeAttribute(attr.name))
 }
 
-function updateProperties(element: Element, properties: Properties = []) {
-    const updatedProperties = []
+function updateProperties(element: ContextItem, properties: Properties = []) {
+    const updatedProperties: Array<string> = []
     for (const entry of properties) {
         const name = entry[0]
         element[name] = entry[1]
         updatedProperties.push(name)
     }
-    (element[Engine.PROP_NAME_UPDATED_PROPERTIES] || [])
-        .filter((attr) => updatedProperties.indexOf(attr.name) < 0)
-        .forEach((name) => element[name] = undefined)
-    element[Engine.PROP_NAME_UPDATED_PROPERTIES] = updatedProperties
+    (element.__ceb_engine_updated_properties || [])
+        .filter((attr: string) => updatedProperties.indexOf(attr) < 0)
+        .forEach((name: string) => element[name] = undefined)
+    element.__ceb_engine_updated_properties = updatedProperties
 }
 
-const REFERENCED_ELEMENTS = new WeakMap<Element, Map<any, Element>>()
+const REFERENCED_ELEMENTS = new WeakMap<ContextItem, Map<any, ContextItem>>()
 
-function getReferencedElement(parentElement: Element, key: any): Element | undefined {
+function getReferencedElement(parentElement: ContextItem, key: any): ContextItem | undefined {
     if (!REFERENCED_ELEMENTS.has(parentElement)) {
-        REFERENCED_ELEMENTS.set(parentElement, new Map<any, Element>())
+        REFERENCED_ELEMENTS.set(parentElement, new Map<any, ContextItem>())
     }
-    if (REFERENCED_ELEMENTS.get(parentElement).has(key)) {
-        return REFERENCED_ELEMENTS.get(parentElement).get(key)
+    if (REFERENCED_ELEMENTS.get(parentElement)?.has(key)) {
+        return REFERENCED_ELEMENTS.get(parentElement)?.get(key)
     }
 }
 
-function setReferencedElement(parentElement: Element, key: any, element: Element): void {
+function setReferencedElement(parentElement: ContextItem, key: any, element: ContextItem): void {
     if (key) {
         if (!REFERENCED_ELEMENTS.has(parentElement)) {
-            REFERENCED_ELEMENTS.set(parentElement, new Map<any, Element>())
+            REFERENCED_ELEMENTS.set(parentElement, new Map<any, ContextItem>())
         }
-        REFERENCED_ELEMENTS.get(parentElement).set(key, element)
+        REFERENCED_ELEMENTS.get(parentElement)?.set(key, element)
     }
 }
 
 function cleanReferencedElements(contexts: Contexts) {
-    const element = contexts.get().element
-    if (element && REFERENCED_ELEMENTS.has(element)) {
-        for (const [key, value] of [...REFERENCED_ELEMENTS.get(element).entries()]) {
-            if (!element.contains(value)) {
-                REFERENCED_ELEMENTS.get(element).delete(key)
+    if (contexts.get().isManaged) {
+        const element = contexts.get().element
+        if (REFERENCED_ELEMENTS.has(element)) {
+            for (const [key, value] of [...REFERENCED_ELEMENTS?.get(element)?.entries() ?? []]) {
+                if (!element.contains(value)) {
+                    REFERENCED_ELEMENTS.get(element)?.delete(key)
+                }
             }
         }
     }
@@ -223,52 +291,9 @@ function cleanReferencedElements(contexts: Contexts) {
  * ```
  */
 export class Engine {
-    /**
-     * The value refers to a property name which is only used internally.
-     * @private
-     */
-    static PROP_NAME_UPDATED_PROPERTIES = "__ceb_engine_updated_properties"
-    /**
-     * The value refers to a property name which is only used internally.
-     * @private
-     */
-    static PROP_NAME_SLOT = "__ceb_engine_content"
-    /**
-     * The value refers to a property name which should be used by Custom Element only.
-     * The purpose of the property is to list attribute names which won't be mutated.
-     * @example Preserve the type and min of an extended input
-     * ```typescript
-     * class OnlyPositiveNumberInput extends HTMLInputElement {
-     *   constructor() {
-     *     super()
-     *     this[Engine.PROP_NAME_UPDATED_PROPERTIES] = ["type", "min"]
-     *     this.type = "number"
-     *     this.min = "0"
-     *   }
-     * }
-     * ```
-     */
-    static PROP_NAME_PRESERVE_ATTRIBUTES = "__ceb_engine_preserve_attributes"
-    /**
-     * The value refers to a property name which should be used by Custom Element only.
-     * The purpose of the property is to prevent the mutation of the child nodes.
-     * @example Preserve the child nodes of Custom Element
-     * ```typescript
-     * class SimpleCustomElement extends HTMLElement {
-     *   constructor() {
-     *     super()
-     *     this[Engine.PROP_NAME_PRESERVE_CHILDREN] = true
-     *   }
-     *   connectedCallback() {
-     *     this.textContent = "an initial text content"
-     *   }
-     * }
-     * ```
-     */
-    static PROP_NAME_PRESERVE_CHILDREN = "__ceb_preserve_children"
 
     private constructor(
-        private readonly containerElement: Element,
+        private readonly containerElement: ContextItem,
         private readonly contexts: Contexts = new Contexts(containerElement),
         private readonly document: Document = containerElement.ownerDocument,
     ) {
@@ -281,33 +306,36 @@ export class Engine {
      * @param render the function expressing the update operations
      * @param parameter parameters of the Update Element process
      */
-    static update(destination: DocumentFragment | Element, render: RenderFunction, parameter?: UpdateParameters) {
+    static update(destination: Element | DocumentFragment, render: RenderFunction, parameter?: UpdateParameters) {
+        const container = destination as ContextItem
         let lightFrag = null
         if (parameter?.greyDom) {
-            if (!destination[Engine.PROP_NAME_SLOT]) {
-                lightFrag = destination.ownerDocument.createDocumentFragment()
-                while (destination.childNodes.length > 0) {
-                    lightFrag.appendChild(destination.removeChild(destination.firstChild))
+            if (!container.__ceb_engine_slot) {
+                lightFrag = container.ownerDocument.createDocumentFragment()
+                while (container.childNodes.length > 0) {
+                    if (container.firstChild) {
+                        lightFrag.appendChild(container.removeChild(container.firstChild))
+                    }
                 }
-                destination[Engine.PROP_NAME_SLOT] = destination
+                container.__ceb_engine_slot = container
             }
         }
 
         // `as Element` is fine because DocumentFragment can only be a container
-        const contexts = new Contexts(destination as Element)
-        const engine = new Engine(destination as Element, contexts)
+        const contexts = new Contexts(container)
+        const engine = new Engine(container, contexts)
 
         render(engine)
         removeRemainingNodes(contexts)
 
         if (lightFrag) {
-            let slotElement = destination[Engine.PROP_NAME_SLOT]
-            if (slotElement !== destination) {
-                while (slotElement[Engine.PROP_NAME_SLOT]) {
-                    slotElement = slotElement[Engine.PROP_NAME_SLOT]
+            let slotElement = container.__ceb_engine_slot
+            if (slotElement !== container) {
+                while (slotElement?.__ceb_engine_slot) {
+                    slotElement = slotElement.__ceb_engine_slot
                 }
             }
-            slotElement.appendChild(lightFrag)
+            slotElement?.appendChild(lightFrag)
         }
     }
 
@@ -319,9 +347,9 @@ export class Engine {
     openElement(name: string, parameters?: Parameters): void {
         const element = this.handleElement(name, parameters)
         if (parameters?.options?.slot) {
-            this.containerElement[Engine.PROP_NAME_SLOT] = element
+            this.containerElement.__ceb_engine_slot = element
         }
-        if (parameters?.options?.slot || parameters?.options?.skip || element[Engine.PROP_NAME_PRESERVE_CHILDREN]) {
+        if (parameters?.options?.slot || parameters?.options?.skip || element.__ceb_engine_preserve_children) {
             this.contexts.start(null)
         } else {
             this.contexts.start(element)
@@ -350,7 +378,7 @@ export class Engine {
      * Append a slot element.
      */
     slot(): void {
-        this.containerElement[Engine.PROP_NAME_SLOT] = this.handleElement("ceb-slot", {
+        this.containerElement.__ceb_engine_slot = this.handleElement("ceb-slot", {
             options: {
                 skip: true
             }
@@ -362,11 +390,13 @@ export class Engine {
      * @param text the value of the comment node
      */
     comment(text?: string): void {
-        this.handleNode(
-            text,
-            this.document.COMMENT_NODE,
-            createCommentNode
-        )
+        if (text) {
+            this.handleNode(
+                text,
+                this.document.COMMENT_NODE,
+                createCommentNode
+            )
+        }
     }
 
     /**
@@ -374,16 +404,19 @@ export class Engine {
      * @param text the value of the text node
      */
     text(text?: string): void {
-        this.handleNode(
-            text,
-            this.document.TEXT_NODE,
-            createTextNode
-        )
+        if (text) {
+            this.handleNode(
+                text,
+                this.document.TEXT_NODE,
+                createTextNode
+            )
+        }
     }
 
     private handleNode(value: string, nodeType: number, createNode: NodeFactory): void {
         const parentElement = this.contexts.get().element
         const index = this.contexts.get().nextIndex()
+
         let currentNode = parentElement.childNodes.item(index)
         if (currentNode) {
             if (currentNode.nodeType !== nodeType) {
@@ -396,16 +429,16 @@ export class Engine {
         }
     }
 
-    private handleElement(name: string, parameters: Parameters = createDefaultParams()): Element {
+    private handleElement(name: string, parameters: Parameters = createDefaultParams()): ContextItem {
         const parentElement = this.contexts.get().element
-
         const index = this.contexts.get().nextIndex()
-        const currentNode = parentElement.childNodes.item(index)
 
         const key = parameters?.options?.key
-        let referencedElement: Element = getReferencedElement(parentElement, key)
+        let referencedElement = getReferencedElement(parentElement, key)
 
-        let currentElement: Element
+        const currentNode = parentElement.childNodes.item(index)
+
+        let currentElement: ContextItem
         if (referencedElement) {
             currentElement = referencedElement
             if (currentNode !== referencedElement) {
@@ -413,7 +446,7 @@ export class Engine {
             }
         } else if (currentNode) {
             if (currentNode instanceof Element) {
-                currentElement = currentNode
+                currentElement = currentNode as ContextItem
                 const currentTagName = currentElement.tagName.toLowerCase()
                 const tagName = name.toLowerCase()
                 if (currentTagName.localeCompare(tagName) !== 0) {

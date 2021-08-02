@@ -193,13 +193,12 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      * ```
      */
     decorate<E extends HTMLElement>(): MethodDecorator {
-        const builder = this
-        return function (target: E, methName: string, _: PropertyDescriptor) {
-            if (!builder._methName) {
-                builder._methName = methName
+        return (target: Object, methName: string | symbol, _: PropertyDescriptor) => {
+            if (!this._methName) {
+                this._methName = methName.toString()
             }
             const id = 'template'
-            ElementBuilder.getOrSet(target, id, builder)
+            ElementBuilder.getOrSet(target, id, this)
         }
     }
 
@@ -207,7 +206,7 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      * This API is dedicated for developer of Builders.
      * @protected
      */
-    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>) {
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & { [key: string]: any }>) {
         hooks.before('constructorCallback', el => {
             // wrap the default render function to render the template in call
             if (typeof el[this._methName] === 'function') {
@@ -215,14 +214,19 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
                 const isShadow = this._isShadow;
                 const greyDom = this._isGrey;
                 const parameters = this._parameters
-                el[this._methName] = function (): Template<P> {
-                    const template: Template<P> = original.apply(el, arguments)
-                    template.render(
-                        isShadow ? el.shadowRoot : el,
-                        Object.assign({greyDom}, parameters)
-                    )
-                    return template
-                }
+                Object.defineProperty(el, this._methName, {
+                    configurable: true,
+                    enumerable: true,
+                    writable: false,
+                    value: function (): Template<P> {
+                        const template: Template<P> = original.apply(el, arguments)
+                        template.render(
+                            isShadow && el.shadowRoot ? el.shadowRoot : el,
+                            Object.assign({greyDom}, parameters)
+                        )
+                        return template
+                    }
+                })
             }
 
             if (this._isShadow && !el.shadowRoot) {

@@ -17,12 +17,10 @@ function listen(el: Node, type: string, limit: number, done: Function) {
 }
 
 describe('on', () => {
-    let sandbox
-
+    let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
-
     context('listen events', () => {
         let bubblingListener: SinonSpy, captureListener: SinonSpy, el: HTMLElement
         beforeEach(done => {
@@ -42,7 +40,7 @@ describe('on', () => {
             const tagName = getTagName(OnBuilderListenEvents)
             el = sandbox.appendChild(document.createElement(tagName))
             listen(sandbox, 'custom-event', 1, done)
-            el.querySelector('input').dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
+            el.querySelector('input')?.dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
         })
         it('should invoke the bubbling and capture listeners', () => {
             assert.ok(bubblingListener.calledOnce)
@@ -71,7 +69,7 @@ describe('on', () => {
             const tagName = getTagName(OnBuilderListenEventsOnTarget)
             el = sandbox.appendChild(document.createElement(tagName))
             listen(sandbox, 'custom-event', 1, done)
-            el.querySelector('input').dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
+            el.querySelector('input')?.dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
         })
         it('should invoke the bubbling and capture listeners on target', () => {
             assert.ok(bubblingListener.calledOnce)
@@ -104,9 +102,9 @@ describe('on', () => {
             const tagName = getTagName(OnBuilderListenEventsByDelegation)
             el = sandbox.appendChild(document.createElement(tagName))
             listen(sandbox, 'custom-event', 3, done)
-            el.querySelector('.i1').dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
-            el.querySelector('.i2').dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
-            el.querySelector('.i1 b').dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
+            el.querySelector('.i1')?.dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
+            el.querySelector('.i2')?.dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
+            el.querySelector('.i1 b')?.dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
         })
         it('should invoke listeners', () => {
             assert.ok(fn.calledThrice)
@@ -129,8 +127,7 @@ describe('on', () => {
             class OnBuilderListenEventsByDelegationWithShadow extends HTMLElement {
                 constructor() {
                     super()
-                    this.attachShadow({mode: 'open'})
-                    this.shadowRoot.innerHTML = '<i class="i1"><b>i1</b></i><i class="i2"><b>i2</b></i>'
+                    this.attachShadow({mode: 'open'}).innerHTML = '<i class="i1"><b>i1</b></i><i class="i2"><b>i2</b></i>'
                 }
             }
 
@@ -143,17 +140,17 @@ describe('on', () => {
                 .register()
             const tagName = getTagName(OnBuilderListenEventsByDelegationWithShadow)
             el = sandbox.appendChild(document.createElement(tagName))
-            listen(el.shadowRoot, 'custom-event', 3, done)
-            el.shadowRoot.querySelector('.i1').dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
-            el.shadowRoot.querySelector('.i2').dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
-            el.shadowRoot.querySelector('.i1 b').dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
+            el.shadowRoot && listen(el.shadowRoot, 'custom-event', 3, done)
+            el.shadowRoot?.querySelector('.i1')?.dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
+            el.shadowRoot?.querySelector('.i2')?.dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
+            el.shadowRoot?.querySelector('.i1 b')?.dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
         })
         it('should invoke listeners', () => {
             assert.ok(fn.calledThrice)
             assert.ok(fnI.calledThrice)
             assert.ok(fnI1.calledTwice)
-            assert.ok(fnI1.calledWith(el, sinon.match(Object), el.shadowRoot.querySelector('.i1')))
-            assert.ok(fnI1.calledWith(el, sinon.match(Object), el.shadowRoot.querySelector('.i1')))
+            assert.ok(fnI1.calledWith(el, sinon.match(Object), el.shadowRoot?.querySelector('.i1')))
+            assert.ok(fnI1.calledWith(el, sinon.match(Object), el.shadowRoot?.querySelector('.i1')))
         })
     })
 
@@ -184,7 +181,7 @@ describe('on', () => {
 
             setTimeout(() => {
                 listen(el, 'custom-event', 1, done)
-                el.querySelector('button').dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
+                el.querySelector('button')?.dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
             }, 10)
         })
         it('should invoke listeners', () => {

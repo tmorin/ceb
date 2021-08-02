@@ -2,10 +2,10 @@ import {expect} from "chai";
 import {html} from "../../src";
 
 describe("patcher/literal/property", function () {
-    let el
+    let el: HTMLDivElement
     beforeEach(() => {
         if (el) {
-            el.parentNode.removeChild(el)
+            el.parentNode?.removeChild(el)
         }
         el = document.body.appendChild(document.createElement("div"))
     })
@@ -20,7 +20,7 @@ describe("patcher/literal/property", function () {
         const bar = "bar"
         const template = html`<p><input p:type="text" p:name="${foo}" p:value="before ${bar} after" ></p>`
         template.render(el)
-        const input: HTMLInputElement = el.querySelector("input")
+        const input  = el.querySelector("input") as HTMLInputElement
         expect(input.type).to.be.eq("text")
         expect(input.name).to.be.eq("foo")
         expect(input.value).to.be.eq("before bar after")

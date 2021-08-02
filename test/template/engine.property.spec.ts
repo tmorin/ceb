@@ -1,12 +1,11 @@
 import {expect} from "chai"
-import {Engine} from "../../src/template/engine"
-
+import {ContextItem, Engine} from "../../src/template/engine"
 
 describe("patcher/engine/property", () => {
-    let el
+    let el: HTMLDivElement
     beforeEach(() => {
         if (el) {
-            el.parentNode.removeChild(el)
+            el.parentNode?.removeChild(el)
         }
         el = document.body.appendChild(document.createElement("div"))
     })
@@ -23,11 +22,11 @@ describe("patcher/engine/property", () => {
                 }
             )
         })
-        const input = el.firstElementChild as HTMLInputElement
+        const input = el.firstElementChild as HTMLInputElement & ContextItem
         expect(input.getAttribute("type")).to.be.eq("number")
         expect(input.value).to.be.eq("1")
         expect(input.valueAsNumber).to.be.eq(1)
-        expect(input[Engine.PROP_NAME_UPDATED_PROPERTIES]).to.include.members(["value", "type"])
+        expect(input.__ceb_engine_updated_properties).to.include.members(["value", "type"])
     })
     it("should unset property", () => {
         el.innerHTML = ""
@@ -40,14 +39,14 @@ describe("patcher/engine/property", () => {
             )
             engine.closeElement()
         })
-        const p = el.firstElementChild as HTMLParagraphElement
-        expect(p).to.have.property("keyA")
-        expect(p[Engine.PROP_NAME_UPDATED_PROPERTIES]).to.include.members(["keyA"])
+        const p = el.firstElementChild as HTMLParagraphElement & ContextItem
+        expect(p).to.have.property("keyA").eq("valueA")
+        expect(p.__ceb_engine_updated_properties).to.include.members(["keyA"])
         Engine.update(el, (engine) => {
             engine.openElement("p")
             engine.closeElement()
         })
-        expect(p["keyA"]).to.be.eq(undefined)
-        expect(p[Engine.PROP_NAME_UPDATED_PROPERTIES]).to.have.lengthOf(0)
+        expect(p).to.have.property("keyA").eq(undefined)
+        expect(p.__ceb_engine_updated_properties).to.have.lengthOf(0)
     })
 })

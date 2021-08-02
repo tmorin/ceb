@@ -2,7 +2,7 @@ import {assert} from 'chai'
 import {ContentBuilder, ElementBuilder} from '../src'
 
 describe('content.decorator', () => {
-    let sandbox
+    let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
@@ -14,8 +14,8 @@ describe('content.decorator', () => {
         class TestElement extends HTMLElement {
         }
 
-        const element: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const element = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
-        assert.ok(element.shadowRoot.querySelector('input'))
+        assert.ok(element.shadowRoot?.querySelector('input'))
     })
 })

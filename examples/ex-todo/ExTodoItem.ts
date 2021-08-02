@@ -1,10 +1,10 @@
 import {
+    ContentBuilder,
     CustomElementConstructor,
     ElementBuilder,
     FieldBuilder,
     OnBuilder,
-    ReferenceBuilder,
-    ContentBuilder
+    ReferenceBuilder
 } from '../../src'
 
 const template = `
@@ -22,31 +22,36 @@ const template = `
 `
 
 export class ExTodoItem extends HTMLElement {
-    done: boolean
-    text: string = ''
-    private readonly doneEl: HTMLInputElement
-    private readonly textEl: HTMLInputElement
+    done?: boolean
+    text?: string = ''
+    private doneEl?: HTMLInputElement
+    private textEl?: HTMLInputElement
 
     render() {
-        this.doneEl.checked = this.done
-        this.textEl.value = this.text
-        this.textEl.disabled = this.doneEl.checked
+        if (this.doneEl) {
+            this.doneEl.checked = !!this.done
+        }
+        if (this.textEl) {
+            this.textEl.value = this.text || ''
+            this.textEl.disabled = !!this.doneEl?.checked
+        }
+
     }
 
     onInput() {
-        this.done = this.doneEl.checked
-        this.text = this.textEl.value
+        this.done = !!this.doneEl?.checked
+        this.text = this.textEl?.value
     }
 }
 
 export default ElementBuilder.get(ExTodoItem).builder(
     ContentBuilder.get(template).shadow(true),
 
-    FieldBuilder.get('done').listener((el: ExTodoItem) => el.render()).boolean(),
+    FieldBuilder.get<ExTodoItem>('done').listener((el: ExTodoItem) => el.render()).boolean(),
     ReferenceBuilder.get('doneEl').shadow().selector('input[name=done]'),
 
-    FieldBuilder.get('text').listener((el: ExTodoItem) => el.render()),
+    FieldBuilder.get<ExTodoItem>('text').listener((el: ExTodoItem) => el.render()),
     ReferenceBuilder.get('textEl').shadow().selector('input[name=text]'),
 
-    OnBuilder.get('input,change').shadow().delegate('input').invoke((el: ExTodoItem) => el.onInput())
+    OnBuilder.get<ExTodoItem>('input,change').shadow().delegate('input').invoke((el: ExTodoItem) => el.onInput())
 ).register() as CustomElementConstructor<ExTodoItem>

@@ -2,9 +2,9 @@ import {assert} from "chai"
 import {AttributeBuilder, AttributePropagationBuilder, ElementBuilder} from "../src"
 
 describe("attribute_propagation.decorator", () => {
-    let sandbox
+    let sandbox: HTMLDivElement
     beforeEach(function () {
-        sandbox = document.body.appendChild(document.createElement("div"))
+        sandbox = document.body.appendChild(document.createElement('div'))
     })
     it("should propagate the attribute mutations", () => {
         const tagName = "delegate-attribute-decorator"
@@ -25,8 +25,7 @@ describe("attribute_propagation.decorator", () => {
         class TestElement extends HTMLElement {
             constructor() {
                 super()
-                this.attachShadow({mode: "open"})
-                this.shadowRoot.innerHTML = `<slot></slot><button></button>`
+                this.attachShadow({mode: "open"}).innerHTML = `<slot></slot><button></button>`
             }
 
             connectedCallback() {
@@ -34,19 +33,19 @@ describe("attribute_propagation.decorator", () => {
             }
         }
 
-        const element: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const element = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
 
         assert.strictEqual(element.getAttribute("value"), "default value")
-        assert.strictEqual(element.querySelector("input").getAttribute("value"), "default value")
+        assert.strictEqual(element.querySelector("input")?.getAttribute("value"), "default value")
 
         assert.strictEqual(element.hasAttribute("disabled"), true)
-        assert.strictEqual(element.querySelector("input").hasAttribute("disabled"), true)
+        assert.strictEqual(element.querySelector("input")?.hasAttribute("disabled"), true)
 
         assert.strictEqual(element.getAttribute("alt-type"), "text")
-        assert.strictEqual(element.querySelector("input").getAttribute("type"), "text")
+        assert.strictEqual(element.querySelector("input")?.getAttribute("type"), "text")
 
         assert.strictEqual(element.getAttribute("label"), "default label")
-        assert.strictEqual(element.shadowRoot.querySelector("button").textContent, "default label")
+        assert.strictEqual(element.shadowRoot?.querySelector("button")?.textContent, "default label")
     })
 })

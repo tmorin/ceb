@@ -72,7 +72,7 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
      * @template E the type of the Custom Element
      */
     static get<E extends HTMLElement>(propName?: string) {
-        return new FieldBuilder<E>(propName, toKebabCase(propName))
+        return new FieldBuilder<E>(propName, propName && toKebabCase(propName))
     }
 
     /**
@@ -220,11 +220,11 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
     decorate(prefix?: string): MethodDecorator
 
     decorate(prefix?: string): PropertyDecorator | MethodDecorator {
-        return (target: E, propOrMethName: string, methDescriptor?: PropertyDescriptor): void => {
+        return (target: Object, propOrMethName: string | symbol, methDescriptor?: PropertyDescriptor): void => {
             if (methDescriptor) {
-                this.decorateMeth(target, propOrMethName, methDescriptor, prefix)
+                this.decorateMeth(target, propOrMethName.toString(), methDescriptor, prefix)
             } else {
-                this.decorateProp(target, propOrMethName)
+                this.decorateProp(target, propOrMethName.toString())
             }
         }
     }
@@ -241,30 +241,37 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
             throw new TypeError("FieldBuilder - the attribute name is missing")
         }
 
+        const _propName : string = this._propName
+        const _attrName : string = this._attrName
+
         const defaultValuePropName = '__ceb_field_default_value_' + this._propName
 
         // registers the attribute to observe
-        Constructor['observedAttributes'].push(this._attrName)
+        // @ts-ignore
+        if (Constructor['observedAttributes'].indexOf(_attrName) < 0) {
+            // @ts-ignore
+            Constructor['observedAttributes'].push(_attrName)
+        }
 
         // registers mutation observer
         hooks.before('constructorCallback', el => {
             const builder = this
 
             // get the initial descriptor if existing to get the default value
-            const initialDescriptor = Object.getOwnPropertyDescriptor(el, this._propName)
+            const initialDescriptor = Object.getOwnPropertyDescriptor(el, _propName)
 
             // creates or overrides the property to intercept both getter and setter
-            Object.defineProperty(el, this._propName, {
+            Object.defineProperty(el, _propName, {
                 get(): any {
                     // get the value from the bound attribute
-                    return builder._isBoolean ? el.hasAttribute(builder._attrName) : el.getAttribute(builder._attrName)
+                    return builder._isBoolean ? el.hasAttribute(_attrName) : el.getAttribute(_attrName)
                 },
                 set(value: any): void {
                     // updates the bound attribute
                     if (value === false || value === undefined || value === null) {
-                        el.removeAttribute(builder._attrName)
+                        el.removeAttribute(_attrName)
                     } else {
-                        el.setAttribute(builder._attrName, builder._isBoolean ? '' : value)
+                        el.setAttribute(_attrName, builder._isBoolean ? '' : value)
                     }
                 }
             })
@@ -286,31 +293,35 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
         hooks.after('connectedCallback', el => {
             const defaultValueDescriptor = Object.getOwnPropertyDescriptor(el, defaultValuePropName)
             // applies the default value if its description has been found
-            if (!el.hasAttribute(this._attrName) && defaultValueDescriptor) {
+            if (!el.hasAttribute(_attrName) && defaultValueDescriptor) {
                 const defaultValue = defaultValueDescriptor.value
                 if (defaultValue !== undefined && defaultValue !== false) {
-                    el.setAttribute(this._attrName, this._isBoolean ? '' : defaultValue)
+                    el.setAttribute(_attrName, this._isBoolean ? '' : defaultValue)
                 }
             }
             // the default value shouldn't be set if the element is then moved into the DOM
+            // @ts-ignore
             delete el[defaultValuePropName]
         })
 
         // reacts on attribute values
         hooks.before('attributeChangedCallback', (el, attrName, attrOldVal, attrNewVal) => {
             // manages only expected attribute name
-            if (attrName === this._attrName) {
+            if (attrName === _attrName) {
                 const propName = this._propName
                 const oldVal = this._isBoolean ? attrOldVal === '' : attrOldVal
                 const newVal = this._isBoolean ? attrNewVal === '' : attrNewVal
 
+                // @ts-ignore
                 if (el[propName] !== newVal) {
                     // updates the property only if needed
+                    // @ts-ignore
                     el[propName] = newVal
                 } else if (oldVal !== newVal) {
                     // executes listeners because value has been updated
                     if (this._listeners.length > 0) {
                         this._listeners.forEach(listener => listener(el, {
+                            // @ts-ignore
                             propName,
                             attrName,
                             oldVal,
@@ -322,7 +333,7 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
         })
     }
 
-    private decorateProp(target: E, propName: string) {
+    private decorateProp(target: Object, propName: string) {
         if (!this._propName) {
             this._propName = propName
         }
@@ -336,7 +347,7 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
         }
     }
 
-    private decorateMeth(target: E, methName: string, descriptor: PropertyDescriptor, prefix = "on") {
+    private decorateMeth(target: Object, methName: string, descriptor: PropertyDescriptor, prefix = "on") {
         if (!this._propName) {
             this._propName = toCamelCase(
                 toKebabCase(methName.replace(prefix, ''))
@@ -353,7 +364,7 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
         })
     }
 
-    private mergeBuilder(builder: FieldBuilder, isMaster: boolean) {
+    private mergeBuilder(builder: FieldBuilder<E>, isMaster: boolean) {
         if (isMaster) {
             if (!this._attrName) {
                 this._attrName = builder._attrName

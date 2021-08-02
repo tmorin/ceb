@@ -16,7 +16,7 @@ function listen(el: Node, type: string, limit: number, done: Function) {
 }
 
 describe('on.decorator', () => {
-    let sandbox
+    let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
@@ -40,7 +40,7 @@ describe('on.decorator', () => {
 
             el = sandbox.appendChild(document.createElement(tagName))
             listen(sandbox, 'custom-event', 1, done)
-            el.querySelector('input').dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
+            el.querySelector('input')?.dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
         })
         it('should invoke the bubbling and capture listeners', () => {
             assert.ok(bubblingListener.calledOnce)

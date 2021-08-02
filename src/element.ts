@@ -16,8 +16,6 @@ export interface HookRegistry {
     }
 }
 
-const PROPERTY_NAME_BUILDERS = "_ceb_builders"
-
 /**
  * The builder handles the definition and the registration of a Custom Element.
  *
@@ -57,14 +55,14 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
      * @template B the type of the builder
      * @template E the type of the element
      */
-    static getOrSet<E extends HTMLElement, B extends Builder>(target: E, id: string, builder: B): B {
-        if (!target[PROPERTY_NAME_BUILDERS]) {
-            target[PROPERTY_NAME_BUILDERS] = {}
+    static getOrSet<B extends Builder>(target: Object & { _ceb_builders?: { [k: string]: B } }, id: string, builder: B): B {
+        if (!target._ceb_builders) {
+            target._ceb_builders = {}
         }
-        if (!target[PROPERTY_NAME_BUILDERS][id]) {
-            target[PROPERTY_NAME_BUILDERS][id] = builder
+        if (!target._ceb_builders[id]) {
+            target._ceb_builders[id] = builder
         }
-        return target[PROPERTY_NAME_BUILDERS][id]
+        return target._ceb_builders[id]
     }
 
     /**
@@ -73,7 +71,7 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
      * @template E the type of the Custom Element
      */
     static get<E extends HTMLElement>(constructor?: CustomElementConstructor<E>) {
-        return new ElementBuilder<E>(toKebabCase(constructor?.name), constructor)
+        return new ElementBuilder<E>(constructor && toKebabCase(constructor.name), constructor)
     }
 
     /**
@@ -177,8 +175,8 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
         }
 
         const OriginalClass = this._constructor
-        const altBuilders: Array<Builder> = Object.values(OriginalClass.prototype[PROPERTY_NAME_BUILDERS] || {})
-        delete OriginalClass.prototype[PROPERTY_NAME_BUILDERS]
+        const altBuilders: Array<Builder> = Object.values(OriginalClass.prototype["_ceb_builders"] || {})
+        delete OriginalClass.prototype["_ceb_builders"]
         const builders = [...this._builders, ...altBuilders]
         const hooks = this
 
@@ -197,7 +195,9 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
             connectedCallback() {
                 hooks.invoke('before', 'connectedCallback', callback => callback(this))
                 hooks.invoke('between', 'connectedCallback', callback => callback(this))
+                // @ts-ignore
                 if (super['connectedCallback']) {
+                    // @ts-ignore
                     super['connectedCallback']()
                 }
                 hooks.invoke('after', 'connectedCallback', callback => callback(this))
@@ -206,7 +206,9 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
             disconnectedCallback() {
                 hooks.invoke('before', 'disconnectedCallback', callback => callback(this))
                 hooks.invoke('between', 'disconnectedCallback', callback => callback(this))
+                // @ts-ignore
                 if (super['disconnectedCallback']) {
+                    // @ts-ignore
                     super['disconnectedCallback']()
                 }
                 hooks.invoke('after', 'disconnectedCallback', callback => callback(this))
@@ -215,7 +217,9 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
             adoptedCallback() {
                 hooks.invoke('before', 'adoptedCallback', callback => callback(this))
                 hooks.invoke('between', 'adoptedCallback', callback => callback(this))
+                // @ts-ignore
                 if (super['adoptedCallback']) {
+                    // @ts-ignore
                     super['adoptedCallback']()
                 }
                 hooks.invoke('after', 'adoptedCallback', callback => callback(this))
@@ -224,7 +228,9 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
             attributeChangedCallback(name: string, oldValue: null | string, newValue: null | string) {
                 hooks.invoke('before', 'attributeChangedCallback', callback => callback(this, name, oldValue, newValue))
                 hooks.invoke('between', 'attributeChangedCallback', callback => callback(this, name, oldValue, newValue))
+                // @ts-ignore
                 if (super['attributeChangedCallback']) {
+                    // @ts-ignore
                     super['attributeChangedCallback'](name, oldValue, newValue)
                 }
                 hooks.invoke('after', 'attributeChangedCallback', callback => callback(this, name, oldValue, newValue))

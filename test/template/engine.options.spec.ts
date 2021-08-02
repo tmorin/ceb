@@ -2,10 +2,10 @@ import {expect} from "chai"
 import {Engine} from "../../src/template/engine"
 
 describe("patcher/engine/options", () => {
-    let el
+    let el: HTMLDivElement
     beforeEach(() => {
         if (el) {
-            el.parentNode.removeChild(el)
+            el.parentNode?.removeChild(el)
         }
         el = document.body.appendChild(document.createElement("div"))
     })

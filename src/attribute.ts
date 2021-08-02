@@ -59,8 +59,8 @@ export interface AttributeListener<E extends HTMLElement> {
 export class AttributeBuilder<E extends HTMLElement = HTMLElement> implements Builder<E> {
 
     private constructor(
-        private _attrName: string,
-        private _defaultValue: boolean | string = undefined,
+        private _attrName?: string,
+        private _defaultValue?: boolean | string,
         private _isBoolean = false,
         private _listeners: Array<AttributeListener<E>> = []
     ) {
@@ -72,7 +72,7 @@ export class AttributeBuilder<E extends HTMLElement = HTMLElement> implements Bu
      * @template E the type of the Custom Element
      */
     static get<E extends HTMLElement>(attrName?: string) {
-        return new AttributeBuilder<E>(toKebabCase(attrName))
+        return new AttributeBuilder<E>(attrName && toKebabCase(attrName))
     }
 
     /**
@@ -199,18 +199,17 @@ export class AttributeBuilder<E extends HTMLElement = HTMLElement> implements Bu
      * @param prefix the prefix used to discover the attribute name from the method name
      */
     decorate(prefix = "on"): MethodDecorator {
-        const builder = this
-        return function (target: E, methName: string, descriptor: PropertyDescriptor) {
-            if (!builder._attrName) {
-                builder._attrName = toKebabCase(
-                    methName.replace(prefix, '')
+        return (target: Object, methName: string | symbol, descriptor: PropertyDescriptor) => {
+            if (!this._attrName) {
+                this._attrName = toKebabCase(
+                    methName.toString().replace(prefix, '')
                 )
             }
-            builder.listener((el, data) => {
+            this.listener((el, data) => {
                 const fn = descriptor.value as Function
                 fn.call(el, data)
             })
-            ElementBuilder.getOrSet(target, `attribute-${builder._attrName}`, builder)
+            ElementBuilder.getOrSet(target, `attribute-${this._attrName}`, this)
         }
     }
 
@@ -218,35 +217,42 @@ export class AttributeBuilder<E extends HTMLElement = HTMLElement> implements Bu
      * This API is dedicated for developer of Builders.
      * @protected
      */
-    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>) {
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & { [key: string]: any }>) {
         if (!this._attrName) {
             throw new TypeError("AttributeBuilder - the attribute name is missing")
         }
-
-        const defaultValuePropName = '__ceb_attribute_default_value_' + toCamelCase(this._attrName)
+        const _attrName = this._attrName
+        const _defaultValuePropName = '__ceb_attribute_default_value_' + toCamelCase(_attrName)
 
         // registers the attribute to observe
+        // @ts-ignore
         if (Constructor['observedAttributes'].indexOf(this._attrName) < 0) {
+            // @ts-ignore
             Constructor['observedAttributes'].push(this._attrName)
         }
 
         // set the default value
         hooks.after('connectedCallback', el => {
-            if (!el[defaultValuePropName]
-                && !el.hasAttribute(this._attrName)
+            if (!el[_defaultValuePropName]
+                && !el.hasAttribute(_attrName)
                 && this._defaultValue !== undefined
                 && this._defaultValue !== false
                 && this._defaultValue !== null
             ) {
-                el[defaultValuePropName] = true
-                el.setAttribute(this._attrName, this._isBoolean ? '' : this._defaultValue as string)
+                Object.defineProperty(el, _defaultValuePropName, {
+                    value: true,
+                    writable: false,
+                    configurable: false,
+                    enumerable: false
+                })
+                el.setAttribute(_attrName, this._isBoolean ? '' : this._defaultValue as string)
             }
         })
 
         // reacts on attribute values
         hooks.before('attributeChangedCallback', (el, attrName, oldValue, newValue) => {
             // invokes listeners
-            if (attrName === this._attrName) {
+            if (attrName === _attrName) {
                 if (this._listeners.length > 0) {
                     const oldVal = this._isBoolean ? oldValue === '' : oldValue
                     const newVal = this._isBoolean ? newValue === '' : newValue

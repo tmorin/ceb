@@ -6,15 +6,16 @@ import {toKebabCase} from "./utilities";
 /**
  * The event listener is invoked according to the clauses.
  */
-export interface OnListener<E extends HTMLElement, T extends Element = Element> {
+export interface OnListener<E extends HTMLElement = HTMLElement, V extends Event = Event, T extends Element = Element> {
     /**
      * @param el the Custom Element
      * @param evt the DOM event
      * @param targetClause the target of the clause otherwise, the Custom Element
      * @template E the type of the Custom Element
+     * @template V the type of the Event
      * @template T the type of the target
      */
-    (el: E, evt: Event, targetClause: T): void
+    (el: E, evt: V, targetClause: T): void
 }
 
 /**
@@ -26,7 +27,7 @@ const noop = () => {
 /**
  * Event clauses `[[<name>,<selector>]]` => `[['click', 'button'], ['click', 'a.button']]`.
  */
-type Clauses = Array<[string, string]>
+type Clauses = Array<[string, string | undefined]>
 
 /**
  * The builder handles the addition and removal of DOM event listeners.
@@ -62,11 +63,11 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
 
     private constructor(
         private _clauses?: string,
-        private _callback: OnListener<E> = noop,
+        private _callback: OnListener = noop,
         private _forceCapture = false,
         private _forcePreventDefault = false,
         private _forceStopPropagation = false,
-        private _selector: string = undefined,
+        private _selector?: string,
         private _isShadow = false
     ) {
     }
@@ -120,8 +121,11 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      * ```
      *
      * @param listener the callback
+     * @template V the type of the Event
+     * @template T the type of the target
      */
-    invoke<T extends Element>(listener: OnListener<E, T>) {
+    invoke<V extends Event = Event, T extends Element = Element>(listener: OnListener<E, V, T>) {
+        // @ts-ignore
         this._callback = listener
         return this
     }
@@ -291,10 +295,10 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      * @param prefix the prefix used to discover the event name from the method name
      */
     decorate(prefix = "on"): MethodDecorator {
-        return (target: E, methName: string, descriptor: PropertyDescriptor) => {
+        return (target: Object, methName: string | symbol, descriptor: PropertyDescriptor) => {
             if (!this._clauses) {
                 this._clauses = toKebabCase(
-                    methName.replace(prefix, '')
+                    methName.toString().replace(prefix, '')
                 )
             }
             const id = `on-${this._clauses}`
@@ -309,12 +313,11 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      * This API is dedicated for developer of Builders.
      * @protected
      */
-    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>) {
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & {__ceb_on_handlers: Array<any>}>) {
         if (!this._clauses) {
             throw new TypeError("OnBuilder - the clauses are missing")
         }
 
-        const PROPERTY_NAME_CEB_ON_HANDLERS = '__ceb_on_handlers'
         const clauses: Clauses = this._clauses.split(",").map(clause => {
             const parts = clause.trim().split(" ")
             const name = parts[0]
@@ -329,15 +332,17 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
 
         hooks.before('connectedCallback', el => {
             const base = this._isShadow ? el.shadowRoot : el
+            if (!base) {
+                return
+            }
 
-            const listener = evt => {
+            const listener = (evt: Event) => {
                 if (selector) {
-                    const target = Array.from(base.querySelectorAll(selector))
-                        .filter((candidate: HTMLElement) => {
-                            const isTarget = candidate === evt.target
-                            const isChild = candidate.contains(evt.target)
-                            return isTarget || isChild
-                        })[0]
+                    const target = Array.from(base.querySelectorAll(selector)).filter((candidate: Element) => {
+                        const isTarget = candidate === evt.target
+                        const isChild = evt.target instanceof Node && candidate.contains(evt.target)
+                        return isTarget || isChild
+                    })[0]
                     if (target) {
                         if (stopPropagation) {
                             evt.stopPropagation()
@@ -345,7 +350,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
                         if (preventDefault) {
                             evt.preventDefault()
                         }
-                        callback(el, evt, target as HTMLElement)
+                        callback(el, evt, target)
                     }
                 } else {
                     if (stopPropagation) {
@@ -354,26 +359,31 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
                     if (preventDefault) {
                         evt.preventDefault()
                     }
-                    callback(el, evt, el)
+                    callback(
+                        el,
+                        evt,
+                        // @ts-ignore
+                        el
+                    )
                 }
             }
 
-            el[PROPERTY_NAME_CEB_ON_HANDLERS] = clauses
+            el.__ceb_on_handlers = clauses
                 .map(([name, target]) => [name, target ? base.querySelector(target) : base])
                 .filter(([, target]) => !!target)
                 .map(([name, target]) => [target, name, listener, capture])
-                .concat(el[PROPERTY_NAME_CEB_ON_HANDLERS] || [])
+                .concat(el.__ceb_on_handlers || [])
 
-            el[PROPERTY_NAME_CEB_ON_HANDLERS].forEach(([target, name, listener, capture]) => {
+            el.__ceb_on_handlers.forEach(([target, name, listener, capture]) => {
                 target.addEventListener(name, listener, capture)
             })
         })
 
         hooks.before('disconnectedCallback', el => {
-            el[PROPERTY_NAME_CEB_ON_HANDLERS].forEach(
+            el.__ceb_on_handlers.forEach(
                 ([target, name, listener, capture]) => target.removeEventListener(name, listener, capture)
             )
-            el[PROPERTY_NAME_CEB_ON_HANDLERS] = []
+            el.__ceb_on_handlers = []
         })
     }
 

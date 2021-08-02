@@ -9,7 +9,7 @@ const template = `
 export class ExTodoCleanItems extends HTMLElement {
 }
 
-export default ElementBuilder.get(ExTodoCleanItems).builder(
+ElementBuilder.get(ExTodoCleanItems).builder(
     ContentBuilder.get(template),
     OnBuilder.get('submit').prevent().invoke((el) => {
         el.dispatchEvent(new CustomEvent<string>('ex-todo-clean-items', {

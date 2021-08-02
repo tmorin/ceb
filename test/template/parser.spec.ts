@@ -38,11 +38,11 @@ function executeParse(html: string): Array<ParseEvent> {
 }
 
 describe("patcher/parser", function () {
-    let i
-    let el
+    let i: number
+    let el: HTMLDivElement
     beforeEach(() => {
         if (el) {
-            el.parentNode.removeChild(el)
+            el.parentNode?.removeChild(el)
         }
         el = document.body.appendChild(document.createElement("div"))
         i = 0

@@ -4,7 +4,7 @@ import {ElementBuilder, FieldBuilder, FieldListenerData} from '../src'
 import sinon from 'sinon'
 
 describe('field.decorator', () => {
-    let sandbox
+    let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
@@ -17,7 +17,7 @@ describe('field.decorator', () => {
             altName = 'a field'
         }
 
-        const el: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         assert.strictEqual(el.altName, 'a field')
         assert.strictEqual(el.getAttribute('alt-name'), 'a field')
@@ -31,7 +31,7 @@ describe('field.decorator', () => {
             altName = true
         }
 
-        const el: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         assert.strictEqual(el.altName, true)
         assert.strictEqual(el.getAttribute('alt-name'), '')
@@ -45,7 +45,7 @@ describe('field.decorator', () => {
             altName = 'a field'
         }
 
-        const el: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         assert.strictEqual(el.altName, 'a field')
         assert.strictEqual(el.getAttribute('an-attribute'), 'a field')
@@ -65,7 +65,7 @@ describe('field.decorator', () => {
             }
         }
 
-        const el: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         assert.strictEqual(el.altName, 'a field')
         assert.strictEqual(el.getAttribute('alt-name'), 'a field')
@@ -88,7 +88,7 @@ describe('field.decorator', () => {
             }
         }
 
-        const el: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         assert.strictEqual(el.altName, 'a field')
         assert.strictEqual(el.getAttribute('alt-name'), 'a field')
@@ -111,7 +111,7 @@ describe('field.decorator', () => {
             }
         }
 
-        const el: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         assert.strictEqual(el.altName, 'a field')
         assert.strictEqual(el.getAttribute('an-attribute'), 'a field')

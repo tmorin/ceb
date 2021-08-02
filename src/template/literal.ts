@@ -1,6 +1,7 @@
 import {Attributes, Engine, Options, Parameters, Properties, UpdateParameters} from "./engine"
 import {Attribute, parse} from "./parser"
 import {Template, TemplateParameters} from "./builder";
+import {toCamelCase} from "../utilities";
 
 export {UpdateParameters} from "./engine"
 
@@ -9,20 +10,14 @@ const PREFIX_CEB_VALUE_INDEX = "{{ceb_value_index:"
 const SUFFIX_CEB_VALUE_INDEX = "}}"
 const PREFIX_CEB_PROPERTY = "p:"
 const PREFIX_CEB_OPTION = "o:"
-const PROTECTED_TAGS = {"slot": true, "ceb-slot": true}
-
-function toCamelCase(string = '') {
-    return string.toLowerCase()
-        .split('-')
-        .map((part, index) => index ? part.charAt(0).toUpperCase() + part.slice(1) : part).join('')
-}
+const PROTECTED_TAGS = ["slot", "ceb-slot"]
 
 function fromStringToValues(string: string = "", args: Array<any> = []): Array<any> {
     const values: Array<any> = []
     const r = new RegExp(PATTERN_CEB_VALUE_INDEX)
     let cursorFrom = 0
     let cursorTo = 0
-    let match: RegExpExecArray
+    let match
     while (match = r.exec(string)) {
         cursorTo = match.index
         const textValue = string.substring(cursorFrom, cursorTo)
@@ -30,7 +25,7 @@ function fromStringToValues(string: string = "", args: Array<any> = []): Array<a
             values.push(textValue)
         }
         const argIndex = match[1]
-        const argValue = args[argIndex]
+        const argValue = args[parseInt(argIndex)]
         values.push(argValue)
         cursorFrom = cursorTo + match[0].length
     }
@@ -72,10 +67,16 @@ function generateParameters(tagAttrs: Array<Attribute> = [], args: Array<any>): 
         const isOption = attrName.startsWith(PREFIX_CEB_OPTION)
         if (isProperty) {
             const propName = toCamelCase(attrName.replace(PREFIX_CEB_PROPERTY, ""))
-            properties.push([propName, value])
+            if (propName) {
+                properties.push([propName, value])
+            }
         } else if (isOption) {
             const optName = toCamelCase(attrName.replace(PREFIX_CEB_OPTION, ""))
-            options[optName] = value === "" || value === attrName ? true : value
+            if (optName) {
+                Object.assign(options, {
+                    [optName]: value === "" || value === attrName ? true : value
+                })
+            }
         } else {
             const sanitizedAttrValue = value === attrName ? "" : value
             attributes.push([attrName, sanitizedAttrValue])
@@ -134,13 +135,15 @@ export function html(strings: TemplateStringsArray, ...args: Array<any>): Templa
     }
 
     const operations = new Operations()
-    parse(stringsCaches.get(strings), {
+    parse(stringsCaches.get(strings) || "", {
         openTag(name: string, attrs: Array<Attribute>, selfClosing: boolean) {
-            const {attributes, properties, options} = generateParameters(attrs, args)
-            if (PROTECTED_TAGS[name]) {
-                options.slot = true
+            const parameters = generateParameters(attrs, args)
+            if (PROTECTED_TAGS.indexOf(name) > -1) {
+                Object.assign(parameters.options, {
+                    slot: true
+                })
             }
-            operations.push(engine => engine.openElement(name, {attributes, properties, options}))
+            operations.push(engine => engine.openElement(name, parameters))
             if (selfClosing) {
                 operations.push(engine => engine.closeElement())
             }

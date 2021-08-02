@@ -2,7 +2,7 @@
 // https://johnresig.com/files/htmlparser.js
 
 function toMap(str: string) {
-    const obj = {}
+    const obj: any = {}
     const items = str.split(",")
     for (let i = 0; i < items.length; i++) {
         obj[items[i]] = true
@@ -25,10 +25,10 @@ const inline = toMap("a,abbr,acronym,b,bdi,bdo,big,br,button,canvas,cite,code,da
 const special = toMap("script,style")
 
 export type SaxHandler = {
-    openTag?(name: string, attributes: Array<Attribute>, selfClosing: boolean)
-    closeTag?(name: string)
-    comment?(data: string)
-    text?(data: string)
+    openTag?(name: string, attributes: Array<Attribute>, selfClosing: boolean): void
+    closeTag?(name: string): void
+    comment?(data: string): void
+    text?(data: string): void
 }
 
 export type Attribute = {
@@ -36,13 +36,23 @@ export type Attribute = {
     value: string
 }
 
+type Stack = Array<string> & {
+    last: () => string
+}
+
+function createStack(): Stack {
+    const array: Array<string> = []
+    return Object.assign(array, {
+        last: () => array[array.length - 1]
+    })
+}
+
 export function parse(html: string, handler: SaxHandler) {
     let index: number
     let chars: boolean
-    let match: RegExpMatchArray
-    let stack: Array<string> = []
+    let match
+    let stack = createStack()
     let last = html
-    stack["last"] = () => this[this.length - 1]
 
     while (html) {
         chars = true
@@ -149,7 +159,7 @@ export function parse(html: string, handler: SaxHandler) {
         return ""
     }
 
-    function parseEndTag(tag?, tagName?: string) {
+    function parseEndTag(tag?: string, tagName?: string) {
         let pos: number
 
         if (!tagName) {

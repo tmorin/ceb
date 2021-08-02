@@ -195,18 +195,24 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
 
     private propagateValue(el: E, newVal: any) {
         const base = this._isShadow ? el.shadowRoot : el
-        const targets = base.querySelectorAll(this._selector)
+        if (!base) {
+            return
+        }
+        const targets = this._selector ? base.querySelectorAll(this._selector) : []
         if (targets.length > 0) {
-            if (this._toAttrName) {
+            const _toAttrName = this._toAttrName
+            const _toPropName = this._toPropName
+            if (_toAttrName) {
                 if (typeof newVal === "string") {
-                    targets.forEach(t => t.setAttribute(this._toAttrName, newVal))
+                    targets.forEach(t => t.setAttribute(_toAttrName, newVal))
                 } else if (newVal === true) {
-                    targets.forEach(t => t.setAttribute(this._toAttrName, ""))
+                    targets.forEach(t => t.setAttribute(_toAttrName, ""))
                 } else {
-                    targets.forEach(t => t.removeAttribute(this._toAttrName))
+                    targets.forEach(t => t.removeAttribute(_toAttrName))
                 }
-            } else if (this._toPropName) {
-                targets.forEach(t => t[this._toPropName] = newVal)
+            } else if (_toPropName) {
+                // @ts-ignore
+                targets.forEach(t => t[_toPropName] = newVal)
             }
         }
     }

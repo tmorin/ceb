@@ -46,15 +46,15 @@ iframe:not([tabindex='-1']),
 export class ExFormField extends HTMLElement {
     // This field is an API to mutated the enclosed `label#label` element.
     @FieldBuilder.get().decorate()
-    label: string
+    label?: string
 
     // This field is an API to mutated the enclosed `div#helper` element.
     @FieldBuilder.get().decorate()
-    helper: string
+    helper?: string
 
     // This property is reference to the light DOM accessible from the Shadow DOM.
     @ReferenceBuilder.get().shadow().selector( '#controls slot').decorate()
-    readonly slotElement: HTMLSlotElement
+    slotElement?: HTMLSlotElement
 
     // The listener reacts on clicks on the `label#label` to delegate focus on the first focusable control.
     @OnBuilder.get('click #label').shadow().decorate()

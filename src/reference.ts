@@ -26,8 +26,8 @@ import {ElementBuilder} from "./element"
 export class ReferenceBuilder<E extends HTMLElement = HTMLElement> implements Builder<E> {
 
     private constructor(
-        private _propName: string,
-        private _selectors: string,
+        private _propName?: string,
+        private _selectors?: string,
         private _isArray = false,
         private _isShadow = false
     ) {
@@ -137,16 +137,15 @@ export class ReferenceBuilder<E extends HTMLElement = HTMLElement> implements Bu
      * ```
      */
     decorate(): PropertyDecorator {
-        const builder = this
-        return function (target: HTMLElement, propName: string) {
-            if (!builder._propName) {
-                builder._propName = propName
+        return (target: Object, propName: string | symbol) => {
+            if (!this._propName) {
+                this._propName = propName.toString()
             }
-            if (!builder._selectors) {
-                builder._selectors = `#${builder._propName}`
+            if (!this._selectors) {
+                this._selectors = `#${this._propName}`
             }
-            const id = `field-${builder._propName}`
-            ElementBuilder.getOrSet(target, id, builder)
+            const id = `field-${this._propName}`
+            ElementBuilder.getOrSet(target, id, this)
         }
     }
 
@@ -162,15 +161,18 @@ export class ReferenceBuilder<E extends HTMLElement = HTMLElement> implements Bu
             throw new TypeError("ReferenceBuilder - the CSS selector is missing")
         }
 
-        const selectors = this._selectors
-        const isArray = this._isArray
-        const isShadow = this._isShadow
+        const _propName = this._propName
+        const _selectors = this._selectors
+        const _isArray = this._isArray
+        const _isShadow = this._isShadow
 
         hooks.before("constructorCallback", el => {
-            Object.defineProperty(el, this._propName, {
+            Object.defineProperty(el, _propName, {
                 get(): any {
-                    const base = isShadow ? el.shadowRoot : el
-                    return isArray ? Array.from(base.querySelectorAll(selectors)) : base.querySelector(selectors)
+                    const base = _isShadow ? el.shadowRoot : el
+                    if (base) {
+                        return _isArray ? Array.from(base.querySelectorAll(_selectors)) : base.querySelector(_selectors)
+                    }
                 }
             })
         })

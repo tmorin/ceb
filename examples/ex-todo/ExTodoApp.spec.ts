@@ -9,7 +9,7 @@ describe('ExTodoApp', () => {
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
         sandbox.innerHTML = `<ex-todo-app></ex-todo-app>`
-        app = sandbox.querySelector('ex-todo-app')
+        app = sandbox.querySelector('ex-todo-app') as ExTodoApp
     })
 
     it('should add items', () => {

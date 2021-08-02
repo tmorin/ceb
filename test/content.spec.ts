@@ -2,8 +2,7 @@ import {assert} from 'chai'
 import {ContentBuilder, ElementBuilder} from '../src'
 
 describe('content', () => {
-    let sandbox
-
+    let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
@@ -32,7 +31,7 @@ describe('content', () => {
         ElementBuilder.get(TestElement).name(tagName).builder(
             ContentBuilder.get<TestElement>((el) => `<p>${el.name}</p>`)
         ).register()
-        const element: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const element = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         assert.ok(element.querySelector('p'))
     })
@@ -48,7 +47,7 @@ describe('content', () => {
         ).register()
         const element: TestElement = sandbox.appendChild(document.createElement(tagName))
         assert.ok(sandbox.querySelector(tagName))
-        assert.ok(element.shadowRoot.querySelector('input'))
+        assert.ok(element.shadowRoot?.querySelector('input'))
     })
 
 })

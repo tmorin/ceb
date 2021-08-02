@@ -3,7 +3,7 @@ import './ExTodoItem'
 import {ExTodoItem} from './ExTodoItem'
 
 export class ExTodoItemList extends HTMLElement {
-    private readonly todoItems: Array<ExTodoItem>
+    private todoItems?: Array<ExTodoItem>
 
     addItem(text: string) {
         const exTodoItem = this.appendChild(document.createElement('ex-todo-item')) as ExTodoItem
@@ -11,7 +11,7 @@ export class ExTodoItemList extends HTMLElement {
     }
 
     cleanItems() {
-        this.todoItems.filter(item => item.done).forEach(item => item.parentNode.removeChild(item))
+        this.todoItems?.filter(item => item.done).forEach(item => item.parentNode?.removeChild(item))
     }
 }
 

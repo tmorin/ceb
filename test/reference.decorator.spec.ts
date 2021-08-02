@@ -2,7 +2,7 @@ import {assert} from 'chai'
 import {ElementBuilder, ReferenceBuilder} from '../src'
 
 describe('reference.decorator', () => {
-    let sandbox
+    let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
@@ -12,22 +12,21 @@ describe('reference.decorator', () => {
         @ElementBuilder.get().name(tagName).decorate()
         class TestElement extends HTMLElement {
             @ReferenceBuilder.get().selector("ul").shadow().decorate()
-            readonly ul: HTMLUListElement
+            ul?: HTMLUListElement
             @ReferenceBuilder.get().shadow().decorate()
-            readonly anId: HTMLUListElement
+            anId?: HTMLUListElement
             @ReferenceBuilder.get().shadow().array().selector("li").decorate()
-            readonly lis: Array<HTMLLIElement>
+            lis?: Array<HTMLLIElement>
         }
 
         const el: TestElement = sandbox.appendChild(document.createElement(tagName))
-        el.attachShadow({mode: 'open'})
-        el.shadowRoot.innerHTML = `<ul id="anId"><li class="li0"></li><li class="li0"></li></ul>`
+        el.attachShadow({mode: 'open'}).innerHTML = `<ul id="anId"><li class="li0"></li><li class="li0"></li></ul>`
         assert.ok(sandbox.querySelector(tagName))
         assert.ok(el.ul)
-        assert.strictEqual(el.ul.tagName, 'UL')
+        assert.strictEqual(el.ul?.tagName, 'UL')
         assert.ok(el.anId)
-        assert.strictEqual(el.anId.tagName, 'UL')
+        assert.strictEqual(el.anId?.tagName, 'UL')
         assert.ok(el.lis)
-        assert.strictEqual(el.lis.length, 2)
+        assert.strictEqual(el.lis?.length, 2)
     })
 })

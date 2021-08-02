@@ -21,5 +21,5 @@ export interface Builder<E extends HTMLElement = HTMLElement> {
      * @param Constructor the constructor of the custom element
      * @param hooks an helper to register hooks
      */
-    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>)
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>) : void
 }

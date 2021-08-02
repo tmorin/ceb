@@ -2,18 +2,19 @@ import {Engine} from "../../src/template/engine";
 import {expect} from "chai";
 
 describe("patcher/engine/custom-element", function () {
-    let el
+    let el: HTMLDivElement
     beforeEach(() => {
         if (el) {
-            el.parentNode.removeChild(el)
+            el.parentNode?.removeChild(el)
         }
         el = document.body.appendChild(document.createElement("div"))
     })
     it("should handle the `__fn_preserve_children` property", () => {
         class TestRegularCustomElement extends HTMLElement {
+            __ceb_engine_preserve_children = true
+
             constructor() {
                 super();
-                this[Engine.PROP_NAME_PRESERVE_CHILDREN] = true
             }
 
             connectedCallback() {
@@ -30,7 +31,8 @@ describe("patcher/engine/custom-element", function () {
             engine.closeElement()
         })
         expect(el.innerHTML).to.be.eq(`<div><test-regular-custom-element>initial text content</test-regular-custom-element></div>`)
-        el.querySelector("test-regular-custom-element").textContent = "updated text content"
+        const element = el.querySelector("test-regular-custom-element") as TestRegularCustomElement
+        element.textContent = "updated text content"
         Engine.update(el, (engine) => {
             engine.openElement("div")
             engine.openElement("test-regular-custom-element")
@@ -56,14 +58,16 @@ describe("patcher/engine/custom-element", function () {
             )
             engine.closeElement()
         })
+        const element = el.querySelector("input[is=test-input-custom-element]") as TestInputCustomElement
         expect(el.innerHTML).to.be.eq(`<div><input is="test-input-custom-element"></div>`)
-        expect(el.querySelector("input[is=test-input-custom-element]").test()).to.be.eq("test")
+        expect(element.test()).to.be.eq("test")
     })
     it("should preserve attributes", () => {
         class TestAttributesCustomElement extends HTMLInputElement {
+            __ceb_engine_preserve_attributes = ["type", "placeholder"]
+
             constructor() {
                 super();
-                this[Engine.PROP_NAME_PRESERVE_ATTRIBUTES] = ["type", "placeholder"]
                 this.type = "number"
                 this.placeholder = "type a number"
             }

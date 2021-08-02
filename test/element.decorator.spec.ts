@@ -2,7 +2,7 @@ import {assert} from 'chai'
 import {ElementBuilder} from '../src'
 
 describe('element.decorator', () => {
-    let sandbox
+    let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
@@ -18,7 +18,7 @@ describe('element.decorator', () => {
             }
         }
 
-        const el: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const el = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         assert.strictEqual(el.altName, 'a name')
         assert.strictEqual(el.getAttribute('att0'), 'val0')
@@ -39,11 +39,11 @@ describe('element.decorator', () => {
             }
         }
 
-        const el: InputTestElement = sandbox.appendChild(document.createElement('input', {is: tagName}))
+        const el = sandbox.appendChild(document.createElement('input', {is: tagName}) as InputTestElement)
         {
             const input = sandbox.querySelector('input')
             assert.ok(input instanceof InputTestElement)
-            assert.strictEqual(input.outerHTML, `<input is="${tagName}" att0="val0">`)
+            assert.strictEqual(input?.outerHTML, `<input is="${tagName}" att0="val0">`)
         }
         assert.strictEqual(el.altName, 'a name')
         assert.strictEqual(el.getAttribute('att0'), 'val0')

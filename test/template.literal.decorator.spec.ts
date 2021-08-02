@@ -2,8 +2,7 @@ import {assert} from 'chai'
 import {ElementBuilder, html, Template, TemplateBuilder} from '../src'
 
 describe('template/literal', () => {
-    let sandbox
-
+    let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
     })
@@ -21,13 +20,13 @@ describe('template/literal', () => {
             }
         }
 
-        const element: TestElement = sandbox.appendChild(document.createElement(tagName))
+        const element = sandbox.appendChild(document.createElement(tagName) as TestElement)
         assert.ok(sandbox.querySelector(tagName))
         assert.ok(element.querySelector('input'))
-        assert.strictEqual(element.querySelector('input').value, "Foo")
+        assert.strictEqual(element.querySelector('input')?.value, "Foo")
         element.name = "Bar"
         element.render()
-        assert.strictEqual(element.querySelector('input').value, "Bar")
+        assert.strictEqual(element.querySelector('input')?.value, "Bar")
     })
 
 })

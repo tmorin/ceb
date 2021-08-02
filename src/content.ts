@@ -79,11 +79,10 @@ export class ContentBuilder<E extends HTMLElement = HTMLElement> implements Buil
      * ```
      */
     decorate(): ClassDecorator {
-        const builder = this
         // @ts-ignore
-        return function (constructor: CustomElementConstructor<E>) {
+        return (constructor: CustomElementConstructor<E>) => {
             const id = 'content'
-            ElementBuilder.getOrSet(constructor.prototype, id, builder)
+            ElementBuilder.getOrSet(constructor.prototype, id, this)
         }
     }
 
@@ -91,12 +90,10 @@ export class ContentBuilder<E extends HTMLElement = HTMLElement> implements Buil
      * This API is dedicated for developer of Builders.
      * @protected
      */
-    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>) {
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & { __ceb_content_default_html?: string }>) {
         if (!this._content) {
             throw new TypeError("ContentBuilder - the content is missing")
         }
-
-        const defaultHtmlPropName = '__ceb_content_default_html'
 
         hooks.before('constructorCallback', el => {
             // resolve the HTML content
@@ -104,22 +101,23 @@ export class ContentBuilder<E extends HTMLElement = HTMLElement> implements Buil
 
             if (this._isShadow) {
                 // creates and initializes the shadow root
-                if (!el.shadowRoot) {
-                    el.attachShadow({mode: 'open', delegatesFocus: this._isFocusDelegation})
-                }
-                el.shadowRoot.innerHTML = html
+                const shadowRoot = el.shadowRoot || el.attachShadow({
+                    mode: 'open',
+                    delegatesFocus: this._isFocusDelegation
+                })
+                shadowRoot.innerHTML = html
             } else {
                 // keep the HTML content, for the first `connectedCallback`
-                el[defaultHtmlPropName] = html
+                el.__ceb_content_default_html = html
             }
         })
 
         hooks.before('connectedCallback', el => {
-            if (el[defaultHtmlPropName]) {
+            if (el.__ceb_content_default_html) {
                 // resolve the HTML content and injects it
-                el.innerHTML = el[defaultHtmlPropName]
+                el.innerHTML = el.__ceb_content_default_html
                 // delete the resolved HTML content to avoid overrides
-                delete el[defaultHtmlPropName]
+                delete el.__ceb_content_default_html
             }
         })
     }
