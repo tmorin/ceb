@@ -1,8 +1,9 @@
 import './helpers'
 import {assert} from 'chai'
-import {ElementBuilder, utilities} from '../src'
+import {ElementBuilder} from '../src'
 import {getTagName} from './helpers'
 import sinon, {SinonSpy} from 'sinon'
+import {toKebabCase} from "../src/utilities";
 
 
 describe('element', () => {
@@ -28,7 +29,7 @@ describe('element', () => {
             altName: string
         }
 
-        const tagName = utilities.toKebabCase("MyCustomElement")
+        const tagName = toKebabCase("MyCustomElement")
         ElementBuilder
             .get(class extends HTMLElement implements IMyCustomElement {
                 public altName = 'my name'
