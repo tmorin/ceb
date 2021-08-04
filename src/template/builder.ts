@@ -40,7 +40,9 @@ export interface Template<P = any> {
  * However, the builder can render the template into the Shadow DOM with {@link TemplateBuilder.shadow}.
  * Another switch, {@link TemplateBuilder.grey} can be used to force the rendering into a _scope_.
  *
- * If the _scope_ is not required, the Custom Element content can be simply preserve from ancestral rendering process with {@link TemplateBuilder.preserve}.
+ * If the _scope_ is not required, the Custom Element content can be simply preserve from ancestral rendering process with {@link TemplateBuilder.preserveContent}.
+ *
+ * Attributes can also be preserved from ancestral rendering process with {@link TemplateBuilder.preserveAttributes}.
  *
  * By default, the name of the wrapped method is `render`.
  * However, the name can be changed with {@link TemplateBuilder.method}.
@@ -60,7 +62,8 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
 
     private constructor(
         private _isGrey = false,
-        private _preserve = false,
+        private _preserveContent = false,
+        private _preserveAttributes: Array<string> = [],
         private _isShadow = false,
         private _isFocusDelegation?: boolean,
         private _methName = "render",
@@ -109,7 +112,7 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      * Forces the rendering into the Grey DOM.
      *
      * ${@link TemplateBuilder.shadow} and ${@link TemplateBuilder.grey} are exclusives.
-     * ${@link TemplateBuilder.preserve} and ${@link TemplateBuilder.grey} are exclusives.
+     * ${@link TemplateBuilder.preserveContent} and ${@link TemplateBuilder.grey} are exclusives.
      *
      * @example
      * ```typescript
@@ -133,9 +136,9 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
     }
 
     /**
-     * Prevent mutations on the Custom Element content from rendering process coming from ancestors.
+     * Prevent mutations on the Custom Element content from rendering processes coming from ancestors.
      *
-     * ${@link TemplateBuilder.preserve} and ${@link TemplateBuilder.grey} are exclusives.
+     * ${@link TemplateBuilder.preserveContent} and ${@link TemplateBuilder.grey} are exclusives.
      *
      * @example
      * ```typescript
@@ -147,12 +150,36 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      *     }
      * }
      * ElementBuilder.get().builder(
-     *     TemplateBuilder.get().preserve()
+     *     TemplateBuilder.get().preserveContent()
      * ).register()
      * ```
      */
-    preserve() {
-        this._preserve = true
+    preserveContent() {
+        this._preserveContent = true
+        return this
+    }
+
+    /**
+     * Preserve attributes of the Custom Element from rendering processes coming from ancestors.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, TemplateBuilder, html} from "ceb"
+     * class HelloWorld extends HTMLElement {
+     *     value = "World"
+     *     render() {
+     *         return html`Hello, ${this.value}!`
+     *     }
+     * }
+     * ElementBuilder.get().builder(
+     *     TemplateBuilder.get().preserveAttributes("class", "id")
+     * ).register()
+     * ```
+     *
+     * @param names the names of the attribute
+     */
+    preserveAttributes(...names: Array<string>) {
+        this._preserveAttributes = this._preserveAttributes.concat(names)
         return this
     }
 
@@ -235,11 +262,20 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      * This API is dedicated for developer of Builders.
      * @protected
      */
-    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & { [key: string]: any }>) {
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & {
+        [key: string]: any,
+        __ceb_engine_preserve_children?: boolean,
+        __ceb_engine_preserve_attributes?: Array<string>
+    }>) {
         hooks.before('constructorCallback', (el) => {
-            if (this._preserve) {
-                // @ts-ignore
+            if (this._preserveContent) {
                 el[Engine.PROP_NAME_PRESERVE_CHILDREN] = true
+            }
+            if (this._preserveAttributes.length > 0) {
+                if (!el[Engine.PROP_NAME_PRESERVE_ATTRIBUTES]) {
+                    el[Engine.PROP_NAME_PRESERVE_ATTRIBUTES] = []
+                }
+                el[Engine.PROP_NAME_PRESERVE_ATTRIBUTES] = el[Engine.PROP_NAME_PRESERVE_ATTRIBUTES]?.concat(this._preserveAttributes)
             }
             // wrap the default render function to render the template in call
             if (typeof el[this._methName] === 'function') {

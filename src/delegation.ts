@@ -206,15 +206,15 @@ export class PropertyDelegationBuilder<E extends HTMLElement = HTMLElement> impl
      * This API is dedicated for developer of Builders.
      * @protected
      */
-    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & { [k: string]: any }>) {
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & { [key: string]: any }>) {
         if (!this._propName) {
             throw new TypeError("PropertyDelegationBuilder - the property name is missing")
         }
         if (!this._selector) {
             throw new TypeError("PropertyDelegationBuilder - the CSS selector is missing")
         }
-        const _propName: string = this._propName
-        const _selector: string = this._selector
+        const _propName = this._propName
+        const _selector = this._selector
 
         const defaultValuePropName = "__ceb_delegate_property_default_value_" + _propName
 

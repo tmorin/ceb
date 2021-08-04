@@ -233,7 +233,7 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
      * This API is dedicated for developer of Builders.
      * @protected
      */
-    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>) {
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & { [key: string]: any }>) {
         if (!this._propName) {
             throw new TypeError("FieldBuilder - the property name is missing")
         }
@@ -241,8 +241,8 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
             throw new TypeError("FieldBuilder - the attribute name is missing")
         }
 
-        const _propName : string = this._propName
-        const _attrName : string = this._attrName
+        const _propName: string = this._propName
+        const _attrName: string = this._attrName
 
         const defaultValuePropName = '__ceb_field_default_value_' + this._propName
 
@@ -300,7 +300,6 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
                 }
             }
             // the default value shouldn't be set if the element is then moved into the DOM
-            // @ts-ignore
             delete el[defaultValuePropName]
         })
 
@@ -308,21 +307,18 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
         hooks.before('attributeChangedCallback', (el, attrName, attrOldVal, attrNewVal) => {
             // manages only expected attribute name
             if (attrName === _attrName) {
-                const propName = this._propName
                 const oldVal = this._isBoolean ? attrOldVal === '' : attrOldVal
                 const newVal = this._isBoolean ? attrNewVal === '' : attrNewVal
 
-                // @ts-ignore
-                if (el[propName] !== newVal) {
+                if (el[_propName] !== newVal) {
                     // updates the property only if needed
                     // @ts-ignore
-                    el[propName] = newVal
+                    el[_propName] = newVal
                 } else if (oldVal !== newVal) {
                     // executes listeners because value has been updated
                     if (this._listeners.length > 0) {
                         this._listeners.forEach(listener => listener(el, {
-                            // @ts-ignore
-                            propName,
+                            propName: _propName,
                             attrName,
                             oldVal,
                             newVal

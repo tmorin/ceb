@@ -34,7 +34,7 @@ describe('template/literal', () => {
 
         @ElementBuilder.get().name(tagSection).decorate()
         class SectionElement extends HTMLElement {
-            @TemplateBuilder.get().preserve().decorate()
+            @TemplateBuilder.get().preserveContent().decorate()
             render(): Template {
                 return html`
                     <section>
@@ -47,7 +47,11 @@ describe('template/literal', () => {
         class UlElement extends HTMLElement {
             items?: Array<string>
 
-            @TemplateBuilder.get().preserve().decorate()
+            connectedCallback() {
+                this.setAttribute("class", "test")
+            }
+
+            @TemplateBuilder.get().preserveContent().preserveAttributes("class").decorate()
             render(): Template {
                 const lis = this.items?.map(item => html`
                     <li o:key="${item}">${item}</li>`)
@@ -60,11 +64,27 @@ describe('template/literal', () => {
             }
         }
 
-        const sectionElement = sandbox.appendChild(document.createElement(tagUl) as UlElement)
-        // @ts-ignore
-        assert.strictEqual(sectionElement[Engine.PROP_NAME_PRESERVE_CHILDREN], true)
-        sectionElement.items = ["A", "B"]
+        const sectionElement = sandbox.appendChild(document.createElement(tagSection) as SectionElement)
         sectionElement.render()
-        assert.strictEqual(sectionElement.querySelectorAll("li").length, 4)
+
+        {
+            const ulElement = sandbox.querySelector(tagUl) as UlElement
+            // @ts-ignore
+            assert.strictEqual(ulElement[Engine.PROP_NAME_PRESERVE_CHILDREN], true)
+            // @ts-ignore
+            assert.equal(ulElement[Engine.PROP_NAME_PRESERVE_ATTRIBUTES][0], "class")
+            ulElement.items = ["A", "B"]
+            ulElement.render()
+            assert.strictEqual(ulElement.querySelectorAll("li").length, 4)
+        }
+        sectionElement.render()
+        {
+            const ulElement = sandbox.querySelector(tagUl) as UlElement
+            // @ts-ignore
+            assert.strictEqual(ulElement[Engine.PROP_NAME_PRESERVE_CHILDREN], true)
+            // @ts-ignore
+            assert.equal(ulElement[Engine.PROP_NAME_PRESERVE_ATTRIBUTES][0], "class")
+            assert.equal(ulElement.getAttribute("class"), "test")
+        }
     })
 })

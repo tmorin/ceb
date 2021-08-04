@@ -79,8 +79,7 @@ export class ContentBuilder<E extends HTMLElement = HTMLElement> implements Buil
      * ```
      */
     decorate(): ClassDecorator {
-        // @ts-ignore
-        return (constructor: CustomElementConstructor<E>) => {
+        return (constructor) => {
             const id = 'content'
             ElementBuilder.getOrSet(constructor.prototype, id, this)
         }
