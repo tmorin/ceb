@@ -3,36 +3,11 @@
  */
 export type ContextItem = Element & HTMLElement & DocumentFragment & {
     /**
-     * The value refers to a property name which should be used by Custom Element only.
-     * The purpose of the property is to list attribute names which won't be mutated.
-     * @example Preserve the type and min of an extended input
-     * ```typescript
-     * class OnlyPositiveNumberInput extends HTMLInputElement {
-     *   __ceb_engine_preserve_attributes = ["type", "min"]
-     *   constructor() {
-     *     super()
-     *     this.type = "number"
-     *     this.min = "0"
-     *   }
-     * }
-     * ```
+     * C.f. {@link Engine.PROP_NAME_PRESERVE_ATTRIBUTES}
      */
     __ceb_engine_preserve_attributes?: Array<string>
     /**
-     * The value refers to a property name which should be used by Custom Element only.
-     * The purpose of the property is to prevent the mutation of the child nodes.
-     * @example Preserve the child nodes of Custom Element
-     * ```typescript
-     * class SimpleCustomElement extends HTMLElement {
-     *   __ceb_engine_preserve_children = true
-     *   constructor() {
-     *     super()
-     *   }
-     *   connectedCallback() {
-     *     this.textContent = "an initial text content"
-     *   }
-     * }
-     * ```
+     * C.f. {@link Engine.PROP_NAME_PRESERVE_CHILDREN}
      */
     __ceb_engine_preserve_children?: boolean
     /**
@@ -45,7 +20,10 @@ export type ContextItem = Element & HTMLElement & DocumentFragment & {
      * @private
      */
     __ceb_engine_slot?: ContextItem
-
+    /**
+     * The value refers to a property name which is only used internally.
+     * @private
+     */
     [key: string]: any
 }
 
@@ -291,6 +269,39 @@ function cleanReferencedElements(contexts: Contexts) {
  * ```
  */
 export class Engine {
+    /**
+     * The value refers to a property name which should be used by Custom Element only.
+     * The purpose of the property is to list attribute names which won't be mutated.
+     * @example Preserve the type and min of an extended input
+     * ```typescript
+     * class OnlyPositiveNumberInput extends HTMLInputElement {
+     *   __ceb_engine_preserve_attributes = ["type", "min"]
+     *   constructor() {
+     *     super()
+     *     this.type = "number"
+     *     this.min = "0"
+     *   }
+     * }
+     * ```
+     */
+    static readonly PROP_NAME_PRESERVE_ATTRIBUTES = "__ceb_engine_preserve_attributes"
+    /**
+     * The value refers to a property name which should be used by Custom Element only.
+     * The purpose of the property is to prevent the mutation of the child nodes.
+     * @example Preserve the child nodes of Custom Element
+     * ```typescript
+     * class SimpleCustomElement extends HTMLElement {
+     *   __ceb_engine_preserve_children = true
+     *   constructor() {
+     *     super()
+     *   }
+     *   connectedCallback() {
+     *     this.textContent = "an initial text content"
+     *   }
+     * }
+     * ```
+     */
+    static readonly PROP_NAME_PRESERVE_CHILDREN = "__ceb_engine_preserve_children"
 
     private constructor(
         private readonly containerElement: ContextItem,

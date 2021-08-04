@@ -1,5 +1,6 @@
 import {assert} from 'chai'
 import {ElementBuilder, html, Template, TemplateBuilder} from '../src'
+import {Engine} from "../src/template/engine";
 
 describe('template/literal', () => {
     let sandbox: HTMLDivElement
@@ -33,9 +34,7 @@ describe('template/literal', () => {
 
         @ElementBuilder.get().name(tagSection).decorate()
         class SectionElement extends HTMLElement {
-            __ceb_preserve_children = true;
-
-            @TemplateBuilder.get().decorate()
+            @TemplateBuilder.get().preserve().decorate()
             render(): Template {
                 return html`
                     <section>
@@ -46,10 +45,9 @@ describe('template/literal', () => {
 
         @ElementBuilder.get().name(tagUl).decorate()
         class UlElement extends HTMLElement {
-            __ceb_preserve_children = true;
             items?: Array<string>
 
-            @TemplateBuilder.get().decorate()
+            @TemplateBuilder.get().preserve().decorate()
             render(): Template {
                 const lis = this.items?.map(item => html`
                     <li o:key="${item}">${item}</li>`)
@@ -63,6 +61,8 @@ describe('template/literal', () => {
         }
 
         const sectionElement = sandbox.appendChild(document.createElement(tagUl) as UlElement)
+        // @ts-ignore
+        assert.strictEqual(sectionElement[Engine.PROP_NAME_PRESERVE_CHILDREN], true)
         sectionElement.items = ["A", "B"]
         sectionElement.render()
         assert.strictEqual(sectionElement.querySelectorAll("li").length, 4)

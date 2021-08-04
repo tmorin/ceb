@@ -1,6 +1,7 @@
 import {Builder, CustomElementConstructor} from "../builder";
 import {ElementBuilder} from "../element";
 import {HooksRegistration} from "../hook";
+import {Engine} from "./engine";
 
 /**
  * The common parameters of the rendering.
@@ -39,6 +40,8 @@ export interface Template<P = any> {
  * However, the builder can render the template into the Shadow DOM with {@link TemplateBuilder.shadow}.
  * Another switch, {@link TemplateBuilder.grey} can be used to force the rendering into a _scope_.
  *
+ * If the _scope_ is not required, the Custom Element content can be simply preserve from ancestral rendering process with {@link TemplateBuilder.preserve}.
+ *
  * By default, the name of the wrapped method is `render`.
  * However, the name can be changed with {@link TemplateBuilder.method}.
  *
@@ -57,6 +60,7 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
 
     private constructor(
         private _isGrey = false,
+        private _preserve = false,
         private _isShadow = false,
         private _isFocusDelegation?: boolean,
         private _methName = "render",
@@ -105,6 +109,7 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      * Forces the rendering into the Grey DOM.
      *
      * ${@link TemplateBuilder.shadow} and ${@link TemplateBuilder.grey} are exclusives.
+     * ${@link TemplateBuilder.preserve} and ${@link TemplateBuilder.grey} are exclusives.
      *
      * @example
      * ```typescript
@@ -124,6 +129,30 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
         this._isGrey = true
         this._isShadow = false
         this._isFocusDelegation = undefined
+        return this
+    }
+
+    /**
+     * Prevent mutations on the Custom Element content from rendering process coming from ancestors.
+     *
+     * ${@link TemplateBuilder.preserve} and ${@link TemplateBuilder.grey} are exclusives.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, TemplateBuilder, html} from "ceb"
+     * class HelloWorld extends HTMLElement {
+     *     value = "World"
+     *     render() {
+     *         return html`Hello, ${this.value}!`
+     *     }
+     * }
+     * ElementBuilder.get().builder(
+     *     TemplateBuilder.get().preserve()
+     * ).register()
+     * ```
+     */
+    preserve() {
+        this._preserve = true
         return this
     }
 
@@ -207,22 +236,26 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      * @protected
      */
     build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & { [key: string]: any }>) {
-        hooks.before('constructorCallback', el => {
+        hooks.before('constructorCallback', (el) => {
+            if (this._preserve) {
+                // @ts-ignore
+                el[Engine.PROP_NAME_PRESERVE_CHILDREN] = true
+            }
             // wrap the default render function to render the template in call
             if (typeof el[this._methName] === 'function') {
-                const original: Function = el[this._methName]
-                const isShadow = this._isShadow;
-                const greyDom = this._isGrey;
-                const parameters = this._parameters
+                const _original: Function = el[this._methName]
+                const _isShadow = this._isShadow;
+                const _greyDom = this._isGrey;
+                const _parameters = this._parameters
                 Object.defineProperty(el, this._methName, {
                     configurable: true,
                     enumerable: true,
                     writable: false,
                     value: function (): Template<P> {
-                        const template: Template<P> = original.apply(el, arguments)
+                        const template: Template<P> = _original.apply(el, arguments)
                         template.render(
-                            isShadow && el.shadowRoot ? el.shadowRoot : el,
-                            Object.assign({greyDom}, parameters)
+                            _isShadow && el.shadowRoot ? el.shadowRoot : el,
+                            Object.assign({greyDom: _greyDom}, _parameters)
                         )
                         return template
                     }
