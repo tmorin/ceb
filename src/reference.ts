@@ -145,7 +145,7 @@ export class ReferenceBuilder<E extends HTMLElement = HTMLElement> implements Bu
                 this._selectors = `#${this._propName}`
             }
             const id = `field-${this._propName}`
-            ElementBuilder.getOrSet(target, id, this)
+            ElementBuilder.getOrSet(target, this, id)
         }
     }
 

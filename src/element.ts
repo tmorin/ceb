@@ -2,6 +2,8 @@ import {toKebabCase} from './utilities'
 import {Builder, CustomElementConstructor} from './builder'
 import {HookCallbacks} from './hook'
 
+let counter = 0
+
 /**
  * The registry of registered hooks.
  *
@@ -50,12 +52,16 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
      * This API is dedicated for developer of Builders.
      * @protected
      * @param target the target
-     * @param id the id used to identify the builder
      * @param builder the builder
+     * @param id the id used to identify the builder
      * @template B the type of the builder
      * @template E the type of the element
      */
-    static getOrSet<B extends Builder>(target: Object & { _ceb_builders?: { [k: string]: B } }, id: string, builder: B): B {
+    static getOrSet<B extends Builder>(
+        target: Object & { _ceb_builders?: { [p: string]: B } },
+        builder: B,
+        id: string = `builder-${counter++}`
+    ): B {
         if (!target._ceb_builders) {
             target._ceb_builders = {}
         }

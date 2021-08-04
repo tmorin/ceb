@@ -301,8 +301,8 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
                     methName.toString().replace(prefix, '')
                 )
             }
-            const id = `on-${this._clauses}`
-            ElementBuilder.getOrSet(target, id, this).invoke((el, data, target) => {
+            const id = undefined
+            ElementBuilder.getOrSet(target, this, undefined).invoke((el, data, target) => {
                 const fn = descriptor.value as Function
                 fn.call(el, data, target)
             })

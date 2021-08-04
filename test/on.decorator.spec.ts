@@ -2,18 +2,7 @@ import './helpers'
 import sinon, {SinonSpy} from 'sinon'
 import {assert} from 'chai'
 import {ElementBuilder, OnBuilder} from '../src'
-
-function listen(el: Node, type: string, limit: number, done: Function) {
-    let counter = 0
-    const listener = () => {
-        counter++
-        if (counter === limit) {
-            done()
-            el.removeEventListener(type, listener)
-        }
-    }
-    el.addEventListener(type, listener)
-}
+import {listen} from "./helpers";
 
 describe('on.decorator', () => {
     let sandbox: HTMLDivElement
@@ -22,29 +11,64 @@ describe('on.decorator', () => {
     })
     context('listen events', () => {
         const tagName = 'el-listen-events'
-        let bubblingListener: SinonSpy, el: HTMLElement
+        let onCustomEvenSpy: SinonSpy
+        let handlerForASpy: SinonSpy
+        let handlerForBSpy: SinonSpy
+        let el: HTMLElement
+        let event: CustomEvent = new CustomEvent('custom-event', {
+                detail: "test value",
+                bubbles: true
+            }
+        )
         beforeEach(done => {
-            bubblingListener = sinon.spy()
+            onCustomEvenSpy = sinon.spy()
+            handlerForASpy = sinon.spy()
+            handlerForBSpy = sinon.spy()
 
             @ElementBuilder.get().name(tagName).decorate()
             class TestElement extends HTMLElement {
                 @OnBuilder.get().decorate()
-                onCustomEvent(data: Event) {
-                    bubblingListener(data)
+                onCustomEvent(data: Event, target: TestElement) {
+                    onCustomEvenSpy(data, target)
+                }
+
+                @OnBuilder.get("custom-event").delegate("input.a").decorate()
+                handlerForA(data: Event, target: HTMLInputElement) {
+                    handlerForASpy(data, target)
+                }
+
+                @OnBuilder.get("custom-event").delegate("input.b").decorate()
+                handlerForB(data: Event, target: HTMLInputElement) {
+                    handlerForBSpy(data, target)
                 }
 
                 connectedCallback() {
-                    this.innerHTML = `<input/>`
+                    this.innerHTML = `<div>
+                        <input class="a">
+                        <div>
+                            <input class="b">
+                        </div>
+                    </div>`
                 }
             }
 
             el = sandbox.appendChild(document.createElement(tagName))
-            listen(sandbox, 'custom-event', 1, done)
-            el.querySelector('input')?.dispatchEvent(new CustomEvent('custom-event', {bubbles: true}))
+            listen(sandbox, 'custom-event', 2, done)
+            el.querySelector('input.a')?.dispatchEvent(event)
+            el.querySelector('input.b')?.dispatchEvent(event)
         })
         it('should invoke the bubbling and capture listeners', () => {
-            assert.ok(bubblingListener.calledOnce)
-            assert.ok(bubblingListener.calledWith(sinon.match.instanceOf(CustomEvent)))
+            assert.equal(onCustomEvenSpy.callCount, 2)
+            assert.strictEqual(onCustomEvenSpy.getCall(0).args[0], event)
+            assert.strictEqual(onCustomEvenSpy.getCall(0).args[1].tagName, tagName.toUpperCase())
+            assert.strictEqual(onCustomEvenSpy.getCall(1).args[0], event)
+            assert.strictEqual(onCustomEvenSpy.getCall(1).args[1].tagName, tagName.toUpperCase())
+            assert.equal(handlerForASpy.callCount, 1)
+            assert.strictEqual(handlerForASpy.getCall(0).args[0], event)
+            assert.strictEqual(handlerForASpy.getCall(0).args[1].getAttribute("class"), "a")
+            assert.equal(handlerForBSpy.callCount, 1)
+            assert.strictEqual(handlerForBSpy.getCall(0).args[0], event)
+            assert.strictEqual(handlerForBSpy.getCall(0).args[1].getAttribute("class"), "b")
         })
     })
 })

@@ -254,7 +254,7 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
                 this._methName = methName.toString()
             }
             const id = 'template'
-            ElementBuilder.getOrSet(target, id, this)
+            ElementBuilder.getOrSet(target, this, id)
         }
     }
 

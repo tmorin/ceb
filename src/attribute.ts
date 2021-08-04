@@ -209,7 +209,7 @@ export class AttributeBuilder<E extends HTMLElement = HTMLElement> implements Bu
                 const fn = descriptor.value as Function
                 fn.call(el, data)
             })
-            ElementBuilder.getOrSet(target, `attribute-${this._attrName}`, this)
+            ElementBuilder.getOrSet(target, this, `attribute-${this._attrName}`)
         }
     }
 

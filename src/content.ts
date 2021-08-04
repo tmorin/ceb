@@ -81,7 +81,7 @@ export class ContentBuilder<E extends HTMLElement = HTMLElement> implements Buil
     decorate(): ClassDecorator {
         return (constructor) => {
             const id = 'content'
-            ElementBuilder.getOrSet(constructor.prototype, id, this)
+            ElementBuilder.getOrSet(constructor.prototype, this, id)
         }
     }
 

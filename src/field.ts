@@ -337,7 +337,7 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
             this._attrName = toKebabCase(this._propName)
         }
         const id = `field-${this._propName}`
-        const builder = ElementBuilder.getOrSet(target, id, this)
+        const builder = ElementBuilder.getOrSet(target, this, id)
         if (builder !== this) {
             builder.mergeBuilder(this, true)
         }
@@ -350,7 +350,7 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
             )
         }
         const id = `field-${this._propName}`
-        const builder = ElementBuilder.getOrSet(target, id, this)
+        const builder = ElementBuilder.getOrSet(target, this, id)
         if (builder !== this) {
             builder.mergeBuilder(this, false)
         }

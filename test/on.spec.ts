@@ -2,19 +2,7 @@ import './helpers'
 import sinon, {SinonSpy} from 'sinon'
 import {assert} from 'chai'
 import {ElementBuilder, OnBuilder} from '../src'
-import {getTagName} from './helpers'
-
-function listen(el: Node, type: string, limit: number, done: Function) {
-    let counter = 0
-    const listener = () => {
-        counter++
-        if (counter === limit) {
-            done()
-            el.removeEventListener(type, listener)
-        }
-    }
-    el.addEventListener(type, listener)
-}
+import {getTagName, listen} from './helpers'
 
 describe('on', () => {
     let sandbox: HTMLDivElement

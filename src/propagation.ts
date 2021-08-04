@@ -171,9 +171,9 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
     decorate<T extends HTMLElement>(): ClassDecorator {
         return (constructor) => {
             const attrId = `attribute-${this._fromAttrName}`
-            ElementBuilder.getOrSet(constructor.prototype, attrId, this._attrBuilder)
+            ElementBuilder.getOrSet(constructor.prototype, this._attrBuilder, attrId)
             const deleId = `delegate-${attrId}`
-            ElementBuilder.getOrSet(constructor.prototype, deleId, this)
+            ElementBuilder.getOrSet(constructor.prototype, this, deleId)
         }
     }
 

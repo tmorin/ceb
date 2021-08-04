@@ -198,7 +198,7 @@ export class PropertyDelegationBuilder<E extends HTMLElement = HTMLElement> impl
                 this._propName = propName.toString()
             }
             const id = `delegate-property-${this._propName}`
-            ElementBuilder.getOrSet(target, id, this)
+            ElementBuilder.getOrSet(target, this, id)
         }
     }
 
