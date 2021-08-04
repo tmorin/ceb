@@ -178,7 +178,7 @@ function updateAttributes(element: ContextItem, attributes: Attributes = []) {
             } else if (type === "number") {
                 element.setAttribute(name, value.toString())
                 updatedAttributes.push(name)
-            } else if (value) {
+            } else {
                 element.setAttribute(name, sanitize(value))
                 updatedAttributes.push(name)
             }
