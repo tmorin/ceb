@@ -36,19 +36,23 @@ function fromStringToValues(string: string = "", args: Array<any> = []): Array<a
     return values
 }
 
+function isOperations(candidate?: any) {
+    return candidate && typeof candidate.render === "function" && typeof candidate.push === "function"
+}
+
 function fromValuesToOperations(values: Array<any>, accumulator: (operations: Operations, value: any) => void): Operations {
     const operations = new Operations()
     values.forEach(value => {
-        if (value instanceof Operations) {
-            operations.push(value)
-        } else if (Array.isArray(value)) {
+        if (Array.isArray(value)) {
             for (let item of value) {
-                if (item instanceof Operations) {
+                if (isOperations(item)) {
                     operations.push(item)
                 } else {
                     accumulator(operations, item)
                 }
             }
+        } else if (isOperations(value)) {
+            operations.push(value)
         } else {
             accumulator(operations, value)
         }
@@ -108,8 +112,6 @@ class Operations implements Template<UpdateParameters> {
     }
 }
 
-const stringsCaches = new WeakMap<TemplateStringsArray, string>()
-
 /**
  * This function is a [tag function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates)
  * which converts a [literal statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literal) to a {@link Template}.
@@ -127,15 +129,11 @@ const stringsCaches = new WeakMap<TemplateStringsArray, string>()
  * @param args the arguments
  */
 export function html(strings: TemplateStringsArray, ...args: Array<any>): Template<UpdateParameters> {
-    if (!stringsCaches.has(strings)) {
-        stringsCaches.set(strings, strings.map(
-            (text, index) =>
-                `${text}${typeof args[index] !== "undefined" ? `${PREFIX_CEB_VALUE_INDEX}${index}${SUFFIX_CEB_VALUE_INDEX}` : ""}`
-        ).join(""))
-    }
-
+    const template = strings.map((text, index) =>
+        `${text}${typeof args[index] !== "undefined" ? `${PREFIX_CEB_VALUE_INDEX}${index}${SUFFIX_CEB_VALUE_INDEX}` : ""}`
+    ).join("")
     const operations = new Operations()
-    parse(stringsCaches.get(strings) || "", {
+    parse(template, {
         openTag(name: string, attrs: Array<Attribute>, selfClosing: boolean) {
             const parameters = generateParameters(attrs, args)
             if (PROTECTED_TAGS.indexOf(name) > -1) {
