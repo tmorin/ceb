@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/tmorin/ceb/compare/v3.1.1...v3.2.0) (2021-08-05)
+
+
+### Features
+
+* `TemplateBuilder` should provide an option to preserve attribute from external mutations ([7c971ce](https://github.com/tmorin/ceb/commit/7c971ced626758b557c6d727ef83e01da95e4c43))
+* `TemplateBuilder` should provide an option to preserve the Custom Element content from external mutations ([b7be2a0](https://github.com/tmorin/ceb/commit/b7be2a06c2dcacdbd9b671eadfb584b971bf21e7))
+
+
+### Bug Fixes
+
+* in fact, `utilities` should be exported ([9e02ce0](https://github.com/tmorin/ceb/commit/9e02ce0d385f94a3a8d0c04b5611b760048418b2))
+* **on:** the decorator couldn't be used many times ([585d0ab](https://github.com/tmorin/ceb/commit/585d0abe68319aa8231ac9e1f3f9d4b217a3b8d8))
+* template caching leads to issues ([2bd0b01](https://github.com/tmorin/ceb/commit/2bd0b01cc503864d3de211cdfdb2227c25b95b86))
+* **template:** boolean attributes were not properly handled ([b36f08e](https://github.com/tmorin/ceb/commit/b36f08ed6555e81e56d7a3d1ea493292cd2ff73a))
+* **template:** referenced elements were badly handled ([55c0a0c](https://github.com/tmorin/ceb/commit/55c0a0c662edd598537b716d9cf75ddd0d8a5f6f))
+* **template:** values with an empty string were not handled properly for attributes ([4764967](https://github.com/tmorin/ceb/commit/47649676da73cf1fbbe122f7f69b0b465412849e))
+
 ### [3.1.1](https://github.com/tmorin/ceb/compare/v3.1.0...v3.1.1) (2021-08-03)
 
 ## [3.1.0](https://github.com/tmorin/ceb/compare/v3.0.0...v3.1.0) (2021-08-01)
