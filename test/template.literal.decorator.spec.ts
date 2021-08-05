@@ -28,9 +28,10 @@ describe('template/literal', () => {
         element.render()
         assert.strictEqual(element.querySelector('input')?.value, "Bar")
     })
-    it('should render a complex template', () => {
+    it.only('should render a complex template', () => {
         const tagSection = 'template-decorator-complex-section'
         const tagUl = 'template-decorator-complex-ul'
+        const items = ["A", "B", "C"].map(id => ({id, title: id, completed: false}))
 
         @ElementBuilder.get().name(tagSection).decorate()
         class SectionElement extends HTMLElement {
@@ -45,7 +46,7 @@ describe('template/literal', () => {
 
         @ElementBuilder.get().name(tagUl).decorate()
         class UlElement extends HTMLElement {
-            items?: Array<string>
+            items?: Array<{ id: string, title: string, completed: boolean }>
 
             connectedCallback() {
                 this.setAttribute("class", "test")
@@ -54,7 +55,10 @@ describe('template/literal', () => {
             @TemplateBuilder.get().preserveContent().preserveAttributes("class").decorate()
             render(): Template {
                 const lis = this.items?.map(item => html`
-                    <li o:key="${item}">${item}</li>`)
+                    <li o:key="${item.id}">
+                        <input type="checkbox" checked="${item.completed}">
+                        <label>${item.title}</label>
+                    </li>`)
                 return html`
                     <ul>
                         <li>before</li>
@@ -73,18 +77,37 @@ describe('template/literal', () => {
             assert.strictEqual(ulElement[Engine.PROP_NAME_PRESERVE_CHILDREN], true)
             // @ts-ignore
             assert.equal(ulElement[Engine.PROP_NAME_PRESERVE_ATTRIBUTES][0], "class")
-            ulElement.items = ["A", "B"]
+            ulElement.items = [...items]
             ulElement.render()
-            assert.strictEqual(ulElement.querySelectorAll("li").length, 4)
+            assert.strictEqual(ulElement.querySelectorAll("li").length, 5)
         }
         sectionElement.render()
         {
             const ulElement = sandbox.querySelector(tagUl) as UlElement
-            // @ts-ignore
-            assert.strictEqual(ulElement[Engine.PROP_NAME_PRESERVE_CHILDREN], true)
-            // @ts-ignore
-            assert.equal(ulElement[Engine.PROP_NAME_PRESERVE_ATTRIBUTES][0], "class")
-            assert.equal(ulElement.getAttribute("class"), "test")
+            ulElement.items = [...items]
+            ulElement.items[1].completed = true
+            ulElement.render()
+            const inputB = ulElement.querySelectorAll("li input")[1] as HTMLInputElement
+            assert.strictEqual(inputB.checked, true)
+            assert.strictEqual(inputB.getAttribute("checked"), "")
+        }
+        sectionElement.render()
+        {
+            const ulElement = sandbox.querySelector(tagUl) as UlElement
+            ulElement.items = [...items].map(item => ({...item, completed: true}))
+            ulElement.render()
+            const inputB = ulElement.querySelectorAll("li input")[1] as HTMLInputElement
+            assert.strictEqual(inputB.checked, true)
+            assert.strictEqual(inputB.getAttribute("checked"), "")
+        }
+        sectionElement.render()
+        {
+            const ulElement = sandbox.querySelector(tagUl) as UlElement
+            ulElement.items = [...items].map(item => ({...item, completed: false}))
+            ulElement.render()
+            const inputB = ulElement.querySelectorAll("li input")[1] as HTMLInputElement
+            assert.strictEqual(inputB.checked, false)
+            assert.strictEqual(inputB.hasAttribute("name"), false)
         }
     })
 })

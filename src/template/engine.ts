@@ -172,12 +172,11 @@ function updateAttributes(element: ContextItem, attributes: Attributes = []) {
             const type = typeof value
             if (type === "boolean") {
                 if (value) {
-                    element.setAttribute(name, '')
+                    element.setAttribute(name, "")
                     updatedAttributes.push(name)
+                } else {
+                    element.removeAttribute(name)
                 }
-            } else if (type === "number") {
-                element.setAttribute(name, value.toString())
-                updatedAttributes.push(name)
             } else {
                 element.setAttribute(name, sanitize(value))
                 updatedAttributes.push(name)
