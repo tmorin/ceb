@@ -28,7 +28,7 @@ describe('template/literal', () => {
         element.render()
         assert.strictEqual(element.querySelector('input')?.value, "Bar")
     })
-    it.only('should render a complex template', () => {
+    it('should render a complex template', () => {
         const tagSection = 'template-decorator-complex-section'
         const tagUl = 'template-decorator-complex-ul'
         const items = ["A", "B", "C"].map(id => ({id, title: id, completed: false}))
@@ -109,5 +109,71 @@ describe('template/literal', () => {
             assert.strictEqual(inputB.checked, false)
             assert.strictEqual(inputB.hasAttribute("name"), false)
         }
+    })
+    describe("a custom element displaying a todo list", function () {
+        type Todo = { id: string, title: string, completed: boolean }
+        const todos: Array<Todo> = [
+            {id: "A", title: "A", completed: true},
+            {id: "B", title: "B", completed: false}
+        ]
+        const tagName = 'template-decorator-render-key'
+        let element: TestElement
+
+        @ElementBuilder.get().name(tagName).decorate()
+        class TestElement extends HTMLElement {
+            todos: Array<Todo> = []
+
+            @TemplateBuilder.get().decorate()
+            render() {
+                const lis = this.todos.map(todo => html`
+                    <li o:key="${todo.id}">
+                        <input type="checkbox" checked="${todo.completed}"/>
+                        ${todo.title}
+                    </li>`)
+                return html`
+                    <ul>${lis}</ul>`
+            }
+        }
+
+        beforeEach(function () {
+            element = sandbox.appendChild(document.createElement(tagName) as TestElement)
+            element.todos = [...todos]
+        })
+
+        it("should render items when filtering the list", function () {
+            element.todos = [...todos].slice(0, 1)
+            assert.equal(element.todos[0].title, "A")
+            element.render()
+            assert.equal(element.querySelectorAll("li")[0].textContent?.trim(), "A")
+
+            element.todos = [...todos].slice(1, 2)
+            assert.equal(element.todos[0].title, "B")
+            element.render()
+            assert.equal(element.querySelectorAll("li")[0].textContent?.trim(), "B")
+
+            element.todos = [...todos]
+            assert.equal(element.todos[0].title, "A")
+            assert.equal(element.todos[1].title, "B")
+            element.render()
+            assert.equal(element.querySelectorAll("li")[0].textContent?.trim(), "A")
+            assert.equal(element.querySelectorAll("li")[1].textContent?.trim(), "B")
+
+            element.todos = [...todos, {id: "C", title: "C", completed: true}]
+            assert.equal(element.todos.length, 3)
+            assert.equal(element.todos[0].title, "A")
+            assert.equal(element.todos[1].title, "B")
+            assert.equal(element.todos[2].title, "C")
+            element.render()
+            assert.equal(element.querySelectorAll("li")[0].textContent?.trim(), "A")
+            assert.equal(element.querySelectorAll("li")[1].textContent?.trim(), "B")
+            assert.equal(element.querySelectorAll("li")[2].textContent?.trim(), "C")
+
+            element.todos.splice(1, 1)
+            assert.equal(element.todos[0].title, "A")
+            assert.equal(element.todos[1].title, "C")
+            element.render()
+            assert.equal(element.querySelectorAll("li")[0].textContent?.trim(), "A")
+            assert.equal(element.querySelectorAll("li")[1].textContent?.trim(), "C")
+        })
     })
 })

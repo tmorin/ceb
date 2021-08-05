@@ -204,6 +204,15 @@ function updateProperties(element: ContextItem, properties: Properties = []) {
 
 const REFERENCED_ELEMENTS = new WeakMap<ContextItem, Map<any, ContextItem>>()
 
+function isReferencedElement(parentElement: ContextItem, value: any): boolean {
+    if (!REFERENCED_ELEMENTS.has(parentElement)) {
+        REFERENCED_ELEMENTS.set(parentElement, new Map<any, ContextItem>())
+    }
+    return Array.from(
+        REFERENCED_ELEMENTS.get(parentElement)?.values() || []
+    ).indexOf(value) > -1
+}
+
 function getReferencedElement(parentElement: ContextItem, key: any): ContextItem | undefined {
     if (!REFERENCED_ELEMENTS.has(parentElement)) {
         REFERENCED_ELEMENTS.set(parentElement, new Map<any, ContextItem>())
@@ -226,6 +235,8 @@ function cleanReferencedElements(contexts: Contexts) {
     if (contexts.get().isManaged) {
         const element = contexts.get().element
         if (REFERENCED_ELEMENTS.has(element)) {
+            // clean referenced elements not handled by the element
+            // clean the list of referenced elements
             for (const [key, value] of [...REFERENCED_ELEMENTS?.get(element)?.entries() ?? []]) {
                 if (!element.contains(value)) {
                     REFERENCED_ELEMENTS.get(element)?.delete(key)
@@ -447,31 +458,55 @@ export class Engine {
         let referencedElement = getReferencedElement(parentElement, key)
 
         const currentNode = parentElement.childNodes.item(index)
+        const currentNodeIsReferenced = isReferencedElement(parentElement, currentNode)
 
         let currentElement: ContextItem
         if (referencedElement) {
+            // the new item already exists in the DOM
             currentElement = referencedElement
             if (currentNode !== referencedElement) {
+                // but the current DOM node is not right one
+                // therefore the node of the new item is moved before the current one
                 currentElement = parentElement.insertBefore(referencedElement, currentNode);
             }
         } else if (currentNode) {
-            if (currentNode instanceof Element) {
-                currentElement = currentNode as ContextItem
-                const currentTagName = currentElement.tagName.toLowerCase()
-                const tagName = name.toLowerCase()
-                if (currentTagName.localeCompare(tagName) !== 0) {
+            // the new item doesn't exist in the DOM
+            if (currentNodeIsReferenced) {
+                // but the current one is a referenced element
+                // so it must not be mutated
+                // so the node of the new item is created and appended before the referenced element
+                currentElement = parentElement.insertBefore(
+                    createElement(this.document, name, parameters.attributes),
+                    currentNode
+                )
+            } else {
+                // and the current node is not a referenced element
+                if (currentNode instanceof Element) {
+                    // the current node is an element (i.e. not a text or a comment node)
+                    // in that case, by default, the node of new item is the current node ...
+                    currentElement = currentNode as ContextItem
+                    const currentTagName = currentElement.tagName.toLowerCase()
+                    const tagName = name.toLowerCase()
+                    if (currentTagName.localeCompare(tagName) !== 0) {
+                        // ... unless the type doesn't match
+                        // so the node of the new item is created and appended before the current node
+                        currentElement = parentElement.insertBefore(
+                            createElement(this.document, name, parameters.attributes),
+                            currentNode
+                        )
+                    }
+                } else {
+                    // the current node is not an element
+                    // so the node of the new item is created and appended before the current node
                     currentElement = parentElement.insertBefore(
                         createElement(this.document, name, parameters.attributes),
                         currentNode
                     )
                 }
-            } else {
-                currentElement = parentElement.insertBefore(
-                    createElement(this.document, name, parameters.attributes),
-                    currentNode
-                )
             }
         } else {
+            // there is no current node, i.e. the parent element doesn't have any children
+            // so the node of the new item is created and appended to the parent element
             currentElement = this.contexts.get().element.appendChild(
                 createElement(this.document, name, parameters.attributes)
             )
