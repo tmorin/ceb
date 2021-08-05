@@ -78,6 +78,8 @@
 					<p>By default, the template is rendered into the Light DOM of the Custom Element.
 						However, the builder can render the template into the Shadow DOM with <a href="TemplateBuilder.html#shadow">TemplateBuilder.shadow</a>.
 					Another switch, <a href="TemplateBuilder.html#grey">TemplateBuilder.grey</a> can be used to force the rendering into a <em>scope</em>.</p>
+					<p>If the <em>scope</em> is not required, the Custom Element content can be simply preserve from ancestral rendering process with <a href="TemplateBuilder.html#preserveContent">TemplateBuilder.preserveContent</a>.</p>
+					<p>Attributes can also be preserved from ancestral rendering process with <a href="TemplateBuilder.html#preserveAttributes">TemplateBuilder.preserveAttributes</a>.</p>
 					<p>By default, the name of the wrapped method is <code>render</code>.
 					However, the name can be changed with <a href="TemplateBuilder.html#method">TemplateBuilder.method</a>.</p>
 					<p>When a <a href="../interfaces/Template.html">Template</a> is rendered, template parameters can be provided to the <a href="../interfaces/Template.html#render">Template.render</a> method.
@@ -140,6 +142,8 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="TemplateBuilder.html#grey" class="tsd-kind-icon">grey</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="TemplateBuilder.html#method" class="tsd-kind-icon">method</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="TemplateBuilder.html#parameters" class="tsd-kind-icon">parameters</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="TemplateBuilder.html#preserveAttributes" class="tsd-kind-icon">preserve<wbr>Attributes</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="TemplateBuilder.html#preserveContent" class="tsd-kind-icon">preserve<wbr>Content</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="TemplateBuilder.html#shadow" class="tsd-kind-icon">shadow</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="TemplateBuilder.html#get" class="tsd-kind-icon">get</a></li>
 							</ul>
@@ -153,13 +157,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Template<wbr>Builder&lt;E, P&gt;<span class="tsd-signature-symbol">(</span>_isGrey<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, _isShadow<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, _isFocusDelegation<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, _methName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, _parameters<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="TemplateBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">TemplateBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Template<wbr>Builder&lt;E, P&gt;<span class="tsd-signature-symbol">(</span>_isGrey<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, _preserveContent<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, _preserveAttributes<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, _isShadow<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, _isFocusDelegation<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, _methName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, _parameters<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="TemplateBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">TemplateBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7cbeffe/src/template/builder.ts#L58">template/builder.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/template/builder.ts#L63">template/builder.ts:63</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -175,6 +179,12 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>_isGrey: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
+								</li>
+								<li>
+									<h5>_preserveContent: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
+								</li>
+								<li>
+									<h5>_preserveAttributes: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></h5>
 								</li>
 								<li>
 									<h5>_isShadow: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
@@ -200,14 +210,14 @@
 					<a name="build" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> build</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">build<span class="tsd-signature-symbol">(</span>Constructor<span class="tsd-signature-symbol">: </span><a href="../interfaces/CustomElementConstructor.html" class="tsd-signature-type" data-tsd-kind="Interface">CustomElementConstructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span>, hooks<span class="tsd-signature-symbol">: </span><a href="../interfaces/HooksRegistration.html" class="tsd-signature-type" data-tsd-kind="Interface">HooksRegistration</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">build<span class="tsd-signature-symbol">(</span>Constructor<span class="tsd-signature-symbol">: </span><a href="../interfaces/CustomElementConstructor.html" class="tsd-signature-type" data-tsd-kind="Interface">CustomElementConstructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span>, hooks<span class="tsd-signature-symbol">: </span><a href="../interfaces/HooksRegistration.html" class="tsd-signature-type" data-tsd-kind="Interface">HooksRegistration</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>__ceb_engine_preserve_attributes<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>__ceb_engine_preserve_children<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/Builder.html">Builder</a>.<a href="../interfaces/Builder.html#build">build</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7cbeffe/src/template/builder.ts#L209">template/builder.ts:209</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/template/builder.ts#L265">template/builder.ts:265</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -221,7 +231,7 @@
 									<h5>Constructor: <a href="../interfaces/CustomElementConstructor.html" class="tsd-signature-type" data-tsd-kind="Interface">CustomElementConstructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5>hooks: <a href="../interfaces/HooksRegistration.html" class="tsd-signature-type" data-tsd-kind="Interface">HooksRegistration</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>hooks: <a href="../interfaces/HooksRegistration.html" class="tsd-signature-type" data-tsd-kind="Interface">HooksRegistration</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>__ceb_engine_preserve_attributes<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>__ceb_engine_preserve_children<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -238,7 +248,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7cbeffe/src/template/builder.ts#L195">template/builder.ts:195</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/template/builder.ts#L251">template/builder.ts:251</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -280,14 +290,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7cbeffe/src/template/builder.ts#L123">template/builder.ts:123</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/template/builder.ts#L131">template/builder.ts:131</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Forces the rendering into the Grey DOM.</p>
 								</div>
-								<p>$<a href="TemplateBuilder.html#shadow">TemplateBuilder.shadow</a> and $<a href="TemplateBuilder.html#grey">TemplateBuilder.grey</a> are exclusives.</p>
+								<p>$<a href="TemplateBuilder.html#shadow">TemplateBuilder.shadow</a> and $<a href="TemplateBuilder.html#grey">TemplateBuilder.grey</a> are exclusives.
+								$<a href="TemplateBuilder.html#preserveContent">TemplateBuilder.preserveContent</a> and $<a href="TemplateBuilder.html#grey">TemplateBuilder.grey</a> are exclusives.</p>
 								<dl class="tsd-comment-tags">
 									<dt>example</dt>
 									<dd><pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">ElementBuilder</span><span style="color: #000000">, </span><span style="color: #001080">TemplateBuilder</span><span style="color: #000000">, </span><span style="color: #001080">html</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;ceb&quot;</span>
@@ -318,7 +329,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7cbeffe/src/template/builder.ts#L149">template/builder.ts:149</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/template/builder.ts#L205">template/builder.ts:205</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -364,7 +375,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7cbeffe/src/template/builder.ts#L174">template/builder.ts:174</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/template/builder.ts#L230">template/builder.ts:230</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -402,6 +413,90 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="preserveAttributes" class="tsd-anchor"></a>
+					<h3>preserve<wbr>Attributes</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">preserve<wbr>Attributes<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>names<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="TemplateBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">TemplateBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/template/builder.ts#L181">template/builder.ts:181</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Preserve attributes of the Custom Element from rendering processes coming from ancestors.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">ElementBuilder</span><span style="color: #000000">, </span><span style="color: #001080">TemplateBuilder</span><span style="color: #000000">, </span><span style="color: #001080">html</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;ceb&quot;</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">HelloWorld</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">HTMLElement</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">value</span><span style="color: #000000"> = </span><span style="color: #A31515">&quot;World&quot;</span>
+<span style="color: #000000">    </span><span style="color: #795E26">render</span><span style="color: #000000">() {</span>
+<span style="color: #000000">        </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #795E26">html</span><span style="color: #A31515">`Hello, </span><span style="color: #0000FF">${</span><span style="color: #0000FF">this</span><span style="color: #000000FF">.</span><span style="color: #001080">value</span><span style="color: #0000FF">}</span><span style="color: #A31515">!`</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">}</span>
+<span style="color: #001080">ElementBuilder</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">().</span><span style="color: #795E26">builder</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #001080">TemplateBuilder</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">().</span><span style="color: #795E26">preserveAttributes</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;class&quot;</span><span style="color: #000000">, </span><span style="color: #A31515">&quot;id&quot;</span><span style="color: #000000">)</span>
+<span style="color: #000000">).</span><span style="color: #795E26">register</span><span style="color: #000000">()</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>names: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the names of the attribute</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="TemplateBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">TemplateBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="preserveContent" class="tsd-anchor"></a>
+					<h3>preserve<wbr>Content</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">preserve<wbr>Content<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="TemplateBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">TemplateBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/template/builder.ts#L157">template/builder.ts:157</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Prevent mutations on the Custom Element content from rendering processes coming from ancestors.</p>
+								</div>
+								<p>$<a href="TemplateBuilder.html#preserveContent">TemplateBuilder.preserveContent</a> and $<a href="TemplateBuilder.html#grey">TemplateBuilder.grey</a> are exclusives.</p>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">ElementBuilder</span><span style="color: #000000">, </span><span style="color: #001080">TemplateBuilder</span><span style="color: #000000">, </span><span style="color: #001080">html</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;ceb&quot;</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">HelloWorld</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">HTMLElement</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">value</span><span style="color: #000000"> = </span><span style="color: #A31515">&quot;World&quot;</span>
+<span style="color: #000000">    </span><span style="color: #795E26">render</span><span style="color: #000000">() {</span>
+<span style="color: #000000">        </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #795E26">html</span><span style="color: #A31515">`Hello, </span><span style="color: #0000FF">${</span><span style="color: #0000FF">this</span><span style="color: #000000FF">.</span><span style="color: #001080">value</span><span style="color: #0000FF">}</span><span style="color: #A31515">!`</span>
+<span style="color: #000000">    }</span>
+<span style="color: #000000">}</span>
+<span style="color: #001080">ElementBuilder</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">().</span><span style="color: #795E26">builder</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #001080">TemplateBuilder</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">().</span><span style="color: #795E26">preserveContent</span><span style="color: #000000">()</span>
+<span style="color: #000000">).</span><span style="color: #795E26">register</span><span style="color: #000000">()</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="TemplateBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">TemplateBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="shadow" class="tsd-anchor"></a>
 					<h3>shadow</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -411,7 +506,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7cbeffe/src/template/builder.ts#L97">template/builder.ts:97</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/template/builder.ts#L104">template/builder.ts:104</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -458,7 +553,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7cbeffe/src/template/builder.ts#L72">template/builder.ts:72</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/template/builder.ts#L79">template/builder.ts:79</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -543,6 +638,12 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="TemplateBuilder.html#parameters" class="tsd-kind-icon">parameters</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="TemplateBuilder.html#preserveAttributes" class="tsd-kind-icon">preserve<wbr>Attributes</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="TemplateBuilder.html#preserveContent" class="tsd-kind-icon">preserve<wbr>Content</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="TemplateBuilder.html#shadow" class="tsd-kind-icon">shadow</a>
