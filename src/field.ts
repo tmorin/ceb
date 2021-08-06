@@ -222,9 +222,9 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
     decorate(prefix?: string): PropertyDecorator | MethodDecorator {
         return (target: Object, propOrMethName: string | symbol, methDescriptor?: PropertyDescriptor): void => {
             if (methDescriptor) {
-                this.decorateMeth(target, propOrMethName.toString(), methDescriptor, prefix)
+                this.decorateMethod(target, propOrMethName.toString(), methDescriptor, prefix)
             } else {
-                this.decorateProp(target, propOrMethName.toString())
+                this.decorateProperty(target, propOrMethName.toString())
             }
         }
     }
@@ -329,7 +329,7 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
         })
     }
 
-    private decorateProp(target: Object, propName: string) {
+    private decorateProperty(target: Object, propName: string) {
         if (!this._propName) {
             this._propName = propName
         }
@@ -343,7 +343,7 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
         }
     }
 
-    private decorateMeth(target: Object, methName: string, descriptor: PropertyDescriptor, prefix = "on") {
+    private decorateMethod(target: Object, methName: string, descriptor: PropertyDescriptor, prefix = "on") {
         if (!this._propName) {
             this._propName = toCamelCase(
                 toKebabCase(methName.replace(prefix, ''))

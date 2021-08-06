@@ -301,8 +301,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
                     methName.toString().replace(prefix, '')
                 )
             }
-            const id = undefined
-            ElementBuilder.getOrSet(target, this, undefined).invoke((el, data, target) => {
+            ElementBuilder.getOrSet(target, this).invoke((el, data, target) => {
                 const fn = descriptor.value as Function
                 fn.call(el, data, target)
             })
@@ -313,7 +312,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      * This API is dedicated for developer of Builders.
      * @protected
      */
-    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & {__ceb_on_handlers: Array<any>}>) {
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & { __ceb_on_handlers: Array<any> }>) {
         if (!this._clauses) {
             throw new TypeError("OnBuilder - the clauses are missing")
         }
