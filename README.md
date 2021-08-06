@@ -11,32 +11,42 @@ By this way, `<ceb/>` is natively opened to extensions and builders easily shara
 
 ## Quickly
 
+[![Edit <ceb/> ~ SimpleGreeting](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ceb-simplegreeting-unj2w?fontsize=14&hidenavigation=1&theme=dark)
+
 ```typescript
-import {ElementBuilder, FieldBuilder, TemplateBuilder} from "ceb"
+import {
+  ElementBuilder,
+  FieldBuilder,
+  html,
+  TemplateBuilder
+} from "@tmorin/ceb";
 
-// Define the Custom Element
-@ElementBuilder.get<ExGreeting>().element()
-export class ExGreeting extends HTMLElement {
-  // Bind the property `name` to the attribute `name`
-  @FieldBuilder.field()
-  name = "World"
+// register the custom element
+@(ElementBuilder.get().decorate())
+export class SimpleGreeting extends HTMLElement {
+  // defines a field `name`
+  // which is available as an attribute or a property
+  @(FieldBuilder.get().decorate())
+  name: string = "World";
 
-  // Define the template of the custom element
-  @TemplateBuilder.template()
-  private render() {
-    return html`<p>Hello, ${this.name}!</p>`
-  }
-  
-  // Render the template when the name change
-  @FieldBuilder.listen()
+  // reacts on the mutations of the field `name`
+  // so that new name will be rendered
+  @(FieldBuilder.get().decorate())
   private onName() {
-    this.render()
+    this.render();
+  }
+
+  // defines the content of the custom element
+  // each time the method is inovked, the template is rendered
+  @(TemplateBuilder.get().preserveContent().decorate())
+  private render() {
+    return html`<h1>Hello, ${this.name}!</h1>`;
   }
 }
 ```
 
 ```html
-<ex-greeting name="John Doe" />
+<simple-greeting name="John Doe" />
 ```
 
 ## Install
