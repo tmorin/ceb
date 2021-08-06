@@ -2,7 +2,7 @@
 
 `<ceb/>` is a library helping to develop [Custom Elements (v1)].
 Its core is a builder which executes others builders.
-By this way, `<ceb/>` is natively opened to extensions and builders easily sharable.
+By this way, `<ceb/>` is natively opened to extensions and builders can be easily shared.
 
 A simple Custom Element displaying a greeting text:
 
@@ -16,8 +16,6 @@ A simple Custom Element displaying a greeting text:
 [Custom Elements (v1)]: https://html.spec.whatwg.org/multipage/custom-elements.html
 [MIT license]: http://opensource.org/licenses/MIT
 [github.com/tmorin/ceb]: https://github.com/tmorin/ceb
-
----
 
 `<ceb/>` is released under the [MIT license].
 

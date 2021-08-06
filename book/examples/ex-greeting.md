@@ -16,7 +16,7 @@ export class ExGreeting extends HTMLElement {
 
 ## Register the Custom Element
 
-To register `ex-greeting`, the decorator `@ElementBuilder.element` is used:
+To register `ex-greeting`, the decorator of `@ElementBuilder` is used:
 
 ```typescript
 import {
@@ -30,7 +30,7 @@ export class ExGreeting extends HTMLElement {
 
 ## Initialize the Shadow DOM
 
-To Shadow DOM of `ex-greeting` is initialized with the decorator `@ContentBuilder.content` is used :
+The Shadow DOM of `ex-greeting` is initialized with the decorator of `@ContentBuilder` :
 
 ```typescript
 import {
@@ -48,7 +48,7 @@ export class ExGreeting extends HTMLElement {
 
 ## Capture the name
 
-The target of the greeting is capture with the field `name` using the decorator `FieldBuilder.field` :
+The target of the greeting is captured with the field `name` using the decorator of `FieldBuilder` :
 
 ```typescript
 import {
@@ -70,11 +70,11 @@ export class ExGreeting extends HTMLElement {
 ## Update the Shadow DOM with the captured name
 
 Each time the field `name` mutates, the element selected by `span#name` has to be updated with the new value.
-There are two ways to handle it with the built-in `<ceb/>` builders : the craft style and the delegated one.
+There are two ways to handle it with the built-in `<ceb/>` builders : the craft style and the propagation way.
 
-### The  craft style
+### The craft style
 
-The decorator `ReferenceBuilder.reference` retrieves the reference of the element `span#name`.
+The decorator of `ReferenceBuilder` retrieves the reference of the element `span#name`.
 
 ```typescript
 import {
@@ -100,7 +100,7 @@ export class ExGreeting extends HTMLElement {
 }
 ```
 
-Finally, the decorator `FieldBuilder.listen` handles the mutation of the field `name` to
+Finally, the decorator of `FieldBuilder` handles the mutation of the field `name`.
 
 ```typescript
 import {
@@ -131,9 +131,9 @@ export class ExGreeting extends HTMLElement {
 }
 ```
 
-### The delegated fashion
+### The propagation way
 
-Alternatively, the decorator `AttributePropagationBuilder.delegate` can be used to automatically binds the mutation of the field `name` to the property `textContent` of the selected element `span#name` :
+Alternatively, the decorator of `AttributePropagationBuilder` can be used to automatically binds the mutation of the field `name` to the property `textContent` of the selected element `span#name` :
 
 ```typescript
 import {
@@ -151,6 +151,7 @@ import {
   .shadow()
   .to("span#name")
   .property("textContent")
+  .decorate()
 export class ExGreeting extends HTMLElement {
   @FieldBuilder.get().decorate()
   name: string = "World"
