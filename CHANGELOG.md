@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0](https://github.com/tmorin/ceb/compare/v3.2.0...v3.3.0) (2021-08-16)
+
+
+### Features
+
+* **messaging:** ceb should provide a way to get a loose coupling relationship between model and custom element ([732c6e3](https://github.com/tmorin/ceb/commit/732c6e3b95c536197b12d0dc8a73a8ce6031f7d9))
+* **on:** add the support of global events (i.e. `window`) ([73b6e09](https://github.com/tmorin/ceb/commit/73b6e09e5cfc4e28c06969aeafc32a35bcb9a2d3))
+
+
+### Bug Fixes
+
+* **documentation:** add a reference to the CodeSandbox template ([d292dd2](https://github.com/tmorin/ceb/commit/d292dd2a77671367ca82003484434173b3d7ee96))
+* **documentation:** add the reference to the TodoMVC implementation ([437b7a6](https://github.com/tmorin/ceb/commit/437b7a6dfb22363153d1c705b292760a8f689965))
+
 ## [3.2.0](https://github.com/tmorin/ceb/compare/v3.1.1...v3.2.0) (2021-08-05)
 
 
