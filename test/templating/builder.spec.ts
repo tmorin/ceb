@@ -1,7 +1,7 @@
 import {assert} from 'chai'
-import {ElementBuilder, html, Template, TemplateBuilder} from '../src'
+import {ElementBuilder, html, Template, TemplateBuilder} from '../../src'
 
-describe('template/literal', () => {
+describe('templating/builder', () => {
     let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))

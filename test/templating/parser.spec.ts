@@ -1,5 +1,5 @@
 import {expect} from 'chai'
-import {Attribute, parse} from "../../src/template/parser"
+import {Attribute, parse} from "../../src/templating/parser"
 
 type ParseEvent = {
     name: 'text' | 'comment' | 'openTag' | 'closeTag',
@@ -37,7 +37,7 @@ function executeParse(html: string): Array<ParseEvent> {
     return stack
 }
 
-describe("patcher/parser", function () {
+describe("templating/parser", function () {
     let i: number
     let el: HTMLDivElement
     beforeEach(() => {

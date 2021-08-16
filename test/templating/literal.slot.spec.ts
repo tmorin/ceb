@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {html} from "../../src";
 
-describe("patcher/literal/slot", function () {
+describe("templating/literal/slot", function () {
     let el: HTMLDivElement
     beforeEach(() => {
         if (el) {

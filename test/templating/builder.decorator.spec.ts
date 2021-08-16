@@ -1,8 +1,8 @@
 import {assert} from 'chai'
-import {ElementBuilder, html, Template, TemplateBuilder} from '../src'
-import {Engine} from "../src/template/engine";
+import {ElementBuilder, html, Template, TemplateBuilder} from '../../src'
+import {Engine} from "../../src/templating/engine";
 
-describe('template/literal', () => {
+describe('templating/builder/decorator', () => {
     let sandbox: HTMLDivElement
     beforeEach(function () {
         sandbox = document.body.appendChild(document.createElement('div'))

@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {html} from "../../src";
 
-describe("patcher/literal/attribute", function () {
+describe("templating/literal/attribute", function () {
     let el: HTMLDivElement
     beforeEach(() => {
         if (el) {

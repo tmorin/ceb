@@ -1,7 +1,7 @@
 import {expect} from "chai"
-import {Engine} from "../../src/template/engine"
+import {Engine} from "../../src/templating/engine"
 
-describe("patcher/engine/replace", () => {
+describe("templating/engine/replace", () => {
     let el: HTMLDivElement
     beforeEach(() => {
         if (el) {
