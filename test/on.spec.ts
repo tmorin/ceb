@@ -177,4 +177,35 @@ describe('on', () => {
             assert.ok(wrapperListener.notCalled)
         })
     })
+
+    context('listen global events', () => {
+        class TestElement extends HTMLElement {
+        }
+
+        let bubblingListener: SinonSpy,
+            captureListener: SinonSpy,
+            el: TestElement,
+            tagName: string
+        beforeEach(done => {
+            bubblingListener = sinon.spy()
+            captureListener = sinon.spy()
+            tagName = "on-global"
+            ElementBuilder.get(TestElement).name(tagName)
+                .builder(
+                    OnBuilder.get('custom-event').from(window).invoke(bubblingListener),
+                    OnBuilder.get('custom-event').from(window).invoke(captureListener).capture()
+                )
+                .register()
+            el = sandbox.appendChild(document.createElement(tagName))
+            listen(window, 'custom-event', 1, done)
+            window.dispatchEvent(new CustomEvent('custom-event'))
+        })
+        it('should invoke the bubbling and capture listeners', () => {
+            assert.ok(bubblingListener.calledOnce)
+            assert.ok(bubblingListener.calledWith(el, sinon.match(Object)))
+            assert.ok(captureListener.calledOnce)
+            assert.ok(captureListener.calledWith(el, sinon.match(Object)))
+        })
+    })
+
 })

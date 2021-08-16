@@ -30,6 +30,17 @@ const noop = () => {
 type Clauses = Array<[string, string | undefined]>
 
 /**
+ * Select a target.
+ */
+export interface TargetSelector<E extends HTMLElement> {
+    /**
+     * @param el The Custom Element
+     * @template E the type of the Custom Element
+     */
+    (el: E): EventTarget | GlobalEventHandlers
+}
+
+/**
  * The builder handles the addition and removal of DOM event listeners.
  *
  * The DOM event listeners are simple callback functions, c.f. {@link OnListener}.
@@ -42,6 +53,10 @@ type Clauses = Array<[string, string | undefined]>
  * For instance, the clause `click` adds an event listener to the node of the Custom Element and, listen to `click`.
  * About the optional CSS selector, it is way to add the event listener to a child node of the Custom Element.
  * For instance, the clause `click div button` adds an event listener to the node which matches the CSS selector `div button`.
+ *
+ * Alternatively, {@link OnBuilder.target} can also be used to specify the _target_.
+ * Moreover, it can also be used to listen to global events.
+ * For instance, the `hashchange` events dispatched on `window`.
  *
  * The event listeners can be configured to be invoked on the capture phase with {@link OnBuilder.capture}.
  *
@@ -63,6 +78,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
 
     private constructor(
         private _clauses?: string,
+        private _target?: TargetSelector<E>,
         private _callback: OnListener = noop,
         private _forceCapture = false,
         private _forcePreventDefault = false,
@@ -80,6 +96,25 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      */
     static get<E extends HTMLElement>(clauses?: string) {
         return new OnBuilder<E>(clauses)
+    }
+
+    /**
+     * Override the default target, for instance to listen to global events,
+     * c.f. `GlobalEventHandlers`, i.e. `window.document` or `window.document`.
+     *
+     * @example
+     * ```typescript
+     * import {ElementBuilder, OnBuilder} from "ceb"
+     * class HelloWorld extends HTMLElement {
+     * }
+     * ElementBuilder.get(HelloWorld).builder(
+     *     OnBuilder.get("hashchange").from(window)
+     * ).register()
+     * ```
+     */
+    from(target: EventTarget | GlobalEventHandlers | TargetSelector<E>) {
+        this._target = typeof target === "function" ? target : () => target
+        return this
     }
 
     /**
@@ -368,7 +403,14 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
             }
 
             el.__ceb_on_handlers = clauses
-                .map(([name, target]) => [name, target ? base.querySelector(target) : base])
+                .map(([name, target]) => {
+                    const oTarget = target
+                        ? base.querySelector(target)
+                        : this._target
+                            ? this._target(el)
+                            : base
+                    return [name, oTarget];
+                })
                 .filter(([, target]) => !!target)
                 .map(([name, target]) => [target, name, listener, capture])
                 .concat(el.__ceb_on_handlers || [])
