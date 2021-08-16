@@ -8,7 +8,7 @@ A _message_ is a simple data structure expressing an action to do, its result or
 A _bus_ is a component providing a set of commands to emit and receive _messages_. 
 
 The built-in solution provides a _model_ which expresses the primary building blocks of an Event/Message architecture.
-Moreover, a built-in implementation relying on the native DOM Event System is also available, c.f. [DomBus] and [BusBuilder].
+Moreover, a built-in implementation relying on the native DOM Event System is also available, c.f. [DomBus] and [DomBusBuilder].
 
 [DomBus]: ../api/classes/messaging.DomBus.html
-[BusBuilder]: ../api/classes/messaging.BusBuilder.html
+[DomBusBuilder]: ../api/classes/messaging.DomBusBuilder.html
