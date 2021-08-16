@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.3.1](https://github.com/tmorin/ceb/compare/v3.3.0...v3.3.1) (2021-08-16)
+
+
+### Bug Fixes
+
+* **documentation:** the link to DomBusBuilder was broken ([2562767](https://github.com/tmorin/ceb/commit/2562767344a7e00a2ba6916ee58edd5698177ef2))
+
 ## [3.3.0](https://github.com/tmorin/ceb/compare/v3.2.0...v3.3.0) (2021-08-16)
 
 
