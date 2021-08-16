@@ -79,6 +79,9 @@
 						For instance, the clause <code>click</code> adds an event listener to the node of the Custom Element and, listen to <code>click</code>.
 						About the optional CSS selector, it is way to add the event listener to a child node of the Custom Element.
 					For instance, the clause <code>click div button</code> adds an event listener to the node which matches the CSS selector <code>div button</code>.</p>
+					<p>Alternatively, {@link OnBuilder.target} can also be used to specify the <em>target</em>.
+						Moreover, it can also be used to listen to global events.
+					For instance, the <code>hashchange</code> events dispatched on <code>window</code>.</p>
 					<p>The event listeners can be configured to be invoked on the capture phase with <a href="OnBuilder.html#capture">OnBuilder.capture</a>.</p>
 					<p>Once the event is received, its method <code>preventDefault()</code> can be dynamically invoked with <a href="OnBuilder.html#prevent">OnBuilder.prevent</a>.
 						The method <code>stopPropagation()</code> can also be dynamically invoked with <a href="OnBuilder.html#stop">OnBuilder.stop</a>.
@@ -134,6 +137,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="OnBuilder.html#capture" class="tsd-kind-icon">capture</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="OnBuilder.html#decorate" class="tsd-kind-icon">decorate</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="OnBuilder.html#delegate" class="tsd-kind-icon">delegate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="OnBuilder.html#from" class="tsd-kind-icon">from</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="OnBuilder.html#invoke" class="tsd-kind-icon">invoke</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="OnBuilder.html#prevent" class="tsd-kind-icon">prevent</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="OnBuilder.html#shadow" class="tsd-kind-icon">shadow</a></li>
@@ -151,13 +155,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>OnBuilder&lt;E&gt;<span class="tsd-signature-symbol">(</span>_clauses<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, _callback<span class="tsd-signature-symbol">?: </span><a href="../interfaces/OnListener.html" class="tsd-signature-type" data-tsd-kind="Interface">OnListener</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol">&gt;</span>, _forceCapture<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, _forcePreventDefault<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, _forceStopPropagation<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, _selector<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, _isShadow<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>OnBuilder&lt;E&gt;<span class="tsd-signature-symbol">(</span>_clauses<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, _target<span class="tsd-signature-symbol">?: </span><a href="../interfaces/TargetSelector.html" class="tsd-signature-type" data-tsd-kind="Interface">TargetSelector</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span>, _callback<span class="tsd-signature-symbol">?: </span><a href="../interfaces/OnListener.html" class="tsd-signature-type" data-tsd-kind="Interface">OnListener</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol">&gt;</span>, _forceCapture<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, _forcePreventDefault<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, _forceStopPropagation<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, _selector<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, _isShadow<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/on.ts#L64">on.ts:64</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/08cba79/src/on.ts#L79">src/on.ts:79</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -170,6 +174,9 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> _clauses: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> _target: <a href="../interfaces/TargetSelector.html" class="tsd-signature-type" data-tsd-kind="Interface">TargetSelector</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>_callback: <a href="../interfaces/OnListener.html" class="tsd-signature-type" data-tsd-kind="Interface">OnListener</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Event</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></h5>
@@ -208,7 +215,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/Builder.html">Builder</a>.<a href="../interfaces/Builder.html#build">build</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/on.ts#L316">on.ts:316</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/08cba79/src/on.ts#L350">src/on.ts:350</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -239,7 +246,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/on.ts#L101">on.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/08cba79/src/on.ts#L136">src/on.ts:136</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -275,7 +282,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/on.ts#L297">on.ts:297</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/08cba79/src/on.ts#L332">src/on.ts:332</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -355,7 +362,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/on.ts#L216">on.ts:216</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/08cba79/src/on.ts#L251">src/on.ts:251</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -393,6 +400,46 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="from" class="tsd-anchor"></a>
+					<h3>from</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">from<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventTarget</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GlobalEventHandlers</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/TargetSelector.html" class="tsd-signature-type" data-tsd-kind="Interface">TargetSelector</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/08cba79/src/on.ts#L115">src/on.ts:115</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Override the default target, for instance to listen to global events,
+									c.f. <code>GlobalEventHandlers</code>, i.e. <code>window.document</code> or <code>window.document</code>.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>example</dt>
+									<dd><pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">ElementBuilder</span><span style="color: #000000">, </span><span style="color: #001080">OnBuilder</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;ceb&quot;</span>
+<span style="color: #0000FF">class</span><span style="color: #000000"> </span><span style="color: #267F99">HelloWorld</span><span style="color: #000000"> </span><span style="color: #0000FF">extends</span><span style="color: #000000"> </span><span style="color: #267F99">HTMLElement</span><span style="color: #000000"> {</span>
+<span style="color: #000000">}</span>
+<span style="color: #001080">ElementBuilder</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #001080">HelloWorld</span><span style="color: #000000">).</span><span style="color: #795E26">builder</span><span style="color: #000000">(</span>
+<span style="color: #000000">    </span><span style="color: #001080">OnBuilder</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;hashchange&quot;</span><span style="color: #000000">).</span><span style="color: #795E26">from</span><span style="color: #000000">(</span><span style="color: #001080">window</span><span style="color: #000000">)</span>
+<span style="color: #000000">).</span><span style="color: #795E26">register</span><span style="color: #000000">()</span>
+</code></pre>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <span class="tsd-signature-type">EventTarget</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">GlobalEventHandlers</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/TargetSelector.html" class="tsd-signature-type" data-tsd-kind="Interface">TargetSelector</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="OnBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">OnBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a name="invoke" class="tsd-anchor"></a>
 					<h3>invoke</h3>
@@ -403,7 +450,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/on.ts#L127">on.ts:127</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/08cba79/src/on.ts#L162">src/on.ts:162</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -464,7 +511,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/on.ts#L149">on.ts:149</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/08cba79/src/on.ts#L184">src/on.ts:184</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -500,7 +547,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/on.ts#L239">on.ts:239</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/08cba79/src/on.ts#L274">src/on.ts:274</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -538,7 +585,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/on.ts#L191">on.ts:191</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/08cba79/src/on.ts#L226">src/on.ts:226</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -574,7 +621,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/on.ts#L170">on.ts:170</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/08cba79/src/on.ts#L205">src/on.ts:205</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -610,7 +657,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/6a13398/src/on.ts#L81">on.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/08cba79/src/on.ts#L97">src/on.ts:97</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -687,6 +734,9 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="OnBuilder.html#delegate" class="tsd-kind-icon">delegate</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="OnBuilder.html#from" class="tsd-kind-icon">from</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="OnBuilder.html#invoke" class="tsd-kind-icon">invoke</a>
 							</li>
@@ -741,6 +791,9 @@
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="../interfaces/OnListener.html" class="tsd-kind-icon">On<wbr>Listener</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="../interfaces/TargetSelector.html" class="tsd-kind-icon">Target<wbr>Selector</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="../interfaces/Template.html" class="tsd-kind-icon">Template</a>
