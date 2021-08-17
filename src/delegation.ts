@@ -50,7 +50,7 @@ export class PropertyDelegationBuilder<E extends HTMLElement = HTMLElement> impl
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, PropertyDelegationBuilder} from "ceb"
+     * import {ElementBuilder, PropertyDelegationBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     value = "World"
      *     connectedCallback() {
@@ -74,7 +74,7 @@ export class PropertyDelegationBuilder<E extends HTMLElement = HTMLElement> impl
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, PropertyDelegationBuilder} from "ceb"
+     * import {ElementBuilder, PropertyDelegationBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     name = "World"
      *     connectedCallback() {
@@ -100,7 +100,7 @@ export class PropertyDelegationBuilder<E extends HTMLElement = HTMLElement> impl
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, PropertyDelegationBuilder} from "ceb"
+     * import {ElementBuilder, PropertyDelegationBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     name = "World"
      *     connectedCallback() {
@@ -129,7 +129,7 @@ export class PropertyDelegationBuilder<E extends HTMLElement = HTMLElement> impl
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, PropertyDelegationBuilder} from "ceb"
+     * import {ElementBuilder, PropertyDelegationBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     frozen = tue
      *     connectedCallback() {
@@ -153,7 +153,7 @@ export class PropertyDelegationBuilder<E extends HTMLElement = HTMLElement> impl
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, PropertyDelegationBuilder} from "ceb"
+     * import {ElementBuilder, PropertyDelegationBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     value = "World"
      *     connectedCallback() {
@@ -178,7 +178,7 @@ export class PropertyDelegationBuilder<E extends HTMLElement = HTMLElement> impl
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, PropertyDelegationBuilder} from "ceb"
+     * import {ElementBuilder, PropertyDelegationBuilder} from "@tmorin\ceb"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     @PropertyDelegationBuilder.get()

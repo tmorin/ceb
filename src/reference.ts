@@ -47,7 +47,7 @@ export class ReferenceBuilder<E extends HTMLElement = HTMLElement> implements Bu
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, ReferenceBuilder} from "ceb"
+     * import {ElementBuilder, ReferenceBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     readonly inputElement: HTMLInputElement
      *     connectedCallback() {
@@ -72,7 +72,7 @@ export class ReferenceBuilder<E extends HTMLElement = HTMLElement> implements Bu
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, ReferenceBuilder} from "ceb"
+     * import {ElementBuilder, ReferenceBuilder} from "@tmorin\ceb"
      * class CebExample extends HTMLElement {
      *     readonly liElements: Array<HTMLLiElement>
      *     connectedCallback() {
@@ -98,7 +98,7 @@ export class ReferenceBuilder<E extends HTMLElement = HTMLElement> implements Bu
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, ReferenceBuilder} from "ceb"
+     * import {ElementBuilder, ReferenceBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     readonly nameInput: HTMLInputElement
      *     connectedCallback() {
@@ -121,7 +121,7 @@ export class ReferenceBuilder<E extends HTMLElement = HTMLElement> implements Bu
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, ReferenceBuilder} from "ceb"
+     * import {ElementBuilder, ReferenceBuilder} from "@tmorin\ceb"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     @ReferenceBuilder.get("inputElement")

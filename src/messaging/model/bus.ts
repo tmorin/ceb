@@ -1,5 +1,7 @@
 import {MessageAction, MessageConstructor, MessageEvent, MessageEventType, MessageResult} from "./message";
 
+export const BusSymbol = Symbol.for('ceb/messaging/Bus');
+
 /**
  * The options of the subscriptions.
  */

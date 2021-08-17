@@ -93,7 +93,7 @@ export class DomBus implements Bus {
          * - register event subscriptions
          * - register action handlers
          */
-        public readonly global: EventTarget | Window,
+        public readonly global: EventTarget,
         /**
          * The target is used to :
          * - execute actions

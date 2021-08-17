@@ -1,8 +1,8 @@
 {
   "name": "@tmorin/ceb",
-  "version": "3.3.1",
+  "version": "3.4.0-alpha.3",
   "license": "MIT",
-  "description": "ceb (custom-element-builder) is a library helping to develop Custom Elements.",
+  "description": "`<ceb/>` is a library providing building blocks to develop Custom Elements (v1). Additionally, other building blocks are also provided to cover the implementation of web applications based on the Event/Message Architecture.",
   "keywords": [
     "custom-element-builder",
     "custom-elements-v1",
@@ -47,12 +47,14 @@
     "doc:book:watch": "mdbook watch",
     "doc:publish": "cd public && git init && git commit --allow-empty -m 'update site' && git checkout -b gh-pages && git add . && git commit -am 'update site, [skip ci]' && git push git@github.com:tmorin/ceb gh-pages --force && cd ..",
     "doc:typedoc": "typedoc",
+    "gdiag": "gdiag --wd book",
     "release": "npm run build && standard-version",
     "release:publish": "git push --tags && git push --all",
     "test": "karma start --single-run --no-auto-watch --browsers FirefoxHeadless,ChromeHeadless",
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "devDependencies": {
+    "@tmorin/plantuml-libs": "^4.2.0",
     "@types/chai": "^4.2.21",
     "@types/mocha": "^9.0.0",
     "@types/sinon": "^10.0.2",

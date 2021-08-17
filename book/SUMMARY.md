@@ -16,6 +16,7 @@
   - [The Grey DOM](templating/grey_dom.md)
   - [Template literal](templating/template_literal.md)
 - [Messaging](messaging/README.md)
+- [Inversion](inversion/README.md)
 - [Examples](examples/README.md)
   - [TodoMVC](examples/TodoMVC.md)
   - [ex-greeting](examples/ex-greeting.md)

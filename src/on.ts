@@ -37,7 +37,7 @@ export interface TargetSelector<E extends HTMLElement> {
      * @param el The Custom Element
      * @template E the type of the Custom Element
      */
-    (el: E): EventTarget | GlobalEventHandlers
+    (el: E): EventTarget
 }
 
 /**
@@ -99,12 +99,11 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
     }
 
     /**
-     * Override the default target, for instance to listen to global events,
-     * c.f. `GlobalEventHandlers`, i.e. `window.document` or `window.document`.
+     * Override the default target, for instance to listen to global events, i.e. `window.document` or `window.document`.
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "ceb"
+     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      * }
      * ElementBuilder.get(HelloWorld).builder(
@@ -112,7 +111,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      * ).register()
      * ```
      */
-    from(target: EventTarget | GlobalEventHandlers | TargetSelector<E>) {
+    from(target: EventTarget | TargetSelector<E>) {
         this._target = typeof target === "function" ? target : () => target
         return this
     }
@@ -122,7 +121,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "ceb"
+     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `<button>Click here</button>`
@@ -143,7 +142,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "ceb"
+     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `<button>Click here</button>`
@@ -170,7 +169,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "ceb"
+     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `<button>Click here</button>`
@@ -191,7 +190,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "ceb"
+     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `<button>Click here</button>`
@@ -212,7 +211,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "ceb"
+     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `<button>Click here</button>`
@@ -235,7 +234,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "ceb"
+     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `<button>Click here</button>`
@@ -259,7 +258,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "ceb"
+     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.attachShadow({mode: "open"})
@@ -284,7 +283,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example Discovery of the event name
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "ceb"
+     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
@@ -299,7 +298,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example Discovery of the event name with a custom prefix
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "ceb"
+     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
@@ -314,7 +313,7 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example Skip the attribute name discovery
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "ceb"
+     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {

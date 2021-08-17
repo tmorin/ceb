@@ -20,5 +20,9 @@
     ],
     "readme": "none",
     "out": "public/api"
+  },
+  "formatCodeOptions": {
+    "indentSize": 4,
+    "tabSize": 4
   }
 }

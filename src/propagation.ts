@@ -54,7 +54,7 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, AttributePropagationBuilder} from "ceb"
+     * import {ElementBuilder, AttributePropagationBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `Hello, <input readonly>!`
@@ -77,7 +77,7 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, AttributeBuilder, AttributePropagationBuilder} from "ceb"
+     * import {ElementBuilder, AttributeBuilder, AttributePropagationBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `Hello, <input value="World">!`
@@ -104,7 +104,7 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, AttributePropagationBuilder, AttributeBuilder} from "ceb"
+     * import {ElementBuilder, AttributePropagationBuilder, AttributeBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `Hello, <span></span>!`
@@ -132,7 +132,7 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, AttributePropagationBuilder} from "ceb"
+     * import {ElementBuilder, AttributePropagationBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.attachShadow({mode: "open"})
@@ -156,7 +156,7 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, AttributePropagationBuilder, AttributeBuilder} from "ceb"
+     * import {ElementBuilder, AttributePropagationBuilder, AttributeBuilder} from "@tmorin\ceb"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * @AttributePropagationBuilder.get(
      *     AttributeBuilder.get("name").default("World")

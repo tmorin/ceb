@@ -80,7 +80,7 @@ export class AttributeBuilder<E extends HTMLElement = HTMLElement> implements Bu
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, AttributeBuilder} from "ceb"
+     * import {ElementBuilder, AttributeBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.textContent = `Hello, World!`
@@ -106,7 +106,7 @@ export class AttributeBuilder<E extends HTMLElement = HTMLElement> implements Bu
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, AttributeBuilder} from "ceb"
+     * import {ElementBuilder, AttributeBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.textContent = `Hello, ${this.getAttribute("name")}!`
@@ -136,7 +136,7 @@ export class AttributeBuilder<E extends HTMLElement = HTMLElement> implements Bu
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, AttributeBuilder} from "ceb"
+     * import {ElementBuilder, AttributeBuilder} from "@tmorin\ceb"
      * class HelloWorld extends HTMLElement {
      * }
      * ElementBuilder.get(HelloWorld).builder(
@@ -162,7 +162,7 @@ export class AttributeBuilder<E extends HTMLElement = HTMLElement> implements Bu
      *
      * @example Discovery of the attribute name
      * ```typescript
-     * import {ElementBuilder, AttributeBuilder} from "ceb"
+     * import {ElementBuilder, AttributeBuilder} from "@tmorin\ceb"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     @AttributeBuilder.get().decorate()
@@ -174,7 +174,7 @@ export class AttributeBuilder<E extends HTMLElement = HTMLElement> implements Bu
      *
      * @example Discovery of the attribute name with a custom prefix
      * ```typescript
-     * import {ElementBuilder, AttributeBuilder} from "ceb"
+     * import {ElementBuilder, AttributeBuilder} from "@tmorin\ceb"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     @AttributeBuilder.get().decorate("listen")
@@ -186,7 +186,7 @@ export class AttributeBuilder<E extends HTMLElement = HTMLElement> implements Bu
      *
      * @example Skip the attribute name discovery
      * ```typescript
-     * import {ElementBuilder, AttributeBuilder} from "ceb"
+     * import {ElementBuilder, AttributeBuilder} from "@tmorin\ceb"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     @AttributeBuilder.get("foo-bar").decorate()

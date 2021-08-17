@@ -10,5 +10,8 @@ A _bus_ is a component providing a set of commands to emit and receive _messages
 The built-in solution provides a _model_ which expresses the primary building blocks of an Event/Message architecture.
 Moreover, a built-in implementation relying on the native DOM Event System is also available, c.f. [DomBus] and [DomBusBuilder].
 
+The reference documentation is there: [messaging].
+
 [DomBus]: ../api/classes/messaging.DomBus.html
 [DomBusBuilder]: ../api/classes/messaging.DomBusBuilder.html
+[messaging]: ../api/modules/messaging.html
