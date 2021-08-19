@@ -1,0 +1,165 @@
+@startuml TodoMVC-application_state_management
+!include TodoMVC.ref.puml
+Title("Application State management and persistence", "<ceb/> • TodoMVC")
+package ui {
+  UiApp()
+}
+package app as "model/app" {
+  LoadAppState()
+  AppStateChanged()
+  AppStateChangedProducer()
+  LoadAppState -u-> AppStateChanged : Relationship("produces")
+  AppStateChangedProducer -u-> AppStateChanged : Relationship("produces")
+  Comment("AppStateChanged_note") [
+    All UI components which deals with the <<Application State>> have to listen to this integration event.
+
+    So that, they will be notified each time the state has been mutated.
+  ]
+  AppStateChanged_note .l. AppStateChanged
+}
+package state as "model/state" {
+  StateFacade()
+  StateRepository()
+  LoadState()
+  PersistState()
+  StateChanged()
+  StateFacade --> LoadState : Relationship("delegates to")
+  StateFacade --> PersistState : Relationship("delegates to")
+  LoadState -r-> StateRepository : Relationship("uses")
+  PersistState -l-> StateRepository : Relationship("uses")
+  PersistState -u-> StateChanged : Relationship("produces")
+  Comment("StateFacade_note") [
+    The actions <<LoadState>> and <<PersistState>> are heavily used within the implementation of the model. Therefore, a facade is provided to reduce repetitive boilerplate code.
+  ]
+  StateFacade_note . StateFacade
+}
+Comment("app_note") [
+  The module provides the <<Application State>> used by UI components (i.e. Custom Elements) during their rendering.
+
+  The source of truth is the <<Persisted State>> which comes from the <<state>> module.
+]
+app_note .. app
+Comment("state_note") [
+  The module manages the <<Persisted State>>.
+]
+state_note .. state
+UiApp --> LoadAppState : Relationship("executes on\nstartup")
+LoadAppState --> StateFacade : Relationship("uses")
+AppStateChangedProducer <.. StateChanged : Relationship("triggers")
+@enduml
+
+@startuml TodoMVC-filter_management
+!include TodoMVC.ref.puml
+Title("Filter management", "<ceb/> • TodoMVC")
+package app as "model/app" {
+  AppStateChanged()
+}
+package ui {
+  UiFilterList()
+}
+package filter as "model/filter" {
+  ChangeFilter()
+}
+package state as "model/state" {
+  StateFacade()
+}
+UiFilterList --> ChangeFilter : Relationship("executes")
+ChangeFilter --> StateFacade : Relationship("uses")
+StateFacade ~u~> AppStateChanged : Relationship("by causality\nchain produces")
+AppStateChanged .u.> UiFilterList : Relationship("triggers the\nrendering of")
+@enduml
+
+@startuml TodoMVC-add_todo_item
+!include TodoMVC.ref.puml
+Title("Add a new todo item", "<ceb/> • TodoMVC")
+package app as "model/todo" {
+  AppStateChanged()
+}
+package ui {
+  UiHeader()
+}
+package todo as "model/ui" {
+  AddTodo()
+}
+package state as "model/state" {
+  StateFacade()
+}
+UiHeader --> AddTodo : Relationship("executes")
+AddTodo -r-> StateFacade : Relationship("uses")
+StateFacade ~~> AppStateChanged : Relationship("by causality\nchain produces")
+@enduml
+
+@startuml TodoMVC-manage_todo_item
+!include TodoMVC.ref.puml
+Title("Manage a todo item", "<ceb/> • TodoMVC")
+package app as "model/app" {
+  AppStateChanged()
+}
+package ui {
+  UiTodoItem()
+}
+package todo as "model/todo" {
+  EditTodo()
+  ToggleTodo()
+  RemoveTodo()
+}
+package state as "model/state" {
+  StateFacade()
+}
+UiTodoItem --> EditTodo : Relationship("executes")
+UiTodoItem --> RemoveTodo : Relationship("executes")
+UiTodoItem --> ToggleTodo : Relationship("executes")
+
+EditTodo --> StateFacade : Relationship("uses")
+ToggleTodo --> StateFacade : Relationship("uses")
+RemoveTodo --> StateFacade : Relationship("uses")
+StateFacade ~u~> AppStateChanged : Relationship("by causality\nchain produces")
+
+AppStateChanged .u.> UiTodoItem : Relationship("triggers the\nrendering of")
+@enduml
+
+@startuml TodoMVC-remove_completed_items
+!include TodoMVC.ref.puml
+Title("Remove completed items", "<ceb/> • TodoMVC")
+package app as "model/app" {
+  AppStateChanged()
+}
+package ui {
+  UiFooter()
+}
+package todo as "model/todo" {
+  RemoveCompletedTodos()
+}
+package state as "model/state" {
+  StateFacade()
+}
+UiFooter --> RemoveCompletedTodos : Relationship("executes")
+
+RemoveCompletedTodos --> StateFacade : Relationship("uses")
+StateFacade ~u~> AppStateChanged : Relationship("by causality\nchain produces")
+
+AppStateChanged .u.> UiFooter : Relationship("triggers the\nrendering of")
+@enduml
+
+@startuml TodoMVC-toggle_items
+!include TodoMVC.ref.puml
+Title("Toggle items", "<ceb/> • TodoMVC")
+package app as "model/app" {
+  AppStateChanged()
+}
+package ui {
+  UiMain()
+}
+package todo as "model/todo" {
+  ToggleAllTodos()
+}
+package state as "model/state" {
+  StateFacade()
+}
+UiMain --> ToggleAllTodos : Relationship("executes")
+
+ToggleAllTodos --> StateFacade : Relationship("uses")
+StateFacade ~u~> AppStateChanged : Relationship("by causality\nchain produces")
+
+AppStateChanged .u.> UiMain : Relationship("triggers the\nrendering of")
+@enduml
