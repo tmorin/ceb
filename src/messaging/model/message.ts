@@ -57,9 +57,6 @@ export type MessageQueryType<M extends MessageQuery = MessageQuery> = MessageCon
  * @template B the type of the body
  */
 export interface MessageResult<B = any> extends Message<B> {
-    readonly correlationId: MessageId
-
-    isCorrelatedTo(message: Message): boolean
 }
 
 /**

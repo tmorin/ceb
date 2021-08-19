@@ -12,7 +12,7 @@ import {
     Subscription,
     SubscriptionListener
 } from "../model";
-import {DomError, DomMessage, DomVoidResult} from "./message";
+import {DomAction, DomError, DomEvent, DomMessage, DomResult, DomVoidResult} from "./message";
 
 const RESULT_LISTENERS = new WeakMap<DomBus, Set<ListenerContext>>()
 const EVENT_LISTENERS = new WeakMap<DomBus, Set<ListenerContext>>()
@@ -108,11 +108,11 @@ export class DomBus implements Bus {
     }
 
     async execute<A extends MessageAction>(action: A, arg1?: any, arg2?: any): Promise<any> {
-        if (!(action instanceof Event)) {
-            throw new TypeError("the request must be an instance of Event")
+        if (!(action instanceof DomAction)) {
+            throw new TypeError("DomBus - the action must be an instance of DomAction")
         }
         if (!this.isStarted) {
-            throw new Error("the bus is not started")
+            throw new Error("DomBus - the bus is not started")
         }
         if (arg1) {
             return this.executeAndWait(action, arg1, arg2)
@@ -131,7 +131,7 @@ export class DomBus implements Bus {
         const listener = async (action: A) => {
             // leave early if the message type is wrong
             if (!(action instanceof Event)) {
-                throw new TypeError("the request must be an instance of Event")
+                throw new TypeError("DomBus - the action must be an instance of DomAction")
             }
             action.stopImmediatePropagation()
             try {
@@ -160,10 +160,10 @@ export class DomBus implements Bus {
 
     async publish<E extends MessageEvent>(event: E): Promise<void> {
         if (!this.isStarted) {
-            throw new Error("the bus is not started")
+            throw new Error("DomBus - the bus is not started")
         }
-        if (!(event instanceof Event)) {
-            throw new TypeError("the event must be an instance of Event")
+        if (!(event instanceof DomEvent)) {
+            throw new TypeError("DomBus - the event must be an instance of DomEvent")
         }
         this.global.dispatchEvent(event)
     }
@@ -189,7 +189,7 @@ export class DomBus implements Bus {
             .forEach((value) => value.remove())
     }
 
-    private async executeAndWait<A extends Event & MessageAction, R extends MessageResult>(
+    private async executeAndWait<A extends DomAction, R extends DomResult>(
         action: A,
         ResultType: MessageConstructor<R>,
         options?: ExecuteOptions
@@ -212,7 +212,7 @@ export class DomBus implements Bus {
             const timeout = options?.timeout || 500
             const timeoutId = setTimeout(() => {
                 listenerContext.remove()
-                reject(new Error(`unable to get a result after ${timeout} ms`))
+                reject(new Error(`DomBus - unable to get a result after ${timeout} ms`))
             }, timeout)
 
             const listenerContext = ListenerContext.createResultListener(
@@ -226,7 +226,7 @@ export class DomBus implements Bus {
         })
     }
 
-    private async executeAndForget<A extends Event>(action: A): Promise<void> {
+    private async executeAndForget<A extends DomAction>(action: A): Promise<void> {
         this.requester.dispatchEvent(action)
     }
 
