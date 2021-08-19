@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.4.0](https://github.com/tmorin/ceb/compare/v3.3.1...v3.4.0) (2021-08-19)
+
+
+### Features
+
+* **inversion:** ceb should provide an IoC implementation ([79716e1](https://github.com/tmorin/ceb/commit/79716e160ce64d6d160548352b3d35d1859fc47b))
+
 ### [3.3.1](https://github.com/tmorin/ceb/compare/v3.3.0...v3.3.1) (2021-08-16)
 
 
