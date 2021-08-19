@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb",
-  "version": "3.4.1",
+  "version": "3.4.2-alpha.0",
   "license": "MIT",
   "description": "`<ceb/>` is a library providing building blocks to develop Custom Elements (v1). Additionally, other building blocks are also provided to cover the implementation of web applications based on the Event/Message Architecture.",
   "keywords": [
