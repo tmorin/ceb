@@ -65,16 +65,6 @@ export interface ExecutionHandler<M extends MessageAction, R extends MessageResu
 export interface Bus {
 
     /**
-     * Start all subscriptions as well as registered action handlers.
-     */
-    start(): void
-
-    /**
-     * Cancel all running subscriptions as well as registered action handlers.
-     */
-    stop(): Promise<void>
-
-    /**
      * Publish an event to subscribers.
      * @param event the event
      * @template E the of the event

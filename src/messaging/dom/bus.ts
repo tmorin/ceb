@@ -84,7 +84,7 @@ class ListenerContext implements Subscription, Handler {
  */
 export class DomBus implements Bus {
 
-    #isStarted: boolean = false
+    private isStarted: boolean = false
 
     constructor(
         /**
@@ -103,8 +103,16 @@ export class DomBus implements Bus {
     ) {
     }
 
-    get isStarted() {
-        return this.#isStarted
+    start(): void {
+        Array.from(EVENT_LISTENERS.get(this) || []).forEach((value) => value.subscribe())
+        this.isStarted = true
+    }
+
+    stop(): void {
+        this.isStarted = false
+        Array.from(EVENT_LISTENERS.get(this) || [])
+            .concat(Array.from(RESULT_LISTENERS.get(this) || []))
+            .forEach((value) => value.remove())
     }
 
     async execute<A extends MessageAction>(action: A, arg1?: any, arg2?: any): Promise<any> {
@@ -175,18 +183,6 @@ export class DomBus implements Bus {
     ): Subscription {
         const eventMessageType = DomMessage.toName(EventType)
         return ListenerContext.createPersistentListener(this, eventMessageType, listener)
-    }
-
-    start(): void {
-        Array.from(EVENT_LISTENERS.get(this) || []).forEach((value) => value.subscribe())
-        this.#isStarted = true
-    }
-
-    async stop(): Promise<void> {
-        this.#isStarted = false
-        Array.from(EVENT_LISTENERS.get(this) || [])
-            .concat(Array.from(RESULT_LISTENERS.get(this) || []))
-            .forEach((value) => value.remove())
     }
 
     private async executeAndWait<A extends DomAction, R extends DomResult>(
