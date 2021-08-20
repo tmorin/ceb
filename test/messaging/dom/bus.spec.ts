@@ -31,7 +31,7 @@ class EventA extends DomEvent<string> {
     }
 }
 
-describe("dom/bus", function () {
+describe("messaging/dom/bus", function () {
     let bus: DomBus;
     beforeEach(function () {
         bus = new DomBus(window)

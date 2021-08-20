@@ -10,7 +10,7 @@ class EventA extends DomEvent<string> {
     }
 }
 
-describe("dom/BusBuilder/decorator", function () {
+describe("messaging/dom/builder/decorator", function () {
     let sandbox: HTMLDivElement
     const tagName = "messaging-dom-bus-builder-decorator"
     let testElement: TestElement
@@ -45,7 +45,7 @@ describe("dom/BusBuilder/decorator", function () {
         assert.instanceOf(testElement.bus, DomBus)
     })
 
-    it("should share the same bus instance", function () {
+    it("should not share the same bus instance", function () {
         assert.instanceOf(testElement.busBis, DomBus)
         assert.notStrictEqual(testElement.busBis, testElement.bus)
     })

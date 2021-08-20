@@ -10,7 +10,7 @@ class EventA extends DomEvent<string> {
     }
 }
 
-describe("dom/BusBuilder", function () {
+describe("messaging/dom/builder", function () {
     let sandbox: HTMLDivElement
     const tagName = "messaging-dom-bus-builder"
     let testElement: TestElement
@@ -35,13 +35,15 @@ describe("dom/BusBuilder", function () {
         assert.instanceOf(testElement.bus, DomBus)
     })
 
-    it("should share the same bus instance", function () {
+    it("should not share the same bus instance", function () {
         assert.instanceOf(testElement.busBis, DomBus)
         assert.notStrictEqual(testElement.busBis, testElement.bus)
     })
 
     it("should listen to event", function (done) {
         const eventA = new EventA("test value")
+        testElement?.parentElement?.removeChild(testElement)
+        sandbox.appendChild(testElement)
         listen(sandbox, "event-a", 1, () => setTimeout(() => {
             assert.ok(eventAListener.calledOnce)
             assert.ok(eventAListener.calledWith(testElement, eventA))

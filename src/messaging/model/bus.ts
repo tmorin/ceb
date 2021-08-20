@@ -54,6 +54,9 @@ export interface Handler {
  * The parameter of the execution.
  */
 export interface ExecuteOptions {
+    /**
+     * The maximum time in milliseconds to wait for a result.
+     */
     timeout?: number
 }
 

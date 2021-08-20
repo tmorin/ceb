@@ -1,6 +1,6 @@
 import {AbstractModule} from "../../inversion";
 import {BusSymbol} from "../model";
-import {DomBus} from "./bus";
+import {InMemorySimpleBus} from "./bus";
 
 /**
  * The module registers a {@link Bus} bound with the key {@link BusSymbol}
@@ -9,25 +9,22 @@ import {DomBus} from "./bus";
  * ```typescript
  * import {inversion, messaging} from "@tmorin/ceb"
  * const container = inversion.ContainerBuilder.get()
- *   .module(new messaging.DomModule())
+ *   .module(new messaging.SimpleModule())
  *   .build()
  * ```
  */
-export class DomModule extends AbstractModule {
+export class SimpleModule extends AbstractModule {
     constructor(
-        private readonly global: EventTarget = window,
-        private readonly requester: EventTarget = global,
-        private readonly bus = new DomBus(global, requester)
+        private readonly bus = InMemorySimpleBus.GLOBAL
     ) {
         super();
     }
 
     async configure(): Promise<void> {
-        this.bus.start()
         this.registry.registerValue(BusSymbol, this.bus)
     }
 
     async dispose(): Promise<void> {
-        await this.bus.stop()
+        await this.bus.destroy()
     }
 }

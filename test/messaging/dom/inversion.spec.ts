@@ -97,7 +97,7 @@ class SimpleEventAListener implements MessageEventListener<SimpleEventA> {
     }
 }
 
-describe("messaging/inversion", function () {
+describe("messaging/dom/inversion", function () {
     let handleCommandASpy: SinonSpy
     let simpleCommandAHandler = new SimpleCommandAHandler()
     let handleCommandBSpy: SinonSpy
