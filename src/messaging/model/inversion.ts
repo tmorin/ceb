@@ -99,7 +99,7 @@ export class MessagingComponent extends Component {
 
     async configure(): Promise<void> {
 
-        try {
+        if (this.container.registry.contains(MessageCommandHandlerSymbol)) {
             const messageCommandHandlers = this.container.registry.resolveAll<MessageCommandHandler>(MessageCommandHandlerSymbol)
             this.handlers.push.apply(this, messageCommandHandlers.map(handler => this.bus.handle(
                 handler.CommandType,
@@ -116,22 +116,18 @@ export class MessagingComponent extends Component {
                     }
                 }))
             )
-        } catch (error) {
-            console.trace("MessagingComponent - no MessageCommandHandler found", error)
         }
 
-        try {
+        if (this.container.registry.contains(MessageQueryHandlerSymbol)) {
             const messageQueryHandlers = this.container.registry.resolveAll<MessageQueryHandler>(MessageQueryHandlerSymbol)
             this.handlers.push.apply(this, messageQueryHandlers.map(handler => this.bus.handle(
                 handler.QueryType,
                 handler.ResultType,
                 async (query) => handler.handle(query)))
             )
-        } catch (error) {
-            console.trace("MessagingComponent - no MessageQueryHandler found", error)
         }
 
-        try {
+        if (this.container.registry.contains(MessageEventListenerSymbol)) {
             const messageEventListeners = this.container.registry.resolveAll<MessageEventListener>(MessageEventListenerSymbol)
             this.subscriptions.push.apply(this, messageEventListeners.map(handler => this.bus.subscribe(
                 handler.EventType,
@@ -143,8 +139,6 @@ export class MessagingComponent extends Component {
                     }
                 }))
             )
-        } catch (error) {
-            console.trace("MessagingComponent - no MessageEventListener found", error)
         }
 
     }
