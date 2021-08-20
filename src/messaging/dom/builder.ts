@@ -2,35 +2,22 @@ import {Builder, CustomElementConstructor} from "../../builder";
 import {HooksRegistration} from "../../hook";
 import {DomBus} from "./bus";
 import {ElementBuilder} from "../../element";
-import {MessageEvent, MessageEventType, SubscribeOptions} from "../model";
+import {ElementSubscriptionListener, MessageEvent, MessageEventType, SubscribeOptions} from "../model";
 import {toKebabCase} from "../../utilities";
-
-/**
- * The listener of a subscription.
- */
-export interface ElementSubscriptionListener<E extends HTMLElement = HTMLElement, M extends MessageEvent = MessageEvent> {
-    /**
-     * @param el the Custom Element
-     * @param event the message
-     * @template E the type of the Custom Element
-     * @template M the type of the Event Message
-     */
-    (el: E, event: M): void
-}
 
 /**
  * The builder handles the registration of subscriptions based on an existing method using the decorator style.
  * It should only be used from {@link DomBusBuilder.subscribe}.
  *
  * By default, the type of the Message Event is resolved from the name of the method.
- * However, it can be directly set with {@link ElementSubscriptionBuilder.type}.
+ * However, it can be directly set with {@link DomBusSubscriptionBuilder.type}.
  *
- * The options of the subscription can be provided with {@link ElementSubscriptionBuilder.options}.
+ * The options of the subscription can be provided with {@link DomBusSubscriptionBuilder.options}.
  *
  * @template E the type of the Custom Element
  * @template M the type of the Message Event
  */
-export class ElementSubscriptionBuilder<E extends HTMLElement, M extends MessageEvent> {
+export class DomBusSubscriptionBuilder<E extends HTMLElement, M extends MessageEvent> {
 
     constructor(
         private _busBuilder: DomBusBuilder<E>,
@@ -45,7 +32,7 @@ export class ElementSubscriptionBuilder<E extends HTMLElement, M extends Message
      * Set the type of the event.
      * @param EventType the event type
      */
-    type(EventType: MessageEventType<M>): ElementSubscriptionBuilder<E, M> {
+    type(EventType: MessageEventType<M>): DomBusSubscriptionBuilder<E, M> {
         this._EventType = EventType
         return this
     }
@@ -54,7 +41,7 @@ export class ElementSubscriptionBuilder<E extends HTMLElement, M extends Message
      * Set the listener options.
      * @param options the options
      */
-    options(options: SubscribeOptions): ElementSubscriptionBuilder<E, M> {
+    options(options: SubscribeOptions): DomBusSubscriptionBuilder<E, M> {
         this._options = options
         return this
     }
@@ -62,7 +49,7 @@ export class ElementSubscriptionBuilder<E extends HTMLElement, M extends Message
     /**
      * Decorate the listener method which is invoked when the matching Event is published.
      *
-     * When the type of the Event is not specified by {@link ElementSubscriptionBuilder.type}, then the event type is discovered from the decorated method name.
+     * When the type of the Event is not specified by {@link DomBusSubscriptionBuilder.type}, then the event type is discovered from the decorated method name.
      * The pattern is `<prefix><event-type-in-kebab-case>`, where `<prefix>` is by default `on`.
 
      * @param prefix the prefix used to discover the type of the message event from the method name
@@ -99,7 +86,7 @@ const BUILDERS = new WeakMap<Element, Map<string, DomBus>>()
  * By default, the global channel is `window`, it can be overridden with {@link DomBusBuilder.global}
  *
  * Then, subscriptions can be registered with {@link DomBusBuilder.subscribe}.
- * When the builder is used as a decorator, then {@link DomBusBuilder.subscribe} provides an instance of {@link ElementSubscriptionBuilder} which can be used to easily configure a subscription.
+ * When the builder is used as a decorator, then {@link DomBusBuilder.subscribe} provides an instance of {@link DomBusSubscriptionBuilder} which can be used to easily configure a subscription.
  *
  * The bus starts when the Custom Element is connected, c.f. `connectedCallback` and, stops when it is disconnected, c.f. `disconnectedCallback`.
  *
@@ -152,9 +139,9 @@ export class DomBusBuilder<E extends HTMLElement> implements Builder<E> {
     /**
      * When used as a decorator, returns a fresh Subscription builder to decorate a method.
      */
-    subscribe<M extends MessageEvent>(): ElementSubscriptionBuilder<E, M>
+    subscribe<M extends MessageEvent>(): DomBusSubscriptionBuilder<E, M>
 
-    subscribe<M extends MessageEvent>(EventType?: MessageEventType<M>, listener?: ElementSubscriptionListener<E, M>, options?: SubscribeOptions): DomBusBuilder<E> | ElementSubscriptionBuilder<E, M> {
+    subscribe<M extends MessageEvent>(EventType?: MessageEventType<M>, listener?: ElementSubscriptionListener<E, M>, options?: SubscribeOptions): DomBusBuilder<E> | DomBusSubscriptionBuilder<E, M> {
         if (EventType && listener) {
             if (!this._subscriptionsByType.has(EventType)) {
                 this._subscriptionsByType.set(EventType, [])
@@ -166,7 +153,7 @@ export class DomBusBuilder<E extends HTMLElement> implements Builder<E> {
             ])
             return this
         }
-        return new ElementSubscriptionBuilder(this)
+        return new DomBusSubscriptionBuilder(this)
     }
 
     /**
