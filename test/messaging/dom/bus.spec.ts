@@ -1,5 +1,4 @@
-import {DomBus, DomCommand, DomEvent, DomQuery, DomResult} from "../../../src/messaging/dom";
-import {Bus, MessageAction} from "../../../src/messaging/model";
+import {DomBus, DomCommand, DomEvent, DomQuery, DomResult, MessageAction} from "../../../src/messaging";
 import {assert} from 'chai'
 
 class CommandA extends DomCommand<string> {
@@ -33,7 +32,7 @@ class EventA extends DomEvent<string> {
 }
 
 describe("dom/bus", function () {
-    let bus: Bus;
+    let bus: DomBus;
     beforeEach(function () {
         bus = new DomBus(window)
         bus.start()

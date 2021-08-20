@@ -29,6 +29,11 @@ export interface MessageAction<B = any> extends Message<B> {
 }
 
 /**
+ * The type of an action is its class or a string
+ */
+export type MessageActionType<M extends MessageAction = MessageAction> = MessageConstructor<M> | string
+
+/**
  * A command is a message which triggers an action which can leads to side effects on the system state.
  * @template B the type of the body
  */
@@ -84,6 +89,6 @@ export interface MessageEvent<B = any> extends Message<B> {
 }
 
 /**
- * The type of am event is the class or its related Custom-Event's type
+ * The type of an event is its class or a string
  */
 export type MessageEventType<M extends MessageEvent = MessageEvent> = MessageConstructor<M> | string

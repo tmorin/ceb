@@ -1,5 +1,4 @@
-import {DomBusBuilder, DomBus, DomEvent} from "../../../src/messaging/dom";
-import {Bus} from "../../../src/messaging/model";
+import {Bus, DomBus, DomBusBuilder, DomEvent} from "../../../src/messaging";
 import {ElementBuilder} from "../../../src";
 import {assert} from "chai"
 import sinon, {SinonSpy} from "sinon";
@@ -29,6 +28,7 @@ describe("dom/BusBuilder/decorator", function () {
         onEventA(event: EventA) {
             eventAListener(event)
         }
+
         @DomBusBuilder.get().subscribe().type(EventA).decorate()
         onEventABis(event: EventA) {
             eventAListenerBis(event)

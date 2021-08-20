@@ -1,4 +1,11 @@
-import {MessageAction, MessageConstructor, MessageEvent, MessageEventType, MessageResult} from "./message";
+import {
+    MessageAction,
+    MessageActionType,
+    MessageConstructor,
+    MessageEvent,
+    MessageEventType,
+    MessageResult
+} from "./message";
 
 export const BusSymbol = Symbol.for('ceb/messaging/Bus');
 
@@ -76,14 +83,14 @@ export interface Bus {
     /**
      * Register a subscriber.
      * The listener will be invoked each time an event of the provided type is published.
-     * @param Type the type of the event
+     * @param EventType the type of the event
      * @param listener the listener
      * @param options the options
      * @return the subscription
      * @template E the type of the event
      */
     subscribe<E extends MessageEvent>(
-        Type: MessageEventType<E>,
+        EventType: MessageEventType<E>,
         listener: SubscriptionListener<E>,
         options?: SubscribeOptions
     ): Subscription
@@ -124,7 +131,7 @@ export interface Bus {
      * @template R the type of the result
      */
     handle<M extends MessageAction, R extends MessageResult>(
-        ActionType: MessageConstructor<M>,
+        ActionType: MessageActionType<M>,
         ResultType: MessageConstructor<R>,
         handler: ExecutionHandler<M, R>
     ): Handler

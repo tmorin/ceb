@@ -4,6 +4,7 @@ import {
     ExecutionHandler,
     Handler,
     MessageAction,
+    MessageActionType,
     MessageConstructor,
     MessageEvent,
     MessageEventType,
@@ -129,7 +130,7 @@ export class DomBus implements Bus {
     }
 
     handle<A extends MessageAction, R extends MessageResult>(
-        ActionType: MessageConstructor<A>,
+        ActionType: MessageActionType<A>,
         ResultType: MessageConstructor<R>,
         handler: ExecutionHandler<A, R>
     ): Handler {
