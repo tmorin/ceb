@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DomBusBuilder | @tmorin/ceb</title>
+	<title>AbstractBusBuilder | @tmorin/ceb</title>
 	<meta name="description" content="Documentation for @tmorin/ceb">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -58,10 +58,10 @@
 					<a href="../modules/messaging.html">messaging</a>
 				</li>
 				<li>
-					<a href="messaging.DomBusBuilder.html">DomBusBuilder</a>
+					<a href="messaging.AbstractBusBuilder.html">AbstractBusBuilder</a>
 				</li>
 			</ul>
-			<h1>Class DomBusBuilder&lt;E&gt;</h1>
+			<h1>Class AbstractBusBuilder&lt;E&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -71,8 +71,22 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Specialization of <a href="messaging.AbstractBusBuilder.html">AbstractBusBuilder</a> for the <a href="messaging.DomBus.html">DomBus</a> bus.</p>
+						<p>The builder handles the integration of the Event/Message Driven approach provided natively by <code>&lt;ceb/&gt;</code>.
+							Its purpose is to provide a quick and efficient way to interact with the <a href="../interfaces/messaging.Bus.html">Bus</a> within the Custom Element.
+						Therefore, it is easy to execute queries to get data, execute commands to generate side effects and finally listen to events to react on side effects.</p>
 					</div>
+					<p>First of all, the <a href="../interfaces/messaging.Bus.html">Bus</a> is created and set to a readonly property, by default its name is <code>bus</code>.
+					By default, the global channel is <code>window</code>, it can be overridden with {@link AbstractBusBuilder.global}</p>
+					<p>Then, subscriptions can be registered with <a href="messaging.AbstractBusBuilder.html#subscribe">AbstractBusBuilder.subscribe</a>.
+					When the builder is used as a decorator, then <a href="messaging.AbstractBusBuilder.html#subscribe">AbstractBusBuilder.subscribe</a> provides an instance of <a href="messaging.BusSubscriptionBuilder.html">BusSubscriptionBuilder</a> which can be used to easily configure a subscription.</p>
+					<p>The bus starts when the Custom Element is connected, c.f. <code>connectedCallback</code> and, stops when it is disconnected, c.f. <code>disconnectedCallback</code>.</p>
+					<p>The builder can be used many times by Custom Element.
+					There will be a unique <a href="../interfaces/messaging.Bus.html">Bus</a> instance per properties.</p>
+					<dl class="tsd-comment-tags">
+						<dt>template</dt>
+						<dd><p>type of the Custom Element</p>
+						</dd>
+					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-type-parameters">
@@ -87,57 +101,63 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="messaging.AbstractBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractBusBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span>
+						<span class="target">AbstractBusBuilder</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">DomBusBuilder</span>
+								<a href="messaging.DomBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">DomBusBuilder</a>
+							</li>
+							<li>
+								<a href="messaging.SimpleBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">SimpleBusBuilder</a>
 							</li>
 						</ul>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implements</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../interfaces/Builder.html" class="tsd-signature-type" data-tsd-kind="Interface">Builder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-inherited tsd-is-private-protected">
+						<section class="tsd-index-section tsd-is-private-protected">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-protected"><a href="messaging.DomBusBuilder.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected"><a href="messaging.AbstractBusBuilder.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-inherited tsd-is-private-protected">
+						<section class="tsd-index-section tsd-is-private-protected">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="messaging.DomBusBuilder.html#_busProvider" class="tsd-kind-icon">_bus<wbr>Provider</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="messaging.DomBusBuilder.html#_subscriptionsByType" class="tsd-kind-icon">_subscriptions<wbr>ByType</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="messaging.AbstractBusBuilder.html#_busProvider" class="tsd-kind-icon">_bus<wbr>Provider</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><a href="messaging.AbstractBusBuilder.html#_subscriptionsByType" class="tsd-kind-icon">_subscriptions<wbr>ByType</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="messaging.DomBusBuilder.html#build" class="tsd-kind-icon">build</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="messaging.DomBusBuilder.html#decorate" class="tsd-kind-icon">decorate</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="messaging.DomBusBuilder.html#global" class="tsd-kind-icon">global</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited"><a href="messaging.DomBusBuilder.html#subscribe" class="tsd-kind-icon">subscribe</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static"><a href="messaging.DomBusBuilder.html#get" class="tsd-kind-icon">get</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><a href="messaging.AbstractBusBuilder.html#build" class="tsd-kind-icon">build</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="messaging.AbstractBusBuilder.html#decorate" class="tsd-kind-icon">decorate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="messaging.AbstractBusBuilder.html#subscribe" class="tsd-kind-icon">subscribe</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
 				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected">
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-protected">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Dom<wbr>Bus<wbr>Builder&lt;E&gt;<span class="tsd-signature-symbol">(</span>_busProvider<span class="tsd-signature-symbol">: </span><a href="../interfaces/messaging.BusProvider.html" class="tsd-signature-type" data-tsd-kind="Interface">BusProvider</a>, _propName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, _subscriptionsByType<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/messaging.html#MessageEventType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageEventType</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/messaging.MessageEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">[</span><a href="../interfaces/messaging.ElementSubscriptionListener.html" class="tsd-signature-type" data-tsd-kind="Interface">ElementSubscriptionListener</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/messaging.MessageEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/messaging.SubscribeOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribeOptions</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.DomBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">DomBusBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Abstract<wbr>Bus<wbr>Builder&lt;E&gt;<span class="tsd-signature-symbol">(</span>_busProvider<span class="tsd-signature-symbol">: </span><a href="../interfaces/messaging.BusProvider.html" class="tsd-signature-type" data-tsd-kind="Interface">BusProvider</a>, _propName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, _subscriptionsByType<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/messaging.html#MessageEventType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageEventType</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/messaging.MessageEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">[</span><a href="../interfaces/messaging.ElementSubscriptionListener.html" class="tsd-signature-type" data-tsd-kind="Interface">ElementSubscriptionListener</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/messaging.MessageEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/messaging.SubscribeOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribeOptions</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.AbstractBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractBusBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="messaging.AbstractBusBuilder.html">AbstractBusBuilder</a>.<a href="messaging.AbstractBusBuilder.html#constructor">constructor</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/builder.ts#L128">src/messaging/model/builder.ts:128</a></li>
 								</ul>
@@ -160,42 +180,40 @@
 									<h5>_subscriptionsByType: <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/messaging.html#MessageEventType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageEventType</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/messaging.MessageEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">[</span><a href="../interfaces/messaging.ElementSubscriptionListener.html" class="tsd-signature-type" data-tsd-kind="Interface">ElementSubscriptionListener</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/messaging.MessageEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/messaging.SubscribeOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribeOptions</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="messaging.DomBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">DomBusBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="messaging.AbstractBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractBusBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="_busProvider" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _bus<wbr>Provider</h3>
 					<div class="tsd-signature tsd-kind-icon">_bus<wbr>Provider<span class="tsd-signature-symbol">:</span> <a href="../interfaces/messaging.BusProvider.html" class="tsd-signature-type" data-tsd-kind="Interface">BusProvider</a></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="messaging.AbstractBusBuilder.html">AbstractBusBuilder</a>.<a href="messaging.AbstractBusBuilder.html#_busProvider">_busProvider</a></p>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-protected">
 					<a name="_subscriptionsByType" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> _subscriptions<wbr>ByType</h3>
 					<div class="tsd-signature tsd-kind-icon">_subscriptions<wbr>ByType<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><a href="../modules/messaging.html#MessageEventType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageEventType</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/messaging.MessageEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-symbol">[</span><a href="../interfaces/messaging.ElementSubscriptionListener.html" class="tsd-signature-type" data-tsd-kind="Interface">ElementSubscriptionListener</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/messaging.MessageEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageEvent</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><a href="../interfaces/messaging.SubscribeOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribeOptions</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="messaging.AbstractBusBuilder.html">AbstractBusBuilder</a>.<a href="messaging.AbstractBusBuilder.html#_subscriptionsByType">_subscriptionsByType</a></p>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 					<a name="build" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagProtected">Protected</span> build</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-protected">
 						<li class="tsd-signature tsd-kind-icon">build<span class="tsd-signature-symbol">(</span>Constructor<span class="tsd-signature-symbol">: </span><a href="../interfaces/CustomElementConstructor.html" class="tsd-signature-type" data-tsd-kind="Interface">CustomElementConstructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span>, hooks<span class="tsd-signature-symbol">: </span><a href="../interfaces/HooksRegistration.html" class="tsd-signature-type" data-tsd-kind="Interface">HooksRegistration</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>__ceb_bus_subscriptions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/messaging.Subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="messaging.AbstractBusBuilder.html">AbstractBusBuilder</a>.<a href="messaging.AbstractBusBuilder.html#build">build</a></p>
+								<p>Implementation of <a href="../interfaces/Builder.html">Builder</a>.<a href="../interfaces/Builder.html#build">build</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/builder.ts#L191">src/messaging/model/builder.ts:191</a></li>
 								</ul>
@@ -218,16 +236,15 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="decorate" class="tsd-anchor"></a>
 					<h3>decorate</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
 						<li class="tsd-signature tsd-kind-icon">decorate<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PropertyDecorator</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="messaging.AbstractBusBuilder.html">AbstractBusBuilder</a>.<a href="messaging.AbstractBusBuilder.html#decorate">decorate</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/builder.ts#L176">src/messaging/model/builder.ts:176</a></li>
 								</ul>
@@ -241,48 +258,16 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="global" class="tsd-anchor"></a>
-					<h3>global</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">global<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventTarget</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.DomBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">DomBusBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/dom/builder.ts#L25">src/messaging/dom/builder.ts:25</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Override the default global target which is <code>window</code>.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>target: <span class="tsd-signature-type">EventTarget</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>the target</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="messaging.DomBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">DomBusBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a name="subscribe" class="tsd-anchor"></a>
 					<h3>subscribe</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 						<li class="tsd-signature tsd-kind-icon">subscribe&lt;M&gt;<span class="tsd-signature-symbol">(</span>EventType<span class="tsd-signature-symbol">: </span><a href="../modules/messaging.html#MessageEventType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageEventType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span>, listener<span class="tsd-signature-symbol">: </span><a href="../interfaces/messaging.ElementSubscriptionListener.html" class="tsd-signature-type" data-tsd-kind="Interface">ElementSubscriptionListener</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/messaging.SubscribeOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.AbstractBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractBusBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></li>
 						<li class="tsd-signature tsd-kind-icon">subscribe&lt;M&gt;<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.BusSubscriptionBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">BusSubscriptionBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="messaging.AbstractBusBuilder.html">AbstractBusBuilder</a>.<a href="messaging.AbstractBusBuilder.html#subscribe">subscribe</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/builder.ts#L142">src/messaging/model/builder.ts:142</a></li>
 								</ul>
@@ -323,7 +308,6 @@
 						</li>
 						<li class="tsd-description">
 							<aside class="tsd-sources">
-								<p>Inherited from <a href="messaging.AbstractBusBuilder.html">AbstractBusBuilder</a>.<a href="messaging.AbstractBusBuilder.html#subscribe">subscribe</a></p>
 								<ul>
 									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/builder.ts#L151">src/messaging/model/builder.ts:151</a></li>
 								</ul>
@@ -340,46 +324,6 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="messaging.BusSubscriptionBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">BusSubscriptionBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-					<a name="get" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> get</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">get&lt;E&gt;<span class="tsd-signature-symbol">(</span>propName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.DomBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">DomBusBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/dom/builder.ts#L14">src/messaging/dom/builder.ts:14</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Provides a fresh builder.</p>
-								</div>
-							</div>
-							<h4 class="tsd-type-parameters-title">Type parameters</h4>
-							<ul class="tsd-type-parameters">
-								<li>
-									<h4>E<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HTMLElement</span></h4>
-									<div class="tsd-comment tsd-typography">
-										<p>the type of the Custom Element</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> propName: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>the property name</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="messaging.DomBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">DomBusBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -407,31 +351,25 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-namespace tsd-has-type-parameter">
-						<a href="messaging.DomBusBuilder.html" class="tsd-kind-icon">Dom<wbr>Bus<wbr>Builder</a>
+						<a href="messaging.AbstractBusBuilder.html" class="tsd-kind-icon">Abstract<wbr>Bus<wbr>Builder</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited tsd-is-protected">
-								<a href="messaging.DomBusBuilder.html#constructor" class="tsd-kind-icon">constructor</a>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected">
+								<a href="messaging.AbstractBusBuilder.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="messaging.DomBusBuilder.html#_busProvider" class="tsd-kind-icon">_bus<wbr>Provider</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="messaging.AbstractBusBuilder.html#_busProvider" class="tsd-kind-icon">_bus<wbr>Provider</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="messaging.DomBusBuilder.html#_subscriptionsByType" class="tsd-kind-icon">_subscriptions<wbr>ByType</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-protected">
+								<a href="messaging.AbstractBusBuilder.html#_subscriptionsByType" class="tsd-kind-icon">_subscriptions<wbr>ByType</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="messaging.DomBusBuilder.html#build" class="tsd-kind-icon">build</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="messaging.DomBusBuilder.html#decorate" class="tsd-kind-icon">decorate</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-protected">
+								<a href="messaging.AbstractBusBuilder.html#build" class="tsd-kind-icon">build</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="messaging.DomBusBuilder.html#global" class="tsd-kind-icon">global</a>
+								<a href="messaging.AbstractBusBuilder.html#decorate" class="tsd-kind-icon">decorate</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-inherited">
-								<a href="messaging.DomBusBuilder.html#subscribe" class="tsd-kind-icon">subscribe</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-static">
-								<a href="messaging.DomBusBuilder.html#get" class="tsd-kind-icon">get</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="messaging.AbstractBusBuilder.html#subscribe" class="tsd-kind-icon">subscribe</a>
 							</li>
 						</ul>
 					</li>
@@ -451,13 +389,11 @@
 				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-			</ul>
-			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DomModule | @tmorin/ceb</title>
+	<title>SimpleModule | @tmorin/ceb</title>
 	<meta name="description" content="Documentation for @tmorin/ceb">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -58,10 +58,10 @@
 					<a href="../modules/messaging.html">messaging</a>
 				</li>
 				<li>
-					<a href="messaging.DomModule.html">DomModule</a>
+					<a href="messaging.SimpleModule.html">SimpleModule</a>
 				</li>
 			</ul>
-			<h1>Class DomModule</h1>
+			<h1>Class SimpleModule</h1>
 		</div>
 	</div>
 </header>
@@ -78,7 +78,7 @@
 						<dd><p>Register the DomModule</p>
 							<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">inversion</span><span style="color: #000000">, </span><span style="color: #001080">messaging</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;@tmorin/ceb&quot;</span>
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">container</span><span style="color: #000000"> = </span><span style="color: #001080">inversion</span><span style="color: #000000">.</span><span style="color: #001080">ContainerBuilder</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">()</span>
-<span style="color: #000000">  .</span><span style="color: #795E26">module</span><span style="color: #000000">(</span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">messaging</span><span style="color: #000000">.</span><span style="color: #795E26">DomModule</span><span style="color: #000000">())</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">module</span><span style="color: #000000">(</span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">messaging</span><span style="color: #000000">.</span><span style="color: #795E26">SimpleModule</span><span style="color: #000000">())</span>
 <span style="color: #000000">  .</span><span style="color: #795E26">build</span><span style="color: #000000">()</span>
 </code></pre>
 						</dd>
@@ -92,7 +92,7 @@
 						<a href="inversion.AbstractModule.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractModule</a>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">DomModule</span>
+								<span class="target">SimpleModule</span>
 							</li>
 						</ul>
 					</li>
@@ -105,21 +105,21 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="messaging.DomModule.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="messaging.SimpleModule.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="messaging.DomModule.html#registry" class="tsd-kind-icon">registry</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited"><a href="messaging.SimpleModule.html#registry" class="tsd-kind-icon">registry</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="messaging.DomModule.html#configure" class="tsd-kind-icon">configure</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="messaging.DomModule.html#dispose" class="tsd-kind-icon">dispose</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="messaging.DomModule.html#initialize" class="tsd-kind-icon">initialize</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="messaging.SimpleModule.html#configure" class="tsd-kind-icon">configure</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="messaging.SimpleModule.html#dispose" class="tsd-kind-icon">dispose</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="messaging.SimpleModule.html#initialize" class="tsd-kind-icon">initialize</a></li>
 							</ul>
 						</section>
 					</div>
@@ -131,29 +131,23 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Dom<wbr>Module<span class="tsd-signature-symbol">(</span>global<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">EventTarget</span>, requester<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">EventTarget</span>, bus<span class="tsd-signature-symbol">?: </span><a href="messaging.DomBus.html" class="tsd-signature-type" data-tsd-kind="Class">DomBus</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.DomModule.html" class="tsd-signature-type" data-tsd-kind="Class">DomModule</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Simple<wbr>Module<span class="tsd-signature-symbol">(</span>bus<span class="tsd-signature-symbol">?: </span><a href="messaging.InMemorySimpleBus.html" class="tsd-signature-type" data-tsd-kind="Class">InMemorySimpleBus</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.SimpleModule.html" class="tsd-signature-type" data-tsd-kind="Class">SimpleModule</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Overrides <a href="inversion.AbstractModule.html">AbstractModule</a>.<a href="inversion.AbstractModule.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/dom/inversion.ts#L17">src/messaging/dom/inversion.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/simple/inversion.ts#L17">src/messaging/simple/inversion.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>global: <span class="tsd-signature-type">EventTarget</span><span class="tsd-signature-symbol"> = ...</span></h5>
-								</li>
-								<li>
-									<h5>requester: <span class="tsd-signature-type">EventTarget</span><span class="tsd-signature-symbol"> = ...</span></h5>
-								</li>
-								<li>
-									<h5>bus: <a href="messaging.DomBus.html" class="tsd-signature-type" data-tsd-kind="Class">DomBus</a><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>bus: <a href="messaging.InMemorySimpleBus.html" class="tsd-signature-type" data-tsd-kind="Class">InMemorySimpleBus</a><span class="tsd-signature-symbol"> = ...</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="messaging.DomModule.html" class="tsd-signature-type" data-tsd-kind="Class">DomModule</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="messaging.SimpleModule.html" class="tsd-signature-type" data-tsd-kind="Class">SimpleModule</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -196,7 +190,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="inversion.AbstractModule.html">AbstractModule</a>.<a href="inversion.AbstractModule.html#configure">configure</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/dom/inversion.ts#L25">src/messaging/dom/inversion.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/simple/inversion.ts#L23">src/messaging/simple/inversion.ts:23</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -219,7 +213,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="inversion.AbstractModule.html">AbstractModule</a>.<a href="inversion.AbstractModule.html#dispose">dispose</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/dom/inversion.ts#L30">src/messaging/dom/inversion.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/simple/inversion.ts#L27">src/messaging/simple/inversion.ts:27</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -279,22 +273,22 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-namespace">
-						<a href="messaging.DomModule.html" class="tsd-kind-icon">Dom<wbr>Module</a>
+						<a href="messaging.SimpleModule.html" class="tsd-kind-icon">Simple<wbr>Module</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
-								<a href="messaging.DomModule.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="messaging.SimpleModule.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class tsd-is-inherited">
-								<a href="messaging.DomModule.html#registry" class="tsd-kind-icon">registry</a>
+								<a href="messaging.SimpleModule.html#registry" class="tsd-kind-icon">registry</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="messaging.DomModule.html#configure" class="tsd-kind-icon">configure</a>
+								<a href="messaging.SimpleModule.html#configure" class="tsd-kind-icon">configure</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
-								<a href="messaging.DomModule.html#dispose" class="tsd-kind-icon">dispose</a>
+								<a href="messaging.SimpleModule.html#dispose" class="tsd-kind-icon">dispose</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
-								<a href="messaging.DomModule.html#initialize" class="tsd-kind-icon">initialize</a>
+								<a href="messaging.SimpleModule.html#initialize" class="tsd-kind-icon">initialize</a>
 							</li>
 						</ul>
 					</li>

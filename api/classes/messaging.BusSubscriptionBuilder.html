@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ElementSubscriptionBuilder | @tmorin/ceb</title>
+	<title>BusSubscriptionBuilder | @tmorin/ceb</title>
 	<meta name="description" content="Documentation for @tmorin/ceb">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -58,10 +58,10 @@
 					<a href="../modules/messaging.html">messaging</a>
 				</li>
 				<li>
-					<a href="messaging.ElementSubscriptionBuilder.html">ElementSubscriptionBuilder</a>
+					<a href="messaging.BusSubscriptionBuilder.html">BusSubscriptionBuilder</a>
 				</li>
 			</ul>
-			<h1>Class ElementSubscriptionBuilder&lt;E, M&gt;</h1>
+			<h1>Class BusSubscriptionBuilder&lt;E, M&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -72,11 +72,11 @@
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
 						<p>The builder handles the registration of subscriptions based on an existing method using the decorator style.
-						It should only be used from <a href="messaging.DomBusBuilder.html#subscribe">DomBusBuilder.subscribe</a>.</p>
+						It should only be used from <a href="messaging.AbstractBusBuilder.html#subscribe">AbstractBusBuilder.subscribe</a>.</p>
 					</div>
 					<p>By default, the type of the Message Event is resolved from the name of the method.
-					However, it can be directly set with <a href="messaging.ElementSubscriptionBuilder.html#type">ElementSubscriptionBuilder.type</a>.</p>
-					<p>The options of the subscription can be provided with <a href="messaging.ElementSubscriptionBuilder.html#options">ElementSubscriptionBuilder.options</a>.</p>
+					However, it can be directly set with <a href="messaging.BusSubscriptionBuilder.html#type">BusSubscriptionBuilder.type</a>.</p>
+					<p>The options of the subscription can be provided with <a href="messaging.BusSubscriptionBuilder.html#options">BusSubscriptionBuilder.options</a>.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-type-parameters">
@@ -104,7 +104,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ElementSubscriptionBuilder</span>
+						<span class="target">BusSubscriptionBuilder</span>
 					</li>
 				</ul>
 			</section>
@@ -115,15 +115,15 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter"><a href="messaging.ElementSubscriptionBuilder.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter"><a href="messaging.BusSubscriptionBuilder.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="messaging.ElementSubscriptionBuilder.html#decorate" class="tsd-kind-icon">decorate</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="messaging.ElementSubscriptionBuilder.html#options" class="tsd-kind-icon">options</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="messaging.ElementSubscriptionBuilder.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="messaging.BusSubscriptionBuilder.html#decorate" class="tsd-kind-icon">decorate</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="messaging.BusSubscriptionBuilder.html#options" class="tsd-kind-icon">options</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="messaging.BusSubscriptionBuilder.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 					</div>
@@ -135,13 +135,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Element<wbr>Subscription<wbr>Builder&lt;E, M&gt;<span class="tsd-signature-symbol">(</span>_busBuilder<span class="tsd-signature-symbol">: </span><a href="messaging.DomBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">DomBusBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span>, _EventType<span class="tsd-signature-symbol">?: </span><a href="../modules/messaging.html#MessageEventType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageEventType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span>, _listener<span class="tsd-signature-symbol">?: </span><a href="../interfaces/messaging.ElementSubscriptionListener.html" class="tsd-signature-type" data-tsd-kind="Interface">ElementSubscriptionListener</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span>, _options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/messaging.SubscribeOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.ElementSubscriptionBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">ElementSubscriptionBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Bus<wbr>Subscription<wbr>Builder&lt;E, M&gt;<span class="tsd-signature-symbol">(</span>_busBuilder<span class="tsd-signature-symbol">: </span><a href="messaging.AbstractBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractBusBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span>, _EventType<span class="tsd-signature-symbol">?: </span><a href="../modules/messaging.html#MessageEventType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageEventType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span>, _listener<span class="tsd-signature-symbol">?: </span><a href="../interfaces/messaging.ElementSubscriptionListener.html" class="tsd-signature-type" data-tsd-kind="Interface">ElementSubscriptionListener</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span>, _options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/messaging.SubscribeOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.BusSubscriptionBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">BusSubscriptionBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/dom/builder.ts#L35">src/messaging/dom/builder.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/builder.ts#L35">src/messaging/model/builder.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -156,7 +156,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>_busBuilder: <a href="messaging.DomBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">DomBusBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>_busBuilder: <a href="messaging.AbstractBusBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractBusBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> _EventType: <a href="../modules/messaging.html#MessageEventType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageEventType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></h5>
@@ -168,7 +168,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> _options: <a href="../interfaces/messaging.SubscribeOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribeOptions</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="messaging.ElementSubscriptionBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">ElementSubscriptionBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="messaging.BusSubscriptionBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">BusSubscriptionBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -185,14 +185,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/dom/builder.ts#L70">src/messaging/dom/builder.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/builder.ts#L70">src/messaging/model/builder.ts:70</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Decorate the listener method which is invoked when the matching Event is published.</p>
 								</div>
-								<p>When the type of the Event is not specified by <a href="messaging.ElementSubscriptionBuilder.html#type">ElementSubscriptionBuilder.type</a>, then the event type is discovered from the decorated method name.
+								<p>When the type of the Event is not specified by <a href="messaging.BusSubscriptionBuilder.html#type">BusSubscriptionBuilder.type</a>, then the event type is discovered from the decorated method name.
 								The pattern is <code>&lt;prefix&gt;&lt;event-type-in-kebab-case&gt;</code>, where <code>&lt;prefix&gt;</code> is by default <code>on</code>.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -212,13 +212,13 @@
 					<a name="options" class="tsd-anchor"></a>
 					<h3>options</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/messaging.SubscribeOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.ElementSubscriptionBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">ElementSubscriptionBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/messaging.SubscribeOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.BusSubscriptionBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">BusSubscriptionBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/dom/builder.ts#L57">src/messaging/dom/builder.ts:57</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/builder.ts#L57">src/messaging/model/builder.ts:57</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -235,7 +235,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="messaging.ElementSubscriptionBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">ElementSubscriptionBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="messaging.BusSubscriptionBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">BusSubscriptionBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -243,13 +243,13 @@
 					<a name="type" class="tsd-anchor"></a>
 					<h3>type</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">(</span>EventType<span class="tsd-signature-symbol">: </span><a href="../modules/messaging.html#MessageEventType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageEventType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.ElementSubscriptionBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">ElementSubscriptionBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">(</span>EventType<span class="tsd-signature-symbol">: </span><a href="../modules/messaging.html#MessageEventType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageEventType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.BusSubscriptionBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">BusSubscriptionBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/dom/builder.ts#L48">src/messaging/dom/builder.ts:48</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/builder.ts#L48">src/messaging/model/builder.ts:48</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -266,7 +266,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="messaging.ElementSubscriptionBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">ElementSubscriptionBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="messaging.BusSubscriptionBuilder.html" class="tsd-signature-type" data-tsd-kind="Class">BusSubscriptionBuilder</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -294,19 +294,19 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-namespace tsd-has-type-parameter">
-						<a href="messaging.ElementSubscriptionBuilder.html" class="tsd-kind-icon">Element<wbr>Subscription<wbr>Builder</a>
+						<a href="messaging.BusSubscriptionBuilder.html" class="tsd-kind-icon">Bus<wbr>Subscription<wbr>Builder</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter">
-								<a href="messaging.ElementSubscriptionBuilder.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="messaging.BusSubscriptionBuilder.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="messaging.ElementSubscriptionBuilder.html#decorate" class="tsd-kind-icon">decorate</a>
+								<a href="messaging.BusSubscriptionBuilder.html#decorate" class="tsd-kind-icon">decorate</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="messaging.ElementSubscriptionBuilder.html#options" class="tsd-kind-icon">options</a>
+								<a href="messaging.BusSubscriptionBuilder.html#options" class="tsd-kind-icon">options</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="messaging.ElementSubscriptionBuilder.html#type" class="tsd-kind-icon">type</a>
+								<a href="messaging.BusSubscriptionBuilder.html#type" class="tsd-kind-icon">type</a>
 							</li>
 						</ul>
 					</li>

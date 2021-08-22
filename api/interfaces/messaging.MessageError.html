@@ -105,6 +105,7 @@
 				<h3>Implemented by</h3>
 				<ul class="tsd-hierarchy">
 					<li><a href="../classes/messaging.DomError.html" class="tsd-signature-type" data-tsd-kind="Class">DomError</a></li>
+					<li><a href="../classes/messaging.SimpleErrorResult.html" class="tsd-signature-type" data-tsd-kind="Class">SimpleErrorResult</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -115,14 +116,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="messaging.MessageError.html#body" class="tsd-kind-icon">body</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="messaging.MessageError.html#correlationId" class="tsd-kind-icon">correlation<wbr>Id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="messaging.MessageError.html#messageId" class="tsd-kind-icon">message<wbr>Id</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-inherited">
-							<h3>Methods</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="messaging.MessageError.html#isCorrelatedTo" class="tsd-kind-icon">is<wbr>Correlated<wbr>To</a></li>
 							</ul>
 						</section>
 					</div>
@@ -137,18 +131,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="messaging.MessageResult.html">MessageResult</a>.<a href="messaging.MessageResult.html#body">body</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/model/message.ts#L20">src/messaging/model/message.ts:20</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-					<a name="correlationId" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> correlation<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">correlation<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from <a href="messaging.MessageResult.html">MessageResult</a>.<a href="messaging.MessageResult.html#correlationId">correlationId</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/model/message.ts#L60">src/messaging/model/message.ts:60</a></li>
+							<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/message.ts#L20">src/messaging/model/message.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -159,36 +142,9 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="messaging.MessageResult.html">MessageResult</a>.<a href="messaging.MessageResult.html#messageId">messageId</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/model/message.ts#L19">src/messaging/model/message.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/message.ts#L19">src/messaging/model/message.ts:19</a></li>
 						</ul>
 					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-					<a name="isCorrelatedTo" class="tsd-anchor"></a>
-					<h3>is<wbr>Correlated<wbr>To</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>Correlated<wbr>To<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><a href="messaging.Message.html" class="tsd-signature-type" data-tsd-kind="Interface">Message</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<p>Inherited from <a href="messaging.MessageResult.html">MessageResult</a>.<a href="messaging.MessageResult.html#isCorrelatedTo">isCorrelatedTo</a></p>
-								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/model/message.ts#L62">src/messaging/model/message.ts:62</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>message: <a href="messaging.Message.html" class="tsd-signature-type" data-tsd-kind="Interface">Message</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-						</li>
-					</ul>
 				</section>
 			</section>
 		</div>
@@ -220,13 +176,7 @@
 								<a href="messaging.MessageError.html#body" class="tsd-kind-icon">body</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="messaging.MessageError.html#correlationId" class="tsd-kind-icon">correlation<wbr>Id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="messaging.MessageError.html#messageId" class="tsd-kind-icon">message<wbr>Id</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-								<a href="messaging.MessageError.html#isCorrelatedTo" class="tsd-kind-icon">is<wbr>Correlated<wbr>To</a>
 							</li>
 						</ul>
 					</li>

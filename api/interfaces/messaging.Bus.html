@@ -87,6 +87,7 @@
 				<h3>Implemented by</h3>
 				<ul class="tsd-hierarchy">
 					<li><a href="../classes/messaging.DomBus.html" class="tsd-signature-type" data-tsd-kind="Class">DomBus</a></li>
+					<li><a href="../classes/messaging.InMemorySimpleBus.html" class="tsd-signature-type" data-tsd-kind="Class">InMemorySimpleBus</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -99,8 +100,6 @@
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter"><a href="messaging.Bus.html#execute" class="tsd-kind-icon">execute</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter"><a href="messaging.Bus.html#handle" class="tsd-kind-icon">handle</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter"><a href="messaging.Bus.html#publish" class="tsd-kind-icon">publish</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="messaging.Bus.html#start" class="tsd-kind-icon">start</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="messaging.Bus.html#stop" class="tsd-kind-icon">stop</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter"><a href="messaging.Bus.html#subscribe" class="tsd-kind-icon">subscribe</a></li>
 							</ul>
 						</section>
@@ -120,7 +119,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/model/bus.ts#L110">src/messaging/model/bus.ts:110</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/bus.ts#L110">src/messaging/model/bus.ts:110</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -170,7 +169,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/model/bus.ts#L121">src/messaging/model/bus.ts:121</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/bus.ts#L121">src/messaging/model/bus.ts:121</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -204,13 +203,13 @@
 					<a name="handle" class="tsd-anchor"></a>
 					<h3>handle</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">handle&lt;M, R&gt;<span class="tsd-signature-symbol">(</span>ActionType<span class="tsd-signature-symbol">: </span><a href="messaging.MessageConstructor.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageConstructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span>, ResultType<span class="tsd-signature-symbol">: </span><a href="messaging.MessageConstructor.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageConstructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span>, handler<span class="tsd-signature-symbol">: </span><a href="messaging.ExecutionHandler.html" class="tsd-signature-type" data-tsd-kind="Interface">ExecutionHandler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.Handler.html" class="tsd-signature-type" data-tsd-kind="Interface">Handler</a></li>
+						<li class="tsd-signature tsd-kind-icon">handle&lt;M, R&gt;<span class="tsd-signature-symbol">(</span>ActionType<span class="tsd-signature-symbol">: </span><a href="../modules/messaging.html#MessageActionType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageActionType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span>, ResultType<span class="tsd-signature-symbol">: </span><a href="messaging.MessageConstructor.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageConstructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span>, handler<span class="tsd-signature-symbol">: </span><a href="messaging.ExecutionHandler.html" class="tsd-signature-type" data-tsd-kind="Interface">ExecutionHandler</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">R</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.Handler.html" class="tsd-signature-type" data-tsd-kind="Interface">Handler</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/model/bus.ts#L136">src/messaging/model/bus.ts:136</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/bus.ts#L136">src/messaging/model/bus.ts:136</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -240,7 +239,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>ActionType: <a href="messaging.MessageConstructor.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageConstructor</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>ActionType: <a href="../modules/messaging.html#MessageActionType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageActionType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">M</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>the type of the action</p>
 									</div>
@@ -273,7 +272,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/model/bus.ts#L82">src/messaging/model/bus.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/bus.ts#L82">src/messaging/model/bus.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -303,61 +302,17 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="start" class="tsd-anchor"></a>
-					<h3>start</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">start<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/model/bus.ts#L70">src/messaging/model/bus.ts:70</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Start all subscriptions as well as registered action handlers.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="stop" class="tsd-anchor"></a>
-					<h3>stop</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">stop<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/model/bus.ts#L75">src/messaging/model/bus.ts:75</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Cancel all running subscriptions as well as registered action handlers.</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
 					<a name="subscribe" class="tsd-anchor"></a>
 					<h3>subscribe</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">subscribe&lt;E&gt;<span class="tsd-signature-symbol">(</span>Type<span class="tsd-signature-symbol">: </span><a href="../modules/messaging.html#MessageEventType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageEventType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span>, listener<span class="tsd-signature-symbol">: </span><a href="messaging.SubscriptionListener.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscriptionListener</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">?: </span><a href="messaging.SubscribeOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.Subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
+						<li class="tsd-signature tsd-kind-icon">subscribe&lt;E&gt;<span class="tsd-signature-symbol">(</span>EventType<span class="tsd-signature-symbol">: </span><a href="../modules/messaging.html#MessageEventType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageEventType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span>, listener<span class="tsd-signature-symbol">: </span><a href="messaging.SubscriptionListener.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscriptionListener</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span>, options<span class="tsd-signature-symbol">?: </span><a href="messaging.SubscribeOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SubscribeOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.Subscription.html" class="tsd-signature-type" data-tsd-kind="Interface">Subscription</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/7799881/src/messaging/model/bus.ts#L95">src/messaging/model/bus.ts:95</a></li>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/bus.ts#L95">src/messaging/model/bus.ts:95</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -378,7 +333,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>Type: <a href="../modules/messaging.html#MessageEventType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageEventType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>EventType: <a href="../modules/messaging.html#MessageEventType" class="tsd-signature-type" data-tsd-kind="Type alias">MessageEventType</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">E</span><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>the type of the event</p>
 									</div>
@@ -435,12 +390,6 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
 								<a href="messaging.Bus.html#publish" class="tsd-kind-icon">publish</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="messaging.Bus.html#start" class="tsd-kind-icon">start</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="messaging.Bus.html#stop" class="tsd-kind-icon">stop</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-has-type-parameter">
 								<a href="messaging.Bus.html#subscribe" class="tsd-kind-icon">subscribe</a>

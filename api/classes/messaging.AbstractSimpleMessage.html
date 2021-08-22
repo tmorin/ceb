@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MessageResult | @tmorin/ceb</title>
+	<title>AbstractSimpleMessage | @tmorin/ceb</title>
 	<meta name="description" content="Documentation for @tmorin/ceb">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -58,10 +58,10 @@
 					<a href="../modules/messaging.html">messaging</a>
 				</li>
 				<li>
-					<a href="messaging.MessageResult.html">MessageResult</a>
+					<a href="messaging.AbstractSimpleMessage.html">AbstractSimpleMessage</a>
 				</li>
 			</ul>
-			<h1>Interface MessageResult&lt;B&gt;</h1>
+			<h1>Class AbstractSimpleMessage&lt;B&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +71,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A result is the message providing insight about the execution of a command or a query.</p>
+						<p>A base class for all <em>simple</em> messages.</p>
 					</div>
 				</div>
 			</section>
@@ -92,64 +92,98 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<a href="messaging.Message.html" class="tsd-signature-type" data-tsd-kind="Interface">Message</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span>
+						<span class="target">AbstractSimpleMessage</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">MessageResult</span>
-								<ul class="tsd-hierarchy">
-									<li>
-										<a href="messaging.MessageError.html" class="tsd-signature-type" data-tsd-kind="Interface">MessageError</a>
-									</li>
-								</ul>
+								<a href="messaging.AbstractSimpleAction.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractSimpleAction</a>
+							</li>
+							<li>
+								<a href="messaging.AbstractSimpleEvent.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractSimpleEvent</a>
+							</li>
+							<li>
+								<a href="messaging.AbstractSimpleResult.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractSimpleResult</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 			</section>
 			<section class="tsd-panel">
-				<h3>Implemented by</h3>
+				<h3>Implements</h3>
 				<ul class="tsd-hierarchy">
-					<li><a href="../classes/messaging.AbstractSimpleResult.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractSimpleResult</a></li>
-					<li><a href="../classes/messaging.DomResult.html" class="tsd-signature-type" data-tsd-kind="Class">DomResult</a></li>
-					<li><a href="../classes/messaging.DomVoidResult.html" class="tsd-signature-type" data-tsd-kind="Class">DomVoidResult</a></li>
+					<li><a href="../interfaces/messaging.Message.html" class="tsd-signature-type" data-tsd-kind="Interface">Message</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section tsd-is-private-protected">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected"><a href="messaging.AbstractSimpleMessage.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="messaging.MessageResult.html#body" class="tsd-kind-icon">body</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="messaging.MessageResult.html#messageId" class="tsd-kind-icon">message<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="messaging.AbstractSimpleMessage.html#body" class="tsd-kind-icon">body</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="messaging.AbstractSimpleMessage.html#messageId" class="tsd-kind-icon">message<wbr>Id</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group tsd-is-private-protected">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Abstract<wbr>Simple<wbr>Message&lt;B&gt;<span class="tsd-signature-symbol">(</span>body<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">B</span>, messageId<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="messaging.AbstractSimpleMessage.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractSimpleMessage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/simple/message.ts#L19">src/messaging/simple/message.ts:19</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>B = <span class="tsd-signature-type">any</span></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>body: <span class="tsd-signature-type">B</span></h5>
+								</li>
+								<li>
+									<h5>messageId: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="messaging.AbstractSimpleMessage.html" class="tsd-signature-type" data-tsd-kind="Class">AbstractSimpleMessage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">B</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="body" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> body</h3>
 					<div class="tsd-signature tsd-kind-icon">body<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">B</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="messaging.Message.html">Message</a>.<a href="messaging.Message.html#body">body</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/message.ts#L20">src/messaging/model/message.ts:20</a></li>
-						</ul>
+						<p>Implementation of <a href="../interfaces/messaging.Message.html">Message</a>.<a href="../interfaces/messaging.Message.html#body">body</a></p>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="messageId" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> message<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">message<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<div class="tsd-signature tsd-kind-icon">message<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="messaging.Message.html">Message</a>.<a href="messaging.Message.html#messageId">messageId</a></p>
-						<ul>
-							<li>Defined in <a href="https://github.com/tmorin/ceb/blob/c2c62a6/src/messaging/model/message.ts#L19">src/messaging/model/message.ts:19</a></li>
-						</ul>
+						<p>Implementation of <a href="../interfaces/messaging.Message.html">Message</a>.<a href="../interfaces/messaging.Message.html#messageId">messageId</a></p>
 					</aside>
 				</section>
 			</section>
@@ -175,14 +209,17 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-namespace tsd-has-type-parameter">
-						<a href="messaging.MessageResult.html" class="tsd-kind-icon">Message<wbr>Result</a>
+					<li class="current tsd-kind-class tsd-parent-kind-namespace tsd-has-type-parameter">
+						<a href="messaging.AbstractSimpleMessage.html" class="tsd-kind-icon">Abstract<wbr>Simple<wbr>Message</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="messaging.MessageResult.html#body" class="tsd-kind-icon">body</a>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected">
+								<a href="messaging.AbstractSimpleMessage.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
-								<a href="messaging.MessageResult.html#messageId" class="tsd-kind-icon">message<wbr>Id</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="messaging.AbstractSimpleMessage.html#body" class="tsd-kind-icon">body</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="messaging.AbstractSimpleMessage.html#messageId" class="tsd-kind-icon">message<wbr>Id</a>
 							</li>
 						</ul>
 					</li>
@@ -202,6 +239,7 @@
 				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
