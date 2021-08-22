@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.5.0](https://github.com/tmorin/ceb/compare/v3.4.1...v3.5.0) (2021-08-22)
+
+
+### Features
+
+* **messaging:** a simple implementation working in any VM (NodeJS, browser ...) should be provided ([4830249](https://github.com/tmorin/ceb/commit/483024920fcb9fe21d99966899bbf520d4a7100e))
+
+
+### Bug Fixes
+
+* **messaging:** cleaning of useless log traces on `MessagingComponent` ([bd9f558](https://github.com/tmorin/ceb/commit/bd9f558b608b191727a2e88d75dbf1a89326b1b0))
+* **messaging:** the correlation concern is not common to all implementations ([512fc31](https://github.com/tmorin/ceb/commit/512fc319280981b14199dec0653213702ee9b52c))
+* **messaging:** the start and stop concern is not common to all implementations ([434d949](https://github.com/tmorin/ceb/commit/434d9497a1002d214115f7ab16f9dd3a1f62f422))
+* **messaging:** when registering an action, the action type could also be a string ([a1e0eb1](https://github.com/tmorin/ceb/commit/a1e0eb17de0484c72aeea83efa25e9a37881d323))
+
 ### [3.4.1](https://github.com/tmorin/ceb/compare/v3.4.0...v3.4.1) (2021-08-19)
 
 
