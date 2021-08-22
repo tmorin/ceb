@@ -1,6 +1,5 @@
 # `<ceb/>` ~ custom-element-builder
 
-[![npm version](https://badge.fury.io/js/%40tmorin%2Fceb.svg)](https://badge.fury.io/js/%40tmorin%2Fceb)
 [![Continous Integration - Build](https://github.com/tmorin/ceb/actions/workflows/ci-build.yaml/badge.svg)](https://github.com/tmorin/ceb/actions/workflows/ci-build.yaml)
 [![manual](https://img.shields.io/badge/-manual-informational.svg)](https://tmorin.github.io/ceb/)
 [![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api)
@@ -9,7 +8,7 @@
 
 ## Quickly
 
-[![Edit <ceb/> ~ SimpleGreeting](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ceb-simplegreeting-unj2w?fontsize=14&hidenavigation=1&theme=dark)
+[![Edit <ceb/> ~ SimpleGreeting - v4](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ceb-simplegreeting-v4-vzurn?fontsize=14&hidenavigation=1&theme=dark)
 
 ```typescript
 import {
@@ -44,26 +43,50 @@ export class SimpleGreeting extends HTMLElement {
 ```
 
 ```html
-<simple-greeting name="John Doe" />
+
+<simple-greeting name="John Doe"/>
 ```
 
-## Install
+## Packages
 
-From npm or yarn or ... from npm what?
+The library is composed of many packages.
 
-```bash
-npm install @tmorin/ceb
-```
+The packages related to the definition of [Custom Elements (v1)]:
 
-Directly in the browser
+- [ceb-core](./packages/ceb-core)
+- [ceb-builders](./packages/ceb-builders)
 
-```html
-<script src="https://unpkg.com/@tmorin/ceb/dist/ceb.min.js"></script>
-```
+A built-in implementation of a templating system:
+
+- [ceb-templating-builder](./packages/ceb-templating-builder)
+- [ceb-templating-engine](./packages/ceb-templating-engine)
+- [ceb-templating-literal](./packages/ceb-templating-literal)
+- [ceb-templating-parser](./packages/ceb-templating-parser)
+
+A built-in implementation of the Inversion of Control principle:
+
+- [ceb-inversion](./packages/ceb-inversion)
+
+A built-in implementation of the Event/Message architecture:
+
+- [ceb-messaging-core](./packages/ceb-messaging-core)
+- [ceb-messaging-dom](./packages/ceb-messaging-dom)
+- [ceb-messaging-simple](./packages/ceb-messaging-simple)
+
+The helper packages:
+
+- [ceb-utilities](./packages/ceb-testing)
+- [ceb-testing](./packages/ceb-testing)
+- [ceb](./packages/ceb) : a bundle of `ceb-core`, `ceb-builders`, `ceb-templating-builder` and `ceb-templating-literal`
+
+The examples:
+
+- [ceb-example-greeting](./packages/ceb-example-greeting)
 
 ## License
 
 Released under the [MIT license].
 
 [Custom Elements (v1)]: https://html.spec.whatwg.org/multipage/custom-elements.html
+
 [MIT license]: http://opensource.org/licenses/MIT

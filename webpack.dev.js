@@ -1,16 +1,11 @@
 const {merge} = require('webpack-merge');
 const common = require('./webpack.common.js');
+const path = require("path");
 
 module.exports = merge(common, {
     mode: 'development',
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
     output: {
-        filename: 'dist/ceb.js'
-    },
-    resolve: {
-        fallback: {
-            util: false,
-            process: require.resolve('process'),
-        }
+        filename: `${path.basename(process.cwd())}.js`,
     }
 });

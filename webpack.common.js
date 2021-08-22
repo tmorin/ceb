@@ -1,23 +1,32 @@
 const path = require('path');
 
 module.exports = {
-    entry: path.resolve(__dirname, 'src/index.ts'),
+    entry: path.join(process.cwd(), "src/index.ts"),
     module: {
         rules: [
             {
                 test: /\.(ts|js)$/,
                 exclude: /node_modules/,
-                loader: 'ts-loader'
+                loader: 'ts-loader',
+                options: {
+                    compilerOptions: {
+                        allowJs: true
+                    }
+                }
             }
         ]
     },
     resolve: {
-        extensions: ['.ts', '.js', '.json']
+        extensions: ['.ts', '.js', '.json'],
+        fallback: {
+            util: false,
+            process: require.resolve('process'),
+        }
     },
     output: {
-        library: 'ceb',
+        path: path.join(process.cwd(), "umd"),
+        library: path.basename(process.cwd()),
         libraryTarget: 'umd2',
-        path: path.resolve(__dirname)
     }
 };
 

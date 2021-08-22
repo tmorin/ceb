@@ -8,7 +8,7 @@ module.exports = (config) => {
     config.set({
         frameworks: ['mocha', 'webpack'],
 
-        reporters: ['progress', 'junit'],
+        reporters: ['progress'],
 
         files: [
             {pattern: '{examples,src,test}/**/*.spec.ts', watched: false},
@@ -34,10 +34,6 @@ module.exports = (config) => {
             mocha: {
                 reporter: 'html'
             }
-        },
-
-        junitReporter: {
-            outputDir: '.tmp/junit'
         }
     });
 };

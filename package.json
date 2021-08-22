@@ -1,57 +1,24 @@
 {
-  "name": "@tmorin/ceb",
-  "version": "3.5.0",
-  "license": "MIT",
-  "description": "`<ceb/>` is a library providing building blocks to develop Custom Elements (v1). Additionally, other building blocks are also provided to cover the implementation of web applications based on the Event/Message Architecture.",
-  "keywords": [
-    "custom-element-builder",
-    "custom-elements-v1",
-    "custom-elements",
-    "custom-element",
-    "template",
-    "template-engine",
-    "template-literal",
-    "typescript",
-    "typescript-library",
-    "javascript-library"
+  "name": "ceb",
+  "private": true,
+  "workspaces": [
+    "./packages/*"
   ],
-  "homepage": "https://tmorin.github.io/ceb",
-  "bugs": {
-    "url": "https://github.com/tmorin/ceb/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:tmorin/ceb.git"
-  },
-  "author": {
-    "name": "Thibault Morin",
-    "url": "https://tmorin.github.io"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "type": "commonjs",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "unpkg": "dist/ceb.min.js",
   "scripts": {
-    "alpha": "npm run build && standard-version --skip.changelog --skip.tag --prerelease alpha",
-    "alpha:publish": "git push --all && npm publish --tag canary",
-    "build": "npm run build:clean && npm run build:lib && npm run build:umd && npm run build:umd:min",
-    "build:clean": "rimraf .tmp dist lib *.tgz",
-    "build:lib": "tsc -p tsconfig.build.json",
-    "build:umd": "webpack --config webpack.dev.js",
-    "build:umd:min": "webpack --config webpack.prd.js",
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run --stream build",
+    "canary": "npm run canary:version && npm run canary:publish",
+    "canary:publish": "lerna publish --canary from-package",
+    "canary:version": "lerna version --no-changelog --no-git-tag-version prerelease --yes && git add -A && git commit -am 'chore(release): pre-release'",
     "doc:book": "mdbook clean && mdbook build",
     "doc:book:serve": "mdbook serve",
     "doc:book:watch": "mdbook watch",
-    "doc:publish": "cd public && git init && git commit --allow-empty -m 'update site' && git checkout -b gh-pages && git add . && git commit -am 'update site, [skip ci]' && git push git@github.com:tmorin/ceb gh-pages --force && cd ..",
     "doc:typedoc": "typedoc",
     "gdiag": "gdiag --wd book",
-    "release": "npm run build && standard-version",
-    "release:publish": "git push --tags && git push --all",
-    "test": "karma start --single-run --no-auto-watch --browsers FirefoxHeadless,ChromeHeadless",
-    "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
+    "lerna": "lerna",
+    "release:publish": "lerna publish from-git --yes",
+    "release:version": "lerna version --conventional-commits --conventional-graduate",
+    "test": "lerna run --stream test"
   },
   "devDependencies": {
     "@tmorin/plantuml-libs": "^4.2.0",
@@ -63,21 +30,20 @@
     "karma-chrome-launcher": "^3.1.0",
     "karma-cli": "^2.0.0",
     "karma-firefox-launcher": "^2.1.1",
-    "karma-junit-reporter": "^2.0.1",
     "karma-mocha": "^2.0.1",
     "karma-webpack": "^5.0.0",
+    "lerna": "^4.0.0",
     "mocha": "^9.0.3",
     "process": "^0.11.10",
     "puppeteer": "^10.2.0",
-    "rimraf": "^3.0.2",
     "sinon": "^11.1.2",
-    "standard-version": "^9.3.1",
     "ts-loader": "^9.2.5",
+    "ts-node": "^10.2.1",
     "typedoc": "^0.21.5",
     "typescript": "^4.3.5",
     "webpack": "^5.50.0",
     "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^3.11.2",
+    "webpack-dev-server": "^4.0.0",
     "webpack-merge": "^5.8.0"
   }
 }

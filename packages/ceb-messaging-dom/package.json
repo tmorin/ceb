@@ -1,0 +1,56 @@
+{
+  "name": "@tmorin/ceb-messaging-dom",
+  "version": "4.0.0-alpha.4",
+  "license": "MIT",
+  "description": "The package is part of the `<ceb/>` library. It provides a specialization of the core artifacts which leverages on the DOM environment.",
+  "keywords": [
+    "custom-element-builder",
+    "custom-elements-v1",
+    "custom-elements",
+    "custom-element",
+    "typescript",
+    "typescript-library",
+    "javascript-library",
+    "messaging",
+    "cqrs",
+    "bus",
+    "event-bus",
+    "message-bus"
+  ],
+  "homepage": "https://tmorin.github.io/ceb",
+  "bugs": {
+    "url": "https://github.com/tmorin/ceb/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:tmorin/ceb.git"
+  },
+  "author": {
+    "name": "Thibault Morin",
+    "url": "https://tmorin.github.io"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "commonjs",
+  "types": "lib/index.d.ts",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "npm run build:lib",
+    "build:lib": "tsc -p tsconfig.build.json --module CommonJS --outDir lib",
+    "test": "karma start --single-run --no-auto-watch --browsers FirefoxHeadless,ChromeHeadless",
+    "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
+  },
+  "dependencies": {
+    "@tmorin/ceb-inversion": "^4.0.0-alpha.4",
+    "@tmorin/ceb-messaging-core": "^4.0.0-alpha.4",
+    "@tmorin/ceb-utilities": "^4.0.0-alpha.4"
+  },
+  "devDependencies": {
+    "@tmorin/ceb-core": "^4.0.0-alpha.4",
+    "@tmorin/ceb-testing": "^4.0.0-alpha.4"
+  }
+}

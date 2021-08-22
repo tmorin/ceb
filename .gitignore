@@ -1,7 +1,11 @@
 /.gdiag
 /.idea
-/.tmp
 /public
-/dist
-/lib
-/node_modules
+packages/*/*.tgz
+packages/*/.cache
+packages/*/.tmp
+packages/*/umd
+packages/*/module
+packages/*/lib
+packages/*/public
+node_modules

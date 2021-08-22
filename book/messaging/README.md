@@ -7,11 +7,14 @@ The communication between both worlds is handled by an asynchronous API relying 
 A _message_ is a simple data structure expressing an action to do, its result or a notification about one of its side effect.
 A _bus_ is a component providing a set of commands to emit and receive _messages_. 
 
-The built-in solution provides a _model_ which expresses the primary building blocks of an Event/Message architecture.
-Moreover, a built-in implementation relying on the native DOM Event System is also available, c.f. [DomBus] and [DomBusBuilder].
+The core of the solution is composed of a _model_ and a set of building blocks implementing an Event/Message architecture.
+The core is part of the [@tmorin/ceb-messaging-core](https://www.npmjs.com/package/@tmorin/ceb-messaging-core) package.
+Its usage is cover by the reference documentation: [@tmorin/ceb-messaging-core](../api/modules/_tmorin_ceb_messaging_core.html).
 
-The reference documentation is there: [messaging].
+Moreover, the solution provides two implementations of the _model_.
+The first one is a DOM base implementation: [@tmorin/ceb-messaging-dom](https://www.npmjs.com/package/@tmorin/ceb-messaging-dom).
+Its usage is cover by the reference documentation: [@tmorin/ceb-messaging-dom](../api/modules/_tmorin_ceb_messaging_dom.html).
 
-[DomBus]: ../api/classes/messaging.DomBus.html
-[DomBusBuilder]: ../api/classes/messaging.DomBusBuilder.html
-[messaging]: ../api/modules/messaging.html
+It leverages on the native DOM Event System to handles the messages.
+The second one is a vanilla TypeScript/JavaScript implementation: [@tmorin/ceb-messaging-simple](https://www.npmjs.com/package/@tmorin/ceb-messaging-simple).
+Its usage is cover by the reference documentation: [@tmorin/ceb-messaging-simple](../api/modules/_tmorin_ceb_messaging_simple.html).

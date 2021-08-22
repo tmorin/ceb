@@ -1,7 +1,7 @@
 [book]
 title = "<ceb/> ~ Custom Element Builder"
 authors = ["Thibault Morin"]
-description = "The book presents the usage of the library ceb."
+description = "The book presents the usage of the ceb library."
 language = "en"
 src = "book"
 

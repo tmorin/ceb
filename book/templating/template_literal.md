@@ -6,7 +6,8 @@ The API is the [Tagged Templates] `html`.
 [Template literal]: template_literal.md
 [Tagged Templates]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates
 
-The reference documentation is there: [html](../api/index.html#html).
+Its definition is cover by the reference documentation: [html](../api/modules/_tmorin_ceb_templating_literal.html#html).
+It's part of the [@tmorin/ceb-templating-literal](https://www.npmjs.com/package/@tmorin/ceb-templating-literal) package.
 
 ## Common usages
 

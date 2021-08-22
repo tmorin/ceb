@@ -1,9 +1,7 @@
 # &lt;ceb/&gt; ~ Custom Element Builder
 
-`<ceb/>` is a library providing building blocks to develop [Custom Elements (v1)]. Additionally, other building blocks are also provided to cover the implementation of web applications based on the Event/Message Architecture.
-
-The core of the library is a builder which executes others builders.
-By this way, `<ceb/>` is natively opened to extensions and builders can be easily shared.
+`<ceb/>` is a library providing building blocks to develop [Custom Elements (v1)].
+Additionally, other building blocks are also provided to cover the implementation of web applications based on the Event/Message Architecture.
 
 A simple Custom Element displaying a greeting text:
 
@@ -14,10 +12,10 @@ A simple Custom Element displaying a greeting text:
 </p>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 
-[Custom Elements (v1)]: https://html.spec.whatwg.org/multipage/custom-elements.html
-[MIT license]: http://opensource.org/licenses/MIT
-[github.com/tmorin/ceb]: https://github.com/tmorin/ceb
-
 `<ceb/>` is released under the [MIT license].
 
 The source code is available on GitHub: [github.com/tmorin/ceb].
+
+[Custom Elements (v1)]: https://html.spec.whatwg.org/multipage/custom-elements.html
+[MIT license]: http://opensource.org/licenses/MIT
+[github.com/tmorin/ceb]: https://github.com/tmorin/ceb

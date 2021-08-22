@@ -2,6 +2,9 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "declaration": true,
-    "outDir": "lib"
-  }
+    "sourceMap": true
+  },
+  "exclude": [
+    "**/*.spec.ts"
+  ]
 }

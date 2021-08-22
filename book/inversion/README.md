@@ -7,9 +7,9 @@ The IoC implementation relies on three main concepts.
 The first one is the _registry_.
 Its purpose is to provide services to register and resolve items.
 The second concept, the _module_, interacts with the registry in order to configure items to register.
-Finally, the last one, the _container_, manages the lifecycle of the modules and, therefore, the lifecycle of the registry's items too. 
+Finally, the last one, the _container_, manages the lifecycle of the modules and, therefore, the lifecycle of the registry's items too.
 
-The reference documentation is there: [inversion].
+The implementation is part of the [@tmorin/ceb-inversion](https://www.npmjs.com/package/@tmorin/ceb-inversion) package.
+Its usage is cover by the reference documentation: [@tmorin/ceb-inversion](../api/modules/_tmorin_ceb_inversion.html).
 
 [Inversion Of Control]: https://en.wikipedia.org/wiki/Inversion_of_control
-[inversion]: ../api/modules/inversion.html

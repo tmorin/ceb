@@ -1,24 +1,20 @@
 {
   "compilerOptions": {
     "strict": true,
-    "module": "commonjs",
-    "target": "es6",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "target": "ES6",
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "lib": [
-      "es6",
-      "dom"
+      "ES6",
+      "DOM"
     ]
   },
-  "include": [
-    "src"
-  ],
   "typedocOptions": {
-    "entryPoints": [
-      "./src/index.ts"
-    ],
-    "readme": "none",
+    "packages": ".",
+    "readme": "README.typedoc.md",
     "out": "public/api"
   },
   "formatCodeOptions": {

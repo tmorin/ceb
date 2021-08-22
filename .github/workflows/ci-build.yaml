@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '14.x'
           registry-url: 'https://registry.npmjs.org'
           scope: '@tmorin'
       - name: Udpate apt
@@ -23,19 +23,21 @@ jobs:
           MDBOOK_VERSION: '0.4.2'
       - name: Install dependencies
         run: npm ci
+      - name: Bootstrap lerna
+        run: npm run bootstrap
+      - name: Build package
+        run: npm run build
       - name: Test package
         run: npm test
         env:
           CHROME_BIN: '/usr/bin/chromium-browser'
-      - name: Build package
-        run: npm run build
       - name: Build book
         run: /tmp/mdbook clean && /tmp/mdbook build
       - name: Build typedoc
         run: npm run doc:typedoc
       - name: Publish package
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
-        run: npm publish --tag latest
+        run: npm run publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish documentation
