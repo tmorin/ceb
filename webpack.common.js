@@ -24,7 +24,7 @@ module.exports = {
         }
     },
     output: {
-        path: path.join(process.cwd(), "umd"),
+        path: path.join(process.cwd(), "dist/umd"),
         library: path.basename(process.cwd()),
         libraryTarget: 'umd2',
     }

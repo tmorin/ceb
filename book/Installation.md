@@ -2,7 +2,8 @@
 
 ## CommonJS
 
-The library is composed of many packages published on [npmjs.com] as `CommonJS` modules.
+The library is composed of many packages published on [npmjs.com].
+All packages are compliant [CommonJs](https://flaviocopes.com/commonjs) and [ES Module](https://flaviocopes.com/es-modules).
 
 Custom Element Authoring:
 - [@tmorin/ceb-core](https://www.npmjs.com/package/@tmorin/ceb-core)

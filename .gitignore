@@ -4,8 +4,5 @@
 packages/*/*.tgz
 packages/*/.cache
 packages/*/.tmp
-packages/*/umd
-packages/*/module
-packages/*/lib
-packages/*/public
+packages/*/dist
 node_modules

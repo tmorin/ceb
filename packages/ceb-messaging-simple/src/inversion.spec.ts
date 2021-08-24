@@ -7,7 +7,7 @@ import {
     MessageEventListener,
     MessageEventListenerSymbol,
     MessagingModule
-} from "../../ceb-messaging-core";
+} from "@tmorin/ceb-messaging-core";
 import {AbstractSimpleEvent} from "./message";
 import {SimpleModule} from "./inversion";
 

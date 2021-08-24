@@ -1,5 +1,5 @@
 import {AbstractModule} from "@tmorin/ceb-inversion";
-import {BusSymbol} from "../../ceb-messaging-core";
+import {BusSymbol} from "@tmorin/ceb-messaging-core";
 import {InMemorySimpleBus} from "./bus";
 
 /**

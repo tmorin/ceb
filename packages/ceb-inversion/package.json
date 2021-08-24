@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-inversion",
-  "version": "4.0.0-alpha.4",
+  "version": "4.0.0-alpha.10",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an implementation of the principle: Inversion Of Control.",
   "keywords": [
@@ -30,15 +30,23 @@
   "publishConfig": {
     "access": "public"
   },
-  "type": "commonjs",
-  "types": "lib/index.d.ts",
-  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "types": "dist/types/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
-    "build": "npm run build:lib",
-    "build:lib": "tsc -p tsconfig.build.json --module CommonJS --outDir lib",
+    "build": "npm run build:lib && npm run build:module && npm run build:fix",
+    "build:fix": "../../scripts/fix-dist.js",
+    "build:lib": "tsc -p tsconfig.build.json --module CommonJS --outDir dist/cjs --declaration --declarationDir dist/types",
+    "build:module": "tsc -p tsconfig.build.json --module ESNext --outDir dist/mjs",
     "test": "mocha --require ts-node/register src/**/*.spec.ts",
     "test:watch": "npm test -- --watch"
   }

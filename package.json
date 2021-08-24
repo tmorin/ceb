@@ -8,7 +8,7 @@
     "bootstrap": "lerna bootstrap",
     "build": "lerna run --stream build",
     "canary": "npm run canary:version && npm run canary:publish",
-    "canary:publish": "lerna publish --canary from-package",
+    "canary:publish": "lerna publish --canary from-package --yes",
     "canary:version": "lerna version --no-changelog --no-git-tag-version prerelease --yes && git add -A && git commit -am 'chore(release): pre-release'",
     "doc:book": "mdbook clean && mdbook build",
     "doc:book:serve": "mdbook serve",
@@ -16,7 +16,7 @@
     "doc:typedoc": "typedoc",
     "gdiag": "gdiag --wd book",
     "lerna": "lerna",
-    "release:publish": "lerna publish from-git --yes",
+    "release:publish": "lerna publish from-package --yes",
     "release:version": "lerna version --conventional-commits --conventional-graduate",
     "test": "lerna run --stream test"
   },

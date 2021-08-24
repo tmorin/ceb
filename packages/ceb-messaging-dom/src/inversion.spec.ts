@@ -10,12 +10,13 @@ import {
     MessageCommandHandler,
     MessageCommandHandlerSymbol,
     MessageEventListener,
+    MessageEventListenerSymbol,
     MessageQueryHandler,
+    MessageQueryHandlerSymbol,
     MessagingModule
-} from "../../ceb-messaging-core";
+} from "@tmorin/ceb-messaging-core";
 import {DomCommand, DomEvent, DomQuery, DomResult} from "./message";
 import {DomModule} from "./inversion";
-import {MessageEventListenerSymbol, MessageQueryHandlerSymbol} from "../../ceb-messaging-core";
 
 class SimpleCommandA extends DomCommand<string> {
     constructor(

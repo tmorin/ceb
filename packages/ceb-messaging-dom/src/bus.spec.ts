@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import {MessageAction} from "../../ceb-messaging-core";
+import {MessageAction} from "@tmorin/ceb-messaging-core";
 import {DomCommand, DomEvent, DomQuery, DomResult} from "./message";
 import {DomBus} from "./bus";
 

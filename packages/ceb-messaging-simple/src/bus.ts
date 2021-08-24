@@ -18,7 +18,7 @@ import {
     SubscribeOptions,
     Subscription,
     SubscriptionListener
-} from "../../ceb-messaging-core";
+} from "@tmorin/ceb-messaging-core";
 import {toKebabCase} from "@tmorin/ceb-utilities";
 
 class HandlerEntry<A extends AbstractSimpleAction = any, R extends AbstractSimpleResult = any> implements Handler {
@@ -76,6 +76,27 @@ class SubscriptionEntry<E extends AbstractSimpleEvent = any> implements Subscrip
     }
 }
 
+function getGlobalBus() {
+    if (typeof window !== "undefined") {
+        // @ts-ignore
+        if (!window.CEB_GLOBAL_SIMPLE_BUS) {
+            // @ts-ignore
+            window.CEB_GLOBAL_SIMPLE_BUS = new InMemorySimpleBus()
+        }
+        // @ts-ignore
+        return window.CEB_GLOBAL_SIMPLE_BUS
+    } else if (typeof global !== "undefined") {
+        // @ts-ignore
+        if (!global.CEB_GLOBAL_SIMPLE_BUS) {
+            // @ts-ignore
+            global.CEB_GLOBAL_SIMPLE_BUS = new InMemorySimpleBus()
+        }
+        // @ts-ignore
+        return global.CEB_GLOBAL_SIMPLE_BUS
+    }
+    return new InMemorySimpleBus()
+}
+
 /**
  * An very simple implementation of a {@link Bus}.
  */
@@ -84,7 +105,7 @@ export class InMemorySimpleBus implements Bus {
     /**
      * A global instance.
      */
-    public static readonly GLOBAL: InMemorySimpleBus = new InMemorySimpleBus()
+    public static readonly GLOBAL: InMemorySimpleBus = getGlobalBus()
 
     constructor(
         private readonly handlers: Map<MessageConstructor<AbstractSimpleAction>, HandlerEntry> = new Map(),

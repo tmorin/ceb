@@ -12,7 +12,7 @@ import {
     SubscribeOptions,
     Subscription,
     SubscriptionListener
-} from "../../ceb-messaging-core";
+} from "@tmorin/ceb-messaging-core";
 import {DomAction, DomError, DomEvent, DomMessage, DomResult, DomVoidResult} from "./message";
 
 const RESULT_LISTENERS = new WeakMap<DomBus, Set<ListenerContext>>()

@@ -1,6 +1,6 @@
 import {assert} from "chai"
 import sinon, {SinonSpy} from "sinon";
-import {Bus} from "../../ceb-messaging-core";
+import {Bus} from "@tmorin/ceb-messaging-core";
 import {ElementBuilder} from "@tmorin/ceb-core";
 import {AbstractSimpleEvent} from "./message";
 import {SimpleBusBuilder} from "./builder";

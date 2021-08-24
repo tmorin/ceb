@@ -2,7 +2,7 @@ import {assert} from "chai"
 import sinon, {SinonSpy} from "sinon";
 import {ElementBuilder} from "@tmorin/ceb-core";
 import {listen} from "@tmorin/ceb-testing";
-import {Bus} from "../../ceb-messaging-core";
+import {Bus} from "@tmorin/ceb-messaging-core";
 import {DomEvent} from "./message";
 import {DomBusBuilder} from "./builder";
 import {DomBus} from "./bus";

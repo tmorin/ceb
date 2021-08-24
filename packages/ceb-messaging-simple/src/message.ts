@@ -7,7 +7,7 @@ import {
     MessageId,
     MessageQuery,
     MessageResult
-} from "../../ceb-messaging-core";
+} from "@tmorin/ceb-messaging-core";
 
 let counter = 0
 

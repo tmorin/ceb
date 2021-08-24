@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb",
-  "version": "4.0.0-alpha.4",
+  "version": "4.0.0-alpha.10",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It bundles the main features of the library related to the Custom Elements (v1) specification.",
   "keywords": [
@@ -30,23 +30,31 @@
   "publishConfig": {
     "access": "public"
   },
-  "type": "commonjs",
-  "types": "lib/index.d.ts",
-  "main": "lib/index.js",
-  "unpkg": "umd/ceb.min.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "types": "dist/types/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "browser": "dist/umd/index.js",
+  "unpkg": "dist/umd/index.js",
   "files": [
-    "lib",
-    "umd"
+    "dist"
   ],
   "scripts": {
-    "build": "npm run build:lib && npm run build:umd",
-    "build:lib": "tsc -p tsconfig.build.json --module CommonJS --outDir lib",
+    "build": "npm run build:lib && npm run build:module && npm run build:umd && npm run build:fix",
+    "build:fix": "../../scripts/fix-dist.js",
+    "build:lib": "tsc -p tsconfig.build.json --module CommonJS --outDir dist/cjs --declaration --declarationDir dist/types",
+    "build:module": "tsc -p tsconfig.build.json --module ESNext --outDir dist/mjs",
     "build:umd": "webpack --config webpack.prd.js --config webpack.dev.js"
   },
   "dependencies": {
-    "@tmorin/ceb-builders": "^4.0.0-alpha.4",
-    "@tmorin/ceb-core": "^4.0.0-alpha.4",
-    "@tmorin/ceb-templating-builder": "^4.0.0-alpha.4",
-    "@tmorin/ceb-templating-literal": "^4.0.0-alpha.4"
+    "@tmorin/ceb-builders": "^4.0.0-alpha.10",
+    "@tmorin/ceb-core": "^4.0.0-alpha.10",
+    "@tmorin/ceb-templating-builder": "^4.0.0-alpha.10",
+    "@tmorin/ceb-templating-literal": "^4.0.0-alpha.10"
   }
 }

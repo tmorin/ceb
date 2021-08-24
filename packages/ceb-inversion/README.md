@@ -8,7 +8,7 @@
 
 ## Install
 
-The NPM package is available as a `CommonJS` module:
+The NPM package is compliant [CommonJs](https://flaviocopes.com/commonjs) and [ES Module](https://flaviocopes.com/es-modules).
 
 ```bash
 npm install @tmorin/ceb-inversion

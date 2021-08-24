@@ -1,5 +1,5 @@
 import {InMemorySimpleBus} from "./bus";
-import {AbstractBusBuilder} from "../../ceb-messaging-core";
+import {AbstractBusBuilder} from "@tmorin/ceb-messaging-core";
 
 /**
  * Specialization of {@link AbstractBusBuilder} for the {@link InMemorySimpleBus} bus.

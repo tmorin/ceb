@@ -12,7 +12,7 @@ import {
     MessageQueryType,
     MessageResult,
     MessageResultType
-} from "../../ceb-messaging-core";
+} from "@tmorin/ceb-messaging-core";
 import {toKebabCase} from "@tmorin/ceb-utilities";
 
 let counter = 0

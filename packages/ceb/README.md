@@ -15,13 +15,13 @@ The bundled packages:
 
 ## Install
 
-The NPM package is available as a `CommonJS` module:
+The NPM package is compliant [CommonJs](https://flaviocopes.com/commonjs) and [ES Module](https://flaviocopes.com/es-modules).
 
 ```bash
 npm install @tmorin/ceb
 ```
 
-It is also available as a [`UMD`] module:
+It is also available as a `UMD` module:
 
 ```html
 <script src="https://unpkg.com/@tmorin/ceb/umd/index.min.js"></script>
