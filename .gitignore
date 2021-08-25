@@ -1,8 +1,12 @@
+# documentation
 /.gdiag
-/.idea
 /public
+
+# nodejs
+node_modules
+
+# packages
 packages/*/*.tgz
 packages/*/.cache
 packages/*/.tmp
 packages/*/dist
-node_modules
