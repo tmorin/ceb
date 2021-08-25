@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-utilities",
-  "version": "4.0.0-alpha.11",
+  "version": "4.0.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides a set of utilities commonly used within the other library packages.",
   "keywords": [

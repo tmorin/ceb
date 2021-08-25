@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-example-greeting",
-  "version": "4.0.0-alpha.11",
+  "version": "4.0.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an example demonstrating the usage of the library to define Custom Elements (v1).",
   "keywords": [
@@ -51,7 +51,7 @@
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "dependencies": {
-    "@tmorin/ceb-builders": "^4.0.0-alpha.11",
-    "@tmorin/ceb-core": "^4.0.0-alpha.11"
+    "@tmorin/ceb-builders": "^4.0.0",
+    "@tmorin/ceb-core": "^4.0.0"
   }
 }
