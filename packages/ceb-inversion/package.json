@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-inversion",
-  "version": "4.0.0-alpha.10",
+  "version": "4.0.0-alpha.11",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an implementation of the principle: Inversion Of Control.",
   "keywords": [
