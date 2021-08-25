@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.2](https://github.com/tmorin/ceb/compare/v4.0.1...v4.0.2) (2021-08-25)
+
+
+### Bug Fixes
+
+* **ceb-messaging-dom:** DomBus cannot be used properly from Custom Element ([086d5f6](https://github.com/tmorin/ceb/commit/086d5f6376e4d98364ada5aa9bed6f4e47c41251))
+
+
+
+
+
 ## [4.0.1](https://github.com/tmorin/ceb/compare/v4.0.0...v4.0.1) (2021-08-25)
 
 
