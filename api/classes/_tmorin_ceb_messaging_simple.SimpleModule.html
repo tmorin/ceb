@@ -1,0 +1,376 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>SimpleModule | ceb</title>
+	<meta name="description" content="Documentation for ceb">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">ceb</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">ceb</a>
+				</li>
+				<li>
+					<a href="../modules/_tmorin_ceb_messaging_simple.html">@tmorin/ceb-messaging-simple</a>
+				</li>
+				<li>
+					<a href="_tmorin_ceb_messaging_simple.SimpleModule.html">SimpleModule</a>
+				</li>
+			</ul>
+			<h1>Class SimpleModule</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The module registers a <a href="../interfaces/_tmorin_ceb_messaging_core.Bus.html">Bus</a> bound with the key <a href="../modules/_tmorin_ceb_messaging_core.html#BusSymbol">BusSymbol</a></p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt>example</dt>
+						<dd><p>Register the DomModule</p>
+							<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">inversion</span><span style="color: #000000">, </span><span style="color: #001080">messaging</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;@tmorin/ceb&quot;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">container</span><span style="color: #000000"> = </span><span style="color: #001080">inversion</span><span style="color: #000000">.</span><span style="color: #001080">ContainerBuilder</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">()</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">module</span><span style="color: #000000">(</span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">messaging</span><span style="color: #000000">.</span><span style="color: #795E26">SimpleModule</span><span style="color: #000000">())</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">build</span><span style="color: #000000">()</span>
+</code></pre>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="tsd-signature-type">AbstractModule</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">SimpleModule</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_tmorin_ceb_messaging_simple.SimpleModule.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_tmorin_ceb_messaging_simple.SimpleModule.html#registry" class="tsd-kind-icon">registry</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_tmorin_ceb_messaging_simple.SimpleModule.html#configure" class="tsd-kind-icon">configure</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite"><a href="_tmorin_ceb_messaging_simple.SimpleModule.html#dispose" class="tsd-kind-icon">dispose</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected"><a href="_tmorin_ceb_messaging_simple.SimpleModule.html#initialize" class="tsd-kind-icon">initialize</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Simple<wbr>Module<span class="tsd-signature-symbol">(</span>bus<span class="tsd-signature-symbol">?: </span><a href="_tmorin_ceb_messaging_simple.InMemorySimpleBus.html" class="tsd-signature-type" data-tsd-kind="Class">InMemorySimpleBus</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_tmorin_ceb_messaging_simple.SimpleModule.html" class="tsd-signature-type" data-tsd-kind="Class">SimpleModule</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides AbstractModule.constructor</p>
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/1ed945c/packages/ceb-messaging-simple/src/inversion.ts#L17">packages/ceb-messaging-simple/src/inversion.ts:17</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>bus: <a href="_tmorin_ceb_messaging_simple.InMemorySimpleBus.html" class="tsd-signature-type" data-tsd-kind="Class">InMemorySimpleBus</a><span class="tsd-signature-symbol"> = ...</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_tmorin_ceb_messaging_simple.SimpleModule.html" class="tsd-signature-type" data-tsd-kind="Class">SimpleModule</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="registry" class="tsd-anchor"></a>
+					<h3>registry</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> registry<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Registry</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in packages/ceb-inversion/dist/types/module.d.ts:66</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Registry</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="configure" class="tsd-anchor"></a>
+					<h3>configure</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">configure<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides AbstractModule.configure</p>
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/1ed945c/packages/ceb-messaging-simple/src/inversion.ts#L23">packages/ceb-messaging-simple/src/inversion.ts:23</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+					<a name="dispose" class="tsd-anchor"></a>
+					<h3>dispose</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">dispose<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides AbstractModule.dispose</p>
+								<ul>
+									<li>Defined in <a href="https://github.com/tmorin/ceb/blob/1ed945c/packages/ceb-messaging-simple/src/inversion.ts#L27">packages/ceb-messaging-simple/src/inversion.ts:27</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+					<a name="initialize" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagProtected">Protected</span> initialize</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+						<li class="tsd-signature tsd-kind-icon">initialize<span class="tsd-signature-symbol">(</span>configuration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ModuleConfiguration</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from AbstractModule.initialize</p>
+								<ul>
+									<li>Defined in packages/ceb-inversion/dist/types/module.d.ts:70</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>configuration: <span class="tsd-signature-type">ModuleConfiguration</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Modules</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_tmorin_ceb.html">@tmorin/ceb</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_tmorin_ceb_builders.html">@tmorin/ceb-<wbr>builders</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_tmorin_ceb_core.html">@tmorin/ceb-<wbr>core</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_tmorin_ceb_inversion.html">@tmorin/ceb-<wbr>inversion</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_tmorin_ceb_messaging_core.html">@tmorin/ceb-<wbr>messaging-<wbr>core</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_tmorin_ceb_messaging_dom.html">@tmorin/ceb-<wbr>messaging-<wbr>dom</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/_tmorin_ceb_messaging_simple.html">@tmorin/ceb-<wbr>messaging-<wbr>simple</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_tmorin_ceb_templating_builder.html">@tmorin/ceb-<wbr>templating-<wbr>builder</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_tmorin_ceb_templating_engine.html">@tmorin/ceb-<wbr>templating-<wbr>engine</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_tmorin_ceb_templating_literal.html">@tmorin/ceb-<wbr>templating-<wbr>literal</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_tmorin_ceb_templating_parser.html">@tmorin/ceb-<wbr>templating-<wbr>parser</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_tmorin_ceb_testing.html">@tmorin/ceb-<wbr>testing</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_tmorin_ceb_utilities.html">@tmorin/ceb-<wbr>utilities</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_tmorin_ceb_messaging_simple.AbstractSimpleAction.html" class="tsd-kind-icon">Abstract<wbr>Simple<wbr>Action</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_tmorin_ceb_messaging_simple.AbstractSimpleCommand.html" class="tsd-kind-icon">Abstract<wbr>Simple<wbr>Command</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_tmorin_ceb_messaging_simple.AbstractSimpleEvent.html" class="tsd-kind-icon">Abstract<wbr>Simple<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_tmorin_ceb_messaging_simple.AbstractSimpleMessage.html" class="tsd-kind-icon">Abstract<wbr>Simple<wbr>Message</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_tmorin_ceb_messaging_simple.AbstractSimpleQuery.html" class="tsd-kind-icon">Abstract<wbr>Simple<wbr>Query</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_tmorin_ceb_messaging_simple.AbstractSimpleResult.html" class="tsd-kind-icon">Abstract<wbr>Simple<wbr>Result</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="_tmorin_ceb_messaging_simple.InMemorySimpleBus.html" class="tsd-kind-icon">In<wbr>Memory<wbr>Simple<wbr>Bus</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_tmorin_ceb_messaging_simple.SimpleBusBuilder.html" class="tsd-kind-icon">Simple<wbr>Bus<wbr>Builder</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="_tmorin_ceb_messaging_simple.SimpleErrorResult.html" class="tsd-kind-icon">Simple<wbr>Error<wbr>Result</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
+						<a href="_tmorin_ceb_messaging_simple.SimpleModule.html" class="tsd-kind-icon">Simple<wbr>Module</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_tmorin_ceb_messaging_simple.SimpleModule.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_tmorin_ceb_messaging_simple.SimpleModule.html#registry" class="tsd-kind-icon">registry</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_tmorin_ceb_messaging_simple.SimpleModule.html#configure" class="tsd-kind-icon">configure</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_tmorin_ceb_messaging_simple.SimpleModule.html#dispose" class="tsd-kind-icon">dispose</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-protected">
+								<a href="_tmorin_ceb_messaging_simple.SimpleModule.html#initialize" class="tsd-kind-icon">initialize</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="_tmorin_ceb_messaging_simple.SimpleVoidResult.html" class="tsd-kind-icon">Simple<wbr>Void<wbr>Result</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
