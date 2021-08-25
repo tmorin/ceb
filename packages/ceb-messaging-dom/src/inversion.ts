@@ -23,7 +23,6 @@ export class DomModule extends AbstractModule {
     }
 
     async configure(): Promise<void> {
-        this.bus.start()
         this.registry.registerValue(BusSymbol, this.bus)
     }
 

@@ -24,7 +24,8 @@ class ListenerContext implements Subscription, Handler {
         public readonly bus: DomBus,
         public readonly type: string,
         public readonly listener: Function,
-        public readonly target: EventTarget
+        public readonly target: EventTarget,
+        public readonly options?: SubscribeOptions,
     ) {
     }
 
@@ -32,9 +33,10 @@ class ListenerContext implements Subscription, Handler {
         bus: DomBus,
         type: string,
         listener: Function,
+        options?: SubscribeOptions,
         target: EventTarget = bus.global
     ) {
-        const listenerRemover = new ListenerContext(bus, type, listener, target)
+        const listenerRemover = new ListenerContext(bus, type, listener, target, options)
         listenerRemover.subscribe()
         if (!EVENT_LISTENERS.has(listenerRemover.bus)) {
             EVENT_LISTENERS.set(listenerRemover.bus, new Set())
@@ -59,7 +61,9 @@ class ListenerContext implements Subscription, Handler {
     }
 
     subscribe(): void {
-        this.target.addEventListener(this.type, this.listener as EventListener)
+        this.target.addEventListener(this.type, this.listener as EventListener, {
+            once: this.options?.once || false
+        })
     }
 
     unsubscribe(): void {
@@ -85,8 +89,6 @@ class ListenerContext implements Subscription, Handler {
  */
 export class DomBus implements Bus {
 
-    private isStarted: boolean = false
-
     constructor(
         /**
          * The target is used to :
@@ -104,13 +106,7 @@ export class DomBus implements Bus {
     ) {
     }
 
-    start(): void {
-        Array.from(EVENT_LISTENERS.get(this) || []).forEach((value) => value.subscribe())
-        this.isStarted = true
-    }
-
-    stop(): void {
-        this.isStarted = false
+    stop() {
         Array.from(EVENT_LISTENERS.get(this) || [])
             .concat(Array.from(RESULT_LISTENERS.get(this) || []))
             .forEach((value) => value.remove())
@@ -119,9 +115,6 @@ export class DomBus implements Bus {
     async execute<A extends MessageAction>(action: A, arg1?: any, arg2?: any): Promise<any> {
         if (!(action instanceof DomAction)) {
             throw new TypeError("DomBus - the action must be an instance of DomAction")
-        }
-        if (!this.isStarted) {
-            throw new Error("DomBus - the bus is not started")
         }
         if (arg1) {
             return this.executeAndWait(action, arg1, arg2)
@@ -163,14 +156,12 @@ export class DomBus implements Bus {
             this,
             actionMessageType,
             listener,
+            undefined,
             this.global
         )
     }
 
     async publish<E extends MessageEvent>(event: E): Promise<void> {
-        if (!this.isStarted) {
-            throw new Error("DomBus - the bus is not started")
-        }
         if (!(event instanceof DomEvent)) {
             throw new TypeError("DomBus - the event must be an instance of DomEvent")
         }
@@ -183,7 +174,7 @@ export class DomBus implements Bus {
         options?: SubscribeOptions
     ): Subscription {
         const eventMessageType = DomMessage.toName(EventType)
-        return ListenerContext.createPersistentListener(this, eventMessageType, listener)
+        return ListenerContext.createPersistentListener(this, eventMessageType, listener, options)
     }
 
     private async executeAndWait<A extends DomAction, R extends DomResult>(

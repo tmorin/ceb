@@ -37,7 +37,6 @@ describe("messaging/dom/bus", function () {
     let bus: DomBus;
     beforeEach(function () {
         bus = new DomBus(window)
-        bus.start()
     })
     afterEach(async function () {
         await bus?.stop()
