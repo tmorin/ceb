@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It bundles the main features of the library related to the Custom Elements (v1) specification.",
   "keywords": [

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/tmorin/ceb/compare/v4.0.0...v4.0.1) (2021-08-25)
+
+
+### Bug Fixes
+
+* **ceb:** the unpkg configuration is wrong ([d7c61a5](https://github.com/tmorin/ceb/commit/d7c61a59262b4030b983a12bcbd330e303ab563d))
+
+
+
+
+
 # [4.0.0](https://github.com/tmorin/ceb/compare/v3.5.0...v4.0.0) (2021-08-25)
 
 
