@@ -2,46 +2,6 @@
 
 > `<ceb/>` is a library providing building blocks to develop [Custom Elements (v1)]. Additionally, other building blocks are also provided to cover the implementation of web applications based on the Event/Message Architecture.
 
-## Quickly
-
-[![Edit <ceb/> ~ SimpleGreeting](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ceb-simplegreeting-unj2w?fontsize=14&hidenavigation=1&theme=dark)
-
-```typescript
-import {
-  ElementBuilder,
-  FieldBuilder,
-  html,
-  TemplateBuilder
-} from "@tmorin/ceb";
-
-// register the custom element
-@(ElementBuilder.get().decorate())
-export class SimpleGreeting extends HTMLElement {
-  // defines a field `name`
-  // which is available as an attribute or a property
-  @(FieldBuilder.get().decorate())
-  name: string = "World";
-
-  // reacts on the mutations of the field `name`
-  // so that new name will be rendered
-  @(FieldBuilder.get().decorate())
-  private onName() {
-    this.render();
-  }
-
-  // defines the content of the custom element
-  // each time the method is inovked, the template is rendered
-  @(TemplateBuilder.get().preserveContent().decorate())
-  private render() {
-    return html`<h1>Hello, ${this.name}!</h1>`;
-  }
-}
-```
-
-```html
-<simple-greeting name="John Doe" />
-```
-
 ## Install
 
 Please refer to the [manual](https://tmorin.github.io/ceb).
