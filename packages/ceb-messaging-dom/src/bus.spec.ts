@@ -57,7 +57,7 @@ describe("messaging/dom/bus", function () {
             try {
                 await bus.execute(commandA, ResultA)
                 assert.fail()
-            } catch (error) {
+            } catch (error: any) {
                 assert.strictEqual(error.message, commandA.body)
             }
         })
@@ -67,7 +67,7 @@ describe("messaging/dom/bus", function () {
             try {
                 await bus.execute(commandA, ResultB, {timeout: 10})
                 assert.fail()
-            } catch (error) {
+            } catch (error: any) {
                 assert.include(error.message, "unable to get a result after")
             }
         })

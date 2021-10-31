@@ -143,7 +143,7 @@ export class DomBus implements Bus {
                 } else {
                     action.target?.dispatchEvent(new DomVoidResult(action))
                 }
-            } catch (error) {
+            } catch (error: any) {
                 action.target?.dispatchEvent(new DomError(
                     resultMessageType,
                     action,

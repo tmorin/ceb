@@ -177,7 +177,7 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
         }
 
         if (customElements.get(this._name)) {
-            return customElements.get(this._name)
+            return customElements.get(this._name) as CustomElementConstructor<E>
         }
 
         const OriginalClass = this._constructor

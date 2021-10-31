@@ -134,7 +134,7 @@ export class MessagingComponent extends Component {
                 async (query) => {
                     try {
                         await handler.on(query)
-                    } catch (error) {
+                    } catch (error: any) {
                         console.error("MessagingComponent - an event listener failed", error)
                     }
                 }))

@@ -130,7 +130,7 @@ export class InMemorySimpleBus implements Bus {
         this.subscriptions.get(key)?.forEach((value) => {
             try {
                 value.handle(event)
-            } catch (error) {
+            } catch (error: any) {
                 console.error("a subscription failed to handle the event %o", event, error)
             }
         })
