@@ -1,6 +1,6 @@
 import {toKebabCase} from "@tmorin/ceb-utilities";
 import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-core";
-import {MessageEvent, MessageEventType} from "./message";
+import {MessageEvent, MessageType} from "./message";
 import {Bus, SubscribeOptions, Subscription} from "./bus";
 
 /**
@@ -32,7 +32,7 @@ export class BusSubscriptionBuilder<E extends HTMLElement, M extends MessageEven
 
     constructor(
         private _busBuilder: AbstractBusBuilder<E>,
-        private _EventType?: MessageEventType<M>,
+        private _eventType?: MessageType,
         private _listener: ElementSubscriptionListener<E, M> = () => {
         },
         private _options?: SubscribeOptions
@@ -41,10 +41,10 @@ export class BusSubscriptionBuilder<E extends HTMLElement, M extends MessageEven
 
     /**
      * Set the type of the event.
-     * @param EventType the event type
+     * @param eventType the event type
      */
-    type(EventType: MessageEventType<M>): BusSubscriptionBuilder<E, M> {
-        this._EventType = EventType
+    type(eventType: MessageType): BusSubscriptionBuilder<E, M> {
+        this._eventType = eventType
         return this
     }
 
@@ -67,8 +67,8 @@ export class BusSubscriptionBuilder<E extends HTMLElement, M extends MessageEven
      */
     decorate(prefix = "on"): MethodDecorator {
         return (target: Object, methName: string | symbol, descriptor: PropertyDescriptor) => {
-            if (!this._EventType) {
-                this._EventType = toKebabCase(
+            if (!this._eventType) {
+                this._eventType = toKebabCase(
                     methName.toString().replace(prefix, '')
                 )
             }
@@ -77,7 +77,7 @@ export class BusSubscriptionBuilder<E extends HTMLElement, M extends MessageEven
             if (builder !== this._busBuilder) {
                 builder.mergeBuilder(this._busBuilder, false)
             }
-            builder.subscribe(this._EventType, (el, event) => {
+            builder.subscribe(this._eventType, (el, event) => {
                 const fn = descriptor.value as Function
                 fn.call(el, event)
             }, this._options)
@@ -126,19 +126,19 @@ export abstract class AbstractBusBuilder<E extends HTMLElement> implements Build
     protected constructor(
         protected _busProvider: BusProvider,
         _propName: string = "bus",
-        protected _subscriptionsByType: Map<MessageEventType, Array<[ElementSubscriptionListener, SubscribeOptions | undefined]>> = new Map(),
+        protected _subscriptionsByType: Map<MessageType, Array<[ElementSubscriptionListener, SubscribeOptions | undefined]>> = new Map(),
     ) {
         this._propName = _propName;
     }
 
     /**
      * Subscribe to a Message Event.
-     * @param EventType the type of the event
+     * @param eventType the type of the event
      * @param listener the listener
      * @param options the options
      */
     subscribe<M extends MessageEvent>(
-        EventType: MessageEventType<M>,
+        eventType: MessageType,
         listener: ElementSubscriptionListener<E, M>,
         options ?: SubscribeOptions
     ): AbstractBusBuilder<E>
@@ -149,16 +149,16 @@ export abstract class AbstractBusBuilder<E extends HTMLElement> implements Build
     subscribe<M extends MessageEvent>(): BusSubscriptionBuilder<E, M>
 
     subscribe<M extends MessageEvent>(
-        EventType ?: MessageEventType<M>,
+        eventType ?: MessageType,
         listener ?: ElementSubscriptionListener<E, M>,
         options ?: SubscribeOptions
     ): AbstractBusBuilder<E> | BusSubscriptionBuilder<E, M> {
-        if (EventType && listener
+        if (eventType && listener
         ) {
-            if (!this._subscriptionsByType.has(EventType)) {
-                this._subscriptionsByType.set(EventType, [])
+            if (!this._subscriptionsByType.has(eventType)) {
+                this._subscriptionsByType.set(eventType, [])
             }
-            this._subscriptionsByType.get(EventType)?.push([
+            this._subscriptionsByType.get(eventType)?.push([
                 // @ts-ignore
                 listener,
                 options

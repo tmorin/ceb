@@ -1,5 +1,5 @@
 import {AbstractModule, Component, ComponentSymbol, Container, ContainerSymbol} from "@tmorin/ceb-inversion";
-import {MessageCommand, MessageConstructor, MessageEvent, MessageQuery, MessageResult} from "./message";
+import {MessageCommand, MessageConstructor, MessageEvent, MessageQuery, MessageResult, MessageType} from "./message";
 import {Bus, BusSymbol, Handler, Subscription} from "./bus";
 
 // COMMAND
@@ -19,7 +19,7 @@ export const MessageCommandHandlerSymbol = Symbol.for("ceb/inversion/MessageComm
 export interface MessageCommandHandler<C extends MessageCommand = MessageCommand,
     R extends MessageResult = MessageResult,
     E extends MessageEvent = MessageEvent> {
-    CommandType: MessageConstructor<C>
+    commandType: MessageType
 
     ResultType: MessageConstructor<R>
 
@@ -41,7 +41,7 @@ export const MessageQueryHandlerSymbol = Symbol.for("ceb/inversion/MessageQueryH
  */
 export interface MessageQueryHandler<Q extends MessageQuery = MessageQuery,
     R extends MessageResult = MessageResult> {
-    QueryType: MessageConstructor<Q>
+    queryType: MessageType
 
     ResultType: MessageConstructor<R>
 
@@ -61,7 +61,7 @@ export const MessageEventListenerSymbol = Symbol.for("ceb/inversion/MessageEvent
  * @template E the type of the MessageEvent
  */
 export interface MessageEventListener<E extends MessageEvent = MessageEvent> {
-    EventType: MessageConstructor<E>
+    eventType: MessageType
 
     on(event: E): Promise<void>
 }
@@ -102,7 +102,7 @@ export class MessagingComponent extends Component {
         if (this.container.registry.contains(MessageCommandHandlerSymbol)) {
             const messageCommandHandlers = this.container.registry.resolveAll<MessageCommandHandler>(MessageCommandHandlerSymbol)
             this.handlers.push.apply(this, messageCommandHandlers.map(handler => this.bus.handle(
-                handler.CommandType,
+                handler.commandType,
                 handler.ResultType,
                 async (command) => {
                     const output = await handler.handle(command)
@@ -121,7 +121,7 @@ export class MessagingComponent extends Component {
         if (this.container.registry.contains(MessageQueryHandlerSymbol)) {
             const messageQueryHandlers = this.container.registry.resolveAll<MessageQueryHandler>(MessageQueryHandlerSymbol)
             this.handlers.push.apply(this, messageQueryHandlers.map(handler => this.bus.handle(
-                handler.QueryType,
+                handler.queryType,
                 handler.ResultType,
                 async (query) => handler.handle(query)))
             )
@@ -130,7 +130,7 @@ export class MessagingComponent extends Component {
         if (this.container.registry.contains(MessageEventListenerSymbol)) {
             const messageEventListeners = this.container.registry.resolveAll<MessageEventListener>(MessageEventListenerSymbol)
             this.subscriptions.push.apply(this, messageEventListeners.map(handler => this.bus.subscribe(
-                handler.EventType,
+                handler.eventType,
                 async (query) => {
                     try {
                         await handler.on(query)

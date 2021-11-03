@@ -1,11 +1,4 @@
-import {
-    MessageAction,
-    MessageActionType,
-    MessageConstructor,
-    MessageEvent,
-    MessageEventType,
-    MessageResult
-} from "./message";
+import {MessageAction, MessageConstructor, MessageEvent, MessageResult, MessageType} from "./message";
 
 export const BusSymbol = Symbol.for('ceb/messaging/Bus');
 
@@ -27,7 +20,8 @@ export interface SubscriptionListener<E extends MessageEvent> {
     /**
      * Handle a message.
      * @param event the event
-     */(event: E): void
+     */
+    (event: E): void
 }
 
 /**
@@ -86,14 +80,14 @@ export interface Bus {
     /**
      * Register a subscriber.
      * The listener will be invoked each time an event of the provided type is published.
-     * @param EventType the type of the event
+     * @param eventType the type of the message
      * @param listener the listener
      * @param options the options
      * @return the subscription
      * @template E the type of the event
      */
     subscribe<E extends MessageEvent>(
-        EventType: MessageEventType<E>,
+        eventType: MessageType,
         listener: SubscriptionListener<E>,
         options?: SubscribeOptions
     ): Subscription
@@ -126,7 +120,7 @@ export interface Bus {
      * Register an action handler.
      * The handler will be invoked each time an action of the provided type is published.
      * An action can only be handled by one handler.
-     * @param ActionType the type of the action
+     * @param actionType the type of the action
      * @param ResultType the type of action result
      * @param handler the handler
      * @return the handler
@@ -134,7 +128,7 @@ export interface Bus {
      * @template R the type of the result
      */
     handle<M extends MessageAction, R extends MessageResult>(
-        ActionType: MessageActionType<M>,
+        actionType: MessageType,
         ResultType: MessageConstructor<R>,
         handler: ExecutionHandler<M, R>
     ): Handler
