@@ -8,10 +8,23 @@
 
 ## Install
 
-The NPM package is compliant [CommonJs](https://flaviocopes.com/commonjs) and [ES Module](https://flaviocopes.com/es-modules).
+The NPM package is compliant [CommonJs](https://flaviocopes.com/commonjs)
+and [ES Module](https://flaviocopes.com/es-modules).
 
 ```bash
 npm install @tmorin/ceb-messaging-bus-adapter-ipc
+```
+
+## Usage
+
+Usage from the Main context:
+```typescript
+import {IpcMainBus} from "@tmorin/ceb-messaging-bus-adapter-ipc/bus-main"
+```
+
+Usage from the Renderer context:
+```typescript
+import {IpcRendererBus} from "@tmorin/ceb-messaging-bus-adapter-ipc/bus-renderer"
 ```
 
 ## License

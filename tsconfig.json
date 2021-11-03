@@ -13,11 +13,12 @@
     ]
   },
   "typedocOptions": {
-    "entryPoints": ".",
+    "entryPoints": [
+      "."
+    ],
     "entryPointStrategy": "packages",
     "readme": "README.typedoc.md",
-    "out": "public/api",
-
+    "out": "public/api"
   },
   "formatCodeOptions": {
     "indentSize": 4,
