@@ -8,5 +8,6 @@ webpack(webpackConf, (err) => {
         process.exit(9999)
     }
     require("./main.generated")
-    electron.webContents.getAllWebContents().forEach(webContent => webContent.send("main-ready"))
+    setTimeout(() => electron.webContents.getAllWebContents()
+        .forEach(webContent => webContent.send("main-ready")), 0)
 })

@@ -38,14 +38,6 @@
     ".": {
       "import": "./dist/mjs/index.js",
       "require": "./dist/cjs/index.js"
-    },
-    "bus-main": {
-      "import": "./dist/mjs/bus-main.js",
-      "require": "./dist/cjs/bus-main.js"
-    },
-    "bus-renderer": {
-      "import": "./dist/mjs/bus-renderer.js",
-      "require": "./dist/cjs/bus-renderer.js"
     }
   },
   "types": "dist/types/index.d.ts",

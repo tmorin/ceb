@@ -9,15 +9,14 @@ describe("IPC", function () {
     this.timeout(5000)
     let parentBus: InMemorySimpleBus
     let ipcRendererBus: Bus
-    before(async () => new Promise<void>((resolve) => {
-        parentBus = new InMemorySimpleBus()
-        ipcRendererBus = new IpcRendererBus(parentBus, new Converter(), ipcRenderer)
+    before(async () => new Promise((resolve) => {
         ipcRenderer.once("main-ready", () => {
+            parentBus = new InMemorySimpleBus()
+            ipcRendererBus = new IpcRendererBus(parentBus, new Converter(), ipcRenderer)
             resolve()
         })
         ipcRenderer.on("main-log", (evt, message) => {
             console.info(message)
-            resolve()
         })
     }))
     it("should publish and subscribe to events", function (done) {
