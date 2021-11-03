@@ -4,7 +4,8 @@ import {
     MessageCommand,
     MessageError,
     MessageEvent,
-    MessageId,
+    MessageHeaders,
+    MessageKind,
     MessageQuery,
     MessageResult
 } from "@tmorin/ceb-messaging-core";
@@ -16,16 +17,30 @@ let counter = 0
  * @template B the type of the body
  */
 export abstract class AbstractSimpleMessage<B = any> implements Message<B> {
+    /**
+     * The headers.
+     */
+    readonly headers: MessageHeaders
+
     protected constructor(
         /**
          * The body.
          */
         readonly body: B,
         /**
-         * An optional message id.
+         * Optional headers.
          */
-        public readonly messageId = `message-${counter++}`
+        partialHeaders: Partial<MessageHeaders> = {},
+        /**
+         * The kind of the message.
+         */
+        readonly kind: MessageKind = MessageKind.message,
     ) {
+        this.headers = {
+            messageId: `message-${counter++}`,
+            messageType: this.constructor.name,
+            ...partialHeaders,
+        }
     }
 }
 
@@ -40,11 +55,15 @@ export abstract class AbstractSimpleAction<B = any> extends AbstractSimpleMessag
          */
         body: B,
         /**
-         * An optional message id.
+         * Optional headers.
          */
-        messageId?: MessageId,
+        partialHeaders: Partial<MessageHeaders> = {},
+        /**
+         * The kind of the message.
+         */
+        kind: MessageKind = MessageKind.action,
     ) {
-        super(body, messageId)
+        super(body, partialHeaders, kind)
     }
 }
 
@@ -59,11 +78,15 @@ export abstract class AbstractSimpleCommand<B = any> extends AbstractSimpleActio
          */
         body: B,
         /**
-         * An optional message id.
+         * Optional headers.
          */
-        messageId?: MessageId,
+        partialHeaders: Partial<MessageHeaders> = {},
+        /**
+         * The kind of the message.
+         */
+        kind: MessageKind = MessageKind.command,
     ) {
-        super(body, messageId)
+        super(body, partialHeaders, kind)
     }
 }
 
@@ -78,11 +101,15 @@ export abstract class AbstractSimpleQuery<B = any> extends AbstractSimpleAction<
          */
         body: B,
         /**
-         * An optional message id.
+         * Optional headers.
          */
-        messageId?: MessageId,
+        partialHeaders: Partial<MessageHeaders> = {},
+        /**
+         * The kind of the message.
+         */
+        kind: MessageKind = MessageKind.query,
     ) {
-        super(body, messageId)
+        super(body, partialHeaders, kind)
     }
 }
 
@@ -97,11 +124,15 @@ export abstract class AbstractSimpleEvent<B = any> extends AbstractSimpleMessage
          */
         body: B,
         /**
-         * An optional message id.
+         * Optional headers.
          */
-        messageId?: MessageId,
+        partialHeaders: Partial<MessageHeaders> = {},
+        /**
+         * The kind of the message.
+         */
+        kind: MessageKind = MessageKind.event,
     ) {
-        super(body, messageId)
+        super(body, partialHeaders, kind)
     }
 }
 
@@ -116,11 +147,15 @@ export class AbstractSimpleResult<B = any> extends AbstractSimpleMessage<B> impl
          */
         body: B,
         /**
-         * An optional message id.
+         * Optional headers.
          */
-        messageId?: MessageId,
+        partialHeaders: Partial<MessageHeaders> = {},
+        /**
+         * The kind of the message.
+         */
+        kind: MessageKind = MessageKind.result,
     ) {
-        super(body, messageId)
+        super(body, partialHeaders, kind)
     }
 }
 
@@ -128,21 +163,30 @@ export class AbstractSimpleResult<B = any> extends AbstractSimpleMessage<B> impl
  * An helper class defining _simple_ void result.
  */
 export class SimpleVoidResult extends AbstractSimpleResult<void> {
-    constructor() {
-        super();
+    constructor(
+        /**
+         * The kind of the message.
+         */
+        kind: MessageKind = MessageKind.result,
+    ) {
+        super(undefined, {}, kind);
     }
 }
 
 /**
- * An helper class defining _simple_ error result.
+ * An helper class defining _simple_ void result.
  */
-export class SimpleErrorResult extends AbstractSimpleResult<Error> implements MessageError {
+export class SimpleErrorResult<B extends Error> extends AbstractSimpleResult<B> implements MessageError<B> {
     constructor(
         /**
-         * The error.
+         * The body.
          */
-        body: Error
+        body: B,
+        /**
+         * The kind of the message.
+         */
+        kind: MessageKind = MessageKind.error,
     ) {
-        super(body);
+        super(body, {}, kind);
     }
 }

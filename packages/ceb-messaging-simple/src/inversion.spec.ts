@@ -18,7 +18,7 @@ class SimpleEventA extends AbstractSimpleEvent<string> {
 }
 
 class SimpleEventAListener implements MessageEventListener<SimpleEventA> {
-    readonly EventType = SimpleEventA
+    readonly eventType = SimpleEventA.name
 
     async on(event: SimpleEventA): Promise<void> {
     }

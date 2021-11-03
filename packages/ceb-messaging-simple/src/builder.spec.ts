@@ -26,7 +26,7 @@ describe("messaging/simple/builder", function () {
     before(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
         ElementBuilder.get(TestElement).name(tagName).builder(
-            SimpleBusBuilder.get().subscribe(EventA, eventAListener),
+            SimpleBusBuilder.get().subscribe(EventA.name, eventAListener),
             SimpleBusBuilder.get("busBis"),
         ).register()
         testElement = sandbox.appendChild(document.createElement(tagName))

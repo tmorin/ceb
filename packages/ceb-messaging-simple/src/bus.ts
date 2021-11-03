@@ -13,20 +13,19 @@ import {
     MessageAction,
     MessageConstructor,
     MessageEvent,
-    MessageEventType,
     MessageResult,
+    MessageType,
     SubscribeOptions,
     Subscription,
     SubscriptionListener
 } from "@tmorin/ceb-messaging-core";
-import {toKebabCase} from "@tmorin/ceb-utilities";
 
 class HandlerEntry<A extends AbstractSimpleAction = any, R extends AbstractSimpleResult = any> implements Handler {
     constructor(
-        private readonly ActionType: MessageConstructor<A>,
+        private readonly actionType: MessageType,
         private readonly ResultType: MessageConstructor<R>,
         private readonly handler: ExecutionHandler<A, R>,
-        private readonly handlers: Map<MessageConstructor<AbstractSimpleAction>, HandlerEntry>
+        private readonly handlers: Map<MessageType, HandlerEntry>
     ) {
         this.register()
     }
@@ -36,21 +35,20 @@ class HandlerEntry<A extends AbstractSimpleAction = any, R extends AbstractSimpl
     }
 
     register(): void {
-        this.handlers.set(this.ActionType, this)
+        this.handlers.set(this.actionType, this)
     }
 
     cancel(): void {
-        this.handlers.delete(this.ActionType)
+        this.handlers.delete(this.actionType)
     }
 }
 
 class SubscriptionEntry<E extends AbstractSimpleEvent = any> implements Subscription {
     constructor(
-        private readonly EventType: MessageEventType<E>,
+        private readonly eventType: MessageType,
         public readonly listener: SubscriptionListener<E>,
         private readonly listeners: Map<string, Set<SubscriptionEntry>>,
         public readonly options?: SubscribeOptions,
-        private key = typeof EventType === "string" ? EventType : toKebabCase(EventType.name)
     ) {
         this.register()
     }
@@ -63,16 +61,16 @@ class SubscriptionEntry<E extends AbstractSimpleEvent = any> implements Subscrip
     }
 
     register(): void {
-        if (!this.listeners.has(this.key)) {
-            this.listeners.set(this.key, new Set())
+        if (!this.listeners.has(this.eventType)) {
+            this.listeners.set(this.eventType, new Set())
         }
-        if (!this.listeners.get(this.key)?.has(this)) {
-            this.listeners.get(this.key)?.add(this)
+        if (!this.listeners.get(this.eventType)?.has(this)) {
+            this.listeners.get(this.eventType)?.add(this)
         }
     }
 
     unsubscribe(): void {
-        this.listeners.get(this.key)?.delete(this)
+        this.listeners.get(this.eventType)?.delete(this)
     }
 }
 
@@ -108,7 +106,7 @@ export class InMemorySimpleBus implements Bus {
     public static readonly GLOBAL: InMemorySimpleBus = getGlobalBus()
 
     constructor(
-        private readonly handlers: Map<MessageConstructor<AbstractSimpleAction>, HandlerEntry> = new Map(),
+        private readonly handlers: Map<MessageType, HandlerEntry> = new Map(),
         private readonly subscriptions: Map<string, Set<SubscriptionEntry>> = new Map()
     ) {
     }
@@ -118,7 +116,7 @@ export class InMemorySimpleBus implements Bus {
     }
 
     subscribe<E extends MessageEvent>(
-        EventType: MessageEventType<E>,
+        EventType: MessageType,
         listener: SubscriptionListener<E>,
         options?: SubscribeOptions
     ): Subscription {
@@ -126,8 +124,7 @@ export class InMemorySimpleBus implements Bus {
     }
 
     async publish<E extends MessageEvent>(event: E): Promise<void> {
-        const key = toKebabCase(Object.getPrototypeOf(event).constructor.name)
-        this.subscriptions.get(key)?.forEach((value) => {
+        this.subscriptions.get(event.headers.messageType)?.forEach((value) => {
             try {
                 value.handle(event)
             } catch (error: any) {
@@ -137,18 +134,17 @@ export class InMemorySimpleBus implements Bus {
     }
 
     handle<A extends MessageAction, R extends MessageResult>(
-        ActionType: MessageConstructor<A>,
+        actionType: MessageType,
         ResultType: MessageConstructor<R>,
         handler: ExecutionHandler<A, R>
     ): Handler {
-        return new HandlerEntry<A, R>(ActionType, ResultType, handler, this.handlers)
+        return new HandlerEntry<A, R>(actionType, ResultType, handler, this.handlers)
     }
 
     async execute<A extends MessageAction>(action: A, arg1?: any, arg2?: any): Promise<any> {
-        const actionConstructor = Object.getPrototypeOf(action).constructor
-        const entry = this.handlers.get(actionConstructor)
+        const entry = this.handlers.get(action.headers.messageType)
         if (!entry) {
-            throw new Error(`InMemorySimpleBus - no handler found for the action ${actionConstructor.name}`)
+            throw new Error(`InMemorySimpleBus - no handler found for the action ${action.headers.messageType}`)
         }
         if (arg1) {
             return this.executeAndWait(entry, action, arg2)
@@ -160,15 +156,15 @@ export class InMemorySimpleBus implements Bus {
         entry: HandlerEntry<A, R>,
         action: A,
         options?: ExecuteOptions
-    ): Promise<R | SimpleVoidResult | SimpleErrorResult> {
+    ): Promise<R | SimpleVoidResult> {
         return new Promise((resolve, reject) => {
             const timeout = options?.timeout || 500
-            const timeoutId = setTimeout(() => reject(new SimpleErrorResult(
-                new Error(`InMemorySimpleBus - unable to get a result after ${timeout} ms`))
-            ), timeout)
+            const timeoutId = setTimeout(() => reject(new Error(
+                `InMemorySimpleBus - unable to get a result after ${timeout} ms`
+            )), timeout)
             entry.handle(action)
                 .then(value => resolve(value instanceof AbstractSimpleResult ? value : new SimpleVoidResult()))
-                .catch(error => reject(new SimpleErrorResult(error)))
+                .catch(error => resolve(new SimpleErrorResult(error)))
                 .finally(() => clearTimeout(timeoutId))
         })
     }
@@ -177,7 +173,7 @@ export class InMemorySimpleBus implements Bus {
         entry: HandlerEntry<A>,
         action: A
     ): Promise<void> {
-        entry.handle(action).catch(error => console.error("InMemorySimpleBus - the action %o failed", error))
+        entry.handle(action).catch(error => console.error("InMemorySimpleBus - the action failed", error))
     }
 
 }
