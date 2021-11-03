@@ -15,7 +15,8 @@ import {
     Subscription,
     SubscriptionListener
 } from "@tmorin/ceb-messaging-core";
-import {IpcHandler, IpcMessageConverter, IpcActionError, IpcMessageMetadata, IpcSubscription} from "./bus";
+import {IpcActionError, IpcHandler, IpcMessageConverter, IpcMessageMetadata, IpcSubscription} from "./bus";
+import {BusEventListener} from "@tmorin/ceb-messaging-core/src";
 
 /**
  * The implementation of {@link Bus} for the Main context of Electron IPC.
@@ -26,6 +27,27 @@ export class IpcMainBus implements Bus {
         private readonly ipcMessageConverter: IpcMessageConverter,
         private readonly ipcMain: IpcMain,
     ) {
+    }
+
+    emit(event: string | symbol, ...args: any[]): void {
+        // @ts-ignore
+        this.parentBus.emit.apply(this.parentBus, Array.from(arguments))
+    }
+
+    on(event: string | symbol, listener: BusEventListener): this {
+        // @ts-ignore
+        this.parentBus.on.apply(this.parentBus, Array.from(arguments))
+        return this
+    }
+
+    off(event?: string | symbol, listener?: BusEventListener): this {
+        // @ts-ignore
+        this.parentBus.off.apply(this.parentBus, Array.from(arguments))
+        return this
+    }
+
+    async dispose() {
+        await this.parentBus.dispose()
     }
 
     async execute<A extends MessageAction>(action: A, arg1?: any, arg2?: any): Promise<any> {
@@ -65,7 +87,7 @@ export class IpcMainBus implements Bus {
                 }
             } else {
                 this.parentBus.execute(message)
-                    .catch(error => console.error("IpcMainBus - the action failed", error))
+                    .catch(error => this.emit("error", error))
             }
         }
         this.ipcMain.on(channel, ipcListener)
@@ -158,7 +180,7 @@ export class IpcMainBus implements Bus {
         }))
         // forward to parent
         return this.parentBus.execute(action)
-            .catch(error => console.error("IpcMainBus - the action failed", error))
+            .catch(error => this.emit("error", error))
     }
 
 }
