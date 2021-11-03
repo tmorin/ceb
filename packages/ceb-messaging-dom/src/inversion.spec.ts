@@ -2,96 +2,27 @@ import {assert} from "chai";
 import sinon, {SinonSpy} from "sinon";
 import {Container, ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion";
 import {listen} from "@tmorin/ceb-testing";
-import {toKebabCase} from "@tmorin/ceb-utilities";
 import {
     Bus,
     BusSymbol,
-    MessageAction,
-    MessageCommandHandler,
     MessageCommandHandlerSymbol,
-    MessageEventListener,
     MessageEventListenerSymbol,
-    MessageQueryHandler,
     MessageQueryHandlerSymbol,
     MessagingModule
 } from "@tmorin/ceb-messaging-core";
-import {DomCommand, DomEvent, DomQuery, DomResult} from "./message";
+import {DomMessage} from "./message";
 import {DomModule} from "./inversion";
-
-class SimpleCommandA extends DomCommand<string> {
-    constructor(
-        body: string
-    ) {
-        super(SimpleCommandA, body)
-    }
-}
-
-class SimpleCommandB extends DomCommand<string> {
-    constructor(
-        body: string
-    ) {
-        super(SimpleCommandB, body)
-    }
-}
-
-class SimpleQueryA extends DomQuery<string> {
-    constructor(
-        body: string
-    ) {
-        super(SimpleQueryA, body)
-    }
-}
-
-class SimpleResultA extends DomResult<string> {
-    constructor(
-        body: string,
-        action: MessageAction
-    ) {
-        super(SimpleResultA, action, body)
-    }
-}
-
-class SimpleEventA extends DomEvent<string> {
-    constructor(
-        body: string
-    ) {
-        super(SimpleEventA, body)
-    }
-}
-
-class SimpleCommandAHandler implements MessageCommandHandler<SimpleCommandA, SimpleResultA> {
-    readonly CommandType = SimpleCommandA
-    readonly ResultType = SimpleResultA
-
-    async handle(command: SimpleCommandA): Promise<SimpleResultA> {
-        return new SimpleResultA(command.body, command)
-    }
-}
-
-class SimpleCommandBHandler implements MessageCommandHandler<SimpleCommandB, SimpleResultA> {
-    readonly CommandType = SimpleCommandB
-    readonly ResultType = SimpleResultA
-
-    async handle(command: SimpleCommandB): Promise<[SimpleResultA, Array<SimpleEventA>]> {
-        return [new SimpleResultA(command.body, command), [new SimpleEventA(command.body)]]
-    }
-}
-
-class SimpleQueryAHandler implements MessageQueryHandler<SimpleQueryA, SimpleResultA> {
-    readonly QueryType = SimpleQueryA
-    readonly ResultType = SimpleResultA
-
-    async handle(query: SimpleQueryA): Promise<SimpleResultA> {
-        return new SimpleResultA(query.body, query)
-    }
-}
-
-class SimpleEventAListener implements MessageEventListener<SimpleEventA> {
-    readonly EventType = SimpleEventA
-
-    async on(event: SimpleEventA): Promise<void> {
-    }
-}
+import {
+    SimpleCommandA,
+    SimpleCommandAHandler,
+    SimpleCommandB,
+    SimpleCommandBHandler,
+    SimpleEventA,
+    SimpleEventAListener,
+    SimpleQueryA,
+    SimpleQueryAHandler,
+    SimpleResultA
+} from "./__TEST/fixture";
 
 describe("messaging/dom/inversion", function () {
     let handleCommandASpy: SinonSpy
@@ -134,7 +65,7 @@ describe("messaging/dom/inversion", function () {
         })
         it('should execute a command with one result and one event', function (done) {
             const commandB = new SimpleCommandB("body content")
-            listen(window, toKebabCase(SimpleEventA.name), 1, done)
+            listen(window, DomMessage.toName(SimpleEventA.name), 1, done)
             bus.execute(commandB, SimpleResultA).then(result => {
                 assert.strictEqual(result.body, commandB.body)
                 assert.ok(handleCommandBSpy.calledOnce)
@@ -184,7 +115,7 @@ describe("messaging/dom/inversion", function () {
         })
         it('should listen to an event', function (done) {
             const simpleEventA = new SimpleEventA("body content")
-            listen(window, "simple-event-a", 1, done)
+            listen(window, DomMessage.toName(SimpleEventA), 1, done)
             bus.publish(simpleEventA).then(() => assert.ok(onEventASpy.calledOnce)).catch(done)
         })
     })

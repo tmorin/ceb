@@ -3,22 +3,16 @@ import sinon, {SinonSpy} from "sinon";
 import {ElementBuilder} from "@tmorin/ceb-core";
 import {listen} from "@tmorin/ceb-testing";
 import {Bus} from "@tmorin/ceb-messaging-core";
-import {DomEvent} from "./message";
 import {DomBusBuilder} from "./builder";
 import {DomBus} from "./bus";
-
-class EventA extends DomEvent<string> {
-    constructor(body: string) {
-        super(EventA, body);
-    }
-}
+import {EventB} from "./__TEST/fixture";
 
 describe("messaging/dom/builder/decorator", function () {
     let sandbox: HTMLDivElement
     const tagName = "messaging-dom-bus-builder-decorator"
     let testElement: TestElement
-    let eventAListener: SinonSpy = sinon.spy()
-    let eventAListenerBis: SinonSpy = sinon.spy()
+    let eventBListener: SinonSpy = sinon.spy()
+    let eventBListenerBis: SinonSpy = sinon.spy()
 
     @ElementBuilder.get(TestElement).name(tagName).decorate()
     class TestElement extends HTMLElement {
@@ -28,13 +22,13 @@ describe("messaging/dom/builder/decorator", function () {
         busBis?: Bus
 
         @DomBusBuilder.get().subscribe().decorate()
-        onEventA(event: EventA) {
-            eventAListener(event)
+        onEventB(event: EventB) {
+            eventBListener(event)
         }
 
-        @DomBusBuilder.get().subscribe().type(EventA).decorate()
-        onEventABis(event: EventA) {
-            eventAListenerBis(event)
+        @DomBusBuilder.get().subscribe().type(EventB.CUSTOM_TYPE).decorate()
+        onEventBBis(event: EventB) {
+            eventBListenerBis(event)
         }
     }
 
@@ -54,15 +48,15 @@ describe("messaging/dom/builder/decorator", function () {
     })
 
     it("should listen to event", function (done) {
-        const eventA = new EventA("test value")
-        listen(window, "event-a", 1, () => setTimeout(() => {
-            assert.ok(eventAListener.calledOnce)
-            assert.ok(eventAListener.calledWith(eventA))
-            assert.ok(eventAListenerBis.calledOnce)
-            assert.ok(eventAListenerBis.calledWith(eventA))
+        const eventB = new EventB("test value")
+        listen(window, EventB.CUSTOM_TYPE, 1, () => setTimeout(() => {
+            assert.ok(eventBListener.calledOnce)
+            assert.ok(eventBListener.calledWith(eventB))
+            assert.ok(eventBListenerBis.calledOnce)
+            assert.ok(eventBListenerBis.calledWith(eventB))
             done()
         }, 0))
-        window.dispatchEvent(eventA)
+        window.dispatchEvent(eventB)
     })
 
 })

@@ -3,15 +3,10 @@ import sinon, {SinonSpy} from "sinon";
 import {ElementBuilder} from "@tmorin/ceb-core";
 import {listen} from "@tmorin/ceb-testing";
 import {Bus} from "@tmorin/ceb-messaging-core";
-import {DomEvent} from "./message";
 import {DomBusBuilder} from "./builder";
 import {DomBus} from "./bus";
-
-class EventA extends DomEvent<string> {
-    constructor(body: string) {
-        super(EventA, body);
-    }
-}
+import {EventA} from "./__TEST/fixture";
+import {DomMessage} from "./message";
 
 describe("messaging/dom/builder", function () {
     let sandbox: HTMLDivElement
@@ -27,7 +22,7 @@ describe("messaging/dom/builder", function () {
     before(function () {
         sandbox = document.body.appendChild(document.createElement('div'))
         ElementBuilder.get(TestElement).name(tagName).builder(
-            DomBusBuilder.get().global(sandbox).subscribe(EventA, eventAListener),
+            DomBusBuilder.get().global(sandbox).subscribe(EventA.name, eventAListener),
             DomBusBuilder.get("busBis").global(sandbox),
         ).register()
         testElement = sandbox.appendChild(document.createElement(tagName))
@@ -47,7 +42,7 @@ describe("messaging/dom/builder", function () {
         const eventA = new EventA("test value")
         testElement?.parentElement?.removeChild(testElement)
         sandbox.appendChild(testElement)
-        listen(sandbox, "event-a", 1, () => setTimeout(() => {
+        listen(sandbox, DomMessage.toName(EventA), 1, () => setTimeout(() => {
             assert.ok(eventAListener.calledOnce)
             assert.ok(eventAListener.calledWith(testElement, eventA))
             done()

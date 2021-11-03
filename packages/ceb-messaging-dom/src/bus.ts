@@ -4,11 +4,11 @@ import {
     ExecutionHandler,
     Handler,
     MessageAction,
-    MessageActionType,
     MessageConstructor,
     MessageEvent,
-    MessageEventType,
+    MessageKind,
     MessageResult,
+    MessageType,
     SubscribeOptions,
     Subscription,
     SubscriptionListener
@@ -123,11 +123,11 @@ export class DomBus implements Bus {
     }
 
     handle<A extends MessageAction, R extends MessageResult>(
-        ActionType: MessageActionType<A>,
+        actionType: MessageType,
         ResultType: MessageConstructor<R>,
         handler: ExecutionHandler<A, R>
     ): Handler {
-        const actionMessageType = DomMessage.toName(ActionType)
+        const actionMessageType = DomMessage.toName(actionType)
         const resultMessageType = DomMessage.toName(ResultType)
 
         const listener = async (action: A) => {
@@ -169,11 +169,11 @@ export class DomBus implements Bus {
     }
 
     subscribe<E extends MessageEvent>(
-        EventType: MessageEventType<E>,
+        eventType: MessageType,
         listener: SubscriptionListener<E>,
         options?: SubscribeOptions
     ): Subscription {
-        const eventMessageType = DomMessage.toName(EventType)
+        const eventMessageType = DomMessage.toName(eventType)
         return ListenerContext.createPersistentListener(this, eventMessageType, listener, options)
     }
 
@@ -184,12 +184,13 @@ export class DomBus implements Bus {
     ): Promise<R> {
         return new Promise((resolve, reject) => {
             const resultMessageType = DomMessage.toName(ResultType)
+
             const listener = (result: R) => {
                 // leave early if the message type is wrong
-                if (result.isCorrelatedTo(action)) {
+                if (result.headers.correlationId === action.headers.messageId) {
                     listenerContext.remove()
                     clearTimeout(timeoutId);
-                    if (result.body instanceof Error) {
+                    if (result.kind === MessageKind.error) {
                         reject(result.body);
                     } else {
                         resolve(result);

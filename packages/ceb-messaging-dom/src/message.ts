@@ -2,16 +2,14 @@ import {
     Message,
     MessageAction,
     MessageCommand,
-    MessageCommandType,
     MessageConstructor,
     MessageError,
-    MessageErrorType,
     MessageEvent,
-    MessageEventType,
+    MessageHeaders,
+    MessageKind,
     MessageQuery,
-    MessageQueryType,
     MessageResult,
-    MessageResultType
+    MessageType,
 } from "@tmorin/ceb-messaging-core";
 import {toKebabCase} from "@tmorin/ceb-utilities";
 
@@ -21,21 +19,40 @@ let counter = 0
  * The implementation of a {@link Message} based on a Custom Event.
  */
 export class DomMessage<B = any> extends CustomEvent<B> implements Message {
+    /**
+     * The headers.
+     */
+    readonly headers: MessageHeaders
 
     constructor(
-        Type: MessageConstructor | string,
+        /**
+         * The DOM Event type.
+         */
+        type: MessageType,
+        /**
+         * The DOM Event options.
+         */
         options?: {
             detail?: B
             bubbles?: boolean
             cancelable?: boolean
             composed?: boolean
         },
-        public readonly messageId = `message-${counter++}`
+        /**
+         * Optional headers.
+         */
+        partialHeaders: Partial<MessageHeaders> = {},
+        /**
+         * The kind of the message.
+         */
+        readonly kind: MessageKind = MessageKind.message,
     ) {
-        super(
-            typeof Type === "string" ? Type : DomMessage.toName(Type),
-            options
-        );
+        super(type, options)
+        this.headers = {
+            messageId: `message-${counter++}`,
+            messageType: type,
+            ...partialHeaders,
+        }
     }
 
     get body() {
@@ -54,15 +71,25 @@ export class DomMessage<B = any> extends CustomEvent<B> implements Message {
  */
 export class DomEvent<B = any> extends DomMessage<B> implements MessageEvent<B> {
     constructor(
-        Type: MessageEventType,
-        body: B
+        /**
+         * The DOM Event type.
+         */
+        type: MessageType,
+        /**
+         * The body of the message.
+         */
+        body: B,
+        /**
+         * The kind of the message.
+         */
+        kind: MessageKind = MessageKind.event,
     ) {
-        super(Type, {
+        super(type, {
             detail: body,
             bubbles: false,
             cancelable: false,
             composed: false
-        });
+        }, {}, kind);
     }
 }
 
@@ -73,15 +100,25 @@ export class DomEvent<B = any> extends DomMessage<B> implements MessageEvent<B> 
  */
 export abstract class DomAction<B = any> extends DomMessage<B> implements MessageAction<B> {
     protected constructor(
-        Type: MessageConstructor | string,
-        body: B
+        /**
+         * The DOM Event type.
+         */
+        type: MessageType,
+        /**
+         * The body of the message.
+         */
+        body: B,
+        /**
+         * The kind of the message.
+         */
+        kind: MessageKind = MessageKind.action,
     ) {
-        super(Type, {
+        super(type, {
             detail: body,
             bubbles: true,
             cancelable: true,
             composed: false
-        });
+        }, {}, kind);
     }
 }
 
@@ -90,10 +127,20 @@ export abstract class DomAction<B = any> extends DomMessage<B> implements Messag
  */
 export class DomCommand<B = any> extends DomAction<B> implements MessageCommand<B> {
     constructor(
-        Type: MessageCommandType,
-        body: B
+        /**
+         * The DOM Event type.
+         */
+        type: MessageType,
+        /**
+         * The body of the message.
+         */
+        body: B,
+        /**
+         * The kind of the message.
+         */
+        kind: MessageKind = MessageKind.command,
     ) {
-        super(Type, body);
+        super(type, body, kind);
     }
 }
 
@@ -102,10 +149,20 @@ export class DomCommand<B = any> extends DomAction<B> implements MessageCommand<
  */
 export class DomQuery<B = any> extends DomAction<B> implements MessageQuery<B> {
     constructor(
-        Type: MessageQueryType,
-        body: B
+        /**
+         * The DOM Event type.
+         */
+        type: MessageType,
+        /**
+         * The body of the message.
+         */
+        body: B,
+        /**
+         * The kind of the message.
+         */
+        kind: MessageKind = MessageKind.query,
     ) {
-        super(Type, body);
+        super(type, body, kind);
     }
 }
 
@@ -116,21 +173,35 @@ export class DomQuery<B = any> extends DomAction<B> implements MessageQuery<B> {
  */
 export class DomResult<B = any> extends DomMessage<B> implements MessageResult<B> {
     constructor(
-        Type: MessageResultType,
+        /**
+         * The DOM Event type.
+         */
+        type: MessageType,
+        /**
+         * The original message.
+         */
         origin: MessageAction,
+        /**
+         * The body of the message.
+         */
         body: B,
-        readonly correlationId = origin.messageId
+        /**
+         * The kind of the message.
+         */
+        kind: MessageKind = MessageKind.result,
+        /**
+         * The correlation identifier.
+         */
+        correlationId = origin.headers.messageId,
     ) {
-        super(Type, {
+        super(type, {
             detail: body,
             bubbles: false,
             cancelable: false,
             composed: false
-        });
-    }
-
-    isCorrelatedTo(message: Message): boolean {
-        return message.messageId === this.correlationId
+        }, {
+            correlationId
+        }, kind);
     }
 }
 
@@ -141,9 +212,12 @@ export class DomResult<B = any> extends DomMessage<B> implements MessageResult<B
  */
 export class DomVoidResult extends DomResult<void> implements MessageResult<void> {
     constructor(
+        /**
+         * The original message.
+         */
         origin: MessageAction
     ) {
-        super(DomVoidResult, origin);
+        super(DomVoidResult.name, origin);
     }
 }
 
@@ -154,10 +228,23 @@ export class DomVoidResult extends DomResult<void> implements MessageResult<void
  */
 export class DomError<B extends Error> extends DomResult<B> implements MessageError<B> {
     constructor(
-        Type: MessageErrorType,
+        /**
+         * The DOM Event type.
+         */
+        type: MessageType,
+        /**
+         * The original message.
+         */
         origin: MessageAction,
-        body: B
+        /**
+         * The body of the message.
+         */
+        body: B,
+        /**
+         * The kind of the message.
+         */
+        kind: MessageKind = MessageKind.error,
     ) {
-        super(Type, origin, body);
+        super(type, origin, body, kind);
     }
 }
