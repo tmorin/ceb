@@ -19,6 +19,7 @@ import {
     Subscription,
     SubscriptionListener
 } from "@tmorin/ceb-messaging-core";
+import {AbstractBus} from "@tmorin/ceb-messaging-core/src";
 
 class HandlerEntry<A extends AbstractSimpleAction = any, R extends AbstractSimpleResult = any> implements Handler {
     constructor(
@@ -98,7 +99,7 @@ function getGlobalBus() {
 /**
  * An very simple implementation of a {@link Bus}.
  */
-export class InMemorySimpleBus implements Bus {
+export class InMemorySimpleBus extends AbstractBus implements Bus {
 
     /**
      * A global instance.
@@ -106,13 +107,24 @@ export class InMemorySimpleBus implements Bus {
     public static readonly GLOBAL: InMemorySimpleBus = getGlobalBus()
 
     constructor(
+        /**
+         * @ignore
+         */
         private readonly handlers: Map<MessageType, HandlerEntry> = new Map(),
-        private readonly subscriptions: Map<string, Set<SubscriptionEntry>> = new Map()
+        /**
+         * @ignore
+         */
+        private readonly subscriptions: Map<string, Set<SubscriptionEntry>> = new Map(),
     ) {
+        super()
     }
 
-    destroy() {
+    async dispose(): Promise<void> {
+        await super.dispose();
         this.handlers.forEach(handler => handler.cancel())
+        this.handlers.clear()
+        this.subscriptions.forEach(entries => entries.forEach(entry => entry.unsubscribe()))
+        this.subscriptions.clear()
     }
 
     subscribe<E extends MessageEvent>(
@@ -128,7 +140,7 @@ export class InMemorySimpleBus implements Bus {
             try {
                 value.handle(event)
             } catch (error: any) {
-                console.error("a subscription failed to handle the event %o", event, error)
+                this.emit("error", error)
             }
         })
     }
@@ -173,7 +185,7 @@ export class InMemorySimpleBus implements Bus {
         entry: HandlerEntry<A>,
         action: A
     ): Promise<void> {
-        entry.handle(action).catch(error => console.error("InMemorySimpleBus - the action failed", error))
+        entry.handle(action).catch(error => this.emit("error", error))
     }
 
 }

@@ -44,7 +44,7 @@ describe("messaging/simple/bus", function () {
         bus = new InMemorySimpleBus()
     })
     afterEach(async function () {
-        await bus?.destroy()
+        await bus?.dispose()
     })
     describe("action", function () {
         it("should execute a command and wait for result", async function () {

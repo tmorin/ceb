@@ -25,6 +25,6 @@ export class SimpleModule extends AbstractModule {
     }
 
     async dispose(): Promise<void> {
-        await this.bus.destroy()
+        await this.bus.dispose()
     }
 }
