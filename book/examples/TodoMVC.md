@@ -2,7 +2,7 @@
 
 This example is an implementation of the [TodoMVC](https://todomvc.com) application with `<ceb/>`.
 
-<iframe src="https://codesandbox.io/embed/ceb-example-todomvc-d4z9q?fontsize=14&hidenavigation=1&theme=light&view=preview"
+<iframe src="https://codesandbox.io/embed/ceb-example-todomvc-l66ys?fontsize=14&hidenavigation=1&theme=light&view=preview"
 style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
 title="&lt;ceb/&gt; ~ example - TodoMVC"
 allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
