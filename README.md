@@ -70,8 +70,9 @@ A built-in implementation of the Inversion of Control principle:
 A built-in implementation of the Event/Message architecture:
 
 - [ceb-messaging-core](./packages/ceb-messaging-core)
-- [ceb-messaging-dom](./packages/ceb-messaging-dom)
 - [ceb-messaging-simple](./packages/ceb-messaging-simple)
+- [ceb-messaging-dom](./packages/ceb-messaging-dom)
+- [ceb-messaging-bus-adapter-ipc](./packages/ceb-messaging-bus-adapter-ipc)
 
 The helper packages:
 
