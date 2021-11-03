@@ -9,6 +9,7 @@
     "packages/ceb-messaging-core",
     "packages/ceb-messaging-simple",
     "packages/ceb-messaging-dom",
+    "packages/ceb-messaging-bus-adapter-ipc",
     "packages/ceb-templating-engine",
     "packages/ceb-templating-parser",
     "packages/ceb-templating-builder",

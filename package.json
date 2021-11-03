@@ -18,7 +18,8 @@
     "lerna": "lerna",
     "release:publish": "lerna publish from-package --yes",
     "release:version": "lerna version --conventional-commits --conventional-graduate",
-    "test": "lerna run --stream test"
+    "test": "lerna run --stream test",
+    "test:watch": "lerna run --stream test:watch"
   },
   "devDependencies": {
     "@tmorin/plantuml-libs": "^5.2.0",
@@ -26,10 +27,12 @@
     "@types/mocha": "^9.0.0",
     "@types/sinon": "^10.0.6",
     "chai": "^4.3.4",
-    "karma": "^6.3.6",
+    "electron": "^15.3.0",
+    "karma": "^6.3.7",
     "karma-chrome-launcher": "^3.1.0",
     "karma-cli": "^2.0.0",
-    "karma-firefox-launcher": "^2.1.1",
+    "karma-electron": "^7.1.0",
+    "karma-firefox-launcher": "^2.1.2",
     "karma-mocha": "^2.0.1",
     "karma-webpack": "^5.0.0",
     "lerna": "^4.0.0",
