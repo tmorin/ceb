@@ -64,6 +64,13 @@ export interface ExecutionHandler<M extends MessageAction, R extends MessageResu
 }
 
 /**
+ * Listener of Bus's events.
+ */
+export interface BusEventListener {
+    (...args: any[]): void
+}
+
+/**
  * A bus provides services to dispatch action to handlers and publish events to subscribers.
  */
 export interface Bus {
@@ -132,5 +139,130 @@ export interface Bus {
         ResultType: MessageConstructor<R>,
         handler: ExecutionHandler<M, R>
     ): Handler
+
+    /**
+     * Listen to the `error` event.
+     * @param event the event name
+     * @param listener the listener with the `Error` as argument
+     */
+    on(event: "error", listener: (error: Error) => void): this
+
+    /**
+     * Listen to the `dispose` event.
+     * @param event the event name
+     * @param listener the listener
+     */
+    on(event: "dispose", listener: () => void): this
+
+    /**
+     * Add a listener which listens to the `error` event.
+     * @param event the event name
+     * @param listener the listener
+     */
+    on(event: string | symbol, listener: BusEventListener): this
+
+    /**
+     * Remove all listeners.
+     */
+    off(): this
+
+    /**
+     * Remove all listeners matching a given event name.
+     * @param event the event name
+     */
+    off(event: string | symbol): this
+
+    /**
+     * Remove the matching event name and listener
+     * @param event the event name
+     * @param listener the listener
+     */
+    off(event: string | symbol, listener: BusEventListener): this
+
+    /**
+     * Emit the `error` event.
+     * @param event the event name
+     * @param err the `Error`
+     */
+    emit(event: "error", err: Error): void
+
+    /**
+     * Emit the `dispose` event.
+     * @param event the event name
+     */
+    emit(event: "dispose"): void
+
+    /**
+     * Emit an event.
+     * @param event the event name
+     * @param args the arguments
+     */
+    emit(event: string | symbol, ...args: any[]): void
+
+    /**
+     * Release all stateful artifacts.
+     */
+    dispose(): Promise<void>
+
+}
+
+/**
+ * An beginning of implementation of {@link Bus} handling the listeners of the internal bus events.
+ */
+export abstract class AbstractBus implements Bus {
+    protected constructor(
+        /**
+         * The listeners of the internal bus events.
+         */
+        private readonly listeners: Map<string | symbol, Array<BusEventListener>> = new Map(),
+    ) {
+    }
+
+    abstract execute<A extends MessageAction, R extends MessageResult>(action: A, ResultType: MessageConstructor<R>, options?: ExecuteOptions): Promise<R>
+
+    abstract execute<A extends MessageAction>(action: A): Promise<void>
+
+    abstract handle<M extends MessageAction, R extends MessageResult>(actionType: MessageType, ResultType: MessageConstructor<R>, handler: ExecutionHandler<M, R>): Handler
+
+    abstract publish<E extends MessageEvent>(event: E): Promise<void>
+
+    abstract subscribe<E extends MessageEvent>(eventType: MessageType, listener: SubscriptionListener<E>, options?: SubscribeOptions): Subscription
+
+    async dispose() {
+        this.emit("dispose")
+        this.off()
+    }
+
+    emit(event: string | symbol, ...args: any[]): void {
+        this.listeners.get(event)?.forEach(listener => {
+            try {
+                listener.call(undefined, args)
+            } catch (error) {
+                console.warn(`InMemorySimpleBus - listener for the bus event ${event.toString()} failed`, error)
+            }
+        })
+    }
+
+    on(event: string | symbol, listener: BusEventListener): this {
+        if (!this.listeners.has(event)) {
+            this.listeners.set(event, [])
+        }
+        this.listeners.get(event)?.push(listener)
+        return this
+    }
+
+    off(event?: string | symbol, listener?: BusEventListener): this {
+        if (event && listener) {
+            const index = this.listeners.get(event)?.indexOf(listener)
+            if (typeof index === "number" && index > -1) {
+                this.listeners.get(event)?.splice(index, 1)
+            }
+        } else if (event) {
+            this.listeners.delete(event)
+        } else {
+            this.listeners.clear()
+        }
+        return this
+    }
 
 }
