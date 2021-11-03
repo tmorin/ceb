@@ -27,6 +27,6 @@ export class DomModule extends AbstractModule {
     }
 
     async dispose(): Promise<void> {
-        await this.bus.stop()
+        await this.bus.dispose()
     }
 }

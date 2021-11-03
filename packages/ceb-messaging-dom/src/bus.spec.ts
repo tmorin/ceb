@@ -9,7 +9,7 @@ describe("messaging/dom/bus", function () {
         bus = new DomBus(window)
     })
     afterEach(async function () {
-        await bus?.stop()
+        await bus?.dispose()
     })
     describe("action", function () {
         it("should handle command", async function () {

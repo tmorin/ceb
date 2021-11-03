@@ -14,6 +14,7 @@ import {
     SubscriptionListener
 } from "@tmorin/ceb-messaging-core";
 import {DomAction, DomError, DomEvent, DomMessage, DomResult, DomVoidResult} from "./message";
+import {AbstractBus} from "@tmorin/ceb-messaging-core/src";
 
 const RESULT_LISTENERS = new WeakMap<DomBus, Set<ListenerContext>>()
 const EVENT_LISTENERS = new WeakMap<DomBus, Set<ListenerContext>>()
@@ -87,7 +88,7 @@ class ListenerContext implements Subscription, Handler {
 /**
  * An implementation of a {@link Bus} based on the native DOM Event System.
  */
-export class DomBus implements Bus {
+export class DomBus extends AbstractBus implements Bus {
 
     constructor(
         /**
@@ -104,9 +105,11 @@ export class DomBus implements Bus {
          */
         public readonly requester: EventTarget = global,
     ) {
+        super()
     }
 
-    stop() {
+    async dispose() {
+        await super.dispose()
         Array.from(EVENT_LISTENERS.get(this) || [])
             .concat(Array.from(RESULT_LISTENERS.get(this) || []))
             .forEach((value) => value.remove())
