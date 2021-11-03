@@ -12,12 +12,33 @@ export type MessageType = string
  * The kind of a message.
  */
 export enum MessageKind {
+    /**
+     * Refer to {@link Message}
+     */
     message = "message",
+    /**
+     * Refer to {@link MessageAction}
+     */
     action = "action",
+    /**
+     * Refer to {@link MessageCommand}
+     */
     command = "command",
+    /**
+     * Refer to {@link MessageQuery}
+     */
     query = "query",
+    /**
+     * Refer to {@link MessageResult}
+     */
     result = "result",
+    /**
+     * Refer to {@link MessageError}
+     */
     error = "error",
+    /**
+     * Refer to {@link MessageEvent}
+     */
     event = "event",
 }
 
@@ -25,7 +46,13 @@ export enum MessageKind {
  * The name of a message.
  */
 export interface MessageHeaders {
+    /**
+     * The type of the message.
+     */
     messageType: MessageType
+    /**
+     * The identifier of the message.
+     */
     messageId: MessageId
 
     [key: string]: string | number
@@ -45,8 +72,17 @@ export interface MessageConstructor<M extends Message = Message> {
  * @template H the type of the headers
  */
 export interface Message<B = any, H extends MessageHeaders = MessageHeaders> {
+    /**
+     * The kind of the message.
+     */
     readonly kind: MessageKind
+    /**
+     * The headers.
+     */
     readonly headers: H
+    /**
+     * The body.
+     */
     readonly body: B
 }
 
