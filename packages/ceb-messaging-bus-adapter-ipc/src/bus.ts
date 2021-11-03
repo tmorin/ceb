@@ -5,11 +5,12 @@ import {
     MessageConstructor,
     MessageError,
     MessageEvent,
+    MessageHeaders,
     MessageKind,
     MessageResult,
+    MessageType,
     Subscription
 } from "@tmorin/ceb-messaging-core";
-import {MessageHeaders} from "@tmorin/ceb-messaging-core/src";
 
 export interface IpcMessageMetadata {
     timeout?: number
@@ -66,5 +67,35 @@ export class IpcSubscription<E extends MessageEvent> implements Subscription {
 
     unsubscribe() {
         this.callback()
+    }
+}
+
+export class SimpleIpcMessageConverter implements IpcMessageConverter<Message> {
+    constructor(
+        readonly types: Map<MessageType, MessageConstructor<any>> = new Map()
+    ) {
+    }
+
+    deserialize<M extends Message>(MessageType: MessageConstructor<M> | string, ipcMessage: IpcMessage<Message>): M {
+        if (typeof MessageType === "string") {
+            let Type = this.types.get(MessageType)
+            if (Type) {
+                return new Type(ipcMessage.data.body, ipcMessage.data.headers)
+            }
+            throw new Error(`SimpleIpcMessageConverter : cannot found a constructor for the MessageType ${MessageType}.`)
+        }
+        return new MessageType(ipcMessage.data.body, ipcMessage.data.headers);
+    }
+
+    serialize<B = any>(message: Message<B>): IpcMessage<Message> {
+        return {
+            channel: message.headers.messageType,
+            data: {
+                kind: message.kind,
+                headers: message.headers,
+                body: message.body,
+            },
+            metadata: {}
+        }
     }
 }

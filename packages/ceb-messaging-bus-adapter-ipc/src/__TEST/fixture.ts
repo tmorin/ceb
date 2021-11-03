@@ -1,5 +1,5 @@
-import {Message, MessageConstructor, MessageHeaders, MessageType} from "@tmorin/ceb-messaging-core";
-import {IpcMessage, IpcMessageConverter} from "../bus";
+import {MessageConstructor, MessageHeaders, MessageType} from "@tmorin/ceb-messaging-core";
+import {SimpleIpcMessageConverter} from "../bus";
 import {AbstractSimpleCommand, AbstractSimpleEvent, AbstractSimpleResult} from "@tmorin/ceb-messaging-simple";
 
 export class CommandA extends AbstractSimpleCommand<string> {
@@ -94,9 +94,9 @@ export class FromMainEvent extends AbstractSimpleEvent<string> {
     }
 }
 
-export class Converter implements IpcMessageConverter<Message> {
+export class Converter extends SimpleIpcMessageConverter {
     constructor(
-        private readonly types: Map<MessageType, MessageConstructor<any>> = new Map([
+        types: Map<MessageType, MessageConstructor<any>> = new Map([
             [FromRendererEvent.NAME, FromRendererEvent],
             [FromMainEvent.NAME, FromMainEvent],
             [CommandA.NAME, CommandA],
@@ -105,28 +105,6 @@ export class Converter implements IpcMessageConverter<Message> {
             [ResultB.NAME, ResultB],
         ])
     ) {
-    }
-
-    deserialize<M extends Message>(MessageType: MessageConstructor<M> | string, ipcMessage: IpcMessage<Message>): M {
-        if (typeof MessageType === "string") {
-            let Type = this.types.get(MessageType)
-            if (Type) {
-                return new Type(ipcMessage.data.body, ipcMessage.data.headers)
-            }
-            throw new Error(`Converter : cannot found the MessageType ${MessageType}.`)
-        }
-        return new MessageType(ipcMessage.data.body, ipcMessage.data.headers);
-    }
-
-    serialize<B = any>(message: Message<B>): IpcMessage<Message> {
-        return {
-            channel: message.headers.messageType,
-            data: {
-                kind: message.kind,
-                headers: message.headers,
-                body: message.body,
-            },
-            metadata: {}
-        }
+        super(types)
     }
 }
