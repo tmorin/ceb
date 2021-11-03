@@ -15,8 +15,11 @@ import {
     Subscription,
     SubscriptionListener
 } from "@tmorin/ceb-messaging-core";
-import {IpcHandler, IpcMessageConverter, IpcMessageError, IpcMessageMetadata, IpcSubscription} from "./bus";
+import {IpcHandler, IpcMessageConverter, IpcActionError, IpcMessageMetadata, IpcSubscription} from "./bus";
 
+/**
+ * The implementation of {@link Bus} for the Renderer contexts of Electron IPC.
+ */
 export class IpcRendererBus implements Bus {
     constructor(
         private readonly parentBus: Bus,
@@ -54,7 +57,7 @@ export class IpcRendererBus implements Bus {
                         correlationId: message.headers.messageId
                     })
                 } catch (error: any) {
-                    const ipcError = this.ipcMessageConverter.serialize(new IpcMessageError(message, error))
+                    const ipcError = this.ipcMessageConverter.serialize(new IpcActionError(message, error))
                     this.ipcRenderer.send(channel, ipcError.data, {
                         ...ipcError.metadata,
                         correlationId: message.headers.messageId
