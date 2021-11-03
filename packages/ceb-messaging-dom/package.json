@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-dom",
-  "version": "4.0.2",
+  "version": "4.0.3-alpha.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides a specialization of the core artifacts which leverages on the DOM environment.",
   "keywords": [
@@ -54,11 +54,11 @@
   },
   "dependencies": {
     "@tmorin/ceb-inversion": "^4.0.0",
-    "@tmorin/ceb-messaging-core": "^4.0.0",
+    "@tmorin/ceb-messaging-core": "^4.0.3-alpha.0",
     "@tmorin/ceb-utilities": "^4.0.0"
   },
   "devDependencies": {
-    "@tmorin/ceb-core": "^4.0.0",
+    "@tmorin/ceb-core": "^4.0.3-alpha.0",
     "@tmorin/ceb-testing": "^4.0.0"
   }
 }
