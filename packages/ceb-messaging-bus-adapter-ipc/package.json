@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-bus-adapter-ipc",
-  "version": "4.0.3-alpha.1",
+  "version": "4.0.3-alpha.2",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an adapter for the Bus compliant with the Electron IPC Event Emitter.",
   "keywords": [
@@ -55,12 +55,12 @@
     "test:watch": "karma start --no-single-run --auto-watch"
   },
   "dependencies": {
-    "@tmorin/ceb-messaging-core": "^4.0.3-alpha.1",
+    "@tmorin/ceb-messaging-core": "^4.0.3-alpha.2",
     "@tmorin/ceb-utilities": "^4.0.0",
     "promise.any": "^2.0.2"
   },
   "devDependencies": {
-    "@tmorin/ceb-messaging-simple": "^4.0.3-alpha.1",
+    "@tmorin/ceb-messaging-simple": "^4.0.3-alpha.2",
     "@types/node": "^14.14.31",
     "@types/promise.any": "^2.0.0"
   },
