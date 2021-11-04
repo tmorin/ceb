@@ -1,5 +1,5 @@
 {
-  "name": "@tmorin/ceb-messaging-bus-adapter-ipc",
+  "name": "@tmorin/ceb-messaging-adapter-electron",
   "version": "4.0.3-alpha.2",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an adapter for the Bus compliant with the Electron IPC Event Emitter.",

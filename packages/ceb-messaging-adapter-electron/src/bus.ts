@@ -110,7 +110,7 @@ export interface IpcMessageConverter<D = any> {
 }
 
 /**
- * A simple implementation of the {@link IpcMessageConverter} which leverages on map of {@link MessageConstructor}.
+ * A simple implementation of the {@link IpcMessageConverter} which leverages on a map of {@link MessageConstructor}.
  */
 export class SimpleIpcMessageConverter implements IpcMessageConverter<Message> {
     constructor(
