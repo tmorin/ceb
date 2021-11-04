@@ -1,6 +1,10 @@
 import {DomCommand, DomEvent, DomMessage, DomQuery, DomResult} from "../message";
-import {MessageAction} from "@tmorin/ceb-messaging-core";
-import {MessageCommandHandler, MessageEventListener, MessageQueryHandler} from "@tmorin/ceb-messaging-core/src";
+import {
+    MessageAction,
+    MessageCommandHandler,
+    MessageEventListener,
+    MessageQueryHandler
+} from "@tmorin/ceb-messaging-core";
 
 export class EventB extends DomEvent<string> {
     static CUSTOM_TYPE = DomMessage.toName(EventB.name)

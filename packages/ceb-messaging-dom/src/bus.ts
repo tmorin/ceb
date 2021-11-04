@@ -1,4 +1,5 @@
 import {
+    AbstractBus,
     Bus,
     ExecuteOptions,
     ExecutionHandler,
@@ -14,7 +15,6 @@ import {
     SubscriptionListener
 } from "@tmorin/ceb-messaging-core";
 import {DomAction, DomError, DomEvent, DomMessage, DomResult, DomVoidResult} from "./message";
-import {AbstractBus} from "@tmorin/ceb-messaging-core/src";
 
 const RESULT_LISTENERS = new WeakMap<DomBus, Set<ListenerContext>>()
 const EVENT_LISTENERS = new WeakMap<DomBus, Set<ListenerContext>>()

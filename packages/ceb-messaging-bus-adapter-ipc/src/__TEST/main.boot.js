@@ -7,7 +7,7 @@ webpack(webpackConf, (err) => {
         console.error(err)
         process.exit(9999)
     }
-    require("./main.generated")
+    require("./.generated/main")
     setTimeout(() => electron.webContents.getAllWebContents()
         .forEach(webContent => webContent.send("main-ready")), 0)
 })

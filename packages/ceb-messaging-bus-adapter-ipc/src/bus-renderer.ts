@@ -2,6 +2,7 @@ import any from "promise.any";
 import {IpcRenderer, IpcRendererEvent} from "electron";
 import {
     Bus,
+    BusEventListener,
     ExecuteOptions,
     ExecutionHandler,
     Handler,
@@ -15,8 +16,7 @@ import {
     Subscription,
     SubscriptionListener
 } from "@tmorin/ceb-messaging-core";
-import {IpcHandler, IpcMessageConverter, IpcActionError, IpcMessageMetadata, IpcSubscription} from "./bus";
-import {BusEventListener} from "@tmorin/ceb-messaging-core/src";
+import {IpcActionError, IpcHandler, IpcMessageConverter, IpcMessageMetadata, IpcSubscription} from "./bus";
 
 /**
  * The implementation of {@link Bus} for the Renderer contexts of Electron IPC.

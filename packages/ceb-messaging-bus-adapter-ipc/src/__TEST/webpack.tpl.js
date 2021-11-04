@@ -25,8 +25,8 @@ module.exports = {
         }
     },
     output: {
-        path: path.join(process.cwd(), "src/__TEST"),
-        filename: "main.generated.js",
+        path: path.join(process.cwd(), "src/__TEST/.generated"),
+        filename: "main.js",
         library: path.basename(process.cwd()),
         libraryTarget: 'commonjs',
     }

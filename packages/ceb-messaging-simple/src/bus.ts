@@ -6,6 +6,7 @@ import {
     SimpleVoidResult
 } from "./message";
 import {
+    AbstractBus,
     Bus,
     ExecuteOptions,
     ExecutionHandler,
@@ -19,7 +20,6 @@ import {
     Subscription,
     SubscriptionListener
 } from "@tmorin/ceb-messaging-core";
-import {AbstractBus} from "@tmorin/ceb-messaging-core/src";
 
 class HandlerEntry<A extends AbstractSimpleAction = any, R extends AbstractSimpleResult = any> implements Handler {
     constructor(

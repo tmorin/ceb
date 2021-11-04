@@ -9,6 +9,7 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-example-greeting/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-bus-adapter-ipc/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-bus-adapter-ipc/src/__TEST/.generated" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-core/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-dom/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-simple/dist" />
