@@ -58,14 +58,14 @@ export class IpcRendererBus implements Bus {
     }
 
     handle<M extends MessageAction, R extends MessageResult>(
-        actionType: MessageType,
-        ResultType: MessageConstructor<R>,
+        ActionType: MessageType | MessageConstructor<M>,
+        ResultType: MessageType | MessageConstructor<R>,
         handler: ExecutionHandler<M, R>
     ): Handler {
         // handle event from parent
-        const parentHandler = this.parentBus.handle(actionType, ResultType, handler)
+        const parentHandler = this.parentBus.handle(ActionType, ResultType, handler)
         // handle event from IPC
-        const channel: string = actionType
+        const channel: string = typeof ActionType === "string" ? ActionType : ActionType.name
         const ipcListener = async (event: IpcRendererEvent, data: any, metadata: IpcMessageMetadata) => {
             const message = this.ipcMessageConverter.deserialize<M>(channel, {channel, data, metadata})
             if (metadata.waitForResult) {
@@ -107,19 +107,19 @@ export class IpcRendererBus implements Bus {
     }
 
     subscribe<E extends MessageEvent>(
-        eventType: MessageType,
+        EventType: MessageType | MessageConstructor<E>,
         listener: SubscriptionListener<E>,
         options?: SubscribeOptions
     ): Subscription {
         // handle event from IPC
-        const channel = eventType
+        const channel: string = typeof EventType === "string" ? EventType : EventType.name
         const ipcListener = (event: IpcRendererEvent, data: any, metadata: IpcMessageMetadata) => {
-            const message = this.ipcMessageConverter.deserialize<E>(eventType, {channel, data, metadata})
+            const message = this.ipcMessageConverter.deserialize<E>(channel, {channel, data, metadata})
             this.parentBus.publish(message)
         }
         this.ipcRenderer.on(channel, ipcListener)
         // handle event from parent
-        const parentSubscription = this.parentBus.subscribe(eventType, listener, options)
+        const parentSubscription = this.parentBus.subscribe(channel, listener, options)
         // create the subscription
         return new IpcSubscription(() => {
             parentSubscription.unsubscribe()
@@ -129,7 +129,7 @@ export class IpcRendererBus implements Bus {
 
     private async executeAndWait<A extends MessageAction, R extends MessageResult>(
         action: A,
-        ResultType: MessageConstructor<R>,
+        ResultType: MessageType | MessageConstructor<R>,
         options?: ExecuteOptions
     ): Promise<R> {
         const {channel, data, metadata} = this.ipcMessageConverter.serialize(action)
