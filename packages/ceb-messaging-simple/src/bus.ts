@@ -23,10 +23,10 @@ import {
 
 class HandlerEntry<A extends AbstractSimpleAction = any, R extends AbstractSimpleResult = any> implements Handler {
     constructor(
-        private readonly actionType: MessageType,
-        private readonly ResultType: MessageConstructor<R>,
+        private readonly ActionType: MessageType | MessageConstructor<A>,
         private readonly handler: ExecutionHandler<A, R>,
-        private readonly handlers: Map<MessageType, HandlerEntry>
+        private readonly handlers: Map<MessageType, HandlerEntry>,
+        private readonly key = typeof ActionType === "string" ? ActionType : ActionType.name
     ) {
         this.register()
     }
@@ -36,20 +36,21 @@ class HandlerEntry<A extends AbstractSimpleAction = any, R extends AbstractSimpl
     }
 
     register(): void {
-        this.handlers.set(this.actionType, this)
+        this.handlers.set(this.key, this)
     }
 
     cancel(): void {
-        this.handlers.delete(this.actionType)
+        this.handlers.delete(this.key)
     }
 }
 
 class SubscriptionEntry<E extends AbstractSimpleEvent = any> implements Subscription {
     constructor(
-        private readonly eventType: MessageType,
+        private readonly EventType: MessageType | MessageConstructor<E>,
         public readonly listener: SubscriptionListener<E>,
         private readonly listeners: Map<string, Set<SubscriptionEntry>>,
         public readonly options?: SubscribeOptions,
+        private readonly key = typeof EventType === "string" ? EventType : EventType.name
     ) {
         this.register()
     }
@@ -62,16 +63,16 @@ class SubscriptionEntry<E extends AbstractSimpleEvent = any> implements Subscrip
     }
 
     register(): void {
-        if (!this.listeners.has(this.eventType)) {
-            this.listeners.set(this.eventType, new Set())
+        if (!this.listeners.has(this.key)) {
+            this.listeners.set(this.key, new Set())
         }
-        if (!this.listeners.get(this.eventType)?.has(this)) {
-            this.listeners.get(this.eventType)?.add(this)
+        if (!this.listeners.get(this.key)?.has(this)) {
+            this.listeners.get(this.key)?.add(this)
         }
     }
 
     unsubscribe(): void {
-        this.listeners.get(this.eventType)?.delete(this)
+        this.listeners.get(this.key)?.delete(this)
     }
 }
 
@@ -128,7 +129,7 @@ export class InMemorySimpleBus extends AbstractBus implements Bus {
     }
 
     subscribe<E extends MessageEvent>(
-        EventType: MessageType,
+        EventType: MessageType | MessageConstructor<E>,
         listener: SubscriptionListener<E>,
         options?: SubscribeOptions
     ): Subscription {
@@ -146,11 +147,11 @@ export class InMemorySimpleBus extends AbstractBus implements Bus {
     }
 
     handle<A extends MessageAction, R extends MessageResult>(
-        actionType: MessageType,
-        ResultType: MessageConstructor<R>,
+        ActionType: MessageType | MessageConstructor<A>,
+        ResultType: MessageType | MessageConstructor<R>,
         handler: ExecutionHandler<A, R>
     ): Handler {
-        return new HandlerEntry<A, R>(actionType, ResultType, handler, this.handlers)
+        return new HandlerEntry<A, R>(ActionType, handler, this.handlers)
     }
 
     async execute<A extends MessageAction>(action: A, arg1?: any, arg2?: any): Promise<any> {

@@ -49,14 +49,14 @@ describe("messaging/simple/bus", function () {
     describe("action", function () {
         it("should execute a command and wait for result", async function () {
             const commandA = new CommandA("test value")
-            bus.handle(CommandA.name, ResultA, async (command) => new ResultA(command.body))
+            bus.handle(CommandA, ResultA, async (command) => new ResultA(command.body))
             const resultA = await bus.execute(commandA, ResultA)
             assert.ok(resultA)
             assert.strictEqual(resultA.body, commandA.body)
         })
         it("should execute a command forget", function (done) {
             const commandA = new CommandA("test value")
-            bus.handle(CommandA.name, SimpleVoidResult, (command) => {
+            bus.handle(CommandA, SimpleVoidResult, (command) => {
                 assert.strictEqual(command, commandA)
                 done()
             })
