@@ -16,7 +16,8 @@ import {
     Subscription,
     SubscriptionListener
 } from "@tmorin/ceb-messaging-core";
-import {IpcActionError, IpcHandler, IpcMessageConverter, IpcMessageMetadata, IpcSubscription} from "./bus";
+import {IpcActionError, IpcHandler, IpcMessageMetadata, IpcSubscription} from "./bus";
+import {IpcMessageConverter} from "./converter";
 
 /**
  * The implementation of {@link Bus} for the Renderer contexts of Electron IPC.

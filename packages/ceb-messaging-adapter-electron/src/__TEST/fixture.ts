@@ -1,5 +1,5 @@
 import {MessageConstructor, MessageHeaders, MessageType} from "@tmorin/ceb-messaging-core";
-import {SimpleIpcMessageConverter} from "../bus";
+import {SimpleIpcMessageConverter} from "../converter";
 import {AbstractSimpleCommand, AbstractSimpleEvent, AbstractSimpleResult} from "@tmorin/ceb-messaging-simple";
 
 export class CommandA extends AbstractSimpleCommand<string> {
