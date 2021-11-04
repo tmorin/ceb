@@ -19,7 +19,13 @@ export const MessageCommandHandlerSymbol = Symbol.for("ceb/inversion/MessageComm
 export interface MessageCommandHandler<C extends MessageCommand = MessageCommand,
     R extends MessageResult = MessageResult,
     E extends MessageEvent = MessageEvent> {
+    /**
+     * The type of the command.
+     */
     CommandType: MessageType | MessageConstructor<C>
+    /**
+     * The type of the result.
+     */
     ResultType: MessageConstructor<R>
 
     handle(command: C): Promise<void | R | [R | void, Array<E>]>
@@ -40,7 +46,13 @@ export const MessageQueryHandlerSymbol = Symbol.for("ceb/inversion/MessageQueryH
  */
 export interface MessageQueryHandler<Q extends MessageQuery = MessageQuery,
     R extends MessageResult = MessageResult> {
+    /**
+     * The type of the query.
+     */
     QueryType: MessageType | MessageConstructor<Q>
+    /**
+     * The type of the result.
+     */
     ResultType: MessageType | MessageConstructor<R>
 
     handle(query: Q): Promise<void | R>
@@ -59,6 +71,9 @@ export const MessageEventListenerSymbol = Symbol.for("ceb/inversion/MessageEvent
  * @template E the type of the MessageEvent
  */
 export interface MessageEventListener<E extends MessageEvent = MessageEvent> {
+    /**
+     * The type of the event.
+     */
     EventType: MessageType | MessageConstructor<E>
 
     on(event: E): Promise<void>
