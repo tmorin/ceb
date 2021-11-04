@@ -20,6 +20,11 @@ import {IpcActionError, IpcHandler, IpcMessageMetadata, IpcSubscription} from ".
 import {IpcMessageConverter} from "./converter";
 
 /**
+ * The symbol used to register {@link IpcRendererBus}.
+ */
+export const IpcRendererBusSymbol = Symbol.for("ceb/inversion/IpcRendererBus")
+
+/**
  * The implementation of {@link Bus} for the Renderer contexts of Electron IPC.
  */
 export class IpcRendererBus implements Bus {

@@ -17,7 +17,12 @@ import {
     SubscriptionListener
 } from "@tmorin/ceb-messaging-core";
 import {IpcActionError, IpcHandler, IpcMessageMetadata, IpcSubscription} from "./bus";
-import {IpcMessageConverter} from "./converter";
+import {IpcMessageConverter, SimpleIpcMessageConverter} from "./converter";
+
+/**
+ * The symbol used to register {@link IpcMainBus}.
+ */
+export const IpcMainBusSymbol = Symbol.for("ceb/inversion/IpcMainBus")
 
 /**
  * The implementation of {@link Bus} for the Main context of Electron IPC.
@@ -25,8 +30,8 @@ import {IpcMessageConverter} from "./converter";
 export class IpcMainBus implements Bus {
     constructor(
         private readonly parentBus: Bus,
-        private readonly ipcMessageConverter: IpcMessageConverter,
         private readonly ipcMain: IpcMain,
+        private readonly ipcMessageConverter: IpcMessageConverter = new SimpleIpcMessageConverter()
     ) {
     }
 
@@ -66,9 +71,11 @@ export class IpcMainBus implements Bus {
         // handle event from parent
         const parentHandler = this.parentBus.handle(ActionType, ResultType, handler)
         // handle event from IPC
-        const channel: string = typeof ActionType === "string" ? ActionType : ActionType.name
+        const channel: string = typeof ActionType === "string"
+            ? ActionType
+            : ActionType["MESSAGE_TYPE"] || ActionType.prototype["MESSAGE_TYPE"] || ActionType.name
         const ipcListener = async (event: IpcMainEvent, data: any, metadata: IpcMessageMetadata) => {
-            const message = this.ipcMessageConverter.deserialize<M>(channel, {channel, data, metadata})
+            const message = this.ipcMessageConverter.deserialize<M>(ActionType, {channel, data, metadata})
             if (metadata.waitForResult) {
                 try {
                     const result = await this.parentBus.execute(message, ResultType, {
@@ -115,9 +122,11 @@ export class IpcMainBus implements Bus {
         // handle event from parent
         const parentSubscription = this.parentBus.subscribe(EventType, listener, options)
         // handle event from IPC
-        const channel: string = typeof EventType === "string" ? EventType : EventType.name
+        const channel: string = typeof EventType === "string"
+            ? EventType
+            : EventType["MESSAGE_TYPE"] || EventType.prototype["MESSAGE_TYPE"] || EventType.name
         const ipcListener = (event: IpcMainEvent, data: any, metadata: IpcMessageMetadata) => {
-            const message = this.ipcMessageConverter.deserialize<E>(channel, {
+            const message = this.ipcMessageConverter.deserialize<E>(EventType, {
                 channel: channel,
                 data,
                 metadata
