@@ -19,8 +19,7 @@ export const MessageCommandHandlerSymbol = Symbol.for("ceb/inversion/MessageComm
 export interface MessageCommandHandler<C extends MessageCommand = MessageCommand,
     R extends MessageResult = MessageResult,
     E extends MessageEvent = MessageEvent> {
-    commandType: MessageType
-
+    CommandType: MessageType | MessageConstructor<C>
     ResultType: MessageConstructor<R>
 
     handle(command: C): Promise<void | R | [R | void, Array<E>]>
@@ -41,9 +40,8 @@ export const MessageQueryHandlerSymbol = Symbol.for("ceb/inversion/MessageQueryH
  */
 export interface MessageQueryHandler<Q extends MessageQuery = MessageQuery,
     R extends MessageResult = MessageResult> {
-    queryType: MessageType
-
-    ResultType: MessageConstructor<R>
+    QueryType: MessageType | MessageConstructor<Q>
+    ResultType: MessageType | MessageConstructor<R>
 
     handle(query: Q): Promise<void | R>
 }
@@ -61,7 +59,7 @@ export const MessageEventListenerSymbol = Symbol.for("ceb/inversion/MessageEvent
  * @template E the type of the MessageEvent
  */
 export interface MessageEventListener<E extends MessageEvent = MessageEvent> {
-    eventType: MessageType
+    EventType: MessageType | MessageConstructor<E>
 
     on(event: E): Promise<void>
 }
@@ -102,7 +100,7 @@ export class MessagingComponent extends Component {
         if (this.container.registry.contains(MessageCommandHandlerSymbol)) {
             const messageCommandHandlers = this.container.registry.resolveAll<MessageCommandHandler>(MessageCommandHandlerSymbol)
             this.handlers.push.apply(this, messageCommandHandlers.map(handler => this.bus.handle(
-                handler.commandType,
+                handler.CommandType,
                 handler.ResultType,
                 async (command) => {
                     const output = await handler.handle(command)
@@ -121,7 +119,7 @@ export class MessagingComponent extends Component {
         if (this.container.registry.contains(MessageQueryHandlerSymbol)) {
             const messageQueryHandlers = this.container.registry.resolveAll<MessageQueryHandler>(MessageQueryHandlerSymbol)
             this.handlers.push.apply(this, messageQueryHandlers.map(handler => this.bus.handle(
-                handler.queryType,
+                handler.QueryType,
                 handler.ResultType,
                 async (query) => handler.handle(query)))
             )
@@ -130,7 +128,7 @@ export class MessagingComponent extends Component {
         if (this.container.registry.contains(MessageEventListenerSymbol)) {
             const messageEventListeners = this.container.registry.resolveAll<MessageEventListener>(MessageEventListenerSymbol)
             this.subscriptions.push.apply(this, messageEventListeners.map(handler => this.bus.subscribe(
-                handler.eventType,
+                handler.EventType,
                 async (query) => {
                     try {
                         await handler.on(query)

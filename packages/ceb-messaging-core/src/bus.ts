@@ -87,14 +87,14 @@ export interface Bus {
     /**
      * Register a subscriber.
      * The listener will be invoked each time an event of the provided type is published.
-     * @param eventType the type of the message
+     * @param EventType the type of the message
      * @param listener the listener
      * @param options the options
      * @return the subscription
      * @template E the type of the event
      */
     subscribe<E extends MessageEvent>(
-        eventType: MessageType,
+        EventType: MessageType | MessageConstructor<E>,
         listener: SubscriptionListener<E>,
         options?: SubscribeOptions
     ): Subscription
@@ -102,7 +102,7 @@ export interface Bus {
     /**
      * Execute the action and wait for a result.
      * @param action the action
-     * @param ResultType the expected result type
+     * @param ResultType the type of the result
      * @param options the options
      * @return the result
      * @template A the type of the action
@@ -110,7 +110,7 @@ export interface Bus {
      */
     execute<A extends MessageAction, R extends MessageResult>(
         action: A,
-        ResultType: MessageConstructor<R>,
+        ResultType: MessageType | MessageConstructor<R>,
         options?: ExecuteOptions
     ): Promise<R>
 
@@ -127,17 +127,17 @@ export interface Bus {
      * Register an action handler.
      * The handler will be invoked each time an action of the provided type is published.
      * An action can only be handled by one handler.
-     * @param actionType the type of the action
-     * @param ResultType the type of action result
+     * @param ActionType the type of the action
+     * @param ResultType the type of the action result
      * @param handler the handler
      * @return the handler
      * @template A the type of the action
      * @template R the type of the result
      */
-    handle<M extends MessageAction, R extends MessageResult>(
-        actionType: MessageType,
-        ResultType: MessageConstructor<R>,
-        handler: ExecutionHandler<M, R>
+    handle<A extends MessageAction, R extends MessageResult>(
+        ActionType: MessageType | MessageConstructor<A>,
+        ResultType: MessageType | MessageConstructor<R>,
+        handler: ExecutionHandler<A, R>
     ): Handler
 
     /**
