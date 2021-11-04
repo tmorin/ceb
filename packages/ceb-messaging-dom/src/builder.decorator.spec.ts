@@ -6,6 +6,7 @@ import {Bus} from "@tmorin/ceb-messaging-core";
 import {DomBusBuilder} from "./builder";
 import {DomBus} from "./bus";
 import {EventB} from "./__TEST/fixture";
+import {DomMessage} from "./message";
 
 describe("messaging/dom/builder/decorator", function () {
     let sandbox: HTMLDivElement
@@ -26,7 +27,7 @@ describe("messaging/dom/builder/decorator", function () {
             eventBListener(event)
         }
 
-        @DomBusBuilder.get().subscribe().type(EventB.CUSTOM_TYPE).decorate()
+        @DomBusBuilder.get().subscribe().type(DomMessage.toName(EventB)).decorate()
         onEventBBis(event: EventB) {
             eventBListenerBis(event)
         }
@@ -49,7 +50,7 @@ describe("messaging/dom/builder/decorator", function () {
 
     it("should listen to event", function (done) {
         const eventB = new EventB("test value")
-        listen(window, EventB.CUSTOM_TYPE, 1, () => setTimeout(() => {
+        listen(window, DomMessage.toName(EventB), 1, () => setTimeout(() => {
             assert.ok(eventBListener.calledOnce)
             assert.ok(eventBListener.calledWith(eventB))
             assert.ok(eventBListenerBis.calledOnce)

@@ -28,7 +28,7 @@ export class DomMessage<B = any> extends CustomEvent<B> implements Message {
         /**
          * The DOM Event type.
          */
-        type: MessageType,
+        type: MessageType | MessageConstructor<DomMessage>,
         /**
          * The DOM Event options.
          */
@@ -47,10 +47,10 @@ export class DomMessage<B = any> extends CustomEvent<B> implements Message {
          */
         readonly kind: MessageKind = MessageKind.message,
     ) {
-        super(type, options)
+        super(typeof type === "string" ? type : DomMessage.toName(type), options)
         this.headers = {
             messageId: `message-${counter++}`,
-            messageType: type,
+            messageType: this.type,
             ...partialHeaders,
         }
     }
@@ -74,7 +74,7 @@ export class DomEvent<B = any> extends DomMessage<B> implements MessageEvent<B> 
         /**
          * The DOM Event type.
          */
-        type: MessageType,
+        type: MessageType | MessageConstructor<DomMessage>,
         /**
          * The body of the message.
          */
@@ -103,7 +103,7 @@ export abstract class DomAction<B = any> extends DomMessage<B> implements Messag
         /**
          * The DOM Event type.
          */
-        type: MessageType,
+        type: MessageType | MessageConstructor<DomMessage>,
         /**
          * The body of the message.
          */
@@ -130,7 +130,7 @@ export class DomCommand<B = any> extends DomAction<B> implements MessageCommand<
         /**
          * The DOM Event type.
          */
-        type: MessageType,
+        type: MessageType | MessageConstructor<DomMessage>,
         /**
          * The body of the message.
          */
@@ -152,7 +152,7 @@ export class DomQuery<B = any> extends DomAction<B> implements MessageQuery<B> {
         /**
          * The DOM Event type.
          */
-        type: MessageType,
+        type: MessageType | MessageConstructor<DomMessage>,
         /**
          * The body of the message.
          */
@@ -176,7 +176,7 @@ export class DomResult<B = any> extends DomMessage<B> implements MessageResult<B
         /**
          * The DOM Event type.
          */
-        type: MessageType,
+        type: MessageType | MessageConstructor<DomMessage>,
         /**
          * The original message.
          */
@@ -213,11 +213,15 @@ export class DomResult<B = any> extends DomMessage<B> implements MessageResult<B
 export class DomVoidResult extends DomResult<void> implements MessageResult<void> {
     constructor(
         /**
+         * The DOM Event type.
+         */
+        type: MessageType | MessageConstructor<DomMessage>,
+        /**
          * The original message.
          */
         origin: MessageAction
     ) {
-        super(DomVoidResult.name, origin);
+        super(type, origin);
     }
 }
 
@@ -231,7 +235,7 @@ export class DomError<B extends Error> extends DomResult<B> implements MessageEr
         /**
          * The DOM Event type.
          */
-        type: MessageType,
+        type: MessageType | MessageConstructor<DomMessage>,
         /**
          * The original message.
          */

@@ -126,11 +126,11 @@ export class DomBus extends AbstractBus implements Bus {
     }
 
     handle<A extends MessageAction, R extends MessageResult>(
-        actionType: MessageType,
-        ResultType: MessageConstructor<R>,
+        ActionType: MessageType | MessageConstructor<A>,
+        ResultType: MessageType | MessageConstructor<R>,
         handler: ExecutionHandler<A, R>
     ): Handler {
-        const actionMessageType = DomMessage.toName(actionType)
+        const actionMessageType = DomMessage.toName(ActionType)
         const resultMessageType = DomMessage.toName(ResultType)
 
         const listener = async (action: A) => {
@@ -144,14 +144,10 @@ export class DomBus extends AbstractBus implements Bus {
                 if (result instanceof Event) {
                     action.target?.dispatchEvent(result)
                 } else {
-                    action.target?.dispatchEvent(new DomVoidResult(action))
+                    action.target?.dispatchEvent(new DomVoidResult(resultMessageType, action))
                 }
             } catch (error: any) {
-                action.target?.dispatchEvent(new DomError(
-                    resultMessageType,
-                    action,
-                    error
-                ))
+                action.target?.dispatchEvent(new DomError(resultMessageType, action, error))
             }
         }
 
@@ -172,17 +168,17 @@ export class DomBus extends AbstractBus implements Bus {
     }
 
     subscribe<E extends MessageEvent>(
-        eventType: MessageType,
+        EventType: MessageType | MessageConstructor<E>,
         listener: SubscriptionListener<E>,
         options?: SubscribeOptions
     ): Subscription {
-        const eventMessageType = DomMessage.toName(eventType)
+        const eventMessageType = DomMessage.toName(EventType)
         return ListenerContext.createPersistentListener(this, eventMessageType, listener, options)
     }
 
     private async executeAndWait<A extends DomAction, R extends DomResult>(
         action: A,
-        ResultType: MessageConstructor<R>,
+        ResultType: MessageType | MessageConstructor<R>,
         options?: ExecuteOptions
     ): Promise<R> {
         return new Promise((resolve, reject) => {

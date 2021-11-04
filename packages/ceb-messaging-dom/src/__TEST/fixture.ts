@@ -7,16 +7,14 @@ import {
 } from "@tmorin/ceb-messaging-core";
 
 export class EventB extends DomEvent<string> {
-    static CUSTOM_TYPE = DomMessage.toName(EventB.name)
-
     constructor(body: string) {
-        super(EventB.CUSTOM_TYPE, body);
+        super(EventB, body);
     }
 }
 
 export class CommandA extends DomCommand<string> {
     constructor(body: string) {
-        super(DomMessage.toName(CommandA.name), body);
+        super(DomMessage.toName(CommandA), body);
     }
 }
 
@@ -86,7 +84,7 @@ export class SimpleEventA extends DomEvent<string> {
 }
 
 export class SimpleCommandAHandler implements MessageCommandHandler<SimpleCommandA, SimpleResultA> {
-    readonly commandType = SimpleCommandA.name
+    readonly CommandType = SimpleCommandA.name
     readonly ResultType = SimpleResultA
 
     async handle(command: SimpleCommandA): Promise<SimpleResultA> {
@@ -95,7 +93,7 @@ export class SimpleCommandAHandler implements MessageCommandHandler<SimpleComman
 }
 
 export class SimpleCommandBHandler implements MessageCommandHandler<SimpleCommandB, SimpleResultA> {
-    readonly commandType = SimpleCommandB.name
+    readonly CommandType = SimpleCommandB.name
     readonly ResultType = SimpleResultA
 
     async handle(command: SimpleCommandB): Promise<[SimpleResultA, Array<SimpleEventA>]> {
@@ -104,7 +102,7 @@ export class SimpleCommandBHandler implements MessageCommandHandler<SimpleComman
 }
 
 export class SimpleQueryAHandler implements MessageQueryHandler<SimpleQueryA, SimpleResultA> {
-    readonly queryType = SimpleQueryA.name
+    readonly QueryType = SimpleQueryA.name
     readonly ResultType = SimpleResultA
 
     async handle(query: SimpleQueryA): Promise<SimpleResultA> {
@@ -113,7 +111,7 @@ export class SimpleQueryAHandler implements MessageQueryHandler<SimpleQueryA, Si
 }
 
 export class SimpleEventAListener implements MessageEventListener<SimpleEventA> {
-    readonly eventType = SimpleEventA.name
+    readonly EventType = SimpleEventA.name
 
     async on(event: SimpleEventA): Promise<void> {
     }
