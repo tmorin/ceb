@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb",
-  "version": "4.0.3-alpha.7",
+  "version": "4.0.3-alpha.8",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It bundles the main features of the library related to the Custom Elements (v1) specification.",
   "keywords": [
@@ -52,9 +52,9 @@
     "build:umd": "webpack --config webpack.prd.js --config webpack.dev.js"
   },
   "dependencies": {
-    "@tmorin/ceb-builders": "^4.0.3-alpha.7",
-    "@tmorin/ceb-core": "^4.0.3-alpha.7",
-    "@tmorin/ceb-templating-builder": "^4.0.3-alpha.7",
-    "@tmorin/ceb-templating-literal": "^4.0.3-alpha.7"
+    "@tmorin/ceb-builders": "^4.0.3-alpha.8",
+    "@tmorin/ceb-core": "^4.0.3-alpha.8",
+    "@tmorin/ceb-templating-builder": "^4.0.3-alpha.8",
+    "@tmorin/ceb-templating-literal": "^4.0.3-alpha.8"
   }
 }
