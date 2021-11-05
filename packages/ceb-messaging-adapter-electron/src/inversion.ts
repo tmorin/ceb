@@ -38,6 +38,7 @@ export class ElectronModule extends AbstractModule {
 
     async configure(): Promise<void> {
         this.registry.registerValue(IpcMessageConverterSymbol, new SimpleIpcMessageConverter())
+
         if (ipcMain) {
             this.registry.registerFactory<IpcMainBus>(IpcMainBusSymbol, (registry) => {
                 const bus = new IpcMainBus(
@@ -60,6 +61,7 @@ export class ElectronModule extends AbstractModule {
                 }
             }))
         }
+
         if (ipcRenderer) {
             this.registry.registerFactory<IpcRendererBus>(IpcRendererBusSymbol, (registry) => {
                 const bus = new IpcRendererBus(
@@ -72,7 +74,9 @@ export class ElectronModule extends AbstractModule {
             })
             this.registry.registerFactory<Component>(ComponentSymbol, (registry) => ({
                 configure: async () => {
+                    console.log("ElectronModule", "configure before", registry.resolveAll<Bus>(BusSymbol))
                     const bus = registry.resolve<Bus>(IpcRendererBusSymbol)
+                    console.log("ElectronModule", "configure after", registry.resolveAll<Bus>(BusSymbol))
                     if (this.options.errorToConsole) {
                         bus.on("error", error => console.error("IpcRendererBus throws an error", error))
                     }
