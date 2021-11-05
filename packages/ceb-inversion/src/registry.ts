@@ -151,12 +151,12 @@ class FactoryEntry<T> implements Entry<T> {
 
     get(registry: Registry): T {
         if (this.options.singleton) {
-            if (typeof this.value === 'undefined') {
+            if (typeof this.value === "undefined") {
                 this.value = this.factory(registry)
             }
-            return this.value;
+            return this.value
         }
-        return this.factory(registry);
+        return this.factory(registry)
     }
 }
 
@@ -176,23 +176,23 @@ export class DefaultRegistry implements Registry {
 
     registerValue(key: RegistryKey, value: any): this {
         if (!this.entries.has(key)) {
-            this.entries.set(key, []);
+            this.entries.set(key, [])
         }
-        this.entries.set(key, [new ValueEntry(value), ...this.entries.get(key) || []]);
-        return this;
+        this.entries.get(key)?.unshift(new ValueEntry(value))
+        return this
     }
 
     registerFactory<T>(key: RegistryKey, factory: ValueFactory<T>, options: FactoryOptions = {}): this {
         if (!this.entries.has(key)) {
-            this.entries.set(key, []);
+            this.entries.set(key, [])
         }
-        this.entries.set(key, [new FactoryEntry(factory, options), ...this.entries.get(key) || []]);
-        return this;
+        this.entries.get(key)?.unshift(new FactoryEntry(factory, options))
+        return this
     }
 
     resolve<T>(key: RegistryKey): T {
         if (this.entries.has(key)) {
-            const entries = this.entries.get(key);
+            const entries = this.entries.get(key)
             if (entries && entries[0]) {
                 return entries[0].get(this)
             }
@@ -203,14 +203,18 @@ export class DefaultRegistry implements Registry {
 
     resolveAll<T>(key: RegistryKey): Array<T> {
         if (this.entries.has(key)) {
-            const entries = this.entries.get(key);
-            return [...(entries || []).map(entry => entry.get(this))];
+            const entries = this.entries.get(key)
+            return [...(entries || []).map(entry => entry.get(this))]
         }
         throw new Error(`unable to resolve an entry with the key (${String(key)})`)
     }
 
+    getEntries<T>(key: RegistryKey): Array<Entry<T>> {
+        return this.entries.get(key) || []
+    }
+
     contains(key: RegistryKey): boolean {
-        return this.entries.has(key);
+        return this.entries.has(key)
     }
 
 }

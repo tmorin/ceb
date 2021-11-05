@@ -1,4 +1,4 @@
-import {AbstractModule, ComponentSymbol} from "@tmorin/ceb-inversion";
+import {AbstractModule, ComponentSymbol, Component} from "@tmorin/ceb-inversion";
 import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
 import {ipcMain, ipcRenderer} from "electron";
 import {IpcMessageConverter, IpcMessageConverterSymbol, SimpleIpcMessageConverter} from "./converter";
@@ -39,7 +39,7 @@ export class ElectronModule extends AbstractModule {
     async configure(): Promise<void> {
         this.registry.registerValue(IpcMessageConverterSymbol, new SimpleIpcMessageConverter())
         if (ipcMain) {
-            this.registry.registerFactory(IpcMainBusSymbol, (registry) => {
+            this.registry.registerFactory<IpcMainBus>(IpcMainBusSymbol, (registry) => {
                 const bus = new IpcMainBus(
                     registry.resolve<Bus>(BusSymbol),
                     ipcMain,
@@ -48,7 +48,7 @@ export class ElectronModule extends AbstractModule {
                 this.registry.registerValue(BusSymbol, bus)
                 return bus
             })
-            this.registry.registerFactory(ComponentSymbol, (registry) => ({
+            this.registry.registerFactory<Component>(ComponentSymbol, (registry) => ({
                 configure: async () => {
                     const bus = registry.resolve<Bus>(IpcMainBusSymbol)
                     if (this.options.errorToConsole) {
@@ -61,7 +61,7 @@ export class ElectronModule extends AbstractModule {
             }))
         }
         if (ipcRenderer) {
-            this.registry.registerFactory(IpcRendererBusSymbol, (registry) => {
+            this.registry.registerFactory<IpcRendererBus>(IpcRendererBusSymbol, (registry) => {
                 const bus = new IpcRendererBus(
                     registry.resolve<Bus>(BusSymbol),
                     ipcRenderer,
@@ -70,7 +70,7 @@ export class ElectronModule extends AbstractModule {
                 this.registry.registerValue(BusSymbol, bus)
                 return bus
             })
-            this.registry.registerFactory(ComponentSymbol, (registry) => ({
+            this.registry.registerFactory<Component>(ComponentSymbol, (registry) => ({
                 configure: async () => {
                     const bus = registry.resolve<Bus>(IpcRendererBusSymbol)
                     if (this.options.errorToConsole) {

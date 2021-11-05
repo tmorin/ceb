@@ -1,7 +1,7 @@
 /**
  * The symbol is used to lookup component instances.
  */
-export const ComponentSymbol = Symbol.for('ceb/inversion/Component');
+export const ComponentSymbol = Symbol.for("ceb/inversion/Component")
 
 /**
  * A component follows the lifecycle of a container.

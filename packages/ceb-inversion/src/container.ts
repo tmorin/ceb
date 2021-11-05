@@ -1,6 +1,6 @@
-import {Module, ModuleConfiguration} from './module';
-import {DefaultRegistry, Registry} from './registry';
-import {Component, ComponentSymbol} from './component';
+import {Module, ModuleConfiguration} from "./module"
+import {DefaultRegistry, Registry} from "./registry"
+import {Component, ComponentSymbol} from "./component"
 
 function toBase64(value: string) {
     return typeof btoa === "function" ? btoa(value) : Buffer.from(value).toString("base64")
@@ -23,7 +23,7 @@ export interface ContainerConfiguration extends ModuleConfiguration {
 /**
  * The symbol can be used to lookup container instances.
  */
-export const ContainerSymbol = Symbol.for('ceb/inversion/Container');
+export const ContainerSymbol = Symbol.for("ceb/inversion/Container")
 
 /**
  * A container implements the Dependency Injection pattern.
@@ -54,9 +54,9 @@ export class Container {
     /**
      * The registry contains all managed objects.
      */
-    public readonly registry: Registry;
-    private readonly configuration: ContainerConfiguration;
-    private readonly modules: Array<Module>;
+    public readonly registry: Registry
+    private readonly configuration: ContainerConfiguration
+    private readonly modules: Array<Module>
 
     /**
      * @protected
@@ -64,12 +64,12 @@ export class Container {
     constructor(
         configuration: Partial<ContainerConfiguration> = {}
     ) {
-        const name = configuration.name || `container-${toBase64(String(Date.now()))}`;
-        const registry: Registry = configuration.registry || new DefaultRegistry();
-        const modules: Array<Module> = configuration.modules || [];
-        this.configuration = {...configuration, name, registry, modules};
-        this.registry = this.configuration.registry;
-        this.modules = this.configuration.modules;
+        const name = configuration.name || `container-${toBase64(String(Date.now()))}`
+        const registry: Registry = configuration.registry || new DefaultRegistry()
+        const modules: Array<Module> = configuration.modules || []
+        this.configuration = {...configuration, name, registry, modules}
+        this.registry = this.configuration.registry
+        this.modules = this.configuration.modules
     }
 
     /**
@@ -88,20 +88,20 @@ export class Container {
      *  @return the container it-self
      */
     async initialize(): Promise<this> {
-        this.registry.registerValue(ContainerSymbol, this);
+        this.registry.registerValue(ContainerSymbol, this)
 
         for (const module of this.modules) {
-            await module.initialize(this.configuration);
+            await module.initialize(this.configuration)
         }
 
         if (this.registry.contains(ComponentSymbol)) {
-            const components = this.registry.resolveAll<Component>(ComponentSymbol);
+            const components = this.registry.resolveAll<Component>(ComponentSymbol)
             for (const component of components) {
-                await component.configure();
+                await component.configure()
             }
         }
 
-        return this;
+        return this
     }
 
     /**
@@ -114,16 +114,16 @@ export class Container {
      */
     async dispose() {
         if (this.registry.contains(ComponentSymbol)) {
-            const components = this.registry.resolveAll<Component>(ComponentSymbol);
-            const reversedComponents = [...components].reverse();
+            const components = this.registry.resolveAll<Component>(ComponentSymbol)
+            const reversedComponents = [...components].reverse()
             for (const component of reversedComponents) {
-                await component.dispose();
+                await component.dispose()
             }
         }
 
-        const reversedNodules = [...this.modules].reverse();
+        const reversedNodules = [...this.modules].reverse()
         for (const module of reversedNodules) {
-            await module.dispose();
+            await module.dispose()
         }
     }
 
@@ -145,7 +145,7 @@ export class ContainerBuilder {
      * Get a fresh builder.
      */
     static get() {
-        return new ContainerBuilder();
+        return new ContainerBuilder()
     }
 
     /**
@@ -154,8 +154,8 @@ export class ContainerBuilder {
      * @return the builder
      */
     name(name: string) {
-        this._name = name;
-        return this;
+        this._name = name
+        return this
     }
 
     /**
@@ -164,8 +164,8 @@ export class ContainerBuilder {
      * @return the builder
      */
     registry(registry: Registry) {
-        this._registry = registry;
-        return this;
+        this._registry = registry
+        return this
     }
 
     /**
@@ -175,9 +175,9 @@ export class ContainerBuilder {
      */
     module(...modules: Array<Module>) {
         for (const module of modules) {
-            this._modules.push(module);
+            this._modules.push(module)
         }
-        return this;
+        return this
     }
 
     /**
@@ -187,9 +187,9 @@ export class ContainerBuilder {
      */
     modules(modules: Array<Module>) {
         for (const module of modules) {
-            this._modules.push(module);
+            this._modules.push(module)
         }
-        return this;
+        return this
     }
 
     /**

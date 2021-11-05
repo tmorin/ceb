@@ -1,4 +1,4 @@
-import {Registry} from './registry';
+import {Registry} from "./registry"
 
 /**
  * The available configuration of a module.
@@ -77,15 +77,15 @@ export abstract class AbstractModule implements Module, ConfigurableModule {
         if (!this.configuration) {
             throw new Error("the module is not initialized because its configuration property is falsy")
         }
-        return this.configuration.registry;
+        return this.configuration.registry
     }
 
     /**
      * @protected
      */
     async initialize(configuration: ModuleConfiguration): Promise<void> {
-        this.configuration = configuration;
-        await this.configure();
+        this.configuration = configuration
+        await this.configure()
     }
 
     /**
@@ -116,7 +116,7 @@ export abstract class AbstractModule implements Module, ConfigurableModule {
  */
 export class OnlyConfigureModule extends AbstractModule {
     private constructor(private readonly _configure: (this: ConfigurableModule) => Promise<void>) {
-        super();
+        super()
     }
 
     /**
@@ -129,7 +129,7 @@ export class OnlyConfigureModule extends AbstractModule {
      * @return the fresh module
      */
     static create(cb: (this: ConfigurableModule) => Promise<void>) {
-        return new OnlyConfigureModule(cb);
+        return new OnlyConfigureModule(cb)
     }
 
     /**
