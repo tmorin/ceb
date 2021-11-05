@@ -26,7 +26,9 @@ class HandlerEntry<A extends AbstractSimpleAction = any, R extends AbstractSimpl
         private readonly ActionType: MessageType | MessageConstructor<A>,
         private readonly handler: ExecutionHandler<A, R>,
         private readonly handlers: Map<MessageType, HandlerEntry>,
-        private readonly key = typeof ActionType === "string" ? ActionType : ActionType.name
+        private readonly key = typeof ActionType === "string"
+            ? ActionType
+            : ActionType["MESSAGE_TYPE"] || ActionType.prototype["MESSAGE_TYPE"] || ActionType.name
     ) {
         this.register()
     }
@@ -50,7 +52,9 @@ class SubscriptionEntry<E extends AbstractSimpleEvent = any> implements Subscrip
         public readonly listener: SubscriptionListener<E>,
         private readonly listeners: Map<string, Set<SubscriptionEntry>>,
         public readonly options?: SubscribeOptions,
-        private readonly key = typeof EventType === "string" ? EventType : EventType.name
+        private readonly key = typeof EventType === "string"
+            ? EventType
+            : EventType["MESSAGE_TYPE"] || EventType.prototype["MESSAGE_TYPE"] || EventType.name
     ) {
         this.register()
     }

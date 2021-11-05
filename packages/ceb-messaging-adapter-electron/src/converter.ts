@@ -19,30 +19,42 @@ export interface IpcMessageConverter<D = any> {
 
     /**
      * Transform a message to an IPC message.
-     * @param MessageType the type of the message
+     * @param Type the type of the message
      * @param ipcMessage the IPC message
      * @return  message
      */
-    deserialize<M extends Message>(MessageType: MessageConstructor<M> | string, ipcMessage: IpcMessage<D>): M
+    deserialize<M extends Message>(Type: MessageConstructor<M> | MessageType, ipcMessage: IpcMessage<D>): M
 }
 
 /**
- * A simple implementation of the {@link IpcMessageConverter} which leverages on a map of {@link MessageConstructor}.
+ * Factory of {@link Message}.
+ */
+export interface MessageFactory {
+    /**
+     * The factory.
+     * @param ipcMessage the IPC message
+     */<M extends Message = Message>(ipcMessage: IpcMessage): M
+}
+
+/**
+ * A simple implementation of the {@link IpcMessageConverter} which expects the bodies of the {@link Message} follow the [structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm).
+ * Special cases can be manage providing a map of {@link MessageConstructor}.
  */
 export class SimpleIpcMessageConverter implements IpcMessageConverter<Message> {
+
     constructor(
         /**
-         * The map of {@link MessageConstructor}.
+         * A a map of Message factories.
          */
-        readonly types: Map<MessageType, MessageConstructor<any>> = new Map()
+        readonly types: Map<MessageConstructor | string, MessageFactory> = new Map()
     ) {
     }
 
     deserialize<M extends Message>(MessageType: MessageConstructor<M> | string, ipcMessage: IpcMessage<Message>): M {
-        if (typeof MessageType === "string") {
-            let Type = this.types.get(MessageType)
-            if (Type) {
-                return new Type(ipcMessage.data.body, ipcMessage.data.headers)
+        if (typeof MessageType === "string" || this.types.has(MessageType)) {
+            let factory = this.types.get(MessageType)
+            if (factory) {
+                return factory(ipcMessage)
             }
             throw new Error(`SimpleIpcMessageConverter : cannot found a constructor for the MessageType ${MessageType}.`)
         }

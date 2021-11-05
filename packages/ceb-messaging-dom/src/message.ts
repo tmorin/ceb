@@ -60,7 +60,9 @@ export class DomMessage<B = any> extends CustomEvent<B> implements Message {
     }
 
     static toName(value: MessageConstructor | string): string {
-        return toKebabCase(typeof value === "string" ? value : value.name)
+        return toKebabCase(typeof value === "string"
+            ? value
+            : value["MESSAGE_TYPE"] || value.prototype["MESSAGE_TYPE"] || value.name)
     }
 }
 

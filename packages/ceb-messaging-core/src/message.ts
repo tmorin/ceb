@@ -63,6 +63,11 @@ export interface MessageHeaders {
  * @template M the type of the message
  */
 export interface MessageConstructor<M extends Message = Message> {
+    /**
+     * The type of the message.
+     */
+    MESSAGE_TYPE?: MessageType
+
     new(...args: any[]): M
 }
 

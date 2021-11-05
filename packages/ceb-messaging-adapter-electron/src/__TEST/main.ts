@@ -1,41 +1,32 @@
-import {ipcMain, webContents} from 'electron'
+import {ipcMain} from 'electron'
 import {assert} from "chai";
-import {SimpleModule} from "@tmorin/ceb-messaging-simple";
+import {IpcMainBus} from "../bus-main";
+import {InMemorySimpleBus} from "@tmorin/ceb-messaging-simple";
 import {CommandA, CommandB, FromMainEvent, FromRendererEvent, ResultA, ResultB} from "./fixture";
-import {ElectronModule} from "../inversion";
-import {ContainerBuilder} from "@tmorin/ceb-inversion";
-import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
 
-function log(text: string) {
-    webContents.getAllWebContents().forEach(webContent => webContent
-        .send("main-log", `${text}`))
-}
+const parent = new InMemorySimpleBus()
+const ipcBus = new IpcMainBus(parent, ipcMain)
 
-ContainerBuilder.get()
-    .module(new SimpleModule())
-    .module(new ElectronModule())
-    .build()
-    .initialize()
-    .then(_container => {
-        const ipcBus = _container.registry.resolve<Bus>(BusSymbol)
+// function log(text: string) {
+//     webContents.getAllWebContents().forEach(webContent => webContent
+//         .send("main-log", `${text}`))
+// }
 
-        ipcMain.on("execute-CommandB", async (event) => {
-            try {
-                const resultB = await ipcBus.execute(new CommandB("World"), ResultB)
-                assert.ok(resultB)
-                assert.equal(resultB.body, "Hello, World!")
-                event.reply("execute-CommandB-ok")
-            } catch (error) {
-                event.reply("execute-CommandB-ko", error)
-            }
-        })
+ipcMain.on("execute-CommandB", async (event) => {
+    try {
+        const resultB = await ipcBus.execute(new CommandB("World"), ResultB)
+        assert.ok(resultB)
+        assert.equal(resultB.body, "Hello, World!")
+        event.reply("execute-CommandB-ok")
+    } catch (error) {
+        event.reply("execute-CommandB-ko", error)
+    }
+})
 
-        ipcBus.subscribe<FromRendererEvent>(FromRendererEvent, (message) => {
-            return ipcBus.publish(new FromMainEvent(`main[ ${message.body} ]`))
-        })
+ipcBus.subscribe<FromRendererEvent>(FromRendererEvent, (message) => {
+    return ipcBus.publish(new FromMainEvent(`main[ ${message.body} ]`))
+})
 
-        ipcBus.handle<CommandA, ResultA>(CommandA, ResultA, async (command: CommandA): Promise<ResultA> => {
-            return ResultA.createFromCommand(command, `Hello, ${command.body}!`)
-        })
-    })
-    .catch(error => log(`contaier failed to start: ${error.name} ${error.message}`))
+ipcBus.handle<CommandA, ResultA>(CommandA, ResultA, async (command: CommandA): Promise<ResultA> => {
+    return ResultA.createFromCommand(command, `Hello, ${command.body}!`)
+})

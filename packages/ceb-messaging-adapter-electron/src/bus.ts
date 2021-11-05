@@ -9,7 +9,6 @@ import {
     MessageResult,
     Subscription
 } from "@tmorin/ceb-messaging-core";
-import {MessageType} from "@tmorin/ceb-messaging-core/src";
 
 /**
  * The metadata of an IPC message.

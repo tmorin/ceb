@@ -38,7 +38,10 @@ export abstract class AbstractSimpleMessage<B = any> implements Message<B> {
     ) {
         this.headers = {
             messageId: `message-${counter++}`,
-            messageType: this.constructor.name,
+            messageType: this.constructor.prototype["MESSAGE_TYPE"]
+                // @ts-ignore
+                || this.constructor["MESSAGE_TYPE"]
+                || this.constructor.name,
             ...partialHeaders,
         }
     }

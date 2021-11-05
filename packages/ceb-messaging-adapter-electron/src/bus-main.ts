@@ -19,10 +19,10 @@ import {
 import {IpcActionError, IpcHandler, IpcMessageMetadata, IpcSubscription} from "./bus";
 import {IpcMessageConverter, SimpleIpcMessageConverter} from "./converter";
 
-/**
- * The symbol used to register {@link IpcMainBus}.
- */
-export const IpcMainBusSymbol = Symbol.for("ceb/inversion/IpcMainBus")
+// function log(text: string) {
+//     webContents.getAllWebContents().forEach(webContent => webContent
+//         .send("main-log", `${text}`))
+// }
 
 /**
  * The implementation of {@link Bus} for the Main context of Electron IPC.

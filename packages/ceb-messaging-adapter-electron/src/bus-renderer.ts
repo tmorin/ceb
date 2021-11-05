@@ -17,7 +17,7 @@ import {
     SubscriptionListener
 } from "@tmorin/ceb-messaging-core";
 import {IpcActionError, IpcHandler, IpcMessageMetadata, IpcSubscription} from "./bus";
-import {IpcMessageConverter} from "./converter";
+import {IpcMessageConverter, SimpleIpcMessageConverter} from "./converter";
 
 /**
  * The symbol used to register {@link IpcRendererBus}.
@@ -30,8 +30,8 @@ export const IpcRendererBusSymbol = Symbol.for("ceb/inversion/IpcRendererBus")
 export class IpcRendererBus implements Bus {
     constructor(
         private readonly parentBus: Bus,
-        private readonly ipcMessageConverter: IpcMessageConverter,
         private readonly ipcRenderer: IpcRenderer,
+        private readonly ipcMessageConverter: IpcMessageConverter = new SimpleIpcMessageConverter()
     ) {
     }
 
@@ -71,9 +71,11 @@ export class IpcRendererBus implements Bus {
         // handle event from parent
         const parentHandler = this.parentBus.handle(ActionType, ResultType, handler)
         // handle event from IPC
-        const channel: string = typeof ActionType === "string" ? ActionType : ActionType.name
+        const channel: string = typeof ActionType === "string"
+            ? ActionType
+            : ActionType["MESSAGE_TYPE"] || ActionType.prototype["MESSAGE_TYPE"] || ActionType.name
         const ipcListener = async (event: IpcRendererEvent, data: any, metadata: IpcMessageMetadata) => {
-            const message = this.ipcMessageConverter.deserialize<M>(channel, {channel, data, metadata})
+            const message = this.ipcMessageConverter.deserialize<M>(ActionType, {channel, data, metadata})
             if (metadata.waitForResult) {
                 try {
                     const result = await this.parentBus.execute(message, ResultType, {
@@ -118,9 +120,11 @@ export class IpcRendererBus implements Bus {
         options?: SubscribeOptions
     ): Subscription {
         // handle event from IPC
-        const channel: string = typeof EventType === "string" ? EventType : EventType.name
+        const channel: string = typeof EventType === "string"
+            ? EventType
+            : EventType["MESSAGE_TYPE"] || EventType.prototype["MESSAGE_TYPE"] || EventType.name
         const ipcListener = (event: IpcRendererEvent, data: any, metadata: IpcMessageMetadata) => {
-            const message = this.ipcMessageConverter.deserialize<E>(channel, {channel, data, metadata})
+            const message = this.ipcMessageConverter.deserialize<E>(EventType, {channel, data, metadata})
             this.parentBus.publish(message)
         }
         this.ipcRenderer.on(channel, ipcListener)

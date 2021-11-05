@@ -1,26 +1,19 @@
 import {assert} from "chai"
 import {ipcRenderer} from 'electron'
-import {SimpleModule} from "@tmorin/ceb-messaging-simple";
-import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
+import {InMemorySimpleBus} from "@tmorin/ceb-messaging-simple";
+import {Bus} from "@tmorin/ceb-messaging-core";
+import {IpcRendererBus} from "./bus-renderer";
 import {CommandA, CommandB, FromMainEvent, FromRendererEvent, ResultA, ResultB} from "./__TEST/fixture";
-import {ContainerBuilder} from "@tmorin/ceb-inversion";
-import {ElectronModule} from "./inversion";
 
 describe("IPC", function () {
     this.timeout(5000)
+    let parentBus: InMemorySimpleBus
     let ipcRendererBus: Bus
-    before(async () => new Promise((resolve, reject) => {
+    before(async () => new Promise((resolve) => {
         ipcRenderer.once("main-ready", () => {
-            ContainerBuilder.get()
-                .module(new SimpleModule())
-                .module(new ElectronModule())
-                .build()
-                .initialize()
-                .then(_container => {
-                    ipcRendererBus = _container.registry.resolve<Bus>(BusSymbol)
-                    resolve()
-                })
-                .catch(reject)
+            parentBus = new InMemorySimpleBus()
+            ipcRendererBus = new IpcRendererBus(parentBus, ipcRenderer)
+            resolve()
         })
         ipcRenderer.on("main-log", (evt, message) => {
             console.info(message)

@@ -1,23 +1,22 @@
-import {MessageConstructor, MessageHeaders, MessageType} from "@tmorin/ceb-messaging-core";
-import {SimpleIpcMessageConverter} from "../converter";
+import {MessageHeaders} from "@tmorin/ceb-messaging-core";
 import {AbstractSimpleCommand, AbstractSimpleEvent, AbstractSimpleResult} from "@tmorin/ceb-messaging-simple";
 
 export class CommandA extends AbstractSimpleCommand<string> {
-    static NAME = "CommandA"
+    static MESSAGE_TYPE = "CommandA"
 
     constructor(
         body: string,
         headers: Partial<MessageHeaders> = {}
     ) {
         super(body, {
-            messageType: CommandA.NAME,
+            messageType: CommandA.MESSAGE_TYPE,
             ...headers
         })
     }
 }
 
 export class ResultA extends AbstractSimpleResult<string> {
-    static NAME = "ResultA"
+    static MESSAGE_TYPE = "ResultA"
 
     constructor(
         body: string,
@@ -28,28 +27,28 @@ export class ResultA extends AbstractSimpleResult<string> {
 
     static createFromCommand(command: CommandA, body: string) {
         return new ResultA(body, {
-            messageType: ResultA.NAME,
+            messageType: ResultA.MESSAGE_TYPE,
             correlationId: command.headers.messageId,
         })
     }
 }
 
 export class CommandB extends AbstractSimpleCommand<string> {
-    static NAME = "CommandB"
+    static MESSAGE_TYPE = "CommandB"
 
     constructor(
         body: string,
         headers: Partial<MessageHeaders> = {}
     ) {
         super(body, {
-            messageType: CommandB.NAME,
+            messageType: CommandB.MESSAGE_TYPE,
             ...headers
         })
     }
 }
 
 export class ResultB extends AbstractSimpleResult<string> {
-    static NAME = "ResultB"
+    static MESSAGE_TYPE = "ResultB"
 
     constructor(
         body: string,
@@ -60,51 +59,36 @@ export class ResultB extends AbstractSimpleResult<string> {
 
     static createFromCommand(command: CommandB, body: string) {
         return new ResultB(body, {
-            messageType: ResultB.NAME,
+            messageType: ResultB.MESSAGE_TYPE,
             correlationId: command.headers.messageId,
         })
     }
 }
 
 export class FromRendererEvent extends AbstractSimpleEvent<string> {
-    static NAME = "FromRendererEvent"
+    static MESSAGE_TYPE = "FromRendererEvent"
 
     constructor(
         body: string,
         headers: Partial<MessageHeaders> = {}
     ) {
         super(body, {
-            messageType: FromRendererEvent.NAME,
+            messageType: FromRendererEvent.MESSAGE_TYPE,
             ...headers
         })
     }
 }
 
 export class FromMainEvent extends AbstractSimpleEvent<string> {
-    static NAME = "FromMainEvent"
+    static MESSAGE_TYPE = "FromMainEvent"
 
     constructor(
         body: string,
         headers: Partial<MessageHeaders> = {}
     ) {
         super(body, {
-            messageType: FromMainEvent.NAME,
+            messageType: FromMainEvent.MESSAGE_TYPE,
             ...headers
         })
-    }
-}
-
-export class Converter extends SimpleIpcMessageConverter {
-    constructor(
-        types: Map<MessageType, MessageConstructor<any>> = new Map([
-            [FromRendererEvent.NAME, FromRendererEvent],
-            [FromMainEvent.NAME, FromMainEvent],
-            [CommandA.NAME, CommandA],
-            [ResultA.NAME, ResultA],
-            [CommandB.NAME, CommandB],
-            [ResultB.NAME, ResultB],
-        ])
-    ) {
-        super(types)
     }
 }
