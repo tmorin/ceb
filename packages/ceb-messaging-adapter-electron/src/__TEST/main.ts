@@ -1,6 +1,6 @@
 import {ipcMain, webContents} from 'electron'
 import {assert} from "chai";
-import {SimpleModule} from "@tmorin/ceb-messaging-simple";
+import {InMemorySimpleBusSymbol, SimpleModule} from "@tmorin/ceb-messaging-simple";
 import {CommandA, CommandB, FromMainEvent, FromRendererEvent, ResultA, ResultB} from "./fixture";
 import {ElectronModule} from "../inversion";
 import {ContainerBuilder} from "@tmorin/ceb-inversion";
@@ -12,8 +12,8 @@ function log(text: string) {
 }
 
 ContainerBuilder.get()
-    .module(new SimpleModule())
-    .module(new ElectronModule())
+    .module(new SimpleModule({registryKey: InMemorySimpleBusSymbol}))
+    .module(new ElectronModule(InMemorySimpleBusSymbol))
     .build()
     .initialize()
     .then(_container => {
