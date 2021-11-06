@@ -1,6 +1,6 @@
 import {assert} from "chai"
 import {ipcRenderer} from 'electron'
-import {SimpleModule} from "@tmorin/ceb-messaging-simple";
+import {InMemorySimpleBusSymbol, SimpleModule} from "@tmorin/ceb-messaging-simple";
 import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
 import {CommandA, CommandB, FromMainEvent, FromRendererEvent, ResultA, ResultB} from "./__TEST/fixture";
 import {ContainerBuilder} from "@tmorin/ceb-inversion";
@@ -12,8 +12,8 @@ describe("IPC", function () {
     before(async () => new Promise((resolve, reject) => {
         ipcRenderer.once("main-ready", () => {
             ContainerBuilder.get()
-                .module(new SimpleModule())
-                .module(new ElectronModule())
+                .module(new SimpleModule({registryKey: InMemorySimpleBusSymbol}))
+                .module(new ElectronModule(InMemorySimpleBusSymbol))
                 .build()
                 .initialize()
                 .then(container => {
