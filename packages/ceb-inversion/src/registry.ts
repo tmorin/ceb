@@ -209,10 +209,6 @@ export class DefaultRegistry implements Registry {
         throw new Error(`unable to resolve an entry with the key (${String(key)})`)
     }
 
-    getEntries<T>(key: RegistryKey): Array<Entry<T>> {
-        return this.entries.get(key) || []
-    }
-
     contains(key: RegistryKey): boolean {
         return this.entries.has(key)
     }

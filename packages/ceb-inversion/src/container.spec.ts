@@ -3,7 +3,7 @@ import sinon, {SinonSpy} from "sinon"
 import {Container, ContainerBuilder} from "./container"
 import {DefaultRegistry} from "./registry"
 import {OnlyConfigureModule} from "./module"
-import {Component, ComponentSymbol} from "./component"
+import {ComponentSymbol} from "./component"
 
 describe("inversion/container", () => {
 
