@@ -102,6 +102,11 @@ function getGlobalBus() {
 }
 
 /**
+ * The symbol used to register {@link InMemorySimpleBus}.
+ */
+export const InMemorySimpleBusSymbol = Symbol.for("ceb/inversion/InMemorySimpleBus")
+
+/**
  * An very simple implementation of a {@link Bus}.
  */
 export class InMemorySimpleBus extends AbstractBus implements Bus {

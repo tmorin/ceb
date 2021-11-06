@@ -1,4 +1,4 @@
-import {AbstractModule, ComponentSymbol} from "@tmorin/ceb-inversion";
+import {AbstractModule, ComponentSymbol, RegistryKey} from "@tmorin/ceb-inversion";
 import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
 import {InMemorySimpleBus} from "./bus";
 
@@ -7,7 +7,18 @@ import {InMemorySimpleBus} from "./bus";
  */
 export interface SimpleModuleOptions {
     /**
+     * The bus instance.
+     * By default `InMemorySimpleBus.GLOBAL`.
+     */
+    bus: InMemorySimpleBus
+    /**
+     * The {@link RegistryKey} of the {@link InMemorySimpleBus} instance.
+     * By default {@link BusSymbol}.
+     */
+    registryKey: RegistryKey
+    /**
      * When `true`, the `error` internal events (i.e. `bus.on("error", ...)`) are displayed using `console.error(...)`.
+     * By default `false`.
      */
     errorToConsole: boolean
 }
@@ -24,26 +35,36 @@ export interface SimpleModuleOptions {
  * ```
  */
 export class SimpleModule extends AbstractModule {
+    private readonly options: SimpleModuleOptions
+    private readonly bus: InMemorySimpleBus
+
     constructor(
-        private readonly bus = InMemorySimpleBus.GLOBAL,
-        private readonly options: SimpleModuleOptions = {
-            errorToConsole: false
-        }
+        /**
+         * Options of the module.
+         */
+        partialOptions: Partial<SimpleModuleOptions> = {}
     ) {
         super();
+        this.options = {
+            bus: InMemorySimpleBus.GLOBAL,
+            registryKey: BusSymbol,
+            errorToConsole: false,
+            ...partialOptions
+        }
+        this.bus = this.options.bus
     }
 
     async configure(): Promise<void> {
-        this.registry.registerValue(BusSymbol, this.bus)
+        this.registry.registerValue(this.options.registryKey, this.bus)
         this.registry.registerFactory(ComponentSymbol, (registry) => ({
             configure: async () => {
-                const bus = registry.resolve<Bus>(BusSymbol)
                 if (this.options.errorToConsole) {
+                    const bus = registry.resolve<Bus>(this.options.registryKey)
                     bus.on("error", error => console.error("InMemorySimpleBus throws an error", error))
                 }
             },
-            async dispose() {
-                await registry.resolve<Bus>(BusSymbol).dispose()
+            dispose: async () => {
+                await registry.resolve<Bus>(this.options.registryKey).dispose()
             }
         }))
     }
