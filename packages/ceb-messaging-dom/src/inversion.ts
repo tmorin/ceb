@@ -1,4 +1,4 @@
-import {AbstractModule, ComponentSymbol} from "@tmorin/ceb-inversion";
+import {AbstractModule, ComponentSymbol, RegistryKey} from "@tmorin/ceb-inversion";
 import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
 import {DomBus} from "./bus";
 
@@ -7,7 +7,23 @@ import {DomBus} from "./bus";
  */
 export interface DomModuleOptions {
     /**
+     * The global event target.
+     * By default `window`.
+     */
+    global: EventTarget
+    /**
+     * The requester event target.
+     * By default `window`.
+     */
+    requester: EventTarget
+    /**
+     * The {@link RegistryKey} of the {@link DomBus} instance.
+     * By default {@link BusSymbol}.
+     */
+    registryKey: RegistryKey
+    /**
      * When `true`, the `error` internal events (i.e. `bus.on("error", ...)`) are displayed using `console.error(...)`.
+     * By default `false`.
      */
     errorToConsole: boolean
 }
@@ -24,28 +40,35 @@ export interface DomModuleOptions {
  * ```
  */
 export class DomModule extends AbstractModule {
+    private readonly options: DomModuleOptions
+
     constructor(
-        private readonly global: EventTarget = window,
-        private readonly requester: EventTarget = global,
-        private readonly options: DomModuleOptions = {
-            errorToConsole: false
-        },
-        private readonly bus = new DomBus(global, requester)
+        /**
+         * Options of the module.
+         */
+        partialOptions: Partial<DomModuleOptions> = {}
     ) {
-        super();
+        super()
+        this.options = {
+            global: window,
+            requester: window,
+            registryKey: BusSymbol,
+            errorToConsole: false,
+            ...partialOptions
+        }
     }
 
     async configure(): Promise<void> {
-        this.registry.registerValue(BusSymbol, this.bus)
+        this.registry.registerFactory<Bus>(this.options.registryKey, () => new DomBus(this.options.global, this.options.requester))
         this.registry.registerFactory(ComponentSymbol, (registry) => ({
             configure: async () => {
-                const bus = registry.resolve<Bus>(BusSymbol)
                 if (this.options.errorToConsole) {
+                    const bus = registry.resolve<Bus>(this.options.registryKey)
                     bus.on("error", error => console.error("DomBus throws an error", error))
                 }
             },
-            async dispose() {
-                await registry.resolve<Bus>(BusSymbol).dispose()
+            dispose: async () => {
+                await registry.resolve<Bus>(this.options.registryKey).dispose()
             }
         }))
     }

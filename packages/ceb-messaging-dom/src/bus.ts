@@ -86,6 +86,11 @@ class ListenerContext implements Subscription, Handler {
 }
 
 /**
+ * The symbol used to register {@link DomBus}.
+ */
+export const DomBusSymbol = Symbol.for("ceb/inversion/DomBus")
+
+/**
  * An implementation of a {@link Bus} based on the native DOM Event System.
  */
 export class DomBus extends AbstractBus implements Bus {
