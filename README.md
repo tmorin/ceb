@@ -66,6 +66,7 @@ A built-in implementation of a templating system:
 A built-in implementation of the Inversion of Control principle:
 
 - [ceb-inversion](./packages/ceb-inversion)
+- [ceb-inversion-builder](./packages/ceb-inversion-builder)
 
 A built-in implementation of the Event/Message architecture:
 

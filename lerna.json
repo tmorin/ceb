@@ -6,6 +6,7 @@
     "packages/ceb-core",
     "packages/ceb-builders",
     "packages/ceb-inversion",
+    "packages/ceb-inversion-builder",
     "packages/ceb-messaging-adapter-electron",
     "packages/ceb-messaging-core",
     "packages/ceb-messaging-simple",
