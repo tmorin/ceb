@@ -8,6 +8,7 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-example-greeting/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion-builder/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-adapter-electron/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-adapter-electron/src/__TEST/.generated" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-core/dist" />

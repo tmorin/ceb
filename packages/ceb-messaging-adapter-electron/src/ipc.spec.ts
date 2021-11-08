@@ -7,7 +7,7 @@ import {ContainerBuilder} from "@tmorin/ceb-inversion";
 import {ElectronModule} from "./inversion";
 
 describe("IPC", function () {
-    this.timeout(5000)
+    this.timeout(10000)
     let ipcRendererBus: Bus
     before(async () => new Promise((resolve, reject) => {
         ipcRenderer.once("main-ready", () => {
