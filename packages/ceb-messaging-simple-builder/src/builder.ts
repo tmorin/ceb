@@ -1,4 +1,4 @@
-import {InMemorySimpleBus} from "./bus";
+import {InMemorySimpleBus} from "@tmorin/ceb-messaging-simple";
 import {AbstractBusBuilder} from "@tmorin/ceb-messaging-core";
 
 /**

@@ -72,6 +72,7 @@ A built-in implementation of the Event/Message architecture:
 
 - [ceb-messaging-core](./packages/ceb-messaging-core)
 - [ceb-messaging-simple](./packages/ceb-messaging-simple)
+- [ceb-messaging-simple-builder](./packages/ceb-messaging-simple-builder)
 - [ceb-messaging-dom](./packages/ceb-messaging-dom)
 - [ceb-messaging-adapter-electron](./packages/ceb-messaging-adapter-electron)
 

@@ -1,8 +1,8 @@
 {
-  "name": "@tmorin/ceb-messaging-simple",
+  "name": "@tmorin/ceb-messaging-simple-builder",
   "version": "4.0.3-alpha.12",
   "license": "MIT",
-  "description": "The package is part of the `<ceb/>` library. It provides a specialization of the core artifacts which leverages on a vanilla TypeScript/JavaScript environment.",
+  "description": "The package is part of the `<ceb/>` library. It provides a builder to interact with the Bus in Custom Elements.",
   "keywords": [
     "custom-element-builder",
     "custom-elements-v1",
@@ -49,12 +49,14 @@
     "build:fix": "../../scripts/fix-dist.js",
     "build:lib": "tsc -p tsconfig.build.json --module CommonJS --outDir dist/cjs --declaration --declarationDir dist/types",
     "build:module": "tsc -p tsconfig.build.json --module ESNext --outDir dist/mjs",
-    "test": "mocha --require ts-node/register src/**/*.spec.ts",
-    "test:watch": "npm test -- --watch"
+    "test": "karma start --single-run --no-auto-watch --browsers FirefoxHeadless,ChromeHeadless",
+    "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion": "^4.0.3-alpha.12",
-    "@tmorin/ceb-messaging-core": "^4.0.3-alpha.12",
-    "@tmorin/ceb-utilities": "^4.0.0"
+    "@tmorin/ceb-messaging-simple": "^4.0.3-alpha.12",
+    "@tmorin/ceb-messaging-core": "^4.0.3-alpha.12"
+  },
+  "devDependencies": {
+    "@tmorin/ceb-core": "^4.0.3-alpha.12"
   }
 }

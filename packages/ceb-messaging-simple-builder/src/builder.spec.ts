@@ -1,10 +1,9 @@
 import {assert} from "chai"
 import sinon, {SinonSpy} from "sinon";
-import {Bus} from "@tmorin/ceb-messaging-core";
 import {ElementBuilder} from "@tmorin/ceb-core";
-import {AbstractSimpleEvent} from "./message";
+import {Bus} from "@tmorin/ceb-messaging-core";
+import {AbstractSimpleEvent, InMemorySimpleBus} from "@tmorin/ceb-messaging-simple";
 import {SimpleBusBuilder} from "./builder";
-import {InMemorySimpleBus} from "./bus";
 
 class EventA extends AbstractSimpleEvent<string> {
     constructor(body: string) {
