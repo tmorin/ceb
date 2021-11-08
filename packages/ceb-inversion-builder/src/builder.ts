@@ -2,11 +2,11 @@ import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} fr
 import {Container, RegistryKey} from "@tmorin/ceb-inversion";
 
 /**
- * Factory of a bus.
+ * Factory of a container.
  */
 export interface ContainerProvider {
     /**
-     * @return the bus
+     * @return the container
      */
     (): Container
 }
@@ -18,6 +18,13 @@ export class InversionBuilder<E extends HTMLElement> implements Builder<E> {
 
     private static DEFAULT_CONTAINER: Container
 
+    protected constructor(
+        private _propName?: string,
+        private _key?: RegistryKey,
+        private _provider?: ContainerProvider,
+    ) {
+    }
+
     /**
      * Set the default {@link Container}.
      * @param container the container
@@ -25,13 +32,6 @@ export class InversionBuilder<E extends HTMLElement> implements Builder<E> {
      */
     static setDefaultContainer(container: Container) {
         InversionBuilder.DEFAULT_CONTAINER = container
-    }
-
-    private constructor(
-        private _propName?: string,
-        private _key?: RegistryKey,
-        private _provider?: ContainerProvider,
-    ) {
     }
 
     /**

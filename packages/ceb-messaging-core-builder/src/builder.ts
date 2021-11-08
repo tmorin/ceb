@@ -1,7 +1,6 @@
 import {toKebabCase} from "@tmorin/ceb-utilities";
 import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-core";
-import {MessageEvent, MessageType} from "@tmorin/ceb-messaging-core";
-import {Bus, SubscribeOptions, Subscription} from "@tmorin/ceb-messaging-core";
+import {Bus, MessageEvent, MessageType, SubscribeOptions, Subscription} from "@tmorin/ceb-messaging-core";
 
 /**
  * The listener of a subscription.

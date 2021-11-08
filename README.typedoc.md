@@ -25,6 +25,7 @@ A built-in implementation of a templating system:
 A built-in implementation of the Inversion of Control principle:
 
 - [ceb-inversion](modules/_tmorin_ceb_inversion.html)
+- [ceb-inversion-builder](modules/_tmorin_ceb_inversion_builder.html)
 
 A built-in implementation of the Event/Message architecture:
 
