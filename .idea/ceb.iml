@@ -11,8 +11,10 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-adapter-electron/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-adapter-electron/src/__TEST/.generated" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-core/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-core-builder/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-dom/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-simple/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-simple-builder/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-templating-builder/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-templating-engine/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-templating-literal/dist" />

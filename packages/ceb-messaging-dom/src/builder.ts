@@ -1,4 +1,4 @@
-import {AbstractBusBuilder} from "@tmorin/ceb-messaging-core";
+import {AbstractBusBuilder} from "@tmorin/ceb-messaging-core-builder";
 import {DomBus} from "./bus";
 
 /**
