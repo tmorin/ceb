@@ -30,6 +30,8 @@ A built-in implementation of the Inversion of Control principle:
 A built-in implementation of the Event/Message architecture:
 
 - [ceb-messaging-core](modules/_tmorin_ceb_messaging_core.html)
+- [ceb-messaging-core-builder](modules/_tmorin_ceb_messaging_core_builder.html)
+- [ceb-messaging-builder-inversion](modules/_tmorin_ceb_messaging_builder_inversion.html)
 - [ceb-messaging-simple](modules/_tmorin_ceb_messaging_simple.html)
 - [ceb-messaging-dom](modules/_tmorin_ceb_messaging_dom.html)
 - [ceb-messaging-adapter-electron](modules/_tmorin_ceb_messaging_bus_adapter_ipc.html)

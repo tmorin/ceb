@@ -70,7 +70,7 @@ export class InversionBuilder<E extends HTMLElement> implements Builder<E> {
             if (!this._key) {
                 this._key = this._propName
             }
-            const id = `bus-field-inversion-${this._propName}`
+            const id = `field-inversion-${this._propName}`
             ElementBuilder.getOrSet(target, this, id)
         }
     }

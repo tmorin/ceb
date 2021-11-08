@@ -1,0 +1,62 @@
+{
+  "name": "@tmorin/ceb-messaging-builder-inversion",
+  "version": "4.0.3-alpha.13",
+  "license": "MIT",
+  "description": "The package is part of the `<ceb/>` library. It provides a builder to resolve and inject a bus from a container and then subscribe to event.",
+  "keywords": [
+    "custom-element-builder",
+    "custom-elements-v1",
+    "custom-elements",
+    "custom-element",
+    "typescript",
+    "typescript-library",
+    "javascript-library",
+    "messaging",
+    "cqrs",
+    "bus",
+    "event-bus",
+    "message-bus"
+  ],
+  "homepage": "https://tmorin.github.io/ceb",
+  "bugs": {
+    "url": "https://github.com/tmorin/ceb/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:tmorin/ceb.git"
+  },
+  "author": {
+    "name": "Thibault Morin",
+    "url": "https://tmorin.github.io"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "types": "dist/types/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run build:lib && npm run build:module && npm run build:fix",
+    "build:fix": "../../scripts/fix-dist.js",
+    "build:lib": "tsc -p tsconfig.build.json --module CommonJS --outDir dist/cjs --declaration --declarationDir dist/types",
+    "build:module": "tsc -p tsconfig.build.json --module ESNext --outDir dist/mjs",
+    "test": "karma start --single-run --no-auto-watch --browsers FirefoxHeadless,ChromeHeadless",
+    "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
+  },
+  "dependencies": {
+    "@tmorin/ceb-core": "^4.0.3-alpha.13",
+    "@tmorin/ceb-inversion": "^4.0.3-alpha.13",
+    "@tmorin/ceb-messaging-core": "^4.0.3-alpha.13",
+    "@tmorin/ceb-messaging-core-builder": "^4.0.3-alpha.13",
+    "@tmorin/ceb-utilities": "^4.0.0"
+  }
+}

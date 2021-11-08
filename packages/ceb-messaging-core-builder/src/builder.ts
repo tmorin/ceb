@@ -1,6 +1,13 @@
-import {toKebabCase} from "@tmorin/ceb-utilities";
 import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-core";
-import {Bus, MessageEvent, MessageType, SubscribeOptions, Subscription} from "@tmorin/ceb-messaging-core";
+import {
+    Bus,
+    Message,
+    MessageConstructor,
+    MessageEvent,
+    MessageType,
+    SubscribeOptions,
+    Subscription
+} from "@tmorin/ceb-messaging-core";
 
 /**
  * The listener of a subscription.
@@ -31,7 +38,7 @@ export class BusSubscriptionBuilder<E extends HTMLElement, M extends MessageEven
 
     constructor(
         private _busBuilder: AbstractBusBuilder<E>,
-        private _eventType?: MessageType,
+        private _EventType?: MessageType | MessageConstructor<M>,
         private _listener: ElementSubscriptionListener<E, M> = () => {
         },
         private _options?: SubscribeOptions
@@ -40,10 +47,10 @@ export class BusSubscriptionBuilder<E extends HTMLElement, M extends MessageEven
 
     /**
      * Set the type of the event.
-     * @param eventType the event type
+     * @param EventType the event type
      */
-    type(eventType: MessageType): BusSubscriptionBuilder<E, M> {
-        this._eventType = eventType
+    type(EventType: MessageType | MessageConstructor<M>): BusSubscriptionBuilder<E, M> {
+        this._EventType = EventType
         return this
     }
 
@@ -60,23 +67,21 @@ export class BusSubscriptionBuilder<E extends HTMLElement, M extends MessageEven
      * Decorate the listener method which is invoked when the matching Event is published.
      *
      * When the type of the Event is not specified by {@link BusSubscriptionBuilder.type}, then the event type is discovered from the decorated method name.
-     * The pattern is `<prefix><event-type-in-kebab-case>`, where `<prefix>` is by default `on`.
-
+     * The pattern is `<prefix><event-type>`, where `<prefix>` is by default `on`.
+     *
      * @param prefix the prefix used to discover the type of the message event from the method name
      */
     decorate(prefix = "on"): MethodDecorator {
         return (target: Object, methName: string | symbol, descriptor: PropertyDescriptor) => {
-            if (!this._eventType) {
-                this._eventType = toKebabCase(
-                    methName.toString().replace(prefix, '')
-                )
+            if (!this._EventType) {
+                this._EventType = methName.toString().replace(prefix, '')
             }
             const id = `bus-${this._busBuilder._propName}`
             const builder = ElementBuilder.getOrSet(target, this._busBuilder, id)
             if (builder !== this._busBuilder) {
                 builder.mergeBuilder(this._busBuilder, false)
             }
-            builder.subscribe(this._eventType, (el, event) => {
+            builder.subscribe(this._EventType, (el, event) => {
                 const fn = descriptor.value as Function
                 fn.call(el, event)
             }, this._options)
@@ -119,25 +124,26 @@ export abstract class AbstractBusBuilder<E extends HTMLElement> implements Build
 
     /**
      * @ignore
+     * @internal
      */
     public _propName: string = "bus";
 
     protected constructor(
         protected _busProvider: BusProvider,
         _propName: string = "bus",
-        protected _subscriptionsByType: Map<MessageType, Array<[ElementSubscriptionListener, SubscribeOptions | undefined]>> = new Map(),
+        protected _subscriptionsByType: Map<MessageType | MessageConstructor<Message>, Array<[ElementSubscriptionListener, SubscribeOptions | undefined]>> = new Map(),
     ) {
         this._propName = _propName;
     }
 
     /**
      * Subscribe to a Message Event.
-     * @param eventType the type of the event
+     * @param EventType the type of the event
      * @param listener the listener
      * @param options the options
      */
     subscribe<M extends MessageEvent>(
-        eventType: MessageType,
+        EventType: MessageType | MessageConstructor<M>,
         listener: ElementSubscriptionListener<E, M>,
         options ?: SubscribeOptions
     ): AbstractBusBuilder<E>
@@ -148,16 +154,16 @@ export abstract class AbstractBusBuilder<E extends HTMLElement> implements Build
     subscribe<M extends MessageEvent>(): BusSubscriptionBuilder<E, M>
 
     subscribe<M extends MessageEvent>(
-        eventType ?: MessageType,
+        EventType ?: MessageType | MessageConstructor<M>,
         listener ?: ElementSubscriptionListener<E, M>,
         options ?: SubscribeOptions
     ): AbstractBusBuilder<E> | BusSubscriptionBuilder<E, M> {
-        if (eventType && listener
+        if (EventType && listener
         ) {
-            if (!this._subscriptionsByType.has(eventType)) {
-                this._subscriptionsByType.set(eventType, [])
+            if (!this._subscriptionsByType.has(EventType)) {
+                this._subscriptionsByType.set(EventType, [])
             }
-            this._subscriptionsByType.get(eventType)?.push([
+            this._subscriptionsByType.get(EventType)?.push([
                 // @ts-ignore
                 listener,
                 options
