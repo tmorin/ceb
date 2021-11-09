@@ -20,4 +20,24 @@ describe("literal/complex", function () {
         template.render(el)
         expect(el.innerHTML).to.be.eq(`<ul><li>header</li><li>itemA</li><li>itemB</li><li>itemC</li><li>footer</li></ul>`)
     })
+    it.only("should handle a bulma card", function () {
+        let cardName = "The name of the card"
+        let cardDescription = "The description of the card."
+        const template = html`
+            <div class="card">
+                <div class="card-header">
+                    <p class="card-header-title">
+                        ${cardName}
+                    </p>
+                </div>
+                <div class="card-content">
+                    <div class="content">
+                        ${cardDescription}
+                    </div>
+                </div>
+            </div>
+        `
+        template.render(el)
+        //expect(el.innerHTML).to.be.eq(`<ul><li>header</li><li>itemA</li><li>itemB</li><li>itemC</li><li>footer</li></ul>`)
+    })
 })

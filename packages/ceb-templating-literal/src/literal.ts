@@ -133,6 +133,7 @@ export function html(strings: TemplateStringsArray, ...args: Array<any>): Templa
     const operations = new Operations()
     parse(template, {
         openTag(name: string, attrs: Array<Attribute>, selfClosing: boolean) {
+            console.log("openTag", name, attrs[0]?.value, selfClosing)
             const parameters = generateParameters(attrs, args)
             if (PROTECTED_TAGS.indexOf(name) > -1) {
                 Object.assign(parameters.options, {
@@ -144,10 +145,12 @@ export function html(strings: TemplateStringsArray, ...args: Array<any>): Templa
                 operations.push(engine => engine.closeElement())
             }
         },
-        closeTag() {
+        closeTag(name: string) {
+            console.log("closeTag")
             operations.push(engine => engine.closeElement())
         },
         text(data: string) {
+            console.log("text")
             const values = fromStringToValues(data, args)
             operations.push(fromValuesToOperations(
                 values,
@@ -155,6 +158,7 @@ export function html(strings: TemplateStringsArray, ...args: Array<any>): Templa
             ))
         },
         comment(data: string) {
+            console.log("comment")
             const values = fromStringToValues(data, args)
             operations.push(fromValuesToOperations(
                 values,

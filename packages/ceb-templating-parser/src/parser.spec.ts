@@ -129,6 +129,56 @@ describe("parser", function () {
         expect(parseResult[i].detail.tagName).eq("div")
         i++
     });
+    it("should parse bulma card", function () {
+        const parseResult = executeParse(`<div id="1"><div id="1.1"><div id="1.1.1">1.1.1</div></div><div id="1.2"><div id="1.2.1">1.2.1</div></div></div>`)
+        // div id="1"
+        expect(parseResult[i].name).eq("openTag")
+        expect(parseResult[i].detail.tagName).eq("div")
+        i++
+        // div id="1.1"
+        expect(parseResult[i].name).eq("openTag")
+        expect(parseResult[i].detail.tagName).eq("div")
+        i++
+        // div id="1.1.1"
+        expect(parseResult[i].name).eq("openTag")
+        expect(parseResult[i].detail.tagName).eq("div")
+        i++
+        // text 1.1.1
+        expect(parseResult[i].name).eq("text")
+        expect(parseResult[i].detail.data).eq("1.1.1")
+        i++
+        // div id="1.1.1"
+        expect(parseResult[i].name).eq("closeTag")
+        expect(parseResult[i].detail.tagName).eq("div")
+        i++
+        // div id="1.1"
+        expect(parseResult[i].name).eq("closeTag")
+        expect(parseResult[i].detail.tagName).eq("div")
+        i++
+        // div id="1.2"
+        expect(parseResult[i].name).eq("openTag")
+        expect(parseResult[i].detail.tagName).eq("div")
+        i++
+        // div id="1.2.1"
+        expect(parseResult[i].name).eq("openTag")
+        expect(parseResult[i].detail.tagName).eq("div")
+        i++
+        // text 1.2.1
+        expect(parseResult[i].name).eq("text")
+        expect(parseResult[i].detail.data).eq("1.2.1")
+        i++
+        // div id="1.2.1"
+        expect(parseResult[i].name).eq("closeTag")
+        expect(parseResult[i].detail.tagName).eq("div")
+        i++
+        // div id="1.2"
+        expect(parseResult[i].name).eq("closeTag")
+        expect(parseResult[i].detail.tagName).eq("div")
+        i++
+        // div id="1"
+        expect(parseResult[i].name).eq("closeTag")
+        expect(parseResult[i].detail.tagName).eq("div")
+    });
     it("should handle custom element", function () {
         const parseResult = executeParse(`<x-a>textA</x-a>`)
         // x-a
