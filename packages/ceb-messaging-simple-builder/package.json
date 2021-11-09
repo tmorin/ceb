@@ -53,7 +53,7 @@
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "dependencies": {
-    "@tmorin/ceb-messaging-core-builder": "^4.0.3-alpha.13",
+    "@tmorin/ceb-messaging-builder-core": "^4.0.3-alpha.13",
     "@tmorin/ceb-messaging-simple": "^4.0.3-alpha.13"
   },
   "devDependencies": {

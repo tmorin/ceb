@@ -54,8 +54,8 @@
   },
   "dependencies": {
     "@tmorin/ceb-inversion": "^4.0.3-alpha.13",
+    "@tmorin/ceb-messaging-builder-core": "^4.0.3-alpha.13",
     "@tmorin/ceb-messaging-core": "^4.0.3-alpha.13",
-    "@tmorin/ceb-messaging-core-builder": "^4.0.3-alpha.13",
     "@tmorin/ceb-utilities": "^4.0.0"
   },
   "devDependencies": {

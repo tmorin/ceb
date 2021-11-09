@@ -1,5 +1,5 @@
 {
-  "name": "@tmorin/ceb-messaging-core-builder",
+  "name": "@tmorin/ceb-messaging-builder-core",
   "version": "4.0.3-alpha.13",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides the base implementation of a builder which interacts with a Bus.",

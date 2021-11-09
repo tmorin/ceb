@@ -11,9 +11,9 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion-builder/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-adapter-electron/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-adapter-electron/src/__TEST/.generated" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-core/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-core-builder/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-builder-core/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-builder-inversion/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-core/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-dom/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-simple/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-simple-builder/dist" />

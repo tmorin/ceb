@@ -1,7 +1,6 @@
-import {CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-core";
 import {Container, RegistryKey} from "@tmorin/ceb-inversion";
 import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
-import {AbstractBusBuilder} from "@tmorin/ceb-messaging-core-builder";
+import {AbstractBusBuilder} from "@tmorin/ceb-messaging-builder-core";
 
 /**
  * Provider of the container.

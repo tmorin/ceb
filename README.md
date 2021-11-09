@@ -71,7 +71,7 @@ A built-in implementation of the Inversion of Control principle:
 A built-in implementation of the Event/Message architecture:
 
 - [ceb-messaging-core](./packages/ceb-messaging-core)
-- [ceb-messaging-core-builder](./packages/ceb-messaging-core-builder)
+- [ceb-messaging-builder-core](./packages/ceb-messaging-builder-core)
 - [ceb-messaging-builder-inversion](./packages/ceb-messaging-builder-inversion)
 - [ceb-messaging-simple](./packages/ceb-messaging-simple)
 - [ceb-messaging-simple-builder](./packages/ceb-messaging-simple-builder)
