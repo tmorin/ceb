@@ -247,7 +247,7 @@ describe("parser", function () {
         i++
     })
     it("should parse simple attributes", function () {
-        const html = `<div class="classA classB" id="idA" disabled="" required="required"></div>`
+        const html = `<div class="classA classB" id="idA" disabled="" required="required" name="name"></div>`
         const parseResult = executeParse(html)
         // div
         expect(parseResult[i].name).eq("openTag")
@@ -260,6 +260,8 @@ describe("parser", function () {
         expect(parseResult[i].detail.attributes[2].value).eq("")
         expect(parseResult[i].detail.attributes[3].name).eq("required")
         expect(parseResult[i].detail.attributes[3].value).eq("required")
+        expect(parseResult[i].detail.attributes[4].name).eq("name")
+        expect(parseResult[i].detail.attributes[4].value).eq("name")
         expect(parseResult[i].detail.selfClosing).eq(false)
     })
     it("should parse special attributes", function () {
