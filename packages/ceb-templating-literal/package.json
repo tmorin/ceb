@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-templating-literal",
-  "version": "4.0.3-alpha.14",
+  "version": "4.0.3-alpha.15",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides the implementation of a templating solution which leverages on the vanilla string literals.",
   "keywords": [
@@ -51,12 +51,12 @@
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "dependencies": {
-    "@tmorin/ceb-templating-builder": "^4.0.3-alpha.14",
+    "@tmorin/ceb-templating-builder": "^4.0.3-alpha.15",
     "@tmorin/ceb-templating-engine": "^4.0.0",
-    "@tmorin/ceb-templating-parser": "^4.0.0",
+    "@tmorin/ceb-templating-parser": "^4.0.3-alpha.15",
     "@tmorin/ceb-utilities": "^4.0.0"
   },
   "devDependencies": {
-    "@tmorin/ceb-core": "^4.0.3-alpha.14"
+    "@tmorin/ceb-core": "^4.0.3-alpha.15"
   }
 }
