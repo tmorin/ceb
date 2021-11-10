@@ -248,21 +248,27 @@ describe("parser", function () {
     })
     it("should parse simple attributes", function () {
         const html = `<div class="classA classB" id="idA" disabled="" required="required" name="name"></div>`
-        const parseResult = executeParse(html)
-        // div
-        expect(parseResult[i].name).eq("openTag")
-        expect(parseResult[i].detail.tagName).eq("div")
-        expect(parseResult[i].detail.attributes[0].name).eq("class")
-        expect(parseResult[i].detail.attributes[0].value).eq("classA classB")
-        expect(parseResult[i].detail.attributes[1].name).eq("id")
-        expect(parseResult[i].detail.attributes[1].value).eq("idA")
-        expect(parseResult[i].detail.attributes[2].name).eq("disabled")
-        expect(parseResult[i].detail.attributes[2].value).eq("")
-        expect(parseResult[i].detail.attributes[3].name).eq("required")
-        expect(parseResult[i].detail.attributes[3].value).eq("required")
-        expect(parseResult[i].detail.attributes[4].name).eq("name")
-        expect(parseResult[i].detail.attributes[4].value).eq("name")
-        expect(parseResult[i].detail.selfClosing).eq(false)
+        const attributes = executeParse(html)[0].detail.attributes
+        // class="classA classB"
+        expect(attributes[i].name).eq("class")
+        expect(attributes[i].value).eq("classA classB")
+        i++
+        // id="idA"
+        expect(attributes[i].name).eq("id")
+        expect(attributes[i].value).eq("idA")
+        i++
+        // disabled=""
+        expect(attributes[i].name).eq("disabled")
+        expect(attributes[i].value).eq("")
+        i++
+        // required="required"
+        expect(attributes[i].name).eq("required")
+        expect(attributes[i].value).eq("required")
+        i++
+        // name="name"
+        expect(attributes[i].name).eq("name")
+        expect(attributes[i].value).eq("name")
+        i++
     })
     it("should parse special attributes", function () {
         const html = `<div class="classA classB" id=idA o:key='keyA' required="" disabled="disabled" o:skip></div>`
