@@ -20,7 +20,7 @@ describe("literal/complex", function () {
         template.render(el)
         expect(el.innerHTML).to.be.eq(`<ul><li>header</li><li>itemA</li><li>itemB</li><li>itemC</li><li>footer</li></ul>`)
     })
-    it.only("should handle a bulma card", function () {
+    it("should handle a bulma card", function () {
         let cardName = "The name of the card"
         let cardDescription = "The description of the card."
         const template = html`

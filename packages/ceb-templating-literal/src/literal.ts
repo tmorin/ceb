@@ -80,8 +80,7 @@ function generateParameters(tagAttrs: Array<Attribute> = [], args: Array<any>): 
                 })
             }
         } else {
-            const sanitizedAttrValue = value === attrName ? "" : value
-            attributes.push([attrName, sanitizedAttrValue])
+            attributes.push([attrName, value])
         }
     })
     return {attributes, properties, options}
