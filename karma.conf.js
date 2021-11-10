@@ -19,12 +19,7 @@ module.exports = (config) => {
             '{examples,src,test}/**/*.spec.ts': ['webpack']
         },
 
-        webpack: {
-            module: webpackDev.module,
-            resolve: webpackDev.resolve,
-            mode: webpackDev.mode,
-            devtool: webpackDev.devtool
-        },
+        webpack: {...webpackDev},
 
         webpackMiddleware: {
             stats: 'errors-only'

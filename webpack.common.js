@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
     entry: path.join(process.cwd(), "src/index.ts"),
@@ -7,7 +7,7 @@ module.exports = {
             {
                 test: /\.(ts|js)$/,
                 exclude: /node_modules/,
-                loader: 'ts-loader',
+                loader: "ts-loader",
                 options: {
                     compilerOptions: {
                         allowJs: true
@@ -17,16 +17,12 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['.ts', '.js', '.json'],
-        fallback: {
-            util: false,
-            process: require.resolve('process'),
-        }
+        extensions: [".ts", ".js", ".json"]
     },
     output: {
         path: path.join(process.cwd(), "dist/umd"),
         library: path.basename(process.cwd()),
-        libraryTarget: 'umd2',
+        libraryTarget: "umd2",
     }
 };
 
