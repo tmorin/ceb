@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-templating-parser",
-  "version": "4.0.3-alpha.17",
+  "version": "4.0.3-alpha.18",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides the implementation of an HTML Sax like parser.",
   "keywords": [
