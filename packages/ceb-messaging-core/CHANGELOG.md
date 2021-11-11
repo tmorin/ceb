@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/tmorin/ceb/compare/v4.0.2...v5.0.0) (2021-11-11)
+
+
+### Features
+
+* **ceb-messaging-adapter-electron:** handle the `MESSAGE_TYPE` static field of `Message` ([0e64d24](https://github.com/tmorin/ceb/commit/0e64d2456e7d0b729643b419a29c49231a856e3c))
+* **ceb-messaging-core-builder:** extract the base Builder in a dedicated package ([0a137b6](https://github.com/tmorin/ceb/commit/0a137b67413f2735618e56de274f1641a3108d8d))
+* **ceb-messaging-core:** `Bus` can handles `MessageType` and `MessageConstructor` ([305ea02](https://github.com/tmorin/ceb/commit/305ea02ffb391852a5e3c7e0561831d904a7b11b))
+* **ceb-messaging-core:** add support for internal event like `error` or `dispose` ([d3ba020](https://github.com/tmorin/ceb/commit/d3ba020cddbad9d79f599f4103f511f68b497334))
+* **ceb-messaging-core:** refactor the interface `Bus` to embrace messaging guidelines ([fcbb68d](https://github.com/tmorin/ceb/commit/fcbb68d10d71db174129ebdec061cfe55145ba34))
+* **ceb-messaging-core:** refactor the interface `Message` to embrace messaging guidelines ([bf6cda3](https://github.com/tmorin/ceb/commit/bf6cda3c875d86c0c7871f040b681d0a719e271a))
+
+
+### BREAKING CHANGES
+
+* **ceb-messaging-core-builder:** the class `AbstractBusBuilder` is now located in the package `ceb-messaging-simple-builder-builder`
+* **ceb-messaging-core:** the following new methods must be implemented `Bus.emit`, `Bus.on`, `Bus.off`, `Bus.dispose`
+* **ceb-messaging-core:** the methods `Bus.handle` and `Bus.subscribe` accept only `MessageType` and no more a constructor
+* **ceb-messaging-core:** the field `Message.messageId` has been moved to `Message.headers.messageId`
+
+
+
+
+
 # [4.0.0](https://github.com/tmorin/ceb/compare/v3.5.0...v4.0.0) (2021-08-25)
 
 

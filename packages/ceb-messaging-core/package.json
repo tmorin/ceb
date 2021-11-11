@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-core",
-  "version": "4.0.3-alpha.18",
+  "version": "5.0.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an implementation of the main artifacts of an Event/Message architecture.",
   "keywords": [
@@ -51,6 +51,6 @@
     "build:module": "tsc -p tsconfig.build.json --module ESNext --outDir dist/mjs"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion": "^4.0.3-alpha.18"
+    "@tmorin/ceb-inversion": "^5.0.0"
   }
 }
