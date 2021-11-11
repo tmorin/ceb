@@ -527,10 +527,12 @@ The core is part of the <a href="https://www.npmjs.com/package/@tmorin/ceb-messa
 Its usage is cover by the reference documentation: <a href="messaging/../api/modules/_tmorin_ceb_messaging_core.html">@tmorin/ceb-messaging-core</a>.</p>
 <p>Moreover, the solution provides two implementations of the <em>model</em>.
 The first one is a DOM base implementation: <a href="https://www.npmjs.com/package/@tmorin/ceb-messaging-dom">@tmorin/ceb-messaging-dom</a>.
-Its usage is cover by the reference documentation: <a href="messaging/../api/modules/_tmorin_ceb_messaging_dom.html">@tmorin/ceb-messaging-dom</a>.</p>
-<p>It leverages on the native DOM Event System to handles the messages.
+Its usage is cover by the reference documentation: <a href="messaging/../api/modules/_tmorin_ceb_messaging_dom.html">@tmorin/ceb-messaging-dom</a>.
+It leverages on the native DOM Event System to handles the messages.
 The second one is a vanilla TypeScript/JavaScript implementation: <a href="https://www.npmjs.com/package/@tmorin/ceb-messaging-simple">@tmorin/ceb-messaging-simple</a>.
 Its usage is cover by the reference documentation: <a href="messaging/../api/modules/_tmorin_ceb_messaging_simple.html">@tmorin/ceb-messaging-simple</a>.</p>
+<p>Finally, the solution provides also a Bus adapter for the <a href="https://en.wikipedia.org/wiki/Inter-process_communication">Inter Process Communication</a> implementation of Electron: <a href="https://www.npmjs.com/package/@tmorin/ceb-messaging-adapter-electron">@tmorin/ceb-messaging-adapter-electron</a>.
+Its usage is cover by the reference documentation: <a href="messaging/../api/modules/_tmorin_ceb_messaging_bus_adapter_ipc.html">@tmorin/ceb-messaging-adapter-electron</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="inversion"><a class="header" href="#inversion">Inversion</a></h1>
 <p><code>&lt;ceb/&gt;</code> provides a built-in implementation of the <a href="https://en.wikipedia.org/wiki/Inversion_of_control">Inversion Of Control</a> principle.
 Its purpose is to help the implementation of the application logic.</p>
@@ -549,7 +551,7 @@ Its usage is cover by the reference documentation: <a href="inversion/../api/mod
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="todomvc"><a class="header" href="#todomvc">TodoMVC</a></h1>
 <p>This example is an implementation of the <a href="https://todomvc.com">TodoMVC</a> application with <code>&lt;ceb/&gt;</code>.</p>
-<iframe src="https://codesandbox.io/embed/ceb-example-todomvc-d4z9q?fontsize=14&hidenavigation=1&theme=light&view=preview"
+<iframe src="https://codesandbox.io/embed/ceb-example-todomvc-l66ys?fontsize=14&hidenavigation=1&theme=light&view=preview"
 style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
 title="&lt;ceb/&gt; ~ example - TodoMVC"
 allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
