@@ -94,7 +94,7 @@ export function parse(html: string, handler: SaxHandler) {
                 index = html.indexOf("<");
                 const text = index < 0 ? html : html.substring(0, index)
                 html = index < 0 ? "" : html.substring(index)
-                if (handler.text){
+                if (handler.text) {
                     handler.text(text)
                 }
             }
@@ -124,12 +124,11 @@ export function parse(html: string, handler: SaxHandler) {
     function parseStartTag(tag: string, tagName: string, rest: string, unary: any): string {
         tagName = tagName.toLowerCase();
 
-        //if (!block[tagName]) {
-        //if (!closeSelf[tagName]) {
+        if (!inline[tagName] && !closeSelf[tagName]) {
             while (stack.last() && inline[stack.last()]) {
                 parseEndTag("", stack.last());
             }
-        //}
+        }
 
         if (closeSelf[tagName] && stack.last() == tagName) {
             parseEndTag("", tagName);
@@ -167,21 +166,25 @@ export function parse(html: string, handler: SaxHandler) {
     }
 
     function parseEndTag(tag?: string, tagName?: any): string {
-        // If no tag name is provided, clean shop
+        let pos
         if (!tagName) {
-            var pos = 0;
-
-            // Find the closest opened tag of the same type
+            // If no tag name is provided, clean shop
+            pos = 0;
         } else {
-            for (var pos = stack.length - 1; pos >= 0; pos--)
-                if (stack[pos] == tagName)
+            // Find the closest opened tag of the same type
+            for (pos = stack.length - 1; pos >= 0; pos--) {
+                if (stack[pos] == tagName) {
                     break;
+                }
+            }
         }
         if (pos >= 0) {
             // Close all the open elements, up the stack
-            for (let i = stack.length - 1; i >= pos; i--)
-                if (handler.closeTag)
+            for (let i = stack.length - 1; i >= pos; i--) {
+                if (handler.closeTag) {
                     handler.closeTag(stack[i]);
+                }
+            }
 
             // Remove the open elements from the stack
             stack.length = pos;

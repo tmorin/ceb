@@ -129,6 +129,27 @@ describe("parser", function () {
         expect(parseResult[i].detail.tagName).eq("div")
         i++
     });
+    it("should handle a bulma panel block", function () {
+        const parseResult = executeParse(`<a><small></small></a>`)
+        // a
+        expect(parseResult[i].name).eq("openTag")
+        expect(parseResult[i].detail.tagName).eq("a")
+        expect(parseResult[i].detail.selfClosing).eq(false)
+        i++
+        // small
+        expect(parseResult[i].name).eq("openTag")
+        expect(parseResult[i].detail.tagName).eq("small")
+        expect(parseResult[i].detail.selfClosing).eq(false)
+        i++
+        // small
+        expect(parseResult[i].name).eq("closeTag")
+        expect(parseResult[i].detail.tagName).eq("small")
+        i++
+        // a
+        expect(parseResult[i].name).eq("closeTag")
+        expect(parseResult[i].detail.tagName).eq("a")
+        i++
+    })
     it("should parse bulma card", function () {
         const parseResult = executeParse(`<div id="1"><div id="1.1"><div id="1.1.1">1.1.1</div></div><div id="1.2"><div id="1.2.1">1.2.1</div></div></div>`)
         // div id="1"
