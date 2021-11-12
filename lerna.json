@@ -20,5 +20,5 @@
     "packages/ceb-templating-literal",
     "packages/ceb-example-greeting"
   ],
-  "version": "5.0.0"
+  "version": "5.0.1"
 }

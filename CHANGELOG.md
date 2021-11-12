@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://github.com/tmorin/ceb/compare/v5.0.0...v5.0.1) (2021-11-12)
+
+
+### Bug Fixes
+
+* **ceb-templating-parser:** inline elements are badly parsed when embedded in inline elements ([3956c1c](https://github.com/tmorin/ceb/commit/3956c1c47c099b9e892d1cad52bdec566ad10f94))
+
+
+
+
+
 # [5.0.0](https://github.com/tmorin/ceb/compare/v4.0.2...v5.0.0) (2021-11-11)
 
 
