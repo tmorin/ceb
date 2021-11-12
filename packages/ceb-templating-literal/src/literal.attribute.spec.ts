@@ -11,9 +11,9 @@ describe("literal/attribute", function () {
     })
     it("should parse attributes", function () {
         const value = 1
-        const template = html`<p><input name="name" required disabled="" type="number" value="${value}"></p>`
+        const template = html`<p><input name="name" required disabled="" type="number" data-name="a name" value="${value}"></p>`
         template.render(el)
-        expect(el.innerHTML).to.be.eq(`<p><input name="name" required="" disabled="" type="number" value="1"></p>`)
+        expect(el.innerHTML).to.be.eq(`<p><input name="name" required="" disabled="" type="number" data-name="a name" value="1"></p>`)
     })
     it("should parse complex attributes", function () {
         const foo = "foo"
