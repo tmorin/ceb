@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-templating-literal",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides the implementation of a templating solution which leverages on the vanilla string literals.",
   "keywords": [
@@ -53,7 +53,7 @@
   "dependencies": {
     "@tmorin/ceb-templating-builder": "^5.0.0",
     "@tmorin/ceb-templating-engine": "^4.0.0",
-    "@tmorin/ceb-templating-parser": "^5.0.1",
+    "@tmorin/ceb-templating-parser": "^5.0.2",
     "@tmorin/ceb-utilities": "^4.0.0"
   },
   "devDependencies": {
