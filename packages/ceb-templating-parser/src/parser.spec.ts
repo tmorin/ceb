@@ -333,4 +333,17 @@ describe("parser", function () {
         expect(parseResult[i].detail.attributes[2].value).eq("1")
         expect(parseResult[i].detail.selfClosing).eq(true)
     })
+    it("should parse data attributes", function () {
+        const html = `<a href="#" data-name="a name" data-keya-keyb="value bis">a link</a>`
+        const parseResult = executeParse(html)
+        // a
+        expect(parseResult[i].name).eq("openTag")
+        expect(parseResult[i].detail.tagName).eq("a")
+        expect(parseResult[i].detail.attributes[0].name).eq("href")
+        expect(parseResult[i].detail.attributes[0].value).eq("#")
+        expect(parseResult[i].detail.attributes[1].name).eq("data-name")
+        expect(parseResult[i].detail.attributes[1].value).eq("a name")
+        expect(parseResult[i].detail.attributes[2].name).eq("data-keya-keyb")
+        expect(parseResult[i].detail.attributes[2].value).eq("value bis")
+    })
 })
