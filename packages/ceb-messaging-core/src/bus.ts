@@ -66,8 +66,27 @@ export interface ExecutionHandler<M extends MessageAction, R extends MessageResu
 /**
  * Listener of Bus's events.
  */
-export interface BusEventListener {
+export interface InternalEventListener {
     (...args: any[]): void
+}
+
+/**
+ * The map of the internal events.
+ */
+export interface BusEventMap {
+    "action_handler_failed": {
+        bus: Bus,
+        action: MessageAction,
+        error: Error,
+    }
+    "event_listener_failed": {
+        bus: Bus,
+        event: MessageEvent,
+        error: Error,
+    }
+    "disposed": {
+        bus: Bus
+    }
 }
 
 /**
@@ -141,63 +160,30 @@ export interface Bus {
     ): Handler
 
     /**
-     * Listen to the `error` event.
-     * @param event the event name
-     * @param listener the listener with the `Error` as argument
-     */
-    on(event: "error", listener: (error: Error) => void): this
-
-    /**
-     * Listen to the `dispose` event.
-     * @param event the event name
+     * Add a listener to an internal event.
+     * @param type the type of the event
      * @param listener the listener
      */
-    on(event: "dispose", listener: () => void): this
+    on<K extends keyof BusEventMap>(type: K, listener: (event: BusEventMap[K]) => any): this
 
     /**
-     * Add a listener which listens to the `error` event.
-     * @param event the event name
+     * Emit an internal event.
+     * @param type the type of the event
+     * @param event the event
+     */
+    emit<K extends keyof BusEventMap>(type: K, event: BusEventMap[K]): void
+
+    /**
+     * Remove a listener to an internal event.
+     *
+     *  However:
+     * - When `type` and `listener` are undefined then all listeners are removed.
+     * - When `listener` is undefined then all listeners of the given `type` are removed.
+     *
+     * @param type the type of the event
      * @param listener the listener
      */
-    on(event: string | symbol, listener: BusEventListener): this
-
-    /**
-     * Remove all listeners.
-     */
-    off(): this
-
-    /**
-     * Remove all listeners matching a given event name.
-     * @param event the event name
-     */
-    off(event: string | symbol): this
-
-    /**
-     * Remove the matching event name and listener
-     * @param event the event name
-     * @param listener the listener
-     */
-    off(event: string | symbol, listener: BusEventListener): this
-
-    /**
-     * Emit the `error` event.
-     * @param event the event name
-     * @param err the `Error`
-     */
-    emit(event: "error", err: Error): void
-
-    /**
-     * Emit the `dispose` event.
-     * @param event the event name
-     */
-    emit(event: "dispose"): void
-
-    /**
-     * Emit an event.
-     * @param event the event name
-     * @param args the arguments
-     */
-    emit(event: string | symbol, ...args: any[]): void
+    off<K extends keyof BusEventMap>(type?: K, listener?: (event: BusEventMap[K]) => any): this
 
     /**
      * Release all stateful artifacts.
@@ -207,14 +193,14 @@ export interface Bus {
 }
 
 /**
- * An beginning of implementation of {@link Bus} handling the listeners of the internal bus events.
+ * An beginning of implementation of {@link Bus} handling the listeners of the internal  events.
  */
 export abstract class AbstractBus implements Bus {
     protected constructor(
         /**
-         * The listeners of the internal bus events.
+         * The listeners of the internal events.
          */
-        private readonly listeners: Map<string | symbol, Array<BusEventListener>> = new Map(),
+        private readonly listeners: Map<string | symbol, Array<InternalEventListener>> = new Map(),
     ) {
     }
 
@@ -229,36 +215,36 @@ export abstract class AbstractBus implements Bus {
     abstract subscribe<E extends MessageEvent>(eventType: MessageType, listener: SubscriptionListener<E>, options?: SubscribeOptions): Subscription
 
     async dispose() {
-        this.emit("dispose")
+        this.emit("disposed", {bus: this})
         this.off()
     }
 
-    emit(event: string | symbol, ...args: any[]): void {
-        this.listeners.get(event)?.forEach(listener => {
+     emit<K extends keyof BusEventMap>(type: K, event: BusEventMap[K]): void {
+        this.listeners.get(type)?.forEach(listener => {
             try {
-                listener.call(undefined, args)
+                listener.call(undefined, event)
             } catch (error) {
-                console.warn(`InMemorySimpleBus - listener for the bus event ${event.toString()} failed`, error)
+                console.warn(`InMemorySimpleBus - listener for the internal event ${type.toString()} failed`, error)
             }
         })
     }
 
-    on(event: string | symbol, listener: BusEventListener): this {
-        if (!this.listeners.has(event)) {
-            this.listeners.set(event, [])
+    on<K extends keyof BusEventMap>(type: K, listener: (event: BusEventMap[K]) => any): this {
+        if (!this.listeners.has(type)) {
+            this.listeners.set(type, [])
         }
-        this.listeners.get(event)?.push(listener)
+        this.listeners.get(type)?.push(listener)
         return this
     }
 
-    off(event?: string | symbol, listener?: BusEventListener): this {
-        if (event && listener) {
-            const index = this.listeners.get(event)?.indexOf(listener)
+    off<K extends keyof BusEventMap>(type?: K, listener?: (event: BusEventMap[K]) => any): this {
+        if (type && listener) {
+            const index = this.listeners.get(type)?.indexOf(listener)
             if (typeof index === "number" && index > -1) {
-                this.listeners.get(event)?.splice(index, 1)
+                this.listeners.get(type)?.splice(index, 1)
             }
-        } else if (event) {
-            this.listeners.delete(event)
+        } else if (type) {
+            this.listeners.delete(type)
         } else {
             this.listeners.clear()
         }

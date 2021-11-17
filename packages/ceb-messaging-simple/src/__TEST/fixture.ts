@@ -1,5 +1,5 @@
+import {MessageCommandHandler, MessageEventListener} from "@tmorin/ceb-messaging-core";
 import {AbstractSimpleCommand, AbstractSimpleEvent, AbstractSimpleQuery, AbstractSimpleResult} from "../message";
-import {MessageCommandHandler, MessageEventListener} from "@tmorin/ceb-messaging-core/src";
 
 export class CommandA extends AbstractSimpleCommand<string> {
     constructor(body: string) {

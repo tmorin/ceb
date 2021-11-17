@@ -30,7 +30,7 @@ export const ContainerSymbol = Symbol.for("ceb/inversion/Container")
  *
  * Containers are exclusively created with {@link ContainerBuilder}.
  *
- * By default, the container it-self is available from the registry with the key ${@link ContainerSymbol}.
+ * By default, the container it-self is available from the registry with the key {@link ContainerSymbol}.
  *
  * @example Create and initialize a container
  * ```typescript

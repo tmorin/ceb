@@ -81,7 +81,7 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
     /**
      * Forces the rendering into the Shadow DOM.
      *
-     * ${@link TemplateBuilder.shadow} and ${@link TemplateBuilder.grey} are exclusives.
+     * {@link TemplateBuilder.shadow} and {@link TemplateBuilder.grey} are exclusives.
      *
      * @example
      * ```typescript
@@ -109,8 +109,8 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
     /**
      * Forces the rendering into the Grey DOM.
      *
-     * ${@link TemplateBuilder.shadow} and ${@link TemplateBuilder.grey} are exclusives.
-     * ${@link TemplateBuilder.preserveContent} and ${@link TemplateBuilder.grey} are exclusives.
+     * {@link TemplateBuilder.shadow} and {@link TemplateBuilder.grey} are exclusives.
+     * {@link TemplateBuilder.preserveContent} and {@link TemplateBuilder.grey} are exclusives.
      *
      * @example
      * ```typescript
@@ -136,7 +136,7 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
     /**
      * Prevent mutations on the Custom Element content from rendering processes coming from ancestors.
      *
-     * ${@link TemplateBuilder.preserveContent} and ${@link TemplateBuilder.grey} are exclusives.
+     * {@link TemplateBuilder.preserveContent} and {@link TemplateBuilder.grey} are exclusives.
      *
      * @example
      * ```typescript

@@ -2,7 +2,7 @@ import any from "promise.any";
 import {IpcMain, IpcMainEvent, webContents} from "electron";
 import {
     Bus,
-    BusEventListener,
+    BusEventMap,
     ExecuteOptions,
     ExecutionHandler,
     Handler,
@@ -35,18 +35,18 @@ export class IpcMainBus implements Bus {
     ) {
     }
 
-    emit(event: string | symbol, ...args: any[]): void {
+    emit<K extends keyof BusEventMap>(type: K, event: BusEventMap[K]): void {
         // @ts-ignore
         this.parentBus.emit.apply(this.parentBus, Array.from(arguments))
     }
 
-    on(event: string | symbol, listener: BusEventListener): this {
+    on<K extends keyof BusEventMap>(type: K, listener: (event: BusEventMap[K]) => any): this {
         // @ts-ignore
         this.parentBus.on.apply(this.parentBus, Array.from(arguments))
         return this
     }
 
-    off(event?: string | symbol, listener?: BusEventListener): this {
+    off<K extends keyof BusEventMap>(type?: K, listener?: (event: BusEventMap[K]) => any): this {
         // @ts-ignore
         this.parentBus.off.apply(this.parentBus, Array.from(arguments))
         return this
@@ -94,8 +94,10 @@ export class IpcMainBus implements Bus {
                     })
                 }
             } else {
-                this.parentBus.execute(message)
-                    .catch(error => this.emit("error", error))
+                this.parentBus.execute(message).catch(error => this.emit(
+                    "action_handler_failed",
+                    {error, action: message, bus: this}
+                ))
             }
         }
         this.ipcMain.on(channel, ipcListener)
@@ -189,8 +191,10 @@ export class IpcMainBus implements Bus {
             waitForResult: false
         }))
         // forward to parent
-        return this.parentBus.execute(action)
-            .catch(error => this.emit("error", error))
+        return this.parentBus.execute(action).catch(error => this.emit(
+            "action_handler_failed",
+            {error, action, bus: this}
+        ))
     }
 
 }

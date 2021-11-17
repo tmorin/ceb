@@ -64,7 +64,16 @@ export class DomModule extends AbstractModule {
             configure: async () => {
                 if (this.options.errorToConsole) {
                     const bus = registry.resolve<Bus>(this.options.registryKey)
-                    bus.on("error", error => console.error("DomBus throws an error", error))
+                    bus.on("action_handler_failed", ({action, error}) => {
+                        const identifier = `${action.headers.messageType}/${action.headers.messageId}`
+                        const message = `DomBus - an action handler of ${identifier} throws an error`
+                        console.error(message, error);
+                    })
+                    bus.on("event_listener_failed", ({event, error}) => {
+                        const identifier = `${event.headers.messageType}/${event.headers.messageId}`
+                        const message = `DomBus - an event listener of ${identifier} throws an error`
+                        console.error(message, error);
+                    })
                 }
             },
             dispose: async () => {

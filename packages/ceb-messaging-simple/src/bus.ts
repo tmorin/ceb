@@ -150,7 +150,7 @@ export class InMemorySimpleBus extends AbstractBus implements Bus {
             try {
                 value.handle(event)
             } catch (error: any) {
-                this.emit("error", error)
+                this.emit("event_listener_failed", {bus: this, event, error,})
             }
         })
     }
@@ -195,7 +195,7 @@ export class InMemorySimpleBus extends AbstractBus implements Bus {
         entry: HandlerEntry<A>,
         action: A
     ): Promise<void> {
-        entry.handle(action).catch(error => this.emit("error", error))
+        entry.handle(action).catch(error => this.emit("action_handler_failed", {bus: this, action, error,}))
     }
 
 }
