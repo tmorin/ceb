@@ -25,6 +25,8 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-utilities/dist" />
       <excludeFolder url="file://$MODULE_DIR$/public" />
       <excludeFolder url="file://$MODULE_DIR$/.gdiag" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion-testing-core/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion-testing-mocha/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -26,6 +26,8 @@ A built-in implementation of the Inversion of Control principle:
 
 - [ceb-inversion](modules/_tmorin_ceb_inversion.html)
 - [ceb-inversion-builder](modules/_tmorin_ceb_inversion_builder.html)
+- [ceb-inversion-testing-core](modules/_tmorin_ceb_inversion_testing_core.html)
+- [ceb-inversion-testing-mocha](modules/_tmorin_ceb_inversion_testing_mocha.html)
 
 A built-in implementation of the Event/Message architecture:
 
@@ -39,6 +41,7 @@ A built-in implementation of the Event/Message architecture:
 The helper packages:
 
 - [ceb-utilities](modules/_tmorin_ceb_utilities.html)
+- [ceb-testing](modules/_tmorin_ceb_testing.html)
 - [ceb-testing](modules/_tmorin_ceb_testing.html)
 - [ceb](modules/_tmorin_ceb.html) : a bundle of `ceb-core`, `ceb-builders`, `ceb-templating-builder` and `ceb-templating-literal`
 
