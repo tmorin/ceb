@@ -1,0 +1,57 @@
+{
+  "name": "@tmorin/ceb-inversion-testing-core",
+  "version": "5.0.0",
+  "license": "MIT",
+  "description": "The package is part of the `<ceb/>` library. It provides a model to test IOC containers.",
+  "keywords": [
+    "custom-element-builder",
+    "custom-elements-v1",
+    "custom-elements",
+    "custom-element",
+    "typescript",
+    "typescript-library",
+    "javascript-library",
+    "inversion-of-control",
+    "ioc",
+    "injection",
+    "testing"
+  ],
+  "homepage": "https://tmorin.github.io/ceb",
+  "bugs": {
+    "url": "https://github.com/tmorin/ceb/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:tmorin/ceb.git"
+  },
+  "author": {
+    "name": "Thibault Morin",
+    "url": "https://tmorin.github.io"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "types": "dist/types/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "npm run build:lib && npm run build:module && npm run build:fix",
+    "build:fix": "../../scripts/fix-dist.js",
+    "build:lib": "tsc -p tsconfig.build.json --module CommonJS --outDir dist/cjs --declaration --declarationDir dist/types",
+    "build:module": "tsc -p tsconfig.build.json --module ESNext --outDir dist/mjs",
+    "test": "mocha --require ts-node/register src/**/*.spec.ts",
+    "test:watch": "npm test -- --watch --watch-files '**/*.ts'"
+  },
+  "dependencies": {
+    "@tmorin/ceb-inversion": "^5.0.0"
+  }
+}
