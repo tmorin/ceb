@@ -1,42 +1,7 @@
 import {assert} from 'chai'
-import {
-    AbstractSimpleCommand,
-    AbstractSimpleEvent,
-    AbstractSimpleQuery,
-    AbstractSimpleResult,
-    SimpleVoidResult
-} from "./message";
+import {SimpleVoidResult} from "./message";
 import {InMemorySimpleBus} from "./bus";
-
-class CommandA extends AbstractSimpleCommand<string> {
-    constructor(body: string) {
-        super(body);
-    }
-}
-
-class QueryA extends AbstractSimpleQuery<string> {
-    constructor(body: string) {
-        super(body);
-    }
-}
-
-class ResultA extends AbstractSimpleResult<string> {
-    constructor(body: string) {
-        super(body);
-    }
-}
-
-class ResultB extends AbstractSimpleResult<string> {
-    constructor(body: string) {
-        super(body);
-    }
-}
-
-class EventA extends AbstractSimpleEvent<string> {
-    constructor(body: string) {
-        super(body);
-    }
-}
+import {CommandA, EventA, QueryA, ResultA, ResultB} from "./__TEST/fixture";
 
 describe("messaging/simple/bus", function () {
     let bus: InMemorySimpleBus;
