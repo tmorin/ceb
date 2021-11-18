@@ -52,6 +52,6 @@
     "test:watch": "npm test -- --watch --watch-files '**/*.ts'"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion": "^5.0.0"
+    "@tmorin/ceb-inversion-core": "^5.0.0"
   }
 }

@@ -1,4 +1,4 @@
-import {Container, ContainerBuilder} from "@tmorin/ceb-inversion";
+import {Container, ContainerBuilder} from "@tmorin/ceb-inversion-core";
 import {CallbackWithContainer, CallbackWithContainerBuilder} from "./common";
 
 /**

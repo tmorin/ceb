@@ -1,6 +1,6 @@
 import {assert} from "chai";
 import sinon, {SinonSpy} from "sinon";
-import {Container, ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion";
+import {Container, ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion-core";
 import {listen} from "@tmorin/ceb-elements-testing";
 import {
     Bus,

@@ -1,4 +1,4 @@
-import {AbstractModule, Component, ComponentSymbol, RegistryKey} from "@tmorin/ceb-inversion";
+import {AbstractModule, Component, ComponentSymbol, RegistryKey} from "@tmorin/ceb-inversion-core";
 import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
 import {ipcMain, ipcRenderer} from "electron";
 import {IpcMessageConverter, IpcMessageConverterSymbol, SimpleIpcMessageConverter} from "./converter";
@@ -26,7 +26,7 @@ export interface ElectronModuleOptions {
  *
  * @example Register the ElectronModule
  * ```typescript
- * import {ContainerBuilder} from "@tmorin/ceb-inversion"
+ * import {ContainerBuilder} from "@tmorin/ceb-inversion-core"
  * import {InMemorySimpleBusSymbol, SimpleModule} from "@tmorin/ceb-messaging-simple";
  * import {ElectronModule} from "@tmorin/ceb-messaging-adapter-electron"
  * const container = ContainerBuilder.get()

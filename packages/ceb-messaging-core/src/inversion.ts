@@ -1,4 +1,4 @@
-import {AbstractModule, Component, ComponentSymbol, Container, ContainerSymbol} from "@tmorin/ceb-inversion";
+import {AbstractModule, Component, ComponentSymbol, Container, ContainerSymbol} from "@tmorin/ceb-inversion-core";
 import {MessageCommand, MessageConstructor, MessageEvent, MessageQuery, MessageResult, MessageType} from "./message";
 import {Bus, BusSymbol, Handler, Subscription} from "./bus";
 

@@ -52,6 +52,6 @@
   },
   "dependencies": {
     "@tmorin/ceb-elements-core": "^5.0.0",
-    "@tmorin/ceb-inversion": "^5.0.0"
+    "@tmorin/ceb-inversion-core": "^5.0.0"
   }
 }

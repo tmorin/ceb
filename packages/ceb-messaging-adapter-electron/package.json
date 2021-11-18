@@ -55,7 +55,7 @@
     "test:watch": "karma start --no-single-run --auto-watch"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion": "^5.0.0",
+    "@tmorin/ceb-inversion-core": "^5.0.0",
     "@tmorin/ceb-messaging-core": "^5.0.0",
     "@tmorin/ceb-utilities": "^4.0.0",
     "promise.any": "^2.0.2"

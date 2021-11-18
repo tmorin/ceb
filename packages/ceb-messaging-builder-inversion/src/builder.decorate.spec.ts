@@ -1,7 +1,7 @@
 import {assert} from "chai";
 import {ElementBuilder} from "@tmorin/ceb-elements-core";
 import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
-import {Container, ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion";
+import {Container, ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion-core";
 import {BusInversionBuilder} from "./builder";
 import {BusInversionBuilderModule} from "./module";
 import {EventA, NotImplementedBus} from "./__TEST/fixtures";

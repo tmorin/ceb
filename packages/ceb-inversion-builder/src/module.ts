@@ -1,4 +1,4 @@
-import {Container, ContainerSymbol, Module, ModuleConfiguration} from "@tmorin/ceb-inversion";
+import {Container, ContainerSymbol, Module, ModuleConfiguration} from "@tmorin/ceb-inversion-core";
 import {InversionBuilder} from "./builder";
 
 /**
@@ -16,7 +16,7 @@ export interface InversionBuilderModuleOptions {
  *
  * @example Register the InversionBuilderModule
  * ```typescript
- * import {ContainerBuilder} from "@tmorin/ceb-inversion"
+ * import {ContainerBuilder} from "@tmorin/ceb-inversion-core"
  * import {InversionBuilderModule} from "@tmorin/ceb-inversion-builder"
  * const container = ContainerBuilder.get()
  *   .module(new InversionBuilderModule())

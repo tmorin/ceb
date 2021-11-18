@@ -25,19 +25,20 @@ A built-in implementation of a templating system:
 
 A built-in implementation of the Inversion of Control principle:
 
-- [ceb-inversion](modules/_tmorin_ceb_inversion.html)
+- [ceb-inversion-core](modules/_tmorin_ceb_inversion_core.html)
 - [ceb-inversion-builder](modules/_tmorin_ceb_inversion_builder.html)
 - [ceb-inversion-testing-core](modules/_tmorin_ceb_inversion_testing_core.html)
 - [ceb-inversion-testing-mocha](modules/_tmorin_ceb_inversion_testing_mocha.html)
 
 A built-in implementation of the Event/Message architecture:
 
-- [ceb-messaging-core](modules/_tmorin_ceb_messaging_core.html)
-- [ceb-messaging-builder-core](modules/_tmorin_ceb_messaging_builder_core.html)
-- [ceb-messaging-builder-inversion](modules/_tmorin_ceb_messaging_builder_inversion.html)
-- [ceb-messaging-simple](modules/_tmorin_ceb_messaging_simple.html)
-- [ceb-messaging-dom](modules/_tmorin_ceb_messaging_dom.html)
-- [ceb-messaging-adapter-electron](modules/_tmorin_ceb_messaging_bus_adapter_ipc.html)
+- [ceb-messaging-core](modules/_tmorin_ceb_messaging_core)
+- [ceb-messaging-simple](modules/_tmorin_ceb_messaging_simple)
+- [ceb-messaging-simple-builder](modules/_tmorin_ceb_messaging_simple_builder)
+- [ceb-messaging-dom](modules/_tmorin_ceb_messaging_dom)
+- [ceb-messaging-builder-core](modules/_tmorin_ceb_messaging_builder_core)
+- [ceb-messaging-builder-inversion](modules/_tmorin_ceb_messaging_builder_inversion)
+- [ceb-messaging-adapter-electron](modules/_tmorin_ceb_messaging_adapter_electron)
 
 The helper packages:
 

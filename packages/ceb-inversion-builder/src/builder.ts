@@ -1,5 +1,5 @@
 import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-elements-core";
-import {Container, RegistryKey} from "@tmorin/ceb-inversion";
+import {Container, RegistryKey} from "@tmorin/ceb-inversion-core";
 
 /**
  * Factory of a container.

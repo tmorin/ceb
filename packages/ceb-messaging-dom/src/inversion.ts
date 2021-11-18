@@ -1,4 +1,4 @@
-import {AbstractModule, ComponentSymbol, RegistryKey} from "@tmorin/ceb-inversion";
+import {AbstractModule, ComponentSymbol, RegistryKey} from "@tmorin/ceb-inversion-core";
 import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
 import {DomBus} from "./bus";
 

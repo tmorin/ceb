@@ -1,7 +1,7 @@
 # @tmorin/ceb-inversion
 
-[![npm version](https://badge.fury.io/js/%40tmorin%2Fceb-inversion.svg)](https://badge.fury.io/js/%40tmorin%2Fceb-inversion)
-[![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_inversion.html)
+[![npm version](https://badge.fury.io/js/%40tmorin%2Fceb-inversion-core.svg)](https://badge.fury.io/js/%40tmorin%2Fceb-inversion)
+[![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_inversion_core.html)
 
 > The package is part of the `<ceb/>` library.
 > It provides an implementation of the principle: Inversion Of Control.

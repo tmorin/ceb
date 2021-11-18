@@ -55,6 +55,7 @@ The packages related to the definition of [Custom Elements (v1)]:
 
 - [ceb-elements-core](./packages/ceb-elements-core)
 - [ceb-elements-builders](./packages/ceb-elements-builders)
+- [ceb-elements-testing](./packages/ceb-elements-testing)
 
 A built-in implementation of a templating system:
 
@@ -65,23 +66,24 @@ A built-in implementation of a templating system:
 
 A built-in implementation of the Inversion of Control principle:
 
-- [ceb-inversion](./packages/ceb-inversion)
+- [ceb-inversion-core](./packages/ceb-inversion-core)
 - [ceb-inversion-builder](./packages/ceb-inversion-builder)
+- [ceb-inversion-testing-core](./packages/ceb-inversion-testing-core)
+- [ceb-inversion-testing-mocha](./packages/ceb-inversion-testing-mocha)
 
 A built-in implementation of the Event/Message architecture:
 
 - [ceb-messaging-core](./packages/ceb-messaging-core)
-- [ceb-messaging-builder-core](./packages/ceb-messaging-builder-core)
-- [ceb-messaging-builder-inversion](./packages/ceb-messaging-builder-inversion)
 - [ceb-messaging-simple](./packages/ceb-messaging-simple)
 - [ceb-messaging-simple-builder](./packages/ceb-messaging-simple-builder)
 - [ceb-messaging-dom](./packages/ceb-messaging-dom)
+- [ceb-messaging-builder-core](./packages/ceb-messaging-builder-core)
+- [ceb-messaging-builder-inversion](./packages/ceb-messaging-builder-inversion)
 - [ceb-messaging-adapter-electron](./packages/ceb-messaging-adapter-electron)
 
 The helper packages:
 
 - [ceb-utilities](./packages/ceb-elements-testing)
-- [ceb-elements-testing](./packages/ceb-elements-testing)
 - [ceb](./packages/ceb) : a bundle of `ceb-elements-core`, `ceb-elements-builders`, `ceb-templating-builder` and `ceb-templating-literal`
 
 The examples:

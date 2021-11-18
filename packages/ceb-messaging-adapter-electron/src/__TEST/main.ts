@@ -3,7 +3,7 @@ import {assert} from "chai";
 import {InMemorySimpleBusSymbol, SimpleModule} from "@tmorin/ceb-messaging-simple";
 import {CommandA, CommandB, FromMainEvent, FromRendererEvent, ResultA, ResultB} from "./fixture";
 import {ElectronModule} from "../inversion";
-import {ContainerBuilder} from "@tmorin/ceb-inversion";
+import {ContainerBuilder} from "@tmorin/ceb-inversion-core";
 import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
 
 function log(text: string) {

@@ -1,4 +1,4 @@
-import {Container, RegistryKey} from "@tmorin/ceb-inversion";
+import {Container, RegistryKey} from "@tmorin/ceb-inversion-core";
 import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
 import {AbstractBusBuilder} from "@tmorin/ceb-messaging-builder-core";
 

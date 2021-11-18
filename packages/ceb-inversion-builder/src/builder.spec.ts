@@ -1,5 +1,5 @@
 import {assert} from "chai"
-import {Container, ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion";
+import {Container, ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion-core";
 import {ElementBuilder} from "@tmorin/ceb-elements-core";
 import {InversionBuilder} from "./builder";
 import {InversionBuilderModule} from "./module";

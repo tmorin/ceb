@@ -9,7 +9,7 @@ import {
     TestSuiteBuilder,
     TestSuiteExecutor
 } from "@tmorin/ceb-inversion-testing-core"
-import {Container, ContainerBuilder} from "@tmorin/ceb-inversion";
+import {Container, ContainerBuilder} from "@tmorin/ceb-inversion-core";
 
 /**
  * An implementation of {@link AbstractTestSuiteExecutor} dedicated for Mocha.

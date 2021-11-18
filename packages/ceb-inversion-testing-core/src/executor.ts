@@ -1,6 +1,6 @@
 import {Callback, CallbackWithContainerBuilder, ContainerBuilderProvider} from "./common";
 import {TestSuite} from "./suite";
-import {ContainerBuilder} from "@tmorin/ceb-inversion";
+import {ContainerBuilder} from "@tmorin/ceb-inversion-core";
 
 /**
  * An executor of test suite.

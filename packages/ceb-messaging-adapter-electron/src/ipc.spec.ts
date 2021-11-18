@@ -3,7 +3,7 @@ import {ipcRenderer} from 'electron'
 import {InMemorySimpleBusSymbol, SimpleModule} from "@tmorin/ceb-messaging-simple";
 import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
 import {CommandA, CommandB, FromMainEvent, FromRendererEvent, ResultA, ResultB} from "./__TEST/fixture";
-import {ContainerBuilder} from "@tmorin/ceb-inversion";
+import {ContainerBuilder} from "@tmorin/ceb-inversion-core";
 import {ElectronModule} from "./inversion";
 
 describe("IPC", function () {
