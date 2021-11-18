@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-dom",
-  "version": "5.0.3-alpha.0",
+  "version": "6.0.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides a specialization of the core artifacts which leverages on the DOM environment.",
   "keywords": [
@@ -53,13 +53,13 @@
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion-core": "^5.0.3-alpha.0",
-    "@tmorin/ceb-messaging-builder-core": "^5.0.3-alpha.0",
-    "@tmorin/ceb-messaging-core": "^5.0.3-alpha.0",
-    "@tmorin/ceb-utilities": "^5.0.3-alpha.0"
+    "@tmorin/ceb-inversion-core": "^6.0.0",
+    "@tmorin/ceb-messaging-builder-core": "^6.0.0",
+    "@tmorin/ceb-messaging-core": "^6.0.0",
+    "@tmorin/ceb-utilities": "^6.0.0"
   },
   "devDependencies": {
-    "@tmorin/ceb-elements-core": "^5.0.3-alpha.0",
-    "@tmorin/ceb-elements-testing": "^5.0.3-alpha.0"
+    "@tmorin/ceb-elements-core": "^6.0.0",
+    "@tmorin/ceb-elements-testing": "^6.0.0"
   }
 }

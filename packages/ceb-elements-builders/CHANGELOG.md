@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0](https://github.com/tmorin/ceb/compare/v5.0.2...v6.0.0) (2021-11-18)
+
+
+### Features
+
+* **ceb-elements-builders:** rename the package ([f406407](https://github.com/tmorin/ceb/commit/f4064077259a110edc137fb02e875b50428e7b34))
+* **ceb-elements-testing:** rename the package ([7918392](https://github.com/tmorin/ceb/commit/79183922d5e9e58fe92924f07db35ae3fa4629a7))
+
+
+### BREAKING CHANGES
+
+* **ceb-elements-testing:** the package `ceb-testing` has been renamed to `ceb-elements-testing`
+* **ceb-elements-builders:** the package `ceb-builders` has been renamed to `ceb-elements-builders`
+
+
+
+
+
 # [5.0.0](https://github.com/tmorin/ceb/compare/v4.0.2...v5.0.0) (2021-11-11)
 
 

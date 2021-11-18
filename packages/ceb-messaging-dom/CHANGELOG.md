@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [6.0.0](https://github.com/tmorin/ceb/compare/v5.0.2...v6.0.0) (2021-11-18)
+
+
+### Features
+
+* **ceb-bundle-web:** rename the package ([39b8234](https://github.com/tmorin/ceb/commit/39b82341e4af1e3f68ad21785ea3c23b1fef5eb2))
+* **ceb-elements-core:** rename the package ([bed57e2](https://github.com/tmorin/ceb/commit/bed57e26a2d9904ba98d9d45cfc5bbcef4262eb1))
+* **ceb-elements-testing:** rename the package ([7918392](https://github.com/tmorin/ceb/commit/79183922d5e9e58fe92924f07db35ae3fa4629a7))
+* **ceb-inversion-core:** rename the package ([0d81ed2](https://github.com/tmorin/ceb/commit/0d81ed27d528890a5fc58e5410122a9480622c1e))
+* **ceb-messaging-core:** improve the API with a map of internal events ([3f5d1b9](https://github.com/tmorin/ceb/commit/3f5d1b9fb14b2c50750703a334ee428b36f03f68))
+
+
+### BREAKING CHANGES
+
+* **ceb-bundle-web:** the package `ceb` has been renamed to `ceb-bundle-web`
+* **ceb-inversion-core:** the package `ceb-inversion` has been renamed to `ceb-inversion-core`
+* **ceb-elements-testing:** the package `ceb-testing` has been renamed to `ceb-elements-testing`
+* **ceb-elements-core:** the package `ceb-core` has been renamed to `ceb-elements-core`
+
+
+
+
+
 # [5.0.0](https://github.com/tmorin/ceb/compare/v4.0.2...v5.0.0) (2021-11-11)
 
 

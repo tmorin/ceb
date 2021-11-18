@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-builder-core",
-  "version": "5.0.3-alpha.0",
+  "version": "6.0.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides the base implementation of a builder which interacts with a Bus.",
   "keywords": [
@@ -51,8 +51,8 @@
     "build:module": "tsc -p tsconfig.build.json --module ESNext --outDir dist/mjs"
   },
   "dependencies": {
-    "@tmorin/ceb-elements-core": "^5.0.3-alpha.0",
-    "@tmorin/ceb-messaging-core": "^5.0.3-alpha.0",
-    "@tmorin/ceb-utilities": "^5.0.3-alpha.0"
+    "@tmorin/ceb-elements-core": "^6.0.0",
+    "@tmorin/ceb-messaging-core": "^6.0.0",
+    "@tmorin/ceb-utilities": "^6.0.0"
   }
 }
