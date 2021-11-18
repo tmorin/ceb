@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="book/elements/index.html"><strong aria-hidden="true">3.</strong> Elements</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="book/elements/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="book/elements/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="book/elements/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="book/elements/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="book/elements/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="book/elements/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="book/elements/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="book/elements/AttributePropagationBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributePropagationBuilder</a></li><li class="chapter-item expanded "><a href="book/elements/PropertyDelegationBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegationBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="templating/index.html"><strong aria-hidden="true">4.</strong> Templating</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="templating/grey_dom.html"><strong aria-hidden="true">4.1.</strong> The Grey DOM</a></li><li class="chapter-item expanded "><a href="templating/template_literal.html"><strong aria-hidden="true">4.2.</strong> Template literal</a></li></ol></li><li class="chapter-item expanded "><a href="messaging/index.html"><strong aria-hidden="true">5.</strong> Messaging</a></li><li class="chapter-item expanded "><a href="inversion/index.html"><strong aria-hidden="true">6.</strong> Inversion</a></li><li class="chapter-item expanded "><a href="examples/index.html"><strong aria-hidden="true">7.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/TodoMVC.html"><strong aria-hidden="true">7.1.</strong> TodoMVC</a></li><li class="chapter-item expanded "><a href="examples/ex-greeting.html"><strong aria-hidden="true">7.2.</strong> ex-greeting</a></li></ol></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="elements/index.html"><strong aria-hidden="true">3.</strong> Elements</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="elements/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="elements/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="elements/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="elements/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="elements/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="elements/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="elements/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="elements/AttributePropagationBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributePropagationBuilder</a></li><li class="chapter-item expanded "><a href="elements/PropertyDelegationBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegationBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="templating/index.html"><strong aria-hidden="true">4.</strong> Templating</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="templating/grey_dom.html"><strong aria-hidden="true">4.1.</strong> The Grey DOM</a></li><li class="chapter-item expanded "><a href="templating/template_literal.html"><strong aria-hidden="true">4.2.</strong> Template literal</a></li></ol></li><li class="chapter-item expanded "><a href="messaging/index.html"><strong aria-hidden="true">5.</strong> Messaging</a></li><li class="chapter-item expanded "><a href="inversion/index.html"><strong aria-hidden="true">6.</strong> Inversion</a></li><li class="chapter-item expanded "><a href="examples/index.html"><strong aria-hidden="true">7.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/TodoMVC.html"><strong aria-hidden="true">7.1.</strong> TodoMVC</a></li><li class="chapter-item expanded "><a href="examples/ex-greeting.html"><strong aria-hidden="true">7.2.</strong> ex-greeting</a></li></ol></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -203,15 +203,225 @@ All packages are compliant <a href="https://flaviocopes.com/commonjs">CommonJs</
 &lt;script src=&quot;https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb-bundle-web.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="elements"><a class="header" href="#elements">Elements</a></h1>
+<p><code>&lt;ceb/&gt;</code> relies on the <a href="https://en.wikipedia.org/wiki/Builder_pattern">Builder Pattern</a> and also <a href="https://www.typescriptlang.org/docs/handbook/decorators.html">Decorators</a> to define, enhance and finally register Custom Elements.</p>
+<p>The main builder <a href="elements/ElementBuilder.html">ElementBuilder</a> handles the definition and registration of Custom Elements.</p>
+<p>Then, other builders can be used to enhance it:</p>
+<ul>
+<li><a href="elements/AttributeBuilder.html">AttributeBuilder</a>: to define attributes and react on changes</li>
+<li><a href="elements/FieldBuilder.html">FieldBuilder</a>: to define fields (property/attribute) and react on changes</li>
+<li><a href="elements/OnBuilder.html">OnBuilder</a>: to listen to DOM events</li>
+<li><a href="elements/book/elements/ContentBuilder.html">ContentBuilder</a>: to initialize the light or shadow DOM</li>
+<li><a href="elements/book/elements/TemplateBuilder.html">TemplateBuilder</a>: to path the DOM of the custom element</li>
+<li><a href="elements/ReferenceBuilder.html">ReferenceBuilder</a>: to get reference of children nodes</li>
+<li><a href="elements/AttributePropagationBuilder.html">AttributePropagationBuilder</a>: to delegate attribute mutations to child nodes</li>
+<li><a href="elements/book/elements/PropertyDelegationBuilder.html">PropertyDelegationBuilder</a>: to delegate the property accesses to a single child node</li>
+</ul>
+<p>For convenience, the package <a href="https://www.npmjs.com/package/@tmorin/ceb-bundle-web">@tmorin/ceb-bundle-web</a> provides all built-in artifacts for the Custom Elements authoring.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="elementbuilder"><a class="header" href="#elementbuilder">ElementBuilder</a></h1>
+<p>The class <code>ElementBuilder</code> provides services to define and register a Custom Element.</p>
+<p>Its usage is cover by the reference documentation: <a href="elements/../api/classes/_tmorin_ceb_elements_core.ElementBuilder.html">ElementBuilder</a>.
+It's part of the <a href="https://www.npmjs.com/package/@tmorin/ceb-elements-core">@tmorin/ceb-elements-core</a> package.</p>
+<h2 id="challenge-yourself"><a class="header" href="#challenge-yourself">Challenge yourself</a></h2>
+<p>Will you be able to ...</p>
+<ol>
+<li>change the tag name to <code>&lt;my-greeting&gt;&lt;/my-greeting&gt;</code> without changing the class name?</li>
+<li>transform <code>SimpleGreeting</code> as an extension of <code>h1</code>, so that can be created with <code>&lt;h1 is=&quot;my-greeting&quot;&gt;&lt;/h1&gt;</code>? <small>the class of <code>h1</code> is <code>HTMLHeadingElement</code></small></li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="ExmLwwd" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/ExmLwwd">
+  &lt;ceb/&gt; ~ challenge/ElementBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+<h2 id="define-a-regular-custom-element"><a class="header" href="#define-a-regular-custom-element">Define a regular Custom Element</a></h2>
+<pre><code class="language-typescript">import {ElementBuilder} from &quot;@tmorin/ceb-bundle-web&quot;
+// defines and register the custom element class
+@ElementBuilder.get().decorate()
+class SimpleGreeting extends HTMLElement {
+  constructor(public name = &quot;World&quot;) {
+    super();
+  }
+  connectedCallback() {
+    this.textContent = `Hello, ${this.name}!`
+  }
+}
+</code></pre>
+<p>Once registered, the Custom Element can be created with three different styles: markup, Object-Oriented and, hybrid.</p>
+<p>The first one relies on the tag name of the Custom Element within the markup of an HTML document.</p>
+<pre><code class="language-typescript">document.body.innerHTML = `&lt;simple-greeting&gt;&lt;/simple-greeting&gt;`
+</code></pre>
+<p>The second one relies on the Object-Oriented nature of the Custom Element.
+Basically, the class can be instantiated, and the created object can be then append to the DOM.</p>
+<pre><code class="language-typescript">const helloJohn: SimpleGreeting = new SimpleGreeting(&quot;John&quot;)
+document.body.appendChild(helloJohn)
+</code></pre>
+<p>The last one lies between the markup and OO style.</p>
+<pre><code class="language-typescript">const helloDoe: SimpleGreeting = document.createElement(&quot;simple-greeting&quot;)
+helloDoe.name = &quot;Doe&quot;
+document.body.appendChild(helloDoe)
+</code></pre>
+<h2 id="define-an-extension-of-a-native-element"><a class="header" href="#define-an-extension-of-a-native-element">Define an extension of a native Element</a></h2>
+<pre><code class="language-typescript">import {ElementBuilder} from &quot;@tmorin/ceb-bundle-web&quot;
+// defines and register the custom element class
+@ElementBuilder.get().extends(&quot;p&quot;).decorate()
+class SimpleGreetingParagraph extends HTMLParagraphElement {
+  constructor(public name = &quot;World&quot;) {
+    super();
+  }
+  connectedCallback() {
+    this.textContent = `Hello, ${this.name}!`
+  }
+}
+</code></pre>
+<p>Once registered, the Custom Element can be created like the regular one.
+However, because of the extension of a native Element, the creation expects additional information. </p>
+<p>The creation with the markup style:</p>
+<pre><code class="language-typescript">document.body.innerHTML = `&lt;p is=&quot;simple-greeting-paragraph&quot;&gt;&lt;/p&gt;`
+</code></pre>
+<p>The creation with the Object-Oriented style:</p>
+<pre><code class="language-typescript">const helloJohn: SimpleGreetingParagraph = new SimpleGreeting(&quot;John&quot;)
+document.body.appendChild(helloJohn)
+</code></pre>
+<p>The creation with the hybrid style:</p>
+<pre><code class="language-typescript">const helloDoe: SimpleGreetingParagraph = document.createElement(&quot;p&quot;, {
+    extends: &quot;is&quot;
+})
+helloDoe.name = &quot;Doe&quot;
+document.body.appendChild(helloDoe)
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="attributebuilder"><a class="header" href="#attributebuilder">AttributeBuilder</a></h1>
+<p>The builder handles the initialization of an attribute as well as the registration of its listeners.</p>
+<p>Its usage is cover by the reference documentation: <a href="elements/../api/classes/_tmorin_ceb_elements_builders.AttributeBuilder.html">AttributeBuilder</a>.
+It's part of the <a href="https://www.npmjs.com/package/@tmorin/ceb-elements-builders">@tmorin/ceb-elements-builders</a> package.</p>
+<h2 id="challenge-yourself-1"><a class="header" href="#challenge-yourself-1">Challenge yourself</a></h2>
+<p>Will you be able to ...</p>
+<ol>
+<li>display <code>Hello, John Doe!</code> just setting the attribute <code>name</code>?</li>
+<li>change the attribute name to <code>alt-name</code> without changing the method name?</li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="rNmvGqq" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/rNmvGqq">
+  &lt;ceb/&gt; ~ challenge/AttributeBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="fieldbuilder"><a class="header" href="#fieldbuilder">FieldBuilder</a></h1>
+<p>The builder binds a property to an attribute.
+So that, the value is available and mutable from both sides.</p>
+<p>Its usage is cover by the reference documentation: <a href="elements/../api/classes/_tmorin_ceb_elements_builders.FieldBuilder.html">FieldBuilder</a>.
+It's part of the <a href="https://www.npmjs.com/package/@tmorin/ceb-elements-builders">@tmorin/ceb-elements-builders</a> package.</p>
+<h2 id="challenge-yourself-2"><a class="header" href="#challenge-yourself-2">Challenge yourself</a></h2>
+<p>Will you be able to ...</p>
+<ol>
+<li>display <code>Hello, John Doe!</code> just setting the property <code>name</code>?</li>
+<li>change the attribute name to <code>alt-name</code> without changing the property name?</li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="mdmLqEW" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/mdmLqEW">
+  &lt;ceb/&gt; ~ challenge/FieldBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="onbuilder"><a class="header" href="#onbuilder">OnBuilder</a></h1>
+<p>The builder handles the addition and removal of DOM event listeners.</p>
+<p>Its usage is cover by the reference documentation: <a href="elements/../api/classes/_tmorin_ceb_elements_builders.OnBuilder.html">OnBuilder</a>.
+It's part of the <a href="https://www.npmjs.com/package/@tmorin/ceb-elements-builders">@tmorin/ceb-elements-builders</a> package.</p>
+<h2 id="challenge-yourself-3"><a class="header" href="#challenge-yourself-3">Challenge yourself</a></h2>
+<p>Will you be able to ...</p>
+<ol>
+<li>display <code>Hello, World!</code> only when the <code>click</code> event comes from a <code>button</code>? <small>c.f. Event Delegation ;)</small></li>
+<li>display <code>Hello, World!</code> only on double click? <small>there is a native event for that ;)</small></li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="KKmRyWG" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/KKmRyWG">
+  &lt;ceb/&gt; ~ challenge/OnBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="contentbuilder"><a class="header" href="#contentbuilder">ContentBuilder</a></h1>
+<p>The builder handles the initialization of the HTML content of the Custom Element.</p>
+<p>Its usage is cover by the reference documentation: <a href="elements/../api/classes/_tmorin_ceb_elements_builders.ContentBuilder.html">ContentBuilder</a>.
+It's part of the <a href="https://www.npmjs.com/package/@tmorin/ceb-elements-builders">@tmorin/ceb-elements-builders</a> package.</p>
+<h2 id="challenge-yourself-4"><a class="header" href="#challenge-yourself-4">Challenge yourself</a></h2>
+<p>Will you be able ...</p>
+<ol>
+<li>to display <code>Hello, John Doe!</code>?</li>
+<li>to render into a Shadow DOM?</li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="LYymeaB" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/LYymeaB">
+  &lt;ceb/&gt; ~ challenge/ContentBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="templatebuilder"><a class="header" href="#templatebuilder">TemplateBuilder</a></h1>
+<p>The builder handles the integration of a templating solution to update the content of the Custom Element.</p>
+<p>Its usage is cover by the reference documentation: <a href="elements/../api/classes/_tmorin_ceb_templating_builder.TemplateBuilder.html">TemplateBuilder</a>.
+It's part of the <a href="https://www.npmjs.com/package/@tmorin/ceb-templating-builder">@tmorin/ceb-templating-builder</a> package.</p>
+<p>The builder doesn't provide the templating solution out of the box.
+However, the library provides a built-in solution described later, c.f. <a href="elements/../templating/README.html">Templating</a> .</p>
+<h2 id="challenge-yourself-5"><a class="header" href="#challenge-yourself-5">Challenge yourself</a></h2>
+<p>Will you be able to ...</p>
+<ol>
+<li>display <code>Hello, John Doe!</code> calling the <code>render</code> method?</li>
+<li>render into a Shadow DOM?</li>
+<li>render into a Grey DOM?</li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="ExmLQYE" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/ExmLQYE">
+  &lt;ceb/&gt; ~ challenge/TemplateBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="referencebuilder"><a class="header" href="#referencebuilder">ReferenceBuilder</a></h1>
+<p>The builder enhances a readonly property to execute a CSS Selector once the property is get.
+So that, a property of the Custom Element can always be related to a child element or a set of child elements.</p>
+<p>Its usage is cover by the reference documentation: <a href="elements/../api/classes/_tmorin_ceb_elements_builders.ReferenceBuilder.html">ReferenceBuilder</a>.
+It's part of the <a href="https://www.npmjs.com/package/@tmorin/ceb-elements-builders">@tmorin/ceb-elements-builders</a> package.</p>
+<h2 id="challenge-yourself-6"><a class="header" href="#challenge-yourself-6">Challenge yourself</a></h2>
+<p>Will you be able to ...</p>
+<ol>
+<li>implement the method <code>sayHelloJohnDoe()</code> to display <code>Hello, John Doe!</code>?</li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="zYwjaMy" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/zYwjaMy">
+  &lt;ceb/&gt; ~ challenge/ReferenceBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="attributepropagationbuilder"><a class="header" href="#attributepropagationbuilder">AttributePropagationBuilder</a></h1>
+<p>The builder handles the propagation of an attribute's values to embedded elements.
+That means, each time the attribute is mutated, the mutation is propagated to selected child nodes.</p>
+<p>Its usage is cover by the reference documentation: <a href="elements/../api/classes/_tmorin_ceb_elements_builders.AttributePropagationBuilder.html">AttributePropagationBuilder</a>.
+It's part of the <a href="https://www.npmjs.com/package/@tmorin/ceb-elements-builders">@tmorin/ceb-elements-builders</a> package.</p>
+<h2 id="challenge-yourself-7"><a class="header" href="#challenge-yourself-7">Challenge yourself</a></h2>
+<p>Will you be able to ...</p>
+<ol>
+<li>propagate the value of the attribute <code>value</code> to the property <code>placeholder</code> of the <code>input</code>?</li>
+<li>propagate the value of the attribute <code>frozen</code> to the attribute <code>disabled</code> of the <code>input</code>?</li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="qBmYKwe" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/qBmYKwe">
+  &lt;ceb/&gt; ~ challenge/AttributePropagationBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="propertydelegationbuilder"><a class="header" href="#propertydelegationbuilder">PropertyDelegationBuilder</a></h1>
+<p>The builder delegates the accesses of a property to an embedded element.</p>
+<p>Its usage is cover by the reference documentation: <a href="elements/../api/classes/_tmorin_ceb_elements_builders.PropertyDelegationBuilder.html">PropertyDelegationBuilder</a>.
+It's part of the <a href="https://www.npmjs.com/package/@tmorin/ceb-elements-builders">@tmorin/ceb-elements-builders</a> package.</p>
+<h2 id="challenge-yourself-8"><a class="header" href="#challenge-yourself-8">Challenge yourself</a></h2>
+<p>Will you be able to ...</p>
+<ol>
+<li>delegate the property <code>value</code> to the attribute <code>placeholder</code> of the <code>input</code>?</li>
+<li>delegate the property <code>frozen</code> to the property <code>disabled</code> of the <code>input</code>?</li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="QWvrBNr" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/QWvrBNr">
+  &lt;ceb/&gt; ~ challenge/PropertyDelegationBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="templating"><a class="header" href="#templating">Templating</a></h1>
 <p><code>&lt;ceb/&gt;</code> provides a built-in solution for templating which relies on three main components.</p>
 <p>The first component is the template engine.
@@ -287,7 +497,7 @@ const template: Template = html`&lt;div&gt;&lt;ul&gt;${lis}&lt;/ul&gt;&lt;/div&g
 <h2 id="grey-dom"><a class="header" href="#grey-dom">Grey DOM</a></h2>
 <p>The special element <code>&lt;ceb-sot&gt;&lt;/ceb-slot&gt;</code> is the marker of the placeholder.</p>
 <p>Given the following Custom Element with template expressed using the literal approach:</p>
-<pre><code class="language-typescript">import {ElementBuilder, TemplateBuilder, html, Template} from &quot;ceb&quot;
+<pre><code class="language-typescript">import {ElementBuilder, TemplateBuilder, html, Template} from &quot;@tmorin/ceb-bundle-web&quot;
 class HelloWorld extends HTMLElement {
   render(): Template {
     return html`&lt;p&gt;Hello, &lt;ceb-slot&gt;&lt;/ceb-slot&gt;!&lt;/p&gt;`
@@ -394,7 +604,7 @@ of <code>&lt;ceb/&gt;</code> : <code>examples/ex-greeting</code>.</em></p>
 <p>To register <code>ex-greeting</code>, the decorator of <code>@ElementBuilder</code> is used:</p>
 <pre><code class="language-typescript">import {
   ElementBuilder
-} from &quot;ceb&quot;;
+} from &quot;@tmorin/ceb-bundle-web&quot;;
 
 @ElementBuilder.get().decorate()
 export class ExGreeting extends HTMLElement {
@@ -405,7 +615,7 @@ export class ExGreeting extends HTMLElement {
 <pre><code class="language-typescript">import {
   ElementBuilder,
   ContentBuilder
-} from &quot;ceb&quot;;
+} from &quot;@tmorin/ceb-bundle-web&quot;;
 
 @ElementBuilder.get().decorate()
 @ContentBuilder.get(`&lt;p&gt;Hello, &lt;span id=&quot;name&quot;&gt;&lt;/span&gt;!&lt;/p&gt;`)
@@ -420,7 +630,7 @@ export class ExGreeting extends HTMLElement {
   ElementBuilder,
   ContentBuilder,
   FieldBuilder
-} from &quot;ceb&quot;;
+} from &quot;@tmorin/ceb-bundle-web&quot;;
 
 @ElementBuilder.get().decorate()
 @ContentBuilder.get(`&lt;p&gt;Hello, &lt;span id=&quot;name&quot;&gt;&lt;/span&gt;!&lt;/p&gt;`)
@@ -441,7 +651,7 @@ There are two ways to handle it with the built-in <code>&lt;ceb/&gt;</code> buil
   ContentBuilder,
   FieldBuilder,
   ReferenceBuilder
-} from &quot;ceb&quot;;
+} from &quot;@tmorin/ceb-bundle-web&quot;;
 
 @ElementBuilder.get().decorate()
 @ContentBuilder.get(`&lt;p&gt;Hello, &lt;span id=&quot;name&quot;&gt;&lt;/span&gt;!&lt;/p&gt;`)
@@ -464,7 +674,7 @@ export class ExGreeting extends HTMLElement {
   ContentBuilder,
   FieldBuilder,
   ReferenceBuilder,
-} from &quot;ceb&quot;;
+} from &quot;@tmorin/ceb-bundle-web&quot;;
 
 @ElementBuilder.get().decorate()
 @ContentBuilder.get(`&lt;p&gt;Hello, &lt;span id=&quot;name&quot;&gt;&lt;/span&gt;!&lt;/p&gt;`)
@@ -493,7 +703,7 @@ export class ExGreeting extends HTMLElement {
   ContentBuilder,
   FieldBuilder,
   AttributePropagationBuilder
-} from &quot;ceb&quot;;
+} from &quot;@tmorin/ceb-bundle-web&quot;;
 
 @ElementBuilder.get().decorate()
 @ContentBuilder.get(`&lt;p&gt;Hello, &lt;span id=&quot;name&quot;&gt;&lt;/span&gt;!&lt;/p&gt;`)

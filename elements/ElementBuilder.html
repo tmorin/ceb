@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Messaging - &lt;ceb/&gt; ~ Custom Element Builder</title>
+        <title>ElementBuilder - &lt;ceb/&gt; ~ Custom Element Builder</title>
                 
 
         <!-- Custom HTML head -->
@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../elements/index.html"><strong aria-hidden="true">3.</strong> Elements</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../elements/ElementBuilder.html"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../elements/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../elements/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../elements/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../elements/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../elements/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../elements/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../elements/AttributePropagationBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributePropagationBuilder</a></li><li class="chapter-item expanded "><a href="../elements/PropertyDelegationBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegationBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../templating/index.html"><strong aria-hidden="true">4.</strong> Templating</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../templating/grey_dom.html"><strong aria-hidden="true">4.1.</strong> The Grey DOM</a></li><li class="chapter-item expanded "><a href="../templating/template_literal.html"><strong aria-hidden="true">4.2.</strong> Template literal</a></li></ol></li><li class="chapter-item expanded "><a href="../messaging/index.html" class="active"><strong aria-hidden="true">5.</strong> Messaging</a></li><li class="chapter-item expanded "><a href="../inversion/index.html"><strong aria-hidden="true">6.</strong> Inversion</a></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">7.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/TodoMVC.html"><strong aria-hidden="true">7.1.</strong> TodoMVC</a></li><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">7.2.</strong> ex-greeting</a></li></ol></li></ol>            </div>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../Installation.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../elements/index.html"><strong aria-hidden="true">3.</strong> Elements</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../elements/ElementBuilder.html" class="active"><strong aria-hidden="true">3.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../elements/AttributeBuilder.html"><strong aria-hidden="true">3.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../elements/FieldBuilder.html"><strong aria-hidden="true">3.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../elements/OnBuilder.html"><strong aria-hidden="true">3.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../elements/ContentBuilder.html"><strong aria-hidden="true">3.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../elements/TemplateBuilder.html"><strong aria-hidden="true">3.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../elements/ReferenceBuilder.html"><strong aria-hidden="true">3.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../elements/AttributePropagationBuilder.html"><strong aria-hidden="true">3.8.</strong> AttributePropagationBuilder</a></li><li class="chapter-item expanded "><a href="../elements/PropertyDelegationBuilder.html"><strong aria-hidden="true">3.9.</strong> PropertyDelegationBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../templating/index.html"><strong aria-hidden="true">4.</strong> Templating</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../templating/grey_dom.html"><strong aria-hidden="true">4.1.</strong> The Grey DOM</a></li><li class="chapter-item expanded "><a href="../templating/template_literal.html"><strong aria-hidden="true">4.2.</strong> Template literal</a></li></ol></li><li class="chapter-item expanded "><a href="../messaging/index.html"><strong aria-hidden="true">5.</strong> Messaging</a></li><li class="chapter-item expanded "><a href="../inversion/index.html"><strong aria-hidden="true">6.</strong> Inversion</a></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">7.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/TodoMVC.html"><strong aria-hidden="true">7.1.</strong> TodoMVC</a></li><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">7.2.</strong> ex-greeting</a></li></ol></li></ol>            </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
 
@@ -146,33 +146,88 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="messaging"><a class="header" href="#messaging">Messaging</a></h1>
-<p><code>&lt;ceb/&gt;</code> provides a built-in solution for the implementation of the application logic which relies on an Event/Message architecture.</p>
-<p>The main purpose is to strictly separate the interaction logic (i.e. the Custom Elements) and the application logic.
-The communication between both worlds is handled by an asynchronous API relying on <em>messages</em> transiting within a <em>bus</em>.
-A <em>message</em> is a simple data structure expressing an action to do, its result or a notification about one of its side effect.
-A <em>bus</em> is a component providing a set of commands to emit and receive <em>messages</em>. </p>
-<p>The core of the solution is composed of a <em>model</em> and a set of building blocks implementing an Event/Message architecture.
-The core is part of the <a href="https://www.npmjs.com/package/@tmorin/ceb-messaging-core">@tmorin/ceb-messaging-core</a> package.
-Its usage is cover by the reference documentation: <a href="../api/modules/_tmorin_ceb_messaging_core.html">@tmorin/ceb-messaging-core</a>.</p>
-<p>Moreover, the solution provides two implementations of the <em>model</em>.
-The first one is a DOM base implementation: <a href="https://www.npmjs.com/package/@tmorin/ceb-messaging-dom">@tmorin/ceb-messaging-dom</a>.
-Its usage is cover by the reference documentation: <a href="../api/modules/_tmorin_ceb_messaging_dom.html">@tmorin/ceb-messaging-dom</a>.
-It leverages on the native DOM Event System to handles the messages.
-The second one is a vanilla TypeScript/JavaScript implementation: <a href="https://www.npmjs.com/package/@tmorin/ceb-messaging-simple">@tmorin/ceb-messaging-simple</a>.
-Its usage is cover by the reference documentation: <a href="../api/modules/_tmorin_ceb_messaging_simple.html">@tmorin/ceb-messaging-simple</a>.</p>
-<p>Finally, the solution provides also a Bus adapter for the <a href="https://en.wikipedia.org/wiki/Inter-process_communication">Inter Process Communication</a> implementation of Electron: <a href="https://www.npmjs.com/package/@tmorin/ceb-messaging-adapter-electron">@tmorin/ceb-messaging-adapter-electron</a>.
-Its usage is cover by the reference documentation: <a href="../api/modules/_tmorin_ceb_messaging_bus_adapter_ipc.html">@tmorin/ceb-messaging-adapter-electron</a>.</p>
+                        <h1 id="elementbuilder"><a class="header" href="#elementbuilder">ElementBuilder</a></h1>
+<p>The class <code>ElementBuilder</code> provides services to define and register a Custom Element.</p>
+<p>Its usage is cover by the reference documentation: <a href="../api/classes/_tmorin_ceb_elements_core.ElementBuilder.html">ElementBuilder</a>.
+It's part of the <a href="https://www.npmjs.com/package/@tmorin/ceb-elements-core">@tmorin/ceb-elements-core</a> package.</p>
+<h2 id="challenge-yourself"><a class="header" href="#challenge-yourself">Challenge yourself</a></h2>
+<p>Will you be able to ...</p>
+<ol>
+<li>change the tag name to <code>&lt;my-greeting&gt;&lt;/my-greeting&gt;</code> without changing the class name?</li>
+<li>transform <code>SimpleGreeting</code> as an extension of <code>h1</code>, so that can be created with <code>&lt;h1 is=&quot;my-greeting&quot;&gt;&lt;/h1&gt;</code>? <small>the class of <code>h1</code> is <code>HTMLHeadingElement</code></small></li>
+</ol>
+<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="ExmLwwd" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/tmorin/pen/ExmLwwd">
+  &lt;ceb/&gt; ~ challenge/ElementBuilder</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+<h2 id="define-a-regular-custom-element"><a class="header" href="#define-a-regular-custom-element">Define a regular Custom Element</a></h2>
+<pre><code class="language-typescript">import {ElementBuilder} from &quot;@tmorin/ceb-bundle-web&quot;
+// defines and register the custom element class
+@ElementBuilder.get().decorate()
+class SimpleGreeting extends HTMLElement {
+  constructor(public name = &quot;World&quot;) {
+    super();
+  }
+  connectedCallback() {
+    this.textContent = `Hello, ${this.name}!`
+  }
+}
+</code></pre>
+<p>Once registered, the Custom Element can be created with three different styles: markup, Object-Oriented and, hybrid.</p>
+<p>The first one relies on the tag name of the Custom Element within the markup of an HTML document.</p>
+<pre><code class="language-typescript">document.body.innerHTML = `&lt;simple-greeting&gt;&lt;/simple-greeting&gt;`
+</code></pre>
+<p>The second one relies on the Object-Oriented nature of the Custom Element.
+Basically, the class can be instantiated, and the created object can be then append to the DOM.</p>
+<pre><code class="language-typescript">const helloJohn: SimpleGreeting = new SimpleGreeting(&quot;John&quot;)
+document.body.appendChild(helloJohn)
+</code></pre>
+<p>The last one lies between the markup and OO style.</p>
+<pre><code class="language-typescript">const helloDoe: SimpleGreeting = document.createElement(&quot;simple-greeting&quot;)
+helloDoe.name = &quot;Doe&quot;
+document.body.appendChild(helloDoe)
+</code></pre>
+<h2 id="define-an-extension-of-a-native-element"><a class="header" href="#define-an-extension-of-a-native-element">Define an extension of a native Element</a></h2>
+<pre><code class="language-typescript">import {ElementBuilder} from &quot;@tmorin/ceb-bundle-web&quot;
+// defines and register the custom element class
+@ElementBuilder.get().extends(&quot;p&quot;).decorate()
+class SimpleGreetingParagraph extends HTMLParagraphElement {
+  constructor(public name = &quot;World&quot;) {
+    super();
+  }
+  connectedCallback() {
+    this.textContent = `Hello, ${this.name}!`
+  }
+}
+</code></pre>
+<p>Once registered, the Custom Element can be created like the regular one.
+However, because of the extension of a native Element, the creation expects additional information. </p>
+<p>The creation with the markup style:</p>
+<pre><code class="language-typescript">document.body.innerHTML = `&lt;p is=&quot;simple-greeting-paragraph&quot;&gt;&lt;/p&gt;`
+</code></pre>
+<p>The creation with the Object-Oriented style:</p>
+<pre><code class="language-typescript">const helloJohn: SimpleGreetingParagraph = new SimpleGreeting(&quot;John&quot;)
+document.body.appendChild(helloJohn)
+</code></pre>
+<p>The creation with the hybrid style:</p>
+<pre><code class="language-typescript">const helloDoe: SimpleGreetingParagraph = document.createElement(&quot;p&quot;, {
+    extends: &quot;is&quot;
+})
+helloDoe.name = &quot;Doe&quot;
+document.body.appendChild(helloDoe)
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                                                    <a rel="prev" href="../templating/template_literal.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                                    <a rel="prev" href="../elements/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
-                                                    <a rel="next" href="../inversion/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                                    <a rel="next" href="../elements/AttributeBuilder.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -182,11 +237,11 @@ Its usage is cover by the reference documentation: <a href="../api/modules/_tmor
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                                    <a rel="prev" href="../templating/template_literal.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                    <a rel="prev" href="../elements/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
-                                    <a rel="next" href="../inversion/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                    <a rel="next" href="../elements/AttributeBuilder.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                             </nav>
