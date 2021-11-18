@@ -40,10 +40,13 @@ A built-in implementation of the Event/Message architecture:
 - [ceb-messaging-builder-inversion](modules/_tmorin_ceb_messaging_builder_inversion)
 - [ceb-messaging-adapter-electron](modules/_tmorin_ceb_messaging_adapter_electron)
 
+The bundle:
+
+- [ceb-bundle-web](modules/_tmorin_ceb_bundle_web.html) : a bundle of `ceb-elements-core`, `ceb-elements-builders`, `ceb-templating-builder` and `ceb-templating-literal`
+
 The helper packages:
 
 - [ceb-utilities](modules/_tmorin_ceb_utilities.html)
-- [ceb](modules/_tmorin_ceb.html) : a bundle of `ceb-elements-core`, `ceb-elements-builders`, `ceb-templating-builder` and `ceb-templating-literal`
 
 ## License
 

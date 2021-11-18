@@ -53,7 +53,7 @@ export interface ConfigurableModule {
  *
  * @example Implement and register a module
  * ```typescript
- * import {inversion} from "@tmorin/ceb"
+ * import {inversion} from "@tmorin/ceb-bundle-web"
  * // implement a module
  * class GreetingModule extends inversion.AbstractModule {
  *   constructor() {
@@ -106,7 +106,7 @@ export abstract class AbstractModule implements Module, ConfigurableModule {
  *
  * @example register an inline module
  * ```typescript
- * import {inversion} from "@tmorin/ceb"
+ * import {inversion} from "@tmorin/ceb-bundle-web"
  * const container = inversion.ContainerBuilder.get()
  *   .module(inversion.OnlyConfigureModule.create(() => {
  *       this.registry.registerValue("greeting", "hello, World!")

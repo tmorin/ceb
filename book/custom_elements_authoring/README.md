@@ -18,4 +18,4 @@ Then, other builders can be used to enhance it:
 - [AttributePropagationBuilder](AttributePropagationBuilder.md): to delegate attribute mutations to child nodes
 - [PropertyDelegationBuilder](book/custom_elements_authoring/PropertyDelegationBuilder.md): to delegate the property accesses to a single child node
 
-For convenience, the package [@tmorin/ceb](https://www.npmjs.com/package/@tmorin/ceb) provides all built-in artifacts for the Custom Elements authoring.
+For convenience, the package [@tmorin/ceb-bundle-web](https://www.npmjs.com/package/@tmorin/ceb-bundle-web) provides all built-in artifacts for the Custom Elements authoring.

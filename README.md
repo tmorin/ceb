@@ -16,7 +16,7 @@ import {
   FieldBuilder,
   html,
   TemplateBuilder
-} from "@tmorin/ceb";
+} from "@tmorin/ceb-bundle-web";
 
 // register the custom element
 @(ElementBuilder.get().decorate())
@@ -81,10 +81,13 @@ A built-in implementation of the Event/Message architecture:
 - [ceb-messaging-builder-inversion](./packages/ceb-messaging-builder-inversion)
 - [ceb-messaging-adapter-electron](./packages/ceb-messaging-adapter-electron)
 
+Bundles:
+
+- [ceb-bundle-web](./packages/ceb-bundle-web) : a bundle of `ceb-elements-core`, `ceb-elements-builders`, `ceb-templating-builder` and `ceb-templating-literal`
+
 The helper packages:
 
 - [ceb-utilities](./packages/ceb-elements-testing)
-- [ceb](./packages/ceb) : a bundle of `ceb-elements-core`, `ceb-elements-builders`, `ceb-templating-builder` and `ceb-templating-literal`
 
 The examples:
 

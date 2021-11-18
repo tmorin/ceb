@@ -13,7 +13,7 @@ export interface Registry {
      *
      * @example Register a simple greeting text
      * ```typescript
-     * import {inversion} from "@tmorin/ceb"
+     * import {inversion} from "@tmorin/ceb-bundle-web"
      * const registry = new inversion.registry()
      * registry.registerValue("greeting", "Hello, World!")
      * ```
@@ -29,7 +29,7 @@ export interface Registry {
      *
      * @example Use a factory to register a simple greeting text
      * ```typescript
-     * import {inversion} from "@tmorin/ceb"
+     * import {inversion} from "@tmorin/ceb-bundle-web"
      * const registry = new inversion.registry()
      * registry.registerFactory("greeting", () => "Hello, World!")
      * ```
@@ -46,7 +46,7 @@ export interface Registry {
      *
      * @example Resolve a simple greeting text
      * ```typescript
-     * import {inversion} from "@tmorin/ceb"
+     * import {inversion} from "@tmorin/ceb-bundle-web"
      * const registry = new inversion.registry()
      * registry.registerValue("greeting", "Hello, World!")
      * console.info(registry.resolve("greeting"))
@@ -62,7 +62,7 @@ export interface Registry {
      *
      * @example Resolve many greeting texts
      * ```typescript
-     * import {inversion} from "@tmorin/ceb"
+     * import {inversion} from "@tmorin/ceb-bundle-web"
      * const registry = new inversion.registry()
      * registry.registerValue("greeting", "Hello, World!")
      * registry.registerValue("greeting", "Hello, John Doe!")
@@ -79,7 +79,7 @@ export interface Registry {
      *
      * @example Check if an entry exist
      * ```typescript
-     * import {inversion} from "@tmorin/ceb"
+     * import {inversion} from "@tmorin/ceb-bundle-web"
      * const registry = new inversion.registry()
      * registry.registerValue("greeting", "Hello, World!")
      * console.info(registry.contains("greeting"))

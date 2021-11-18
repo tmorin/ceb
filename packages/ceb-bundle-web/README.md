@@ -1,7 +1,7 @@
 # @tmorin/ceb
 
 [![npm version](https://badge.fury.io/js/%40tmorin%2Fceb.svg)](https://badge.fury.io/js/%40tmorin%2Fceb)
-[![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb.html)
+[![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_bundle_web.html)
 
 > The package is part of the `<ceb/>` library.
 > It bundles the main features of the library related to the [Custom Elements (v1)] specification.

@@ -1,6 +1,6 @@
 {
   "packages": [
-    "packages/ceb",
+    "packages/ceb-bundle-web",
     "packages/ceb-utilities",
     "packages/ceb-elements-testing",
     "packages/ceb-elements-core",

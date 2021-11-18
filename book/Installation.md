@@ -29,7 +29,7 @@ Templating:
 - [@tmorin/ceb-templating-parser](https://www.npmjs.com/package/@tmorin/ceb-templating-parser)
 
 Bundles:
-- [@tmorin/ceb](https://www.npmjs.com/package/@tmorin/ceb)
+- [@tmorin/ceb-bundle-web](https://www.npmjs.com/package/@tmorin/ceb-bundle-web)
 
 Support:
 - [@tmorin/ceb-utilities](https://www.npmjs.com/package/@tmorin/ceb-utilities)

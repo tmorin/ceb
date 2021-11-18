@@ -1,5 +1,5 @@
 {
-  "name": "@tmorin/ceb",
+  "name": "@tmorin/ceb-bundle-web",
   "version": "5.0.2",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It bundles the main features of the library related to the Custom Elements (v1) specification.",

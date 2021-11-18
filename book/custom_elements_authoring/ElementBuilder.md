@@ -3,7 +3,7 @@
 The class `ElementBuilder` provides services to define and register a Custom Element.
 
 Its usage is cover by the reference documentation: [ElementBuilder](../api/classes/_tmorin_ceb_elements_core.ElementBuilder.html).
-It's part of the [@tmorin/ceb](https://www.npmjs.com/package/@tmorin/ceb-elements-core) package.
+It's part of the [@tmorin/ceb-elements-core](https://www.npmjs.com/package/@tmorin/ceb-elements-core) package.
 
 ## Challenge yourself
 
@@ -21,7 +21,7 @@ Will you be able to ...
 ## Define a regular Custom Element
 
 ```typescript
-import {ElementBuilder} from "@tmorin/ceb"
+import {ElementBuilder} from "@tmorin/ceb-bundle-web"
 // defines and register the custom element class
 @ElementBuilder.get().decorate()
 class SimpleGreeting extends HTMLElement {
@@ -61,7 +61,7 @@ document.body.appendChild(helloDoe)
 ## Define an extension of a native Element
 
 ```typescript
-import {ElementBuilder} from "@tmorin/ceb"
+import {ElementBuilder} from "@tmorin/ceb-bundle-web"
 // defines and register the custom element class
 @ElementBuilder.get().extends("p").decorate()
 class SimpleGreetingParagraph extends HTMLParagraphElement {

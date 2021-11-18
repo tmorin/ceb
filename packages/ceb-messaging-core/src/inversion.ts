@@ -179,7 +179,7 @@ export class MessagingComponent extends Component {
  *
  * @example Register the MessagingModule
  * ```typescript
- * import {inversion, messaging} from "@tmorin/ceb"
+ * import {inversion, messaging} from "@tmorin/ceb-bundle-web"
  * const container = inversion.ContainerBuilder.get()
  *   .module(new messaging.MessagingModule())
  *   .build()
