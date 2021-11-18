@@ -83,7 +83,7 @@ The special element `<ceb-sot></ceb-slot>` is the marker of the placeholder.
 
 Given the following Custom Element with template expressed using the literal approach:
 ```typescript
-import {ElementBuilder, TemplateBuilder, html, Template} from "ceb"
+import {ElementBuilder, TemplateBuilder, html, Template} from "@tmorin/ceb-bundle-web"
 class HelloWorld extends HTMLElement {
   render(): Template {
     return html`<p>Hello, <ceb-slot></ceb-slot>!</p>`

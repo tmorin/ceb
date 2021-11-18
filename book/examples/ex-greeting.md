@@ -21,7 +21,7 @@ To register `ex-greeting`, the decorator of `@ElementBuilder` is used:
 ```typescript
 import {
   ElementBuilder
-} from "ceb";
+} from "@tmorin/ceb-bundle-web";
 
 @ElementBuilder.get().decorate()
 export class ExGreeting extends HTMLElement {
@@ -36,7 +36,7 @@ The Shadow DOM of `ex-greeting` is initialized with the decorator of `@ContentBu
 import {
   ElementBuilder,
   ContentBuilder
-} from "ceb";
+} from "@tmorin/ceb-bundle-web";
 
 @ElementBuilder.get().decorate()
 @ContentBuilder.get(`<p>Hello, <span id="name"></span>!</p>`)
@@ -55,7 +55,7 @@ import {
   ElementBuilder,
   ContentBuilder,
   FieldBuilder
-} from "ceb";
+} from "@tmorin/ceb-bundle-web";
 
 @ElementBuilder.get().decorate()
 @ContentBuilder.get(`<p>Hello, <span id="name"></span>!</p>`)
@@ -82,7 +82,7 @@ import {
   ContentBuilder,
   FieldBuilder,
   ReferenceBuilder
-} from "ceb";
+} from "@tmorin/ceb-bundle-web";
 
 @ElementBuilder.get().decorate()
 @ContentBuilder.get(`<p>Hello, <span id="name"></span>!</p>`)
@@ -108,7 +108,7 @@ import {
   ContentBuilder,
   FieldBuilder,
   ReferenceBuilder,
-} from "ceb";
+} from "@tmorin/ceb-bundle-web";
 
 @ElementBuilder.get().decorate()
 @ContentBuilder.get(`<p>Hello, <span id="name"></span>!</p>`)
@@ -141,7 +141,7 @@ import {
   ContentBuilder,
   FieldBuilder,
   AttributePropagationBuilder
-} from "ceb";
+} from "@tmorin/ceb-bundle-web";
 
 @ElementBuilder.get().decorate()
 @ContentBuilder.get(`<p>Hello, <span id="name"></span>!</p>`)

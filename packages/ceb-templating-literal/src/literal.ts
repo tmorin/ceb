@@ -116,7 +116,7 @@ class Operations implements Template<UpdateParameters> {
  *
  * @example Render a simple greeting
  * ```typescript
- * import {html, Template} from 'ceb'
+ * import {html, Template} from "@tmorin/ceb-bundle-web"
  * const name = "World"
  * const template : Template = html`<p>Hello, ${name}!</p>`
  * template.render(document.body)
