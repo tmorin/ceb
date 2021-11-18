@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.3](https://github.com/tmorin/ceb/compare/v6.0.2...v6.0.3) (2021-11-18)
+
+
+### Bug Fixes
+
+* **documentation:** fix import related to `@tmorin/ceb-bundle-web` in the documentation ([109de28](https://github.com/tmorin/ceb/commit/109de28ed5bc5dc377a64659a07e2b2aa367accd))
+
+
+
+
+
 # [6.0.0](https://github.com/tmorin/ceb/compare/v5.0.2...v6.0.0) (2021-11-18)
 
 

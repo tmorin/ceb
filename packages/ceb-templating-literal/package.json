@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-templating-literal",
-  "version": "6.0.0",
+  "version": "6.0.3",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides the implementation of a templating solution which leverages on the vanilla string literals.",
   "keywords": [

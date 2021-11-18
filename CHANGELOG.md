@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.3](https://github.com/tmorin/ceb/compare/v6.0.2...v6.0.3) (2021-11-18)
+
+
+### Bug Fixes
+
+* **documentation:** fix import related to `@tmorin/ceb-bundle-web` in the documentation ([109de28](https://github.com/tmorin/ceb/commit/109de28ed5bc5dc377a64659a07e2b2aa367accd))
+* **documentation:** some path in the summary of the book are wrong ([4504236](https://github.com/tmorin/ceb/commit/45042360787ad49d87cbe64568ad22c94ec16341))
+
+
+
+
+
 ## [6.0.2](https://github.com/tmorin/ceb/compare/v6.0.1...v6.0.2) (2021-11-18)
 
 

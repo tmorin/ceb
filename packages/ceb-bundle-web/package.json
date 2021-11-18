@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-bundle-web",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It bundles the main features of the library related to the Custom Elements (v1) specification.",
   "keywords": [
@@ -55,6 +55,6 @@
     "@tmorin/ceb-elements-builders": "^6.0.0",
     "@tmorin/ceb-elements-core": "^6.0.0",
     "@tmorin/ceb-templating-builder": "^6.0.0",
-    "@tmorin/ceb-templating-literal": "^6.0.0"
+    "@tmorin/ceb-templating-literal": "^6.0.3"
   }
 }
