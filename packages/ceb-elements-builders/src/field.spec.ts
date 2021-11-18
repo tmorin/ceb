@@ -1,7 +1,7 @@
 import {assert} from 'chai'
 import sinon, {SinonSpy} from 'sinon'
 import {ElementBuilder} from "@tmorin/ceb-elements-core";
-import {getTagName} from "@tmorin/ceb-testing";
+import {getTagName} from "@tmorin/ceb-elements-testing";
 import {FieldBuilder} from "./field";
 
 describe('field', () => {

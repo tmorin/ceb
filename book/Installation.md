@@ -27,7 +27,7 @@ Bundles:
 - [@tmorin/ceb](https://www.npmjs.com/package/@tmorin/ceb)
 
 Support:
-- [@tmorin/ceb-testing](https://www.npmjs.com/package/@tmorin/ceb-testing)
+- [@tmorin/ceb-elements-testing](https://www.npmjs.com/package/@tmorin/ceb-elements-testing)
 - [@tmorin/ceb-utilities](https://www.npmjs.com/package/@tmorin/ceb-utilities)
 
 ## Universal Module Definition

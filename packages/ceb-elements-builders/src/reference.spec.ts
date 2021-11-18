@@ -1,7 +1,7 @@
 import {assert} from 'chai'
 import {ElementBuilder} from "@tmorin/ceb-elements-core";
 import {ReferenceBuilder} from "./reference";
-import {getTagName} from "@tmorin/ceb-testing"
+import {getTagName} from "@tmorin/ceb-elements-testing"
 
 describe('reference', () => {
     let sandbox: HTMLDivElement

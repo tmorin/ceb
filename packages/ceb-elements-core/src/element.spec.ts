@@ -1,7 +1,7 @@
 import {assert} from 'chai'
 import {ElementBuilder} from './index'
 import sinon, {SinonSpy} from 'sinon'
-import {getTagName} from "@tmorin/ceb-testing";
+import {getTagName} from "@tmorin/ceb-elements-testing";
 import {toKebabCase} from "@tmorin/ceb-utilities";
 
 describe('element', () => {

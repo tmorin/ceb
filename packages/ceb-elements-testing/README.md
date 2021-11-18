@@ -1,7 +1,7 @@
-# @tmorin/ceb-testing
+# @tmorin/ceb-elements-testing
 
-[![npm version](https://badge.fury.io/js/%40tmorin%2Fceb-testing.svg)](https://badge.fury.io/js/%40tmorin%2Fceb-testing)
-[![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_testing.html)
+[![npm version](https://badge.fury.io/js/%40tmorin%2Fceb-elements-testing.svg)](https://badge.fury.io/js/%40tmorin%2Fceb-elements-testing)
+[![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_elements_testing.html)
 
 > The package is part of the `<ceb/>` library.
 > It provides helpful resources to write tests. 
@@ -11,7 +11,7 @@
 The NPM package is compliant [CommonJs](https://flaviocopes.com/commonjs) and [ES Module](https://flaviocopes.com/es-modules).
 
 ```bash
-npm install @tmorin/ceb-testing
+npm install @tmorin/ceb-elements-testing
 ```
 
 ## License

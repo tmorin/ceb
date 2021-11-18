@@ -60,6 +60,6 @@
   },
   "devDependencies": {
     "@tmorin/ceb-elements-core": "^5.0.0",
-    "@tmorin/ceb-testing": "^4.0.0"
+    "@tmorin/ceb-elements-testing": "^4.0.0"
   }
 }

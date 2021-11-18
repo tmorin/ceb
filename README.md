@@ -80,8 +80,8 @@ A built-in implementation of the Event/Message architecture:
 
 The helper packages:
 
-- [ceb-utilities](./packages/ceb-testing)
-- [ceb-testing](./packages/ceb-testing)
+- [ceb-utilities](./packages/ceb-elements-testing)
+- [ceb-elements-testing](./packages/ceb-elements-testing)
 - [ceb](./packages/ceb) : a bundle of `ceb-elements-core`, `ceb-elements-builders`, `ceb-templating-builder` and `ceb-templating-literal`
 
 The examples:

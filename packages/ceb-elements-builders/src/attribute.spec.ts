@@ -2,7 +2,7 @@ import {assert} from 'chai'
 import sinon, {SinonSpy} from 'sinon'
 import {ElementBuilder} from "@tmorin/ceb-elements-core";
 import {AttributeBuilder} from "./attribute";
-import {getTagName} from "@tmorin/ceb-testing";
+import {getTagName} from "@tmorin/ceb-elements-testing";
 
 describe('attribute', () => {
     let sandbox: HTMLDivElement

@@ -21,12 +21,12 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-templating-engine/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-templating-literal/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-templating-parser/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-testing/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-utilities/dist" />
       <excludeFolder url="file://$MODULE_DIR$/public" />
       <excludeFolder url="file://$MODULE_DIR$/.gdiag" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion-testing-core/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion-testing-mocha/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-elements-testing/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

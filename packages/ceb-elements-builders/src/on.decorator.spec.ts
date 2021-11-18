@@ -2,7 +2,7 @@ import sinon, {SinonSpy} from 'sinon'
 import {assert} from 'chai'
 import {ElementBuilder} from "@tmorin/ceb-elements-core";
 import {OnBuilder} from "./on";
-import {listen} from "@tmorin/ceb-testing";
+import {listen} from "@tmorin/ceb-elements-testing";
 
 describe('on.decorator', () => {
     let sandbox: HTMLDivElement

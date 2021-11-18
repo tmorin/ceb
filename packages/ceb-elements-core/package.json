@@ -51,6 +51,6 @@
     "@tmorin/ceb-utilities": "^4.0.0"
   },
   "devDependencies": {
-    "@tmorin/ceb-testing": "^4.0.0"
+    "@tmorin/ceb-elements-testing": "^4.0.0"
   }
 }
