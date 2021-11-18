@@ -25,12 +25,12 @@ It is also available as a `UMD` module:
 
 ```html
 <!-- the optimized Universal Module Definition -->
-<script src="https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb-bundle-web.min.js"></script>
+<script src="https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb.min.js"></script>
 ```
 
 ```html
 <!-- the not optimized Universal Module Definition -->
-<script src="https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb-bundle-web.js"></script>
+<script src="https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb.js"></script>
 ```
 
 ## License
