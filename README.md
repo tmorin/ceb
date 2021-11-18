@@ -8,7 +8,7 @@
 
 ## Quickly
 
-[![Edit <ceb/> ~ SimpleGreeting - v4](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ceb-simplegreeting-v4-vzurn?fontsize=14&hidenavigation=1&theme=dark)
+[![Edit <ceb/> ~ SimpleGreeting](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ceb-simplegreeting-unj2w?fontsize=14&hidenavigation=1&theme=dark)
 
 ```typescript
 import {
