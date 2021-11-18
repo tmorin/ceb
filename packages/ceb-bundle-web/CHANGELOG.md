@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.2](https://github.com/tmorin/ceb/compare/v6.0.1...v6.0.2) (2021-11-18)
+
+
+### Bug Fixes
+
+* **ceb-bundle-web:** the UMD module was badly generated ([f6a9bd4](https://github.com/tmorin/ceb/commit/f6a9bd441a5176bd3e6aa758650369b9a2c83bbe))
+
+
+
+
+
 ## [6.0.1](https://github.com/tmorin/ceb/compare/v6.0.0...v6.0.1) (2021-11-18)
 
 
