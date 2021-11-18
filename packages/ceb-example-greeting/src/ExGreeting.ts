@@ -1,4 +1,4 @@
-import {ElementBuilder} from "@tmorin/ceb-core";
+import {ElementBuilder} from "@tmorin/ceb-elements-core";
 import {ContentBuilder, FieldBuilder, FieldListenerData, ReferenceBuilder} from "@tmorin/ceb-builders";
 
 @ElementBuilder.get<ExGreeting>().decorate()

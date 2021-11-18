@@ -1,4 +1,4 @@
-import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-core";
+import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-elements-core";
 import {Engine} from "@tmorin/ceb-templating-engine";
 
 /**

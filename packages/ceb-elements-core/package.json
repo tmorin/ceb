@@ -1,5 +1,5 @@
 {
-  "name": "@tmorin/ceb-core",
+  "name": "@tmorin/ceb-elements-core",
   "version": "5.0.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides the main builder used to define and register Custom Elements (v1).",

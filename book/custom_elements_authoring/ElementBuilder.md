@@ -2,8 +2,8 @@
 
 The class `ElementBuilder` provides services to define and register a Custom Element.
 
-Its usage is cover by the reference documentation: [ElementBuilder](../api/classes/_tmorin_ceb_core.ElementBuilder.html).
-It's part of the [@tmorin/ceb](https://www.npmjs.com/package/@tmorin/ceb-core) package.
+Its usage is cover by the reference documentation: [ElementBuilder](../api/classes/_tmorin_ceb_elements_core.ElementBuilder.html).
+It's part of the [@tmorin/ceb](https://www.npmjs.com/package/@tmorin/ceb-elements-core) package.
 
 ## Challenge yourself
 

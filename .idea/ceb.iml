@@ -4,7 +4,7 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-builders/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-core/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-elements-core/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-example-greeting/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion/dist" />

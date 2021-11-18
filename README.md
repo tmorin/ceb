@@ -53,7 +53,7 @@ The library is composed of many packages.
 
 The packages related to the definition of [Custom Elements (v1)]:
 
-- [ceb-core](./packages/ceb-core)
+- [ceb-elements-core](./packages/ceb-elements-core)
 - [ceb-builders](./packages/ceb-builders)
 
 A built-in implementation of a templating system:
@@ -82,7 +82,7 @@ The helper packages:
 
 - [ceb-utilities](./packages/ceb-testing)
 - [ceb-testing](./packages/ceb-testing)
-- [ceb](./packages/ceb) : a bundle of `ceb-core`, `ceb-builders`, `ceb-templating-builder` and `ceb-templating-literal`
+- [ceb](./packages/ceb) : a bundle of `ceb-elements-core`, `ceb-builders`, `ceb-templating-builder` and `ceb-templating-literal`
 
 The examples:
 

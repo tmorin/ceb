@@ -1,5 +1,5 @@
 import {assert} from "chai";
-import {ElementBuilder} from "@tmorin/ceb-core";
+import {ElementBuilder} from "@tmorin/ceb-elements-core";
 import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
 import {Container, ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion";
 import {BusInversionBuilder} from "./builder";

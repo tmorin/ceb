@@ -1,4 +1,4 @@
-import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-core";
+import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-elements-core";
 
 /**
  * A factory which produces the initial HTML content of a Custom Element.

@@ -3,7 +3,7 @@
     "packages/ceb",
     "packages/ceb-utilities",
     "packages/ceb-testing",
-    "packages/ceb-core",
+    "packages/ceb-elements-core",
     "packages/ceb-builders",
     "packages/ceb-inversion",
     "packages/ceb-inversion-builder",

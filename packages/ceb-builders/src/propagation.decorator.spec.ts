@@ -1,5 +1,5 @@
 import {assert} from "chai"
-import {ElementBuilder} from "@tmorin/ceb-core";
+import {ElementBuilder} from "@tmorin/ceb-elements-core";
 import {AttributePropagationBuilder} from "./propagation";
 import {AttributeBuilder} from "./attribute";
 

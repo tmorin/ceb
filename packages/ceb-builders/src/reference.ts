@@ -1,4 +1,4 @@
-import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-core"
+import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-elements-core"
 
 /**
  * The builder enhances a readonly property to execute a CSS Selector once the property is get.

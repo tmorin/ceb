@@ -1,5 +1,5 @@
 import {assert} from 'chai'
-import {ElementBuilder} from "@tmorin/ceb-core";
+import {ElementBuilder} from "@tmorin/ceb-elements-core";
 import {Template, TemplateBuilder} from "@tmorin/ceb-templating-builder";
 import {Engine} from "@tmorin/ceb-templating-engine";
 import {html} from "./literal";

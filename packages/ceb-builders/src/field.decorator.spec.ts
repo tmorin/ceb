@@ -1,6 +1,6 @@
 import {assert} from 'chai'
 import sinon from 'sinon'
-import {ElementBuilder} from "@tmorin/ceb-core";
+import {ElementBuilder} from "@tmorin/ceb-elements-core";
 import {FieldBuilder, FieldListenerData} from "./field";
 
 describe('field.decorator', () => {
