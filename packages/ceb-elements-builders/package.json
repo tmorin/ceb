@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-elements-builders",
-  "version": "5.0.0",
+  "version": "5.0.3-alpha.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides a set of builders used to enhance the definition of Custom Elements (v1).",
   "keywords": [
@@ -48,10 +48,10 @@
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "dependencies": {
-    "@tmorin/ceb-elements-core": "^5.0.0",
-    "@tmorin/ceb-utilities": "^4.0.0"
+    "@tmorin/ceb-elements-core": "^5.0.3-alpha.0",
+    "@tmorin/ceb-utilities": "^5.0.3-alpha.0"
   },
   "devDependencies": {
-    "@tmorin/ceb-elements-testing": "^4.0.0"
+    "@tmorin/ceb-elements-testing": "^5.0.3-alpha.0"
   }
 }
