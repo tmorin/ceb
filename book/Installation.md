@@ -1,6 +1,6 @@
 # Installation
 
-## CommonJS
+## CommonJS and ES Module
 
 The library is composed of many packages published on [npmjs.com].
 All packages are compliant [CommonJs](https://flaviocopes.com/commonjs) and [ES Module](https://flaviocopes.com/es-modules).
@@ -23,29 +23,26 @@ Event/Message Architecture:
 - [@tmorin/ceb-messaging-simple-builder](https://www.npmjs.com/package/@tmorin/ceb-messaging-simple-builder)
 
 Templating:
-- [@tmorin/ceb-templating-builder](https://www.npmjs.com/package/@tmorin/ceb-templating-builder)
 - [@tmorin/ceb-templating-engine](https://www.npmjs.com/package/@tmorin/ceb-templating-engine)
-- [@tmorin/ceb-templating-literal](https://www.npmjs.com/package/@tmorin/ceb-templating-literal)
 - [@tmorin/ceb-templating-parser](https://www.npmjs.com/package/@tmorin/ceb-templating-parser)
-
-Bundles:
-- [@tmorin/ceb-bundle-web](https://www.npmjs.com/package/@tmorin/ceb-bundle-web)
+- [@tmorin/ceb-templating-literal](https://www.npmjs.com/package/@tmorin/ceb-templating-literal)
+- [@tmorin/ceb-templating-builder](https://www.npmjs.com/package/@tmorin/ceb-templating-builder)
 
 Support:
 - [@tmorin/ceb-utilities](https://www.npmjs.com/package/@tmorin/ceb-utilities)
 
 ## Universal Module Definition
 
-The bundle package `@tmorin/ceb` is also available as a `UMD` module from [unpkg.com].
+The bundle package [@tmorin/ceb-bundle-web](https://www.npmjs.com/package/@tmorin/ceb-bundle-web) is also available as a `UMD` module from [unpkg.com].
 
 ```html
 <!-- the optimized Universal Module Definition -->
-<script src="https://unpkg.com/@tmorin/ceb/umd/ceb.min.js"></script>
+<script src="https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb.min.js"></script>
 ```
 
 ```html
 <!-- the not optimized Universal Module Definition -->
-<script src="https://unpkg.com/@tmorin/ceb/umd/ceb.js"></script>
+<script src="https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb.js"></script>
 ```
 
 [unpkg.com]: https://unpkg.com

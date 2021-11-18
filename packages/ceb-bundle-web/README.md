@@ -1,6 +1,6 @@
 # @tmorin/ceb
 
-[![npm version](https://badge.fury.io/js/%40tmorin%2Fceb.svg)](https://badge.fury.io/js/%40tmorin%2Fceb)
+[![npm version](https://badge.fury.io/js/%40tmorin%2Fceb-bundle-web.svg)](https://badge.fury.io/js/%40tmorin%2Fceb-bundle-web)
 [![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_bundle_web.html)
 
 > The package is part of the `<ceb/>` library.
@@ -18,13 +18,19 @@ The bundled packages:
 The NPM package is compliant [CommonJs](https://flaviocopes.com/commonjs) and [ES Module](https://flaviocopes.com/es-modules).
 
 ```bash
-npm install @tmorin/ceb
+npm install @tmorin/ceb-bundle-web
 ```
 
 It is also available as a `UMD` module:
 
 ```html
-<script src="https://unpkg.com/@tmorin/ceb/umd/index.min.js"></script>
+<!-- the optimized Universal Module Definition -->
+<script src="https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb.min.js"></script>
+```
+
+```html
+<!-- the not optimized Universal Module Definition -->
+<script src="https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb.js"></script>
 ```
 
 ## License

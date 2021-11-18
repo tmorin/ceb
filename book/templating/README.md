@@ -17,7 +17,7 @@ Finally, the third component is a builder which enhances a method of the Custom 
 So that, when the enhanced method is invoked, the Custom Element's content is dynamically updated.
 This component is part of the [@tmorin/ceb-templating-builder](https://www.npmjs.com/package/@tmorin/ceb-templating-builder) package.
 
-[TemplateBuilder]: book/custom_elements_authoring/TemplateBuilder.md
+[TemplateBuilder]: book/elements/TemplateBuilder.md
 [incremental-dom]: https://google.github.io/incremental-dom
 [Grey DOM]: grey_dom.md
 [Tagged Templates]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#tagged_templates

@@ -1,7 +1,7 @@
 # &lt;ceb/&gt; ~ Custom Element Builder
 
 `<ceb/>` is a library providing building blocks to develop [Custom Elements (v1)].
-Additionally, other building blocks are also provided to cover the implementation of web applications based on the Event/Message Architecture.
+Additionally, other building blocks are also provided to cover the implementation of web applications: messaging, templating ...
 
 A simple Custom Element displaying a greeting text:
 
