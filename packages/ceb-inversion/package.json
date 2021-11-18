@@ -48,6 +48,6 @@
     "build:lib": "tsc -p tsconfig.build.json --module CommonJS --outDir dist/cjs --declaration --declarationDir dist/types",
     "build:module": "tsc -p tsconfig.build.json --module ESNext --outDir dist/mjs",
     "test": "mocha --require ts-node/register src/**/*.spec.ts",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "npm test -- --watch --watch-files '**/*.ts'"
   }
 }
