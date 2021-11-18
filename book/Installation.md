@@ -37,12 +37,12 @@ The bundle package [@tmorin/ceb-bundle-web](https://www.npmjs.com/package/@tmori
 
 ```html
 <!-- the optimized Universal Module Definition -->
-<script src="https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb.min.js"></script>
+<script src="https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb-bundle-web.min.js"></script>
 ```
 
 ```html
 <!-- the not optimized Universal Module Definition -->
-<script src="https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb.js"></script>
+<script src="https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb-bundle-web.js"></script>
 ```
 
 [unpkg.com]: https://unpkg.com
