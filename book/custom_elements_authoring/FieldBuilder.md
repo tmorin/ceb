@@ -3,8 +3,8 @@
 The builder binds a property to an attribute.
 So that, the value is available and mutable from both sides.
 
-Its usage is cover by the reference documentation: [FieldBuilder](../api/classes/_tmorin_ceb_builders.FieldBuilder.html).
-It's part of the [@tmorin/ceb-builders](https://www.npmjs.com/package/@tmorin/ceb-builders) package.
+Its usage is cover by the reference documentation: [FieldBuilder](../api/classes/_tmorin_ceb_elements_builders.FieldBuilder.html).
+It's part of the [@tmorin/ceb-elements-builders](https://www.npmjs.com/package/@tmorin/ceb-elements-builders) package.
 
 ## Challenge yourself
 

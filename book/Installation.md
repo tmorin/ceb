@@ -7,7 +7,7 @@ All packages are compliant [CommonJs](https://flaviocopes.com/commonjs) and [ES 
 
 Custom Element Authoring:
 - [@tmorin/ceb-elements-core](https://www.npmjs.com/package/@tmorin/ceb-elements-core)
-- [@tmorin/ceb-builders](https://www.npmjs.com/package/@tmorin/ceb-builders)
+- [@tmorin/ceb-elements-builders](https://www.npmjs.com/package/@tmorin/ceb-elements-builders)
 
 Inversion Of Control:
 - [@tmorin/ceb-inversion](https://www.npmjs.com/package/@tmorin/ceb-inversion)

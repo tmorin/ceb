@@ -52,7 +52,7 @@
     "build:umd": "webpack --config webpack.prd.js --config webpack.dev.js"
   },
   "dependencies": {
-    "@tmorin/ceb-builders": "^5.0.0",
+    "@tmorin/ceb-elements-builders": "^5.0.0",
     "@tmorin/ceb-elements-core": "^5.0.0",
     "@tmorin/ceb-templating-builder": "^5.0.0",
     "@tmorin/ceb-templating-literal": "^5.0.2"

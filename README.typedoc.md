@@ -13,7 +13,7 @@ The library is composed of many packages.
 The packages related to the definition of [Custom Elements (v1)]:
 
 - [ceb-elements-core](modules/_tmorin_ceb_elements_core.html)
-- [ceb-builders](modules/_tmorin_ceb_builders.html)
+- [ceb-elements-builders](modules/_tmorin_ceb_elements_builders.html)
 
 A built-in implementation of a templating system:
 
@@ -43,7 +43,7 @@ The helper packages:
 - [ceb-utilities](modules/_tmorin_ceb_utilities.html)
 - [ceb-testing](modules/_tmorin_ceb_testing.html)
 - [ceb-testing](modules/_tmorin_ceb_testing.html)
-- [ceb](modules/_tmorin_ceb.html) : a bundle of `ceb-elements-core`, `ceb-builders`, `ceb-templating-builder` and `ceb-templating-literal`
+- [ceb](modules/_tmorin_ceb.html) : a bundle of `ceb-elements-core`, `ceb-elements-builders`, `ceb-templating-builder` and `ceb-templating-literal`
 
 ## License
 

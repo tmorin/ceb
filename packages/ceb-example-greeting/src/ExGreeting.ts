@@ -1,5 +1,5 @@
 import {ElementBuilder} from "@tmorin/ceb-elements-core";
-import {ContentBuilder, FieldBuilder, FieldListenerData, ReferenceBuilder} from "@tmorin/ceb-builders";
+import {ContentBuilder, FieldBuilder, FieldListenerData, ReferenceBuilder} from "@tmorin/ceb-elements-builders";
 
 @ElementBuilder.get<ExGreeting>().decorate()
 @ContentBuilder.get(`<p>Hello, <span id="name"></span>!</p>`).shadow().decorate()

@@ -2,8 +2,8 @@
 
 The builder handles the initialization of an attribute as well as the registration of its listeners.
 
-Its usage is cover by the reference documentation: [AttributeBuilder](../api/classes/_tmorin_ceb_builders.AttributeBuilder.html).
-It's part of the [@tmorin/ceb-builders](https://www.npmjs.com/package/@tmorin/ceb-builders) package.
+Its usage is cover by the reference documentation: [AttributeBuilder](../api/classes/_tmorin_ceb_elements_builders.AttributeBuilder.html).
+It's part of the [@tmorin/ceb-elements-builders](https://www.npmjs.com/package/@tmorin/ceb-elements-builders) package.
 
 ## Challenge yourself
 

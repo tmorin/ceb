@@ -3,8 +3,8 @@
 The builder handles the propagation of an attribute's values to embedded elements.
 That means, each time the attribute is mutated, the mutation is propagated to selected child nodes.
 
-Its usage is cover by the reference documentation: [AttributePropagationBuilder](../api/classes/_tmorin_ceb_builders.AttributePropagationBuilder.html).
-It's part of the [@tmorin/ceb-builders](https://www.npmjs.com/package/@tmorin/ceb-builders) package.
+Its usage is cover by the reference documentation: [AttributePropagationBuilder](../api/classes/_tmorin_ceb_elements_builders.AttributePropagationBuilder.html).
+It's part of the [@tmorin/ceb-elements-builders](https://www.npmjs.com/package/@tmorin/ceb-elements-builders) package.
 
 ## Challenge yourself
 

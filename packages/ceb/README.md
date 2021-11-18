@@ -9,7 +9,7 @@
 The bundled packages:
 
 - [`@tmorin/ceb-elements-core`](../ceb-elements-core)
-- [`@tmorin/ceb-builders`](../ceb-builders)
+- [`@tmorin/ceb-elements-builders`](../ceb-elements-builders)
 - [`@tmorin/ceb-templating-builder`](../ceb-templating-builder)
 - [`@tmorin/ceb-templating-literal`](../ceb-templating-literal)
 

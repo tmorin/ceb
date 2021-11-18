@@ -3,8 +3,8 @@
 The builder enhances a readonly property to execute a CSS Selector once the property is get.
 So that, a property of the Custom Element can always be related to a child element or a set of child elements.
 
-Its usage is cover by the reference documentation: [ReferenceBuilder](../api/classes/_tmorin_ceb_builders.ReferenceBuilder.html).
-It's part of the [@tmorin/ceb-builders](https://www.npmjs.com/package/@tmorin/ceb-builders) package.
+Its usage is cover by the reference documentation: [ReferenceBuilder](../api/classes/_tmorin_ceb_elements_builders.ReferenceBuilder.html).
+It's part of the [@tmorin/ceb-elements-builders](https://www.npmjs.com/package/@tmorin/ceb-elements-builders) package.
 
 ## Challenge yourself
 

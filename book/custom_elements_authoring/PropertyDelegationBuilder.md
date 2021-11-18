@@ -2,8 +2,8 @@
 
 The builder delegates the accesses of a property to an embedded element.
 
-Its usage is cover by the reference documentation: [PropertyDelegationBuilder](../api/classes/_tmorin_ceb_builders.PropertyDelegationBuilder.html).
-It's part of the [@tmorin/ceb-builders](https://www.npmjs.com/package/@tmorin/ceb-builders) package.
+Its usage is cover by the reference documentation: [PropertyDelegationBuilder](../api/classes/_tmorin_ceb_elements_builders.PropertyDelegationBuilder.html).
+It's part of the [@tmorin/ceb-elements-builders](https://www.npmjs.com/package/@tmorin/ceb-elements-builders) package.
 
 ## Challenge yourself
 

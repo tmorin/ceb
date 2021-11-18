@@ -2,8 +2,8 @@
 
 The builder handles the addition and removal of DOM event listeners.
 
-Its usage is cover by the reference documentation: [OnBuilder](../api/classes/_tmorin_ceb_builders.OnBuilder.html).
-It's part of the [@tmorin/ceb-builders](https://www.npmjs.com/package/@tmorin/ceb-builders) package.
+Its usage is cover by the reference documentation: [OnBuilder](../api/classes/_tmorin_ceb_elements_builders.OnBuilder.html).
+It's part of the [@tmorin/ceb-elements-builders](https://www.npmjs.com/package/@tmorin/ceb-elements-builders) package.
 
 ## Challenge yourself
 

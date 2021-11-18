@@ -2,8 +2,8 @@
 
 The builder handles the initialization of the HTML content of the Custom Element.
 
-Its usage is cover by the reference documentation: [ContentBuilder](../api/classes/_tmorin_ceb_builders.ContentBuilder.html).
-It's part of the [@tmorin/ceb-builders](https://www.npmjs.com/package/@tmorin/ceb-builders) package.
+Its usage is cover by the reference documentation: [ContentBuilder](../api/classes/_tmorin_ceb_elements_builders.ContentBuilder.html).
+It's part of the [@tmorin/ceb-elements-builders](https://www.npmjs.com/package/@tmorin/ceb-elements-builders) package.
 
 ## Challenge yourself
 
