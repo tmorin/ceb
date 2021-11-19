@@ -21,6 +21,7 @@ Event/Message Architecture:
 - [@tmorin/ceb-messaging-dom](https://www.npmjs.com/package/@tmorin/ceb-messaging-dom)
 - [@tmorin/ceb-messaging-simple](https://www.npmjs.com/package/@tmorin/ceb-messaging-simple)
 - [@tmorin/ceb-messaging-simple-builder](https://www.npmjs.com/package/@tmorin/ceb-messaging-simple-builder)
+- [@tmorin/ceb-messaging-testing](https://www.npmjs.com/package/@tmorin/ceb-messaging-testing)
 
 Templating:
 - [@tmorin/ceb-templating-engine](https://www.npmjs.com/package/@tmorin/ceb-templating-engine)

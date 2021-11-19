@@ -39,6 +39,7 @@ A built-in implementation of the Event/Message architecture:
 - [ceb-messaging-builder-core](modules/_tmorin_ceb_messaging_builder_core)
 - [ceb-messaging-builder-inversion](modules/_tmorin_ceb_messaging_builder_inversion)
 - [ceb-messaging-adapter-electron](modules/_tmorin_ceb_messaging_adapter_electron)
+- [ceb-messaging-testing](modules/_tmorin_ceb_messaging_testing)
 
 The bundle:
 

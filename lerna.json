@@ -16,6 +16,7 @@
     "packages/ceb-messaging-dom",
     "packages/ceb-messaging-simple",
     "packages/ceb-messaging-simple-builder",
+    "packages/ceb-messaging-testing",
     "packages/ceb-templating-engine",
     "packages/ceb-templating-parser",
     "packages/ceb-templating-builder",

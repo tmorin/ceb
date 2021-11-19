@@ -80,6 +80,7 @@ A built-in implementation of the Event/Message architecture:
 - [ceb-messaging-builder-core](./packages/ceb-messaging-builder-core)
 - [ceb-messaging-builder-inversion](./packages/ceb-messaging-builder-inversion)
 - [ceb-messaging-adapter-electron](./packages/ceb-messaging-adapter-electron)
+- [ceb-messaging-testing](./packages/ceb-messaging-testing)
 
 Bundles:
 
