@@ -11,7 +11,7 @@ import {
 import {SimpleModule} from "./inversion";
 import {CommandWithMessageType, CommandWithMessageTypeHandler, EventA, EventAListener, ResultA} from "./__TEST/fixture";
 
-describe("messaging/simple/inversion", function () {
+describe("ceb-messaging-simple/SimpleModule", function () {
     let eventListener: EventAListener = new EventAListener()
     let listenerSpy = sinon.spy(eventListener, "on")
 

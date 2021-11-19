@@ -11,7 +11,7 @@ class EventA extends AbstractSimpleEvent<string> {
     }
 }
 
-describe("messaging/simple/builder", function () {
+describe("ceb-messaging-simple-builder/builder", function () {
     let sandbox: HTMLDivElement
     const tagName = "messaging-simple-bus-builder"
     let testElement: TestElement

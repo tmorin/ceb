@@ -8,7 +8,7 @@ import {DomBus} from "./bus";
 import {EventA} from "./__TEST/fixture";
 import {DomMessage} from "./message";
 
-describe("messaging/dom/builder", function () {
+describe("ceb-messaging-dom/builder", function () {
     let sandbox: HTMLDivElement
     const tagName = "messaging-dom-bus-builder"
     let testElement: TestElement

@@ -11,7 +11,7 @@ export class EventA<B = any> extends AbstractSimpleEvent<B> {
     }
 }
 
-describe("events", function () {
+describe("ceb-messaging-testing/events", function () {
     describe("waitForEvents", function () {
         it("should wait for 1 event", async function () {
             const bus = new InMemorySimpleBus()

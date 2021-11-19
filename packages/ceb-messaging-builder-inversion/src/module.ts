@@ -14,7 +14,7 @@ export interface BusInversionBuilderModuleOptions {
 /**
  * The module can set the default container of {@link BusInversionBuilder}.
  *
- * @example Register the InversionBuilderModule
+ * @example Register the module
  * ```typescript
  * import {ContainerBuilder} from "@tmorin/ceb-inversion-core"
  * import {InversionBuilderModule} from "@tmorin/ceb-inversion-builder"

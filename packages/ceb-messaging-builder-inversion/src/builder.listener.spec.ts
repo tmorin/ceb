@@ -6,7 +6,7 @@ import {BusInversionBuilder} from "./builder";
 import {BusInversionBuilderModule} from "./module";
 import {EventA, NotImplementedBus} from "./__TEST/fixtures";
 
-describe("messaging/bus/inversion/builder/listener", function () {
+describe("ceb-messaging-builder-inversion/builder/listener", function () {
     let sandbox: HTMLDivElement
     const tagName = "messaging-bus-inversion-builder-listener"
     let container: Container

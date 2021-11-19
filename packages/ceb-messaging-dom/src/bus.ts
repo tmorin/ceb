@@ -120,14 +120,20 @@ export class DomBus extends AbstractBus implements Bus {
             .forEach((value) => value.remove())
     }
 
-    async execute<A extends MessageAction>(action: A, arg1?: any, arg2?: any): Promise<any> {
+    execute<A extends MessageAction>(action: A, arg1?: any, arg2?: any): any {
+        // check the action type
         if (!(action instanceof DomAction)) {
-            throw new TypeError("DomBus - the action must be an instance of DomAction")
+            const error = new TypeError("DomBus - the action must be an instance of DomAction")
+            if (arg1) {
+                return Promise.reject(error)
+            }
+            throw error
         }
+        // handle the action
         if (arg1) {
             return this.executeAndWait(action, arg1, arg2)
         }
-        return this.executeAndForget(action)
+        this.executeAndForget(action)
     }
 
     handle<A extends MessageAction, R extends MessageResult>(
@@ -165,7 +171,7 @@ export class DomBus extends AbstractBus implements Bus {
         )
     }
 
-    async publish<E extends MessageEvent>(event: E): Promise<void> {
+    publish<E extends MessageEvent>(event: E): void {
         if (!(event instanceof DomEvent)) {
             throw new TypeError("DomBus - the event must be an instance of DomEvent")
         }
@@ -219,7 +225,7 @@ export class DomBus extends AbstractBus implements Bus {
         })
     }
 
-    private async executeAndForget<A extends DomAction>(action: A): Promise<void> {
+    private executeAndForget<A extends DomAction>(action: A): void {
         this.requester.dispatchEvent(action)
     }
 

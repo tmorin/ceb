@@ -106,6 +106,12 @@ function getGlobalBus() {
  */
 export const InMemorySimpleBusSymbol = Symbol.for("ceb/inversion/InMemorySimpleBus")
 
+function createHandlerNotFoundError<A extends AbstractSimpleAction>(action: A) {
+    const identifier = `${action.headers.messageType}/${action.headers.messageId}`
+    const message = `InMemorySimpleBus - unable to find an handler for the action ${identifier}`
+    return new Error(message)
+}
+
 /**
  * An very simple implementation of a {@link Bus}.
  */
@@ -145,7 +151,7 @@ export class InMemorySimpleBus extends AbstractBus implements Bus {
         return new SubscriptionEntry<E>(EventType, listener, this.subscriptions, options)
     }
 
-    async publish<E extends MessageEvent>(event: E): Promise<void> {
+    publish<E extends MessageEvent>(event: E): void {
         this.subscriptions.get(event.headers.messageType)?.forEach((value) => {
             try {
                 value.handle(event)
@@ -163,39 +169,47 @@ export class InMemorySimpleBus extends AbstractBus implements Bus {
         return new HandlerEntry<A, R>(ActionType, handler, this.handlers)
     }
 
-    async execute<A extends MessageAction>(action: A, arg1?: any, arg2?: any): Promise<any> {
+    execute<A extends MessageAction>(action: A, arg1?: any, arg2?: any): any {
         const entry = this.handlers.get(action.headers.messageType)
-        if (!entry) {
-            throw new Error(`InMemorySimpleBus - no handler found for the action ${action.headers.messageType}`)
-        }
         if (arg1) {
-            return this.executeAndWait(entry, action, arg2)
+            return this.executeAndWait(action, entry, arg2)
         }
-        return this.executeAndForget(entry, action)
+        this.executeAndForget(action, entry)
     }
 
-    private async executeAndWait<A extends AbstractSimpleAction, R extends AbstractSimpleResult>(
-        entry: HandlerEntry<A, R>,
+    private executeAndWait<A extends AbstractSimpleAction, R extends AbstractSimpleResult>(
         action: A,
+        entry?: HandlerEntry<A, R>,
         options?: ExecuteOptions
     ): Promise<R | SimpleVoidResult> {
         return new Promise((resolve, reject) => {
-            const timeout = options?.timeout || 500
-            const timeoutId = setTimeout(() => reject(new Error(
-                `InMemorySimpleBus - unable to get a result after ${timeout} ms`
-            )), timeout)
-            entry.handle(action)
-                .then(value => resolve(value instanceof AbstractSimpleResult ? value : new SimpleVoidResult()))
-                .catch(error => resolve(new SimpleErrorResult(error)))
-                .finally(() => clearTimeout(timeoutId))
+            if (entry) {
+                const timeout = options?.timeout || 500
+                const timeoutId = setTimeout(() => reject(new Error(
+                    `InMemorySimpleBus - unable to get a result after ${timeout} ms`
+                )), timeout)
+                entry.handle(action)
+                    .then(value => resolve(value instanceof AbstractSimpleResult ? value : new SimpleVoidResult()))
+                    .catch(error => resolve(new SimpleErrorResult(error)))
+                    .finally(() => clearTimeout(timeoutId))
+            } else {
+                const error = createHandlerNotFoundError(action)
+                this.emit("action_handler_not_found", {bus: this, action, error})
+                reject(error)
+            }
         })
     }
 
-    private async executeAndForget<A extends AbstractSimpleAction>(
-        entry: HandlerEntry<A>,
-        action: A
-    ): Promise<void> {
-        entry.handle(action).catch(error => this.emit("action_handler_failed", {bus: this, action, error,}))
+    private executeAndForget<A extends AbstractSimpleAction>(
+        action: A,
+        entry?: HandlerEntry<A>,
+    ): void {
+        if (entry) {
+            entry.handle(action).catch(error => this.emit("action_handler_failed", {bus: this, action, error,}))
+        } else {
+            const error = createHandlerNotFoundError(action)
+            this.emit("action_handler_not_found", {bus: this, action, error})
+        }
     }
 
 }

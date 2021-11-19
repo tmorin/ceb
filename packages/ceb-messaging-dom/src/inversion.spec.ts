@@ -24,7 +24,7 @@ import {
     SimpleResultA
 } from "./__TEST/fixture";
 
-describe("messaging/dom/inversion", function () {
+describe("ceb-messaging-dom/inversion", function () {
     let handleCommandASpy: SinonSpy
     let simpleCommandAHandler = new SimpleCommandAHandler()
     let handleCommandBSpy: SinonSpy
@@ -116,7 +116,11 @@ describe("messaging/dom/inversion", function () {
         it('should listen to an event', function (done) {
             const simpleEventA = new SimpleEventA("body content")
             listen(window, DomMessage.toName(SimpleEventA), 1, done)
-            bus.publish(simpleEventA).then(() => assert.ok(onEventASpy.calledOnce)).catch(done)
+            setTimeout(() => {
+                assert.ok(onEventASpy.calledOnce)
+                done()
+            }, 100)
+            bus.publish(simpleEventA)
         })
     })
 })

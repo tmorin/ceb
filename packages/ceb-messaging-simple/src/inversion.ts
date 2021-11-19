@@ -17,20 +17,21 @@ export interface SimpleModuleOptions {
      */
     registryKey: RegistryKey
     /**
-     * When `true`, the `error` internal events (i.e. `bus.on("error", ...)`) are displayed using `console.error(...)`.
+     * When `true`, the internal events related to "error" (i.e. `action_handler_failed` ...) are displayed using the `console` methods.
      * By default `false`.
      */
     errorToConsole: boolean
 }
 
 /**
- * The module registers a {@link Bus} bound with the key {@link BusSymbol}
+ * The module registers a {@link Bus} bound with the key {@link BusSymbol}.
  *
- * @example Register the DomModule
+ * @example Register the module
  * ```typescript
- * import {inversion, messaging} from "@tmorin/ceb-bundle-web"
- * const container = inversion.ContainerBuilder.get()
- *   .module(new messaging.SimpleModule())
+ * import {ContainerBuilder} from "@tmorin/ceb-inversion-core"
+ * import {SimpleModule} from "@tmorin/ceb-messaging-simple"
+ * const container = ContainerBuilder.get()
+ *   .module(new SimpleModule())
  *   .build()
  * ```
  */
@@ -38,10 +39,10 @@ export class SimpleModule extends AbstractModule {
     private readonly options: SimpleModuleOptions
     private readonly bus: InMemorySimpleBus
 
+    /**
+     * @param partialOptions Options of the module.
+     */
     constructor(
-        /**
-         * Options of the module.
-         */
         partialOptions: Partial<SimpleModuleOptions> = {}
     ) {
         super();
@@ -69,6 +70,9 @@ export class SimpleModule extends AbstractModule {
                         const identifier = `${event.headers.messageType}/${event.headers.messageId}`
                         const message = `InMemorySimpleBus - an event listener of ${identifier} throws an error`
                         console.error(message, error);
+                    })
+                    bus.on("action_handler_not_found", ({error}) => {
+                        console.debug("InMemorySimpleBus - an handler cannot be found", error.message);
                     })
                 }
             },

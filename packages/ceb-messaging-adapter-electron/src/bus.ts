@@ -9,6 +9,7 @@ import {
     MessageResult,
     Subscription
 } from "@tmorin/ceb-messaging-core";
+import {Bus, InternalBusEventMap} from "@tmorin/ceb-messaging-core/src";
 
 /**
  * The metadata of an IPC message.
@@ -112,5 +113,21 @@ export class IpcSubscription<E extends MessageEvent> implements Subscription {
 
     unsubscribe() {
         this.callback()
+    }
+}
+
+/**
+ * The map of the internal events.
+ */
+export interface IpcBusEventMap extends InternalBusEventMap {
+    "event_forward_failed": {
+        bus: Bus,
+        event: MessageAction,
+        error: Error,
+    }
+    "action_forward_failed": {
+        bus: Bus,
+        action: MessageAction,
+        error: Error,
     }
 }

@@ -59,7 +59,6 @@ export class CommandWithMessageTypeHandler implements MessageCommandHandler<Comm
     readonly ResultType = ResultA
 
     async handle(command: CommandWithMessageType): Promise<ResultA> {
-        console.log("there")
         return new ResultA(command.body)
     }
 }

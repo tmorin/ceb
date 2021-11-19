@@ -2,16 +2,18 @@ import {assert} from 'chai'
 import {SimpleVoidResult} from "./message";
 import {InMemorySimpleBus} from "./bus";
 import {CommandA, EventA, QueryA, ResultA, ResultB} from "./__TEST/fixture";
+import {Bus} from "@tmorin/ceb-messaging-core";
+import sinon from "sinon";
 
-describe("messaging/simple/bus", function () {
-    let bus: InMemorySimpleBus;
+describe("ceb-messaging-simple/InMemorySimpleBus", function () {
+    let bus: Bus;
     beforeEach(function () {
         bus = new InMemorySimpleBus()
     })
     afterEach(async function () {
         await bus?.dispose()
     })
-    describe("action", function () {
+    describe("when action handler found", function () {
         it("should execute a command and wait for result", async function () {
             const commandA = new CommandA("test value")
             bus.handle(CommandA, ResultA, async (command) => new ResultA(command.body))
@@ -33,6 +35,30 @@ describe("messaging/simple/bus", function () {
             const resultA = await bus.execute(queryA, ResultA)
             assert.ok(resultA)
             assert.strictEqual(resultA.body, queryA.body)
+        })
+    })
+    describe("when action handler not found", function () {
+        describe("when execute and forget", function () {
+            it("should emit an internal event", function (done) {
+                const queryA = new QueryA("test value")
+                bus.on("action_handler_not_found", () => {
+                    done()
+                    bus.off()
+                })
+                bus.execute(queryA)
+            })
+        })
+        describe("when execute and forget", function () {
+            it("should return an error and emit an internal event", function (done) {
+                const spyInternalListener = sinon.spy()
+                const queryA = new QueryA("test value")
+                bus.on("action_handler_not_found", spyInternalListener)
+                bus.execute(queryA, ResultA).catch(e => {
+                    assert.ok(e)
+                    assert.ok(spyInternalListener.called)
+                    done()
+                })
+            })
         })
     })
     describe("event", function () {

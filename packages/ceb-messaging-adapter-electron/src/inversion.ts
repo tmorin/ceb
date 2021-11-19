@@ -22,9 +22,9 @@ export interface ElectronModuleOptions {
 }
 
 /**
- * The module registers a {@link IpcMainBus} or a {@link IpcRendererBus} bound with the key {@link BusSymbol}
+ * The module registers a {@link IpcMainBus} or a {@link IpcRendererBus} bound with the key {@link BusSymbol}.
  *
- * @example Register the ElectronModule
+ * @example Register the module
  * ```typescript
  * import {ContainerBuilder} from "@tmorin/ceb-inversion-core"
  * import {InMemorySimpleBusSymbol, SimpleModule} from "@tmorin/ceb-messaging-simple";
@@ -38,14 +38,13 @@ export interface ElectronModuleOptions {
 export class ElectronModule extends AbstractModule {
     private readonly options: ElectronModuleOptions
 
+    /**
+     *
+     * @param wrappedBusRegistryKey The {@link RegistryKey} of the {@link Bus} to wrap.
+     * @param partialOptions Options of the module.
+     */
     constructor(
-        /**
-         * The {@link RegistryKey} of the {@link Bus} to wrap.
-         */
         private readonly wrappedBusRegistryKey: RegistryKey,
-        /**
-         * Options of the module.
-         */
         partialOptions: Partial<ElectronModuleOptions> = {}
     ) {
         super();
@@ -78,7 +77,7 @@ export class ElectronModule extends AbstractModule {
         this.registry.registerFactory<Component>(ComponentSymbol, (registry) => ({
             configure: async () => {
                 if (this.options.errorToConsole) {
-                    const bus = registry.resolve<Bus>(this.options.registryKey)
+                    const bus = registry.resolve<IpcMainBus | IpcRendererBus>(this.options.registryKey)
                     const className = ipcMain ? "IpcMainBus" : "IpcRendererBus"
                     bus.on("action_handler_failed", ({action, error}) => {
                         const identifier = `${action.headers.messageType}/${action.headers.messageId}`
@@ -89,6 +88,19 @@ export class ElectronModule extends AbstractModule {
                         const identifier = `${event.headers.messageType}/${event.headers.messageId}`
                         const message = `${className} - an event listener of ${identifier} throws an error`
                         console.error(message, error);
+                    })
+                    bus.on("action_handler_not_found", ({error}) => {
+                        console.debug("an handler cannot be found", error.message);
+                    })
+                    bus.on("event_forward_failed", ({event, error}) => {
+                        const identifier = `${event.headers.messageType}/${event.headers.messageId}`
+                        const message = `${className} - the event ${identifier} failed to be forwarded locally`
+                        console.trace(message, error);
+                    })
+                    bus.on("action_forward_failed", ({action, error}) => {
+                        const identifier = `${action.headers.messageType}/${action.headers.messageId}`
+                        const message = `${className} - the action ${identifier} failed to be forwarded locally`
+                        console.trace(message, error);
                     })
                 }
             },

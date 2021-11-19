@@ -22,30 +22,31 @@ export interface DomModuleOptions {
      */
     registryKey: RegistryKey
     /**
-     * When `true`, the `error` internal events (i.e. `bus.on("error", ...)`) are displayed using `console.error(...)`.
+     * When `true`, the internal events related to "error" (i.e. `action_handler_failed` ...) are displayed using the `console` methods.
      * By default `false`.
      */
     errorToConsole: boolean
 }
 
 /**
- * The module registers a {@link Bus} bound with the key {@link BusSymbol}
+ * The module registers a {@link Bus} bound with the key {@link BusSymbol}.
  *
- * @example Register the DomModule
+ * @example Register the module
  * ```typescript
- * import {inversion, messaging} from "@tmorin/ceb-bundle-web"
- * const container = inversion.ContainerBuilder.get()
- *   .module(new messaging.DomModule())
+ * import {ContainerBuilder} from "@tmorin/ceb-inversion-core"
+ * import {DomModule} from "@tmorin/ceb-messaging-dom"
+ * const container = ContainerBuilder.get()
+ *   .module(new DomModule())
  *   .build()
  * ```
  */
 export class DomModule extends AbstractModule {
     private readonly options: DomModuleOptions
 
+    /**
+     * @param partialOptions Options of the module.
+     */
     constructor(
-        /**
-         * Options of the module.
-         */
         partialOptions: Partial<DomModuleOptions> = {}
     ) {
         super()
@@ -73,6 +74,9 @@ export class DomModule extends AbstractModule {
                         const identifier = `${event.headers.messageType}/${event.headers.messageId}`
                         const message = `DomBus - an event listener of ${identifier} throws an error`
                         console.error(message, error);
+                    })
+                    bus.on("action_handler_not_found", ({error}) => {
+                        console.debug("DomBus - an handler cannot be found", error.message);
                     })
                 }
             },

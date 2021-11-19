@@ -6,7 +6,7 @@ import {BusInversionBuilder} from "./builder";
 import {BusInversionBuilderModule} from "./module";
 import {NotImplementedBus} from "./__TEST/fixtures";
 
-describe("messaging/bus/inversion/builder", function () {
+describe("ceb-messaging-builder-inversion/builder", function () {
     let container: Container
     let sandbox: HTMLDivElement
     let bus: NotImplementedBus

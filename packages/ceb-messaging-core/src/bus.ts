@@ -73,7 +73,12 @@ export interface InternalEventListener {
 /**
  * The map of the internal events.
  */
-export interface BusEventMap {
+export interface InternalBusEventMap {
+    "action_handler_not_found": {
+        bus: Bus,
+        action: MessageAction,
+        error: Error,
+    }
     "action_handler_failed": {
         bus: Bus,
         action: MessageAction,
@@ -101,7 +106,7 @@ export interface Bus {
      */
     publish<E extends MessageEvent>(
         event: E
-    ): Promise<void>
+    ): void
 
     /**
      * Register a subscriber.
@@ -140,7 +145,7 @@ export interface Bus {
      */
     execute<A extends MessageAction>(
         action: A,
-    ): Promise<void>
+    ): void
 
     /**
      * Register an action handler.
@@ -164,14 +169,14 @@ export interface Bus {
      * @param type the type of the event
      * @param listener the listener
      */
-    on<K extends keyof BusEventMap>(type: K, listener: (event: BusEventMap[K]) => any): this
+    on<K extends keyof InternalBusEventMap>(type: K, listener: (event: InternalBusEventMap[K]) => any): this
 
     /**
      * Emit an internal event.
      * @param type the type of the event
      * @param event the event
      */
-    emit<K extends keyof BusEventMap>(type: K, event: BusEventMap[K]): void
+    emit<K extends keyof InternalBusEventMap>(type: K, event: InternalBusEventMap[K]): void
 
     /**
      * Remove a listener to an internal event.
@@ -183,7 +188,7 @@ export interface Bus {
      * @param type the type of the event
      * @param listener the listener
      */
-    off<K extends keyof BusEventMap>(type?: K, listener?: (event: BusEventMap[K]) => any): this
+    off<K extends keyof InternalBusEventMap>(type?: K, listener?: (event: InternalBusEventMap[K]) => any): this
 
     /**
      * Release all stateful artifacts.
@@ -206,11 +211,11 @@ export abstract class AbstractBus implements Bus {
 
     abstract execute<A extends MessageAction, R extends MessageResult>(action: A, ResultType: MessageConstructor<R>, options?: ExecuteOptions): Promise<R>
 
-    abstract execute<A extends MessageAction>(action: A): Promise<void>
+    abstract execute<A extends MessageAction>(action: A): void
 
     abstract handle<M extends MessageAction, R extends MessageResult>(actionType: MessageType, ResultType: MessageConstructor<R>, handler: ExecutionHandler<M, R>): Handler
 
-    abstract publish<E extends MessageEvent>(event: E): Promise<void>
+    abstract publish<E extends MessageEvent>(event: E): void
 
     abstract subscribe<E extends MessageEvent>(eventType: MessageType, listener: SubscriptionListener<E>, options?: SubscribeOptions): Subscription
 
@@ -219,7 +224,7 @@ export abstract class AbstractBus implements Bus {
         this.off()
     }
 
-     emit<K extends keyof BusEventMap>(type: K, event: BusEventMap[K]): void {
+    emit<K extends keyof InternalBusEventMap>(type: K, event: InternalBusEventMap[K]): void {
         this.listeners.get(type)?.forEach(listener => {
             try {
                 listener.call(undefined, event)
@@ -229,7 +234,7 @@ export abstract class AbstractBus implements Bus {
         })
     }
 
-    on<K extends keyof BusEventMap>(type: K, listener: (event: BusEventMap[K]) => any): this {
+    on<K extends keyof InternalBusEventMap>(type: K, listener: (event: InternalBusEventMap[K]) => any): this {
         if (!this.listeners.has(type)) {
             this.listeners.set(type, [])
         }
@@ -237,7 +242,7 @@ export abstract class AbstractBus implements Bus {
         return this
     }
 
-    off<K extends keyof BusEventMap>(type?: K, listener?: (event: BusEventMap[K]) => any): this {
+    off<K extends keyof InternalBusEventMap>(type?: K, listener?: (event: InternalBusEventMap[K]) => any): this {
         if (type && listener) {
             const index = this.listeners.get(type)?.indexOf(listener)
             if (typeof index === "number" && index > -1) {

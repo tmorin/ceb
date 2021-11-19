@@ -6,7 +6,7 @@ import {CommandA, CommandB, FromMainEvent, FromRendererEvent, ResultA, ResultB} 
 import {ContainerBuilder} from "@tmorin/ceb-inversion-core";
 import {ElectronModule} from "./inversion";
 
-describe("IPC", function () {
+describe("ceb-messaging-adapter-electron/ipc", function () {
     this.timeout(10000)
     let ipcRendererBus: Bus
     before(async () => new Promise((resolve, reject) => {
@@ -32,9 +32,9 @@ describe("IPC", function () {
             done()
         })
         const event = new FromRendererEvent("Hello World!")
-        ipcRendererBus.publish(event).catch(done)
+        ipcRendererBus.publish(event)
     })
-    describe("from Renderer to Main", function () {
+    describe.only("from Renderer to Main", function () {
         it("should execute command", async function () {
             const commandA = new CommandA("World")
             const resultA = await ipcRendererBus.execute<CommandA, ResultA>(commandA, ResultA)

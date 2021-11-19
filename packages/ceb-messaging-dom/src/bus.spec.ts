@@ -3,7 +3,7 @@ import {DomMessage} from "./message";
 import {DomBus} from "./bus";
 import {CommandA, EventA, QueryA, ResultA, ResultB} from "./__TEST/fixture";
 
-describe("messaging/dom/bus", function () {
+describe("ceb-messaging-dom/bus", function () {
     let bus: DomBus;
     beforeEach(function () {
         bus = new DomBus(window)
@@ -49,7 +49,7 @@ describe("messaging/dom/bus", function () {
                 assert.strictEqual(receivedEventA, sentEventA)
                 done()
             })
-            bus.publish(sentEventA).catch(done)
+            bus.publish(sentEventA)
         })
     })
 })

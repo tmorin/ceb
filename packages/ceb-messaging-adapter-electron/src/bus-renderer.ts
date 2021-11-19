@@ -2,7 +2,6 @@ import any from "promise.any";
 import {IpcRenderer, IpcRendererEvent} from "electron";
 import {
     Bus,
-    BusEventMap,
     ExecuteOptions,
     ExecutionHandler,
     Handler,
@@ -16,7 +15,7 @@ import {
     Subscription,
     SubscriptionListener
 } from "@tmorin/ceb-messaging-core";
-import {IpcActionError, IpcHandler, IpcMessageMetadata, IpcSubscription} from "./bus";
+import {IpcActionError, IpcBusEventMap, IpcHandler, IpcMessageMetadata, IpcSubscription} from "./bus";
 import {IpcMessageConverter, SimpleIpcMessageConverter} from "./converter";
 
 /**
@@ -35,18 +34,18 @@ export class IpcRendererBus implements Bus {
     ) {
     }
 
-    emit<K extends keyof BusEventMap>(type: K, event: BusEventMap[K]): void {
+    emit<K extends keyof IpcBusEventMap>(type: K, event: IpcBusEventMap[K]): void {
         // @ts-ignore
         this.parentBus.emit.apply(this.parentBus, Array.from(arguments))
     }
 
-    on<K extends keyof BusEventMap>(type: K, listener: (event: BusEventMap[K]) => any): this {
+    on<K extends keyof IpcBusEventMap>(type: K, listener: (event: IpcBusEventMap[K]) => any): this {
         // @ts-ignore
         this.parentBus.on.apply(this.parentBus, Array.from(arguments))
         return this
     }
 
-    off<K extends keyof BusEventMap>(type?: K, listener?: (event: BusEventMap[K]) => any): this {
+    off<K extends keyof IpcBusEventMap>(type?: K, listener?: (event: IpcBusEventMap[K]) => any): this {
         // @ts-ignore
         this.parentBus.off.apply(this.parentBus, Array.from(arguments))
         return this
@@ -54,13 +53,6 @@ export class IpcRendererBus implements Bus {
 
     async dispose() {
         await this.parentBus.dispose()
-    }
-
-    async execute<A extends MessageAction>(action: A, arg1?: any, arg2?: any): Promise<any> {
-        if (arg1) {
-            return this.executeAndWait(action, arg1, arg2)
-        }
-        return this.executeAndForget(action)
     }
 
     handle<M extends MessageAction, R extends MessageResult>(
@@ -94,10 +86,7 @@ export class IpcRendererBus implements Bus {
                     })
                 }
             } else {
-                this.parentBus.execute(message).catch(error => this.emit(
-                    "action_handler_failed",
-                    {error, action: message, bus: this}
-                ))
+                this.parentBus.execute(message)
             }
         }
         this.ipcRenderer.on(channel, ipcListener)
@@ -108,12 +97,16 @@ export class IpcRendererBus implements Bus {
         })
     }
 
-    async publish<E extends MessageEvent>(event: E): Promise<void> {
+    publish<E extends MessageEvent>(event: E): void {
         // forward to IPC
         const {channel, data, metadata} = this.ipcMessageConverter.serialize(event)
         this.ipcRenderer.send(channel, data, metadata)
         // forward to parent
-        return this.parentBus.publish(event)
+        try {
+            this.parentBus.publish(event)
+        } catch (error: any) {
+            this.emit("event_forward_failed", {bus: this, event, error})
+        }
     }
 
     subscribe<E extends MessageEvent>(
@@ -137,6 +130,13 @@ export class IpcRendererBus implements Bus {
             parentSubscription.unsubscribe()
             this.ipcRenderer.removeListener(channel, ipcListener)
         })
+    }
+
+    execute<A extends MessageAction>(action: A, arg1?: any, arg2?: any): any {
+        if (arg1) {
+            return this.executeAndWait(action, arg1, arg2)
+        }
+        this.executeAndForget(action)
     }
 
     private async executeAndWait<A extends MessageAction, R extends MessageResult>(
@@ -171,19 +171,25 @@ export class IpcRendererBus implements Bus {
             this.ipcRenderer.send(channel, data, {...metadata, waitForResult: true})
         })
         // forward to parent
-        const pParent = this.parentBus.execute(action, ResultType, options)
+        let pParent
+        try {
+            pParent = this.parentBus.execute(action, ResultType, options)
+        } catch (e) {
+            pParent = Promise.reject(e)
+        }
         // return first
         return any<R>([pParent, pIpc])
     }
 
-    private async executeAndForget<A extends MessageAction>(action: A): Promise<void> {
+    private executeAndForget<A extends MessageAction>(action: A): void {
         // forward to IPC
         const {channel, data, metadata} = this.ipcMessageConverter.serialize(action)
         this.ipcRenderer.send(channel, data, {...metadata, waitForResult: false})
         // forward to parent
-        return this.parentBus.execute(action).catch(error => this.emit(
-            "action_handler_failed",
-            {error, action, bus: this}
-        ))
+        try {
+            this.parentBus.execute(action)
+        } catch (error: any) {
+            this.emit("action_forward_failed", {bus: this, action, error})
+        }
     }
 }
