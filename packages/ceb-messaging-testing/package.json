@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-testing",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides resources to improve tests playing with messaging artifacts.",
   "keywords": [
