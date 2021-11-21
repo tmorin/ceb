@@ -66,7 +66,7 @@ export interface ExecutionHandler<M extends MessageAction, R extends MessageResu
 /**
  * Listener of Bus's events.
  */
-export interface InternalEventListener {
+interface InternalEventListener {
     (...args: any[]): void
 }
 
