@@ -1,10 +1,10 @@
-import {InMemorySimpleBus} from "@tmorin/ceb-messaging-simple";
-import {AbstractBusBuilder} from "@tmorin/ceb-messaging-builder-core";
+import {SimpleGateway} from "@tmorin/ceb-messaging-simple";
+import {AbstractGatewayBuilder} from "@tmorin/ceb-messaging-builder-core";
 
 /**
- * Specialization of {@link AbstractBusBuilder} for the {@link InMemorySimpleBus} bus.
+ * Specialization of {@link AbstractGatewayBuilder} for the {@link SimpleGateway} gateway.
  */
-export class SimpleBusBuilder<E extends HTMLElement> extends AbstractBusBuilder<E> {
+export class SimpleGatewayBuilder<E extends HTMLElement> extends AbstractGatewayBuilder<E> {
 
     /**
      * Provides a fresh builder.
@@ -12,8 +12,8 @@ export class SimpleBusBuilder<E extends HTMLElement> extends AbstractBusBuilder<
      * @template E the type of the Custom Element
      */
     static get<E extends HTMLElement>(propName?: string) {
-        return new SimpleBusBuilder<E>(
-            () => InMemorySimpleBus.GLOBAL,
+        return new SimpleGatewayBuilder<E>(
+            () => SimpleGateway.GLOBAL,
             propName
         )
     }

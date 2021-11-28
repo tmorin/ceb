@@ -1,48 +1,76 @@
-import {assert} from "chai";
-import sinon from "sinon";
-import {Container, ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion-core";
+import chai, {assert} from "chai"
+import chasAsPromised from "chai-as-promised"
+import sinon from "sinon"
+import {Container, ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion-core"
 import {
-    Bus,
-    BusSymbol,
-    MessageCommandHandlerSymbol,
-    MessageEventListenerSymbol,
-    MessagingModule
-} from "@tmorin/ceb-messaging-core";
-import {SimpleModule} from "./inversion";
-import {CommandWithMessageType, CommandWithMessageTypeHandler, EventA, EventAListener, ResultA} from "./__TEST/fixture";
+    Action,
+    Command,
+    DiscoverableCommandHandler,
+    DiscoverableCommandHandlerSymbol,
+    DiscoverableEventListener,
+    DiscoverableEventListenerSymbol,
+    Event,
+    Gateway,
+    GatewaySymbol,
+    MessageBuilder,
+    MessagingModule,
+    Result
+} from "@tmorin/ceb-messaging-core"
+import {SimpleModule} from "./inversion"
+
+chai.use(chasAsPromised)
+
+function createEventA(body: string): Event<string> {
+    return MessageBuilder.event<string>("EventA").body(body).build()
+}
+
+function createCommandA(body: string): Command<string> {
+    return MessageBuilder.command<string>("CommandA").body(body).build()
+}
+
+function createResultA(action: Action, body: string): Result<string> {
+    return MessageBuilder.result<string>(action).body(body).build()
+}
 
 describe("ceb-messaging-simple/SimpleModule", function () {
-    let eventListener: EventAListener = new EventAListener()
-    let listenerSpy = sinon.spy(eventListener, "on")
+    let eventListener: DiscoverableEventListener = {
+        type: "EventA",
+        listener: () => {
+        }
+    }
+    let listenerSpy = sinon.spy(eventListener, "listener")
 
-    let commandHandler: CommandWithMessageTypeHandler = new CommandWithMessageTypeHandler()
-    let handlerSpy = sinon.spy(commandHandler, "handle")
+    let commandHandler: DiscoverableCommandHandler = {
+        type: "CommandA",
+        handler: (command) => ({result: createResultA(command, command.body)})
+    }
+    let handlerSpy = sinon.spy(commandHandler, "handler")
 
     let container: Container
-    let bus: Bus
+    let bus: Gateway
     beforeEach(async function () {
         container = await ContainerBuilder.get()
             .module(new SimpleModule())
             .module(new MessagingModule())
             .module(OnlyConfigureModule.create(async function () {
-                this.registry.registerValue(MessageEventListenerSymbol, eventListener)
-                this.registry.registerValue(MessageCommandHandlerSymbol, commandHandler)
+                this.registry.registerValue(DiscoverableEventListenerSymbol, eventListener)
+                this.registry.registerValue(DiscoverableCommandHandlerSymbol, commandHandler)
             }))
             .build()
             .initialize()
-        bus = container.registry.resolve<Bus>(BusSymbol)
+        bus = container.registry.resolve<Gateway>(GatewaySymbol)
     })
     afterEach(async function () {
         await container.dispose()
     })
     it('should listen to an event', async function () {
-        const simpleEventA = new EventA("body content")
-        await bus.publish(simpleEventA)
+        const simpleEventA = createEventA("body content")
+        await bus.events.publish(simpleEventA)
         assert.ok(listenerSpy.calledOnce)
     })
     it('should handle command', async function () {
-        const command = new CommandWithMessageType("body content")
-        const result = await bus.execute(command, ResultA)
+        const command = createCommandA("body content")
+        const result = await bus.commands.execute(command)
         assert.ok(handlerSpy.calledOnce)
         assert.ok(result)
         assert.equal(result.body, command.body)

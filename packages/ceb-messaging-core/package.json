@@ -48,7 +48,9 @@
     "build": "npm run build:lib && npm run build:module && npm run build:fix",
     "build:fix": "../../scripts/fix-dist.js",
     "build:lib": "tsc -p tsconfig.build.json --module CommonJS --outDir dist/cjs --declaration --declarationDir dist/types",
-    "build:module": "tsc -p tsconfig.build.json --module ESNext --outDir dist/mjs"
+    "build:module": "tsc -p tsconfig.build.json --module ESNext --outDir dist/mjs",
+    "test": "mocha --require ts-node/register src/**/*.spec.ts",
+    "test:watch": "npm test -- --watch --watch-files '**/*.ts'"
   },
   "dependencies": {
     "@tmorin/ceb-inversion-core": "^6.0.0"

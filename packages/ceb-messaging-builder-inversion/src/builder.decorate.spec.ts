@@ -1,39 +1,42 @@
 import {assert} from "chai";
 import {ElementBuilder} from "@tmorin/ceb-elements-core";
-import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
+import {Event, Gateway, GatewaySymbol} from "@tmorin/ceb-messaging-core";
 import {Container, ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion-core";
-import {BusInversionBuilder} from "./builder";
-import {BusInversionBuilderModule} from "./module";
-import {EventA, NotImplementedBus} from "./__TEST/fixtures";
+import {GatewayInversionBuilder} from "./builder";
+import {GatewayInversionBuilderModule} from "./module";
+import {SimpleGateway} from "@tmorin/ceb-messaging-simple";
+import {SinonSpy, spy} from "sinon";
 
 describe("ceb-messaging-builder-inversion/builder/decorate", function () {
     let sandbox: HTMLDivElement
-    const tagName = "messaging-bus-inversion-builder-decorate"
+    const tagName = "messaging-gateway-inversion-builder-decorate"
     let container: Container
-    let bus: NotImplementedBus
+    let gateway: SimpleGateway
     let testElement: TestElement
+    let spiedSubscribe: SinonSpy
 
     @ElementBuilder.get(TestElement).name(tagName).decorate()
     class TestElement extends HTMLElement {
-        @BusInversionBuilder.get().decorate()
-        bus?: Bus
+        @GatewayInversionBuilder.get().decorate()
+        gateway?: Gateway
 
-        @BusInversionBuilder.get().subscribe().decorate()
-        onEventA(event: EventA) {
+        @GatewayInversionBuilder.get().subscribe().decorate()
+        onEventA(event: Event<string>) {
         }
 
-        @BusInversionBuilder.get().subscribe().type(EventA).decorate()
-        onEventABis(event: EventA) {
+        @GatewayInversionBuilder.get().subscribe().type("EventA").decorate()
+        onEventABis(event: Event<string>) {
         }
     }
 
     before(async function () {
-        bus = new NotImplementedBus()
+        gateway = SimpleGateway.create()
+        spiedSubscribe = spy(gateway.events, "subscribe")
         container = await ContainerBuilder.get()
             .module(OnlyConfigureModule.create(async function () {
-                this.registry.registerValue(BusSymbol, bus)
+                this.registry.registerValue(GatewaySymbol, gateway)
             }))
-            .module(new BusInversionBuilderModule())
+            .module(new GatewayInversionBuilderModule())
             .build()
             .initialize()
         sandbox = document.body.appendChild(document.createElement('div'))
@@ -41,18 +44,19 @@ describe("ceb-messaging-builder-inversion/builder/decorate", function () {
     })
 
     after(async function () {
+        spiedSubscribe.restore()
         await container.dispose()
     })
 
     it("should resolve container with default settings", function () {
-        assert.property(testElement, "bus")
-        assert.equal<any>(testElement.bus, bus)
+        assert.property(testElement, "gateway")
+        assert.equal<any>(testElement.gateway, gateway)
     })
 
     it("should subscribe", function () {
-        assert.equal(bus.subscribeCalls.length, 2)
-        assert.equal(bus.subscribeCalls[0][0], "EventA")
-        assert.equal(bus.subscribeCalls[1][0], EventA)
+        assert.equal(spiedSubscribe.callCount, 2)
+        assert.equal(spiedSubscribe.getCall(0).args[0], "EventA")
+        assert.equal(spiedSubscribe.getCall(1).args[0], "EventA")
     })
 
 })

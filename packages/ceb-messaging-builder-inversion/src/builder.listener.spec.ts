@@ -1,33 +1,36 @@
 import {assert} from "chai";
+import {SinonSpy, spy} from "sinon";
 import {ElementBuilder} from "@tmorin/ceb-elements-core";
-import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
+import {Gateway, GatewaySymbol} from "@tmorin/ceb-messaging-core";
 import {Container, ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion-core";
-import {BusInversionBuilder} from "./builder";
-import {BusInversionBuilderModule} from "./module";
-import {EventA, NotImplementedBus} from "./__TEST/fixtures";
+import {GatewayInversionBuilder} from "./builder";
+import {GatewayInversionBuilderModule} from "./module";
+import {SimpleGateway} from "@tmorin/ceb-messaging-simple";
 
 describe("ceb-messaging-builder-inversion/builder/listener", function () {
     let sandbox: HTMLDivElement
-    const tagName = "messaging-bus-inversion-builder-listener"
+    const tagName = "messaging-gateway-inversion-builder-listener"
     let container: Container
-    let bus: NotImplementedBus
+    let gateway: SimpleGateway
     let testElement: TestElement
+    let spiedSubscribe: SinonSpy
 
     class TestElement extends HTMLElement {
-        bus?: Bus
+        gateway?: Gateway
     }
 
     before(async function () {
-        bus = new NotImplementedBus()
+        gateway = SimpleGateway.create()
+        spiedSubscribe = spy(gateway.events, "subscribe")
         container = await ContainerBuilder.get()
             .module(OnlyConfigureModule.create(async function () {
-                this.registry.registerValue(BusSymbol, bus)
+                this.registry.registerValue(GatewaySymbol, gateway)
             }))
-            .module(new BusInversionBuilderModule())
+            .module(new GatewayInversionBuilderModule())
             .build()
             .initialize()
         ElementBuilder.get(TestElement).name(tagName).builder(
-            BusInversionBuilder.get().subscribe(EventA, () => {
+            GatewayInversionBuilder.get().subscribe("EventA", () => {
             }),
         ).register()
         sandbox = document.body.appendChild(document.createElement('div'))
@@ -35,12 +38,12 @@ describe("ceb-messaging-builder-inversion/builder/listener", function () {
     })
 
     after(async function () {
+        spiedSubscribe.restore()
         await container.dispose()
     })
 
     it("should subscribe", function () {
-        assert.equal(bus.subscribeCalls.length, 1)
-        assert.equal(bus.subscribeCalls[0][0], EventA)
+        assert.equal(spiedSubscribe.callCount, 1)
     })
 
 })

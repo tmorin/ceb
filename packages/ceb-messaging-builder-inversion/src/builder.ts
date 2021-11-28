@@ -1,6 +1,6 @@
 import {Container, RegistryKey} from "@tmorin/ceb-inversion-core";
-import {Bus, BusSymbol} from "@tmorin/ceb-messaging-core";
-import {AbstractBusBuilder} from "@tmorin/ceb-messaging-builder-core";
+import {Gateway, GatewaySymbol} from "@tmorin/ceb-messaging-core";
+import {AbstractGatewayBuilder} from "@tmorin/ceb-messaging-builder-core";
 
 /**
  * Provider of the container.
@@ -13,17 +13,17 @@ export interface ContainerProvider {
 }
 
 /**
- * The builder injects a {@link Bus} in Custom Elements.
+ * The builder injects a {@link Gateway} in Custom Elements.
  *
  * @template E the type of the Custom Element
  */
-export class BusInversionBuilder<E extends HTMLElement> extends AbstractBusBuilder<E> {
+export class GatewayInversionBuilder<E extends HTMLElement> extends AbstractGatewayBuilder<E> {
 
     private static DEFAULT_CONTAINER: Container
 
     protected constructor(
-        _propName: string = "bus",
-        private _key: RegistryKey = BusSymbol,
+        _propName: string = "gateway",
+        private _key: RegistryKey = GatewaySymbol,
         private _provider?: ContainerProvider,
     ) {
         super(
@@ -31,12 +31,12 @@ export class BusInversionBuilder<E extends HTMLElement> extends AbstractBusBuild
                 let _container: Container
                 if (_provider) {
                     _container = _provider()
-                } else if (BusInversionBuilder.DEFAULT_CONTAINER) {
-                    _container = BusInversionBuilder.DEFAULT_CONTAINER
+                } else if (GatewayInversionBuilder.DEFAULT_CONTAINER) {
+                    _container = GatewayInversionBuilder.DEFAULT_CONTAINER
                 } else {
-                    throw new TypeError("BusInversionBuilder - unable to resolve a Container")
+                    throw new TypeError("GatewayInversionBuilder - unable to resolve a Container")
                 }
-                return _container.registry.resolve<Bus>(_key)
+                return _container.registry.resolve<Gateway>(_key)
             },
             _propName
         )
@@ -48,7 +48,7 @@ export class BusInversionBuilder<E extends HTMLElement> extends AbstractBusBuild
      * @internal
      */
     static setDefaultContainer(container: Container) {
-        BusInversionBuilder.DEFAULT_CONTAINER = container
+        GatewayInversionBuilder.DEFAULT_CONTAINER = container
     }
 
     /**
@@ -57,7 +57,7 @@ export class BusInversionBuilder<E extends HTMLElement> extends AbstractBusBuild
      * @template E the type of the Custom Element
      */
     static get<E extends HTMLElement>(propName?: string) {
-        return new BusInversionBuilder<E>(propName)
+        return new GatewayInversionBuilder<E>(propName)
     }
 
     /**

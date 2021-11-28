@@ -1,18 +1,10 @@
 import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-elements-core";
-import {
-    Bus,
-    Message,
-    MessageConstructor,
-    MessageEvent,
-    MessageType,
-    SubscribeOptions,
-    Subscription
-} from "@tmorin/ceb-messaging-core";
+import {Event, Gateway, MessageType, Removable, SubscribeOptions} from "@tmorin/ceb-messaging-core";
 
 /**
  * The listener of a subscription.
  */
-export interface ElementSubscriptionListener<E extends HTMLElement = HTMLElement, M extends MessageEvent = MessageEvent> {
+export interface ElementSubscriptionListener<E extends HTMLElement = HTMLElement, M extends Event = Event> {
     /**
      * @param el the Custom Element
      * @param event the message
@@ -24,21 +16,21 @@ export interface ElementSubscriptionListener<E extends HTMLElement = HTMLElement
 
 /**
  * The builder handles the registration of subscriptions based on an existing method using the decorator style.
- * It should only be used from {@link AbstractBusBuilder.subscribe}.
+ * It should only be used from {@link AbstractGatewayBuilder.subscribe}.
  *
  * By default, the type of the Message Event is resolved from the name of the method.
- * However, it can be directly set with {@link BusSubscriptionBuilder.type}.
+ * However, it can be directly set with {@link GatewaySubscriptionBuilder.type}.
  *
- * The options of the subscription can be provided with {@link BusSubscriptionBuilder.options}.
+ * The options of the subscription can be provided with {@link GatewaySubscriptionBuilder.options}.
  *
  * @template E the type of the Custom Element
  * @template M the type of the Message Event
  */
-export class BusSubscriptionBuilder<E extends HTMLElement, M extends MessageEvent> {
+export class GatewaySubscriptionBuilder<E extends HTMLElement, M extends Event> {
 
     constructor(
-        private _busBuilder: AbstractBusBuilder<E>,
-        private _EventType?: MessageType | MessageConstructor<M>,
+        private _gatewayBuilder: AbstractGatewayBuilder<E>,
+        private _EventType?: MessageType,
         private _listener: ElementSubscriptionListener<E, M> = () => {
         },
         private _options?: SubscribeOptions
@@ -49,7 +41,7 @@ export class BusSubscriptionBuilder<E extends HTMLElement, M extends MessageEven
      * Set the type of the event.
      * @param EventType the event type
      */
-    type(EventType: MessageType | MessageConstructor<M>): BusSubscriptionBuilder<E, M> {
+    type(EventType: MessageType): GatewaySubscriptionBuilder<E, M> {
         this._EventType = EventType
         return this
     }
@@ -58,7 +50,7 @@ export class BusSubscriptionBuilder<E extends HTMLElement, M extends MessageEven
      * Set the listener options.
      * @param options the options
      */
-    options(options: SubscribeOptions): BusSubscriptionBuilder<E, M> {
+    options(options: SubscribeOptions): GatewaySubscriptionBuilder<E, M> {
         this._options = options
         return this
     }
@@ -66,7 +58,7 @@ export class BusSubscriptionBuilder<E extends HTMLElement, M extends MessageEven
     /**
      * Decorate the listener method which is invoked when the matching Event is published.
      *
-     * When the type of the Event is not specified by {@link BusSubscriptionBuilder.type}, then the event type is discovered from the decorated method name.
+     * When the type of the Event is not specified by {@link GatewaySubscriptionBuilder.type}, then the event type is discovered from the decorated method name.
      * The pattern is `<prefix><event-type>`, where `<prefix>` is by default `on`.
      *
      * @param prefix the prefix used to discover the type of the message event from the method name
@@ -76,10 +68,10 @@ export class BusSubscriptionBuilder<E extends HTMLElement, M extends MessageEven
             if (!this._EventType) {
                 this._EventType = methName.toString().replace(prefix, '')
             }
-            const id = `bus-${this._busBuilder._propName}`
-            const builder = ElementBuilder.getOrSet(target, this._busBuilder, id)
-            if (builder !== this._busBuilder) {
-                builder.mergeBuilder(this._busBuilder, false)
+            const id = `gateway-${this._gatewayBuilder._propName}`
+            const builder = ElementBuilder.getOrSet(target, this._gatewayBuilder, id)
+            if (builder !== this._gatewayBuilder) {
+                builder.mergeBuilder(this._gatewayBuilder, false)
             }
             builder.subscribe(this._EventType, (el, event) => {
                 const fn = descriptor.value as Function
@@ -91,47 +83,47 @@ export class BusSubscriptionBuilder<E extends HTMLElement, M extends MessageEven
 }
 
 /**
- * Factory of a bus.
+ * Factory of a gateway.
  */
-export interface BusProvider {
+export interface GatewayProvider {
     /**
-     * @return the bus
+     * @return the gateway
      */
-    (): Bus
+    (): Gateway
 }
 
-const BUILDERS = new WeakMap<Element, Map<string, Bus>>()
+const BUILDERS = new WeakMap<Element, Map<string, Gateway>>()
 
 /**
  * The builder handles the integration of the Event/Message Driven approach provided natively by `<ceb/>`.
- * Its purpose is to provide a quick and efficient way to interact with the {@link Bus} within the Custom Element.
+ * Its purpose is to provide a quick and efficient way to interact with the {@link Gateway} within the Custom Element.
  * Therefore, it is easy to execute queries to get data, execute commands to generate side effects and finally listen to events to react on side effects.
  *
- * First of all, the {@link Bus} is created and set to a readonly property, by default its name is `bus`.
- * By default, the global channel is `window`, it can be overridden with {@link AbstractBusBuilder.global}
+ * First of all, the {@link Gateway} is created and set to a readonly property, by default its name is `gateway`.
+ * By default, the global channel is `window`, it can be overridden with {@link AbstractGatewayBuilder.global}
  *
- * Then, subscriptions can be registered with {@link AbstractBusBuilder.subscribe}.
- * When the builder is used as a decorator, then {@link AbstractBusBuilder.subscribe} provides an instance of {@link BusSubscriptionBuilder} which can be used to easily configure a subscription.
+ * Then, subscriptions can be registered with {@link AbstractGatewayBuilder.subscribe}.
+ * When the builder is used as a decorator, then {@link AbstractGatewayBuilder.subscribe} provides an instance of {@link GatewaySubscriptionBuilder} which can be used to easily configure a subscription.
  *
- * The bus starts when the Custom Element is connected, c.f. `connectedCallback` and, stops when it is disconnected, c.f. `disconnectedCallback`.
+ * The gateway starts when the Custom Element is connected, c.f. `connectedCallback` and, stops when it is disconnected, c.f. `disconnectedCallback`.
  *
  * The builder can be used many times by Custom Element.
- * There will be a unique {@link Bus} instance per properties.
+ * There will be a unique {@link Gateway} instance per properties.
  *
  * @template the type of the Custom Element
  */
-export abstract class AbstractBusBuilder<E extends HTMLElement> implements Builder<E> {
+export abstract class AbstractGatewayBuilder<E extends HTMLElement> implements Builder<E> {
 
     /**
      * @ignore
      * @internal
      */
-    public _propName: string = "bus";
+    public _propName: string = "gateway";
 
     protected constructor(
-        protected _busProvider: BusProvider,
-        _propName: string = "bus",
-        protected _subscriptionsByType: Map<MessageType | MessageConstructor<Message>, Array<[ElementSubscriptionListener, SubscribeOptions | undefined]>> = new Map(),
+        protected _gatewayProvider: GatewayProvider,
+        _propName: string = "gateway",
+        protected _subscriptionsByType: Map<MessageType, Array<[ElementSubscriptionListener, SubscribeOptions | undefined]>> = new Map(),
     ) {
         this._propName = _propName;
     }
@@ -142,22 +134,22 @@ export abstract class AbstractBusBuilder<E extends HTMLElement> implements Build
      * @param listener the listener
      * @param options the options
      */
-    subscribe<M extends MessageEvent>(
-        EventType: MessageType | MessageConstructor<M>,
+    subscribe<M extends Event>(
+        EventType: MessageType,
         listener: ElementSubscriptionListener<E, M>,
         options ?: SubscribeOptions
-    ): AbstractBusBuilder<E>
+    ): AbstractGatewayBuilder<E>
 
     /**
      * When used as a decorator, returns a fresh Subscription builder to decorate a method.
      */
-    subscribe<M extends MessageEvent>(): BusSubscriptionBuilder<E, M>
+    subscribe<M extends Event>(): GatewaySubscriptionBuilder<E, M>
 
-    subscribe<M extends MessageEvent>(
-        EventType ?: MessageType | MessageConstructor<M>,
+    subscribe<M extends Event>(
+        EventType ?: MessageType,
         listener ?: ElementSubscriptionListener<E, M>,
         options ?: SubscribeOptions
-    ): AbstractBusBuilder<E> | BusSubscriptionBuilder<E, M> {
+    ): AbstractGatewayBuilder<E> | GatewaySubscriptionBuilder<E, M> {
         if (EventType && listener
         ) {
             if (!this._subscriptionsByType.has(EventType)) {
@@ -170,16 +162,16 @@ export abstract class AbstractBusBuilder<E extends HTMLElement> implements Build
             ])
             return this
         }
-        return new BusSubscriptionBuilder(this)
+        return new GatewaySubscriptionBuilder(this)
     }
 
     /**
-     * Decorates the property of the bus.
+     * Decorates the property of the gateway.
      */
     decorate(): PropertyDecorator {
         return (target, propName) => {
             this._propName = propName.toString()
-            const id = `bus-${this._propName}`
+            const id = `gateway-${this._propName}`
             const builder = ElementBuilder.getOrSet(target, this, id)
             if (builder !== this) {
                 builder.mergeBuilder(this, true)
@@ -191,43 +183,46 @@ export abstract class AbstractBusBuilder<E extends HTMLElement> implements Build
      * This API is dedicated for developer of Builders.
      * @protected
      */
-    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & { __ceb_bus_subscriptions: Set<Subscription> }>): void {
+    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & { __ceb_gateway_subscriptions: Set<Removable> }>): void {
         const _propName = this._propName
         const _subscriptionsByType = this._subscriptionsByType
 
         hooks.before('constructorCallback', el => {
-            const bus = this._busProvider()
+            const gateway = this._gatewayProvider()
             if (!BUILDERS.get(el)?.has(_propName)) {
-                BUILDERS.set(el, new Map([[_propName, bus]]))
+                BUILDERS.set(el, new Map([[_propName, gateway]]))
             }
             if (!Object.getOwnPropertyDescriptor(el, _propName)) {
                 Object.defineProperty(el, _propName, {
-                    value: bus,
+                    value: gateway,
                     configurable: false,
                     writable: false,
                     enumerable: true
                 })
             }
-            el.__ceb_bus_subscriptions = new Set<Subscription>()
+            el.__ceb_gateway_subscriptions = new Set<Removable>()
         })
 
         hooks.before('connectedCallback', el => {
-            const busDescriptor = Object.getOwnPropertyDescriptor(el, _propName)
+            const gatewayDescriptor = Object.getOwnPropertyDescriptor(el, _propName)
             _subscriptionsByType.forEach((listeners, type) =>
                 listeners.forEach(([listener, options]) =>
-                    el.__ceb_bus_subscriptions.add(busDescriptor?.value?.subscribe(type, (event: MessageEvent) => listener(el, event), options))))
+                    el.__ceb_gateway_subscriptions.add(gatewayDescriptor?.value?.events.subscribe(
+                        type,
+                        (event: Event) => listener(el, event), options)
+                    )))
         })
 
         hooks.before('disconnectedCallback', el => {
-            el.__ceb_bus_subscriptions.forEach(subscription => subscription.unsubscribe())
-            el.__ceb_bus_subscriptions.clear()
+            el.__ceb_gateway_subscriptions.forEach(subscription => subscription.remove())
+            el.__ceb_gateway_subscriptions.clear()
         })
     }
 
     /**
      * @ignore
      */
-    mergeBuilder(builder: AbstractBusBuilder<E>, isMaster: boolean) {
+    mergeBuilder(builder: AbstractGatewayBuilder<E>, isMaster: boolean) {
         if (isMaster) {
             if (!this._propName) {
                 this._propName = builder._propName

@@ -1,5 +1,4 @@
-import {Bus} from "@tmorin/ceb-messaging-core";
-import {MessageConstructor, MessageEvent, MessageType} from "@tmorin/ceb-messaging-core/src";
+import {Event, Gateway, MessageType} from "@tmorin/ceb-messaging-core";
 
 /**
  * The options of {@link waitForEvents}.
@@ -20,13 +19,13 @@ export type WaitEventsOptions = {
 /**
  * Wait for events matching a specific type.
  *
- * @param bus the bus
- * @param EventType the type of the event
+ * @param gateway the gateway
+ * @param eventType the type of the event
  * @param options the options
  */
-export function waitForEvents<E extends MessageEvent>(
-    bus: Bus,
-    EventType: MessageType | MessageConstructor<E>,
+export function waitForEvents<E extends Event = Event>(
+    gateway: Gateway,
+    eventType: MessageType,
     options: Partial<WaitEventsOptions> = {},
 ): Promise<Array<E>> {
     return new Promise((resolve, reject) => {
@@ -37,7 +36,7 @@ export function waitForEvents<E extends MessageEvent>(
         }
         let counter = 0
         let events: Array<E> = []
-        const subscription = bus.subscribe<E>(EventType, (event) => {
+        const subscription = gateway.events.subscribe<E>(eventType, (event) => {
             counter++
             events.push(event)
             if (counter >= opts.occurrences) {
@@ -46,7 +45,7 @@ export function waitForEvents<E extends MessageEvent>(
             }
         })
         const timeoutId = setTimeout(() => {
-            subscription.unsubscribe()
+            subscription.remove()
             reject(new Error("unable to get expected events on time"))
         }, opts.timeout)
     })

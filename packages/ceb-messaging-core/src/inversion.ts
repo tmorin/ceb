@@ -1,82 +1,64 @@
 import {AbstractModule, Component, ComponentSymbol, Container, ContainerSymbol} from "@tmorin/ceb-inversion-core";
-import {MessageCommand, MessageConstructor, MessageEvent, MessageQuery, MessageResult, MessageType} from "./message";
-import {Bus, BusSymbol, Handler, Subscription} from "./bus";
+import {Command, CommandHandler} from "./command";
+import {Result} from "./result";
+import {Event, EventListener} from "./event";
+import {Query, QueryHandler} from "./query";
+import {Removable} from "./common";
+import {Gateway, GatewaySymbol} from "./gateway";
 
 // COMMAND
 
 /**
- * The symbol used to register {@link MessageCommandHandler}.
+ * The symbol used to register {@link DiscoverableCommandHandler}.
  */
-export const MessageCommandHandlerSymbol = Symbol.for("ceb/inversion/MessageCommandHandler")
+export const DiscoverableCommandHandlerSymbol = Symbol.for("ceb/inversion/DiscoverableCommandHandler")
 
 /**
- * A command handler handles a command.
+ * A command handler discovered by the container on startup.
  *
- * @template C the type of the MessageCommand
- * @template R the type of the MessageResult
- * @template E the type of the MessageEvents
+ * @template C the type of the Command
+ * @template R the type of the Result
+ * @template Es the type of the Events
  */
-export interface MessageCommandHandler<C extends MessageCommand = MessageCommand,
-    R extends MessageResult = MessageResult,
-    E extends MessageEvent = MessageEvent> {
-    /**
-     * The type of the command.
-     */
-    CommandType: MessageType | MessageConstructor<C>
-    /**
-     * The type of the result.
-     */
-    ResultType: MessageConstructor<R>
-
-    handle(command: C): Promise<void | R | [R | void, Array<E>]>
+export type DiscoverableCommandHandler<C extends Command = Command, R extends Result = Result, Es extends Array<Event> = []> = {
+    type: string,
+    handler: CommandHandler<C, R, Es>
 }
+
 
 // QUERY
 
 /**
- * The symbol used to register {@link MessageQueryHandler}.
+ * The symbol used to register {@link DiscoverableQueryHandler}.
  */
-export const MessageQueryHandlerSymbol = Symbol.for("ceb/inversion/MessageQueryHandler")
+export const DiscoverableQueryHandlerSymbol = Symbol.for("ceb/inversion/DiscoverableQueryHandler")
 
 /**
- * A query handler handles a query.
+ * A query handler discovered by the container on startup.
  *
- * @template Q the type of the MessageQuery
- * @template R the type of the MessageResult
+ * @template Q the type of the Query
+ * @template R the type of the Result
  */
-export interface MessageQueryHandler<Q extends MessageQuery = MessageQuery,
-    R extends MessageResult = MessageResult> {
-    /**
-     * The type of the query.
-     */
-    QueryType: MessageType | MessageConstructor<Q>
-    /**
-     * The type of the result.
-     */
-    ResultType: MessageType | MessageConstructor<R>
-
-    handle(query: Q): Promise<void | R>
+export type DiscoverableQueryHandler<Q extends Query = Query, R extends Result = Result> = {
+    type: string,
+    handler: QueryHandler<Q, R>
 }
 
 // LISTENER
 
 /**
- * The symbol used to register {@link MessageEventListener}.
+ * The symbol used to register {@link DiscoverableEventListener}.
  */
-export const MessageEventListenerSymbol = Symbol.for("ceb/inversion/MessageEventListener")
+export const DiscoverableEventListenerSymbol = Symbol.for("ceb/inversion/DiscoverableEventListener")
 
 /**
- * A event listener listen to an event.
+ * An event handler discovered by the container on startup.
  *
- * @template E the type of the MessageEvent
+ * @template E the type of the Event
  */
-export interface MessageEventListener<E extends MessageEvent = MessageEvent> {
-    /**
-     * The type of the event.
-     */
-    EventType: MessageType | MessageConstructor<E>
-
-    on(event: E): Promise<void>
+export type DiscoverableEventListener<E extends Event = Event> = {
+    type: string
+    listener: EventListener<E>
 }
 
 // COMPONENT
@@ -84,18 +66,16 @@ export interface MessageEventListener<E extends MessageEvent = MessageEvent> {
 /**
  * The component discovers the handlers (for commands and queries) as well as the listeners in the registry and then register them to the bus.
  *
- * - The command handlers are discovered with the key {@link MessageCommandHandlerSymbol}.
+ * - The command handlers are discovered with the key {@link CommandHandlerSymbol}.
  * - The query handlers are discovered with the key {@link MessageQueryHandlerSymbol}.
- * - The event listeners are discovered with the key {@link MessageEventListenerSymbol}.
+ * - The event listeners are discovered with the key {@link EventListenerSymbol}.
  *
  * The registrations are done when the container starts.
  * They are also disposed once the container is disposed too.
  */
 export class MessagingComponent extends Component {
 
-    private readonly handlers: Array<Handler> = []
-
-    private readonly subscriptions: Array<Subscription> = []
+    private readonly removableList: Array<Removable> = []
 
     constructor(
         /**
@@ -103,68 +83,44 @@ export class MessagingComponent extends Component {
          */
         private readonly container: Container,
         /**
-         * The bus.
+         * The gateway.
          */
-        private readonly bus: Bus
+        private readonly gateway: Gateway
     ) {
         super();
     }
 
     async configure(): Promise<void> {
 
-        if (this.container.registry.contains(MessageCommandHandlerSymbol)) {
-            const messageCommandHandlers = this.container.registry.resolveAll<MessageCommandHandler>(MessageCommandHandlerSymbol)
-            this.handlers.push.apply(this, messageCommandHandlers.map(handler => this.bus.handle(
-                handler.CommandType,
-                handler.ResultType,
-                async (command) => {
-                    const output = await handler.handle(command)
-                    if (Array.isArray(output)) {
-                        const result = output[0]
-                        const events = output[1] || []
-                        events.forEach(event => this.bus.publish(event))
-                        return result
-                    } else {
-                        return output
-                    }
-                }))
-            )
+        if (this.container.registry.contains(DiscoverableCommandHandlerSymbol)) {
+            this.container.registry.resolveAll<DiscoverableCommandHandler>(DiscoverableCommandHandlerSymbol).forEach(entry => {
+                this.removableList.push(
+                    this.gateway.commands.handle(entry.type, entry.handler)
+                )
+            })
         }
 
-        if (this.container.registry.contains(MessageQueryHandlerSymbol)) {
-            const messageQueryHandlers = this.container.registry.resolveAll<MessageQueryHandler>(MessageQueryHandlerSymbol)
-            this.handlers.push.apply(this, messageQueryHandlers.map(handler => this.bus.handle(
-                handler.QueryType,
-                handler.ResultType,
-                async (query) => handler.handle(query)))
-            )
+        if (this.container.registry.contains(DiscoverableQueryHandlerSymbol)) {
+            this.container.registry.resolveAll<DiscoverableQueryHandler>(DiscoverableQueryHandlerSymbol).forEach(entry => {
+                this.removableList.push(
+                    this.gateway.queries.handle(entry.type, entry.handler)
+                )
+            })
         }
 
-        if (this.container.registry.contains(MessageEventListenerSymbol)) {
-            const messageEventListeners = this.container.registry.resolveAll<MessageEventListener>(MessageEventListenerSymbol)
-            this.subscriptions.push.apply(this, messageEventListeners.map(handler => this.bus.subscribe(
-                handler.EventType,
-                async (query) => {
-                    try {
-                        await handler.on(query)
-                    } catch (error: any) {
-                        console.error("MessagingComponent - an event listener failed", error)
-                    }
-                }))
-            )
+        if (this.container.registry.contains(DiscoverableEventListenerSymbol)) {
+            this.container.registry.resolveAll<DiscoverableEventListener>(DiscoverableEventListenerSymbol).forEach(entry => {
+                this.removableList.push(
+                    this.gateway.events.subscribe(entry.type, entry.listener)
+                )
+            })
         }
-
     }
 
     async dispose(): Promise<void> {
-        let handler
-        while (handler = this.handlers.pop()) {
-            handler.cancel()
-        }
-
-        let subscription
-        while (subscription = this.subscriptions.pop()) {
-            subscription.unsubscribe()
+        let removable
+        while (removable = this.removableList.pop()) {
+            removable.remove()
         }
     }
 
@@ -189,7 +145,7 @@ export class MessagingModule extends AbstractModule {
     async configure(): Promise<void> {
         this.registry.registerFactory(ComponentSymbol, registry => new MessagingComponent(
             registry.resolve<Container>(ContainerSymbol),
-            registry.resolve<Bus>(BusSymbol),
+            registry.resolve<Gateway>(GatewaySymbol),
         ))
     }
 }

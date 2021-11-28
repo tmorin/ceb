@@ -1,36 +1,36 @@
 import {Container, ContainerSymbol, Module, ModuleConfiguration} from "@tmorin/ceb-inversion-core";
-import {BusInversionBuilder} from "./builder";
+import {GatewayInversionBuilder} from "./builder";
 
 /**
- * The options of {@link BusInversionBuilderModule}.
+ * The options of {@link GatewayInversionBuilderModule}.
  */
-export interface BusInversionBuilderModuleOptions {
+export interface GatewayInversionBuilderModuleOptions {
     /**
-     * When `true`, the current container becomes the default one, i.e. {@link BusInversionBuilder#setDefaultContainer}
+     * When `true`, the current container becomes the default one, i.e. {@link GatewayInversionBuilder#setDefaultContainer}
      */
     setDefaultContainer: boolean
 }
 
 /**
- * The module can set the default container of {@link BusInversionBuilder}.
+ * The module can set the default container of {@link GatewayInversionBuilder}.
  *
  * @example Register the module
  * ```typescript
  * import {ContainerBuilder} from "@tmorin/ceb-inversion-core"
- * import {InversionBuilderModule} from "@tmorin/ceb-inversion-builder"
+ * import {GatewayInversionBuilderModule} from "@tmorin/ceb-messaging-builder-inversion"
  * const container = ContainerBuilder.get()
- *   .module(new InversionBuilderModule())
+ *   .module(new GatewayInversionBuilderModule())
  *   .build()
  * ```
  */
-export class BusInversionBuilderModule implements Module {
-    private readonly options: BusInversionBuilderModuleOptions
+export class GatewayInversionBuilderModule implements Module {
+    private readonly options: GatewayInversionBuilderModuleOptions
 
     constructor(
         /**
          * Options of the module.
          */
-        partialOptions: Partial<BusInversionBuilderModuleOptions> = {}
+        partialOptions: Partial<GatewayInversionBuilderModuleOptions> = {}
     ) {
         this.options = {
             setDefaultContainer: true,
@@ -40,7 +40,7 @@ export class BusInversionBuilderModule implements Module {
 
     async initialize(configuration: ModuleConfiguration): Promise<void> {
         if (this.options.setDefaultContainer) {
-            BusInversionBuilder.setDefaultContainer(configuration.registry.resolve<Container>(ContainerSymbol))
+            GatewayInversionBuilder.setDefaultContainer(configuration.registry.resolve<Container>(ContainerSymbol))
         }
     }
 

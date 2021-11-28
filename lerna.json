@@ -10,6 +10,7 @@
     "packages/ceb-inversion-testing-core",
     "packages/ceb-inversion-testing-mocha",
     "packages/ceb-messaging-adapter-electron",
+    "packages/ceb-messaging-adapter-purify",
     "packages/ceb-messaging-builder-core",
     "packages/ceb-messaging-builder-inversion",
     "packages/ceb-messaging-core",

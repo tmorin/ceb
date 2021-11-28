@@ -1,32 +1,33 @@
 import assert from "assert";
-import {InMemorySimpleBus} from "../../ceb-messaging-simple";
-import {AbstractSimpleEvent} from "@tmorin/ceb-messaging-simple";
+import {Event, MessageBuilder} from "@tmorin/ceb-messaging-core";
+import {SimpleGateway} from "@tmorin/ceb-messaging-simple";
 import {waitForEvents} from "./events";
 
-export class EventA<B = any> extends AbstractSimpleEvent<B> {
-    static "MESSAGE_TYPE" = "EventA"
-
-    constructor(body: B) {
-        super(body)
-    }
+function createEventA(body: string): Event<string> {
+    return MessageBuilder.event<string>("EventA").body(body).build()
 }
 
 describe("ceb-messaging-testing/events", function () {
+    let gateway: SimpleGateway
+    before(function () {
+        gateway = SimpleGateway.create()
+    })
+    after(function () {
+        gateway.dispose()
+    })
     describe("waitForEvents", function () {
         it("should wait for 1 event", async function () {
-            const bus = new InMemorySimpleBus()
-            const p = waitForEvents<EventA>(bus, EventA)
-            await bus.publish(new EventA("hello"))
+            const p = waitForEvents(gateway, "EventA")
+            await gateway.events.publish(createEventA("hello"))
             const events = await p
             assert.ok(events)
             assert.strictEqual(events.length, 1)
             assert.strictEqual(events[0].body, "hello")
         })
         it("should wait for 2 events", async function () {
-            const bus = new InMemorySimpleBus()
-            const p = waitForEvents<EventA>(bus, EventA, {occurrences: 2})
-            await bus.publish(new EventA("hello"))
-            await bus.publish(new EventA("world"))
+            const p = waitForEvents(gateway, "EventA", {occurrences: 2})
+            await gateway.events.publish(createEventA("hello"))
+            await gateway.events.publish(createEventA("world"))
             const events = await p
             assert.ok(events)
             assert.strictEqual(events.length, 2)
@@ -34,8 +35,7 @@ describe("ceb-messaging-testing/events", function () {
             assert.strictEqual(events[1].body, "world")
         })
         it("should fails when no event published", async function () {
-            const bus = new InMemorySimpleBus()
-            const result = await waitForEvents<EventA>(bus, EventA, {timeout: 0})
+            const result = await waitForEvents(gateway, "EventA", {timeout: 0})
                 .then(() => undefined)
                 .catch(e => e)
             assert.ok(result)

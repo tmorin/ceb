@@ -58,5 +58,8 @@
     "@tmorin/ceb-messaging-builder-core": "^6.0.0",
     "@tmorin/ceb-messaging-core": "^6.0.0",
     "@tmorin/ceb-utilities": "^6.0.0"
+  },
+  "devDependencies": {
+    "@tmorin/ceb-messaging-simple": "^6.0.0"
   }
 }
