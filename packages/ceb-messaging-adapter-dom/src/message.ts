@@ -4,30 +4,38 @@ import {
     Event,
     EventKind,
     Message,
-    MessageHeaders,
     MessageKind,
     Query,
     QueryKind,
     Result,
-    ResultHeaders,
     ResultKind
 } from "@tmorin/ceb-messaging-core";
 
-export class DomMessage<B = any, H extends MessageHeaders = MessageHeaders> extends CustomEvent<Message<B, H>> {
+/**
+ * A base class for specific messages.
+ */
+export abstract class DomMessage<M extends Message = Message> extends CustomEvent<M> {
+    /**
+     * Provide the Event type of a kind.
+     * @param kind the kind
+     */
     static fromKindToType(kind: MessageKind) {
         return `ceb-messaging-${kind}`
     }
 
-    constructor(kind: MessageKind, body: B, headers: H) {
-        super(DomMessage.fromKindToType(kind), {
-            bubbles: true,
-            cancelable: true,
-            detail: {kind, headers, body}
+    protected constructor(
+        type: string,
+        message: M,
+        eventInitDict?: Partial<Omit<CustomEventInit<M>, "detail">>
+    ) {
+        super(type, {
+            ...eventInitDict,
+            detail: message
         });
     }
 }
 
-export class DomCommand<B = any, H extends MessageHeaders = MessageHeaders> extends CustomEvent<Command<B, H>> {
+export class DomCommand<M extends Command = Command> extends DomMessage<M> {
 
     static MESSAGE_KIND: CommandKind = "command"
 
@@ -35,16 +43,18 @@ export class DomCommand<B = any, H extends MessageHeaders = MessageHeaders> exte
         return DomMessage.fromKindToType(DomCommand.MESSAGE_KIND)
     }
 
-    constructor(body: B, headers: H) {
-        super(DomCommand.CUSTOM_EVENT_TYPE, {
+    constructor(
+        message: M,
+        readonly dispatchResult = true
+    ) {
+        super(DomCommand.CUSTOM_EVENT_TYPE, message, {
             bubbles: true,
-            cancelable: true,
-            detail: {kind: DomCommand.MESSAGE_KIND, headers, body}
+            cancelable: true
         });
     }
 }
 
-export class DomQuery<B = any, H extends MessageHeaders = MessageHeaders> extends CustomEvent<Query<B, H>> {
+export class DomQuery<M extends Query = Query> extends DomMessage<M> {
 
     static MESSAGE_KIND: QueryKind = "query"
 
@@ -52,16 +62,15 @@ export class DomQuery<B = any, H extends MessageHeaders = MessageHeaders> extend
         return DomMessage.fromKindToType(DomQuery.MESSAGE_KIND)
     }
 
-    constructor(body: B, headers: H) {
-        super(DomQuery.CUSTOM_EVENT_TYPE, {
+    constructor(message: M) {
+        super(DomQuery.CUSTOM_EVENT_TYPE, message, {
             bubbles: true,
-            cancelable: true,
-            detail: {kind: DomQuery.MESSAGE_KIND, headers, body}
+            cancelable: true
         });
     }
 }
 
-export class DomEvent<B = any, H extends MessageHeaders = MessageHeaders> extends CustomEvent<Event<B, H>> {
+export class DomEvent<M extends Event = Event> extends DomMessage<M> {
 
     static MESSAGE_KIND: EventKind = "event"
 
@@ -69,28 +78,39 @@ export class DomEvent<B = any, H extends MessageHeaders = MessageHeaders> extend
         return DomMessage.fromKindToType(DomEvent.MESSAGE_KIND)
     }
 
-    constructor(body: B, headers: H) {
-        super(DomEvent.CUSTOM_EVENT_TYPE, {
+    constructor(message: M) {
+        super(DomEvent.CUSTOM_EVENT_TYPE, message, {
             bubbles: true,
-            cancelable: true,
-            detail: {kind: DomEvent.MESSAGE_KIND, headers, body}
+            cancelable: false
         });
     }
 }
 
-export class DomResult<B = any, H extends ResultHeaders = ResultHeaders> extends CustomEvent<Result<B, H>> {
+export class DomResult<M extends Result = Result> extends DomMessage<M> {
 
     static MESSAGE_KIND: ResultKind = "result"
 
-    static get CUSTOM_RESULT_TYPE() {
+    static get CUSTOM_EVENT_TYPE() {
         return DomMessage.fromKindToType(DomResult.MESSAGE_KIND)
     }
 
-    constructor(body: B, headers: H) {
-        super(DomResult.CUSTOM_RESULT_TYPE, {
-            bubbles: true,
-            cancelable: true,
-            detail: {kind: DomResult.MESSAGE_KIND, headers, body}
+    constructor(message: M) {
+        super(DomResult.CUSTOM_EVENT_TYPE, message, {
+            bubbles: false,
+            cancelable: false,
         });
+    }
+}
+
+export class DomResultError<M extends Result<Error> = Result<Error>> extends DomResult<M> {
+
+    static MESSAGE_KIND: ResultKind = "result"
+
+    static get CUSTOM_EVENT_TYPE() {
+        return DomMessage.fromKindToType(DomResult.MESSAGE_KIND)
+    }
+
+    constructor(message: M) {
+        super(message);
     }
 }
