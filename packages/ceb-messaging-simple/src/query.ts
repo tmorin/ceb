@@ -1,18 +1,16 @@
 import {
-    Disposable,
-    EmittableQueryBus,
-    ExecuteActionOptions,
-    MessageBuilder,
-    ObservableQueryBus,
-    Query,
-    QueryBus,
-    QueryHandler,
-    QueryOutput,
-    QueryResult,
-    Removable,
-    Result,
+  Disposable,
+  EmittableQueryBus,
+  ExecuteActionOptions,
+  ObservableQueryBus,
+  Query,
+  QueryBus,
+  QueryHandler,
+  QueryResult,
+  Removable,
+  Result,
 } from "@tmorin/ceb-messaging-core"
-import {waitForReturn} from "./common"
+import { waitForReturn } from "./common"
 
 /**
  * The symbol used to register {@link SimpleQueryBus}.
@@ -29,18 +27,18 @@ export class SimpleQueryBus implements QueryBus, Disposable {
     return this.emitter
   }
 
-  async execute<R extends Result = Result, Q extends Query = Query>(
+  async execute<R extends Result = QueryResult, Q extends Query = Query>(
     query: Q,
     options?: Partial<ExecuteActionOptions>
   ): Promise<QueryResult<R>> {
-    let handler = this.resolveHandler(query)
+    const handler = this.resolveHandler<Q, R>(query)
 
     const opts: ExecuteActionOptions = {
       timeout: 500,
       ...options,
     }
 
-    let result = await waitForReturn<QueryOutput<any>>(() => handler(query), opts.timeout).catch((error: any) => {
+    return await waitForReturn(async () => await handler(query), opts.timeout).catch((error: Error) => {
       this.emitter.emit("query_handler_failed", {
         bus: this,
         query,
@@ -48,12 +46,6 @@ export class SimpleQueryBus implements QueryBus, Disposable {
       })
       throw error
     })
-
-    if (result && result.kind === "error") {
-      throw result.body
-    }
-
-    return result || MessageBuilder.result(query).type("empty").build()
   }
 
   handle<C extends Query = Query, R extends Result = Result>(
@@ -76,8 +68,8 @@ export class SimpleQueryBus implements QueryBus, Disposable {
     this.emitter.emit("disposed", { bus: this })
   }
 
-  private resolveHandler(query: Query) {
-    let handler = this.handlers.get(query.headers.messageType)
+  private resolveHandler<Q extends Query = Query, R extends Result = Result>(query: Query): QueryHandler<Q, R> {
+    const handler = this.handlers.get(query.headers.messageType)
     if (handler) {
       return handler
     }

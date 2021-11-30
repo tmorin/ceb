@@ -12,7 +12,6 @@ describe("ceb-messaging-builder-inversion/builder/listener", function () {
   const tagName = "messaging-gateway-inversion-builder-listener"
   let container: Container
   let gateway: SimpleGateway
-  let testElement: TestElement
   let spiedSubscribe: SinonSpy
 
   class TestElement extends HTMLElement {
@@ -33,10 +32,10 @@ describe("ceb-messaging-builder-inversion/builder/listener", function () {
       .initialize()
     ElementBuilder.get(TestElement)
       .name(tagName)
-      .builder(GatewayInversionBuilder.get().subscribe("EventA", () => {}))
+      .builder(GatewayInversionBuilder.get().subscribe("EventA", spy()))
       .register()
     sandbox = document.body.appendChild(document.createElement("div"))
-    testElement = sandbox.appendChild(document.createElement(tagName))
+    sandbox.appendChild(document.createElement(tagName))
   })
 
   after(async function () {

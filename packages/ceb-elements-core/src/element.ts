@@ -58,7 +58,7 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
   static getOrSet<B extends Builder>(
     target: Object & { _ceb_builders?: { [p: string]: B } },
     builder: B,
-    id: string = `builder-${counter++}`
+    id = `builder-${counter++}`
   ): B {
     if (!target._ceb_builders) {
       target._ceb_builders = {}
@@ -147,7 +147,7 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
    * @param builders a list of builders
    */
   builder(...builders: Array<Builder<E>>) {
-    this._builders.push.apply(this._builders, builders)
+    this._builders.push(...builders)
     return this
   }
 

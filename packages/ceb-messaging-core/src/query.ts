@@ -1,11 +1,11 @@
-import {Action, ActionResult, ExecuteActionOptions} from "./action"
-import {Disposable, Removable} from "./common"
-import {MessageHeaders} from "./message"
-import {Emitter, Observable} from "./observable"
-import {Result} from "./result"
+import { Action, ActionResult, ExecuteActionOptions } from "./action"
+import { Disposable, Removable } from "./common"
+import { MessageHeaders } from "./message"
+import { Emitter, Observable } from "./observable"
+import { Result } from "./result"
 
 /**
- * The kind of a query message.
+ * The kind of query message.
  */
 export type QueryKind = "query"
 

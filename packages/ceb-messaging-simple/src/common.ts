@@ -1,5 +1,5 @@
-export function waitForReturn<O>(fn: (...args: Array<any>) => Promise<O>, timeout: number): Promise<O> {
-  return new Promise<O>((resolve, reject) => {
+export function waitForReturn<R>(fn: (...args: Array<any>) => Promise<R>, timeout: number): Promise<R> {
+  return new Promise<R>((resolve, reject) => {
     const timeoutId = setTimeout(() => {
       reject(new Error(`unable to get the result on time`))
     }, timeout)

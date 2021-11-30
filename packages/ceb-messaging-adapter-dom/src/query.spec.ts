@@ -11,7 +11,7 @@ describe("QueryForwarder", function () {
   beforeEach(async function () {
     div = document.body.appendChild(document.createElement("div"))
     gateway = SimpleGateway.create()
-    adapter = new QueryForwarder(window, gateway)
+    adapter = new QueryForwarder(gateway, window)
     await adapter.configure()
   })
   afterEach(async function () {

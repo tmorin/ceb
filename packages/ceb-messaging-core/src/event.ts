@@ -1,9 +1,9 @@
-import {Disposable, Removable} from "./common"
-import {Message, MessageHeaders} from "./message"
-import {Emitter, Observable} from "./observable"
+import { Disposable, Removable } from "./common"
+import { Message, MessageHeaders } from "./message"
+import { Emitter, Observable } from "./observable"
 
 /**
- * The kind of an event message.
+ * The kind of event message.
  */
 export type EventKind = "event"
 

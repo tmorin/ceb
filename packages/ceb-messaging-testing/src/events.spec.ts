@@ -12,13 +12,13 @@ describe("ceb-messaging-testing/events", function () {
   before(function () {
     gateway = SimpleGateway.create()
   })
-  after(function () {
-    gateway.dispose()
+  after(async function () {
+    await gateway.dispose()
   })
   describe("waitForEvents", function () {
     it("should wait for 1 event", async function () {
       const p = waitForEvents(gateway, "EventA")
-      await gateway.events.publish(createEventA("hello"))
+      gateway.events.publish(createEventA("hello"))
       const events = await p
       assert.ok(events)
       assert.strictEqual(events.length, 1)
@@ -26,8 +26,8 @@ describe("ceb-messaging-testing/events", function () {
     })
     it("should wait for 2 events", async function () {
       const p = waitForEvents(gateway, "EventA", { occurrences: 2 })
-      await gateway.events.publish(createEventA("hello"))
-      await gateway.events.publish(createEventA("world"))
+      gateway.events.publish(createEventA("hello"))
+      gateway.events.publish(createEventA("world"))
       const events = await p
       assert.ok(events)
       assert.strictEqual(events.length, 2)
@@ -37,7 +37,7 @@ describe("ceb-messaging-testing/events", function () {
     it("should fails when no event published", async function () {
       const result = await waitForEvents(gateway, "EventA", { timeout: 0 })
         .then(() => undefined)
-        .catch((e) => e)
+        .catch((e: Error) => e)
       assert.ok(result)
       assert.strictEqual(result.message, "unable to get expected events on time")
     })

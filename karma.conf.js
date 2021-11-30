@@ -1,3 +1,4 @@
+const process = require("process")
 const webpackDev = require("./webpack.dev")
 
 if (!process.env.CHROME_BIN) {

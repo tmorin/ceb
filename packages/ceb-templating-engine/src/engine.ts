@@ -187,9 +187,11 @@ function updateProperties(element: ContextItem, properties: Properties = []) {
   const updatedProperties: Array<string> = []
   for (const entry of properties) {
     const name = entry[0]
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     element[name] = entry[1]
     updatedProperties.push(name)
   }
+  // eslint-disable-next-line @typescript-eslint/no-extra-semi
   ;(element.__ceb_engine_updated_properties || [])
     .filter((attr: string) => updatedProperties.indexOf(attr) < 0)
     .forEach((name: string) => (element[name] = undefined))
@@ -202,6 +204,7 @@ function isReferencedElement(parentElement: ContextItem, value: any): boolean {
   if (!REFERENCED_ELEMENTS.has(parentElement)) {
     REFERENCED_ELEMENTS.set(parentElement, new Map<any, ContextItem>())
   }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   return Array.from(REFERENCED_ELEMENTS.get(parentElement)?.values() || []).indexOf(value) > -1
 }
 
@@ -421,7 +424,7 @@ export class Engine {
     const parentElement = this.contexts.get().element
     const index = this.contexts.get().nextIndex()
 
-    let currentNode = parentElement.childNodes.item(index)
+    const currentNode = parentElement.childNodes.item(index)
     if (currentNode) {
       if (currentNode.nodeType !== nodeType) {
         parentElement.insertBefore(createNode(this.document, value), currentNode)
@@ -437,8 +440,9 @@ export class Engine {
     const parentElement = this.contexts.get().element
     const index = this.contexts.get().nextIndex()
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const key = parameters?.options?.key
-    let referencedElement = getReferencedElement(parentElement, key)
+    const referencedElement = getReferencedElement(parentElement, key)
 
     const currentNode = parentElement.childNodes.item(index)
     const currentNodeIsReferenced = isReferencedElement(parentElement, currentNode)

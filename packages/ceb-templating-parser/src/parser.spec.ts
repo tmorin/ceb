@@ -51,6 +51,7 @@ describe("parser", function () {
     const parseResult = executeParse(`<div><label>label</label><input></div>`)
     // div
     expect(parseResult[i].name).eq("openTag")
+
     expect(parseResult[i].detail.tagName).eq("div")
     expect(parseResult[i].detail.selfClosing).eq(false)
     i++

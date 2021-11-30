@@ -1,9 +1,9 @@
-import {EmittableQueryBus, ObservableQueryBus, QueryBus, QueryBusNotificationMap} from "@tmorin/ceb-messaging-core"
+import { EmittableQueryBus, ObservableQueryBus, QueryBusNotificationMap } from "@tmorin/ceb-messaging-core"
 
 /**
  * The map of the internal events for queries handling.
  */
-export interface IpcQueryBusNotificationMap extends QueryBusNotificationMap {}
+export type IpcQueryBusNotificationMap = QueryBusNotificationMap
 
 export interface IpcObservableQueryBus extends ObservableQueryBus {
   /**
@@ -27,7 +27,7 @@ export interface IpcObservableQueryBus extends ObservableQueryBus {
 }
 
 /**
- * The emitter view of an an {@link QueryBus}.
+ * The emitter view of an an {@link EmittableQueryBus}.
  */
 export interface IpcEmitterQueryBus extends EmittableQueryBus {
   /**

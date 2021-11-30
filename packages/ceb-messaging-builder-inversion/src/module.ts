@@ -1,5 +1,5 @@
-import {Container, ContainerSymbol, Module, ModuleConfiguration} from "@tmorin/ceb-inversion-core"
-import {GatewayInversionBuilder} from "./builder"
+import { Container, ContainerSymbol, Module, ModuleConfiguration } from "@tmorin/ceb-inversion-core"
+import { GatewayInversionBuilder } from "./builder"
 
 /**
  * The options of {@link GatewayInversionBuilderModule}.
@@ -44,5 +44,6 @@ export class GatewayInversionBuilderModule implements Module {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   async dispose(): Promise<void> {}
 }

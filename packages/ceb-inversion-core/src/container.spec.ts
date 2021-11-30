@@ -1,5 +1,5 @@
 import { assert } from "chai"
-import sinon, { SinonSpy } from "sinon"
+import { SinonSpy, spy } from "sinon"
 import { Container, ContainerBuilder } from "./container"
 import { DefaultRegistry } from "./registry"
 import { OnlyConfigureModule } from "./module"
@@ -25,17 +25,17 @@ describe("inversion/container", () => {
 
   it("should register component listener and dispose them", async function () {
     const mock1 = {
-      configure() {},
-      dispose() {},
+      configure: spy(),
+      dispose: spy(),
     }
     const mock2 = {
-      configure() {},
-      dispose() {},
+      configure: spy(),
+      dispose: spy(),
     }
-    let spyConfigure1: SinonSpy = sinon.spy(mock1, "configure")
-    let spyConfigure2: SinonSpy = sinon.spy(mock2, "configure")
-    let spyDispose1: SinonSpy = sinon.spy(mock1, "dispose")
-    let spyDispose2: SinonSpy = sinon.spy(mock2, "dispose")
+    const spyConfigure1: SinonSpy = mock1.configure
+    const spyConfigure2: SinonSpy = mock2.configure
+    const spyDispose1: SinonSpy = mock1.dispose
+    const spyDispose2: SinonSpy = mock2.dispose
     const container = await ContainerBuilder.get()
       .module(
         OnlyConfigureModule.create(async function () {

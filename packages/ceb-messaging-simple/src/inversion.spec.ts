@@ -1,6 +1,6 @@
 import chai, { assert } from "chai"
 import chasAsPromised from "chai-as-promised"
-import sinon from "sinon"
+import { spy } from "sinon"
 import { Container, ContainerBuilder, OnlyConfigureModule } from "@tmorin/ceb-inversion-core"
 import {
   Action,
@@ -33,17 +33,17 @@ function createResultA(action: Action, body: string): Result<string> {
 }
 
 describe("ceb-messaging-simple/SimpleModule", function () {
-  let eventListener: DiscoverableEventListener = {
+  const eventListenerSpy = spy()
+  const eventListener: DiscoverableEventListener<Event<string>> = {
     type: "EventA",
-    listener: () => {},
+    listener: eventListenerSpy,
   }
-  let listenerSpy = sinon.spy(eventListener, "listener")
 
-  let commandHandler: DiscoverableCommandHandler = {
+  const commandHandler: DiscoverableCommandHandler<Command<string>, Result<string>> = {
     type: "CommandA",
     handler: (command) => ({ result: createResultA(command, command.body) }),
   }
-  let handlerSpy = sinon.spy(commandHandler, "handler")
+  const handlerSpy = spy(commandHandler, "handler")
 
   let container: Container
   let bus: Gateway
@@ -64,10 +64,10 @@ describe("ceb-messaging-simple/SimpleModule", function () {
   afterEach(async function () {
     await container.dispose()
   })
-  it("should listen to an event", async function () {
+  it("should listen to an event", function () {
     const simpleEventA = createEventA("body content")
-    await bus.events.publish(simpleEventA)
-    assert.ok(listenerSpy.calledOnce)
+    bus.events.publish(simpleEventA)
+    assert.ok(eventListenerSpy.calledOnce)
   })
   it("should handle command", async function () {
     const command = createCommandA("body content")

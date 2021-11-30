@@ -10,7 +10,7 @@ const PREFIX_CEB_PROPERTY = "p:"
 const PREFIX_CEB_OPTION = "o:"
 const PROTECTED_TAGS = ["slot", "ceb-slot"]
 
-function fromStringToValues(string: string = "", args: Array<any> = []): Array<any> {
+function fromStringToValues(string = "", args: Array<any> = []): Array<any> {
   const values: Array<any> = []
   const r = new RegExp(PATTERN_CEB_VALUE_INDEX)
   let cursorFrom = 0
@@ -45,7 +45,7 @@ function fromValuesToOperations(
   const operations = new Operations()
   values.forEach((value) => {
     if (Array.isArray(value)) {
-      for (let item of value) {
+      for (const item of value) {
         if (isOperations(item)) {
           operations.push(item)
         } else {

@@ -1,4 +1,5 @@
-import {Action, MessageBuilder, Removable, Result} from "@tmorin/ceb-messaging-core"
+import { Action, MessageBuilder, Removable, Result } from "@tmorin/ceb-messaging-core"
+import { toError } from "./common"
 
 /**
  * The metadata of an IPC message.
@@ -36,10 +37,7 @@ export function createRemovable(callback: () => any): Removable {
  * @param error the error
  */
 export function createErrorResult(action: Action, error: any): Result<Error> {
-  if (error instanceof Error) {
-    return MessageBuilder.result(action, "error").body(error).build()
-  }
-  return MessageBuilder.result(action, "error").body(new Error(error?.toString())).build()
+  return MessageBuilder.result(action, "error").body(toError(error)).build()
 }
 
 /**

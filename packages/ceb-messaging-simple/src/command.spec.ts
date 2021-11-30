@@ -1,3 +1,4 @@
+import { spy } from "sinon"
 import chai, { assert } from "chai"
 import chasAsPromised from "chai-as-promised"
 import {
@@ -26,7 +27,7 @@ function createEventA(body: string): Event<string> {
   return MessageBuilder.event<string>("EventA").body(body).build()
 }
 
-describe.only("SimpleCommandBus", function () {
+describe("SimpleCommandBus", function () {
   let emitter: GatewayEmitter
   let handlers: Map<string, CommandHandler<any>>
   let eventBus: SimpleEventBus
@@ -45,12 +46,12 @@ describe.only("SimpleCommandBus", function () {
 
   describe("when handler not found", () => {
     describe("#execute", () => {
-      it("should notify", function (done) {
+      it("should notify", async function (done) {
         const commandA = createCommandA("hello")
         bus.observe.on("command_handler_not_found", () => {
           done()
         })
-        bus.execute(commandA)
+        bus.execute(commandA).catch(spy())
       })
       it("should failed", async function () {
         const commandA = createCommandA("hello")
@@ -78,7 +79,7 @@ describe.only("SimpleCommandBus", function () {
         bus.observe.on("command_handler_failed", () => {
           done()
         })
-        bus.execute(commandA)
+        bus.execute(commandA).catch(spy())
       })
       it("should failed", async function () {
         const commandA = createCommandA("hello")
@@ -112,7 +113,7 @@ describe.only("SimpleCommandBus", function () {
         bus.observe.on("command_handler_failed", () => {
           done()
         })
-        bus.execute(commandA)
+        bus.execute(commandA).catch(spy())
       })
       it("should failed", async function () {
         const commandA = createCommandA("hello")
@@ -140,7 +141,7 @@ describe.only("SimpleCommandBus", function () {
     describe("#execute", () => {
       it("should return EmptyResult", async function () {
         const commandA = createCommandA("hello")
-        bus.handle("CommandA", () => {})
+        bus.handle("CommandA", spy())
         const resultA = await bus.execute(commandA)
         assert.property(resultA, "kind", "result")
         assert.property(resultA.headers, "messageType", "empty")
@@ -172,7 +173,7 @@ describe.only("SimpleCommandBus", function () {
         bus.handle<Command<string>, Result<string>, [Event]>("CommandA", () => ({
           events: [createEventA("hello")],
         }))
-        bus.execute(commandA)
+        bus.execute(commandA).catch(spy())
       })
     })
     describe("#executeAndForget", () => {

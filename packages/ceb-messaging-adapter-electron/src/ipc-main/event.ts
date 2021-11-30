@@ -1,7 +1,7 @@
-import {Event, EventBus, EventListener, MessageHeaders, Removable, SubscribeOptions} from "@tmorin/ceb-messaging-core"
-import {IpcMain, IpcMainEvent, webContents} from "electron"
-import {createRemovable, IPC_CHANNEL_EVENTS, IpcMessageMetadata} from "../ipc"
-import {IpcEmitterEventBus, IpcObservableEventBus} from "../common"
+import { Event, EventBus, EventListener, MessageHeaders, Removable, SubscribeOptions } from "@tmorin/ceb-messaging-core"
+import { IpcMain, IpcMainEvent, webContents } from "electron"
+import { createRemovable, IPC_CHANNEL_EVENTS } from "../ipc"
+import { IpcEmitterEventBus, IpcObservableEventBus, toError } from "../common"
 
 /**
  * The symbol used to register {@link IpcMainEventBus}.
@@ -27,7 +27,7 @@ export class IpcMainEventBus implements EventBus {
       try {
         this.bus.publish(event)
       } catch (error: any) {
-        this.emitter.emit("event_forward_failed", { bus: this, event, error })
+        this.emitter.emit("event_forward_failed", { bus: this, event, error: toError(error) })
       }
     })
   }
@@ -40,12 +40,12 @@ export class IpcMainEventBus implements EventBus {
     // handle event from parent
     const localSubscription = this.bus.subscribe(eventType, listener, options)
     // handle event from IPC
-    const ipcListener = (event: IpcMainEvent, data: E, _: IpcMessageMetadata) => {
+    const ipcListener = (event: IpcMainEvent, data: E) => {
       // forward to parent
       try {
         this.bus.publish(data)
       } catch (error: any) {
-        this.emitter.emit("event_forward_failed", { bus: this, event: data, error })
+        this.emitter.emit("event_forward_failed", { bus: this, event: data, error: toError(error) })
       }
     }
     this.ipcMain.on(IPC_CHANNEL_EVENTS, ipcListener)

@@ -37,10 +37,12 @@ export abstract class Component {
   /**
    * The method in invoked during the initialization phase of the {@link Container}.
    */
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   async configure(): Promise<void> {}
 
   /**
    * The method in invoked during the dispose phase of the {@link Container}.
    */
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   async dispose(): Promise<void> {}
 }

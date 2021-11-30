@@ -1,5 +1,5 @@
 /**
- * The kind of a message.
+ * The kind of message.
  */
 export type MessageKind = "command" | "query" | "result" | "event"
 

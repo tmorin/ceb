@@ -1,7 +1,7 @@
-import {Message, MessageHeaders} from "./message"
+import { Message, MessageHeaders } from "./message"
 
 /**
- * The kind of a result message.
+ * The kind of result message.
  */
 export type ResultKind = "result"
 
@@ -30,4 +30,4 @@ export interface Result<B = any, H extends ResultHeaders = ResultHeaders> extend
  *
  * @template H the type of the headers
  */
-export interface EmptyResult<H extends ResultHeaders = ResultHeaders> extends Result<undefined, H> {}
+export type EmptyResult<H extends ResultHeaders = ResultHeaders> = Result<undefined, H>

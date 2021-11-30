@@ -1,6 +1,6 @@
-import {Component} from "@tmorin/ceb-inversion-core"
-import {Gateway, MessageBuilder} from "@tmorin/ceb-messaging-core"
-import {DomCommand, DomResult, DomResultError} from "./message"
+import { Component } from "@tmorin/ceb-inversion-core"
+import { Gateway, MessageBuilder } from "@tmorin/ceb-messaging-core"
+import { DomCommand, DomResult, DomResultError } from "./message"
 
 /**
  * The component add a global listener which catches all {@link DomCommand}.
@@ -16,15 +16,16 @@ export class CommandForwarder implements Component {
     this.listener = async (event: Event) => {
       if (event instanceof DomCommand) {
         if (event.options.dispatchResult) {
-          try {
-            const result = await this.gateway.commands.execute(event.detail, {
+          await this.gateway.commands
+            .execute(event.detail, {
               timeout: event.options.timeout,
             })
-            event.target?.dispatchEvent(new DomResult(result))
-          } catch (e: any) {
-            const result = MessageBuilder.result<Error>(event.detail).body(e).build()
-            event.target?.dispatchEvent(new DomResultError(result))
-          }
+            .then((result) => event.target?.dispatchEvent(new DomResult(result)))
+            .catch((error: Error) => {
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+              const result = MessageBuilder.result<Error>(event.detail).body(error).build()
+              event.target?.dispatchEvent(new DomResultError(result))
+            })
         } else {
           this.gateway.commands.executeAndForget(event.detail)
         }

@@ -1,5 +1,5 @@
-import {Container, ContainerBuilder} from "@tmorin/ceb-inversion-core"
-import {CallbackWithContainer, CallbackWithContainerBuilder} from "./common"
+import { Container, ContainerBuilder } from "@tmorin/ceb-inversion-core"
+import { CallbackWithContainer, CallbackWithContainerBuilder } from "./common"
 
 /**
  * A scenario is a set of steps which are executed one by one in order to validate a business behavior.
@@ -21,25 +21,25 @@ export interface TestScenario {
    * The method has to be used to configure the container of the execution.
    * @param containerBuilder the builder of container
    */
-  configure?(containerBuilder: ContainerBuilder): any
+  configure?(this: void, containerBuilder: ContainerBuilder): any
 
   /**
    * The method has to be used to prepare the scenario execution.
    * @param container the container
    */
-  before?(container: Container): any
+  before?(this: void, container: Container): any
 
   /**
    * The method has to be used to perform actions and validates the side effects.
    * @param container the container
    */
-  execute(container: Container): any
+  execute(this: void, container: Container): any
 
   /**
    * The method has to be used to cleanup resources
    * @param container the container
    */
-  after?(container: Container): any
+  after?(this: void, container: Container): any
 }
 
 /**
@@ -50,6 +50,7 @@ export class TestScenarioBuilder {
     private readonly _name: string,
     private _configure?: CallbackWithContainerBuilder,
     private _before?: CallbackWithContainer,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     private _execute: CallbackWithContainer = () => {},
     private _after?: CallbackWithContainer
   ) {}

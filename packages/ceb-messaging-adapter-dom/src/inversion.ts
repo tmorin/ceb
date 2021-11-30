@@ -1,8 +1,8 @@
-import {AbstractModule, Component, ComponentSymbol, RegistryKey} from "@tmorin/ceb-inversion-core"
-import {Gateway, GatewaySymbol} from "@tmorin/ceb-messaging-core"
-import {CommandForwarder} from "./command"
-import {EventForwarder} from "./event"
-import {QueryForwarder} from "./query"
+import { AbstractModule, Component, ComponentSymbol, RegistryKey } from "@tmorin/ceb-inversion-core"
+import { Gateway, GatewaySymbol } from "@tmorin/ceb-messaging-core"
+import { CommandForwarder } from "./command"
+import { EventForwarder } from "./event"
+import { QueryForwarder } from "./query"
 
 /**
  * The options of {@link DomAdapterModule}.
@@ -64,7 +64,7 @@ export class DomAdapterModule extends AbstractModule {
     // QUERY
     this.registry.registerFactory<Component>(
       ComponentSymbol,
-      (registry) => new QueryForwarder(this.options.target, registry.resolve<Gateway>(this.options.gatewayRegistryKey))
+      (registry) => new QueryForwarder(registry.resolve<Gateway>(this.options.gatewayRegistryKey), this.options.target)
     )
   }
 }

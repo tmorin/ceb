@@ -259,8 +259,9 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
    * }
    * ```
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   decorate<E extends HTMLElement>(): MethodDecorator {
-    return (target: Object, methName: string | symbol, _: PropertyDescriptor) => {
+    return (target, methName: string | symbol) => {
       if (!this._methName) {
         this._methName = methName.toString()
       }
@@ -297,6 +298,7 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
       }
       // wrap the default render function to render the template in call
       if (typeof el[this._methName] === "function") {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/ban-types
         const _original: Function = el[this._methName]
         const _isShadow = this._isShadow
         const _greyDom = this._isGrey
@@ -306,6 +308,7 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
           enumerable: true,
           writable: false,
           value: function (): Template<P> {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,prefer-rest-params
             const template: Template<P> = _original.apply(el, arguments)
             template.render(
               _isShadow && el.shadowRoot ? el.shadowRoot : el,
@@ -324,6 +327,7 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
 
     hooks.before("connectedCallback", (el) => {
       if (typeof el[this._methName] === "function") {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         el[this._methName]()
       }
     })

@@ -1,12 +1,12 @@
-import {MessageHeaders} from "./message"
-import {Action, ActionResult, ExecuteActionOptions} from "./action"
-import {Result} from "./result"
-import {Event} from "./event"
-import {Disposable, Removable} from "./common"
-import {Emitter, Observable} from "./observable"
+import { MessageHeaders } from "./message"
+import { Action, ActionResult, ExecuteActionOptions } from "./action"
+import { Result } from "./result"
+import { Event } from "./event"
+import { Disposable, Removable } from "./common"
+import { Emitter, Observable } from "./observable"
 
 /**
- * The kind of a command message.
+ * The kind of command message.
  */
 export type CommandKind = "command"
 
@@ -100,7 +100,7 @@ export interface CommandBus extends Disposable {
   execute<R extends Result = Result, C extends Command = Command>(
     command: C,
     options?: Partial<ExecuteActionOptions>
-  ): Promise<CommandResult>
+  ): Promise<CommandResult<R>>
 
   /**
    * Execute a command but forget the result.

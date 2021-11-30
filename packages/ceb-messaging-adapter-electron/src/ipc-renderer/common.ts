@@ -60,7 +60,7 @@ export function createIpcListener<A extends Action = Action, R extends Result = 
   channel: string,
   executeLocally: (action: A, options: Partial<ExecuteActionOptions>) => Promise<ActionResult<R>>,
   executeLocallyAndForget: (action: A) => any
-) {
+): (event: IpcRendererEvent, ...args: any[]) => void {
   return async (event: IpcRendererEvent, action: A, metadata: IpcMessageMetadata) => {
     if (metadata.waitForResult) {
       try {

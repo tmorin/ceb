@@ -19,6 +19,7 @@ export interface OnListener<E extends HTMLElement = HTMLElement, V extends Event
 /**
  * A useless function.
  */
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = () => {}
 
 /**

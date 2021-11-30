@@ -1,6 +1,6 @@
-import {Container, RegistryKey} from "@tmorin/ceb-inversion-core"
-import {Gateway, GatewaySymbol} from "@tmorin/ceb-messaging-core"
-import {AbstractGatewayBuilder} from "@tmorin/ceb-messaging-builder-core"
+import { Container, RegistryKey } from "@tmorin/ceb-inversion-core"
+import { Gateway, GatewaySymbol } from "@tmorin/ceb-messaging-core"
+import { AbstractGatewayBuilder } from "@tmorin/ceb-messaging-builder-core"
 
 /**
  * Provider of the container.
@@ -21,7 +21,7 @@ export class GatewayInversionBuilder<E extends HTMLElement> extends AbstractGate
   private static DEFAULT_CONTAINER: Container
 
   protected constructor(
-    _propName: string = "gateway",
+    _propName = "gateway",
     private _key: RegistryKey = GatewaySymbol,
     private _provider?: ContainerProvider
   ) {

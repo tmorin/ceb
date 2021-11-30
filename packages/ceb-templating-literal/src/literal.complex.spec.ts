@@ -38,8 +38,8 @@ describe("literal/complex", function () {
     assert.equal(el.querySelector("ul li:nth-child(5)")?.textContent, "footer")
   })
   it("should handle a bulma card", function () {
-    let cardName = "The name of the card"
-    let cardDescription = "The description of the card."
+    const cardName = "The name of the card"
+    const cardDescription = "The description of the card."
     const template = html` <div class="card">
       <div class="card-header">
         <p class="card-header-title">${cardName}</p>
@@ -56,10 +56,10 @@ describe("literal/complex", function () {
     assert.ok(el.querySelector("div.card div.card-content div.content"))
   })
   it("should handle a bulma panel block", function () {
-    let identifier = "identifier"
-    let label = "label"
-    let kindA = "kindA"
-    let kindB = "kindB"
+    const identifier = "identifier"
+    const label = "label"
+    const kindA = "kindA"
+    const kindB = "kindB"
     const template = html`<a class="panel-block" href="#/abb/edit/${identifier}">
       ${label}
       <small class="is-flex">${kindA}</small>

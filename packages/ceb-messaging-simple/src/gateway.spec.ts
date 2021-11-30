@@ -43,7 +43,7 @@ describe("SimpleObservableGateway", function () {
 
   it("should execute command", async function () {
     const commandA = createCommandA("hello")
-    commandBus.handle("CommandA", (command) => ({
+    commandBus.handle<Command<string>, Result<string>>("CommandA", (command) => ({
       result: createResultA(command, command.body),
     }))
     const resultA = await commandBus.execute<Result<string>>(commandA)
@@ -52,7 +52,7 @@ describe("SimpleObservableGateway", function () {
 
   it("should execute query", async function () {
     const queryA = createQueryA("hello")
-    queryBus.handle("QueryA", (query) => createResultA(query, query.body))
+    queryBus.handle<Query<string>, Result<string>>("QueryA", (query) => createResultA(query, query.body))
     const resultA = await queryBus.execute<Result<string>>(queryA)
     assert.property(resultA, "body", "hello")
   })

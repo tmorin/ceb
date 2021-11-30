@@ -1,8 +1,8 @@
-import {EmittableEventBus, EventBus, EventBusNotificationMap, ObservableEventBus} from "./event"
-import {CommandBus, CommandBusNotificationMap, EmittableCommandBus, ObservableCommandBus} from "./command"
-import {EmittableQueryBus, ObservableQueryBus, QueryBus, QueryBusNotificationMap} from "./query"
-import {Disposable} from "./common"
-import {Emitter, Observable, ObservedEventListener} from "./observable"
+import { EmittableEventBus, EventBus, EventBusNotificationMap, ObservableEventBus } from "./event"
+import { CommandBus, CommandBusNotificationMap, EmittableCommandBus, ObservableCommandBus } from "./command"
+import { EmittableQueryBus, ObservableQueryBus, QueryBus, QueryBusNotificationMap } from "./query"
+import { Disposable } from "./common"
+import { ObservedEventListener } from "./observable"
 
 /**
  * The observable view of a gateway merges the observable channel of all buses.
@@ -69,7 +69,7 @@ export class GatewayEmitter implements EmittableGateway, ObservableGateway {
 
   emit(type: string, event: any): void {
     this.listeners.get(type)?.forEach((listener) => {
-      Promise.resolve((async () => listener(event))()).catch((error) =>
+      Promise.resolve((() => listener(event))()).catch((error) =>
         console.warn("an observed event listener failed", error)
       )
     })

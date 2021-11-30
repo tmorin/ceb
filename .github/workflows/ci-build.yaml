@@ -27,6 +27,8 @@ jobs:
         run: npm run bootstrap
       - name: Build package
         run: npm run build
+      - name: lint package
+        run: npm run lint
       - name: Test package
         run: |
           export DISPLAY=':99.0'

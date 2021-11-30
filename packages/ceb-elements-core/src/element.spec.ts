@@ -40,7 +40,7 @@ describe("element", () => {
     assert.strictEqual(element.altName, "my name")
   })
 
-  it("should create an element with a custom name", async () => {
+  it("should create an element with a custom name", () => {
     class ElBuilderShouldCreateElement extends HTMLElement {
       altName = "my name"
     }

@@ -1,5 +1,5 @@
-import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-elements-core"
-import {Event, Gateway, MessageType, Removable, SubscribeOptions} from "@tmorin/ceb-messaging-core"
+import { Builder, CustomElementConstructor, ElementBuilder, HooksRegistration } from "@tmorin/ceb-elements-core"
+import { Event, Gateway, MessageType, Removable, SubscribeOptions } from "@tmorin/ceb-messaging-core"
 
 /**
  * The listener of a subscription.
@@ -30,7 +30,9 @@ export class GatewaySubscriptionBuilder<E extends HTMLElement, M extends Event> 
   constructor(
     private _gatewayBuilder: AbstractGatewayBuilder<E>,
     private _EventType?: MessageType,
-    private _listener: ElementSubscriptionListener<E, M> = () => {},
+    private _listener: ElementSubscriptionListener<E, M> = () => {
+      console.log("empty listener")
+    },
     private _options?: SubscribeOptions
   ) {}
 
@@ -61,6 +63,7 @@ export class GatewaySubscriptionBuilder<E extends HTMLElement, M extends Event> 
    * @param prefix the prefix used to discover the type of the message event from the method name
    */
   decorate(prefix = "on"): MethodDecorator {
+    // eslint-disable-next-line @typescript-eslint/ban-types
     return (target: Object, methName: string | symbol, descriptor: PropertyDescriptor) => {
       if (!this._EventType) {
         this._EventType = methName.toString().replace(prefix, "")
@@ -73,6 +76,7 @@ export class GatewaySubscriptionBuilder<E extends HTMLElement, M extends Event> 
       builder.subscribe(
         this._EventType,
         (el, event) => {
+          // eslint-disable-next-line @typescript-eslint/ban-types
           const fn = descriptor.value as Function
           fn.call(el, event)
         },
@@ -99,7 +103,7 @@ const BUILDERS = new WeakMap<Element, Map<string, Gateway>>()
  * Its purpose is to provide a quick and efficient way to interact with the {@link Gateway} within the Custom Element.
  * Therefore, it is easy to execute queries to get data, execute commands to generate side effects and finally listen to events to react on side effects.
  *
- * First of all, the {@link Gateway} is created and set to a readonly property, by default its name is `gateway`.
+ * First, the {@link Gateway} is created and set to a readonly property, by default its name is `gateway`.
  * By default, the global channel is `window`, it can be overridden with {@link AbstractGatewayBuilder.global}
  *
  * Then, subscriptions can be registered with {@link AbstractGatewayBuilder.subscribe}.
@@ -117,11 +121,11 @@ export abstract class AbstractGatewayBuilder<E extends HTMLElement> implements B
    * @ignore
    * @internal
    */
-  public _propName: string = "gateway"
+  public _propName = "gateway"
 
   protected constructor(
     protected _gatewayProvider: GatewayProvider,
-    _propName: string = "gateway",
+    _propName = "gateway",
     protected _subscriptionsByType: Map<
       MessageType,
       Array<[ElementSubscriptionListener, SubscribeOptions | undefined]>
@@ -212,6 +216,7 @@ export abstract class AbstractGatewayBuilder<E extends HTMLElement> implements B
       _subscriptionsByType.forEach((listeners, type) =>
         listeners.forEach(([listener, options]) =>
           el.__ceb_gateway_subscriptions.add(
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
             gatewayDescriptor?.value?.events.subscribe(type, (event: Event) => listener(el, event), options)
           )
         )

@@ -1,17 +1,17 @@
 import {
-    AbstractModule,
-    Component,
-    ComponentSymbol,
-    Container,
-    ContainerSymbol,
-    RegistryKey,
+  AbstractModule,
+  Component,
+  ComponentSymbol,
+  Container,
+  ContainerSymbol,
+  RegistryKey,
 } from "@tmorin/ceb-inversion-core"
-import {Command, CommandHandler} from "./command"
-import {Result} from "./result"
-import {Event, EventListener} from "./event"
-import {Query, QueryHandler} from "./query"
-import {Removable} from "./common"
-import {Gateway, GatewaySymbol} from "./gateway"
+import { Command, CommandHandler } from "./command"
+import { Result } from "./result"
+import { Event, EventListener } from "./event"
+import { Query, QueryHandler } from "./query"
+import { Removable } from "./common"
+import { Gateway, GatewaySymbol } from "./gateway"
 
 // COMMAND
 
@@ -174,7 +174,8 @@ export class MessagingModule extends AbstractModule {
     this.registry.registerFactory(
       ComponentSymbol,
       (registry) =>
-        new MessagingComponent(registry.resolve<Container>(ContainerSymbol), registry.resolve<Gateway>(GatewaySymbol))
+        new MessagingComponent(registry.resolve<Container>(ContainerSymbol), registry.resolve<Gateway>(GatewaySymbol)),
+      { singleton: true }
     )
   }
 }

@@ -1,20 +1,20 @@
-import {AbstractModule, ComponentSymbol, RegistryKey} from "@tmorin/ceb-inversion-core"
+import { AbstractModule, ComponentSymbol, RegistryKey } from "@tmorin/ceb-inversion-core"
 import {
-    CommandBusSymbol,
-    EmittableGateway,
-    EventBusSymbol,
-    Gateway,
-    GatewayEmitter,
-    GatewayEmitterSymbol,
-    GatewayObserverSymbol,
-    GatewaySymbol,
-    ObservableGateway,
-    QueryBusSymbol,
+  CommandBusSymbol,
+  EmittableGateway,
+  EventBusSymbol,
+  Gateway,
+  GatewayEmitter,
+  GatewayEmitterSymbol,
+  GatewayObserverSymbol,
+  GatewaySymbol,
+  ObservableGateway,
+  QueryBusSymbol,
 } from "@tmorin/ceb-messaging-core"
-import {SimpleGateway} from "./gateway"
-import {SimpleEventBus} from "./event"
-import {SimpleCommandBus} from "./command"
-import {SimpleQueryBus} from "./query"
+import { SimpleGateway } from "./gateway"
+import { SimpleEventBus } from "./event"
+import { SimpleCommandBus } from "./command"
+import { SimpleQueryBus } from "./query"
 
 /**
  * The options of {@link SimpleModule}.
@@ -52,12 +52,12 @@ export interface SimpleModuleOptions {
   observerRegistryKey: RegistryKey
   /**
    * An optional gateway instance..
-   * For instance it can be `SimpleGateway.GLOBAL`.
+   * For instance, it can be `SimpleGateway.GLOBAL`.
    */
   gateway?: SimpleGateway
   /**
    * When `true`, the internal events related to "error" (i.e. `command_handler_failed` ...) are displayed using the `console` methods.
-   * By default `false`.
+   * By default, `false`.
    */
   errorToConsole: boolean
 }
@@ -107,35 +107,45 @@ export class SimpleModule extends AbstractModule {
   async configure(): Promise<void> {
     if (this.options.gateway) {
       const gateway = this.options.gateway
-      this.registry.registerFactory<SimpleGateway>(this.options.gatewayRegistryKey, () => gateway)
+      this.registry.registerFactory<SimpleGateway>(this.options.gatewayRegistryKey, () => gateway, { singleton: true })
       this.registry.registerFactory<SimpleEventBus>(
         this.options.eventsRegistryKey,
-        (registry) => registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).events
+        (registry) => registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).events,
+        { singleton: true }
       )
       this.registry.registerFactory<SimpleCommandBus>(
         this.options.commandsRegistryKey,
-        (registry) => registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).commands
+        (registry) => registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).commands,
+        { singleton: true }
       )
       this.registry.registerFactory<SimpleQueryBus>(
         this.options.queriesRegistryKey,
-        (registry) => registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).queries
+        (registry) => registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).queries,
+        { singleton: true }
       )
       this.registry.registerFactory<EmittableGateway>(
         this.options.emitterRegistryKey,
-        (registry) => registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).emitter
+        (registry) => registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).emitter,
+        { singleton: true }
       )
       this.registry.registerFactory<ObservableGateway>(
         this.options.observerRegistryKey,
-        (registry) => registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).observer
+        (registry) => registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).observer,
+        { singleton: true }
       )
     } else {
-      this.registry.registerFactory<EmittableGateway>(this.options.emitterRegistryKey, () => new GatewayEmitter())
-      this.registry.registerFactory<ObservableGateway>(this.options.observerRegistryKey, (registry) =>
-        registry.resolve<GatewayEmitter>(GatewayEmitterSymbol)
+      this.registry.registerFactory<EmittableGateway>(this.options.emitterRegistryKey, () => new GatewayEmitter(), {
+        singleton: true,
+      })
+      this.registry.registerFactory<ObservableGateway>(
+        this.options.observerRegistryKey,
+        (registry) => registry.resolve<GatewayEmitter>(GatewayEmitterSymbol),
+        { singleton: true }
       )
       this.registry.registerFactory<SimpleEventBus>(
         this.options.eventsRegistryKey,
-        (registry) => new SimpleEventBus(registry.resolve<GatewayEmitter>(this.options.emitterRegistryKey))
+        (registry) => new SimpleEventBus(registry.resolve<GatewayEmitter>(this.options.emitterRegistryKey)),
+        { singleton: true }
       )
       this.registry.registerFactory<SimpleCommandBus>(
         this.options.commandsRegistryKey,
@@ -143,11 +153,13 @@ export class SimpleModule extends AbstractModule {
           new SimpleCommandBus(
             registry.resolve<SimpleEventBus>(this.options.eventsRegistryKey),
             registry.resolve<GatewayEmitter>(this.options.emitterRegistryKey)
-          )
+          ),
+        { singleton: true }
       )
       this.registry.registerFactory<SimpleQueryBus>(
         this.options.queriesRegistryKey,
-        (registry) => new SimpleQueryBus(registry.resolve<GatewayEmitter>(this.options.emitterRegistryKey))
+        (registry) => new SimpleQueryBus(registry.resolve<GatewayEmitter>(this.options.emitterRegistryKey)),
+        { singleton: true }
       )
       this.registry.registerFactory<SimpleGateway>(
         this.options.gatewayRegistryKey,
@@ -157,7 +169,8 @@ export class SimpleModule extends AbstractModule {
             registry.resolve<SimpleCommandBus>(this.options.commandsRegistryKey),
             registry.resolve<SimpleQueryBus>(this.options.queriesRegistryKey),
             registry.resolve<EmittableGateway>(this.options.emitterRegistryKey)
-          )
+          ),
+        { singleton: true }
       )
     }
     this.registry.registerFactory(ComponentSymbol, (registry) => ({

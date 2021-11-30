@@ -1,20 +1,20 @@
 import {
-    Command,
-    CommandBus,
-    CommandHandler,
-    CommandResult,
-    Disposable,
-    Event,
-    ExecuteActionOptions,
-    MessageHeaders,
-    Removable,
-    Result,
-    ResultHeaders,
+  Command,
+  CommandBus,
+  CommandHandler,
+  CommandResult,
+  Disposable,
+  Event,
+  ExecuteActionOptions,
+  MessageHeaders,
+  Removable,
+  Result,
+  ResultHeaders,
 } from "@tmorin/ceb-messaging-core"
-import {IpcRenderer} from "electron"
-import {createRemovable, IPC_CHANNEL_COMMANDS} from "../ipc"
-import {createIpcListener, executeAction} from "./common"
-import {IpcEmitterCommandBus, IpcObservableCommandBus} from "../common"
+import { IpcRenderer } from "electron"
+import { createRemovable, IPC_CHANNEL_COMMANDS } from "../ipc"
+import { createIpcListener, executeAction } from "./common"
+import { IpcEmitterCommandBus, IpcObservableCommandBus, toError } from "../common"
 
 /**
  * The symbol used to register {@link IpcRendererCommandBus}.
@@ -50,9 +50,9 @@ export class IpcRendererCommandBus implements CommandBus, Disposable {
     this.ipcRenderer.send(IPC_CHANNEL_COMMANDS, command, { waitForResult: false })
     // forward to parent
     try {
-      this.bus.execute(command)
+      this.bus.executeAndForget(command)
     } catch (error: any) {
-      this.emitter.emit("command_forward_failed", { bus: this, command, error })
+      this.emitter.emit("command_forward_failed", { bus: this, command, error: toError(error) })
     }
   }
 

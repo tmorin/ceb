@@ -1,6 +1,6 @@
 import { assert } from "chai"
 import { ElementBuilder } from "@tmorin/ceb-elements-core"
-import { Event, Gateway, GatewaySymbol } from "@tmorin/ceb-messaging-core"
+import { Gateway, GatewaySymbol } from "@tmorin/ceb-messaging-core"
 import { Container, ContainerBuilder, OnlyConfigureModule } from "@tmorin/ceb-inversion-core"
 import { GatewayInversionBuilder } from "./builder"
 import { GatewayInversionBuilderModule } from "./module"
@@ -21,10 +21,14 @@ describe("ceb-messaging-builder-inversion/builder/decorate", function () {
     gateway?: Gateway
 
     @GatewayInversionBuilder.get().subscribe().decorate()
-    onEventA(event: Event<string>) {}
+    onEventA() {
+      console.log("empty listener")
+    }
 
     @GatewayInversionBuilder.get().subscribe().type("EventA").decorate()
-    onEventABis(event: Event<string>) {}
+    onEventABis() {
+      console.log("empty listener")
+    }
   }
 
   before(async function () {

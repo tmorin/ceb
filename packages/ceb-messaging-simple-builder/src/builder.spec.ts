@@ -13,7 +13,7 @@ describe("ceb-messaging-simple-builder/builder", function () {
   let sandbox: HTMLDivElement
   const tagName = "messaging-simple-gateway-builder"
   let testElement: TestElement
-  let eventAListener: SinonSpy = sinon.spy()
+  const eventAListener: SinonSpy = sinon.spy()
 
   class TestElement extends HTMLElement {
     gateway?: Gateway
@@ -42,17 +42,17 @@ describe("ceb-messaging-simple-builder/builder", function () {
   it("should listen to event", async function () {
     const eventA = createEventA("test value")
 
-    await SimpleGateway.GLOBAL.events.publish(eventA)
+    SimpleGateway.GLOBAL.events.publish(eventA)
     assert.ok(eventAListener.calledOnce)
     assert.ok(eventAListener.calledWith(testElement, eventA))
 
     testElement?.parentElement?.removeChild(testElement)
-    await SimpleGateway.GLOBAL.events.publish(eventA)
+    SimpleGateway.GLOBAL.events.publish(eventA)
     assert.ok(eventAListener.calledOnce)
     assert.ok(eventAListener.calledWith(testElement, eventA))
 
     sandbox.appendChild(testElement)
-    await SimpleGateway.GLOBAL.events.publish(eventA)
+    SimpleGateway.GLOBAL.events.publish(eventA)
     assert.ok(eventAListener.calledTwice)
     assert.ok(eventAListener.calledWith(testElement, eventA))
   })

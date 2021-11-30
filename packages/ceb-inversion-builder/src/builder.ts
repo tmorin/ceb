@@ -1,5 +1,5 @@
-import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-elements-core"
-import {Container, RegistryKey} from "@tmorin/ceb-inversion-core"
+import { Builder, CustomElementConstructor, ElementBuilder, HooksRegistration } from "@tmorin/ceb-elements-core"
+import { Container, RegistryKey } from "@tmorin/ceb-inversion-core"
 
 /**
  * Factory of a container.
@@ -122,6 +122,7 @@ export class InversionBuilder<E extends HTMLElement> implements Builder<E> {
         throw new TypeError("InversionBuilder - unable to resolve a Container")
       }
       Object.defineProperty(el, _propName, {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         value: _container.registry.resolve(_key),
         configurable: false,
         writable: false,

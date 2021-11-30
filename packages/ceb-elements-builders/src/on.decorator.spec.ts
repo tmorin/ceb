@@ -15,7 +15,7 @@ describe("on.decorator", () => {
     let handlerForASpy: SinonSpy
     let handlerForBSpy: SinonSpy
     let el: HTMLElement
-    let event: CustomEvent = new CustomEvent("custom-event", {
+    const event: CustomEvent = new CustomEvent("custom-event", {
       detail: "test value",
       bubbles: true,
     })
@@ -25,6 +25,7 @@ describe("on.decorator", () => {
       handlerForBSpy = sinon.spy()
 
       @ElementBuilder.get().name(tagName).decorate()
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       class TestElement extends HTMLElement {
         @OnBuilder.get().decorate()
         onCustomEvent(data: Event, target: TestElement) {

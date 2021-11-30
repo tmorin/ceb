@@ -1,8 +1,8 @@
-import {Message, MessageHeaders} from "./message"
-import {EmptyResult, Result} from "./result"
+import { Message, MessageHeaders } from "./message"
+import { EmptyResult, Result } from "./result"
 
 /**
- * The kind of an action message.
+ * The kind of action message.
  */
 export type ActionKind = "command" | "query"
 

@@ -1,4 +1,4 @@
-import {Registry} from "./registry"
+import { Registry } from "./registry"
 
 /**
  * The available configuration of a module.
@@ -93,6 +93,7 @@ export abstract class AbstractModule implements Module, ConfigurableModule {
   /**
    * Override this method to cleanup things when the container is disposed.
    */
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   async dispose(): Promise<void> {}
 }
 

@@ -62,7 +62,7 @@ export function parse(html: string, handler: SaxHandler) {
   let index: number
   let chars: boolean
   let match: RegExpMatchArray | null
-  let stack = createStack()
+  const stack = createStack()
   let last = html
 
   while (html) {

@@ -2,6 +2,7 @@ import chai, { assert } from "chai"
 import chasAsPromised from "chai-as-promised"
 import { Event, EventListener, GatewayEmitter, MessageBuilder } from "@tmorin/ceb-messaging-core"
 import { SimpleEventBus } from "./event"
+import { spy } from "sinon"
 
 chai.use(chasAsPromised)
 
@@ -48,7 +49,7 @@ describe("SimpleEventBus", function () {
   })
 
   it("should remove listener", function () {
-    const remover = bus.subscribe("EventA", () => {})
+    const remover = bus.subscribe("EventA", spy())
     assert.equal(listeners.size, 1)
     assert.equal(listeners.get("EventA")?.size, 1)
     remover.remove()

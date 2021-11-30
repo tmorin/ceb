@@ -99,7 +99,7 @@ describe("engine/slot", function () {
             engine.openElement("li")
             const title = this.getAttribute("title")
             if (title) {
-              const label = this.getAttribute("label")
+              const label = this.getAttribute("label") || ""
               engine.openElement("small")
               engine.text(`(${label}:${title}) `)
               engine.closeElement()

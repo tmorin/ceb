@@ -18,16 +18,16 @@ ContainerBuilder.get()
   .then((_container) => {
     const ipcBus = _container.registry.resolve<IpcMainGateway>(GatewaySymbol)
 
-    ipcMain.on("execute-CommandB", async (event) => {
-      try {
-        const commandB = MessageBuilder.command("CommandB").body("World").build()
-        const resultB = await ipcBus.commands.execute(commandB)
-        assert.ok(resultB)
-        assert.equal(resultB.body, "Hello, World!")
-        event.reply("execute-CommandB-ok")
-      } catch (error) {
-        event.reply("execute-CommandB-ko", error)
-      }
+    ipcMain.on("execute-CommandB", (event) => {
+      const commandB = MessageBuilder.command("CommandB").body("World").build()
+      ipcBus.commands
+        .execute(commandB)
+        .then((resultB) => {
+          assert.ok(resultB)
+          assert.equal(resultB.body, "Hello, World!")
+          event.reply("execute-CommandB-ok")
+        })
+        .catch((error) => event.reply("execute-CommandB-ko", error))
     })
 
     ipcBus.events.subscribe<Event<string>>("FromRendererEvent", (message) => {
@@ -40,4 +40,4 @@ ContainerBuilder.get()
       return { result }
     })
   })
-  .catch((error) => log(`container failed to start: ${error.name} ${error.message}`))
+  .catch((error: Error) => log(`container failed to start: ${error.name} ${error.message}`))

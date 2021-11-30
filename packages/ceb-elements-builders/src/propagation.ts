@@ -168,8 +168,10 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
    * }
    * ```
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   decorate<T extends HTMLElement>(): ClassDecorator {
     return (constructor) => {
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       const attrId = `attribute-${this._fromAttrName}`
       ElementBuilder.getOrSet(constructor.prototype, this._attrBuilder, attrId)
       const deleId = `delegate-${attrId}`

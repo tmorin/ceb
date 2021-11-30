@@ -4,7 +4,7 @@ import { toCamelCase, toKebabCase } from "@tmorin/ceb-utilities"
 /**
  * The data of provided by a {@link FieldListener}.
  */
-export type FieldListenerData = {
+export type FieldListenerData<T = unknown> = {
   /**
    * The property name.
    */
@@ -16,11 +16,11 @@ export type FieldListenerData = {
   /**
    * The old value.
    */
-  oldVal: any
+  oldVal: T
   /**
    * The new value.
    */
-  newVal: any
+  newVal: T
 }
 
 /**

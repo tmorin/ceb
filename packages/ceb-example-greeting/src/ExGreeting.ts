@@ -8,10 +8,10 @@ export class ExGreeting extends HTMLElement {
   span?: HTMLSpanElement
 
   @FieldBuilder.get().decorate()
-  name: string = "World"
+  name = "World"
 
   @FieldBuilder.get().decorate()
-  private onName(data: FieldListenerData) {
+  private onName(data: FieldListenerData<string>) {
     if (this.span) {
       this.span.textContent = data.newVal
     }

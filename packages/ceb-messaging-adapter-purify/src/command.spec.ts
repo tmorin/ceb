@@ -47,7 +47,7 @@ describe("PurifyCommandBus", function () {
 
   it("should return an empty result", async function () {
     const commandA = createCommandA("hello")
-    purifyCommandBus.handle("CommandA", (command) => {
+    purifyCommandBus.handle("CommandA", () => {
       return EitherAsync(() => {
         return Promise.resolve(createPurifyCommandHandlerOutput<string>())
       })
@@ -61,7 +61,7 @@ describe("PurifyCommandBus", function () {
 
   it("should handle a failure", async function () {
     const commandA = createCommandA("hello")
-    purifyCommandBus.handle("CommandA", (command) => {
+    purifyCommandBus.handle("CommandA", () => {
       return EitherAsync(() => {
         return Promise.reject(new Error("an error"))
       })
@@ -75,7 +75,7 @@ describe("PurifyCommandBus", function () {
 
   it("should execute and forget", function (done) {
     const commandA = createCommandA("hello")
-    purifyCommandBus.handle("CommandA", (command) => {
+    purifyCommandBus.handle("CommandA", () => {
       return EitherAsync(async () => {
         done()
         return createPurifyCommandHandlerOutput()

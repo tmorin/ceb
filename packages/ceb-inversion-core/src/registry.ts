@@ -119,7 +119,7 @@ interface Entry<T> {
 class ValueEntry<T> implements Entry<T> {
   constructor(readonly value: T) {}
 
-  get(registry: Registry): T {
+  get(): T {
     return this.value
   }
 }
@@ -197,6 +197,7 @@ export class DefaultRegistry implements Registry {
   resolveAll<T>(key: RegistryKey): Array<T> {
     if (this.entries.has(key)) {
       const entries = this.entries.get(key)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       return [...(entries || []).map((entry) => entry.get(this))]
     }
     throw new Error(`unable to resolve an entry with the key (${String(key)})`)

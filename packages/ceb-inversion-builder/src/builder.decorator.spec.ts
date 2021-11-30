@@ -3,20 +3,7 @@ import { Container, ContainerBuilder, OnlyConfigureModule } from "@tmorin/ceb-in
 import { ElementBuilder } from "@tmorin/ceb-elements-core"
 import { InversionBuilder } from "./builder"
 import { InversionBuilderModule } from "./module"
-
-class ServiceA {
-  methodA() {
-    return "resultA"
-  }
-}
-
-class ServiceB {
-  constructor(private readonly serviceA: ServiceA) {}
-
-  methodA() {
-    return this.serviceA.methodA()
-  }
-}
+import { ServiceA, ServiceB } from "./__TEST/fixture"
 
 describe("inversion/builder/decorator", function () {
   let sandbox: HTMLDivElement
@@ -59,7 +46,7 @@ describe("inversion/builder/decorator", function () {
   after(async () => {
     // @ts-ignore
     InversionBuilder.setDefaultContainer(undefined)
-    container?.dispose()
+    await container?.dispose()
   })
   it("should inject serviceA", function () {
     assert.property(testElement, "serviceA")

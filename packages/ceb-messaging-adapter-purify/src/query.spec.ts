@@ -40,7 +40,7 @@ describe("PurifyQueryBus", function () {
 
   it("should return an empty result", async function () {
     const queryA = createQueryA("hello")
-    purifyQueryBus.handle("QueryA", (query) => {
+    purifyQueryBus.handle("QueryA", () => {
       return EitherAsync<Error, Maybe<string>>(() => {
         return Promise.resolve(Nothing)
       })
@@ -54,7 +54,7 @@ describe("PurifyQueryBus", function () {
 
   it("should handle a failure", async function () {
     const queryA = createQueryA("hello")
-    purifyQueryBus.handle("QueryA", (query) => {
+    purifyQueryBus.handle("QueryA", () => {
       return EitherAsync<Error, Maybe<string>>(() => {
         return Promise.reject(new Error("an error"))
       })

@@ -4,9 +4,9 @@ const webpackConf = require("./webpack.tpl")
 
 webpack(webpackConf, (err) => {
   if (err) {
-    console.error(err)
-    process.exit(9999)
+    throw err
   }
+  // eslint-disable-next-line node/no-missing-require
   require("./.generated/main")
   setTimeout(() => electron.webContents.getAllWebContents().forEach((webContent) => webContent.send("main-ready")), 0)
 })

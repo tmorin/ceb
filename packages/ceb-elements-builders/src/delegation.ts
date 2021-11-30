@@ -224,11 +224,11 @@ export class PropertyDelegationBuilder<E extends HTMLElement = HTMLElement> impl
 
     // registers mutation observer
     hooks.before("constructorCallback", (el) => {
-      const builder = this
       const base = this._isShadow ? el.shadowRoot : el
       if (!base) {
         throw new Error("PropertyDelegationBuilder - shadow DOM is targeted but no doesn't exist")
       }
+      const builder = this
       // get the initial descriptor if existing to get the default value
       const initialDescriptor = Object.getOwnPropertyDescriptor(el, _propName)
       // creates or overrides the property to intercept both getter and setter

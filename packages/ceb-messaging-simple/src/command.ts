@@ -1,21 +1,20 @@
 import {
-    Command,
-    CommandBus,
-    CommandHandler,
-    CommandHandlerOutputSync,
-    CommandResult,
-    Disposable,
-    EmittableCommandBus,
-    EmptyResult,
-    Event,
-    EventBus,
-    ExecuteActionOptions,
-    MessageBuilder,
-    ObservableCommandBus,
-    Removable,
-    Result,
+  Command,
+  CommandBus,
+  CommandHandler,
+  CommandHandlerOutputSync,
+  CommandResult,
+  Disposable,
+  EmittableCommandBus,
+  Event,
+  EventBus,
+  ExecuteActionOptions,
+  MessageBuilder,
+  ObservableCommandBus,
+  Removable,
+  Result,
 } from "@tmorin/ceb-messaging-core"
-import {waitForReturn} from "./common"
+import { waitForReturn } from "./common"
 
 /**
  * The symbol used to register {@link SimpleCommandBus}.
@@ -36,7 +35,7 @@ export class SimpleCommandBus implements CommandBus, Disposable {
   async execute<R extends Result = Result, C extends Command = Command>(
     command: C,
     options?: Partial<ExecuteActionOptions>
-  ): Promise<R | EmptyResult> {
+  ): Promise<CommandResult<R>> {
     const handler = this.resolveHandler(command)
 
     const opts: ExecuteActionOptions = {
@@ -46,7 +45,7 @@ export class SimpleCommandBus implements CommandBus, Disposable {
 
     const result = await waitForReturn(async () => await handler(command), opts.timeout)
       .then((output) => this.processHandlerOutput(output))
-      .catch((error: any) => {
+      .catch((error: Error) => {
         this.emitter.emit("command_handler_failed", {
           bus: this,
           command,
@@ -55,10 +54,6 @@ export class SimpleCommandBus implements CommandBus, Disposable {
         throw error
       })
 
-    if (result && result.kind === "error") {
-      throw result.body
-    }
-
     return result || MessageBuilder.result(command).type("empty").build()
   }
 
@@ -66,7 +61,7 @@ export class SimpleCommandBus implements CommandBus, Disposable {
     const handler = this.resolveHandler(command)
     Promise.resolve((async () => handler(command))())
       .then((output) => this.processHandlerOutput(output))
-      .catch((error) => {
+      .catch((error: Error) => {
         this.emitter.emit("command_handler_failed", {
           bus: this,
           command,
@@ -95,7 +90,9 @@ export class SimpleCommandBus implements CommandBus, Disposable {
     this.emitter.emit("disposed", { bus: this })
   }
 
-  private resolveHandler(command: Command) {
+  private resolveHandler<C extends Command = Command, R extends Result = Result, Es extends Array<Event> = []>(
+    command: Command
+  ): CommandHandler<C, R, Es> {
     const handler = this.handlers.get(command.headers.messageType)
     if (handler) {
       return handler

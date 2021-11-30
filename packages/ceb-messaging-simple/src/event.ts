@@ -1,12 +1,12 @@
 import {
-    Disposable,
-    EmittableEventBus,
-    Event,
-    EventBus,
-    EventListener,
-    ObservableEventBus,
-    Removable,
-    SubscribeOptions,
+  Disposable,
+  EmittableEventBus,
+  Event,
+  EventBus,
+  EventListener,
+  ObservableEventBus,
+  Removable,
+  SubscribeOptions,
 } from "@tmorin/ceb-messaging-core"
 
 /**
@@ -25,17 +25,17 @@ export class SimpleEventBus implements EventBus, Disposable {
   }
 
   publish<E extends Event = Event>(...events: Array<E>): void {
-    events.forEach((event) =>
-      this.listeners.get(event.headers.messageType)?.forEach((listener) =>
-        Promise.resolve((async () => listener(event))()).catch((error) =>
+    events.forEach((event) => {
+      this.listeners.get(event.headers.messageType)?.forEach((listener) => {
+        Promise.resolve((async () => listener(event))()).catch((error: Error) =>
           this.emitter.emit("event_listener_failed", {
             bus: this,
             event,
             error,
           })
         )
-      )
-    )
+      })
+    })
   }
 
   subscribe<E extends Event = Event>(

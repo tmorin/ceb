@@ -2,6 +2,7 @@ import chai, { assert } from "chai"
 import chasAsPromised from "chai-as-promised"
 import { Action, GatewayEmitter, MessageBuilder, Query, QueryHandler, Result } from "@tmorin/ceb-messaging-core"
 import { SimpleQueryBus } from "./query"
+import { spy } from "sinon"
 
 chai.use(chasAsPromised)
 
@@ -49,7 +50,7 @@ describe("SimpleQueryBus", function () {
       assert.equal(error, error)
       done()
     })
-    bus.execute(queryA)
+    bus.execute(queryA).catch(spy())
   })
 
   it("should failed when sync handler failed", async function () {
@@ -77,24 +78,24 @@ describe("SimpleQueryBus", function () {
       assert.equal(error, error)
       done()
     })
-    bus.execute(queryA)
+    bus.execute(queryA).catch(spy())
   })
 
   it("should failed when not reply on time", async () => {
     const queryA = createQueryA("hello")
-    bus.handle("QueryA", () => new Promise<Result>(() => {}))
+    bus.handle("QueryA", () => new Promise<Result>(spy()))
     await assert.isRejected(bus.execute(queryA, { timeout: 0 }), "unable to get the result on time")
   })
 
   it("should notify when not reply on time", (done) => {
     const queryA = createQueryA("hello")
-    bus.handle("QueryA", () => new Promise<Result>(() => {}))
+    bus.handle("QueryA", () => new Promise<Result>(spy()))
     bus.observe.on("query_handler_failed", ({ bus, query, error }) => {
       assert.equal(bus, bus)
       assert.equal(query, queryA)
       assert.property(error, "message", "unable to get the result on time")
       done()
     })
-    bus.execute(queryA)
+    bus.execute(queryA).catch(spy())
   })
 })

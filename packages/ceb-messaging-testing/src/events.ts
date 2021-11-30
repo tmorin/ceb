@@ -35,7 +35,7 @@ export function waitForEvents<E extends Event = Event>(
       ...options,
     }
     let counter = 0
-    let events: Array<E> = []
+    const events: Array<E> = []
     const subscription = gateway.events.subscribe<E>(eventType, (event) => {
       counter++
       events.push(event)
