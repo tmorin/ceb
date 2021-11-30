@@ -1,4 +1,11 @@
-import {AbstractModule, Component, ComponentSymbol, Container, ContainerSymbol} from "@tmorin/ceb-inversion-core"
+import {
+    AbstractModule,
+    Component,
+    ComponentSymbol,
+    Container,
+    ContainerSymbol,
+    RegistryKey
+} from "@tmorin/ceb-inversion-core"
 import {Command, CommandHandler} from "./command"
 import {Result} from "./result"
 import {Event, EventListener} from "./event"
@@ -66,9 +73,9 @@ export type DiscoverableEventListener<E extends Event = Event> = {
 /**
  * The component discovers the handlers (for commands and queries) as well as the listeners in the registry and then register them to the bus.
  *
- * - The command handlers are discovered with the key {@link CommandHandlerSymbol}.
- * - The query handlers are discovered with the key {@link MessageQueryHandlerSymbol}.
- * - The event listeners are discovered with the key {@link EventListenerSymbol}.
+ * - The command handlers are discovered with the key {@link DiscoverableCommandHandlerSymbol}.
+ * - The query handlers are discovered with the key {@link DiscoverableQueryHandlerSymbol}.
+ * - The event listeners are discovered with the key {@link DiscoverableEventListenerSymbol}.
  *
  * The registrations are done when the container starts.
  * They are also disposed once the container is disposed too.
@@ -128,20 +135,46 @@ export class MessagingComponent extends Component {
 
 // MODULE
 
+
+/**
+ * The options of {@link MessagingModule}.
+ */
+export interface MessagingModuleOptions {
+    /**
+     * The {@link RegistryKey} of the {@link Gateway} instance.
+     * By default {@link GatewaySymbol}.
+     */
+    gatewayRegistryKey: RegistryKey
+}
+
 /**
  * The module register the component {@link MessagingComponent} in order to discover and bootstrap handlers and listeners.
  *
- * The module expects to resolve a {@link Bus} bound with the key {@link BusSymbol}.
- *
- * @example Register the MessagingModule
+ * @example Register the module
  * ```typescript
- * import {inversion, messaging} from "@tmorin/ceb-bundle-web"
- * const container = inversion.ContainerBuilder.get()
- *   .module(new messaging.MessagingModule())
+ * import {ContainerBuilder} from "@tmorin/ceb-inversion-core"
+ * import {MessagingModule} from "@tmorin/ceb-messaging-core"
+ * ContainerBuilder.get()
+ *   .module(new MessagingModule())
  *   .build()
  * ```
  */
 export class MessagingModule extends AbstractModule {
+    private readonly options: MessagingModuleOptions
+
+    /**
+     * @param partialOptions Options of the module.
+     */
+    constructor(
+        partialOptions: Partial<MessagingModuleOptions> = {}
+    ) {
+        super()
+        this.options = {
+            gatewayRegistryKey: GatewaySymbol,
+            ...partialOptions
+        }
+    }
+
     async configure(): Promise<void> {
         this.registry.registerFactory(ComponentSymbol, registry => new MessagingComponent(
             registry.resolve<Container>(ContainerSymbol),
