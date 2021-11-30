@@ -1,17 +1,17 @@
-import {AbstractModule, Component, ComponentSymbol, RegistryKey} from "@tmorin/ceb-inversion-core";
+import {AbstractModule, Component, ComponentSymbol, RegistryKey} from "@tmorin/ceb-inversion-core"
 import {
     CommandBus,
     CommandBusSymbol,
+    EmittableGateway,
     EventBus,
     EventBusSymbol,
     Gateway,
-    GatewayEmitter,
     GatewayEmitterSymbol,
     GatewaySymbol,
     QueryBus,
     QueryBusSymbol
-} from "@tmorin/ceb-messaging-core";
-import {ipcMain, ipcRenderer} from "electron";
+} from "@tmorin/ceb-messaging-core"
+import {ipcMain, ipcRenderer} from "electron"
 import {
     IpcMainCommandBus,
     IpcMainCommandBusSymbol,
@@ -20,7 +20,7 @@ import {
     IpcMainGateway,
     IpcMainQueryBus,
     IpcMainQueryBusSymbol
-} from "./ipc-main";
+} from "./ipc-main"
 import {
     IpcRendererCommandBus,
     IpcRendererCommandBusSymbol,
@@ -29,34 +29,34 @@ import {
     IpcRendererGateway,
     IpcRendererQueryBus,
     IpcRendererQueryBusSymbol
-} from "./ipc-renderer";
+} from "./ipc-renderer"
 
 /**
  * The options of {@link ElectronModule}.
  */
 export interface ElectronModuleOptions {
     /**
-     * The {@link RegistryKey} of the {@link IpcMainGateway} or {@link IpcRendererGateway} instance.
+     * The {@link RegistryKey} of the new {@link IpcMainGateway} or {@link IpcRendererGateway} instances.
      * By default {@link GatewaySymbol}.
      */
-    gatewayRegistryKey: RegistryKey
+    ipcGatewayRegistryKey: RegistryKey
     /**
-     * The {@link RegistryKey} of the {@link EventBus} instance.
+     * The {@link RegistryKey} of an existing {@link EventBus} instance.
      * By default {@link EventBusSymbol}.
      */
     eventsRegistryKey: RegistryKey
     /**
-     * The {@link RegistryKey} of the {@link CommandBus} instance.
+     * The {@link RegistryKey} of an existing {@link CommandBus} instance.
      * By default {@link CommandBusSymbol}.
      */
     commandsRegistryKey: RegistryKey
     /**
-     * The {@link RegistryKey} of the {@link QueryBus} instance.
+     * The {@link RegistryKey} of an existing {@link QueryBus} instance.
      * By default {@link QueryBusSymbol}.
      */
     queriesRegistryKey: RegistryKey
     /**
-     * The {@link RegistryKey} of the {@link GatewayEmitter} instance.
+     * The {@link RegistryKey} of an existing {@link EmittableGateway} instance.
      * By default {@link GatewayEmitterSymbol}.
      */
     emitterRegistryKey: RegistryKey
@@ -73,7 +73,7 @@ export interface ElectronModuleOptions {
  * @example Register the module
  * ```typescript
  * import {ContainerBuilder} from "@tmorin/ceb-inversion-core"
- * import {SimpleGatewaySymbol, SimpleModule} from "@tmorin/ceb-messaging-simple";
+ * import {SimpleGatewaySymbol, SimpleModule} from "@tmorin/ceb-messaging-simple"
  * import {ElectronModule} from "@tmorin/ceb-messaging-adapter-electron"
  * const container = ContainerBuilder.get()
  *   .module(new SimpleModule({gatewayRegistryKey: SimpleGatewaySymbol}))
@@ -85,15 +85,14 @@ export class ElectronModule extends AbstractModule {
     private readonly options: ElectronModuleOptions
 
     /**
-     * @param wrappedGatewayRegistryKey The {@link RegistryKey} of the {@link Gateway} to wrap.
      * @param partialOptions Options of the module.
      */
     constructor(
         partialOptions: Partial<ElectronModuleOptions> = {}
     ) {
-        super();
+        super()
         this.options = {
-            gatewayRegistryKey: GatewaySymbol,
+            ipcGatewayRegistryKey: GatewaySymbol,
             eventsRegistryKey: EventBusSymbol,
             commandsRegistryKey: CommandBusSymbol,
             queriesRegistryKey: QueryBusSymbol,
@@ -109,27 +108,27 @@ export class ElectronModule extends AbstractModule {
             this.registry.registerFactory<IpcMainEventBus>(IpcMainEventBusSymbol, (registry) => new IpcMainEventBus(
                 ipcMain,
                 registry.resolve<EventBus>(this.options.eventsRegistryKey),
-                registry.resolve<GatewayEmitter>(this.options.emitterRegistryKey),
+                registry.resolve<EmittableGateway>(this.options.emitterRegistryKey),
             ))
             // COMMAND BUS
             this.registry.registerFactory<IpcMainCommandBus>(IpcMainCommandBusSymbol, (registry) => new IpcMainCommandBus(
                 ipcMain,
                 registry.resolve<CommandBus>(this.options.commandsRegistryKey),
-                registry.resolve<GatewayEmitter>(this.options.emitterRegistryKey),
+                registry.resolve<EmittableGateway>(this.options.emitterRegistryKey),
             ))
             // QUERY BUS
             this.registry.registerFactory<IpcMainQueryBus>(IpcMainQueryBusSymbol, (registry) => new IpcMainQueryBus(
                 ipcMain,
                 registry.resolve<QueryBus>(this.options.queriesRegistryKey),
-                registry.resolve<GatewayEmitter>(this.options.emitterRegistryKey),
+                registry.resolve<EmittableGateway>(this.options.emitterRegistryKey),
             ))
             // GATEWAY
-            this.registry.registerFactory<IpcMainGateway>(this.options.gatewayRegistryKey, (registry) => {
+            this.registry.registerFactory<IpcMainGateway>(this.options.ipcGatewayRegistryKey, (registry) => {
                 return new IpcMainGateway(
                     registry.resolve<IpcMainEventBus>(IpcMainEventBusSymbol),
                     registry.resolve<IpcMainCommandBus>(IpcMainCommandBusSymbol),
                     registry.resolve<IpcMainQueryBus>(IpcMainQueryBusSymbol),
-                );
+                )
             })
         }
 
@@ -138,34 +137,34 @@ export class ElectronModule extends AbstractModule {
             this.registry.registerFactory<IpcRendererEventBus>(IpcRendererEventBusSymbol, (registry) => new IpcRendererEventBus(
                 ipcRenderer,
                 registry.resolve<EventBus>(this.options.eventsRegistryKey),
-                registry.resolve<GatewayEmitter>(this.options.emitterRegistryKey),
+                registry.resolve<EmittableGateway>(this.options.emitterRegistryKey),
             ))
             // COMMAND BUS
             this.registry.registerFactory<IpcRendererCommandBus>(IpcRendererCommandBusSymbol, (registry) => new IpcRendererCommandBus(
                 ipcRenderer,
                 registry.resolve<CommandBus>(this.options.commandsRegistryKey),
-                registry.resolve<GatewayEmitter>(this.options.emitterRegistryKey),
+                registry.resolve<EmittableGateway>(this.options.emitterRegistryKey),
             ))
             // QUERY BUS
             this.registry.registerFactory<IpcRendererQueryBus>(IpcRendererQueryBusSymbol, (registry) => new IpcRendererQueryBus(
                 ipcRenderer,
                 registry.resolve<QueryBus>(this.options.queriesRegistryKey),
-                registry.resolve<GatewayEmitter>(this.options.emitterRegistryKey),
+                registry.resolve<EmittableGateway>(this.options.emitterRegistryKey),
             ))
             // GATEWAY
-            this.registry.registerFactory<IpcRendererGateway>(this.options.gatewayRegistryKey, (registry) => {
+            this.registry.registerFactory<IpcRendererGateway>(this.options.ipcGatewayRegistryKey, (registry) => {
                 return new IpcRendererGateway(
                     registry.resolve<IpcRendererEventBus>(IpcRendererEventBusSymbol),
                     registry.resolve<IpcRendererCommandBus>(IpcRendererCommandBusSymbol),
                     registry.resolve<IpcRendererQueryBus>(IpcRendererQueryBusSymbol),
-                );
+                )
             })
         }
 
         this.registry.registerFactory<Component>(ComponentSymbol, (registry) => ({
             configure: async () => {
                 if (this.options.errorToConsole) {
-                    const observer = registry.resolve<IpcMainGateway | IpcRendererGateway>(this.options.gatewayRegistryKey).observer
+                    const observer = registry.resolve<IpcMainGateway | IpcRendererGateway>(this.options.ipcGatewayRegistryKey).observer
                     // COMMAND
                     observer.on("command_handler_failed", ({command, error}) => {
                         const identifier = `${command.headers.messageType}/${command.headers.messageId}`
@@ -178,7 +177,7 @@ export class ElectronModule extends AbstractModule {
                     observer.on("command_forward_failed", ({error, command}) => {
                         const identifier = `${command.headers.messageType}/${command.headers.messageId}`
                         const message = `ElectronModule - a command handler of ${identifier} throws an error`
-                        console.trace(message, error);
+                        console.trace(message, error)
                     })
                     // QUERY
                     observer.on("query_handler_failed", ({query, error}) => {
@@ -198,12 +197,12 @@ export class ElectronModule extends AbstractModule {
                     observer.on("event_forward_failed", ({event, error}) => {
                         const identifier = `${event.headers.messageType}/${event.headers.messageId}`
                         const message = `ElectronModule - an event listener of ${identifier} throws an error`
-                        console.trace(message, error);
+                        console.trace(message, error)
                     })
                 }
             },
             dispose: async () => {
-                await registry.resolve<Gateway>(this.options.gatewayRegistryKey).dispose()
+                await registry.resolve<Gateway>(this.options.ipcGatewayRegistryKey).dispose()
             }
         }))
 

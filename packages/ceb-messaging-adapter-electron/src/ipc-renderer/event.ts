@@ -1,7 +1,7 @@
 import {Event, EventBus, EventListener, MessageHeaders, Removable, SubscribeOptions} from "@tmorin/ceb-messaging-core"
-import {IpcRenderer, IpcRendererEvent} from "electron";
-import {createRemovable, IPC_CHANNEL_EVENTS, IpcMessageMetadata} from "../ipc";
-import {IpcEmitterEventBus, IpcObservableEventBus} from "../common";
+import {IpcRenderer, IpcRendererEvent} from "electron"
+import {createRemovable, IPC_CHANNEL_EVENTS, IpcMessageMetadata} from "../ipc"
+import {IpcEmitterEventBus, IpcObservableEventBus} from "../common"
 
 /**
  * The symbol used to register {@link IpcRendererEventBus}.

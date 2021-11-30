@@ -11,10 +11,10 @@ import {
     Result,
     ResultHeaders
 } from "@tmorin/ceb-messaging-core"
-import {IpcRenderer} from "electron";
-import {createRemovable, IPC_CHANNEL_COMMANDS} from "../ipc";
-import {createIpcListener, executeAction} from "./common";
-import {IpcEmitterCommandBus, IpcObservableCommandBus} from "../common";
+import {IpcRenderer} from "electron"
+import {createRemovable, IPC_CHANNEL_COMMANDS} from "../ipc"
+import {createIpcListener, executeAction} from "./common"
+import {IpcEmitterCommandBus, IpcObservableCommandBus} from "../common"
 
 /**
  * The symbol used to register {@link IpcRendererCommandBus}.

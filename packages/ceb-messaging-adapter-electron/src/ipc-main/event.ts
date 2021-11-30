@@ -1,7 +1,7 @@
 import {Event, EventBus, EventListener, MessageHeaders, Removable, SubscribeOptions} from "@tmorin/ceb-messaging-core"
-import {IpcMain, IpcMainEvent, webContents} from "electron";
-import {createRemovable, IPC_CHANNEL_EVENTS, IpcMessageMetadata} from "../ipc";
-import {IpcEmitterEventBus, IpcObservableEventBus} from "../common";
+import {IpcMain, IpcMainEvent, webContents} from "electron"
+import {createRemovable, IPC_CHANNEL_EVENTS, IpcMessageMetadata} from "../ipc"
+import {IpcEmitterEventBus, IpcObservableEventBus} from "../common"
 
 /**
  * The symbol used to register {@link IpcMainEventBus}.
@@ -26,7 +26,7 @@ export class IpcMainEventBus implements EventBus {
     ): void {
         events.forEach(event => {
             // forward to IPC
-            webContents.getAllWebContents().forEach(webContent => webContent.send(IPC_CHANNEL_EVENTS, event, {}));
+            webContents.getAllWebContents().forEach(webContent => webContent.send(IPC_CHANNEL_EVENTS, event, {}))
             // forward to parent
             try {
                 this.bus.publish(event)

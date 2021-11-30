@@ -1,4 +1,4 @@
-import {EmitterQueryBus, ObservableQueryBus, QueryBus, QueryBusNotificationMap} from "@tmorin/ceb-messaging-core";
+import {EmittableQueryBus, ObservableQueryBus, QueryBus, QueryBusNotificationMap} from "@tmorin/ceb-messaging-core"
 
 /**
  * The map of the internal events for queries handling.
@@ -16,7 +16,7 @@ export interface IpcObservableQueryBus extends ObservableQueryBus {
     on<K extends keyof IpcQueryBusNotificationMap>(
         type: K,
         listener: (event: IpcQueryBusNotificationMap[K]) => any
-    ): this;
+    ): this
 
     /**
      * Remove listeners.
@@ -27,13 +27,13 @@ export interface IpcObservableQueryBus extends ObservableQueryBus {
     off<K extends keyof IpcQueryBusNotificationMap>(
         type?: K,
         listener?: (event: IpcQueryBusNotificationMap[K]) => any
-    ): this;
+    ): this
 }
 
 /**
  * The emitter view of an an {@link QueryBus}.
  */
-export interface IpcEmitterQueryBus extends EmitterQueryBus {
+export interface IpcEmitterQueryBus extends EmittableQueryBus {
     /**
      * Emit an internal event.
      * @param type the type
@@ -43,5 +43,5 @@ export interface IpcEmitterQueryBus extends EmitterQueryBus {
     emit<K extends keyof IpcQueryBusNotificationMap>(
         type: K,
         event: IpcQueryBusNotificationMap[K]
-    ): void;
+    ): void
 }

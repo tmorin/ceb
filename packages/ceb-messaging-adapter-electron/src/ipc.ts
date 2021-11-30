@@ -1,4 +1,4 @@
-import {Action, MessageBuilder, Removable, Result} from "@tmorin/ceb-messaging-core";
+import {Action, MessageBuilder, Removable, Result} from "@tmorin/ceb-messaging-core"
 
 /**
  * The metadata of an IPC message.

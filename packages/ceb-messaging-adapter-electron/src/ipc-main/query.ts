@@ -9,10 +9,10 @@ import {
     Result,
     ResultHeaders
 } from "@tmorin/ceb-messaging-core"
-import {IpcMain} from "electron";
-import {createRemovable, IPC_CHANNEL_QUERIES} from "../ipc";
-import {createIpcListener, executeAction} from "./common";
-import {IpcEmitterQueryBus, IpcObservableQueryBus} from "../common";
+import {IpcMain} from "electron"
+import {createRemovable, IPC_CHANNEL_QUERIES} from "../ipc"
+import {createIpcListener, executeAction} from "./common"
+import {IpcEmitterQueryBus, IpcObservableQueryBus} from "../common"
 
 /**
  * The symbol used to register {@link IpcMainQueryBus}.

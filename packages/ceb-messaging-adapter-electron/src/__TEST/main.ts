@@ -1,10 +1,10 @@
 import {ipcMain, webContents} from 'electron'
-import {assert} from "chai";
-import {SimpleGatewaySymbol, SimpleModule} from "@tmorin/ceb-messaging-simple";
-import {ElectronModule} from "../inversion";
-import {ContainerBuilder} from "@tmorin/ceb-inversion-core";
-import {IpcMainGateway} from "../ipc-main";
-import {Command, Event, GatewaySymbol, MessageBuilder, Result} from "@tmorin/ceb-messaging-core";
+import {assert} from "chai"
+import {SimpleGatewaySymbol, SimpleModule} from "@tmorin/ceb-messaging-simple"
+import {ElectronModule} from "../inversion"
+import {ContainerBuilder} from "@tmorin/ceb-inversion-core"
+import {IpcMainGateway} from "../ipc-main"
+import {Command, Event, GatewaySymbol, MessageBuilder, Result} from "@tmorin/ceb-messaging-core"
 
 function log(text: string) {
     webContents.getAllWebContents().forEach(webContent => webContent
@@ -38,8 +38,6 @@ ContainerBuilder.get()
 
         ipcBus.commands.handle<Command<string>, Result<string>>("CommandA", async (command) => {
             const result = MessageBuilder.result(command).body(`Hello, ${command.body}!`).build()
-            log(`handle CommandA ${JSON.stringify(command)}`)
-            log(`with result ${JSON.stringify(result)}`)
             return {result}
         })
     })

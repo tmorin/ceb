@@ -1,12 +1,12 @@
-import {Observable, ObservableGateway} from "@tmorin/ceb-messaging-core";
-import {IpcEventBusNotificationMap, IpcObservableEventBus} from "./event";
-import {IpcCommandBusNotificationMap, IpcObservableCommandBus} from "./command";
-import {IpcObservableQueryBus, IpcQueryBusNotificationMap} from "./query";
+import {Observable, ObservableGateway} from "@tmorin/ceb-messaging-core"
+import {IpcEventBusNotificationMap, IpcObservableEventBus} from "./event"
+import {IpcCommandBusNotificationMap, IpcObservableCommandBus} from "./command"
+import {IpcObservableQueryBus, IpcQueryBusNotificationMap} from "./query"
 
 /**
  * The observable view of a gateway merges the observable channel of all buses.
  */
-export type IpcObservableGateway = IpcObservableCommandBus & IpcObservableEventBus & IpcObservableQueryBus;
+export type IpcObservableGateway = IpcObservableCommandBus & IpcObservableEventBus & IpcObservableQueryBus
 
 /**
  * The map defines the internal events of all buses.

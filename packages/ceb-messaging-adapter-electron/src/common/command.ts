@@ -2,9 +2,9 @@ import {
     Command,
     CommandBus,
     CommandBusNotificationMap,
-    EmitterCommandBus,
+    EmittableCommandBus,
     ObservableCommandBus
-} from "@tmorin/ceb-messaging-core";
+} from "@tmorin/ceb-messaging-core"
 
 /**
  * The map of the internal events for commands handling.
@@ -27,7 +27,7 @@ export interface IpcObservableCommandBus extends ObservableCommandBus {
     on<K extends keyof IpcCommandBusNotificationMap>(
         type: K,
         listener: (event: IpcCommandBusNotificationMap[K]) => any
-    ): this;
+    ): this
 
     /**
      * Remove listeners.
@@ -38,13 +38,13 @@ export interface IpcObservableCommandBus extends ObservableCommandBus {
     off<K extends keyof IpcCommandBusNotificationMap>(
         type?: K,
         listener?: (event: IpcCommandBusNotificationMap[K]) => any
-    ): this;
+    ): this
 }
 
 /**
  * The emitter view of an an {@link CommandBus}.
  */
-export interface IpcEmitterCommandBus extends EmitterCommandBus {
+export interface IpcEmitterCommandBus extends EmittableCommandBus {
     /**
      * Emit an internal event.
      * @param type the type
@@ -54,5 +54,5 @@ export interface IpcEmitterCommandBus extends EmitterCommandBus {
     emit<K extends keyof IpcCommandBusNotificationMap>(
         type: K,
         event: IpcCommandBusNotificationMap[K]
-    ): void;
+    ): void
 }

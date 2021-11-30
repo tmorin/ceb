@@ -1,10 +1,10 @@
 import {
-    EmitterEventBus,
+    EmittableEventBus,
     Event,
     EventBus,
     EventBusNotificationMap,
     ObservableEventBus
-} from "@tmorin/ceb-messaging-core";
+} from "@tmorin/ceb-messaging-core"
 
 /**
  * The map of the internal events for events handling.
@@ -27,7 +27,7 @@ export interface IpcObservableEventBus extends ObservableEventBus {
     on<K extends keyof IpcEventBusNotificationMap>(
         type: K,
         listener: (event: IpcEventBusNotificationMap[K]) => any
-    ): this;
+    ): this
 
     /**
      * Remove listeners.
@@ -38,13 +38,13 @@ export interface IpcObservableEventBus extends ObservableEventBus {
     off<K extends keyof IpcEventBusNotificationMap>(
         type?: K,
         listener?: (event: IpcEventBusNotificationMap[K]) => any
-    ): this;
+    ): this
 }
 
 /**
  * The emitter view of an an {@link EventBus}.
  */
-export interface IpcEmitterEventBus extends EmitterEventBus {
+export interface IpcEmitterEventBus extends EmittableEventBus {
     /**
      * Emit an internal event.
      * @param type the type
@@ -54,5 +54,5 @@ export interface IpcEmitterEventBus extends EmitterEventBus {
     emit<K extends keyof IpcEventBusNotificationMap>(
         type: K,
         event: IpcEventBusNotificationMap[K]
-    ): void;
+    ): void
 }

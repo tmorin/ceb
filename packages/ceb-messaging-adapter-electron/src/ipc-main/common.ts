@@ -1,5 +1,5 @@
-import {IpcMain, IpcMainEvent, webContents} from "electron";
-import any from "promise.any";
+import {IpcMain, IpcMainEvent, webContents} from "electron"
+import any from "promise.any"
 import {
     Action,
     ActionResult,
@@ -7,8 +7,8 @@ import {
     MessageHeaders,
     Result,
     ResultHeaders
-} from "@tmorin/ceb-messaging-core";
-import {createErrorResult, IpcMessageMetadata} from "../ipc";
+} from "@tmorin/ceb-messaging-core"
+import {createErrorResult, IpcMessageMetadata} from "../ipc"
 
 export function executeAction<R extends Result<any, ResultHeaders> = Result<any, ResultHeaders>,
     A extends Action<any, MessageHeaders> = Action<any, MessageHeaders>>(
@@ -23,11 +23,11 @@ export function executeAction<R extends Result<any, ResultHeaders> = Result<any,
         const listener = (event: IpcMainEvent, data: R, metadata: IpcMessageMetadata) => {
             // leave early if the message type is wrong
             if (action.headers.messageId === metadata.correlationId) {
-                clearTimeout(timeoutId);
+                clearTimeout(timeoutId)
                 if (data.headers.messageType === createErrorResult.MESSAGE_TYPE) {
-                    reject(data.body);
+                    reject(data.body)
                 } else {
-                    resolve(data);
+                    resolve(data)
                 }
             }
         }
