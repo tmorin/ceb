@@ -1,5 +1,5 @@
-import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-elements-core";
-import {Container, RegistryKey} from "@tmorin/ceb-inversion-core";
+import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-elements-core"
+import {Container, RegistryKey} from "@tmorin/ceb-inversion-core"
 
 /**
  * Factory of a container.
@@ -13,6 +13,35 @@ export interface ContainerProvider {
 
 /**
  * The builder injects an entry from a container into a Custom Element.
+ *
+ * @example Inject an entry resolving its key from the property name
+ * ```typescript
+ * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+ * import {ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion-core"
+ * import {InversionBuilder, InversionBuilderModule} from "@tmorin/ceb-inversion-builder"
+ *
+ * // define the Custom Element
+ * @ElementBuilder.get(TestElement).decorate()
+ * class TestElement extends HTMLElement {
+ *   // inject the value of the registry matching the key "greeting"
+ *   @InversionBuilder.get().decorate()
+ *   greeting?: string
+ *
+ *   attachedCallback() {
+ *     this.textContent = this.greeting
+ *   }
+ * }
+ *
+ * // build the container
+ * ContainerBuilder.get()
+ *   .module(new InversionBuilderModule())
+ *   .module(OnlyConfigureModule.create(async function () {
+ *     // register the "greeting" value
+ *     this.registry.registerFactory<string>("greeting", () => "Hello, World!")
+ *   })
+ *   .initialize()
+ *   .then(_ => document.body.appendChild(new TestElement()))
+ * ```
  */
 export class InversionBuilder<E extends HTMLElement> implements Builder<E> {
 

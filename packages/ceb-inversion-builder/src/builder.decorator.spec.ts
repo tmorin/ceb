@@ -1,8 +1,8 @@
 import {assert} from "chai"
-import {Container, ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion-core";
-import {ElementBuilder} from "@tmorin/ceb-elements-core";
-import {InversionBuilder} from "./builder";
-import {InversionBuilderModule} from "./module";
+import {Container, ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion-core"
+import {ElementBuilder} from "@tmorin/ceb-elements-core"
+import {InversionBuilder} from "./builder"
+import {InversionBuilderModule} from "./module"
 
 class ServiceA {
     methodA() {
@@ -27,7 +27,7 @@ describe("inversion/builder/decorator", function () {
     let testElement: TestElement
     const tagName = "inversion-builder-decorator"
 
-    @ElementBuilder.get(TestElement).name(tagName).decorate()
+    @ElementBuilder.get().name(tagName).decorate()
     class TestElement extends HTMLElement {
         @InversionBuilder.get().decorate()
         serviceA?: ServiceA
