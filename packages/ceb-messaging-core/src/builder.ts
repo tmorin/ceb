@@ -1,14 +1,14 @@
-import {Action} from "./action";
-import {Command} from "./command";
-import {Event} from "./event";
-import {Message, MessageHeaders, MessageKind} from "./message";
-import {Query} from "./query";
-import {Result, ResultHeaders} from "./result";
+import {Action} from "./action"
+import {Command} from "./command"
+import {Event} from "./event"
+import {Message, MessageHeaders, MessageKind} from "./message"
+import {Query} from "./query"
+import {Result, ResultHeaders} from "./result"
 
-let counter = 0;
+let counter = 0
 
 function getNewNbr() {
-    return counter++;
+    return counter++
 }
 
 /**
@@ -40,7 +40,7 @@ export class MessageBuilder<B = any,
     static get<B = any,
         H extends MessageHeaders = MessageHeaders,
         M extends Message<B, H> = Message<B, H>>(kind: MessageKind) {
-        return new MessageBuilder<B, H, M>(kind, kind);
+        return new MessageBuilder<B, H, M>(kind, kind)
     }
 
     /**
@@ -53,7 +53,7 @@ export class MessageBuilder<B = any,
     static command<B = any,
         H extends MessageHeaders = MessageHeaders,
         M extends Command<B, H> = Command<B, H>>(type: string) {
-        return new MessageBuilder<B, H, M>("command", type);
+        return new MessageBuilder<B, H, M>("command", type)
     }
 
     /**
@@ -66,7 +66,7 @@ export class MessageBuilder<B = any,
     static query<B = any,
         H extends MessageHeaders = MessageHeaders,
         M extends Query<B, H> = Query<B, H>>(type: string) {
-        return new MessageBuilder<B, H, M>("query", type);
+        return new MessageBuilder<B, H, M>("query", type)
     }
 
     /**
@@ -84,7 +84,7 @@ export class MessageBuilder<B = any,
             Partial<H>
             >{
             originalMessageId: action.headers.messageId
-        });
+        })
     }
 
     /**
@@ -97,7 +97,7 @@ export class MessageBuilder<B = any,
     static empty<B = undefined,
         H extends ResultHeaders = ResultHeaders,
         M extends Result<B, H> = Result<B, H>>(action: Action) {
-        return this.result<B, H, M>(action, "empty");
+        return this.result<B, H, M>(action, "empty")
     }
 
     /**
@@ -110,7 +110,7 @@ export class MessageBuilder<B = any,
     static event<B = any,
         H extends MessageHeaders = MessageHeaders,
         M extends Event<B, H> = Event<B, H>>(type: string) {
-        return new MessageBuilder<B, H, M>("event", type);
+        return new MessageBuilder<B, H, M>("event", type)
     }
 
     /**
@@ -118,8 +118,8 @@ export class MessageBuilder<B = any,
      * @param type the type
      */
     type(type: string) {
-        this._messageType = type;
-        return this;
+        this._messageType = type
+        return this
     }
 
     /**
@@ -127,8 +127,8 @@ export class MessageBuilder<B = any,
      * @param identifier the identifier
      */
     identifier(identifier: string) {
-        this._messageId = identifier;
-        return this;
+        this._messageId = identifier
+        return this
     }
 
     /**
@@ -136,8 +136,8 @@ export class MessageBuilder<B = any,
      * @param body the body
      */
     body(body: B) {
-        this._body = body;
-        return this;
+        this._body = body
+        return this
     }
 
     /**
@@ -145,25 +145,25 @@ export class MessageBuilder<B = any,
      * @param headers the headers
      */
     headers(headers: Partial<H>) {
-        this._headers = {...this._headers, ...headers};
-        return this;
+        this._headers = {...this._headers, ...headers}
+        return this
     }
 
     /**
      * Build the message.
      */
     build(): M {
-        const kind = this._messageKind;
-        const body = this._body;
+        const kind = this._messageKind
+        const body = this._body
         const headers = <MessageHeaders>{
             ...this._headers,
             messageType: this._messageType,
             messageId: this._messageId
-        };
+        }
         return <M>{
             kind,
             headers,
             body
-        };
+        }
     }
 }

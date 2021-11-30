@@ -76,10 +76,11 @@ A built-in implementation of the Event/Message architecture:
 - [ceb-messaging-core](./packages/ceb-messaging-core)
 - [ceb-messaging-simple](./packages/ceb-messaging-simple)
 - [ceb-messaging-simple-builder](./packages/ceb-messaging-simple-builder)
-- [ceb-messaging-dom](./packages/ceb-messaging-dom)
 - [ceb-messaging-builder-core](./packages/ceb-messaging-builder-core)
 - [ceb-messaging-builder-inversion](./packages/ceb-messaging-builder-inversion)
+- [ceb-messaging-adapter-dom](./packages/ceb-messaging-adapter-dom)
 - [ceb-messaging-adapter-electron](./packages/ceb-messaging-adapter-electron)
+- [ceb-messaging-adapter-purify](./packages/ceb-messaging-adapter-purify)
 - [ceb-messaging-testing](./packages/ceb-messaging-testing)
 
 Bundles:

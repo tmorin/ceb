@@ -1,4 +1,4 @@
-import {Either, EitherAsync, Maybe, Nothing} from "purify-ts";
+import {Either, EitherAsync, Maybe, Nothing} from "purify-ts"
 import {
     ExecuteActionOptions,
     MessageBuilder,
@@ -7,20 +7,45 @@ import {
     Removable,
     Result,
     ResultHeaders
-} from "@tmorin/ceb-messaging-core";
+} from "@tmorin/ceb-messaging-core"
 
-export type PurifyQueryResult<B = any> = Promise<Either<Error, Maybe<B>>>;
+/**
+ * The asynchronous result of a query.
+ */
+export type PurifyQueryResult<B = any> = Promise<Either<Error, Maybe<B>>>
 
-export type PurifyQueryOutput<B = any> = EitherAsync<Error, Maybe<B>>;
+/**
+ * The output of a query handler.
+ */
+export type PurifyQueryHandlerOutput<B = any> = EitherAsync<Error, Maybe<B>>
 
+/**
+ * The handler of a query.
+ */
 export interface PurifyQueryHandler<Q extends Query = Query, B = any> {
-    (query: Q): PurifyQueryOutput<B>;
+    /**
+     * @param query the query
+     */
+    (query: Q): PurifyQueryHandlerOutput<B>
 }
 
+/**
+ * The symbol used to register {@link PurifyQueryBus}.
+ */
+export const PurifyQueryBusSymbol = Symbol.for("ceb/inversion/PurifyQueryBus")
+
+/**
+ * An adapter of {@link QueryBus} for the purify world.
+ */
 export class PurifyQueryBus {
     constructor(private readonly queryBus: QueryBus) {
     }
 
+    /**
+     * Execute a query and wait for a result.
+     * @param query the query
+     * @param options the options
+     */
     execute<B = any, Q extends Query = Query, R extends Result<B> = Result>(
         query: Q,
         options?: Partial<ExecuteActionOptions>
@@ -30,33 +55,36 @@ export class PurifyQueryBus {
                 .execute<R, Q>(query, options)
                 .then((result) => result.body)
                 .then((body) => Maybe.fromNullable(body))
-        ).run();
+        ).run()
     }
 
+    /**
+     * Handle a query.
+     * @param queryType the type of the quer
+     * @param handler the handler
+     */
     handle<Q extends Query = Query, B = any, R extends Result<B> = Result>(
         queryType: string,
         handler: PurifyQueryHandler<Q, B>
     ): Removable {
         return this.queryBus.handle<Q, R>(queryType, (query) => {
-            const p = handler(query)
+            return handler(query)
                 .map((maybe) => {
                     return maybe.map((body) =>
                         MessageBuilder.result<B, ResultHeaders, R>(query).body(body).build()
-                    );
+                    )
                 })
                 .run()
                 .then((either) => {
                     if (either.isLeft()) {
-                        const error = either.swap().extract();
-                        throw error;
+                        throw either.swap().extract()
                     }
                     return either
                         .orDefaultLazy(() => Nothing)
                         .orDefaultLazy(() =>
                             MessageBuilder.empty<B, ResultHeaders, R>(query).build()
-                        );
-                });
-            return p;
-        });
+                        )
+                })
+        })
     }
 }

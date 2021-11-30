@@ -1,10 +1,10 @@
-import {AbstractModule, Component, ComponentSymbol, Container, ContainerSymbol} from "@tmorin/ceb-inversion-core";
-import {Command, CommandHandler} from "./command";
-import {Result} from "./result";
-import {Event, EventListener} from "./event";
-import {Query, QueryHandler} from "./query";
-import {Removable} from "./common";
-import {Gateway, GatewaySymbol} from "./gateway";
+import {AbstractModule, Component, ComponentSymbol, Container, ContainerSymbol} from "@tmorin/ceb-inversion-core"
+import {Command, CommandHandler} from "./command"
+import {Result} from "./result"
+import {Event, EventListener} from "./event"
+import {Query, QueryHandler} from "./query"
+import {Removable} from "./common"
+import {Gateway, GatewaySymbol} from "./gateway"
 
 // COMMAND
 
@@ -87,7 +87,7 @@ export class MessagingComponent extends Component {
          */
         private readonly gateway: Gateway
     ) {
-        super();
+        super()
     }
 
     async configure(): Promise<void> {

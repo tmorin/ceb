@@ -5,7 +5,7 @@ export interface Removable {
     /**
      * Release all stateful stuff.
      */
-    remove(): void;
+    remove(): void
 }
 
 /**
@@ -15,5 +15,5 @@ export interface Disposable {
     /**
      * Release all stateful stuff.
      */
-    dispose(): Promise<void>;
+    dispose(): Promise<void>
 }

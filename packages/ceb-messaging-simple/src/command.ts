@@ -5,7 +5,7 @@ import {
     CommandHandlerOutputSync,
     CommandResult,
     Disposable,
-    EmitterCommandBus,
+    EmittableCommandBus,
     EmptyResult,
     Event,
     EventBus,
@@ -25,7 +25,7 @@ export const SimpleCommandBusSymbol = Symbol.for("ceb/inversion/SimpleCommandBus
 export class SimpleCommandBus implements CommandBus, Disposable {
     constructor(
         private readonly eventBus: EventBus,
-        private readonly emitter: EmitterCommandBus,
+        private readonly emitter: EmittableCommandBus,
         private readonly handlers = new Map<string, CommandHandler<any, any, any>>()
     ) {
     }

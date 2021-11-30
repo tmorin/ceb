@@ -1,7 +1,7 @@
 import chai, {assert} from "chai"
 import chasAsPromised from "chai-as-promised"
 import {ObservedEventListener} from "./observable"
-import {GatewayEmitter} from "./gateway";
+import {GatewayEmitter} from "./gateway"
 
 chai.use(chasAsPromised)
 

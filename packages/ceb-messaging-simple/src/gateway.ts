@@ -1,4 +1,4 @@
-import {Gateway, GatewayEmitter, GatewayObserver} from "@tmorin/ceb-messaging-core"
+import {EmittableGateway, Gateway, GatewayEmitter, ObservableGateway} from "@tmorin/ceb-messaging-core"
 import {SimpleEventBus} from "./event"
 import {SimpleCommandBus} from "./command"
 import {SimpleQueryBus} from "./query"
@@ -19,7 +19,8 @@ export class SimpleGateway implements Gateway {
         return new SimpleGateway(
             new SimpleEventBus(emitter),
             new SimpleCommandBus(events, emitter),
-            new SimpleQueryBus(emitter)
+            new SimpleQueryBus(emitter),
+            emitter
         )
     }
 
@@ -39,11 +40,8 @@ export class SimpleGateway implements Gateway {
         readonly events: SimpleEventBus,
         readonly commands: SimpleCommandBus,
         readonly queries: SimpleQueryBus,
-        readonly observer = new GatewayObserver(
-            events.observe,
-            commands.observe,
-            queries.observe
-        )
+        readonly emitter: EmittableGateway,
+        readonly observer: ObservableGateway = emitter
     ) {
     }
 

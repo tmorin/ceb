@@ -2,7 +2,7 @@
  * Listener of Bus's events.
  */
 export interface ObservedEventListener {
-    (event: any): any;
+    (event: any): any
 }
 
 /**
@@ -14,7 +14,7 @@ export interface Observable {
      * @param type the type of the event
      * @param listener the listener
      */
-    on(type: string, listener: ObservedEventListener): this;
+    on(type: string, listener: ObservedEventListener): this
 
     /**
      * Remove a listener to an internal event.
@@ -26,7 +26,7 @@ export interface Observable {
      * @param type the type of the event
      * @param listener the listener
      */
-    off(type?: string, listener?: ObservedEventListener): this;
+    off(type?: string, listener?: ObservedEventListener): this
 }
 
 /**
@@ -38,5 +38,5 @@ export interface Emitter extends Observable {
      * @param type the type of the event
      * @param event the event
      */
-    emit(type: string, event: any): void;
+    emit(type: string, event: any): void
 }

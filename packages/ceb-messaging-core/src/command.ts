@@ -1,14 +1,14 @@
-import {MessageHeaders} from "./message";
-import {Action, ActionResult, ExecuteActionOptions} from "./action";
-import {Result} from "./result";
-import {Event} from "./event";
-import {Disposable, Removable} from "./common";
-import {Emitter, Observable} from "./observable";
+import {MessageHeaders} from "./message"
+import {Action, ActionResult, ExecuteActionOptions} from "./action"
+import {Result} from "./result"
+import {Event} from "./event"
+import {Disposable, Removable} from "./common"
+import {Emitter, Observable} from "./observable"
 
 /**
  * The kind of a command message.
  */
-export type CommandKind = "command";
+export type CommandKind = "command"
 
 /**
  * A command is a command which triggers an action which can leads to side effects on the system state.
@@ -17,7 +17,7 @@ export type CommandKind = "command";
  * @template H the type of the headers
  */
 export interface Command<B = any, H extends MessageHeaders = MessageHeaders> extends Action<B, H> {
-    kind: CommandKind;
+    kind: CommandKind
 }
 
 /**
@@ -25,7 +25,7 @@ export interface Command<B = any, H extends MessageHeaders = MessageHeaders> ext
  *
  * @template R the type of the result
  */
-export type CommandResult<R extends Result = Result> = ActionResult<R>;
+export type CommandResult<R extends Result = Result> = ActionResult<R>
 
 /**
  * The synchronous output of a {@link CommandHandler}.
@@ -39,12 +39,12 @@ export type CommandHandlerOutputSync<R extends Result, Es extends Array<Event> =
     /**
      * An eventual result.
      */
-    result?: R;
+    result?: R
     /**
      * An eventual list of events.
      */
     events?: Es
-};
+}
 
 /**
  * The asynchronous output of a {@link CommandHandler}.
@@ -52,7 +52,7 @@ export type CommandHandlerOutputSync<R extends Result, Es extends Array<Event> =
  * @template R the type of the result
  * @template Es the type of the events
  */
-export type CommandHandlerOutputAsync<R extends Result, Es extends Array<Event> = []> = Promise<CommandHandlerOutputSync<R, Es>>;
+export type CommandHandlerOutputAsync<R extends Result, Es extends Array<Event> = []> = Promise<CommandHandlerOutputSync<R, Es>>
 
 /**
  * The output of a {@link CommandHandler}.
@@ -62,7 +62,7 @@ export type CommandHandlerOutputAsync<R extends Result, Es extends Array<Event> 
  */
 export type CommandHandlerOutput<R extends Result = Result, Es extends Array<Event> = []> =
     CommandHandlerOutputSync<R, Es>
-    | CommandHandlerOutputAsync<R, Es>;
+    | CommandHandlerOutputAsync<R, Es>
 
 /**
  * A command handler handles a {@link Command} and provides eventual {@link CommandHandlerOutput}:
@@ -78,7 +78,7 @@ export interface CommandHandler<C extends Command = Command, R extends Result = 
     /**
      * @param command the command
      */
-    (command: C): CommandHandlerOutput<R, Es>;
+    (command: C): CommandHandlerOutput<R, Es>
 }
 
 /**
@@ -100,14 +100,14 @@ export interface CommandBus extends Disposable {
     execute<R extends Result = Result, C extends Command = Command>(
         command: C,
         options?: Partial<ExecuteActionOptions>
-    ): Promise<CommandResult>;
+    ): Promise<CommandResult>
 
     /**
      * Execute a command but forget the result.
      * @param command the command
      * @template C the type of the command
      */
-    executeAndForget<C extends Command = Command>(command: C): void;
+    executeAndForget<C extends Command = Command>(command: C): void
 
     /**
      * Register a command handler.
@@ -122,7 +122,7 @@ export interface CommandBus extends Disposable {
         Es extends Array<Event> = []>(
         commandType: string,
         handler: CommandHandler<C, R, Es>
-    ): Removable;
+    ): Removable
 }
 
 /**
@@ -130,19 +130,19 @@ export interface CommandBus extends Disposable {
  */
 export type CommandBusNotificationMap = {
     command_handler_failed: {
-        bus: CommandBus;
-        command: Command;
-        error: Error;
-    };
+        bus: CommandBus
+        command: Command
+        error: Error
+    }
     command_handler_not_found: {
-        bus: CommandBus;
-        command: Command;
-        error: Error;
-    };
+        bus: CommandBus
+        command: Command
+        error: Error
+    }
     disposed: {
-        bus: CommandBus;
-    };
-};
+        bus: CommandBus
+    }
+}
 
 /**
  * The observable view of an an {@link CommandBus}.
@@ -157,7 +157,7 @@ export interface ObservableCommandBus extends Observable {
     on<K extends keyof CommandBusNotificationMap>(
         type: K,
         listener: (event: CommandBusNotificationMap[K]) => any
-    ): this;
+    ): this
 
     /**
      * Remove listeners.
@@ -168,13 +168,13 @@ export interface ObservableCommandBus extends Observable {
     off<K extends keyof CommandBusNotificationMap>(
         type?: K,
         listener?: (event: CommandBusNotificationMap[K]) => any
-    ): this;
+    ): this
 }
 
 /**
  * The emitter view of an an {@link CommandBus}.
  */
-export interface EmitterCommandBus extends Emitter {
+export interface EmittableCommandBus extends Emitter {
     /**
      * Emit an internal event.
      * @param type the type
@@ -184,5 +184,5 @@ export interface EmitterCommandBus extends Emitter {
     emit<K extends keyof CommandBusNotificationMap>(
         type: K,
         event: CommandBusNotificationMap[K]
-    ): void;
+    ): void
 }

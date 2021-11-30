@@ -1,10 +1,10 @@
-import {Message, MessageHeaders} from "./message";
-import {EmptyResult, Result} from "./result";
+import {Message, MessageHeaders} from "./message"
+import {EmptyResult, Result} from "./result"
 
 /**
  * The kind of an action message.
  */
-export type ActionKind = "command" | "query";
+export type ActionKind = "command" | "query"
 
 /**
  * An action represents an intention to get the state of a system or to mutate it.
@@ -16,7 +16,7 @@ export interface Action<B = any, H extends MessageHeaders = MessageHeaders> exte
     /**
      * The kind of the action.
      */
-    kind: ActionKind;
+    kind: ActionKind
 }
 
 /**
@@ -26,12 +26,12 @@ export type ExecuteActionOptions = {
     /**
      * The maximum time in millisecond to wait fore a result.
      */
-    timeout: number;
-};
+    timeout: number
+}
 
 /**
  * The result of an action.
  *
  * @template R the type of the result
  */
-export type ActionResult<R extends Result = Result> = R | EmptyResult;
+export type ActionResult<R extends Result = Result> = R | EmptyResult

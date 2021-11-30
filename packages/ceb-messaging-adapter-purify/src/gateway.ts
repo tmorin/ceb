@@ -1,13 +1,28 @@
-import {Gateway} from "@tmorin/ceb-messaging-core";
-import {PurifyCommandBus} from "./command";
-import {PurifyQueryBus} from "./query";
+import {EventBus, ObservableGateway} from "@tmorin/ceb-messaging-core";
+import {PurifyCommandBus} from "./command"
+import {PurifyQueryBus} from "./query"
 
-export class PurifyGateway<G extends Gateway = Gateway> {
+/**
+ * The gateway is a low level artifact exposing the messaging buses.
+ */
+export class PurifyGateway<E extends EventBus = EventBus, O extends ObservableGateway = ObservableGateway> {
     constructor(
-        gateway: G,
-        public readonly commands = new PurifyCommandBus(gateway.commands),
-        public readonly queries = new PurifyQueryBus(gateway.queries),
-        public readonly events = gateway.events
+        /**
+         * The bus for commands.
+         */
+        readonly commands: PurifyCommandBus,
+        /**
+         * The bus for queries.
+         */
+        readonly queries: PurifyQueryBus,
+        /**
+         * The bus for events.
+         */
+        readonly events: E,
+        /**
+         * The observable view point of the gateway.
+         */
+        readonly observer: O,
     ) {
     }
 }

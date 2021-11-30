@@ -1,17 +1,20 @@
 import {AbstractModule, ComponentSymbol, RegistryKey} from "@tmorin/ceb-inversion-core"
 import {
     CommandBusSymbol,
+    EmittableGateway,
     EventBusSymbol,
     Gateway,
     GatewayEmitter,
     GatewayEmitterSymbol,
+    GatewayObserverSymbol,
     GatewaySymbol,
+    ObservableGateway,
     QueryBusSymbol
-} from "@tmorin/ceb-messaging-core";
-import {SimpleGateway} from "./gateway";
-import {SimpleEventBus} from "./event";
-import {SimpleCommandBus} from "./command";
-import {SimpleQueryBus} from "./query";
+} from "@tmorin/ceb-messaging-core"
+import {SimpleGateway} from "./gateway"
+import {SimpleEventBus} from "./event"
+import {SimpleCommandBus} from "./command"
+import {SimpleQueryBus} from "./query"
 
 /**
  * The options of {@link SimpleModule}.
@@ -38,10 +41,15 @@ export interface SimpleModuleOptions {
      */
     queriesRegistryKey: RegistryKey
     /**
-     * The {@link RegistryKey} of the {@link GatewayEmitter} instance.
+     * The {@link RegistryKey} of the {@link EmittableGateway} instance.
      * By default {@link GatewayEmitterSymbol}.
      */
     emitterRegistryKey: RegistryKey
+    /**
+     * The {@link RegistryKey} of the {@link ObservableGateway} instance.
+     * By default {@link GatewayObserverSymbol}.
+     */
+    observerRegistryKey: RegistryKey
     /**
      * An optional gateway instance..
      * For instance it can be `SimpleGateway.GLOBAL`.
@@ -82,6 +90,7 @@ export class SimpleModule extends AbstractModule {
             commandsRegistryKey: CommandBusSymbol,
             queriesRegistryKey: QueryBusSymbol,
             emitterRegistryKey: GatewayEmitterSymbol,
+            observerRegistryKey: GatewayObserverSymbol,
             errorToConsole: false,
             ...partialOptions
         }
@@ -89,13 +98,22 @@ export class SimpleModule extends AbstractModule {
 
     async configure(): Promise<void> {
         if (this.options.gateway) {
-            this.registry.registerValue(this.options.gatewayRegistryKey, this.options.gateway)
-            this.registry.registerValue(this.options.eventsRegistryKey, this.options.gateway.events)
-            this.registry.registerValue(this.options.commandsRegistryKey, this.options.gateway.commands)
-            this.registry.registerValue(this.options.queriesRegistryKey, this.options.gateway.queries)
-            this.registry.registerValue(this.options.emitterRegistryKey, this.options.gateway.observer)
+            const gateway = this.options.gateway
+            this.registry.registerFactory<SimpleGateway>(this.options.gatewayRegistryKey, () => gateway)
+            this.registry.registerFactory<SimpleEventBus>(this.options.eventsRegistryKey, (registry) =>
+                registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).events)
+            this.registry.registerFactory<SimpleCommandBus>(this.options.commandsRegistryKey, (registry) =>
+                registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).commands)
+            this.registry.registerFactory<SimpleQueryBus>(this.options.queriesRegistryKey, (registry) =>
+                registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).queries)
+            this.registry.registerFactory<EmittableGateway>(this.options.emitterRegistryKey, (registry) =>
+                registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).emitter)
+            this.registry.registerFactory<ObservableGateway>(this.options.observerRegistryKey, (registry) =>
+                registry.resolve<SimpleGateway>(this.options.gatewayRegistryKey).observer)
         } else {
-            this.registry.registerValue(this.options.emitterRegistryKey, new GatewayEmitter())
+            this.registry.registerFactory<EmittableGateway>(this.options.emitterRegistryKey, () => new GatewayEmitter())
+            this.registry.registerFactory<ObservableGateway>(this.options.observerRegistryKey, registry =>
+                registry.resolve<GatewayEmitter>(GatewayEmitterSymbol))
             this.registry.registerFactory<SimpleEventBus>(this.options.eventsRegistryKey, registry => new SimpleEventBus(
                 registry.resolve<GatewayEmitter>(this.options.emitterRegistryKey)
             ))
@@ -110,6 +128,7 @@ export class SimpleModule extends AbstractModule {
                 registry.resolve<SimpleEventBus>(this.options.eventsRegistryKey),
                 registry.resolve<SimpleCommandBus>(this.options.commandsRegistryKey),
                 registry.resolve<SimpleQueryBus>(this.options.queriesRegistryKey),
+                registry.resolve<EmittableGateway>(this.options.emitterRegistryKey),
             ))
         }
         this.registry.registerFactory(ComponentSymbol, (registry) => ({

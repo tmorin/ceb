@@ -1,11 +1,11 @@
-import {Disposable, Removable} from "./common";
-import {Message, MessageHeaders} from "./message";
-import {Emitter, Observable} from "./observable";
+import {Disposable, Removable} from "./common"
+import {Message, MessageHeaders} from "./message"
+import {Emitter, Observable} from "./observable"
 
 /**
  * The kind of an event message.
  */
-export type EventKind = "event";
+export type EventKind = "event"
 
 /**
  * An event describes something which happen in the past.
@@ -17,7 +17,7 @@ export interface Event<B = any, H extends MessageHeaders = MessageHeaders> exten
     /**
      * The kind the event message.
      */
-    kind: EventKind;
+    kind: EventKind
 }
 
 /**
@@ -29,7 +29,7 @@ export interface EventListener<E extends Event = Event> {
     /**
      * @param event the event
      */
-    (event: E): any;
+    (event: E): any
 }
 
 /**
@@ -39,7 +39,7 @@ export interface SubscribeOptions {
     /**
      * When {true}, the subscripion will be removed once the first reception.
      */
-    once: boolean;
+    once: boolean
 }
 
 /**
@@ -57,7 +57,7 @@ export interface EventBus extends Disposable {
      *
      * @template E the type of the event
      */
-    publish<E extends Event = Event>(...events: Array<E>): void;
+    publish<E extends Event = Event>(...events: Array<E>): void
 
     /**
      * Subscribe to an event.
@@ -71,7 +71,7 @@ export interface EventBus extends Disposable {
         eventType: string,
         listener: EventListener<E>,
         options?: Partial<SubscribeOptions>
-    ): Removable;
+    ): Removable
 }
 
 /**
@@ -79,14 +79,14 @@ export interface EventBus extends Disposable {
  */
 export type EventBusNotificationMap = {
     event_listener_failed: {
-        bus: EventBus;
-        event: Event;
-        error: Error;
-    };
+        bus: EventBus
+        event: Event
+        error: Error
+    }
     disposed: {
-        bus: EventBus;
-    };
-};
+        bus: EventBus
+    }
+}
 
 /**
  * The observable view of an an {@link EventBus}.
@@ -101,7 +101,7 @@ export interface ObservableEventBus extends Observable {
     on<K extends keyof EventBusNotificationMap>(
         type: K,
         listener: (event: EventBusNotificationMap[K]) => any
-    ): this;
+    ): this
 
     /**
      * Remove listeners.
@@ -112,13 +112,13 @@ export interface ObservableEventBus extends Observable {
     off<K extends keyof EventBusNotificationMap>(
         type?: K,
         listener?: (event: EventBusNotificationMap[K]) => any
-    ): this;
+    ): this
 }
 
 /**
  * The emitter view of an an {@link EventBus}.
  */
-export interface EmitterEventBus extends Emitter {
+export interface EmittableEventBus extends Emitter {
     /**
      * Emit an internal event.
      * @param type the type
@@ -128,5 +128,5 @@ export interface EmitterEventBus extends Emitter {
     emit<K extends keyof EventBusNotificationMap>(
         type: K,
         event: EventBusNotificationMap[K]
-    ): void;
+    ): void
 }

@@ -1,6 +1,6 @@
 import {
     Disposable,
-    EmitterEventBus,
+    EmittableEventBus,
     Event,
     EventBus,
     EventListener,
@@ -16,7 +16,7 @@ export const SimpleEventBusSymbol = Symbol.for("ceb/inversion/SimpleEventBus")
 
 export class SimpleEventBus implements EventBus, Disposable {
     constructor(
-        private readonly emitter: EmitterEventBus,
+        private readonly emitter: EmittableEventBus,
         private readonly listeners = new Map<string, Set<EventListener<any>>>()
     ) {
     }

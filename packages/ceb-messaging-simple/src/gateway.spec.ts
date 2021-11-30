@@ -35,7 +35,7 @@ describe("SimpleObservableGateway", function () {
         eventBus = new SimpleEventBus(emitter)
         commandBus = new SimpleCommandBus(eventBus, emitter)
         queryBus = new SimpleQueryBus(emitter)
-        gateway = new SimpleGateway(eventBus, commandBus, queryBus)
+        gateway = new SimpleGateway(eventBus, commandBus, queryBus, emitter)
     })
     afterEach(async function () {
         await gateway?.dispose()

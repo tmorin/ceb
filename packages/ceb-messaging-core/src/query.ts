@@ -129,7 +129,7 @@ export interface ObservableQueryBus extends Observable {
 /**
  * The emitter view of an an {@link QueryBus}.
  */
-export interface EmitterQueryBus extends Emitter {
+export interface EmittableQueryBus extends Emitter {
     /**
      * Emit an internal event.
      * @param type the type

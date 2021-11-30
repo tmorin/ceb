@@ -1,16 +1,16 @@
-import {Message, MessageHeaders} from "./message";
+import {Message, MessageHeaders} from "./message"
 
 /**
  * The kind of a result message.
  */
-export type ResultKind = "result";
+export type ResultKind = "result"
 
 /**
  * The header of a result message.
  */
 export type ResultHeaders = MessageHeaders & {
-    originalMessageId: string;
-};
+    originalMessageId: string
+}
 
 /**
  * A result is the message providing insight about the execution of a command or a query.
@@ -22,7 +22,7 @@ export interface Result<B = any, H extends ResultHeaders = ResultHeaders> extend
     /**
      * The kind of th result
      */
-    kind: ResultKind;
+    kind: ResultKind
 }
 
 /**

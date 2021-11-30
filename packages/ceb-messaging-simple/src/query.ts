@@ -1,6 +1,6 @@
 import {
     Disposable,
-    EmitterQueryBus,
+    EmittableQueryBus,
     ExecuteActionOptions,
     MessageBuilder,
     ObservableQueryBus,
@@ -21,7 +21,7 @@ export const SimpleQueryBusSymbol = Symbol.for("ceb/inversion/SimpleQueryBus")
 
 export class SimpleQueryBus implements QueryBus, Disposable {
     constructor(
-        private readonly emitter: EmitterQueryBus,
+        private readonly emitter: EmittableQueryBus,
         private readonly handlers = new Map<string, QueryHandler<any, any>>()
     ) {
     }
