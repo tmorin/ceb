@@ -1,8 +1,8 @@
-import {assert} from "chai";
-import {SimpleGateway} from "@tmorin/ceb-messaging-simple";
-import {Gateway, MessageBuilder, Query, Result} from "@tmorin/ceb-messaging-core";
-import {QueryForwarder} from "./query";
-import {DomQuery, DomResult} from "./message";
+import {assert} from "chai"
+import {SimpleGateway} from "@tmorin/ceb-messaging-simple"
+import {Gateway, MessageBuilder, Query, Result} from "@tmorin/ceb-messaging-core"
+import {QueryForwarder} from "./query"
+import {DomQuery, DomResult} from "./message"
 
 describe("QueryForwarder", function () {
     let div: HTMLDivElement

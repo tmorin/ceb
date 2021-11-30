@@ -1,8 +1,8 @@
-import {assert} from "chai";
-import {SimpleGateway} from "@tmorin/ceb-messaging-simple";
-import {EventForwarder} from "./event";
-import {Gateway, MessageBuilder} from "@tmorin/ceb-messaging-core";
-import {DomEvent} from "./message";
+import {assert} from "chai"
+import {SimpleGateway} from "@tmorin/ceb-messaging-simple"
+import {EventForwarder} from "./event"
+import {Gateway, MessageBuilder} from "@tmorin/ceb-messaging-core"
+import {DomEvent} from "./message"
 
 describe("EventForwarder", function () {
     let div: HTMLDivElement
@@ -27,5 +27,5 @@ describe("EventForwarder", function () {
             const event = new DomEvent(MessageBuilder.event("EventA").body("hello").build())
             div.dispatchEvent(event)
         })
-    });
+    })
 })

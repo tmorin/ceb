@@ -1,8 +1,15 @@
-import {Component} from "@tmorin/ceb-inversion-core";
-import {Gateway, MessageBuilder} from "@tmorin/ceb-messaging-core";
-import {DomQuery, DomResult, DomResultError} from "./message";
+import {Component} from "@tmorin/ceb-inversion-core"
+import {Gateway, MessageBuilder} from "@tmorin/ceb-messaging-core"
+import {DomQuery, DomResult, DomResultError} from "./message"
 
+/**
+ * The component add a global listener which catches all {@link DomQuery}.
+ * Once caught, the query is forwarded to the messaging world.
+ * The result is then dispatched on {@link DomQuery}'s target
+ */
 export class QueryForwarder implements Component {
+
+    private listener?: EventListener
 
     constructor(
         readonly target: EventTarget = window,
@@ -10,13 +17,13 @@ export class QueryForwarder implements Component {
     ) {
     }
 
-    private listener?: EventListener
-
     async configure(): Promise<void> {
         this.listener = async (event: Event) => {
             if (event instanceof DomQuery) {
                 try {
-                    const result = await this.gateway.queries.execute(event.detail)
+                    const result = await this.gateway.queries.execute(event.detail, {
+                        timeout: event.options.timeout
+                    })
                     event.target?.dispatchEvent(new DomResult(result))
                 } catch (e: any) {
                     const result = MessageBuilder.result<Error>(event.detail).body(e).build()

@@ -1,8 +1,8 @@
-import {assert} from "chai";
-import {SimpleGateway} from "@tmorin/ceb-messaging-simple";
-import {Command, Gateway, MessageBuilder, Result} from "@tmorin/ceb-messaging-core";
-import {CommandForwarder} from "./command";
-import {DomCommand, DomResult} from "./message";
+import {assert} from "chai"
+import {SimpleGateway} from "@tmorin/ceb-messaging-simple"
+import {Command, Gateway, MessageBuilder, Result} from "@tmorin/ceb-messaging-core"
+import {CommandForwarder} from "./command"
+import {DomCommand, DomResult} from "./message"
 
 describe("CommandForwarder", function () {
     let div: HTMLDivElement
@@ -24,7 +24,7 @@ describe("CommandForwarder", function () {
                 assert.property(command, "body", "hello")
                 done()
             })
-            const event = new DomCommand(MessageBuilder.command("CommandA").body("hello").build(), false)
+            const event = new DomCommand(MessageBuilder.command("CommandA").body("hello").build(), {dispatchResult: false})
             div.dispatchEvent(event)
         })
     })

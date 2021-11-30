@@ -1,16 +1,20 @@
-import {Component} from "@tmorin/ceb-inversion-core";
-import {Gateway} from "@tmorin/ceb-messaging-core";
-import {DomEvent} from "./message";
+import {Component} from "@tmorin/ceb-inversion-core"
+import {Gateway} from "@tmorin/ceb-messaging-core"
+import {DomEvent} from "./message"
 
+/**
+ * The component add a global listener which catches all {@link DomEvent}.
+ * Once caught, the event is forwarded to the messaging world.
+ */
 export class EventForwarder implements Component {
+
+    private listener?: EventListener
 
     constructor(
         readonly target: EventTarget = window,
         readonly gateway: Gateway
     ) {
     }
-
-    private listener?: EventListener
 
     async configure(): Promise<void> {
         this.listener = (event: Event) => {

@@ -32,14 +32,15 @@ A built-in implementation of the Inversion of Control principle:
 
 A built-in implementation of the Event/Message architecture:
 
-- [ceb-messaging-core](modules/_tmorin_ceb_messaging_core)
-- [ceb-messaging-simple](modules/_tmorin_ceb_messaging_simple)
-- [ceb-messaging-simple-builder](modules/_tmorin_ceb_messaging_simple_builder)
-- [ceb-messaging-dom](modules/_tmorin_ceb_messaging_dom)
-- [ceb-messaging-builder-core](modules/_tmorin_ceb_messaging_builder_core)
-- [ceb-messaging-builder-inversion](modules/_tmorin_ceb_messaging_builder_inversion)
-- [ceb-messaging-adapter-electron](modules/_tmorin_ceb_messaging_adapter_electron)
-- [ceb-messaging-testing](modules/_tmorin_ceb_messaging_testing)
+- [ceb-messaging-core](modules/_tmorin_ceb_messaging_core.html)
+- [ceb-messaging-simple](modules/_tmorin_ceb_messaging_simple.html)
+- [ceb-messaging-simple-builder](modules/_tmorin_ceb_messaging_simple_builder.html)
+- [ceb-messaging-builder-core](modules/_tmorin_ceb_messaging_builder_core.html)
+- [ceb-messaging-builder-inversion](modules/_tmorin_ceb_messaging_builder_inversion.html)
+- [ceb-messaging-adapter-dom](modules/_tmorin_ceb_messaging_adapter_dom.html)
+- [ceb-messaging-adapter-electron](modules/_tmorin_ceb_messaging_adapter_electron.html)
+- [ceb-messaging-adapter-purify](modules/_tmorin_ceb_messaging_adapter_purify.html)
+- [ceb-messaging-testing](modules/_tmorin_ceb_messaging_testing.html)
 
 The bundle:
 
