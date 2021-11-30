@@ -78,7 +78,8 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, FieldBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {FieldBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     name = "World"
      *     connectedCallback() {
@@ -102,7 +103,8 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, FieldBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {FieldBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     show = true
      *     connectedCallback() {
@@ -128,7 +130,8 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, FieldBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {FieldBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     name = "World"
      * }
@@ -152,7 +155,8 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, FieldBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {FieldBuilder} from "@tmorin/ceb-elements-builders"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     @FieldBuilder.get().boolean().decorate()
@@ -173,7 +177,8 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
      *
      * @example Discovery of the property name
      * ```typescript
-     * import {ElementBuilder, FieldBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {FieldBuilder} from "@tmorin/ceb-elements-builders"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     @FieldBuilder.get().decorate()
@@ -187,7 +192,8 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
      *
      * @example Discovery of the property name with a custom prefix
      * ```typescript
-     * import {ElementBuilder, FieldBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {FieldBuilder} from "@tmorin/ceb-elements-builders"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     @FieldBuilder.get().decorate()
@@ -201,7 +207,8 @@ export class FieldBuilder<E extends HTMLElement = HTMLElement> implements Builde
      *
      * @example Skip the property name discovery
      * ```typescript
-     * import {ElementBuilder, FieldBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {FieldBuilder} from "@tmorin/ceb-elements-builders"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     @FieldBuilder.get().decorate()

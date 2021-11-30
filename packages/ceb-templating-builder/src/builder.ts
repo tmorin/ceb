@@ -85,7 +85,9 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, TemplateBuilder, html} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {html} from "@tmorin/ceb-templating-literal"
+     * import {TemplateBuilder} from "@tmorin/ceb-templating-builder"
      * class HelloWorld extends HTMLElement {
      *     value = "World"
      *     render() {
@@ -114,7 +116,9 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, TemplateBuilder, html} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {html} from "@tmorin/ceb-templating-literal"
+     * import {TemplateBuilder} from "@tmorin/ceb-templating-builder"
      * class HelloWorld extends HTMLElement {
      *     value = "World"
      *     render() {
@@ -140,7 +144,9 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, TemplateBuilder, html} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {html} from "@tmorin/ceb-templating-literal"
+     * import {TemplateBuilder} from "@tmorin/ceb-templating-builder"
      * class HelloWorld extends HTMLElement {
      *     value = "World"
      *     render() {
@@ -162,7 +168,9 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, TemplateBuilder, html} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {html} from "@tmorin/ceb-templating-literal"
+     * import {TemplateBuilder} from "@tmorin/ceb-templating-builder"
      * class HelloWorld extends HTMLElement {
      *     value = "World"
      *     render() {
@@ -186,7 +194,9 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, TemplateBuilder, html} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {html} from "@tmorin/ceb-templating-literal"
+     * import {TemplateBuilder} from "@tmorin/ceb-templating-builder"
      * class HelloWorld extends HTMLElement {
      *     value = "World"
      *     doRender() {
@@ -210,7 +220,10 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, TemplateBuilder, html, UpdateParameters} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {html} from "@tmorin/ceb-templating-literal"
+     * import {TemplateBuilder} from "@tmorin/ceb-templating-builder"
+     * import {UpdateParameters} from "@tmorin/ceb-templating-engine"
      * class HelloWorld extends HTMLElement {
      *     value = "World"
      *     doRender() {
@@ -235,7 +248,9 @@ export class TemplateBuilder<E extends HTMLElement, P> implements Builder<E> {
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, TemplateBuilder, html} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {html} from "@tmorin/ceb-templating-literal"
+     * import {TemplateBuilder} from "@tmorin/ceb-templating-builder"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     value = "World"

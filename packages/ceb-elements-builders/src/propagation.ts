@@ -52,7 +52,8 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, AttributePropagationBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {AttributePropagationBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `Hello, <input readonly>!`
@@ -75,7 +76,8 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, AttributeBuilder, AttributePropagationBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {AttributePropagationBuilder, AttributeBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `Hello, <input value="World">!`
@@ -102,7 +104,8 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, AttributePropagationBuilder, AttributeBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {AttributePropagationBuilder, AttributeBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `Hello, <span></span>!`
@@ -130,7 +133,8 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, AttributePropagationBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {AttributePropagationBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.attachShadow({mode: "open"})
@@ -154,7 +158,8 @@ export class AttributePropagationBuilder<E extends HTMLElement = HTMLElement> im
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, AttributePropagationBuilder, AttributeBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {AttributePropagationBuilder, AttributeBuilder} from "@tmorin/ceb-elements-builders"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * @AttributePropagationBuilder.get(
      *     AttributeBuilder.get("name").default("World")

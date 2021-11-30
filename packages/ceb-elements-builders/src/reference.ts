@@ -45,7 +45,8 @@ export class ReferenceBuilder<E extends HTMLElement = HTMLElement> implements Bu
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, ReferenceBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {ReferenceBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     readonly inputElement: HTMLInputElement
      *     connectedCallback() {
@@ -70,7 +71,8 @@ export class ReferenceBuilder<E extends HTMLElement = HTMLElement> implements Bu
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, ReferenceBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {ReferenceBuilder} from "@tmorin/ceb-elements-builders"
      * class CebExample extends HTMLElement {
      *     readonly liElements: Array<HTMLLiElement>
      *     connectedCallback() {
@@ -96,7 +98,8 @@ export class ReferenceBuilder<E extends HTMLElement = HTMLElement> implements Bu
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, ReferenceBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {ReferenceBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     readonly nameInput: HTMLInputElement
      *     connectedCallback() {
@@ -119,7 +122,8 @@ export class ReferenceBuilder<E extends HTMLElement = HTMLElement> implements Bu
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, ReferenceBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {ReferenceBuilder} from "@tmorin/ceb-elements-builders"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     @ReferenceBuilder.get("inputElement")

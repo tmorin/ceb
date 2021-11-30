@@ -9,7 +9,7 @@ export const ComponentSymbol = Symbol.for("ceb/inversion/Component")
  *
  * @example Implement and register component
  * ```typescript
- * import {inversion} from "@tmorin/ceb-bundle-web"
+ * import inversion from "@tmorin/ceb-inversion-core"
  * // implement a component
  * class DummyComponent extends inversion.Component {
  *   constructor() {

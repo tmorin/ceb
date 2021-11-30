@@ -87,7 +87,7 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
      *
      * @example
      * ```typescript
-     * import {ElementBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
      *
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
@@ -111,7 +111,7 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
      *
      * @example
      * ```typescript
-     * import {ElementBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
      * class AltInput extends HTMLInputElement {
      *     constructor() {
      *         super()
@@ -137,7 +137,8 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, ContentBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {ContentBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      * }
      * ElementBuilder.get(HelloWorld)
@@ -159,7 +160,7 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
      *
      * @example
      * ```typescript
-     * import {ElementBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.textContent = `Hello, World!`
@@ -262,7 +263,7 @@ export class ElementBuilder<E extends HTMLElement = HTMLElement> {
      *
      * @example
      * ```typescript
-     * import {ElementBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {

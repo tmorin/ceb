@@ -101,7 +101,8 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {OnBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      * }
      * ElementBuilder.get(HelloWorld).builder(
@@ -119,7 +120,8 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {OnBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `<button>Click here</button>`
@@ -140,7 +142,8 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {OnBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `<button>Click here</button>`
@@ -167,7 +170,8 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {OnBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `<button>Click here</button>`
@@ -188,7 +192,8 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {OnBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `<button>Click here</button>`
@@ -209,7 +214,8 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {OnBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `<button>Click here</button>`
@@ -232,7 +238,8 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {OnBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.innerHTML = `<button>Click here</button>`
@@ -256,7 +263,8 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {OnBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
      *         this.attachShadow({mode: "open"})
@@ -281,7 +289,8 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example Discovery of the event name
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {OnBuilder} from "@tmorin/ceb-elements-builders"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
@@ -296,7 +305,8 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example Discovery of the event name with a custom prefix
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {OnBuilder} from "@tmorin/ceb-elements-builders"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {
@@ -311,7 +321,8 @@ export class OnBuilder<E extends HTMLElement = HTMLElement> implements Builder<E
      *
      * @example Skip the attribute name discovery
      * ```typescript
-     * import {ElementBuilder, OnBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {OnBuilder} from "@tmorin/ceb-elements-builders"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * class HelloWorld extends HTMLElement {
      *     connectedCallback() {

@@ -48,7 +48,8 @@ export class ContentBuilder<E extends HTMLElement = HTMLElement> implements Buil
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, ContentBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {ContentBuilder} from "@tmorin/ceb-elements-builders"
      * class HelloWorld extends HTMLElement {
      * }
      * ElementBuilder.get().builder(
@@ -69,7 +70,8 @@ export class ContentBuilder<E extends HTMLElement = HTMLElement> implements Buil
      *
      * @example
      * ```typescript
-     * import {ElementBuilder, ContentBuilder} from "@tmorin\ceb"
+     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+     * import {ContentBuilder} from "@tmorin/ceb-elements-builders"
      * @ElementBuilder.get<HelloWorld>().decorate()
      * @ContentBuilder.get(`Hello, World!`).decorate()
      * class HelloWorld extends HTMLElement {

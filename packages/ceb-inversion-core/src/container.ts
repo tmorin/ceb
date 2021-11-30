@@ -34,7 +34,7 @@ export const ContainerSymbol = Symbol.for("ceb/inversion/Container")
  *
  * @example Create and initialize a container
  * ```typescript
- * import {inversion} from "@tmorin/ceb-bundle-web"
+ * import inversion from "@tmorin/ceb-inversion-core"
  * inversion.ContainerBuilder.get()
  *   .build()
  *   .initialize()
