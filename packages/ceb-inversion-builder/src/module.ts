@@ -5,10 +5,10 @@ import {InversionBuilder} from "./builder"
  * The options of {@link InversionBuilderModule}.
  */
 export interface InversionBuilderModuleOptions {
-    /**
-     * When `true`, the current container becomes the default one, i.e. {@link InversionBuilder#setDefaultContainer}
-     */
-    setDefaultContainer: boolean
+  /**
+   * When `true`, the current container becomes the default one, i.e. {@link InversionBuilder#setDefaultContainer}
+   */
+  setDefaultContainer: boolean
 }
 
 /**
@@ -24,26 +24,25 @@ export interface InversionBuilderModuleOptions {
  * ```
  */
 export class InversionBuilderModule implements Module {
-    private readonly options: InversionBuilderModuleOptions
+  private readonly options: InversionBuilderModuleOptions
 
-    constructor(
-        /**
-         * Options of the module.
-         */
-        partialOptions: Partial<InversionBuilderModuleOptions> = {}
-    ) {
-        this.options = {
-            setDefaultContainer: true,
-            ...partialOptions
-        }
+  constructor(
+    /**
+     * Options of the module.
+     */
+    partialOptions: Partial<InversionBuilderModuleOptions> = {}
+  ) {
+    this.options = {
+      setDefaultContainer: true,
+      ...partialOptions,
     }
+  }
 
-    async initialize(configuration: ModuleConfiguration): Promise<void> {
-        if (this.options.setDefaultContainer) {
-            InversionBuilder.setDefaultContainer(configuration.registry.resolve<Container>(ContainerSymbol))
-        }
+  async initialize(configuration: ModuleConfiguration): Promise<void> {
+    if (this.options.setDefaultContainer) {
+      InversionBuilder.setDefaultContainer(configuration.registry.resolve<Container>(ContainerSymbol))
     }
+  }
 
-    async dispose(): Promise<void> {
-    }
+  async dispose(): Promise<void> {}
 }

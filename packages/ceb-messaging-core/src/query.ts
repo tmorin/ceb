@@ -15,9 +15,8 @@ export type QueryKind = "query"
  * @template B the type of the body
  * @template H the type of the headers
  */
-export interface Query<B = any, H extends MessageHeaders = MessageHeaders>
-    extends Action<B, H> {
-    kind: QueryKind
+export interface Query<B = any, H extends MessageHeaders = MessageHeaders> extends Action<B, H> {
+  kind: QueryKind
 }
 
 /**
@@ -32,9 +31,7 @@ export type QueryResult<R extends Result = Result> = ActionResult<R>
  *
  * @template R the type of the result
  */
-export type QueryOutput<R extends Result = Result> =
-    | QueryResult<R>
-    | Promise<QueryResult<R>>
+export type QueryOutput<R extends Result = Result> = QueryResult<R> | Promise<QueryResult<R>>
 
 /**
  * A query handler handles a {@link Query} and provides an eventual {@link QueryOutput}.
@@ -43,10 +40,10 @@ export type QueryOutput<R extends Result = Result> =
  * @template R the type of the result
  */
 export interface QueryHandler<Q extends Query = Query, R extends Result = Result> {
-    /**
-     * @param query the query
-     */
-    (query: Q): QueryOutput<R>
+  /**
+   * @param query the query
+   */
+  (query: Q): QueryOutput<R>
 }
 
 /**
@@ -55,89 +52,77 @@ export interface QueryHandler<Q extends Query = Query, R extends Result = Result
 export const QueryBusSymbol = Symbol.for("ceb/inversion/QueryBus")
 
 export interface QueryBus extends Disposable {
-    /**
-     * Execute a query and wait for the result.
-     * @param query the query
-     * @param options the options
-     * @template R the type of the result
-     * @template Q the type of the query
-     */
-    execute<R extends Result = Result, Q extends Query = Query>(
-        query: Q,
-        options?: Partial<ExecuteActionOptions>
-    ): Promise<QueryResult<R>>
+  /**
+   * Execute a query and wait for the result.
+   * @param query the query
+   * @param options the options
+   * @template R the type of the result
+   * @template Q the type of the query
+   */
+  execute<R extends Result = Result, Q extends Query = Query>(
+    query: Q,
+    options?: Partial<ExecuteActionOptions>
+  ): Promise<QueryResult<R>>
 
-    /**
-     * Register a query handler.
-     * @param queryType the type of the query
-     * @param handler the handler
-     * @template Q the type of the query
-     * @template R the type of the result
-     */
-    handle<Q extends Query = Query, R extends Result = Result>(
-        queryType: string,
-        handler: QueryHandler<Q, R>
-    ): Removable
+  /**
+   * Register a query handler.
+   * @param queryType the type of the query
+   * @param handler the handler
+   * @template Q the type of the query
+   * @template R the type of the result
+   */
+  handle<Q extends Query = Query, R extends Result = Result>(queryType: string, handler: QueryHandler<Q, R>): Removable
 }
 
 /**
  * The map defines the internal events of an {@link QueryBus}.
  */
 export type QueryBusNotificationMap = {
-    query_handler_failed: {
-        bus: QueryBus
-        query: Query
-        error: Error
-    }
-    query_handler_not_found: {
-        bus: QueryBus
-        query: Query
-        error: Error
-    }
-    disposed: {
-        bus: QueryBus
-    }
+  query_handler_failed: {
+    bus: QueryBus
+    query: Query
+    error: Error
+  }
+  query_handler_not_found: {
+    bus: QueryBus
+    query: Query
+    error: Error
+  }
+  disposed: {
+    bus: QueryBus
+  }
 }
 
 /**
  * The observable view of an an {@link QueryBus}.
  */
 export interface ObservableQueryBus extends Observable {
-    /**
-     * Listen to an internal event.
-     * @param type the type of the event
-     * @param listener the listener
-     * @template K the type of the internal event
-     */
-    on<K extends keyof QueryBusNotificationMap>(
-        type: K,
-        listener: (event: QueryBusNotificationMap[K]) => any
-    ): this
+  /**
+   * Listen to an internal event.
+   * @param type the type of the event
+   * @param listener the listener
+   * @template K the type of the internal event
+   */
+  on<K extends keyof QueryBusNotificationMap>(type: K, listener: (event: QueryBusNotificationMap[K]) => any): this
 
-    /**
-     * Remove listeners.
-     * @param type the type of the event
-     * @param listener the listener
-     * @template K the type of the internal event
-     */
-    off<K extends keyof QueryBusNotificationMap>(
-        type?: K,
-        listener?: (event: QueryBusNotificationMap[K]) => any
-    ): this
+  /**
+   * Remove listeners.
+   * @param type the type of the event
+   * @param listener the listener
+   * @template K the type of the internal event
+   */
+  off<K extends keyof QueryBusNotificationMap>(type?: K, listener?: (event: QueryBusNotificationMap[K]) => any): this
 }
 
 /**
  * The emitter view of an an {@link QueryBus}.
  */
 export interface EmittableQueryBus extends Emitter {
-    /**
-     * Emit an internal event.
-     * @param type the type
-     * @param event the event
-     * @template K the type of the internal event
-     */
-    emit<K extends keyof QueryBusNotificationMap>(
-        type: K,
-        event: QueryBusNotificationMap[K]
-    ): void
+  /**
+   * Emit an internal event.
+   * @param type the type
+   * @param event the event
+   * @template K the type of the internal event
+   */
+  emit<K extends keyof QueryBusNotificationMap>(type: K, event: QueryBusNotificationMap[K]): void
 }

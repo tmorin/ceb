@@ -34,17 +34,13 @@ export const ComponentSymbol = Symbol.for("ceb/inversion/Component")
  * ```
  */
 export abstract class Component {
+  /**
+   * The method in invoked during the initialization phase of the {@link Container}.
+   */
+  async configure(): Promise<void> {}
 
-    /**
-     * The method in invoked during the initialization phase of the {@link Container}.
-     */
-    async configure(): Promise<void> {
-    }
-
-    /**
-     * The method in invoked during the dispose phase of the {@link Container}.
-     */
-    async dispose(): Promise<void> {
-    }
-
+  /**
+   * The method in invoked during the dispose phase of the {@link Container}.
+   */
+  async dispose(): Promise<void> {}
 }

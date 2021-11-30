@@ -4,10 +4,10 @@ import {Registry} from "./registry"
  * The available configuration of a module.
  */
 export interface ModuleConfiguration {
-    /**
-     * The registry.
-     */
-    registry: Registry
+  /**
+   * The registry.
+   */
+  registry: Registry
 }
 
 /**
@@ -18,18 +18,16 @@ export interface ModuleConfiguration {
  * The implementation of an inline module can be quickly done with {@link OnlyConfigureModule}.
  */
 export interface Module {
+  /**
+   * Initialize the module.
+   * @param configuration the configuration
+   */
+  initialize(configuration: ModuleConfiguration): Promise<void>
 
-    /**
-     * Initialize the module.
-     * @param configuration the configuration
-     */
-    initialize(configuration: ModuleConfiguration): Promise<void>
-
-    /**
-     * Dispose the module.
-     */
-    dispose(): Promise<void>
-
+  /**
+   * Dispose the module.
+   */
+  dispose(): Promise<void>
 }
 
 /**
@@ -37,15 +35,15 @@ export interface Module {
  * Therefore, its configuration can still be adapted.
  */
 export interface ConfigurableModule {
-    /**
-     * The registry.
-     */
-    registry: Registry
+  /**
+   * The registry.
+   */
+  registry: Registry
 
-    /**
-     * Provide the configuration of the module.
-     */
-    configure(this: ConfigurableModule): Promise<void>
+  /**
+   * Provide the configuration of the module.
+   */
+  configure(this: ConfigurableModule): Promise<void>
 }
 
 /**
@@ -70,35 +68,32 @@ export interface ConfigurableModule {
  * ```
  */
 export abstract class AbstractModule implements Module, ConfigurableModule {
+  private configuration?: ModuleConfiguration
 
-    private configuration?: ModuleConfiguration
-
-    get registry(): Registry {
-        if (!this.configuration) {
-            throw new Error("the module is not initialized because its configuration property is falsy")
-        }
-        return this.configuration.registry
+  get registry(): Registry {
+    if (!this.configuration) {
+      throw new Error("the module is not initialized because its configuration property is falsy")
     }
+    return this.configuration.registry
+  }
 
-    /**
-     * @protected
-     */
-    async initialize(configuration: ModuleConfiguration): Promise<void> {
-        this.configuration = configuration
-        await this.configure()
-    }
+  /**
+   * @protected
+   */
+  async initialize(configuration: ModuleConfiguration): Promise<void> {
+    this.configuration = configuration
+    await this.configure()
+  }
 
-    /**
-     * Implement this method to register things in the container registry.
-     */
-    abstract configure(this: ConfigurableModule): Promise<void>
+  /**
+   * Implement this method to register things in the container registry.
+   */
+  abstract configure(this: ConfigurableModule): Promise<void>
 
-    /**
-     * Override this method to cleanup things when the container is disposed.
-     */
-    async dispose(): Promise<void> {
-    }
-
+  /**
+   * Override this method to cleanup things when the container is disposed.
+   */
+  async dispose(): Promise<void> {}
 }
 
 /**
@@ -115,34 +110,34 @@ export abstract class AbstractModule implements Module, ConfigurableModule {
  * ```
  */
 export class OnlyConfigureModule extends AbstractModule {
-    private constructor(private readonly _configure: (this: ConfigurableModule) => Promise<void>) {
-        super()
-    }
+  private constructor(private readonly _configure: (this: ConfigurableModule) => Promise<void>) {
+    super()
+  }
 
-    /**
-     * Create a fresh module from a lambda.
-     *
-     * The context (i.e. `this`) is an instance of {@link ConfigurableModule}.
-     * Therefore, `this.registry` is available.
-     *
-     * @param cb the lambda to configure the module
-     * @return the fresh module
-     */
-    static create(cb: (this: ConfigurableModule) => Promise<void>) {
-        return new OnlyConfigureModule(cb)
-    }
+  /**
+   * Create a fresh module from a lambda.
+   *
+   * The context (i.e. `this`) is an instance of {@link ConfigurableModule}.
+   * Therefore, `this.registry` is available.
+   *
+   * @param cb the lambda to configure the module
+   * @return the fresh module
+   */
+  static create(cb: (this: ConfigurableModule) => Promise<void>) {
+    return new OnlyConfigureModule(cb)
+  }
 
-    /**
-     * @protected
-     */
-    async configure(): Promise<void> {
-        await this._configure.apply(this)
-    }
+  /**
+   * @protected
+   */
+  async configure(): Promise<void> {
+    await this._configure.apply(this)
+  }
 
-    /**
-     * @protected
-     */
-    async dispose(): Promise<void> {
-        return super.dispose()
-    }
+  /**
+   * @protected
+   */
+  async dispose(): Promise<void> {
+    return super.dispose()
+  }
 }

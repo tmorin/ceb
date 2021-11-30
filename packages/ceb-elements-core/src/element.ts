@@ -1,6 +1,6 @@
-import {Builder, CustomElementConstructor} from './builder'
-import {HookCallbacks} from './hook'
-import {toKebabCase} from "@tmorin/ceb-utilities";
+import { Builder, CustomElementConstructor } from "./builder"
+import { HookCallbacks } from "./hook"
+import { toKebabCase } from "@tmorin/ceb-utilities"
 
 let counter = 0
 
@@ -11,11 +11,11 @@ let counter = 0
  * @protected
  */
 export interface HookRegistry {
-    [key: string]: {
-        before: Array<Function>
-        between: Array<Function>
-        after: Array<Function>
-    }
+  [key: string]: {
+    before: Array<Function>
+    between: Array<Function>
+    after: Array<Function>
+  }
 }
 
 /**
@@ -36,327 +36,325 @@ export interface HookRegistry {
  * @template E the type of the Custom Element
  */
 export class ElementBuilder<E extends HTMLElement = HTMLElement> {
+  private constructor(
+    private _name?: string,
+    private _constructor?: CustomElementConstructor<E>,
+    private _extends?: string,
+    private _builders: Array<Builder<E>> = [],
+    private _hooks: HookRegistry = {}
+  ) {}
 
-    private constructor(
-        private _name?: string,
-        private _constructor?: CustomElementConstructor<E>,
-        private _extends?: string,
-        private _builders: Array<Builder<E>> = [],
-        private _hooks: HookRegistry = {}
-    ) {
+  /**
+   * Get or set builder to a target from the decorators of builders.
+   *
+   * This API is dedicated for developer of Builders.
+   * @protected
+   * @param target the target
+   * @param builder the builder
+   * @param id the id used to identify the builder
+   * @template B the type of the builder
+   * @template E the type of the element
+   */
+  static getOrSet<B extends Builder>(
+    target: Object & { _ceb_builders?: { [p: string]: B } },
+    builder: B,
+    id: string = `builder-${counter++}`
+  ): B {
+    if (!target._ceb_builders) {
+      target._ceb_builders = {}
+    }
+    if (!target._ceb_builders[id]) {
+      target._ceb_builders[id] = builder
+    }
+    return target._ceb_builders[id]
+  }
+
+  /**
+   * Provide a fresh builder.
+   * @param constructor the constructor, it's optional only when the decorator API (i.e. {@link ElementBuilder.decorate}) is used
+   * @template E the type of the Custom Element
+   */
+  static get<E extends HTMLElement>(constructor?: CustomElementConstructor<E>) {
+    return new ElementBuilder<E>(constructor && toKebabCase(constructor.name), constructor)
+  }
+
+  /**
+   * The tag name of the custom element.
+   *
+   * By default it is the kebab case of the class name, i.e. `HelloWorld` => `hello-world`.
+   *
+   * @example
+   * ```typescript
+   * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+   *
+   * class HelloWorld extends HTMLElement {
+   *     connectedCallback() {
+   *         this.textContent = `Hello, World!`
+   *     }
+   * }
+   * ElementBuilder.get(HelloWorld)
+   *     .name("alt-hello-world")
+   *     .register()
+   * ```
+   *
+   * @param tagName the tag name
+   */
+  name(tagName: string) {
+    this._name = tagName
+    return this
+  }
+
+  /**
+   * The tag name of the extended HTML element.
+   *
+   * @example
+   * ```typescript
+   * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+   * class AltInput extends HTMLInputElement {
+   *     constructor() {
+   *         super()
+   *     }
+   *     connectedCallback() {
+   *         this.placeholder = "Type your name!"
+   *     }
+   * }
+   * ElementBuilder.get(AltInput)
+   *     .extends("input")
+   *     .register()
+   * ```
+   *
+   * @param tagName the tag name
+   */
+  extends(tagName: string) {
+    this._extends = tagName
+    return this
+  }
+
+  /**
+   * A list of builder used to enhance the CustomElement.
+   *
+   * @example
+   * ```typescript
+   * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+   * import {ContentBuilder} from "@tmorin/ceb-elements-builders"
+   * class HelloWorld extends HTMLElement {
+   * }
+   * ElementBuilder.get(HelloWorld)
+   *   .builder(ContentBuilder.get(`<p>Hello, World!</p>`))
+   *   .register()
+   * ```
+   *
+   * @param builders a list of builders
+   */
+  builder(...builders: Array<Builder<E>>) {
+    this._builders.push.apply(this._builders, builders)
+    return this
+  }
+
+  /**
+   * Build and register the CustomElement.
+   *
+   * The output is a _wrapper class_ which extends the CustomElement class.
+   *
+   * @example
+   * ```typescript
+   * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+   * class HelloWorld extends HTMLElement {
+   *     connectedCallback() {
+   *         this.textContent = `Hello, World!`
+   *     }
+   * }
+   * ElementBuilder.get(HelloWorld).register()
+   * ```
+   */
+  register(): CustomElementConstructor<E> {
+    if (!this._name) {
+      throw new TypeError("ElementBuilder - the name is missing")
+    }
+    if (!this._constructor) {
+      throw new TypeError("ElementBuilder - the constructor is missing")
     }
 
-    /**
-     * Get or set builder to a target from the decorators of builders.
-     *
-     * This API is dedicated for developer of Builders.
-     * @protected
-     * @param target the target
-     * @param builder the builder
-     * @param id the id used to identify the builder
-     * @template B the type of the builder
-     * @template E the type of the element
-     */
-    static getOrSet<B extends Builder>(
-        target: Object & { _ceb_builders?: { [p: string]: B } },
-        builder: B,
-        id: string = `builder-${counter++}`
-    ): B {
-        if (!target._ceb_builders) {
-            target._ceb_builders = {}
-        }
-        if (!target._ceb_builders[id]) {
-            target._ceb_builders[id] = builder
-        }
-        return target._ceb_builders[id]
+    if (customElements.get(this._name)) {
+      return customElements.get(this._name) as CustomElementConstructor<E>
     }
 
-    /**
-     * Provide a fresh builder.
-     * @param constructor the constructor, it's optional only when the decorator API (i.e. {@link ElementBuilder.decorate}) is used
-     * @template E the type of the Custom Element
-     */
-    static get<E extends HTMLElement>(constructor?: CustomElementConstructor<E>) {
-        return new ElementBuilder<E>(constructor && toKebabCase(constructor.name), constructor)
-    }
+    const OriginalClass = this._constructor
+    const altBuilders: Array<Builder> = Object.values(OriginalClass.prototype["_ceb_builders"] || {})
+    delete OriginalClass.prototype["_ceb_builders"]
+    const builders = [...this._builders, ...altBuilders]
+    const hooks = this
 
-    /**
-     * The tag name of the custom element.
-     *
-     * By default it is the kebab case of the class name, i.e. `HelloWorld` => `hello-world`.
-     *
-     * @example
-     * ```typescript
-     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
-     *
-     * class HelloWorld extends HTMLElement {
-     *     connectedCallback() {
-     *         this.textContent = `Hello, World!`
-     *     }
-     * }
-     * ElementBuilder.get(HelloWorld)
-     *     .name("alt-hello-world")
-     *     .register()
-     * ```
-     *
-     * @param tagName the tag name
-     */
-    name(tagName: string) {
-        this._name = tagName
-        return this
-    }
+    // @ts-ignore
+    const Wrapper = class CebWrapper extends OriginalClass {
+      static observedAttributes: Array<string> = []
 
-    /**
-     * The tag name of the extended HTML element.
-     *
-     * @example
-     * ```typescript
-     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
-     * class AltInput extends HTMLInputElement {
-     *     constructor() {
-     *         super()
-     *     }
-     *     connectedCallback() {
-     *         this.placeholder = "Type your name!"
-     *     }
-     * }
-     * ElementBuilder.get(AltInput)
-     *     .extends("input")
-     *     .register()
-     * ```
-     *
-     * @param tagName the tag name
-     */
-    extends(tagName: string) {
-        this._extends = tagName
-        return this
-    }
+      constructor() {
+        super()
+        hooks.invoke("before", "constructorCallback", (callback) => callback(this))
+        hooks.invoke("between", "constructorCallback", (callback) => callback(this))
+        hooks.invoke("after", "constructorCallback", (callback) => callback(this))
+      }
 
-    /**
-     * A list of builder used to enhance the CustomElement.
-     *
-     * @example
-     * ```typescript
-     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
-     * import {ContentBuilder} from "@tmorin/ceb-elements-builders"
-     * class HelloWorld extends HTMLElement {
-     * }
-     * ElementBuilder.get(HelloWorld)
-     *   .builder(ContentBuilder.get(`<p>Hello, World!</p>`))
-     *   .register()
-     * ```
-     *
-     * @param builders a list of builders
-     */
-    builder(...builders: Array<Builder<E>>) {
-        this._builders.push.apply(this._builders, builders)
-        return this
-    }
-
-    /**
-     * Build and register the CustomElement.
-     *
-     * The output is a _wrapper class_ which extends the CustomElement class.
-     *
-     * @example
-     * ```typescript
-     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
-     * class HelloWorld extends HTMLElement {
-     *     connectedCallback() {
-     *         this.textContent = `Hello, World!`
-     *     }
-     * }
-     * ElementBuilder.get(HelloWorld).register()
-     * ```
-     */
-    register(): CustomElementConstructor<E> {
-        if (!this._name) {
-            throw new TypeError("ElementBuilder - the name is missing")
-        }
-        if (!this._constructor) {
-            throw new TypeError("ElementBuilder - the constructor is missing")
-        }
-
-        if (customElements.get(this._name)) {
-            return customElements.get(this._name) as CustomElementConstructor<E>
-        }
-
-        const OriginalClass = this._constructor
-        const altBuilders: Array<Builder> = Object.values(OriginalClass.prototype["_ceb_builders"] || {})
-        delete OriginalClass.prototype["_ceb_builders"]
-        const builders = [...this._builders, ...altBuilders]
-        const hooks = this
-
+      connectedCallback() {
+        hooks.invoke("before", "connectedCallback", (callback) => callback(this))
+        hooks.invoke("between", "connectedCallback", (callback) => callback(this))
         // @ts-ignore
-        const Wrapper = class CebWrapper extends OriginalClass {
-
-            static observedAttributes: Array<string> = []
-
-            constructor() {
-                super()
-                hooks.invoke('before', 'constructorCallback', callback => callback(this))
-                hooks.invoke('between', 'constructorCallback', callback => callback(this))
-                hooks.invoke('after', 'constructorCallback', callback => callback(this))
-            }
-
-            connectedCallback() {
-                hooks.invoke('before', 'connectedCallback', callback => callback(this))
-                hooks.invoke('between', 'connectedCallback', callback => callback(this))
-                // @ts-ignore
-                if (super['connectedCallback']) {
-                    // @ts-ignore
-                    super['connectedCallback']()
-                }
-                hooks.invoke('after', 'connectedCallback', callback => callback(this))
-            }
-
-            disconnectedCallback() {
-                hooks.invoke('before', 'disconnectedCallback', callback => callback(this))
-                hooks.invoke('between', 'disconnectedCallback', callback => callback(this))
-                // @ts-ignore
-                if (super['disconnectedCallback']) {
-                    // @ts-ignore
-                    super['disconnectedCallback']()
-                }
-                hooks.invoke('after', 'disconnectedCallback', callback => callback(this))
-            }
-
-            adoptedCallback() {
-                hooks.invoke('before', 'adoptedCallback', callback => callback(this))
-                hooks.invoke('between', 'adoptedCallback', callback => callback(this))
-                // @ts-ignore
-                if (super['adoptedCallback']) {
-                    // @ts-ignore
-                    super['adoptedCallback']()
-                }
-                hooks.invoke('after', 'adoptedCallback', callback => callback(this))
-            }
-
-            attributeChangedCallback(name: string, oldValue: null | string, newValue: null | string) {
-                hooks.invoke('before', 'attributeChangedCallback', callback => callback(this, name, oldValue, newValue))
-                hooks.invoke('between', 'attributeChangedCallback', callback => callback(this, name, oldValue, newValue))
-                // @ts-ignore
-                if (super['attributeChangedCallback']) {
-                    // @ts-ignore
-                    super['attributeChangedCallback'](name, oldValue, newValue)
-                }
-                hooks.invoke('after', 'attributeChangedCallback', callback => callback(this, name, oldValue, newValue))
-            }
+        if (super["connectedCallback"]) {
+          // @ts-ignore
+          super["connectedCallback"]()
         }
+        hooks.invoke("after", "connectedCallback", (callback) => callback(this))
+      }
 
-        builders.forEach(builder => builder.build(
-            // @ts-ignore
-            Wrapper,
-            this
-        ))
-
-        customElements.define(this._name, Wrapper, {
-            extends: this._extends
-        })
-
+      disconnectedCallback() {
+        hooks.invoke("before", "disconnectedCallback", (callback) => callback(this))
+        hooks.invoke("between", "disconnectedCallback", (callback) => callback(this))
         // @ts-ignore
-        return Wrapper
-    }
+        if (super["disconnectedCallback"]) {
+          // @ts-ignore
+          super["disconnectedCallback"]()
+        }
+        hooks.invoke("after", "disconnectedCallback", (callback) => callback(this))
+      }
 
-    /**
-     * Decorate the Custom Element class.
-     *
-     * @example
-     * ```typescript
-     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
-     * @ElementBuilder.get<HelloWorld>().decorate()
-     * class HelloWorld extends HTMLElement {
-     *     connectedCallback() {
-     *         this.textContent = `Hello, World!`
-     *     }
-     * }
-     * ```
-     */
-    decorate(): ClassDecorator {
-        const builder = this
+      adoptedCallback() {
+        hooks.invoke("before", "adoptedCallback", (callback) => callback(this))
+        hooks.invoke("between", "adoptedCallback", (callback) => callback(this))
         // @ts-ignore
-        return function (constructor: CustomElementConstructor<E>) {
-            builder._constructor = constructor
-            if (!builder._name) {
-                builder._name = toKebabCase(constructor.name)
-            }
-            return builder.register()
+        if (super["adoptedCallback"]) {
+          // @ts-ignore
+          super["adoptedCallback"]()
         }
+        hooks.invoke("after", "adoptedCallback", (callback) => callback(this))
+      }
+
+      attributeChangedCallback(name: string, oldValue: null | string, newValue: null | string) {
+        hooks.invoke("before", "attributeChangedCallback", (callback) => callback(this, name, oldValue, newValue))
+        hooks.invoke("between", "attributeChangedCallback", (callback) => callback(this, name, oldValue, newValue))
+        // @ts-ignore
+        if (super["attributeChangedCallback"]) {
+          // @ts-ignore
+          super["attributeChangedCallback"](name, oldValue, newValue)
+        }
+        hooks.invoke("after", "attributeChangedCallback", (callback) => callback(this, name, oldValue, newValue))
+      }
     }
 
-    /**
-     * Register a hook which will be invoked before the execution of regular hooks.
-     *
-     * This API is dedicated for developer of Builders.
-     * @protected
-     * @param name the name
-     * @param callback the callback
-     */
-    before<K extends keyof HookCallbacks>(name: K, callback: HookCallbacks[K]) {
-        if (!this._hooks[name]) {
-            this._hooks[name] = {
-                before: [],
-                between: [],
-                after: []
-            }
-        }
-        this._hooks[name].before.push(callback)
-        return this
-    }
+    builders.forEach((builder) =>
+      builder.build(
+        // @ts-ignore
+        Wrapper,
+        this
+      )
+    )
 
-    /**
-     * Register a hook.
-     *
-     * This API is dedicated for developer of Builders.
-     * @protected
-     * @param name the name
-     * @param callback the callback
-     */
-    on<K extends keyof HookCallbacks>(name: K, callback: HookCallbacks[K]) {
-        if (!this._hooks[name]) {
-            this._hooks[name] = {
-                before: [],
-                between: [],
-                after: []
-            }
-        }
-        this._hooks[name].between.push(callback)
-        return this
-    }
+    customElements.define(this._name, Wrapper, {
+      extends: this._extends,
+    })
 
-    /**
-     * Register a hook which will be invoked after the execution of regular hooks.
-     *
-     * This API is dedicated for developer of Builders.
-     * @protected
-     * @param name the name
-     * @param callback the callback
-     */
-    after<K extends keyof HookCallbacks>(name: K, callback: HookCallbacks[K]) {
-        if (!this._hooks[name]) {
-            this._hooks[name] = {
-                before: [],
-                between: [],
-                after: []
-            }
-        }
-        this._hooks[name].after.push(callback)
-        return this
-    }
+    // @ts-ignore
+    return Wrapper
+  }
 
-    /**
-     * Invokes the registered hooks.
-     *
-     * This API is dedicated for developer of Builders.
-     * @protected
-     * @param type the type
-     * @param name the name
-     * @param cb the callback
-     */
-    invoke(type: 'before' | 'between' | 'after', name: string, cb: (callback: Function) => void) {
-        if (this._hooks[name]) {
-            this._hooks[name][type].forEach(callback => cb(callback))
-        }
+  /**
+   * Decorate the Custom Element class.
+   *
+   * @example
+   * ```typescript
+   * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+   * @ElementBuilder.get<HelloWorld>().decorate()
+   * class HelloWorld extends HTMLElement {
+   *     connectedCallback() {
+   *         this.textContent = `Hello, World!`
+   *     }
+   * }
+   * ```
+   */
+  decorate(): ClassDecorator {
+    const builder = this
+    // @ts-ignore
+    return function (constructor: CustomElementConstructor<E>) {
+      builder._constructor = constructor
+      if (!builder._name) {
+        builder._name = toKebabCase(constructor.name)
+      }
+      return builder.register()
     }
+  }
 
+  /**
+   * Register a hook which will be invoked before the execution of regular hooks.
+   *
+   * This API is dedicated for developer of Builders.
+   * @protected
+   * @param name the name
+   * @param callback the callback
+   */
+  before<K extends keyof HookCallbacks>(name: K, callback: HookCallbacks[K]) {
+    if (!this._hooks[name]) {
+      this._hooks[name] = {
+        before: [],
+        between: [],
+        after: [],
+      }
+    }
+    this._hooks[name].before.push(callback)
+    return this
+  }
+
+  /**
+   * Register a hook.
+   *
+   * This API is dedicated for developer of Builders.
+   * @protected
+   * @param name the name
+   * @param callback the callback
+   */
+  on<K extends keyof HookCallbacks>(name: K, callback: HookCallbacks[K]) {
+    if (!this._hooks[name]) {
+      this._hooks[name] = {
+        before: [],
+        between: [],
+        after: [],
+      }
+    }
+    this._hooks[name].between.push(callback)
+    return this
+  }
+
+  /**
+   * Register a hook which will be invoked after the execution of regular hooks.
+   *
+   * This API is dedicated for developer of Builders.
+   * @protected
+   * @param name the name
+   * @param callback the callback
+   */
+  after<K extends keyof HookCallbacks>(name: K, callback: HookCallbacks[K]) {
+    if (!this._hooks[name]) {
+      this._hooks[name] = {
+        before: [],
+        between: [],
+        after: [],
+      }
+    }
+    this._hooks[name].after.push(callback)
+    return this
+  }
+
+  /**
+   * Invokes the registered hooks.
+   *
+   * This API is dedicated for developer of Builders.
+   * @protected
+   * @param type the type
+   * @param name the name
+   * @param cb the callback
+   */
+  invoke(type: "before" | "between" | "after", name: string, cb: (callback: Function) => void) {
+    if (this._hooks[name]) {
+      this._hooks[name][type].forEach((callback) => cb(callback))
+    }
+  }
 }

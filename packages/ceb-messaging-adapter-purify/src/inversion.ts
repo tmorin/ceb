@@ -1,4 +1,4 @@
-import {AbstractModule, RegistryKey} from "@tmorin/ceb-inversion-core";
+import {AbstractModule, RegistryKey} from "@tmorin/ceb-inversion-core"
 import {
     CommandBus,
     CommandBusSymbol,
@@ -8,41 +8,41 @@ import {
     GatewaySymbol,
     ObservableGateway,
     QueryBus,
-    QueryBusSymbol
-} from "@tmorin/ceb-messaging-core";
-import {PurifyGateway} from "./gateway";
-import {PurifyQueryBus, PurifyQueryBusSymbol} from "./query";
-import {PurifyCommandBus, PurifyCommandBusSymbol} from "./command";
+    QueryBusSymbol,
+} from "@tmorin/ceb-messaging-core"
+import {PurifyGateway} from "./gateway"
+import {PurifyQueryBus, PurifyQueryBusSymbol} from "./query"
+import {PurifyCommandBus, PurifyCommandBusSymbol} from "./command"
 
 /**
  * The options of {@link PurifyModule}.
  */
 export interface PurifyModuleOptions {
-    /**
-     * The {@link RegistryKey} of the new {@link PurifyGateway} instance.
-     * By default {@link GatewaySymbol}.
-     */
-    purifyGatewayRegistryKey: RegistryKey
-    /**
-     * The {@link RegistryKey} of an existing {@link EventBus} instance.
-     * By default {@link EventBusSymbol}.
-     */
-    eventsRegistryKey: RegistryKey
-    /**
-     * The {@link RegistryKey} of an existing {@link CommandBus} instance.
-     * By default {@link CommandBusSymbol}.
-     */
-    commandsRegistryKey: RegistryKey
-    /**
-     * The {@link RegistryKey} of an existing {@link QueryBus} instance.
-     * By default {@link QueryBusSymbol}.
-     */
-    queriesRegistryKey: RegistryKey
-    /**
-     * The {@link RegistryKey} of the {@link ObservableGateway} instance.
-     * By default {@link GatewayObserverSymbol}.
-     */
-    observerRegistryKey: RegistryKey
+  /**
+   * The {@link RegistryKey} of the new {@link PurifyGateway} instance.
+   * By default {@link GatewaySymbol}.
+   */
+  purifyGatewayRegistryKey: RegistryKey
+  /**
+   * The {@link RegistryKey} of an existing {@link EventBus} instance.
+   * By default {@link EventBusSymbol}.
+   */
+  eventsRegistryKey: RegistryKey
+  /**
+   * The {@link RegistryKey} of an existing {@link CommandBus} instance.
+   * By default {@link CommandBusSymbol}.
+   */
+  commandsRegistryKey: RegistryKey
+  /**
+   * The {@link RegistryKey} of an existing {@link QueryBus} instance.
+   * By default {@link QueryBusSymbol}.
+   */
+  queriesRegistryKey: RegistryKey
+  /**
+   * The {@link RegistryKey} of the {@link ObservableGateway} instance.
+   * By default {@link GatewayObserverSymbol}.
+   */
+  observerRegistryKey: RegistryKey
 }
 
 /**
@@ -60,37 +60,41 @@ export interface PurifyModuleOptions {
  * ```
  */
 export class PurifyModule extends AbstractModule {
-    private readonly options: PurifyModuleOptions
+  private readonly options: PurifyModuleOptions
 
-    /**
-     * @param partialOptions Options of the module.
-     */
-    constructor(
-        partialOptions: Partial<PurifyModuleOptions> = {}
-    ) {
-        super();
-        this.options = {
-            purifyGatewayRegistryKey: GatewaySymbol,
-            eventsRegistryKey: EventBusSymbol,
-            commandsRegistryKey: CommandBusSymbol,
-            queriesRegistryKey: QueryBusSymbol,
-            observerRegistryKey: GatewayObserverSymbol,
-            ...partialOptions
-        }
+  /**
+   * @param partialOptions Options of the module.
+   */
+  constructor(partialOptions: Partial<PurifyModuleOptions> = {}) {
+    super()
+    this.options = {
+      purifyGatewayRegistryKey: GatewaySymbol,
+      eventsRegistryKey: EventBusSymbol,
+      commandsRegistryKey: CommandBusSymbol,
+      queriesRegistryKey: QueryBusSymbol,
+      observerRegistryKey: GatewayObserverSymbol,
+      ...partialOptions,
     }
+  }
 
-    async configure(): Promise<void> {
-        this.registry.registerFactory<PurifyCommandBus>(PurifyCommandBusSymbol, (registry) => new PurifyCommandBus(
-            registry.resolve<CommandBus>(this.options.commandsRegistryKey)
-        ))
-        this.registry.registerFactory<PurifyQueryBus>(PurifyQueryBusSymbol, (registry) => new PurifyQueryBus(
-            registry.resolve<QueryBus>(this.options.queriesRegistryKey)
-        ))
-        this.registry.registerFactory(this.options.purifyGatewayRegistryKey, (registry) => new PurifyGateway(
-            registry.resolve<PurifyCommandBus>(PurifyCommandBusSymbol),
-            registry.resolve<PurifyQueryBus>(PurifyQueryBusSymbol),
-            registry.resolve<EventBus>(this.options.eventsRegistryKey),
-            registry.resolve<ObservableGateway>(this.options.observerRegistryKey),
-        ))
-    }
+  async configure(): Promise<void> {
+    this.registry.registerFactory<PurifyCommandBus>(
+      PurifyCommandBusSymbol,
+      (registry) => new PurifyCommandBus(registry.resolve<CommandBus>(this.options.commandsRegistryKey))
+    )
+    this.registry.registerFactory<PurifyQueryBus>(
+      PurifyQueryBusSymbol,
+      (registry) => new PurifyQueryBus(registry.resolve<QueryBus>(this.options.queriesRegistryKey))
+    )
+    this.registry.registerFactory(
+      this.options.purifyGatewayRegistryKey,
+      (registry) =>
+        new PurifyGateway(
+          registry.resolve<PurifyCommandBus>(PurifyCommandBusSymbol),
+          registry.resolve<PurifyQueryBus>(PurifyQueryBusSymbol),
+          registry.resolve<EventBus>(this.options.eventsRegistryKey),
+          registry.resolve<ObservableGateway>(this.options.observerRegistryKey)
+        )
+    )
+  }
 }

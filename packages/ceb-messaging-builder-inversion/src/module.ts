@@ -1,14 +1,14 @@
-import {Container, ContainerSymbol, Module, ModuleConfiguration} from "@tmorin/ceb-inversion-core";
-import {GatewayInversionBuilder} from "./builder";
+import {Container, ContainerSymbol, Module, ModuleConfiguration} from "@tmorin/ceb-inversion-core"
+import {GatewayInversionBuilder} from "./builder"
 
 /**
  * The options of {@link GatewayInversionBuilderModule}.
  */
 export interface GatewayInversionBuilderModuleOptions {
-    /**
-     * When `true`, the current container becomes the default one, i.e. {@link GatewayInversionBuilder#setDefaultContainer}
-     */
-    setDefaultContainer: boolean
+  /**
+   * When `true`, the current container becomes the default one, i.e. {@link GatewayInversionBuilder#setDefaultContainer}
+   */
+  setDefaultContainer: boolean
 }
 
 /**
@@ -24,26 +24,25 @@ export interface GatewayInversionBuilderModuleOptions {
  * ```
  */
 export class GatewayInversionBuilderModule implements Module {
-    private readonly options: GatewayInversionBuilderModuleOptions
+  private readonly options: GatewayInversionBuilderModuleOptions
 
-    constructor(
-        /**
-         * Options of the module.
-         */
-        partialOptions: Partial<GatewayInversionBuilderModuleOptions> = {}
-    ) {
-        this.options = {
-            setDefaultContainer: true,
-            ...partialOptions
-        }
+  constructor(
+    /**
+     * Options of the module.
+     */
+    partialOptions: Partial<GatewayInversionBuilderModuleOptions> = {}
+  ) {
+    this.options = {
+      setDefaultContainer: true,
+      ...partialOptions,
     }
+  }
 
-    async initialize(configuration: ModuleConfiguration): Promise<void> {
-        if (this.options.setDefaultContainer) {
-            GatewayInversionBuilder.setDefaultContainer(configuration.registry.resolve<Container>(ContainerSymbol))
-        }
+  async initialize(configuration: ModuleConfiguration): Promise<void> {
+    if (this.options.setDefaultContainer) {
+      GatewayInversionBuilder.setDefaultContainer(configuration.registry.resolve<Container>(ContainerSymbol))
     }
+  }
 
-    async dispose(): Promise<void> {
-    }
+  async dispose(): Promise<void> {}
 }

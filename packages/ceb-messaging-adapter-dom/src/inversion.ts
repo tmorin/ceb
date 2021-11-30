@@ -8,16 +8,16 @@ import {QueryForwarder} from "./query"
  * The options of {@link DomAdapterModule}.
  */
 export interface DomAdapterModuleOptions {
-    /**
-     * The {@link RegistryKey} of the {@link Gateway} instance.
-     * By default {@link GatewaySymbol}.
-     */
-    gatewayRegistryKey: RegistryKey
-    /**
-     * The Event Target where the global listeners are added.
-     * @default `window`
-     */
-    target: EventTarget
+  /**
+   * The {@link RegistryKey} of the {@link Gateway} instance.
+   * By default {@link GatewaySymbol}.
+   */
+  gatewayRegistryKey: RegistryKey
+  /**
+   * The Event Target where the global listeners are added.
+   * @default `window`
+   */
+  target: EventTarget
 }
 
 /**
@@ -35,39 +35,36 @@ export interface DomAdapterModuleOptions {
  * ```
  */
 export class DomAdapterModule extends AbstractModule {
-    private readonly options: DomAdapterModuleOptions
+  private readonly options: DomAdapterModuleOptions
 
-
-    /**
-     * @param partialOptions Options of the module.
-     */
-    constructor(
-        partialOptions: Partial<DomAdapterModuleOptions> = {}
-    ) {
-        super()
-        this.options = {
-            gatewayRegistryKey: GatewaySymbol,
-            target: window,
-            ...partialOptions
-        }
+  /**
+   * @param partialOptions Options of the module.
+   */
+  constructor(partialOptions: Partial<DomAdapterModuleOptions> = {}) {
+    super()
+    this.options = {
+      gatewayRegistryKey: GatewaySymbol,
+      target: window,
+      ...partialOptions,
     }
+  }
 
-    async configure(): Promise<void> {
-        // COMMAND
-        this.registry.registerFactory<Component>(ComponentSymbol, (registry) => new CommandForwarder(
-            this.options.target,
-            registry.resolve<Gateway>(this.options.gatewayRegistryKey)
-        ))
-        // EVENT
-        this.registry.registerFactory<Component>(ComponentSymbol, (registry) => new EventForwarder(
-            this.options.target,
-            registry.resolve<Gateway>(this.options.gatewayRegistryKey)
-        ))
-        // QUERY
-        this.registry.registerFactory<Component>(ComponentSymbol, (registry) => new QueryForwarder(
-            this.options.target,
-            registry.resolve<Gateway>(this.options.gatewayRegistryKey)
-        ))
-    }
-
+  async configure(): Promise<void> {
+    // COMMAND
+    this.registry.registerFactory<Component>(
+      ComponentSymbol,
+      (registry) =>
+        new CommandForwarder(this.options.target, registry.resolve<Gateway>(this.options.gatewayRegistryKey))
+    )
+    // EVENT
+    this.registry.registerFactory<Component>(
+      ComponentSymbol,
+      (registry) => new EventForwarder(this.options.target, registry.resolve<Gateway>(this.options.gatewayRegistryKey))
+    )
+    // QUERY
+    this.registry.registerFactory<Component>(
+      ComponentSymbol,
+      (registry) => new QueryForwarder(this.options.target, registry.resolve<Gateway>(this.options.gatewayRegistryKey))
+    )
+  }
 }

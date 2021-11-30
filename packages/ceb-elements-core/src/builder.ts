@@ -1,4 +1,4 @@
-import {HooksRegistration} from './hook'
+import {HooksRegistration} from "./hook"
 
 /**
  * The constructor of a Custom Element
@@ -8,7 +8,7 @@ import {HooksRegistration} from './hook'
  * @protected
  */
 export interface CustomElementConstructor<E extends HTMLElement = HTMLElement> {
-    new(...args: any[]): E
+  new (...args: any[]): E
 }
 
 /**
@@ -16,10 +16,10 @@ export interface CustomElementConstructor<E extends HTMLElement = HTMLElement> {
  * @template E the type of the Custom Element
  */
 export interface Builder<E extends HTMLElement = HTMLElement> {
-    /**
-     * The logic of the builder.
-     * @param Constructor the constructor of the custom element
-     * @param hooks an helper to register hooks
-     */
-    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>): void
+  /**
+   * The logic of the builder.
+   * @param Constructor the constructor of the custom element
+   * @param hooks an helper to register hooks
+   */
+  build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>): void
 }

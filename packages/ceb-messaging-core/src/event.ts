@@ -14,10 +14,10 @@ export type EventKind = "event"
  * @template H the type of the headers
  */
 export interface Event<B = any, H extends MessageHeaders = MessageHeaders> extends Message<B, H> {
-    /**
-     * The kind the event message.
-     */
-    kind: EventKind
+  /**
+   * The kind the event message.
+   */
+  kind: EventKind
 }
 
 /**
@@ -26,20 +26,20 @@ export interface Event<B = any, H extends MessageHeaders = MessageHeaders> exten
  * @template E the type of the event
  */
 export interface EventListener<E extends Event = Event> {
-    /**
-     * @param event the event
-     */
-    (event: E): any
+  /**
+   * @param event the event
+   */
+  (event: E): any
 }
 
 /**
  * The options to subscribe to an event.
  */
 export interface SubscribeOptions {
-    /**
-     * When {true}, the subscripion will be removed once the first reception.
-     */
-    once: boolean
+  /**
+   * When {true}, the subscripion will be removed once the first reception.
+   */
+  once: boolean
 }
 
 /**
@@ -51,82 +51,73 @@ export const EventBusSymbol = Symbol.for("ceb/inversion/EventBus")
  * An event bus is a Publish-Subscribe Channel transferring {@link Event}.
  */
 export interface EventBus extends Disposable {
-    /**
-     * Publish events on the bus.
-     * @param events the events
-     *
-     * @template E the type of the event
-     */
-    publish<E extends Event = Event>(...events: Array<E>): void
+  /**
+   * Publish events on the bus.
+   * @param events the events
+   *
+   * @template E the type of the event
+   */
+  publish<E extends Event = Event>(...events: Array<E>): void
 
-    /**
-     * Subscribe to an event.
-     * @param eventType the type of the event
-     * @param listener the listener
-     * @param options the options
-     *
-     * @template E the type of the event
-     */
-    subscribe<E extends Event = Event>(
-        eventType: string,
-        listener: EventListener<E>,
-        options?: Partial<SubscribeOptions>
-    ): Removable
+  /**
+   * Subscribe to an event.
+   * @param eventType the type of the event
+   * @param listener the listener
+   * @param options the options
+   *
+   * @template E the type of the event
+   */
+  subscribe<E extends Event = Event>(
+    eventType: string,
+    listener: EventListener<E>,
+    options?: Partial<SubscribeOptions>
+  ): Removable
 }
 
 /**
  * The map defines the internal events of an {@link EventBus}.
  */
 export type EventBusNotificationMap = {
-    event_listener_failed: {
-        bus: EventBus
-        event: Event
-        error: Error
-    }
-    disposed: {
-        bus: EventBus
-    }
+  event_listener_failed: {
+    bus: EventBus
+    event: Event
+    error: Error
+  }
+  disposed: {
+    bus: EventBus
+  }
 }
 
 /**
  * The observable view of an an {@link EventBus}.
  */
 export interface ObservableEventBus extends Observable {
-    /**
-     * Listen to an internal event.
-     * @param type the type of the event
-     * @param listener the listener
-     * @template K the type of the internal event
-     */
-    on<K extends keyof EventBusNotificationMap>(
-        type: K,
-        listener: (event: EventBusNotificationMap[K]) => any
-    ): this
+  /**
+   * Listen to an internal event.
+   * @param type the type of the event
+   * @param listener the listener
+   * @template K the type of the internal event
+   */
+  on<K extends keyof EventBusNotificationMap>(type: K, listener: (event: EventBusNotificationMap[K]) => any): this
 
-    /**
-     * Remove listeners.
-     * @param type the type of the event
-     * @param listener the listener
-     * @template K the type of the internal event
-     */
-    off<K extends keyof EventBusNotificationMap>(
-        type?: K,
-        listener?: (event: EventBusNotificationMap[K]) => any
-    ): this
+  /**
+   * Remove listeners.
+   * @param type the type of the event
+   * @param listener the listener
+   * @template K the type of the internal event
+   */
+  off<K extends keyof EventBusNotificationMap>(type?: K, listener?: (event: EventBusNotificationMap[K]) => any): this
 }
 
 /**
  * The emitter view of an an {@link EventBus}.
  */
 export interface EmittableEventBus extends Emitter {
-    /**
-     * Emit an internal event.
-     * @param type the type
-     * @param event the event
-     * @template K the type of the internal event
-     */
-    emit<K extends keyof EventBusNotificationMap>(
-        type: K,
-        event: EventBusNotificationMap[K]
-    ): void
+  /**
+   * Emit an internal event.
+   * @param type the type
+   * @param event the event
+   * @template K the type of the internal event
+   */
+  emit<K extends keyof EventBusNotificationMap>(type: K, event: EventBusNotificationMap[K]): void
 }

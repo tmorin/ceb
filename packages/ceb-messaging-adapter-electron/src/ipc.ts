@@ -4,18 +4,18 @@ import {Action, MessageBuilder, Removable, Result} from "@tmorin/ceb-messaging-c
  * The metadata of an IPC message.
  */
 export interface IpcMessageMetadata {
-    /**
-     * When `true`, the execution blocks to wait for a {@link Result}.
-     */
-    waitForResult?: boolean
-    /**
-     * It's the max time to wait for a result.
-     */
-    timeout?: number
-    /**
-     * It's the action identifier which leads to the {@link Result}.
-     */
-    correlationId?: string
+  /**
+   * When `true`, the execution blocks to wait for a {@link Result}.
+   */
+  waitForResult?: boolean
+  /**
+   * It's the max time to wait for a result.
+   */
+  timeout?: number
+  /**
+   * It's the action identifier which leads to the {@link Result}.
+   */
+  correlationId?: string
 }
 
 /**
@@ -23,11 +23,11 @@ export interface IpcMessageMetadata {
  * @param callback the callback
  */
 export function createRemovable(callback: () => any): Removable {
-    return {
-        remove() {
-            callback()
-        }
-    }
+  return {
+    remove() {
+      callback()
+    },
+  }
 }
 
 /**
@@ -36,10 +36,10 @@ export function createRemovable(callback: () => any): Removable {
  * @param error the error
  */
 export function createErrorResult(action: Action, error: any): Result<Error> {
-    if (error instanceof Error) {
-        return MessageBuilder.result(action, "error").body(error).build()
-    }
-    return MessageBuilder.result(action, "error").body(new Error(error?.toString())).build()
+  if (error instanceof Error) {
+    return MessageBuilder.result(action, "error").body(error).build()
+  }
+  return MessageBuilder.result(action, "error").body(new Error(error?.toString())).build()
 }
 
 /**

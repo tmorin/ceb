@@ -9,7 +9,7 @@ export type ResultKind = "result"
  * The header of a result message.
  */
 export type ResultHeaders = MessageHeaders & {
-    originalMessageId: string
+  originalMessageId: string
 }
 
 /**
@@ -19,10 +19,10 @@ export type ResultHeaders = MessageHeaders & {
  * @template H the type of the headers
  */
 export interface Result<B = any, H extends ResultHeaders = ResultHeaders> extends Message<B, H> {
-    /**
-     * The kind of th result
-     */
-    kind: ResultKind
+  /**
+   * The kind of th result
+   */
+  kind: ResultKind
 }
 
 /**
@@ -30,5 +30,4 @@ export interface Result<B = any, H extends ResultHeaders = ResultHeaders> extend
  *
  * @template H the type of the headers
  */
-export interface EmptyResult<H extends ResultHeaders = ResultHeaders> extends Result<undefined, H> {
-}
+export interface EmptyResult<H extends ResultHeaders = ResultHeaders> extends Result<undefined, H> {}

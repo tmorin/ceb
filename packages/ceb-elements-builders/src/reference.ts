@@ -1,4 +1,4 @@
-import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-elements-core"
+import { Builder, CustomElementConstructor, ElementBuilder, HooksRegistration } from "@tmorin/ceb-elements-core"
 
 /**
  * The builder enhances a readonly property to execute a CSS Selector once the property is get.
@@ -22,161 +22,159 @@ import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} fr
  * @template E the type of the Custom Element
  */
 export class ReferenceBuilder<E extends HTMLElement = HTMLElement> implements Builder<E> {
+  private constructor(
+    private _propName?: string,
+    private _selectors?: string,
+    private _isArray = false,
+    private _isShadow = false
+  ) {}
 
-    private constructor(
-        private _propName?: string,
-        private _selectors?: string,
-        private _isArray = false,
-        private _isShadow = false
-    ) {
+  /**
+   * Provide a fresh builder.
+   * @param propName the property name, it's optional only when the decorator API (i.e. {@link ReferenceBuilder.decorate}) is used
+   * @template E the type of the Custom Element
+   */
+  static get<E extends HTMLElement>(propName?: string) {
+    return new ReferenceBuilder<E>(propName, propName ? `#${propName}` : undefined)
+  }
+
+  /**
+   * The CSS selector used to identify the child element(s).
+   *
+   * @example
+   * ```typescript
+   * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+   * import {ReferenceBuilder} from "@tmorin/ceb-elements-builders"
+   * class HelloWorld extends HTMLElement {
+   *     readonly inputElement: HTMLInputElement
+   *     connectedCallback() {
+   *         this.innerHTML = `Hello, <input value="World">!`
+   *     }
+   * }
+   * ElementBuilder.get(HelloWorld).builder(
+   *     ReferenceBuilder.get("inputElement").selector('input')
+   * ).register()
+   * ```
+   *
+   * @param selector the CSS selector
+   */
+  selector(selector: string) {
+    this._selectors = selector
+    return this
+  }
+
+  /**
+   * Switch to the `Array` type.
+   * In this case, the output is an array of matched elements.
+   *
+   * @example
+   * ```typescript
+   * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+   * import {ReferenceBuilder} from "@tmorin/ceb-elements-builders"
+   * class CebExample extends HTMLElement {
+   *     readonly liElements: Array<HTMLLiElement>
+   *     connectedCallback() {
+   *         this.innerHTML = `<ul>
+   *             <li>Item A</li>
+   *             <li>Item B</li>>
+   *         </ul>`
+   *     }
+   * }
+   * ElementBuilder.get(CebExample).builder(
+   *     ReferenceBuilder.get("inputElement").selector('li').array()
+   * ).register()
+   * ```
+   */
+  array() {
+    this._isArray = true
+    return this
+  }
+
+  /**
+   * By default, the selection of the target element(s) is done in the light DOM.
+   * This option forces the selection into the shadow DOM.
+   *
+   * @example
+   * ```typescript
+   * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+   * import {ReferenceBuilder} from "@tmorin/ceb-elements-builders"
+   * class HelloWorld extends HTMLElement {
+   *     readonly nameInput: HTMLInputElement
+   *     connectedCallback() {
+   *         this.attachShadow({mode: "open"})
+   *         this.shadowRoot.innerHTML = `Hello, <input id="nameInput" value="World">!`
+   *     }
+   * }
+   * ElementBuilder.get(HelloWorld).builder(
+   *     ReferenceBuilder.get("inputElement").shadow()
+   * ).register()
+   * ```
+   */
+  shadow() {
+    this._isShadow = true
+    return this
+  }
+
+  /**
+   * Property decorator used to define a property reference.
+   *
+   * @example
+   * ```typescript
+   * import {ElementBuilder} from "@tmorin/ceb-elements-core"
+   * import {ReferenceBuilder} from "@tmorin/ceb-elements-builders"
+   * @ElementBuilder.get<HelloWorld>().decorate()
+   * class HelloWorld extends HTMLElement {
+   *     @ReferenceBuilder.get("inputElement")
+   *         .shadow()
+   *         .selector('input')
+   *         .decorate()
+   *     readonly nameInput: HTMLInputElement
+   *     connectedCallback() {
+   *         this.attachShadow({mode: "open"})
+   *         this.shadowRoot.innerHTML = `Hello, <input value="World">!`
+   *     }
+   * }
+   * ```
+   */
+  decorate(): PropertyDecorator {
+    return (target: Object, propName: string | symbol) => {
+      if (!this._propName) {
+        this._propName = propName.toString()
+      }
+      if (!this._selectors) {
+        this._selectors = `#${this._propName}`
+      }
+      const id = `field-${this._propName}`
+      ElementBuilder.getOrSet(target, this, id)
+    }
+  }
+
+  /**
+   * This API is dedicated for developer of Builders.
+   * @protected
+   */
+  build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>) {
+    if (!this._propName) {
+      throw new TypeError("ReferenceBuilder - the property name is missing")
+    }
+    if (!this._selectors) {
+      throw new TypeError("ReferenceBuilder - the CSS selector is missing")
     }
 
-    /**
-     * Provide a fresh builder.
-     * @param propName the property name, it's optional only when the decorator API (i.e. {@link ReferenceBuilder.decorate}) is used
-     * @template E the type of the Custom Element
-     */
-    static get<E extends HTMLElement>(propName?: string) {
-        return new ReferenceBuilder<E>(propName, propName ? `#${propName}` : undefined)
-    }
+    const _propName = this._propName
+    const _selectors = this._selectors
+    const _isArray = this._isArray
+    const _isShadow = this._isShadow
 
-    /**
-     * The CSS selector used to identify the child element(s).
-     *
-     * @example
-     * ```typescript
-     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
-     * import {ReferenceBuilder} from "@tmorin/ceb-elements-builders"
-     * class HelloWorld extends HTMLElement {
-     *     readonly inputElement: HTMLInputElement
-     *     connectedCallback() {
-     *         this.innerHTML = `Hello, <input value="World">!`
-     *     }
-     * }
-     * ElementBuilder.get(HelloWorld).builder(
-     *     ReferenceBuilder.get("inputElement").selector('input')
-     * ).register()
-     * ```
-     *
-     * @param selector the CSS selector
-     */
-    selector(selector: string) {
-        this._selectors = selector
-        return this
-    }
-
-    /**
-     * Switch to the `Array` type.
-     * In this case, the output is an array of matched elements.
-     *
-     * @example
-     * ```typescript
-     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
-     * import {ReferenceBuilder} from "@tmorin/ceb-elements-builders"
-     * class CebExample extends HTMLElement {
-     *     readonly liElements: Array<HTMLLiElement>
-     *     connectedCallback() {
-     *         this.innerHTML = `<ul>
-     *             <li>Item A</li>
-     *             <li>Item B</li>>
-     *         </ul>`
-     *     }
-     * }
-     * ElementBuilder.get(CebExample).builder(
-     *     ReferenceBuilder.get("inputElement").selector('li').array()
-     * ).register()
-     * ```
-     */
-    array() {
-        this._isArray = true
-        return this
-    }
-
-    /**
-     * By default, the selection of the target element(s) is done in the light DOM.
-     * This option forces the selection into the shadow DOM.
-     *
-     * @example
-     * ```typescript
-     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
-     * import {ReferenceBuilder} from "@tmorin/ceb-elements-builders"
-     * class HelloWorld extends HTMLElement {
-     *     readonly nameInput: HTMLInputElement
-     *     connectedCallback() {
-     *         this.attachShadow({mode: "open"})
-     *         this.shadowRoot.innerHTML = `Hello, <input id="nameInput" value="World">!`
-     *     }
-     * }
-     * ElementBuilder.get(HelloWorld).builder(
-     *     ReferenceBuilder.get("inputElement").shadow()
-     * ).register()
-     * ```
-     */
-    shadow() {
-        this._isShadow = true
-        return this
-    }
-
-    /**
-     * Property decorator used to define a property reference.
-     *
-     * @example
-     * ```typescript
-     * import {ElementBuilder} from "@tmorin/ceb-elements-core"
-     * import {ReferenceBuilder} from "@tmorin/ceb-elements-builders"
-     * @ElementBuilder.get<HelloWorld>().decorate()
-     * class HelloWorld extends HTMLElement {
-     *     @ReferenceBuilder.get("inputElement")
-     *         .shadow()
-     *         .selector('input')
-     *         .decorate()
-     *     readonly nameInput: HTMLInputElement
-     *     connectedCallback() {
-     *         this.attachShadow({mode: "open"})
-     *         this.shadowRoot.innerHTML = `Hello, <input value="World">!`
-     *     }
-     * }
-     * ```
-     */
-    decorate(): PropertyDecorator {
-        return (target: Object, propName: string | symbol) => {
-            if (!this._propName) {
-                this._propName = propName.toString()
-            }
-            if (!this._selectors) {
-                this._selectors = `#${this._propName}`
-            }
-            const id = `field-${this._propName}`
-            ElementBuilder.getOrSet(target, this, id)
-        }
-    }
-
-    /**
-     * This API is dedicated for developer of Builders.
-     * @protected
-     */
-    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E>) {
-        if (!this._propName) {
-            throw new TypeError("ReferenceBuilder - the property name is missing")
-        }
-        if (!this._selectors) {
-            throw new TypeError("ReferenceBuilder - the CSS selector is missing")
-        }
-
-        const _propName = this._propName
-        const _selectors = this._selectors
-        const _isArray = this._isArray
-        const _isShadow = this._isShadow
-
-        hooks.before("constructorCallback", el => {
-            Object.defineProperty(el, _propName, {
-                get(): any {
-                    const base = _isShadow ? el.shadowRoot : el
-                    if (base) {
-                        return _isArray ? Array.from(base.querySelectorAll(_selectors)) : base.querySelector(_selectors)
-                    }
-                }
-            })
-        })
-    }
+    hooks.before("constructorCallback", (el) => {
+      Object.defineProperty(el, _propName, {
+        get(): any {
+          const base = _isShadow ? el.shadowRoot : el
+          if (base) {
+            return _isArray ? Array.from(base.querySelectorAll(_selectors)) : base.querySelector(_selectors)
+          }
+        },
+      })
+    })
+  }
 }

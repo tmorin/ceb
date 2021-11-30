@@ -4,7 +4,7 @@ import {
     ComponentSymbol,
     Container,
     ContainerSymbol,
-    RegistryKey
+    RegistryKey,
 } from "@tmorin/ceb-inversion-core"
 import {Command, CommandHandler} from "./command"
 import {Result} from "./result"
@@ -27,11 +27,14 @@ export const DiscoverableCommandHandlerSymbol = Symbol.for("ceb/inversion/Discov
  * @template R the type of the Result
  * @template Es the type of the Events
  */
-export type DiscoverableCommandHandler<C extends Command = Command, R extends Result = Result, Es extends Array<Event> = []> = {
-    type: string,
-    handler: CommandHandler<C, R, Es>
+export type DiscoverableCommandHandler<
+  C extends Command = Command,
+  R extends Result = Result,
+  Es extends Array<Event> = []
+> = {
+  type: string
+  handler: CommandHandler<C, R, Es>
 }
-
 
 // QUERY
 
@@ -47,8 +50,8 @@ export const DiscoverableQueryHandlerSymbol = Symbol.for("ceb/inversion/Discover
  * @template R the type of the Result
  */
 export type DiscoverableQueryHandler<Q extends Query = Query, R extends Result = Result> = {
-    type: string,
-    handler: QueryHandler<Q, R>
+  type: string
+  handler: QueryHandler<Q, R>
 }
 
 // LISTENER
@@ -64,8 +67,8 @@ export const DiscoverableEventListenerSymbol = Symbol.for("ceb/inversion/Discove
  * @template E the type of the Event
  */
 export type DiscoverableEventListener<E extends Event = Event> = {
-    type: string
-    listener: EventListener<E>
+  type: string
+  listener: EventListener<E>
 }
 
 // COMPONENT
@@ -81,70 +84,64 @@ export type DiscoverableEventListener<E extends Event = Event> = {
  * They are also disposed once the container is disposed too.
  */
 export class MessagingComponent extends Component {
+  private readonly removableList: Array<Removable> = []
 
-    private readonly removableList: Array<Removable> = []
+  constructor(
+    /**
+     * The container.
+     */
+    private readonly container: Container,
+    /**
+     * The gateway.
+     */
+    private readonly gateway: Gateway
+  ) {
+    super()
+  }
 
-    constructor(
-        /**
-         * The container.
-         */
-        private readonly container: Container,
-        /**
-         * The gateway.
-         */
-        private readonly gateway: Gateway
-    ) {
-        super()
+  async configure(): Promise<void> {
+    if (this.container.registry.contains(DiscoverableCommandHandlerSymbol)) {
+      this.container.registry
+        .resolveAll<DiscoverableCommandHandler>(DiscoverableCommandHandlerSymbol)
+        .forEach((entry) => {
+          this.removableList.push(this.gateway.commands.handle(entry.type, entry.handler))
+        })
     }
 
-    async configure(): Promise<void> {
-
-        if (this.container.registry.contains(DiscoverableCommandHandlerSymbol)) {
-            this.container.registry.resolveAll<DiscoverableCommandHandler>(DiscoverableCommandHandlerSymbol).forEach(entry => {
-                this.removableList.push(
-                    this.gateway.commands.handle(entry.type, entry.handler)
-                )
-            })
-        }
-
-        if (this.container.registry.contains(DiscoverableQueryHandlerSymbol)) {
-            this.container.registry.resolveAll<DiscoverableQueryHandler>(DiscoverableQueryHandlerSymbol).forEach(entry => {
-                this.removableList.push(
-                    this.gateway.queries.handle(entry.type, entry.handler)
-                )
-            })
-        }
-
-        if (this.container.registry.contains(DiscoverableEventListenerSymbol)) {
-            this.container.registry.resolveAll<DiscoverableEventListener>(DiscoverableEventListenerSymbol).forEach(entry => {
-                this.removableList.push(
-                    this.gateway.events.subscribe(entry.type, entry.listener)
-                )
-            })
-        }
+    if (this.container.registry.contains(DiscoverableQueryHandlerSymbol)) {
+      this.container.registry.resolveAll<DiscoverableQueryHandler>(DiscoverableQueryHandlerSymbol).forEach((entry) => {
+        this.removableList.push(this.gateway.queries.handle(entry.type, entry.handler))
+      })
     }
 
-    async dispose(): Promise<void> {
-        let removable
-        while (removable = this.removableList.pop()) {
-            removable.remove()
-        }
+    if (this.container.registry.contains(DiscoverableEventListenerSymbol)) {
+      this.container.registry
+        .resolveAll<DiscoverableEventListener>(DiscoverableEventListenerSymbol)
+        .forEach((entry) => {
+          this.removableList.push(this.gateway.events.subscribe(entry.type, entry.listener))
+        })
     }
+  }
 
+  async dispose(): Promise<void> {
+    let removable
+    while ((removable = this.removableList.pop())) {
+      removable.remove()
+    }
+  }
 }
 
 // MODULE
-
 
 /**
  * The options of {@link MessagingModule}.
  */
 export interface MessagingModuleOptions {
-    /**
-     * The {@link RegistryKey} of the {@link Gateway} instance.
-     * By default {@link GatewaySymbol}.
-     */
-    gatewayRegistryKey: RegistryKey
+  /**
+   * The {@link RegistryKey} of the {@link Gateway} instance.
+   * By default {@link GatewaySymbol}.
+   */
+  gatewayRegistryKey: RegistryKey
 }
 
 /**
@@ -160,25 +157,24 @@ export interface MessagingModuleOptions {
  * ```
  */
 export class MessagingModule extends AbstractModule {
-    private readonly options: MessagingModuleOptions
+  private readonly options: MessagingModuleOptions
 
-    /**
-     * @param partialOptions Options of the module.
-     */
-    constructor(
-        partialOptions: Partial<MessagingModuleOptions> = {}
-    ) {
-        super()
-        this.options = {
-            gatewayRegistryKey: GatewaySymbol,
-            ...partialOptions
-        }
+  /**
+   * @param partialOptions Options of the module.
+   */
+  constructor(partialOptions: Partial<MessagingModuleOptions> = {}) {
+    super()
+    this.options = {
+      gatewayRegistryKey: GatewaySymbol,
+      ...partialOptions,
     }
+  }
 
-    async configure(): Promise<void> {
-        this.registry.registerFactory(ComponentSymbol, registry => new MessagingComponent(
-            registry.resolve<Container>(ContainerSymbol),
-            registry.resolve<Gateway>(GatewaySymbol),
-        ))
-    }
+  async configure(): Promise<void> {
+    this.registry.registerFactory(
+      ComponentSymbol,
+      (registry) =>
+        new MessagingComponent(registry.resolve<Container>(ContainerSymbol), registry.resolve<Gateway>(GatewaySymbol))
+    )
+  }
 }

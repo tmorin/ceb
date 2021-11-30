@@ -1,17 +1,17 @@
-import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-elements-core";
-import {Event, Gateway, MessageType, Removable, SubscribeOptions} from "@tmorin/ceb-messaging-core";
+import {Builder, CustomElementConstructor, ElementBuilder, HooksRegistration} from "@tmorin/ceb-elements-core"
+import {Event, Gateway, MessageType, Removable, SubscribeOptions} from "@tmorin/ceb-messaging-core"
 
 /**
  * The listener of a subscription.
  */
 export interface ElementSubscriptionListener<E extends HTMLElement = HTMLElement, M extends Event = Event> {
-    /**
-     * @param el the Custom Element
-     * @param event the message
-     * @template E the type of the Custom Element
-     * @template M the type of the Event Message
-     */
-    (el: E, event: M): void
+  /**
+   * @param el the Custom Element
+   * @param event the message
+   * @template E the type of the Custom Element
+   * @template M the type of the Event Message
+   */
+  (el: E, event: M): void
 }
 
 /**
@@ -27,69 +27,69 @@ export interface ElementSubscriptionListener<E extends HTMLElement = HTMLElement
  * @template M the type of the Message Event
  */
 export class GatewaySubscriptionBuilder<E extends HTMLElement, M extends Event> {
+  constructor(
+    private _gatewayBuilder: AbstractGatewayBuilder<E>,
+    private _EventType?: MessageType,
+    private _listener: ElementSubscriptionListener<E, M> = () => {},
+    private _options?: SubscribeOptions
+  ) {}
 
-    constructor(
-        private _gatewayBuilder: AbstractGatewayBuilder<E>,
-        private _EventType?: MessageType,
-        private _listener: ElementSubscriptionListener<E, M> = () => {
+  /**
+   * Set the type of the event.
+   * @param EventType the event type
+   */
+  type(EventType: MessageType): GatewaySubscriptionBuilder<E, M> {
+    this._EventType = EventType
+    return this
+  }
+
+  /**
+   * Set the listener options.
+   * @param options the options
+   */
+  options(options: SubscribeOptions): GatewaySubscriptionBuilder<E, M> {
+    this._options = options
+    return this
+  }
+
+  /**
+   * Decorate the listener method which is invoked when the matching Event is published.
+   *
+   * When the type of the Event is not specified by {@link GatewaySubscriptionBuilder.type}, then the event type is discovered from the decorated method name.
+   * The pattern is `<prefix><event-type>`, where `<prefix>` is by default `on`.
+   *
+   * @param prefix the prefix used to discover the type of the message event from the method name
+   */
+  decorate(prefix = "on"): MethodDecorator {
+    return (target: Object, methName: string | symbol, descriptor: PropertyDescriptor) => {
+      if (!this._EventType) {
+        this._EventType = methName.toString().replace(prefix, "")
+      }
+      const id = `gateway-${this._gatewayBuilder._propName}`
+      const builder = ElementBuilder.getOrSet(target, this._gatewayBuilder, id)
+      if (builder !== this._gatewayBuilder) {
+        builder.mergeBuilder(this._gatewayBuilder, false)
+      }
+      builder.subscribe(
+        this._EventType,
+        (el, event) => {
+          const fn = descriptor.value as Function
+          fn.call(el, event)
         },
-        private _options?: SubscribeOptions
-    ) {
+        this._options
+      )
     }
-
-    /**
-     * Set the type of the event.
-     * @param EventType the event type
-     */
-    type(EventType: MessageType): GatewaySubscriptionBuilder<E, M> {
-        this._EventType = EventType
-        return this
-    }
-
-    /**
-     * Set the listener options.
-     * @param options the options
-     */
-    options(options: SubscribeOptions): GatewaySubscriptionBuilder<E, M> {
-        this._options = options
-        return this
-    }
-
-    /**
-     * Decorate the listener method which is invoked when the matching Event is published.
-     *
-     * When the type of the Event is not specified by {@link GatewaySubscriptionBuilder.type}, then the event type is discovered from the decorated method name.
-     * The pattern is `<prefix><event-type>`, where `<prefix>` is by default `on`.
-     *
-     * @param prefix the prefix used to discover the type of the message event from the method name
-     */
-    decorate(prefix = "on"): MethodDecorator {
-        return (target: Object, methName: string | symbol, descriptor: PropertyDescriptor) => {
-            if (!this._EventType) {
-                this._EventType = methName.toString().replace(prefix, '')
-            }
-            const id = `gateway-${this._gatewayBuilder._propName}`
-            const builder = ElementBuilder.getOrSet(target, this._gatewayBuilder, id)
-            if (builder !== this._gatewayBuilder) {
-                builder.mergeBuilder(this._gatewayBuilder, false)
-            }
-            builder.subscribe(this._EventType, (el, event) => {
-                const fn = descriptor.value as Function
-                fn.call(el, event)
-            }, this._options)
-        }
-    }
-
+  }
 }
 
 /**
  * Factory of a gateway.
  */
 export interface GatewayProvider {
-    /**
-     * @return the gateway
-     */
-    (): Gateway
+  /**
+   * @return the gateway
+   */
+  (): Gateway
 }
 
 const BUILDERS = new WeakMap<Element, Map<string, Gateway>>()
@@ -113,136 +113,140 @@ const BUILDERS = new WeakMap<Element, Map<string, Gateway>>()
  * @template the type of the Custom Element
  */
 export abstract class AbstractGatewayBuilder<E extends HTMLElement> implements Builder<E> {
+  /**
+   * @ignore
+   * @internal
+   */
+  public _propName: string = "gateway"
 
-    /**
-     * @ignore
-     * @internal
-     */
-    public _propName: string = "gateway";
+  protected constructor(
+    protected _gatewayProvider: GatewayProvider,
+    _propName: string = "gateway",
+    protected _subscriptionsByType: Map<
+      MessageType,
+      Array<[ElementSubscriptionListener, SubscribeOptions | undefined]>
+    > = new Map()
+  ) {
+    this._propName = _propName
+  }
 
-    protected constructor(
-        protected _gatewayProvider: GatewayProvider,
-        _propName: string = "gateway",
-        protected _subscriptionsByType: Map<MessageType, Array<[ElementSubscriptionListener, SubscribeOptions | undefined]>> = new Map(),
-    ) {
-        this._propName = _propName;
+  /**
+   * Subscribe to a Message Event.
+   * @param EventType the type of the event
+   * @param listener the listener
+   * @param options the options
+   */
+  subscribe<M extends Event>(
+    EventType: MessageType,
+    listener: ElementSubscriptionListener<E, M>,
+    options?: SubscribeOptions
+  ): AbstractGatewayBuilder<E>
+
+  /**
+   * When used as a decorator, returns a fresh Subscription builder to decorate a method.
+   */
+  subscribe<M extends Event>(): GatewaySubscriptionBuilder<E, M>
+
+  subscribe<M extends Event>(
+    EventType?: MessageType,
+    listener?: ElementSubscriptionListener<E, M>,
+    options?: SubscribeOptions
+  ): AbstractGatewayBuilder<E> | GatewaySubscriptionBuilder<E, M> {
+    if (EventType && listener) {
+      if (!this._subscriptionsByType.has(EventType)) {
+        this._subscriptionsByType.set(EventType, [])
+      }
+      this._subscriptionsByType.get(EventType)?.push([
+        // @ts-ignore
+        listener,
+        options,
+      ])
+      return this
     }
+    return new GatewaySubscriptionBuilder(this)
+  }
 
-    /**
-     * Subscribe to a Message Event.
-     * @param EventType the type of the event
-     * @param listener the listener
-     * @param options the options
-     */
-    subscribe<M extends Event>(
-        EventType: MessageType,
-        listener: ElementSubscriptionListener<E, M>,
-        options ?: SubscribeOptions
-    ): AbstractGatewayBuilder<E>
-
-    /**
-     * When used as a decorator, returns a fresh Subscription builder to decorate a method.
-     */
-    subscribe<M extends Event>(): GatewaySubscriptionBuilder<E, M>
-
-    subscribe<M extends Event>(
-        EventType ?: MessageType,
-        listener ?: ElementSubscriptionListener<E, M>,
-        options ?: SubscribeOptions
-    ): AbstractGatewayBuilder<E> | GatewaySubscriptionBuilder<E, M> {
-        if (EventType && listener
-        ) {
-            if (!this._subscriptionsByType.has(EventType)) {
-                this._subscriptionsByType.set(EventType, [])
-            }
-            this._subscriptionsByType.get(EventType)?.push([
-                // @ts-ignore
-                listener,
-                options
-            ])
-            return this
-        }
-        return new GatewaySubscriptionBuilder(this)
+  /**
+   * Decorates the property of the gateway.
+   */
+  decorate(): PropertyDecorator {
+    return (target, propName) => {
+      this._propName = propName.toString()
+      const id = `gateway-${this._propName}`
+      const builder = ElementBuilder.getOrSet(target, this, id)
+      if (builder !== this) {
+        builder.mergeBuilder(this, true)
+      }
     }
+  }
 
-    /**
-     * Decorates the property of the gateway.
-     */
-    decorate(): PropertyDecorator {
-        return (target, propName) => {
-            this._propName = propName.toString()
-            const id = `gateway-${this._propName}`
-            const builder = ElementBuilder.getOrSet(target, this, id)
-            if (builder !== this) {
-                builder.mergeBuilder(this, true)
-            }
-        }
-    }
+  /**
+   * This API is dedicated for developer of Builders.
+   * @protected
+   */
+  build(
+    Constructor: CustomElementConstructor<E>,
+    hooks: HooksRegistration<E & { __ceb_gateway_subscriptions: Set<Removable> }>
+  ): void {
+    const _propName = this._propName
+    const _subscriptionsByType = this._subscriptionsByType
 
-    /**
-     * This API is dedicated for developer of Builders.
-     * @protected
-     */
-    build(Constructor: CustomElementConstructor<E>, hooks: HooksRegistration<E & { __ceb_gateway_subscriptions: Set<Removable> }>): void {
-        const _propName = this._propName
-        const _subscriptionsByType = this._subscriptionsByType
-
-        hooks.before('constructorCallback', el => {
-            const gateway = this._gatewayProvider()
-            if (!BUILDERS.get(el)?.has(_propName)) {
-                BUILDERS.set(el, new Map([[_propName, gateway]]))
-            }
-            if (!Object.getOwnPropertyDescriptor(el, _propName)) {
-                Object.defineProperty(el, _propName, {
-                    value: gateway,
-                    configurable: false,
-                    writable: false,
-                    enumerable: true
-                })
-            }
-            el.__ceb_gateway_subscriptions = new Set<Removable>()
+    hooks.before("constructorCallback", (el) => {
+      const gateway = this._gatewayProvider()
+      if (!BUILDERS.get(el)?.has(_propName)) {
+        BUILDERS.set(el, new Map([[_propName, gateway]]))
+      }
+      if (!Object.getOwnPropertyDescriptor(el, _propName)) {
+        Object.defineProperty(el, _propName, {
+          value: gateway,
+          configurable: false,
+          writable: false,
+          enumerable: true,
         })
+      }
+      el.__ceb_gateway_subscriptions = new Set<Removable>()
+    })
 
-        hooks.before('connectedCallback', el => {
-            const gatewayDescriptor = Object.getOwnPropertyDescriptor(el, _propName)
-            _subscriptionsByType.forEach((listeners, type) =>
-                listeners.forEach(([listener, options]) =>
-                    el.__ceb_gateway_subscriptions.add(gatewayDescriptor?.value?.events.subscribe(
-                        type,
-                        (event: Event) => listener(el, event), options)
-                    )))
-        })
+    hooks.before("connectedCallback", (el) => {
+      const gatewayDescriptor = Object.getOwnPropertyDescriptor(el, _propName)
+      _subscriptionsByType.forEach((listeners, type) =>
+        listeners.forEach(([listener, options]) =>
+          el.__ceb_gateway_subscriptions.add(
+            gatewayDescriptor?.value?.events.subscribe(type, (event: Event) => listener(el, event), options)
+          )
+        )
+      )
+    })
 
-        hooks.before('disconnectedCallback', el => {
-            el.__ceb_gateway_subscriptions.forEach(subscription => subscription.remove())
-            el.__ceb_gateway_subscriptions.clear()
-        })
-    }
+    hooks.before("disconnectedCallback", (el) => {
+      el.__ceb_gateway_subscriptions.forEach((subscription) => subscription.remove())
+      el.__ceb_gateway_subscriptions.clear()
+    })
+  }
 
-    /**
-     * @ignore
-     */
-    mergeBuilder(builder: AbstractGatewayBuilder<E>, isMaster: boolean) {
-        if (isMaster) {
-            if (!this._propName) {
-                this._propName = builder._propName
-            }
-            builder._subscriptionsByType.forEach((subscription, type) => {
-                if (!this._subscriptionsByType.has(type)) {
-                    this._subscriptionsByType.set(type, subscription)
-                } else {
-                    subscription.forEach(entry => this._subscriptionsByType.get(type)?.push(entry))
-                }
-            })
+  /**
+   * @ignore
+   */
+  mergeBuilder(builder: AbstractGatewayBuilder<E>, isMaster: boolean) {
+    if (isMaster) {
+      if (!this._propName) {
+        this._propName = builder._propName
+      }
+      builder._subscriptionsByType.forEach((subscription, type) => {
+        if (!this._subscriptionsByType.has(type)) {
+          this._subscriptionsByType.set(type, subscription)
         } else {
-            this._subscriptionsByType.forEach((subscription, type) => {
-                if (!builder._subscriptionsByType.has(type)) {
-                    builder._subscriptionsByType.set(type, subscription)
-                } else {
-                    subscription.forEach(entry => builder._subscriptionsByType.get(type)?.push(entry))
-                }
-            })
+          subscription.forEach((entry) => this._subscriptionsByType.get(type)?.push(entry))
         }
+      })
+    } else {
+      this._subscriptionsByType.forEach((subscription, type) => {
+        if (!builder._subscriptionsByType.has(type)) {
+          builder._subscriptionsByType.set(type, subscription)
+        } else {
+          subscription.forEach((entry) => builder._subscriptionsByType.get(type)?.push(entry))
+        }
+      })
     }
-
+  }
 }

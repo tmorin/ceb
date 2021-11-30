@@ -15,9 +15,9 @@ describe("ExGreeting", () => {
   })
 
   it("should handle the name mutations", () => {
-    sandbox.innerHTML = `<ex-greeting name="John Doe"></ex-greeting>`
+    sandbox.innerHTML = `<ex-greeting name="World"></ex-greeting>`
     const exGreeting = sandbox.querySelector("ex-greeting") as ExGreeting
-    assert.equal(exGreeting.name, "John Doe")
+    assert.equal(exGreeting.name, "World")
     exGreeting.name = "You"
     assert.equal(exGreeting.name, "You")
     assert.equal(exGreeting.shadowRoot?.firstElementChild?.outerHTML, `<p>Hello, <span id="name">You</span>!</p>`)

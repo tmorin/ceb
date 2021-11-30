@@ -11,39 +11,31 @@ export type IpcObservableGateway = IpcObservableCommandBus & IpcObservableEventB
 /**
  * The map defines the internal events of all buses.
  */
-export type IpcGatewayNotificationMap =
-    IpcCommandBusNotificationMap
-    & IpcEventBusNotificationMap
-    & IpcQueryBusNotificationMap
+export type IpcGatewayNotificationMap = IpcCommandBusNotificationMap &
+  IpcEventBusNotificationMap &
+  IpcQueryBusNotificationMap
 
 /**
  * Simple implementation of {@link ObservableGateway}.
  */
 export class IpcGatewayObserver implements IpcObservableGateway {
-    constructor(
-        private readonly events: Observable,
-        private readonly commands: Observable,
-        private readonly queries: Observable
-    ) {
-    }
+  constructor(
+    private readonly events: Observable,
+    private readonly commands: Observable,
+    private readonly queries: Observable
+  ) {}
 
-    on<K extends keyof IpcGatewayNotificationMap>(
-        type: K,
-        listener: (event: IpcGatewayNotificationMap[K]) => any
-    ) {
-        this.events.on(type, listener)
-        this.commands.on(type, listener)
-        this.queries.on(type, listener)
-        return this
-    }
+  on<K extends keyof IpcGatewayNotificationMap>(type: K, listener: (event: IpcGatewayNotificationMap[K]) => any) {
+    this.events.on(type, listener)
+    this.commands.on(type, listener)
+    this.queries.on(type, listener)
+    return this
+  }
 
-    off<K extends keyof IpcGatewayNotificationMap>(
-        type?: K,
-        listener?: (event: IpcGatewayNotificationMap[K]) => any
-    ) {
-        this.events.off(type, listener)
-        this.commands.off(type, listener)
-        this.queries.off(type, listener)
-        return this
-    }
+  off<K extends keyof IpcGatewayNotificationMap>(type?: K, listener?: (event: IpcGatewayNotificationMap[K]) => any) {
+    this.events.off(type, listener)
+    this.commands.off(type, listener)
+    this.queries.off(type, listener)
+    return this
+  }
 }

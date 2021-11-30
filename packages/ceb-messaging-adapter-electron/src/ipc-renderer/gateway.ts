@@ -10,23 +10,17 @@ import {IpcGatewayObserver} from "../common"
 export const IpcRendererGatewaySymbol = Symbol.for("ceb/inversion/IpcRendererGateway")
 
 export class IpcRendererGateway implements Gateway {
+  constructor(
+    readonly events: IpcRendererEventBus,
+    readonly commands: IpcRendererCommandBus,
+    readonly queries: IpcRendererQueryBus,
+    readonly observer = new IpcGatewayObserver(events.observer, commands.observer, queries.observer)
+  ) {}
 
-    constructor(
-        readonly events: IpcRendererEventBus,
-        readonly commands: IpcRendererCommandBus,
-        readonly queries: IpcRendererQueryBus,
-        readonly observer = new IpcGatewayObserver(
-            events.observer,
-            commands.observer,
-            queries.observer
-        )
-    ) {
-    }
-
-    async dispose(): Promise<void> {
-        await this.events.dispose()
-        await this.commands.dispose()
-        await this.queries.dispose()
-        this.observer.off()
-    }
+  async dispose(): Promise<void> {
+    await this.events.dispose()
+    await this.commands.dispose()
+    await this.queries.dispose()
+    this.observer.off()
+  }
 }

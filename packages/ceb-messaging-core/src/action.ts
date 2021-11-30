@@ -13,20 +13,20 @@ export type ActionKind = "command" | "query"
  * @template H the type of the headers
  */
 export interface Action<B = any, H extends MessageHeaders = MessageHeaders> extends Message<B, H> {
-    /**
-     * The kind of the action.
-     */
-    kind: ActionKind
+  /**
+   * The kind of the action.
+   */
+  kind: ActionKind
 }
 
 /**
  * The options to execute an action.
  */
 export type ExecuteActionOptions = {
-    /**
-     * The maximum time in millisecond to wait fore a result.
-     */
-    timeout: number
+  /**
+   * The maximum time in millisecond to wait fore a result.
+   */
+  timeout: number
 }
 
 /**

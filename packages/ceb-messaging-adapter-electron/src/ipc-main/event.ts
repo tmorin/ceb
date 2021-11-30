@@ -9,58 +9,54 @@ import {IpcEmitterEventBus, IpcObservableEventBus} from "../common"
 export const IpcMainEventBusSymbol = Symbol.for("ceb/inversion/IpcMainEventBus")
 
 export class IpcMainEventBus implements EventBus {
+  constructor(
+    private readonly ipcMain: IpcMain,
+    private readonly bus: EventBus,
+    private readonly emitter: IpcEmitterEventBus
+  ) {}
 
-    constructor(
-        private readonly ipcMain: IpcMain,
-        private readonly bus: EventBus,
-        private readonly emitter: IpcEmitterEventBus,
-    ) {
+  get observer(): IpcObservableEventBus {
+    return this.emitter
+  }
+
+  publish<E extends Event<any, MessageHeaders> = Event<any, MessageHeaders>>(...events: E[]): void {
+    events.forEach((event) => {
+      // forward to IPC
+      webContents.getAllWebContents().forEach((webContent) => webContent.send(IPC_CHANNEL_EVENTS, event, {}))
+      // forward to parent
+      try {
+        this.bus.publish(event)
+      } catch (error: any) {
+        this.emitter.emit("event_forward_failed", { bus: this, event, error })
+      }
+    })
+  }
+
+  subscribe<E extends Event<any, MessageHeaders> = Event<any, MessageHeaders>>(
+    eventType: string,
+    listener: EventListener<E>,
+    options?: Partial<SubscribeOptions>
+  ): Removable {
+    // handle event from parent
+    const localSubscription = this.bus.subscribe(eventType, listener, options)
+    // handle event from IPC
+    const ipcListener = (event: IpcMainEvent, data: E, _: IpcMessageMetadata) => {
+      // forward to parent
+      try {
+        this.bus.publish(data)
+      } catch (error: any) {
+        this.emitter.emit("event_forward_failed", { bus: this, event: data, error })
+      }
     }
+    this.ipcMain.on(IPC_CHANNEL_EVENTS, ipcListener)
+    // create the subscription
+    return createRemovable(() => {
+      localSubscription.remove()
+      this.ipcMain.removeListener(IPC_CHANNEL_EVENTS, ipcListener)
+    })
+  }
 
-    get observer(): IpcObservableEventBus {
-        return this.emitter
-    }
-
-    publish<E extends Event<any, MessageHeaders> = Event<any, MessageHeaders>>(
-        ...events: E[]
-    ): void {
-        events.forEach(event => {
-            // forward to IPC
-            webContents.getAllWebContents().forEach(webContent => webContent.send(IPC_CHANNEL_EVENTS, event, {}))
-            // forward to parent
-            try {
-                this.bus.publish(event)
-            } catch (error: any) {
-                this.emitter.emit("event_forward_failed", {bus: this, event, error})
-            }
-        })
-    }
-
-    subscribe<E extends Event<any, MessageHeaders> = Event<any, MessageHeaders>>(
-        eventType: string, listener: EventListener<E>, options?: Partial<SubscribeOptions>
-    ): Removable {
-        // handle event from parent
-        const localSubscription = this.bus.subscribe(eventType, listener, options)
-        // handle event from IPC
-        const ipcListener = (event: IpcMainEvent, data: E, _: IpcMessageMetadata) => {
-            // forward to parent
-            try {
-                this.bus.publish(data)
-            } catch (error: any) {
-                this.emitter.emit("event_forward_failed", {bus: this, event: data, error})
-            }
-
-        }
-        this.ipcMain.on(IPC_CHANNEL_EVENTS, ipcListener)
-        // create the subscription
-        return createRemovable(() => {
-            localSubscription.remove()
-            this.ipcMain.removeListener(IPC_CHANNEL_EVENTS, ipcListener)
-        })
-    }
-
-    async dispose(): Promise<void> {
-        await this.bus.dispose()
-    }
-
+  async dispose(): Promise<void> {
+    await this.bus.dispose()
+  }
 }
