@@ -4,7 +4,7 @@
 [![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_messaging_adapter_dom.html)
 
 > The package is part of the `<ceb/>` library.
-> It provides an adapter to create a bridged between DOM world and the messaging one.
+> It provides a bridge between a DOM EventTarget object and a Gateway.
 
 ## Install
 

@@ -1,21 +1,14 @@
 # &lt;ceb/&gt; ~ Custom Element Builder
 
-`<ceb/>` is a library providing building blocks to develop [Custom Elements (v1)].
-Additionally, other building blocks are also provided to cover the implementation of web applications: messaging, templating ...
-
-A simple Custom Element displaying a greeting text:
-
-<p class="codepen" data-height="400" data-theme-id="light" data-default-tab="js,result" data-slug-hash="XWRZwVG" data-editable="true" data-user="tmorin" style="height: 400px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/tmorin/pen/XWRZwVG">
-  &lt;ceb/&gt; ~ SimpleGreeting</a> by Thibault Morin (<a href="https://codepen.io/tmorin">@tmorin</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+`<ceb/>` was initially a library dedicated for the authoring of [Custom Elements (v0)] then [Custom Elements (v1)].
+However, the library is now providing building blocks going beyond the topic of composable UI elements.
+It's about fundamental design principles, messaging, functional rendering and obviously composition of UI elements ;).
 
 `<ceb/>` is released under the [MIT license].
 
 The source code is available on GitHub: [github.com/tmorin/ceb].
 
+[Custom Elements (v0)]: https://www.w3.org/TR/2018/WD-custom-elements-20180216/
 [Custom Elements (v1)]: https://html.spec.whatwg.org/multipage/custom-elements.html
 [MIT license]: http://opensource.org/licenses/MIT
 [github.com/tmorin/ceb]: https://github.com/tmorin/ceb

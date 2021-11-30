@@ -1,0 +1,46 @@
+
+!global $INCLUSION_MODE="local"
+!global $LIB_BASE_LOCATION="../.gdiag/plantuml-libs"
+!include $LIB_BASE_LOCATION/bootstrap.puml
+
+!theme plain
+!theme sketchy-outline
+
+hide empty member
+
+skinparam {
+  DefaultFontName Architects Daughter
+  DefaultFontColor #2e3440
+  DefaultFontSize 15
+  DefaultFontStyle normal
+  DefaultTextAlignment left
+
+  HeaderFontName Architects Daughter
+
+  ArrowColor #2e3440
+  ArrowThickness 1
+
+  CardFontColor #2e3440
+  CardBorderColor #2e3440
+  CardBorderThickness 1
+  CardBackgroundColor transparent
+
+  InterfaceFontColor #2e3440
+  InterfaceBorderColor #2e3440
+  InterfaceBorderThickness 1
+  InterfaceBackgroundColor transparent
+
+  CloudFontColor #2e3440
+  CloudBorderColor #2e3440
+  CloudBorderThickness 1
+  CloudBackgroundColor transparent
+
+  RectangleFontColor #2e3440
+  RectangleBorderColor #2e3440
+  RectangleBorderThickness 1
+
+  PackageFontName Architects Daughter
+  PackageFontStyle normal
+  PackageBorderColor #2e3440
+  PackageBorderThickness 1
+}

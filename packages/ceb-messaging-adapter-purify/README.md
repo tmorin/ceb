@@ -4,7 +4,7 @@
 [![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_messaging_adapter_purify.html)
 
 > The package is part of the `<ceb/>` library.
-> It provides an adapter for the Purify library.
+> It provides an adapter of Gateways which integrates Purify types.
 
 ## Install
 

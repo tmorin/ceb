@@ -1,9 +1,8 @@
 # TemplateBuilder
 
-The builder handles the integration of a templating solution to update the content of the Custom Element.
+> The builder is bundled in the NPM package [@tmorin/ceb-elements-builders](https://www.npmjs.com/package/@tmorin/ceb-elements-builders).
 
-Its usage is cover by the reference documentation: [TemplateBuilder](../api/classes/_tmorin_ceb_templating_builder.TemplateBuilder.html).
-It's part of the [@tmorin/ceb-templating-builder](https://www.npmjs.com/package/@tmorin/ceb-templating-builder) package.
+The builder handles the integration of a templating solution to update the content of the Custom Element.
 
 The builder doesn't provide the templating solution out of the box.
 However, the library provides a built-in solution described later, c.f. [Templating](../templating/README.md) .

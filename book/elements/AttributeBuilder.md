@@ -1,9 +1,8 @@
 # AttributeBuilder
 
-The builder handles the initialization of an attribute as well as the registration of its listeners.
+> The builder is bundled in the NPM package [@tmorin/ceb-elements-builders](https://www.npmjs.com/package/@tmorin/ceb-elements-builders).
 
-Its usage is cover by the reference documentation: [AttributeBuilder](../api/classes/_tmorin_ceb_elements_builders.AttributeBuilder.html).
-It's part of the [@tmorin/ceb-elements-builders](https://www.npmjs.com/package/@tmorin/ceb-elements-builders) package.
+The builder handles the initialization of an attribute as well as the registration of its listeners.
 
 ## Challenge yourself
 

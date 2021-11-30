@@ -73,6 +73,16 @@ export interface SimpleModuleOptions {
  *   .module(new SimpleModule())
  *   .build()
  * ```
+ * @example Register the module providing an existing Gateway Instance
+ * ```typescript
+ * import {ContainerBuilder} from "@tmorin/ceb-inversion-core"
+ * import {SimpleModule, SimpleGateway} from "@tmorin/ceb-messaging-simple"
+ * const container = ContainerBuilder.get()
+ *   .module(new SimpleModule({
+ *     gateway: SimpleGateway.GLOBAL
+ *   }))
+ *   .build()
+ * ```
  */
 export class SimpleModule extends AbstractModule {
     private readonly options: SimpleModuleOptions

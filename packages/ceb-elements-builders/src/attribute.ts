@@ -40,7 +40,7 @@ export interface AttributeListener<E extends HTMLElement> {
  * The default kind of an attribute is _String_, the switch to _Boolean_ can be done explicitly with {@link AttributeBuilder.boolean}
  * or implicitly when a default value (`true` or `false`) is provided with {@link AttributeBuilder.default}.
  *
- * According the kind of the attribute, the creation of the attribute in the DOM differs.
+ * According to the kind of the attribute, the creation of the attribute in the DOM differs.
  * About the kind _Boolean_, when the value is `true` then the attribute DOM node is added and set with an empty string
  * otherwise, nothing occurs.
  * About the kind _String_, when the value is not `undefined` and not `null` then the attribute DOM node is added and

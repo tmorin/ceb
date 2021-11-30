@@ -1,0 +1,7 @@
+.cache
+.generated
+.tmp
+dist
+node_modules
+public
+book

@@ -1,8 +1,8 @@
 {
   "name": "@tmorin/ceb-messaging-adapter-dom",
-  "version": "6.0.0",
+  "version": "6.1.0-alpha.0",
   "license": "MIT",
-  "description": "The package is part of the `<ceb/>` library. It provides an adapter to create a bridged between DOM world and the messaging one.",
+  "description": "The package is part of the `<ceb/>` library. It provides a bridge between a DOM EventTarget object and a Gateway.",
   "keywords": [
     "custom-element-builder",
     "custom-elements-v1",

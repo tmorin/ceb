@@ -1,0 +1,92 @@
+@startuml ioc-container-overview
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The Container, the Registry and the Modules", "Inversion Of Control")
+left to right direction
+card Container [
+Container
+--properties--
+registry
+--methods--
+initialize()
+dispose()
+]
+card Registry [
+Registry
+--methods--
+registerValue( ... )
+registerFactory( ... )
+resolve( ... )
+resolveAll( ... )
+contains( ... )
+]
+card Module [
+Module
+--methods--
+initialize( ... )
+dispose()
+]
+Container *--> Registry : registry
+Container o--> Module : modules
+@enduml
+
+@startuml ioc-container-module
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The modules hierarchy", "Inversion Of Control")
+card Module [
+Interface Module
+--methods--
+initialize( ... )
+dispose()
+]
+card AbstractModule [
+Abstract Module
+--methods--
+initialize( ... )
+abstract configure( ... )
+dispose()
+]
+card ConcreteModule [
+Concrete Module
+--methods--
+configure( ... )
+]
+Module <|~~ AbstractModule
+AbstractModule <|-- ConcreteModule
+@enduml
+
+@startuml ioc-container-component
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The Component", "Inversion Of Control")
+card AbstractComponent [
+Abstract Component
+--methods--
+configure()
+dispose()
+]
+card ConcreteComponent [
+Concrete Component
+--methods--
+...
+]
+AbstractComponent <|-- ConcreteComponent
+@enduml
+
+@startuml ioc-container-lifecycle
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The Container lifecycle", "Inversion Of Control")
+card void
+card Built
+card Alive
+card Disposed
+void --> Built : ContainerBuilder...build()
+Built --> Alive : Container.initialize()
+Alive --> Disposed : Container.dispose()
+@enduml

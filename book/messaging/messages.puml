@@ -1,0 +1,100 @@
+@startuml messages-message
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The Message")
+card Message [
+  Message
+  --
+  kind : "command" | "query" | "result" | "event"
+
+  headers : {
+    messageType : string
+    messageId : string
+    ...
+  }
+
+  body: ?
+]
+@enduml
+
+@startuml messages-command
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The Command")
+card Command [
+  Command
+  --
+  kind = "command"
+
+  headers : {
+    messageType : string
+    messageId : string
+    ...
+  }
+
+  body: ?
+]
+@enduml
+
+@startuml messages-query
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The Query")
+card Query [
+  Query
+  --
+  kind = "query"
+
+  headers : {
+    messageType : string
+    messageId : string
+    ...
+  }
+
+  body: ?
+]
+@enduml
+
+@startuml messages-event
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The Event")
+card Event [
+  Event
+  --
+  kind = "event"
+
+  headers : {
+    messageType : string
+    messageId : string
+    ...
+  }
+
+  body: ?
+]
+@enduml
+
+@startuml messages-result
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The Result")
+card Event [
+  Event
+  --
+  kind = "result"
+
+  headers : {
+    messageType : string
+    messageId : string
+    originalMessageId : string
+    ...
+  }
+
+  body: ?
+]
+@enduml

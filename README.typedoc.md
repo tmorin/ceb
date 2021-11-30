@@ -1,6 +1,8 @@
 # `<ceb/>` ~ custom-element-builder
 
-> `<ceb/>` is a library providing building blocks to develop [Custom Elements (v1)]. Additionally, other building blocks are also provided to cover the implementation of web applications based on the Event/Message Architecture.
+> `<ceb/>` was initially a library dedicated for the authoring of [Custom Elements (v0)] then [Custom Elements (v1)].
+> However, the library is now providing building blocks going beyond the topic of composable UI elements.
+> It's about fundamental design principles, messaging, functional rendering and obviously composition of UI elements ;).
 
 ## Install
 
@@ -54,5 +56,6 @@ The helper packages:
 
 Released under the [MIT license].
 
+[Custom Elements (v0)]: https://www.w3.org/TR/2018/WD-custom-elements-20180216/
 [Custom Elements (v1)]: https://html.spec.whatwg.org/multipage/custom-elements.html
 [MIT license]: http://opensource.org/licenses/MIT

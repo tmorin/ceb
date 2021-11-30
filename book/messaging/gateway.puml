@@ -1,0 +1,152 @@
+@startuml gateway-overview
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+skinparam wrapWidth 500
+Title("The Gateway")
+left to right direction
+card Gateway [
+  Gateway
+  --properties--
+  commands
+  queries
+  events
+  observer
+  --methods--
+  dispose() : void
+]
+card CommandBus [
+  CommandBus
+  --
+  ...
+]
+card QueryBus [
+  QueryBus
+  --
+  ...
+]
+card EventBus [
+  EventBus
+  --
+  ...
+]
+card GatewayObserver [
+  GatewayObserver
+  --
+  ...
+]
+Gateway --> CommandBus : commands
+Gateway --> QueryBus : queries
+Gateway --> EventBus : events
+Gateway --> GatewayObserver : observer
+@enduml
+
+@startuml gateway-commands
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The CommandBus")
+skinparam wrapWidth 500
+left to right direction
+card Gateway [
+  Gateway
+  --properties--
+  commands
+  queries
+  events
+  observer
+  --methods--
+  dispose() : void
+]
+card CommandBus [
+  CommandBus
+  --methods--
+  execute( command ) : Promise<Result>
+  executeAndForget( command ) : void
+  handle( type, handler ) : Removable
+]
+Gateway --> CommandBus : commands
+@enduml
+
+@startuml gateway-queries
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The QueryBus")
+skinparam wrapWidth 500
+left to right direction
+card Gateway [
+  Gateway
+  --properties--
+  commands
+  queries
+  events
+  observer
+  --methods--
+  dispose() : void
+]
+card QueryBus [
+  QueryBus
+  --methods--
+  execute( command ) : Promise<Result>
+  handle( type, handler ) : Removable
+]
+Gateway --> QueryBus : queries
+@enduml
+
+@startuml gateway-events
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The EventBus")
+skinparam wrapWidth 500
+left to right direction
+card Gateway [
+  Gateway
+  --properties--
+  commands
+  queries
+  events
+  observer
+  --methods--
+  dispose() : void
+]
+card EventBus [
+  EventBus
+  --methods--
+  publish( commands : Array<Event> ) : void
+  subscribe( type, listener ) : Removable
+]
+Gateway --> EventBus : events
+@enduml
+
+@startuml gateway-observer
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The GatewayObserver")
+skinparam wrapWidth 500
+card Gateway [
+  Gateway
+  --properties--
+  commands
+  queries
+  events
+  observer
+  --methods--
+  dispose() : void
+]
+card CommandBusObserver
+card QueryBusObserver
+card EventBusObserver
+card GatewayObserver [
+  GatewayObserver
+  --methods--
+  on( type, listener ) : void
+  off( type?, listener? ) : void
+]
+CommandBusObserver <|-- GatewayObserver
+QueryBusObserver <|-- GatewayObserver
+EventBusObserver <|-- GatewayObserver
+Gateway -r-> GatewayObserver : observer
+@enduml

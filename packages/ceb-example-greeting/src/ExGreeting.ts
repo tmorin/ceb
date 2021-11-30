@@ -1,19 +1,10 @@
-import {ElementBuilder} from "@tmorin/ceb-elements-core";
-import {ContentBuilder, FieldBuilder, FieldListenerData, ReferenceBuilder} from "@tmorin/ceb-elements-builders";
+import { AttributePropagationBuilder, ContentBuilder, FieldBuilder } from "@tmorin/ceb-elements-builders"
+import { ElementBuilder } from "@tmorin/ceb-elements-core"
 
-@ElementBuilder.get<ExGreeting>().decorate()
+@ElementBuilder.get().decorate()
 @ContentBuilder.get(`<p>Hello, <span id="name"></span>!</p>`).shadow().decorate()
+@AttributePropagationBuilder.get("name").shadow().to("span#name").property("textContent").decorate()
 export class ExGreeting extends HTMLElement {
-    @ReferenceBuilder.get().shadow().selector("span#name").decorate()
-    span?: HTMLSpanElement
-
-    @FieldBuilder.get().decorate()
-    name: string = "World"
-
-    @FieldBuilder.get().decorate()
-    private onName(data: FieldListenerData) {
-        if (this.span) {
-            this.span.textContent = data.newVal
-        }
-    }
+  @FieldBuilder.get().decorate()
+  name = "World"
 }

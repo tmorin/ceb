@@ -4,7 +4,7 @@
 [![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_messaging_bus_adapter_ipc.html)
 
 > The package is part of the `<ceb/>` library.
-> It provides an implementation of artifacts of an Event/Message architecture.
+> It provides a bridges between the Electron IPC Event Emitter and a Gateway.
 
 ## Install
 
