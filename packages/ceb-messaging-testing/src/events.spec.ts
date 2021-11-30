@@ -1,7 +1,7 @@
-import assert from "assert";
-import {Event, MessageBuilder} from "@tmorin/ceb-messaging-core";
-import {SimpleGateway} from "@tmorin/ceb-messaging-simple";
-import {waitForEvents} from "./events";
+import assert from "assert"
+import {Event, MessageBuilder} from "@tmorin/ceb-messaging-core"
+import {SimpleGateway} from "@tmorin/ceb-messaging-simple"
+import {waitForEvents} from "./events"
 
 function createEventA(body: string): Event<string> {
     return MessageBuilder.event<string>("EventA").body(body).build()

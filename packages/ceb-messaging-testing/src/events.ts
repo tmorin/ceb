@@ -1,4 +1,4 @@
-import {Event, Gateway, MessageType} from "@tmorin/ceb-messaging-core";
+import {Event, Gateway, MessageType} from "@tmorin/ceb-messaging-core"
 
 /**
  * The options of {@link waitForEvents}.
