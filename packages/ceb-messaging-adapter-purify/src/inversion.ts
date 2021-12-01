@@ -1,18 +1,18 @@
-import {AbstractModule, RegistryKey} from "@tmorin/ceb-inversion-core"
+import { AbstractModule, RegistryKey } from "@tmorin/ceb-inversion-core"
 import {
-    CommandBus,
-    CommandBusSymbol,
-    EventBus,
-    EventBusSymbol,
-    GatewayObserverSymbol,
-    GatewaySymbol,
-    ObservableGateway,
-    QueryBus,
-    QueryBusSymbol,
+  CommandBus,
+  CommandBusSymbol,
+  EventBus,
+  EventBusSymbol,
+  GatewayObserverSymbol,
+  GatewaySymbol,
+  ObservableGateway,
+  QueryBus,
+  QueryBusSymbol,
 } from "@tmorin/ceb-messaging-core"
-import {PurifyGateway} from "./gateway"
-import {PurifyQueryBus, PurifyQueryBusSymbol} from "./query"
-import {PurifyCommandBus, PurifyCommandBusSymbol} from "./command"
+import { PurifyGateway } from "./gateway"
+import { PurifyQueryBus, PurifyQueryBusSymbol } from "./query"
+import { PurifyCommandBus, PurifyCommandBusSymbol } from "./command"
 
 /**
  * The options of {@link PurifyModule}.

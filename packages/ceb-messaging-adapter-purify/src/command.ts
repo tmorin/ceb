@@ -1,13 +1,13 @@
-import {EitherAsync, Maybe} from "purify-ts"
+import { EitherAsync, Maybe } from "purify-ts"
 import {
-    Command,
-    CommandBus,
-    Event,
-    ExecuteActionOptions,
-    MessageBuilder,
-    Removable,
-    Result,
-    ResultHeaders,
+  Command,
+  CommandBus,
+  Event,
+  ExecuteActionOptions,
+  MessageBuilder,
+  Removable,
+  Result,
+  ResultHeaders,
 } from "@tmorin/ceb-messaging-core"
 
 /**
@@ -116,11 +116,9 @@ export class PurifyCommandBus {
         .run()
         .then((either) => {
           if (either.isLeft()) {
-            const error = either.swap().extract()
-            throw error
+            throw either.swap().extract()
           } else if (either.isRight()) {
-            const result = either.extract()
-            return result
+            return either.extract()
           }
         })
     })

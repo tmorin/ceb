@@ -1,12 +1,12 @@
-import {Either, EitherAsync, Maybe, Nothing} from "purify-ts"
+import { Either, EitherAsync, Maybe, Nothing } from "purify-ts"
 import {
-    ExecuteActionOptions,
-    MessageBuilder,
-    Query,
-    QueryBus,
-    Removable,
-    Result,
-    ResultHeaders,
+  ExecuteActionOptions,
+  MessageBuilder,
+  Query,
+  QueryBus,
+  Removable,
+  Result,
+  ResultHeaders,
 } from "@tmorin/ceb-messaging-core"
 
 /**
