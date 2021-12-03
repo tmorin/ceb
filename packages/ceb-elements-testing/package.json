@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-elements-testing",
-  "version": "6.0.0",
+  "version": "6.1.1-alpha.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides helpful resources to write tests. ",
   "keywords": [
@@ -46,6 +46,6 @@
     "build:module": "tsc -p tsconfig.build.json --module ESNext --outDir dist/mjs"
   },
   "dependencies": {
-    "@tmorin/ceb-utilities": "^6.0.0"
+    "@tmorin/ceb-utilities": "^6.1.1-alpha.0"
   }
 }

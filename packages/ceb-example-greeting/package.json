@@ -1,7 +1,6 @@
 {
   "name": "@tmorin/ceb-example-greeting",
-  "private": true,
-  "version": "6.1.1-alpha.2",
+  "version": "6.1.1-alpha.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an example demonstrating the usage of the library to define Custom Elements (v1).",
   "keywords": [
@@ -28,19 +27,20 @@
     "name": "Thibault Morin",
     "url": "https://tmorin.github.io"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "import": "./dist/mjs/index.js",
-      "require": "./dist/cjs/index.js",
-      "default": "./dist/mjs/index.js"
+      "require": "./dist/cjs/index.js"
     }
   },
   "types": "dist/types/index.d.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/mjs/index.js",
   "files": [
-    "dist",
-    "README.md"
+    "dist"
   ],
   "scripts": {
     "build": "npm run build:lib && npm run build:module && npm run build:fix",
@@ -51,7 +51,7 @@
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "dependencies": {
-    "@tmorin/ceb-elements-builders": "^6.1.1-alpha.2",
-    "@tmorin/ceb-elements-core": "^6.1.1-alpha.2"
+    "@tmorin/ceb-elements-builders": "^6.1.1-alpha.0",
+    "@tmorin/ceb-elements-core": "^6.1.1-alpha.0"
   }
 }

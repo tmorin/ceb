@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-adapter-purify",
-  "version": "6.1.0-alpha.0",
+  "version": "6.1.1-alpha.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an adapter of Gateways which integrates Purify types.",
   "keywords": [
@@ -53,15 +53,15 @@
     "test:watch": "npm test -- --watch --watch-files '**/*.ts'"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion-core": "^6.0.0",
-    "@tmorin/ceb-messaging-core": "^6.0.0",
-    "@tmorin/ceb-utilities": "^6.0.0"
+    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.0",
+    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.0",
+    "@tmorin/ceb-utilities": "^6.1.1-alpha.0"
   },
   "peerDependencies": {
     "purify-ts": "*"
   },
   "devDependencies": {
-    "purify-ts": "^1.1.0",
-    "@tmorin/ceb-messaging-simple": "^6.0.0"
+    "@tmorin/ceb-messaging-simple": "^6.1.1-alpha.0",
+    "purify-ts": "^1.1.0"
   }
 }
