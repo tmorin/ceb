@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-inversion-builder",
-  "version": "6.1.1-alpha.1",
+  "version": "6.1.1-alpha.2",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides a builder to inject entries in Custom Elements.",
   "keywords": [
@@ -53,7 +53,7 @@
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "dependencies": {
-    "@tmorin/ceb-elements-core": "^6.1.1-alpha.1",
-    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.1"
+    "@tmorin/ceb-elements-core": "^6.1.1-alpha.2",
+    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.2"
   }
 }

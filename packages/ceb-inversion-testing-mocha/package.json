@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-inversion-testing-mocha",
-  "version": "6.1.1-alpha.1",
+  "version": "6.1.1-alpha.2",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an implementation of the testing model for IOC containers based on mocha.",
   "keywords": [
@@ -55,8 +55,8 @@
     "test:watch": "npm test -- --watch --watch-files '**/*.ts'"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.1",
-    "@tmorin/ceb-inversion-testing-core": "^6.1.1-alpha.1"
+    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.2",
+    "@tmorin/ceb-inversion-testing-core": "^6.1.1-alpha.2"
   },
   "peerDependencies": {
     "mocha": "*"
