@@ -43,7 +43,8 @@
   "browser": "dist/umd/ceb.js",
   "unpkg": "dist/umd/ceb.js",
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "build": "npm run build:lib && npm run build:module && npm run build:umd && npm run build:fix",

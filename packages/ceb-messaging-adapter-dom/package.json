@@ -43,7 +43,8 @@
   "main": "dist/cjs/index.js",
   "module": "dist/mjs/index.js",
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "build": "npm run build:lib && npm run build:module && npm run build:fix",

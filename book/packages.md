@@ -37,17 +37,17 @@ Support:
 
 ## Universal Module Definition
 
-The bundle package [@tmorin/ceb-bundle-web](https://www.npmjs.com/package/@tmorin/ceb-bundle-web) is also available as a `UMD` module from [unpkg.com].
+The bundle package [@tmorin/ceb-bundle-web](https://www.npmjs.com/package/@tmorin/ceb-bundle-web) is also available as a `UMD` module from [cdn.skypack.dev].
 
 ```html
 <!-- the optimized Universal Module Definition -->
-<script src="https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb.min.js"></script>
+<script src="https://cdn.skypack.dev/@tmorin/ceb-bundle-web/dist/umd/ceb.min.js"></script>
 ```
 
 ```html
 <!-- the not optimized Universal Module Definition -->
-<script src="https://unpkg.com/@tmorin/ceb-bundle-web/dist/umd/ceb-bundle-web.js"></script>
+<script src="https://cdn.skypack.dev/@tmorin/ceb-bundle-web/dist/umd/ceb-bundle-web.js"></script>
 ```
 
-[unpkg.com]: https://unpkg.com
+[cdn.skypack.dev]: https://cdn.skypack.dev
 [npmjs.com]: https://www.npmjs.com
