@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-testing",
-  "version": "6.1.1-alpha.0",
+  "version": "6.1.1-alpha.1",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides resources to improve tests playing with messaging artifacts.",
   "keywords": [
@@ -36,7 +36,8 @@
   "exports": {
     ".": {
       "import": "./dist/mjs/index.js",
-      "require": "./dist/cjs/index.js"
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/mjs/index.js"
     }
   },
   "types": "dist/types/index.d.ts",
@@ -54,10 +55,10 @@
     "test:watch": "npm test -- --watch --watch-files '**/*.ts'"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.0",
-    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.0"
+    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.1",
+    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.1"
   },
   "devDependencies": {
-    "@tmorin/ceb-messaging-simple": "^6.1.1-alpha.0"
+    "@tmorin/ceb-messaging-simple": "^6.1.1-alpha.1"
   }
 }

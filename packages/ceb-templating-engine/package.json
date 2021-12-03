@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-templating-engine",
-  "version": "6.1.1-alpha.0",
+  "version": "6.1.1-alpha.1",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides the implementation of a templating solution which leverages exclusively on the DOM API.",
   "keywords": [
@@ -33,7 +33,8 @@
   "exports": {
     ".": {
       "import": "./dist/mjs/index.js",
-      "require": "./dist/cjs/index.js"
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/mjs/index.js"
     }
   },
   "types": "dist/types/index.d.ts",

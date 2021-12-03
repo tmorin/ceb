@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-utilities",
-  "version": "6.1.1-alpha.0",
+  "version": "6.1.1-alpha.1",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides a set of utilities commonly used within the other library packages.",
   "keywords": [
@@ -30,7 +30,8 @@
   "exports": {
     ".": {
       "import": "./dist/mjs/index.js",
-      "require": "./dist/cjs/index.js"
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/mjs/index.js"
     }
   },
   "types": "dist/types/index.d.ts",
