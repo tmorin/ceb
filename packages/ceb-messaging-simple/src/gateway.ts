@@ -1,10 +1,26 @@
-import {EmittableGateway, Gateway, GatewayEmitter, ObservableGateway} from "@tmorin/ceb-messaging-core"
-import {SimpleEventBus} from "./event"
-import {SimpleCommandBus} from "./command"
-import {SimpleQueryBus} from "./query"
+import { EmittableGateway, Gateway, GatewayEmitter, ObservableGateway } from "@tmorin/ceb-messaging-core"
+import { SimpleEventBus } from "./event"
+import { SimpleCommandBus } from "./command"
+import { SimpleQueryBus } from "./query"
 
 /**
  * The symbol used to register {@link SimpleGateway}.
+ *
+ * @example Creation and destruction
+ * ```typescript
+ * import { Gateway } from "@tmorin/ceb-messaging-core"
+ * import { SimpleGateway } from "@tmorin/ceb-messaging-simple"
+ * const gateway : Gateway = SimpleGateway.create()
+ * gateway.dispose().catche(e => console.error(e))
+ * ```
+ *
+ * @example Global instance
+ * ```typescript
+ * import { MessageBuilder } from "@tmorin/ceb-messaging-core"
+ * import { SimpleGateway } from "@tmorin/ceb-messaging-simple"
+ * const event = MessageBuilder.event("EventA").build()
+ * SimpleGateway.GLOBAL.events.publish(event)
+ * ```
  */
 export const SimpleGatewaySymbol = Symbol.for("ceb/inversion/SimpleGateway")
 
@@ -21,6 +37,8 @@ export class SimpleGateway implements Gateway {
 
   /**
    * The global instance.
+   *
+   * The {@link SimpleGateway} instance is lazily creation.
    */
   static get GLOBAL(): SimpleGateway {
     if (!this.#GLOBAL) {
@@ -30,17 +48,15 @@ export class SimpleGateway implements Gateway {
   }
 
   /**
-   * Create a {@link SimpleGateway} from scratch
+   * A factory method which creates a new {@link SimpleGateway} at each call.
+   * The instance is created with the default {@link GatewayEmitter}, {@link SimpleEventBus}, {@link SimpleCommandBus} and {@link SimpleQueryBus}.
    */
   static create(): SimpleGateway {
     const emitter = new GatewayEmitter()
     const events = new SimpleEventBus(emitter)
-    return new SimpleGateway(
-      new SimpleEventBus(emitter),
-      new SimpleCommandBus(events, emitter),
-      new SimpleQueryBus(emitter),
-      emitter
-    )
+    const commands = new SimpleCommandBus(events, emitter)
+    const queries = new SimpleQueryBus(emitter)
+    return new SimpleGateway(events, commands, queries, emitter)
   }
 
   /**
