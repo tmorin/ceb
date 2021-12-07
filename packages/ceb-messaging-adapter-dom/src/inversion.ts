@@ -1,7 +1,7 @@
 import { AbstractModule, Component, ComponentSymbol, RegistryKey } from "@tmorin/ceb-inversion-core"
 import { Gateway, GatewaySymbol } from "@tmorin/ceb-messaging-core"
 import { CommandForwarder } from "./command"
-import { EventForwarder } from "./event"
+import { EventBridge } from "./event"
 import { QueryForwarder } from "./query"
 
 /**
@@ -59,12 +59,12 @@ export class DomAdapterModule extends AbstractModule {
     // EVENT
     this.registry.registerFactory<Component>(
       ComponentSymbol,
-      (registry) => new EventForwarder(this.options.target, registry.resolve<Gateway>(this.options.gatewayRegistryKey))
+      (registry) => new EventBridge(this.options.target, registry.resolve<Gateway>(this.options.gatewayRegistryKey))
     )
     // QUERY
     this.registry.registerFactory<Component>(
       ComponentSymbol,
-      (registry) => new QueryForwarder(registry.resolve<Gateway>(this.options.gatewayRegistryKey), this.options.target)
+      (registry) => new QueryForwarder(this.options.target, registry.resolve<Gateway>(this.options.gatewayRegistryKey))
     )
   }
 }

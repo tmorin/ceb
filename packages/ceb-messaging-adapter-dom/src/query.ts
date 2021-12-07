@@ -3,17 +3,16 @@ import { Gateway, MessageBuilder } from "@tmorin/ceb-messaging-core"
 import { DomQuery, DomResult, DomResultError } from "./message"
 
 /**
- * The component add a global listener which catches all {@link DomQuery}.
- * Once caught, the query is forwarded to the messaging world.
- * The result is then dispatched on {@link DomQuery}'s target
+ * The component implements a Bridge to forward query messages from a DOM {@link EventTarget} object to a {@link Gateway}.
+ * The bridge translate {@link DomQuery} to {@link Query} and also {@link Result} to {@link DomResult}.
  */
 export class QueryForwarder implements Component {
-  private listener?: EventListener
+  private domListener?: EventListener
 
-  constructor(readonly gateway: Gateway, readonly target: EventTarget = window) {}
+  constructor(readonly target: EventTarget = window, readonly gateway: Gateway) {}
 
   async configure(): Promise<void> {
-    this.listener = async (event: Event) => {
+    this.domListener = async (event: Event) => {
       if (event instanceof DomQuery) {
         await this.gateway.queries
           .execute(event.detail, {
@@ -27,12 +26,12 @@ export class QueryForwarder implements Component {
           })
       }
     }
-    this.target.addEventListener(DomQuery.CUSTOM_EVENT_TYPE, this.listener)
+    this.target.addEventListener(DomQuery.CUSTOM_EVENT_TYPE, this.domListener)
   }
 
   async dispose(): Promise<void> {
-    if (this.listener) {
-      this.target.removeEventListener(DomQuery.CUSTOM_EVENT_TYPE, this.listener)
+    if (this.domListener) {
+      this.target.removeEventListener(DomQuery.CUSTOM_EVENT_TYPE, this.domListener)
     }
   }
 }

@@ -3,17 +3,16 @@ import { Gateway, MessageBuilder } from "@tmorin/ceb-messaging-core"
 import { DomCommand, DomResult, DomResultError } from "./message"
 
 /**
- * The component add a global listener which catches all {@link DomCommand}.
- * Once caught, the command is forwarded to the messaging world.
- * The result is then dispatched on {@link DomCommand}'s target
+ * The component implements a Bridge to forward command messages from a DOM {@link EventTarget} object to a {@link Gateway}.
+ * The bridge translate {@link DomCommand} to {@link Command} and also {@link Result} to {@link DomResult}.
  */
 export class CommandForwarder implements Component {
-  private listener?: EventListener
+  private domListener?: EventListener
 
   constructor(readonly target: EventTarget = window, readonly gateway: Gateway) {}
 
   async configure(): Promise<void> {
-    this.listener = async (event: Event) => {
+    this.domListener = async (event: Event) => {
       if (event instanceof DomCommand) {
         if (event.options.dispatchResult) {
           await this.gateway.commands
@@ -31,12 +30,12 @@ export class CommandForwarder implements Component {
         }
       }
     }
-    this.target.addEventListener(DomCommand.CUSTOM_EVENT_TYPE, this.listener)
+    this.target.addEventListener(DomCommand.CUSTOM_EVENT_TYPE, this.domListener)
   }
 
   async dispose(): Promise<void> {
-    if (this.listener) {
-      this.target.removeEventListener(DomCommand.CUSTOM_EVENT_TYPE, this.listener)
+    if (this.domListener) {
+      this.target.removeEventListener(DomCommand.CUSTOM_EVENT_TYPE, this.domListener)
     }
   }
 }
