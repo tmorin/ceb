@@ -26,6 +26,10 @@ export class SimpleEventBus implements EventBus, Disposable {
 
   publish<E extends Event = Event>(...events: Array<E>): void {
     events.forEach((event) => {
+      this.emitter.emit("event_received", {
+        bus: this,
+        event,
+      })
       this.listeners.get(event.headers.messageType)?.forEach((listener) => {
         Promise.resolve((async () => listener(event))()).catch((error: Error) =>
           this.emitter.emit("event_listener_failed", {

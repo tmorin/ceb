@@ -16,7 +16,7 @@ export type MessageType = string
 /**
  * The value of a header.
  */
-export type MessageHeaderValue = string | number | Array<string | number>
+export type MessageHeaderValue = string | number | boolean | Array<string | number | boolean>
 
 /**
  * The headers of the a message.

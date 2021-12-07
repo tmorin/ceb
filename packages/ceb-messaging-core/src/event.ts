@@ -78,6 +78,10 @@ export interface EventBus extends Disposable {
  * The map defines the internal events of an {@link EventBus}.
  */
 export type EventBusNotificationMap = {
+  event_received: {
+    bus: EventBus
+    event: Event
+  }
   event_listener_failed: {
     bus: EventBus
     event: Event

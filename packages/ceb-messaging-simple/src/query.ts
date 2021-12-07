@@ -31,6 +31,11 @@ export class SimpleQueryBus implements QueryBus, Disposable {
     query: Q,
     options?: Partial<ExecuteActionOptions>
   ): Promise<QueryResult<R>> {
+    this.emitter.emit("query_received", {
+      bus: this,
+      query,
+    })
+
     const handler = this.resolveHandler<Q, R>(query)
 
     const opts: ExecuteActionOptions = {

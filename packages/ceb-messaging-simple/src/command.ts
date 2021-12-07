@@ -36,6 +36,11 @@ export class SimpleCommandBus implements CommandBus, Disposable {
     command: C,
     options?: Partial<ExecuteActionOptions>
   ): Promise<CommandResult<R>> {
+    this.emitter.emit("command_received", {
+      bus: this,
+      command,
+    })
+
     const handler = this.resolveHandler(command)
 
     const opts: ExecuteActionOptions = {
@@ -58,6 +63,11 @@ export class SimpleCommandBus implements CommandBus, Disposable {
   }
 
   executeAndForget<C extends Command = Command>(command: C): void {
+    this.emitter.emit("command_received", {
+      bus: this,
+      command,
+    })
+
     const handler = this.resolveHandler(command)
     Promise.resolve((async () => handler(command))())
       .then((output) => this.processHandlerOutput(output))

@@ -78,6 +78,10 @@ export interface QueryBus extends Disposable {
  * The map defines the internal events of an {@link QueryBus}.
  */
 export type QueryBusNotificationMap = {
+  query_received: {
+    bus: QueryBus
+    query: Query
+  }
   query_handler_failed: {
     bus: QueryBus
     query: Query

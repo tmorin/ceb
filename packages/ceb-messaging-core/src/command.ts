@@ -127,6 +127,10 @@ export interface CommandBus extends Disposable {
  * The map defines the internal events of an {@link CommandBus}.
  */
 export type CommandBusNotificationMap = {
+  command_received: {
+    bus: CommandBus
+    command: Command
+  }
   command_handler_failed: {
     bus: CommandBus
     command: Command
