@@ -28,7 +28,6 @@ A built-in implementation of a templating system:
 A built-in implementation of the Inversion of Control principle:
 
 - [ceb-inversion-core](modules/_tmorin_ceb_inversion_core.html)
-- [ceb-inversion-inversion](modules/_tmorin_ceb_inversion_inversion.html)
 - [ceb-inversion-builder](modules/_tmorin_ceb_inversion_builder.html)
 - [ceb-inversion-testing-core](modules/_tmorin_ceb_inversion_testing_core.html)
 - [ceb-inversion-testing-mocha](modules/_tmorin_ceb_inversion_testing_mocha.html)
@@ -36,8 +35,10 @@ A built-in implementation of the Inversion of Control principle:
 A built-in implementation of the Event/Message architecture:
 
 - [ceb-messaging-core](modules/_tmorin_ceb_messaging_core.html)
+- [ceb-messaging-inversion](modules/_tmorin_ceb_messaging_inversion.html)
 - [ceb-messaging-simple](modules/_tmorin_ceb_messaging_simple.html)
 - [ceb-messaging-simple-builder](modules/_tmorin_ceb_messaging_simple_builder.html)
+- [ceb-messaging-simple-inversion](modules/_tmorin_ceb_messaging_simple_inversion.html)
 - [ceb-messaging-builder-core](modules/_tmorin_ceb_messaging_builder_core.html)
 - [ceb-messaging-builder-inversion](modules/_tmorin_ceb_messaging_builder_inversion.html)
 - [ceb-messaging-adapter-dom](modules/_tmorin_ceb_messaging_adapter_dom.html)
