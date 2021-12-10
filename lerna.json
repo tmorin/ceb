@@ -2,12 +2,12 @@
   "packages": [
     "book",
     "packages/ceb-bundle-web",
-    "packages/ceb-utilities",
-    "packages/ceb-elements-testing",
-    "packages/ceb-elements-core",
     "packages/ceb-elements-builders",
-    "packages/ceb-inversion-core",
+    "packages/ceb-elements-core",
+    "packages/ceb-elements-testing",
+    "packages/ceb-example-greeting",
     "packages/ceb-inversion-builder",
+    "packages/ceb-inversion-core",
     "packages/ceb-inversion-testing-core",
     "packages/ceb-inversion-testing-mocha",
     "packages/ceb-messaging-adapter-dom",
@@ -21,11 +21,11 @@
     "packages/ceb-messaging-simple-builder",
     "packages/ceb-messaging-simple-inversion",
     "packages/ceb-messaging-testing",
-    "packages/ceb-templating-engine",
-    "packages/ceb-templating-parser",
     "packages/ceb-templating-builder",
+    "packages/ceb-templating-engine",
     "packages/ceb-templating-literal",
-    "packages/ceb-example-greeting"
+    "packages/ceb-templating-parser",
+    "packages/ceb-utilities"
   ],
   "version": "6.1.1-alpha.2"
 }

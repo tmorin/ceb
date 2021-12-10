@@ -57,8 +57,7 @@
   "dependencies": {
     "@tmorin/ceb-inversion-core": "^6.1.1-alpha.2",
     "@tmorin/ceb-messaging-builder-core": "^6.1.1-alpha.2",
-    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.2",
-    "@tmorin/ceb-utilities": "^6.1.1-alpha.2"
+    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.2"
   },
   "devDependencies": {
     "@tmorin/ceb-elements-core": "^6.1.1-alpha.2",
