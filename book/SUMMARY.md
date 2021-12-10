@@ -28,5 +28,5 @@
   - [Template literal](templating/literal.md)
 - [Examples](examples/README.md)
   - [TodoMVC](examples/todomvc/README.md)
-  - [ex-greeting](examples/ex-greeting/README.md)
+  - [ex-greeting](examples/ex-greeting.md)
 - [References](references.md)

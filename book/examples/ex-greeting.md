@@ -9,7 +9,7 @@ The example is available on [codepen.io](https://codepen.io/tmorin/pen/QWqKNwZ)!
 The Custom Element `ex-greeting` is a regular ES6 class which extends HTMLElement :
 
 ```typescript
-{{#include sptep1.ts}}
+{{#include ../../packages/ceb-book-samples/src/examples/ex-greeting/book_step1.ts}}
 ```
 
 ## Register the Custom Element
@@ -17,7 +17,7 @@ The Custom Element `ex-greeting` is a regular ES6 class which extends HTMLElemen
 To register `ex-greeting`, the decorator of `@ElementBuilder` is used:
 
 ```typescript
-{{#include sptep2.ts}}
+{{#include ../../packages/ceb-book-samples/src/examples/ex-greeting/book_step2.ts}}
 ```
 
 ## Initialize the Shadow DOM
@@ -25,7 +25,7 @@ To register `ex-greeting`, the decorator of `@ElementBuilder` is used:
 The Shadow DOM of `ex-greeting` is initialized with the decorator of `@ContentBuilder` :
 
 ```typescript
-{{#include sptep3.ts}}
+{{#include ../../packages/ceb-book-samples/src/examples/ex-greeting/book_step3.ts}}
 ```
 
 ## Capture the name
@@ -33,7 +33,7 @@ The Shadow DOM of `ex-greeting` is initialized with the decorator of `@ContentBu
 The target of the greeting is captured with the field `name` using the decorator of `FieldBuilder` :
 
 ```typescript
-{{#include sptep4.ts}}
+{{#include ../../packages/ceb-book-samples/src/examples/ex-greeting/book_step4.ts}}
 ```
 
 ## Update the Shadow DOM with the captured name
@@ -46,13 +46,13 @@ There are two ways to handle it with the built-in `<ceb/>` builders : the craft 
 The decorator of `ReferenceBuilder` retrieves the reference of the element `span#name`.
 
 ```typescript
-{{#include step5_craft_1.ts}}
+{{#include ../../packages/ceb-book-samples/src/examples/ex-greeting/book_step5_craft_1.ts}}
 ```
 
 Finally, the decorator of `FieldBuilder` handles the mutation of the field `name`.
 
 ```typescript
-{{#include step5_craft_2.ts}}
+{{#include ../../packages/ceb-book-samples/src/examples/ex-greeting/book_step5_craft_2.ts}}
 ```
 
 ### The propagation way
@@ -60,5 +60,5 @@ Finally, the decorator of `FieldBuilder` handles the mutation of the field `name
 Alternatively, the decorator of `AttributePropagationBuilder` can be used to automatically binds the mutation of the field `name` to the property `textContent` of the selected element `span#name` :
 
 ```typescript
-{{#include step5_propagation.ts}}
+{{#include ../../packages/ceb-book-samples/src/examples/ex-greeting/ExGreeting.ts}}
 ```

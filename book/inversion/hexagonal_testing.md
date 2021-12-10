@@ -15,7 +15,7 @@ The library leverages on the IoC container to let the _adapter_ binds its implem
 From the _model_ point of view, i.e. the supplier, the suites are created using the TestSuiteBuilder and the scenarios with the TestScenarioBuilder.
 
 ```typescript
-{{#include hexagonal_testing-suite.ts}}
+{{#include ../../packages/ceb-book-samples/src/inversion/hexagonal_testing-suite.ts}}
 ```
 
 ## Mocha Implementation
@@ -27,5 +27,5 @@ An implementation of the testing model is provided for Mocha.
 From the provider point of view, the suites are executed using the MochaTestSuiteExecutorBuilder.
 
 ```typescript
-{{#include hexagonal_testing-mocha.ts}}
+{{#include ../../packages/ceb-book-samples/src/inversion/hexagonal_testing-mocha.ts}}
 ```

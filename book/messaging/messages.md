@@ -93,20 +93,20 @@ Therefore, a _builder_ is provided to, at least, build messages which are _techn
 
 Creation of commands using the MessageBuilder:
 ```typescript
-{{#include messages-construction_commands.ts}}
+{{#include ../../packages/ceb-book-samples/src/messaging/messages-construction_commands.ts}}
 ```
 
 Creation of queries using the MessageBuilder:
 ```typescript
-{{#include messages-construction_queries.ts}}
+{{#include ../../packages/ceb-book-samples/src/messaging/messages-construction_queries.ts}}
 ```
 
 Creation of events using the MessageBuilder:
 ```typescript
-{{#include messages-construction_events.ts}}
+{{#include ../../packages/ceb-book-samples/src/messaging/messages-construction_events.ts}}
 ```
 
 Creation of results using the MessageBuilder:
 ```typescript
-{{#include messages-construction_results.ts}}
+{{#include ../../packages/ceb-book-samples/src/messaging/messages-construction_results.ts}}
 ```

@@ -8,19 +8,19 @@ The module `MessagingModule` takes care of the discovery, registration and also 
 Discoverable Command handlers must match the `DiscoverableCommandHandler` interface.
 
 ```typescript
-{{#include inversion-discovery-command.ts}}
+{{#include ../../packages/ceb-book-samples/src/messaging/inversion-discovery-command.ts}}
 ```
 
 Discoverable Query handlers must match the `DiscoverableQueryHandler` interface.
 
 ```typescript
-{{#include inversion-discovery-query.ts}}
+{{#include ../../packages/ceb-book-samples/src/messaging/inversion-discovery-query.ts}}
 ```
 
 Discoverable Event listeners must match the `DiscoverableEventListener` interface.
 
 ```typescript
-{{#include inversion-discovery-event.ts}}
+{{#include ../../packages/ceb-book-samples/src/messaging/inversion-discovery-event.ts}}
 ```
 
 To be discoverable the handlers and listeners must be registered in the Container's Registry with the right Registry Key.
@@ -30,11 +30,11 @@ To be discoverable the handlers and listeners must be registered in the Containe
 - `DiscoverableEventListenerSymbol` for the Event listeners
 
 ```typescript
-{{#include inversion-discovery-module.ts}}
+{{#include ../../packages/ceb-book-samples/src/messaging/inversion-discovery-module.ts}}
 ```
 
 Finally, the module `MessagingModule` and those registering discoverable handlers and listeners must be registered as other modules.
 
 ```typescript
-{{#include inversion-discovery-container.ts}}
+{{#include ../../packages/ceb-book-samples/src/messaging/inversion-discovery-container.ts}}
 ```

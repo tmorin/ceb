@@ -11,7 +11,7 @@ export class GreetSomebodyHandler
   implements
     DiscoverableCommandHandler<
       Command<string>,
-      Result<String>,
+      Result<string>,
       Array<Event<string>>
     >
 {

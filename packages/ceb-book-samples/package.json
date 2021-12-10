@@ -1,0 +1,45 @@
+{
+  "name": "@tmorin/ceb-book-samples",
+  "private": true,
+  "version": "6.1.1-alpha.2",
+  "license": "MIT",
+  "homepage": "https://tmorin.github.io/ceb",
+  "bugs": {
+    "url": "https://github.com/tmorin/ceb/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:tmorin/ceb.git"
+  },
+  "author": {
+    "name": "Thibault Morin",
+    "url": "https://tmorin.github.io"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/mjs/index.js"
+    }
+  },
+  "types": "dist/types/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "scripts": {
+    "test": "karma start --single-run --no-auto-watch --browsers FirefoxHeadless,ChromeHeadless",
+    "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
+  },
+  "dependencies": {
+    "@tmorin/ceb-elements-builders": "^6.1.1-alpha.2",
+    "@tmorin/ceb-elements-core": "^6.1.1-alpha.2",
+    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.2",
+    "@tmorin/ceb-inversion-testing-core": "^6.1.1-alpha.2",
+    "@tmorin/ceb-inversion-testing-mocha": "^6.1.1-alpha.2",
+    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.2",
+    "@tmorin/ceb-messaging-inversion": "^6.1.1-alpha.2",
+    "@tmorin/ceb-messaging-simple": "^6.1.1-alpha.2",
+    "@tmorin/ceb-messaging-simple-inversion": "^6.1.1-alpha.2",
+    "@tmorin/ceb-templating-builder": "^6.1.1-alpha.2",
+    "@tmorin/ceb-templating-literal": "^6.1.1-alpha.2"
+  }
+}

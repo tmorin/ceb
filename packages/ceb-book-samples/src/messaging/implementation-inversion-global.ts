@@ -4,11 +4,16 @@ import {
   GatewaySymbol,
   MessageBuilder,
 } from "@tmorin/ceb-messaging-core"
-import { SimpleModule } from "@tmorin/ceb-messaging-simple"
+import { SimpleGateway } from "@tmorin/ceb-messaging-simple"
+import { SimpleModule } from "@tmorin/ceb-messaging-simple-inversion"
 
 ContainerBuilder.get()
-  // let the module created it-self the SimpleGateway instance
-  .module(new SimpleModule())
+  .module(
+    new SimpleModule({
+      // the provided instance, there the GLOBAL one
+      gateway: SimpleGateway.GLOBAL,
+    })
+  )
   .build()
   .initialize()
   .then((container) => {

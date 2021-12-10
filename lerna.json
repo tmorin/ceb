@@ -1,11 +1,10 @@
 {
   "packages": [
-    "book",
+    "packages/ceb-book-samples",
     "packages/ceb-bundle-web",
     "packages/ceb-elements-builders",
     "packages/ceb-elements-core",
     "packages/ceb-elements-testing",
-    "packages/ceb-example-greeting",
     "packages/ceb-inversion-builder",
     "packages/ceb-inversion-core",
     "packages/ceb-inversion-testing-core",

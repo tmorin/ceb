@@ -15,7 +15,7 @@ The API is the [Tagged Templates] `html`.
 Write the content `Hello, World!` in the `<p>` element:
 
 ```typescript
-{{#include literal-text.ts}}
+{{#include ../../packages/ceb-book-samples/src/templating/literal-text.ts}}
 ```
 
 ### Attribute
@@ -23,13 +23,13 @@ Write the content `Hello, World!` in the `<p>` element:
 Set the value `foo` to the attribute `bar`:
 
 ```typescript
-{{#include literal-attribute_string.ts}}
+{{#include ../../packages/ceb-book-samples/src/templating/literal-attribute_string.ts}}
 ```
 
 Set boolean values, the `checked` attribute won't be rendered because its value is `false`:
 
 ```typescript
-{{#include literal-attribute_boolean.ts}}
+{{#include ../../packages/ceb-book-samples/src/templating/literal-attribute_boolean.ts}}
 ```
 
 ### Property
@@ -37,7 +37,7 @@ Set boolean values, the `checked` attribute won't be rendered because its value 
 Set the value `foo` to the property `bar`:
 
 ```typescript
-{{#include literal-property.ts}}
+{{#include ../../packages/ceb-book-samples/src/templating/literal-property.ts}}
 ```
 
 ### Prevent extra processing
@@ -45,7 +45,7 @@ Set the value `foo` to the property `bar`:
 The special attribute `o:skip`, notifies the template engine that the children of the element should not be processed.
 
 ```typescript
-{{#include literal-option-skip.ts}}
+{{#include ../../packages/ceb-book-samples/src/templating/literal-option-skip.ts}}
 ```
 
 When rendering within a Shadow DOM, the usage of the element `<slot>` have the same effect: the children of the `slot` element won't be processed.
@@ -60,7 +60,7 @@ For each item, the `o:key` should be provided.
 So that, the engine will be able to efficiently discover the related DOM nodes. 
 
 ```typescript
-{{#include literal-option-key.ts}}
+{{#include ../../packages/ceb-book-samples/src/templating/literal-option-key.ts}}
 ```
 
 When rendering within a Shadow DOM, the usage of the element `<slot>` have the same effect: the children of the `slot` element won't be processed.
@@ -71,7 +71,7 @@ The special element `<ceb-sot></ceb-slot>` is the marker of the placeholder.
 
 Given the following Custom Element with template expressed using the literal approach:
 ```typescript
-{{#include literal-grey.ts}}
+{{#include ../../packages/ceb-book-samples/src/templating/literal-grey.ts}}
 ```
 
 When the following statement is created and rendered:

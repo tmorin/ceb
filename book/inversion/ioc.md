@@ -20,7 +20,7 @@ When a Container becomes useless, it has to be disposed, so that Modules and Com
 Once disposed, a container cannot be used anymore.
 
   ```typescript
-{{#include ioc-container-lifecycle.ts}}
+{{#include ../../packages/ceb-book-samples/src/inversion/ioc-container-lifecycle.ts}}
 ```
 
 ## The Registry
@@ -30,7 +30,7 @@ The Registry handles only two kinds of registration modes: _by value_ and _by fa
 With the _by value_ mode, the value must exist at the time of the registration, and the registry will always resolve it.
 
   ```typescript
-{{#include ioc-registry-by_value.ts}}
+{{#include ../../packages/ceb-book-samples/src/inversion/ioc-registry-by_value.ts}}
 ```
 
 However, with the _by factory_ mode, the value is created at the resolution time.
@@ -38,14 +38,14 @@ Moreover, its creation can be based on entries available in the registry.
 By default, the factory is invoked for each resolution.
 
   ```typescript
-{{#include ioc-registry-by_factory.ts}}
+{{#include ../../packages/ceb-book-samples/src/inversion/ioc-registry-by_factory.ts}}
 ```
 
 The option `singleton` prevents this invocation of the factory at each resolution.
 That means the value is created only once, at its first resolution.
 
   ```typescript
-{{#include ioc-registry-by_factory_singleton.ts}}
+{{#include ../../packages/ceb-book-samples/src/inversion/ioc-registry-by_factory_singleton.ts}}
 ```
 
 ## The Modules
@@ -57,20 +57,20 @@ It's an implementation of the interface `Module`.
 However, a convenient abstracted implementation, `AbstractModule`, handles already the boilerplate stuff.
 
   ```typescript
-{{#include ioc-container-module-class.ts}}
+{{#include ../../packages/ceb-book-samples/src/inversion/ioc-container-module-class.ts}}
 ```
 
 The modules are used during the creation of a container and must be provided to the ContainerBuilder.
 
   ```typescript
-{{#include ioc-container-module-usage.ts}}
+{{#include ../../packages/ceb-book-samples/src/inversion/ioc-container-module-usage.ts}}
 ```
 
 Sometime, the class usage can be a bit too much.
 Therefore, an inline way to available using `OnlyConfigureModule.create(...)`.
 
   ```typescript
-{{#include ioc-container-module-inline.ts}}
+{{#include ../../packages/ceb-book-samples/src/inversion/ioc-container-module-inline.ts}}
 ```
 
 ## The Components
@@ -83,5 +83,5 @@ To be discovered and managed by the Container, they must be registered with the 
 Components are the right places to implement Process Manager or other _reactive_ programing artifacts.
 
   ```typescript
-{{#include ioc-container-component.ts}}
+{{#include ../../packages/ceb-book-samples/src/inversion/ioc-container-component.ts}}
 ```

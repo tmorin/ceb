@@ -94,10 +94,6 @@ The helper packages:
 
 - [ceb-utilities](./packages/ceb-elements-testing)
 
-The examples:
-
-- [ceb-example-greeting](./packages/ceb-example-greeting)
-
 ## License
 
 Released under the [MIT license].

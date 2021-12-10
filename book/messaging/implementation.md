@@ -15,7 +15,7 @@ A global instance of the SimpleGateway is available from the static field `Simpl
 It's a lazy property, in fact the instance is only created once at its first get.
 
 ```typescript
-{{#include implementation-create_global.ts}}
+{{#include ../../packages/ceb-book-samples/src/messaging/implementation-create_global.ts}}
 ```
 
 ### The factory method
@@ -24,7 +24,7 @@ A SimpleGateway instance can be easily created using the factory method, i.e. th
 The method returns a fresh new SimpleGateway instance at each call.
 
 ```typescript
-{{#include implementation-create_factory.ts}}
+{{#include ../../packages/ceb-book-samples/src/messaging/implementation-create_factory.ts}}
 ```
 
 ### The constructor
@@ -32,7 +32,7 @@ The method returns a fresh new SimpleGateway instance at each call.
 The constructor approach provides a fine grain control of the Gateway dependencies: the CommandBus, the QueryBus, the EventBus and the GatewayObserver. 
 
 ```typescript
-{{#include implementation-create_constructor.ts}}
+{{#include ../../packages/ceb-book-samples/src/messaging/implementation-create_constructor.ts}}
 ```
 
 ## The Inversion Module
@@ -41,10 +41,10 @@ The package provides an Inversion Module which can be used to create (optionally
 
 Create a container with the default module behavior, i.e. the SimpleGateway will be created from scratch automatically:
 ```typescript
-{{#include implementation-inversion-default.ts}}
+{{#include ../../packages/ceb-book-samples/src/messaging/implementation-inversion-default.ts}}
 ```
 
 Create a container with a provided SimpleGateway instance:
 ```typescript
-{{#include implementation-inversion-global.ts}}
+{{#include ../../packages/ceb-book-samples/src/messaging/implementation-inversion-global.ts}}
 ```

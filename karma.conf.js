@@ -20,7 +20,7 @@ module.exports = (config) => {
       "{examples,src,test}/**/*.spec.ts": ["webpack"],
     },
 
-    webpack: { ...webpackDev },
+    webpack: { ...webpackDev, output: undefined },
 
     webpackMiddleware: {
       stats: "errors-only",

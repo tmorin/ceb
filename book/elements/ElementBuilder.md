@@ -20,7 +20,7 @@ Will you be able to ...
 ## Define a regular Custom Element
 
 ```typescript
-{{#include ElementBuilder_register.ts}}
+{{#include ../../packages/ceb-book-samples/src/elements/ElementBuilder_register.ts}}
 ```
 
 Once registered, the Custom Element can be created with three different styles: markup, Object-Oriented and, hybrid.
@@ -50,7 +50,7 @@ document.body.appendChild(helloDoe)
 ## Define an extension of a native Element
 
 ```typescript
-{{#include ElementBuilder_native.ts}}
+{{#include ../../packages/ceb-book-samples/src/elements/ElementBuilder_native.ts}}
 ```
 
 Once registered, the Custom Element can be created like the regular one.
