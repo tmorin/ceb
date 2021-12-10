@@ -40,6 +40,8 @@ jobs:
         run: /tmp/mdbook clean && /tmp/mdbook build
       - name: Build typedoc
         run: npm run doc:typedoc
+        env:
+          NODE_OPTIONS: "--max-old-space-size=4096"
       - name: Publish package
         if: ${{ startsWith(github.ref, 'refs/tags/') }}
         run: npm run release:publish
