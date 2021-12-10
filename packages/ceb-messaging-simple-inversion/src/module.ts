@@ -11,10 +11,7 @@ import {
   ObservableGateway,
   QueryBusSymbol,
 } from "@tmorin/ceb-messaging-core"
-import { SimpleGateway } from "./gateway"
-import { SimpleEventBus } from "./event"
-import { SimpleCommandBus } from "./command"
-import { SimpleQueryBus } from "./query"
+import { SimpleCommandBus, SimpleEventBus, SimpleGateway, SimpleQueryBus } from "@tmorin/ceb-messaging-simple"
 
 /**
  * The options of {@link SimpleModule}.

@@ -1,10 +1,11 @@
 import { ipcMain, webContents } from "electron"
 import { assert } from "chai"
-import { SimpleGatewaySymbol, SimpleModule } from "@tmorin/ceb-messaging-simple"
+import { SimpleGatewaySymbol } from "@tmorin/ceb-messaging-simple"
 import { ElectronModule } from "../inversion"
 import { ContainerBuilder } from "@tmorin/ceb-inversion-core"
 import { IpcMainGateway } from "../ipc-main"
 import { Command, Event, GatewaySymbol, MessageBuilder, Result } from "@tmorin/ceb-messaging-core"
+import { SimpleModule } from "@tmorin/ceb-messaging-simple-inversion"
 
 function log(text: string) {
   webContents.getAllWebContents().forEach((webContent) => webContent.send("main-log", `${text}`))

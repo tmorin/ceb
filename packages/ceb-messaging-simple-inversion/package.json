@@ -1,8 +1,8 @@
 {
-  "name": "@tmorin/ceb-messaging-inversion",
+  "name": "@tmorin/ceb-messaging-simple-inversion",
   "version": "6.1.1-alpha.2",
   "license": "MIT",
-  "description": "The package is part of the `<ceb/>` library. It provides an integration of Inversion with Messaging to discover handlers and listeners.",
+  "description": "The package is part of the `<ceb/>` library. It provides an integration of the simple implementation with Inversion.",
   "keywords": [
     "custom-element-builder",
     "custom-elements-v1",
@@ -56,9 +56,7 @@
   },
   "dependencies": {
     "@tmorin/ceb-inversion-core": "^6.1.1-alpha.2",
-    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.2"
-  },
-  "devDependencies": {
+    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.2",
     "@tmorin/ceb-messaging-simple": "^6.1.1-alpha.2"
   }
 }

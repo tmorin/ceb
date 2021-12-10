@@ -3,14 +3,12 @@ import chasAsPromised from "chai-as-promised"
 import { spy } from "sinon"
 import { Container, ContainerBuilder, OnlyConfigureModule } from "@tmorin/ceb-inversion-core"
 import { Action, Command, Event, Gateway, GatewaySymbol, MessageBuilder, Result } from "@tmorin/ceb-messaging-core"
-import { SimpleModule } from "./inversion"
-import {
-  DiscoverableCommandHandler,
-  DiscoverableCommandHandlerSymbol,
-  DiscoverableEventListener,
-  DiscoverableEventListenerSymbol,
-  MessagingModule,
-} from "@tmorin/ceb-messaging-inversion"
+import { SimpleGateway } from "@tmorin/ceb-messaging-simple"
+import { DiscoverableEventListener, DiscoverableEventListenerSymbol } from "./event"
+import { DiscoverableCommandHandler, DiscoverableCommandHandlerSymbol } from "./command"
+import { MessagingModule } from "./module"
+import { Query } from "@tmorin/ceb-messaging-core/src"
+import { DiscoverableQueryHandler, DiscoverableQueryHandlerSymbol } from "./query"
 
 chai.use(chasAsPromised)
 
@@ -22,11 +20,15 @@ function createCommandA(body: string): Command<string> {
   return MessageBuilder.command<string>("CommandA").body(body).build()
 }
 
+function createQueryA(body: string): Query<string> {
+  return MessageBuilder.query<string>("QueryA").body(body).build()
+}
+
 function createResultA(action: Action, body: string): Result<string> {
   return MessageBuilder.result<string>(action).body(body).build()
 }
 
-describe("ceb-messaging-simple/SimpleModule", function () {
+describe("ceb-messaging-inversion/MessagingModule", function () {
   const eventListenerSpy = spy()
   const eventListener: DiscoverableEventListener<Event<string>> = {
     type: "EventA",
@@ -37,18 +39,25 @@ describe("ceb-messaging-simple/SimpleModule", function () {
     type: "CommandA",
     handler: (command) => ({ result: createResultA(command, command.body) }),
   }
-  const handlerSpy = spy(commandHandler, "handler")
+  const commandHandlerSpy = spy(commandHandler, "handler")
+
+  const queryHandler: DiscoverableQueryHandler<Query<string>, Result<string>> = {
+    type: "QueryA",
+    handler: (query) => createResultA(query, query.body),
+  }
+  const queryHandlerSpy = spy(queryHandler, "handler")
 
   let container: Container
   let bus: Gateway
   beforeEach(async function () {
     container = await ContainerBuilder.get()
-      .module(new SimpleModule())
       .module(new MessagingModule())
       .module(
         OnlyConfigureModule.create(async function () {
+          this.registry.registerValue(GatewaySymbol, SimpleGateway.create())
           this.registry.registerValue(DiscoverableEventListenerSymbol, eventListener)
           this.registry.registerValue(DiscoverableCommandHandlerSymbol, commandHandler)
+          this.registry.registerValue(DiscoverableQueryHandlerSymbol, queryHandler)
         })
       )
       .build()
@@ -56,6 +65,7 @@ describe("ceb-messaging-simple/SimpleModule", function () {
     bus = container.registry.resolve<Gateway>(GatewaySymbol)
   })
   afterEach(async function () {
+    await container.registry.resolve<Gateway>(GatewaySymbol).dispose()
     await container.dispose()
   })
   it("should listen to an event", function () {
@@ -66,8 +76,15 @@ describe("ceb-messaging-simple/SimpleModule", function () {
   it("should handle command", async function () {
     const command = createCommandA("body content")
     const result = await bus.commands.execute(command)
-    assert.ok(handlerSpy.calledOnce)
+    assert.ok(commandHandlerSpy.calledOnce)
     assert.ok(result)
     assert.equal(result.body, command.body)
+  })
+  it("should handle query", async function () {
+    const query = createQueryA("body content")
+    const result = await bus.queries.execute(query)
+    assert.ok(queryHandlerSpy.calledOnce)
+    assert.ok(result)
+    assert.equal(result.body, query.body)
   })
 })

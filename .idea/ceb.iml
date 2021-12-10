@@ -15,13 +15,15 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion-testing-mocha/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-adapter-dom/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-adapter-electron/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-adapter-purify/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-adapter-electron/src/__TEST/.generated" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-adapter-purify/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-builder-core/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-builder-inversion/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-core/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-inversion/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-simple-builder/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-simple/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-simple-inversion/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-testing/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-templating-builder/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-templating-engine/dist" />

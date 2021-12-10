@@ -1,34 +1,34 @@
-import {AbstractModule, Component, ComponentSymbol, RegistryKey} from "@tmorin/ceb-inversion-core"
+import { AbstractModule, Component, ComponentSymbol, RegistryKey } from "@tmorin/ceb-inversion-core"
 import {
-    CommandBus,
-    CommandBusSymbol,
-    EmittableGateway,
-    EventBus,
-    EventBusSymbol,
-    Gateway,
-    GatewayEmitterSymbol,
-    GatewaySymbol,
-    QueryBus,
-    QueryBusSymbol,
+  CommandBus,
+  CommandBusSymbol,
+  EmittableGateway,
+  EventBus,
+  EventBusSymbol,
+  Gateway,
+  GatewayEmitterSymbol,
+  GatewaySymbol,
+  QueryBus,
+  QueryBusSymbol,
 } from "@tmorin/ceb-messaging-core"
-import {ipcMain, ipcRenderer} from "electron"
+import { ipcMain, ipcRenderer } from "electron"
 import {
-    IpcMainCommandBus,
-    IpcMainCommandBusSymbol,
-    IpcMainEventBus,
-    IpcMainEventBusSymbol,
-    IpcMainGateway,
-    IpcMainQueryBus,
-    IpcMainQueryBusSymbol,
+  IpcMainCommandBus,
+  IpcMainCommandBusSymbol,
+  IpcMainEventBus,
+  IpcMainEventBusSymbol,
+  IpcMainGateway,
+  IpcMainQueryBus,
+  IpcMainQueryBusSymbol,
 } from "./ipc-main"
 import {
-    IpcRendererCommandBus,
-    IpcRendererCommandBusSymbol,
-    IpcRendererEventBus,
-    IpcRendererEventBusSymbol,
-    IpcRendererGateway,
-    IpcRendererQueryBus,
-    IpcRendererQueryBusSymbol,
+  IpcRendererCommandBus,
+  IpcRendererCommandBusSymbol,
+  IpcRendererEventBus,
+  IpcRendererEventBusSymbol,
+  IpcRendererGateway,
+  IpcRendererQueryBus,
+  IpcRendererQueryBusSymbol,
 } from "./ipc-renderer"
 
 /**
@@ -73,7 +73,8 @@ export interface ElectronModuleOptions {
  * @example Register the module
  * ```typescript
  * import {ContainerBuilder} from "@tmorin/ceb-inversion-core"
- * import {SimpleGatewaySymbol, SimpleModule} from "@tmorin/ceb-messaging-simple"
+ * import {SimpleGatewaySymbol} from "@tmorin/ceb-messaging-simple"
+ * import {SimpleModule} from "@tmorin/ceb-messaging-simple-inversion"
  * import {ElectronModule} from "@tmorin/ceb-messaging-adapter-electron"
  * const container = ContainerBuilder.get()
  *   .module(new SimpleModule({gatewayRegistryKey: SimpleGatewaySymbol}))

@@ -1,9 +1,10 @@
 import { assert } from "chai"
 import { Container, ContainerBuilder } from "@tmorin/ceb-inversion-core"
-import { SimpleGatewaySymbol, SimpleModule } from "@tmorin/ceb-messaging-simple"
+import { SimpleGatewaySymbol } from "@tmorin/ceb-messaging-simple"
 import { Gateway, GatewaySymbol } from "@tmorin/ceb-messaging-core"
 import { PurifyModule } from "./inversion"
 import { PurifyGateway } from "./gateway"
+import { SimpleModule } from "@tmorin/ceb-messaging-simple-inversion"
 
 describe("PurifyModule", function () {
   let container: Container

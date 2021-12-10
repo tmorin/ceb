@@ -64,6 +64,7 @@
   },
   "devDependencies": {
     "@tmorin/ceb-messaging-simple": "^6.1.1-alpha.2",
+    "@tmorin/ceb-messaging-simple-inversion": "^6.1.1-alpha.2",
     "@types/node": "^16.11.11",
     "@types/promise.any": "^2.0.0"
   },

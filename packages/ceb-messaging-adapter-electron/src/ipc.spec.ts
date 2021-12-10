@@ -1,10 +1,11 @@
 import { assert } from "chai"
 import { ipcRenderer } from "electron"
-import { SimpleGatewaySymbol, SimpleModule } from "@tmorin/ceb-messaging-simple"
+import { SimpleGatewaySymbol } from "@tmorin/ceb-messaging-simple"
 import { ContainerBuilder } from "@tmorin/ceb-inversion-core"
 import { Command, GatewaySymbol, MessageBuilder, Result } from "@tmorin/ceb-messaging-core"
 import { ElectronModule } from "./inversion"
 import { IpcRendererGateway } from "./ipc-renderer"
+import { SimpleModule } from "@tmorin/ceb-messaging-simple-inversion"
 
 describe("ceb-messaging-adapter-electron/ipc", function () {
   this.timeout(10000)
