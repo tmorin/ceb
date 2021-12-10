@@ -1,5 +1,6 @@
 {
   "name": "@tmorin/ceb-example-greeting",
+  "private": true,
   "version": "6.1.1-alpha.2",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an example demonstrating the usage of the library to define Custom Elements (v1).",

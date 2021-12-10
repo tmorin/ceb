@@ -1,6 +1,8 @@
 # @tmorin/ceb-messaging-builder-core
 
 [![npm version](https://badge.fury.io/js/%40tmorin%2Fceb-messaging-builder-core.svg)](https://badge.fury.io/js/%40tmorin%2Fceb-messaging-builder-core)
+[![skypack.dev](https://img.shields.io/badge/-skypack.dev-blueviolet.svg)](https://www.skypack.dev/view/@tmorin/ceb-messaging-builder-core)
+[![doc](https://img.shields.io/badge/-doc-informational.svg)](https://tmorin.github.io/ceb)
 [![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_messaging_builder_core.html)
 
 > The package is part of the `<ceb/>` library.

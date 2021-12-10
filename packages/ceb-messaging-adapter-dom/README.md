@@ -1,6 +1,8 @@
 # @tmorin/ceb-messaging-adapter-dom
 
 [![npm version](https://badge.fury.io/js/%40tmorin%2Fceb-messaging-adapter-dom.svg)](https://badge.fury.io/js/%40tmorin%2Fceb-messaging-adapter-dom)
+[![skypack.dev](https://img.shields.io/badge/-skypack.dev-blueviolet.svg)](https://www.skypack.dev/view/@tmorin/ceb-messaging-adapter-dom)
+[![doc](https://img.shields.io/badge/-doc-informational.svg)](https://tmorin.github.io/ceb)
 [![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_messaging_adapter_dom.html)
 
 > The package is part of the `<ceb/>` library.

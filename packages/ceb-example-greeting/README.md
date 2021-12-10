@@ -1,7 +1,5 @@
 # @tmorin/ceb-example-greeting
 
-[![npm version](https://badge.fury.io/js/%40tmorin%2Fceb-example-greeting.svg)](https://badge.fury.io/js/%40tmorin%2Fceb-example-greeting)
-
 > The package is part of the `<ceb/>` library.
 > It provides an example demonstrating the usage of the library to define [Custom Elements (v1)].
 

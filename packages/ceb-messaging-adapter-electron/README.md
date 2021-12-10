@@ -1,6 +1,8 @@
 # @tmorin/ceb-messaging-adapter-electron
 
 [![npm version](https://badge.fury.io/js/%40tmorin%2Fceb-messaging-adapter-electron.svg)](https://badge.fury.io/js/%40tmorin%2Fceb-messaging-adapter-electron)
+[![skypack.dev](https://img.shields.io/badge/-skypack.dev-blueviolet.svg)](https://www.skypack.dev/view/@tmorin/ceb-messaging-adapter-electron)
+[![doc](https://img.shields.io/badge/-doc-informational.svg)](https://tmorin.github.io/ceb)
 [![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_messaging_bus_adapter_ipc.html)
 
 > The package is part of the `<ceb/>` library.

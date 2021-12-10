@@ -1,6 +1,8 @@
 # @tmorin/ceb-messaging-adapter-purify
 
 [![npm version](https://badge.fury.io/js/%40tmorin%2Fceb-messaging-adapter-purify.svg)](https://badge.fury.io/js/%40tmorin%2Fceb-messaging-adapter-purify)
+[![skypack.dev](https://img.shields.io/badge/-skypack.dev-blueviolet.svg)](https://www.skypack.dev/view/@tmorin/ceb-messaging-adapter-purify)
+[![doc](https://img.shields.io/badge/-doc-informational.svg)](https://tmorin.github.io/ceb)
 [![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_messaging_adapter_purify.html)
 
 > The package is part of the `<ceb/>` library.
