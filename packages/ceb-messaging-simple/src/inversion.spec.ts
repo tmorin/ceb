@@ -2,21 +2,15 @@ import chai, { assert } from "chai"
 import chasAsPromised from "chai-as-promised"
 import { spy } from "sinon"
 import { Container, ContainerBuilder, OnlyConfigureModule } from "@tmorin/ceb-inversion-core"
+import { Action, Command, Event, Gateway, GatewaySymbol, MessageBuilder, Result } from "@tmorin/ceb-messaging-core"
+import { SimpleModule } from "./inversion"
 import {
-  Action,
-  Command,
   DiscoverableCommandHandler,
   DiscoverableCommandHandlerSymbol,
   DiscoverableEventListener,
   DiscoverableEventListenerSymbol,
-  Event,
-  Gateway,
-  GatewaySymbol,
-  MessageBuilder,
   MessagingModule,
-  Result,
-} from "@tmorin/ceb-messaging-core"
-import { SimpleModule } from "./inversion"
+} from "@tmorin/ceb-messaging-inversion"
 
 chai.use(chasAsPromised)
 

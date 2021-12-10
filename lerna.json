@@ -16,6 +16,7 @@
     "packages/ceb-messaging-builder-core",
     "packages/ceb-messaging-builder-inversion",
     "packages/ceb-messaging-core",
+    "packages/ceb-messaging-inversion",
     "packages/ceb-messaging-simple",
     "packages/ceb-messaging-simple-builder",
     "packages/ceb-messaging-testing",

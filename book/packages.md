@@ -12,6 +12,7 @@ Inversion Of Control:
 
 Event/Message Architecture:
 - [@tmorin/ceb-messaging-core](https://www.npmjs.com/package/@tmorin/ceb-messaging-core)
+- [@tmorin/ceb-messaging-inversion](https://www.npmjs.com/package/@tmorin/ceb-messaging-inversion)
 - [@tmorin/ceb-messaging-simple](https://www.npmjs.com/package/@tmorin/ceb-messaging-simple)
 - [@tmorin/ceb-messaging-simple-builder](https://www.npmjs.com/package/@tmorin/ceb-messaging-simple-builder)
 - [@tmorin/ceb-messaging-testing](https://www.npmjs.com/package/@tmorin/ceb-messaging-testing)

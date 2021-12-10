@@ -3,10 +3,10 @@ import {
   Gateway,
   GatewaySymbol,
   MessageBuilder,
-  MessagingModule,
 } from "@tmorin/ceb-messaging-core"
 import { SimpleModule } from "@tmorin/ceb-messaging-simple"
 import { DiscoverableStuffModule } from "./inversion-discovery-module"
+import { MessagingModule } from "@tmorin/ceb-messaging-inversion"
 
 ContainerBuilder.get()
   // register the module which discovers the handlers and listeners

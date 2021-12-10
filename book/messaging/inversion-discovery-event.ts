@@ -1,4 +1,5 @@
-import { DiscoverableEventListener, Event } from "@tmorin/ceb-messaging-core"
+import { Event } from "@tmorin/ceb-messaging-core"
+import { DiscoverableEventListener } from "@tmorin/ceb-messaging-inversion"
 
 // create the listener using the "object" way
 export const SOMEONE_HAS_BEEN_GREETED_LISTENER: DiscoverableEventListener<

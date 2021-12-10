@@ -28,6 +28,7 @@ A built-in implementation of a templating system:
 A built-in implementation of the Inversion of Control principle:
 
 - [ceb-inversion-core](modules/_tmorin_ceb_inversion_core.html)
+- [ceb-inversion-inversion](modules/_tmorin_ceb_inversion_inversion.html)
 - [ceb-inversion-builder](modules/_tmorin_ceb_inversion_builder.html)
 - [ceb-inversion-testing-core](modules/_tmorin_ceb_inversion_testing_core.html)
 - [ceb-inversion-testing-mocha](modules/_tmorin_ceb_inversion_testing_mocha.html)

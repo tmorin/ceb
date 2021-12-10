@@ -1,10 +1,10 @@
 import {
   Command,
-  DiscoverableCommandHandler,
   Event,
   MessageBuilder,
   Result,
 } from "@tmorin/ceb-messaging-core"
+import { DiscoverableCommandHandler } from "@tmorin/ceb-messaging-inversion"
 
 // create the handler using the "implementation" way
 export class GreetSomebodyHandler

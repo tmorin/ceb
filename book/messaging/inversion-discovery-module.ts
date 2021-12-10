@@ -1,12 +1,12 @@
 import { AbstractModule } from "@tmorin/ceb-inversion-core"
+import { GreetSomebodyHandler } from "./inversion-discovery-command"
+import { WhatTimeIsItHandler } from "./inversion-discovery-query"
+import { SOMEONE_HAS_BEEN_GREETED_LISTENER } from "./inversion-discovery-event"
 import {
   DiscoverableCommandHandlerSymbol,
   DiscoverableEventListenerSymbol,
   DiscoverableQueryHandlerSymbol,
-} from "@tmorin/ceb-messaging-core"
-import { GreetSomebodyHandler } from "./inversion-discovery-command"
-import { WhatTimeIsItHandler } from "./inversion-discovery-query"
-import { SOMEONE_HAS_BEEN_GREETED_LISTENER } from "./inversion-discovery-event"
+} from "@tmorin/ceb-messaging-inversion"
 
 // define a "regular" Module
 export class DiscoverableStuffModule extends AbstractModule {

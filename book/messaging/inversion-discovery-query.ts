@@ -1,9 +1,5 @@
-import {
-  DiscoverableQueryHandler,
-  MessageBuilder,
-  Query,
-  Result,
-} from "@tmorin/ceb-messaging-core"
+import { MessageBuilder, Query, Result } from "@tmorin/ceb-messaging-core"
+import { DiscoverableQueryHandler } from "@tmorin/ceb-messaging-inversion"
 
 // create the handler using the "implementation" way
 export class WhatTimeIsItHandler

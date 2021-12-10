@@ -1,5 +1,7 @@
 # Inversion
 
+> The definition of the Inversion module is part of the NPM package [@tmorin/ceb-messaging-inversion](https://www.npmjs.com/package/@tmorin/ceb-messaging-inversion).
+
 Command and Query handlers as well as Event listeners can be discovered and managed by Inversion on the container initialization.
 The module `MessagingModule` takes care of the discovery, registration and also disposition of handlers and listeners at the container end of life.
 
