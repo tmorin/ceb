@@ -5,7 +5,7 @@ import {
   TestSuiteBuilder,
 } from "@tmorin/ceb-inversion-testing-core"
 
-export const SuiteA = TestSuiteBuilder.get("ToUppercase Port")
+export const SuiteA = TestSuiteBuilder.get("ToEmphasize Port")
   .scenario(
     TestScenarioBuilder.get("Greeting target is emphasized")
       .configure((containerBuilder) => {
