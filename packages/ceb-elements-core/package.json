@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-elements-core",
-  "version": "6.1.1-alpha.3",
+  "version": "6.1.1-alpha.4",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides the main builder used to define and register Custom Elements (v1).",
   "keywords": [
@@ -50,9 +50,9 @@
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "dependencies": {
-    "@tmorin/ceb-utilities": "^6.1.1-alpha.3"
+    "@tmorin/ceb-utilities": "^6.1.1-alpha.4"
   },
   "devDependencies": {
-    "@tmorin/ceb-elements-testing": "^6.1.1-alpha.3"
+    "@tmorin/ceb-elements-testing": "^6.1.1-alpha.4"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-templating-engine",
-  "version": "6.1.1-alpha.3",
+  "version": "6.1.1-alpha.4",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides the implementation of a templating solution which leverages exclusively on the DOM API.",
   "keywords": [
