@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-simple",
-  "version": "6.1.1-alpha.4",
+  "version": "6.1.1-alpha.5",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides a specialization of the core artifacts which leverages on a vanilla TypeScript/JavaScript environment.",
   "keywords": [
@@ -55,7 +55,7 @@
     "test:watch": "npm test -- --watch --watch-files '**/*.ts'"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.4",
-    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.4"
+    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.5",
+    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.5"
   }
 }

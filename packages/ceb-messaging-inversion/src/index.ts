@@ -1,6 +1,5 @@
 export * from "./command"
 export * from "./component"
 export * from "./event"
-export * from "./inversion"
 export * from "./module"
 export * from "./query"

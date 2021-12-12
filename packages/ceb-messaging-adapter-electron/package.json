@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-adapter-electron",
-  "version": "6.1.1-alpha.4",
+  "version": "6.1.1-alpha.5",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides a bridges between the Electron IPC Event Emitter and a Gateway.",
   "keywords": [
@@ -57,13 +57,13 @@
     "test:watch": "karma start --no-single-run --auto-watch"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.4",
-    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.4",
+    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.5",
+    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.5",
     "promise.any": "^2.0.2"
   },
   "devDependencies": {
-    "@tmorin/ceb-messaging-simple": "^6.1.1-alpha.4",
-    "@tmorin/ceb-messaging-simple-inversion": "^6.1.1-alpha.4",
+    "@tmorin/ceb-messaging-simple": "^6.1.1-alpha.5",
+    "@tmorin/ceb-messaging-simple-inversion": "^6.1.1-alpha.5",
     "@types/node": "^16.11.11",
     "@types/promise.any": "^2.0.0"
   },

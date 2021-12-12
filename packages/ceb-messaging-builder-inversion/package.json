@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-builder-inversion",
-  "version": "6.1.1-alpha.4",
+  "version": "6.1.1-alpha.5",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides a builder to resolve and inject a bus from a container and then subscribe to event.",
   "keywords": [
@@ -55,12 +55,12 @@
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "dependencies": {
-    "@tmorin/ceb-elements-core": "^6.1.1-alpha.4",
-    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.4",
-    "@tmorin/ceb-messaging-builder-core": "^6.1.1-alpha.4",
-    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.4"
+    "@tmorin/ceb-elements-core": "^6.1.1-alpha.5",
+    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.5",
+    "@tmorin/ceb-messaging-builder-core": "^6.1.1-alpha.5",
+    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.5"
   },
   "devDependencies": {
-    "@tmorin/ceb-messaging-simple": "^6.1.1-alpha.4"
+    "@tmorin/ceb-messaging-simple": "^6.1.1-alpha.5"
   }
 }

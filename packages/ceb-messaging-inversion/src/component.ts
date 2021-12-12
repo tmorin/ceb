@@ -35,13 +35,13 @@ export class MessagingComponent extends Component {
       this.container.registry
         .resolveAll<DiscoverableCommandHandler>(DiscoverableCommandHandlerSymbol)
         .forEach((entry) => {
-          this.removableList.push(this.gateway.commands.handle(entry.type, entry.handler))
+          this.removableList.push(this.gateway.commands.handle(entry.type, entry.handler.bind(entry)))
         })
     }
 
     if (this.container.registry.contains(DiscoverableQueryHandlerSymbol)) {
       this.container.registry.resolveAll<DiscoverableQueryHandler>(DiscoverableQueryHandlerSymbol).forEach((entry) => {
-        this.removableList.push(this.gateway.queries.handle(entry.type, entry.handler))
+        this.removableList.push(this.gateway.queries.handle(entry.type, entry.handler.bind(entry)))
       })
     }
 
@@ -49,7 +49,7 @@ export class MessagingComponent extends Component {
       this.container.registry
         .resolveAll<DiscoverableEventListener>(DiscoverableEventListenerSymbol)
         .forEach((entry) => {
-          this.removableList.push(this.gateway.events.subscribe(entry.type, entry.listener))
+          this.removableList.push(this.gateway.events.subscribe(entry.type, entry.listener.bind(entry)))
         })
     }
   }
