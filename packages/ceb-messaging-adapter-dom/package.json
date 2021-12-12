@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-adapter-dom",
-  "version": "6.1.1-alpha.2",
+  "version": "6.1.1-alpha.3",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides a bridge between a DOM EventTarget object and a Gateway.",
   "keywords": [
@@ -55,13 +55,13 @@
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.2",
-    "@tmorin/ceb-messaging-builder-core": "^6.1.1-alpha.2",
-    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.2"
+    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.3",
+    "@tmorin/ceb-messaging-builder-core": "^6.1.1-alpha.3",
+    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.3"
   },
   "devDependencies": {
-    "@tmorin/ceb-elements-core": "^6.1.1-alpha.2",
-    "@tmorin/ceb-elements-testing": "^6.1.1-alpha.2",
-    "@tmorin/ceb-messaging-simple": "^6.1.1-alpha.2"
+    "@tmorin/ceb-elements-core": "^6.1.1-alpha.3",
+    "@tmorin/ceb-elements-testing": "^6.1.1-alpha.3",
+    "@tmorin/ceb-messaging-simple": "^6.1.1-alpha.3"
   }
 }

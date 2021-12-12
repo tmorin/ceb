@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-templating-builder",
-  "version": "6.1.1-alpha.2",
+  "version": "6.1.1-alpha.3",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides a builder which enhances the definition of Custom Elements (v1) with a templating solution.",
   "keywords": [
@@ -51,7 +51,7 @@
     "build:module": "tsc -p tsconfig.build.json --module ESNext --outDir dist/mjs"
   },
   "dependencies": {
-    "@tmorin/ceb-elements-core": "^6.1.1-alpha.2",
-    "@tmorin/ceb-templating-engine": "^6.1.1-alpha.2"
+    "@tmorin/ceb-elements-core": "^6.1.1-alpha.3",
+    "@tmorin/ceb-templating-engine": "^6.1.1-alpha.3"
   }
 }
