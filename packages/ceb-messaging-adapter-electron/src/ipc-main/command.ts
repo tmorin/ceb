@@ -2,14 +2,12 @@ import {
   Command,
   CommandBus,
   CommandHandler,
-  CommandResult,
   Disposable,
   Event,
   ExecuteActionOptions,
   MessageHeaders,
   Removable,
   Result,
-  ResultHeaders,
 } from "@tmorin/ceb-messaging-core"
 import { IpcMain, webContents } from "electron"
 import { createRemovable, IPC_CHANNEL_COMMANDS } from "../ipc"
@@ -32,11 +30,12 @@ export class IpcMainCommandBus implements CommandBus, Disposable {
     return this.emitter
   }
 
-  execute<
-    R extends Result<any, ResultHeaders> = Result<any, ResultHeaders>,
-    C extends Command<any, MessageHeaders> = Command<any, MessageHeaders>
-  >(command: C, options?: Partial<ExecuteActionOptions>): Promise<CommandResult<Result<any, ResultHeaders>>> {
-    return executeAction(
+  execute<R extends Result = Result, C extends Command = Command>(
+    command: C,
+    options?: Partial<ExecuteActionOptions>
+  ): Promise<R> {
+    // @ts-ignore
+    return executeAction<R>(
       this.ipcMain,
       IPC_CHANNEL_COMMANDS,
       () => this.bus.execute<R>(command, options),

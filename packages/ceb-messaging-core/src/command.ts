@@ -100,7 +100,7 @@ export interface CommandBus extends Disposable {
   execute<R extends Result = Result, C extends Command = Command>(
     command: C,
     options?: Partial<ExecuteActionOptions>
-  ): Promise<CommandResult<R>>
+  ): Promise<R>
 
   /**
    * Execute a command but forget the result.

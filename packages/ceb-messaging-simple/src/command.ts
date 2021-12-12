@@ -35,7 +35,7 @@ export class SimpleCommandBus implements CommandBus, Disposable {
   async execute<R extends Result = Result, C extends Command = Command>(
     command: C,
     options?: Partial<ExecuteActionOptions>
-  ): Promise<CommandResult<R>> {
+  ): Promise<R> {
     this.emitter.emit("command_received", {
       bus: this,
       command,
@@ -59,6 +59,7 @@ export class SimpleCommandBus implements CommandBus, Disposable {
         throw error
       })
 
+    // @ts-ignore
     return result || MessageBuilder.result(command).type("empty").build()
   }
 

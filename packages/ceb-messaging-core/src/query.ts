@@ -62,7 +62,7 @@ export interface QueryBus extends Disposable {
   execute<R extends Result = Result, Q extends Query = Query>(
     query: Q,
     options?: Partial<ExecuteActionOptions>
-  ): Promise<QueryResult<R>>
+  ): Promise<R>
 
   /**
    * Register a query handler.

@@ -1,8 +1,8 @@
-import {Gateway} from "@tmorin/ceb-messaging-core"
-import {IpcRendererEventBus} from "./event"
-import {IpcRendererCommandBus} from "./command"
-import {IpcRendererQueryBus} from "./query"
-import {IpcGatewayObserver} from "../common"
+import { Gateway } from "@tmorin/ceb-messaging-core"
+import { IpcRendererEventBus } from "./event"
+import { IpcRendererCommandBus } from "./command"
+import { IpcRendererQueryBus } from "./query"
+import { IpcGatewayObserver } from "../common"
 
 /**
  * The symbol used to register {@link IpcRendererGateway}.

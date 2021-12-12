@@ -1,27 +1,17 @@
 import { IpcMain, IpcMainEvent, webContents } from "electron"
 import any from "promise.any"
-import {
-  Action,
-  ActionResult,
-  ExecuteActionOptions,
-  MessageHeaders,
-  Result,
-  ResultHeaders,
-} from "@tmorin/ceb-messaging-core"
+import { Action, ExecuteActionOptions, Result } from "@tmorin/ceb-messaging-core"
 import { createErrorResult, IpcMessageMetadata } from "../ipc"
 
-export function executeAction<
-  R extends Result<any, ResultHeaders> = Result<any, ResultHeaders>,
-  A extends Action<any, MessageHeaders> = Action<any, MessageHeaders>
->(
+export function executeAction<R extends Result = Result, A extends Action = Action>(
   ipcMain: IpcMain,
   channel: string,
-  executeLocally: () => Promise<ActionResult<R>>,
+  executeLocally: () => Promise<R>,
   action: A,
   options?: Partial<ExecuteActionOptions>
-): Promise<ActionResult<Result<any, ResultHeaders>>> {
+): Promise<Result> {
   // forward to IPC
-  const pIpc = new Promise<ActionResult<R>>((resolve, reject) => {
+  const pIpc = new Promise<R>((resolve, reject) => {
     const listener = (event: IpcMainEvent, data: R, metadata: IpcMessageMetadata) => {
       // leave early if the message type is wrong
       if (action.headers.messageId === metadata.correlationId) {
@@ -45,7 +35,7 @@ export function executeAction<
     webContents.getAllWebContents().forEach((webContent) => webContent.send(channel, action, { waitForResult: true }))
   })
   // forward to parent
-  let pParent: Promise<ActionResult<R>>
+  let pParent: Promise<R>
   try {
     pParent = executeLocally()
   } catch (e) {
@@ -57,7 +47,7 @@ export function executeAction<
 
 export function createIpcListener<A extends Action = Action, R extends Result = Result>(
   channel: string,
-  executeLocally: (action: A, options: Partial<ExecuteActionOptions>) => Promise<ActionResult<R>>,
+  executeLocally: (action: A, options: Partial<ExecuteActionOptions>) => Promise<R>,
   executeLocallyAndForget: (action: A) => any
 ): (event: IpcMainEvent, ...args: any[]) => void {
   return async (event: IpcMainEvent, action: A, metadata: IpcMessageMetadata) => {

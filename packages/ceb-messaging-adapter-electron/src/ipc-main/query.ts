@@ -1,18 +1,17 @@
 import {
-    ExecuteActionOptions,
-    MessageHeaders,
-    Query,
-    QueryBus,
-    QueryHandler,
-    QueryResult,
-    Removable,
-    Result,
-    ResultHeaders,
+  ExecuteActionOptions,
+  MessageHeaders,
+  Query,
+  QueryBus,
+  QueryHandler,
+  Removable,
+  Result,
+  ResultHeaders,
 } from "@tmorin/ceb-messaging-core"
-import {IpcMain} from "electron"
-import {createRemovable, IPC_CHANNEL_QUERIES} from "../ipc"
-import {createIpcListener, executeAction} from "./common"
-import {IpcEmitterQueryBus, IpcObservableQueryBus} from "../common"
+import { IpcMain } from "electron"
+import { createRemovable, IPC_CHANNEL_QUERIES } from "../ipc"
+import { createIpcListener, executeAction } from "./common"
+import { IpcEmitterQueryBus, IpcObservableQueryBus } from "../common"
 
 /**
  * The symbol used to register {@link IpcMainQueryBus}.
@@ -30,10 +29,11 @@ export class IpcMainQueryBus implements QueryBus {
     return this.emitter
   }
 
-  execute<
-    R extends Result<any, ResultHeaders> = Result<any, ResultHeaders>,
-    Q extends Query<any, MessageHeaders> = Query<any, MessageHeaders>
-  >(query: Q, options?: Partial<ExecuteActionOptions>): Promise<QueryResult<R>> {
+  execute<R extends Result = Result, Q extends Query = Query>(
+    query: Q,
+    options?: Partial<ExecuteActionOptions>
+  ): Promise<R> {
+    // @ts-ignore
     return executeAction(this.ipcMain, IPC_CHANNEL_QUERIES, () => this.bus.execute<R>(query, options), query, options)
   }
 

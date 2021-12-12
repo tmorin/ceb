@@ -1,25 +1,15 @@
+import { Action, ActionResult, ExecuteActionOptions, Result } from "@tmorin/ceb-messaging-core"
 import { IpcRenderer, IpcRendererEvent } from "electron"
 import any from "promise.any"
-import {
-  Action,
-  ActionResult,
-  ExecuteActionOptions,
-  MessageHeaders,
-  Result,
-  ResultHeaders,
-} from "@tmorin/ceb-messaging-core"
 import { createErrorResult, IPC_CHANNEL_COMMANDS, IpcMessageMetadata } from "../ipc"
 
-export function executeAction<
-  R extends Result<any, ResultHeaders> = Result<any, ResultHeaders>,
-  A extends Action<any, MessageHeaders> = Action<any, MessageHeaders>
->(
+export function executeAction<R extends Result = Result, A extends Action = Action>(
   ipcRenderer: IpcRenderer,
   channel: string,
   executeLocally: () => Promise<ActionResult<R>>,
   action: A,
   options?: Partial<ExecuteActionOptions>
-): Promise<ActionResult<Result<any, ResultHeaders>>> {
+): Promise<Result> {
   // forward to IPC
   const pIpc = new Promise<ActionResult<R>>((resolve, reject) => {
     const listener = (event: IpcRendererEvent, data: R, metadata: IpcMessageMetadata) => {

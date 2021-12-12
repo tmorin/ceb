@@ -6,7 +6,6 @@ import {
   Query,
   QueryBus,
   QueryHandler,
-  QueryResult,
   Removable,
   Result,
 } from "@tmorin/ceb-messaging-core"
@@ -27,10 +26,10 @@ export class SimpleQueryBus implements QueryBus, Disposable {
     return this.emitter
   }
 
-  async execute<R extends Result = QueryResult, Q extends Query = Query>(
+  async execute<R extends Result = Result, Q extends Query = Query>(
     query: Q,
     options?: Partial<ExecuteActionOptions>
-  ): Promise<QueryResult<R>> {
+  ): Promise<R> {
     this.emitter.emit("query_received", {
       bus: this,
       query,
@@ -43,7 +42,7 @@ export class SimpleQueryBus implements QueryBus, Disposable {
       ...options,
     }
 
-    return await waitForReturn(async () => await handler(query), opts.timeout).catch((error: Error) => {
+    const result = await waitForReturn(async () => await handler(query), opts.timeout).catch((error: Error) => {
       this.emitter.emit("query_handler_failed", {
         bus: this,
         query,
@@ -51,6 +50,9 @@ export class SimpleQueryBus implements QueryBus, Disposable {
       })
       throw error
     })
+
+    // @ts-ignore
+    return result
   }
 
   handle<C extends Query = Query, R extends Result = Result>(
