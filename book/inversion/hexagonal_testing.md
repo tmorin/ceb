@@ -39,5 +39,22 @@ An implementation of the testing model is provided for Jest.
 From the provider point of view, the suites are executed using the JestTestSuiteExecutorBuilder.
 
 ```typescript
-{{#include ../../packages/ceb-book-samples/src/inversion/hexagonal_testing-jest.ts}}
+import { JestTestSuiteExecutorBuilder } from "@tmorin/ceb-inversion-testing-jest"
+import { OnlyConfigureModule } from "@tmorin/ceb-inversion-core"
+import { SuiteA } from "./hexagonal_testing-suite"
+
+describe("ToEmphasize Adapter", function () {
+  JestTestSuiteExecutorBuilder.get(SuiteA)
+    .configure((containerBuilder) => {
+      containerBuilder.module(
+        OnlyConfigureModule.create(async function () {
+          this.registry.registerValue("ToEmphasize", (value: string) =>
+            value.toUpperCase()
+          )
+        })
+      )
+    })
+    .build()
+    .execute()
+})
 ```

@@ -46,7 +46,7 @@ describe("SimpleCommandBus", function () {
 
   describe("when handler not found", () => {
     describe("#execute", () => {
-      it("should notify", async function (done) {
+      it("should notify", function (done) {
         const commandA = createCommandA("hello")
         bus.observe.on("command_handler_not_found", () => {
           done()
