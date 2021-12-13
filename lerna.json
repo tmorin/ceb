@@ -8,6 +8,7 @@
     "packages/ceb-inversion-builder",
     "packages/ceb-inversion-core",
     "packages/ceb-inversion-testing-core",
+    "packages/ceb-inversion-testing-jest",
     "packages/ceb-inversion-testing-mocha",
     "packages/ceb-messaging-adapter-dom",
     "packages/ceb-messaging-adapter-electron",

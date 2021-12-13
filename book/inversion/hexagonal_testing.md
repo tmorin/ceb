@@ -29,3 +29,15 @@ From the provider point of view, the suites are executed using the MochaTestSuit
 ```typescript
 {{#include ../../packages/ceb-book-samples/src/inversion/hexagonal_testing-mocha.ts}}
 ```
+
+## Jest Implementation
+
+> The Jest implementation of the testing model is bundled in the NPM package [@tmorin/ceb-inversion-testing-jest](https://www.npmjs.com/package/@tmorin/ceb-inversion-testing-jest).
+
+An implementation of the testing model is provided for Jest.
+
+From the provider point of view, the suites are executed using the JestTestSuiteExecutorBuilder.
+
+```typescript
+{{#include ../../packages/ceb-book-samples/src/inversion/hexagonal_testing-jest.ts}}
+```

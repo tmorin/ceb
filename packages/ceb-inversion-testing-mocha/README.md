@@ -6,7 +6,7 @@
 [![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_inversion_testing_mocha.html)
 
 > The package is part of the `<ceb/>` library.
-> It provides a model to test IOC containers.
+> It provides a model to test IOC containers with mocha.
 
 ## Install
 

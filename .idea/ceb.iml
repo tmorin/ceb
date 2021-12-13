@@ -12,6 +12,7 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion-builder/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion-core/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion-testing-core/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion-testing-jest/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-inversion-testing-mocha/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-adapter-dom/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-adapter-electron/dist" />

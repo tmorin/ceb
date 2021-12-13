@@ -8,6 +8,7 @@ Inversion Of Control:
 - [@tmorin/ceb-inversion-core](https://www.npmjs.com/package/@tmorin/ceb-inversion-core)
 - [@tmorin/ceb-inversion-builder](https://www.npmjs.com/package/@tmorin/ceb-inversion-builder)
 - [@tmorin/ceb-inversion-testing-core](https://www.npmjs.com/package/@tmorin/ceb-inversion-testing-core)
+- [@tmorin/ceb-inversion-testing-jest](https://www.npmjs.com/package/@tmorin/ceb-inversion-testing-jest)
 - [@tmorin/ceb-inversion-testing-mocha](https://www.npmjs.com/package/@tmorin/ceb-inversion-testing-mocha)
 
 Event/Message Architecture:

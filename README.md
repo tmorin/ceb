@@ -71,6 +71,7 @@ A built-in implementation of the Inversion of Control principle:
 - [ceb-inversion-core](./packages/ceb-inversion-core)
 - [ceb-inversion-builder](./packages/ceb-inversion-builder)
 - [ceb-inversion-testing-core](./packages/ceb-inversion-testing-core)
+- [ceb-inversion-testing-jest](./packages/ceb-inversion-testing-jest)
 - [ceb-inversion-testing-mocha](./packages/ceb-inversion-testing-mocha)
 
 A built-in implementation of the Event/Message architecture:

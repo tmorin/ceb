@@ -1,14 +1,14 @@
 import {
-    Command,
-    CommandKind,
-    Event,
-    EventKind,
-    Message,
-    MessageKind,
-    Query,
-    QueryKind,
-    Result,
-    ResultKind,
+  Command,
+  CommandKind,
+  Event,
+  EventKind,
+  Message,
+  MessageKind,
+  Query,
+  QueryKind,
+  Result,
+  ResultKind,
 } from "@tmorin/ceb-messaging-core"
 
 /**
@@ -139,7 +139,7 @@ export class DomQuery<M extends Query = Query> extends DomMessage<M> {
  * The Custom Event embeds a {@link Event}.
  * When dispatched, the {@link EventForwarder} handles the Custom Event and forwards it to the messaging world.
  */
-export class DomEvent<M extends Event = Event> extends DomMessage<M> {
+export class DomEvent<E extends Event = Event> extends DomMessage<E> {
   /**
    * The kind of the event.
    */
@@ -148,7 +148,7 @@ export class DomEvent<M extends Event = Event> extends DomMessage<M> {
   /**
    * @param message the message
    */
-  constructor(message: M) {
+  constructor(message: E) {
     super(DomEvent.CUSTOM_EVENT_TYPE, message, {
       bubbles: true,
       cancelable: false,
@@ -160,6 +160,22 @@ export class DomEvent<M extends Event = Event> extends DomMessage<M> {
    */
   static get CUSTOM_EVENT_TYPE() {
     return DomMessage.fromKindToType(DomEvent.MESSAGE_KIND)
+  }
+
+  /**
+   * Execute a callback when the type of the event bundled in a DomEvent matches the given one.
+   * @param domEvent the DomEvent
+   * @param messageType the type of the event
+   * @param callback the callback with the bundled event as argument
+   */
+  static async when<E extends Event>(
+    domEvent: DomEvent<E>,
+    messageType: string,
+    callback: (event: E) => void | Promise<void>
+  ): Promise<void> {
+    if (domEvent.detail.headers.messageType === messageType) {
+      return Promise.resolve<any>((async () => callback(domEvent.detail))())
+    }
   }
 }
 
