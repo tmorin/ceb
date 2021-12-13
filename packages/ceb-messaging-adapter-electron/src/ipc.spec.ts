@@ -8,6 +8,7 @@ import { IpcRendererGateway } from "./ipc-renderer"
 import { SimpleModule } from "@tmorin/ceb-messaging-simple-inversion"
 
 describe("ceb-messaging-adapter-electron/ipc", function () {
+  // @ts-ignore
   this.timeout(10000)
   let ipcRendererGateway: IpcRendererGateway
   before(
