@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-inversion-testing-core",
-  "version": "6.1.1-alpha.5",
+  "version": "6.1.1-alpha.6",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides a model to test IOC containers.",
   "keywords": [
@@ -54,6 +54,6 @@
     "test:watch": "npm test -- --watch --watch-files '**/*.ts'"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.5"
+    "@tmorin/ceb-inversion-core": "^6.1.1-alpha.6"
   }
 }
