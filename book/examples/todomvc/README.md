@@ -2,7 +2,7 @@
 
 This example is an implementation of the [TodoMVC](https://todomvc.com) application with `<ceb/>`.
 
-<iframe src="https://codesandbox.io/embed/ceb-example-todomvc-l66ys?fontsize=14&hidenavigation=1&theme=light&view=preview"
+<iframe src="https://codesandbox.io/embed/ceb-example-todomvc-fzll0?fontsize=14&hidenavigation=1&theme=light&view=preview"
 style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
 title="&lt;ceb/&gt; ~ example - TodoMVC"
 allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
@@ -19,54 +19,74 @@ The communication between both concerns the UI and the application logic is mana
 
 ## Codebase
 
-The codebase is composed of three main modules.
+The codebase is composed of four Bounded Contexts organized in modules.
 
-The module `ui` implements the user interface.
-Its implementation focuses only on the user interactions delegating to the module `model` the management of the _application state_.
+### The Bounded Contexts
 
-The module `model` implements the business logic following the [CQRS pattern].
-Its purpose is to handle the commands and queries coming from the UI in order to mutate, persist and then share the new _application state_.
+| Name           | Description                       |
+|----------------|-----------------------------------|
+| Todo           | Manage the todos of the list.     |
+| Filter         | Manage the filtering of the list. |
+| App            | Manage the application lifecycle. |
+| User Interface | Manage the User Interface.        |
 
-Finally, The module `infrastructure` provides the adapters which implement the ports provided by the model.
-Basically, the persistence system used to store the _application state_.
+![The Bounded Contexts](bounded_contexts.png)
 
-## Application state
+### The Module Types
 
-The _application state_ is a data structure used by UI components.
-The `model/app` module produces and shares it as an _integration event_.
-The data comes from the `model/state` module which is responsible to persist and load the values.
+The modules are qualified by _types_.
+The purpose of the _types_ is to organize the source code according to the [Hexagonal Architecture].
 
-![Application state](TodoMVC-application_state_management.png)
+Each bounded context may have modules of the following types: _core_, _api_, _infra_, _ui_ and _e2e_.
 
-## Filter management
+The _core_ modules contain the implementation of the Bounded Context's functionalities.
+They contain also the _ports_ as defined by the Hexagonal Architecture.
 
-The Custom Element `UiFilterList` manages the filter selection with the fragment identifier of the URL displayed a regular HTML anchor elements, i.e. `<a/>`.
-Therefore, on the [haschange] event, the command `ChangeFilter` is executed with the wished filter.
-Because of the causality chain, the integration event `AppStateChanged` will be published with the wished filter.
-So that, `UiFilterList`can highlight the current filter.
+The _api_ modules provides resources to interact with the Bounded Context's functionalities.
+They are mainly composed of message definitions (commands, events, queries and results) and other data structures.
 
-[haschange]: https://developer.mozilla.org/en-US/docs/Web/API/Window/hashchange_event
+The _infra_ modules contain the implementations of _ports_ defined in the _core_ modules, i.e. _adapters_ as defined by the Hexagonal Architecture.
 
-![Filter management](TodoMVC-filter_management.png)
+The _ui_ modules contain resources handling the interactions with humans.
 
-## Add a new todo item
+Finally, the _e2e_ (i.e. end-to-end ) modules contain test suites which can be used by _infra_ modules to validate the implementation of _ports_ coming from _core_ modules.
 
-The Custom Element `UiHeader` displays the form to enter a new todo.
-On its submission, the command cAddTodo` is executed.
-Because of the causality chain, the integration event `AppStateChanged` will be published with the new item.
+## Todo 
 
-![Add a new todo item](TodoMVC-add_todo_item.png)
+This bounded context manages the _todos_ which composes the todo list.
 
-## Manage a todo item
+![The modules of Todo](modules_todo.png)
 
-The Custom Element `UiTodoItem` displays the item content as well as UI artifacts to manage it.
-According to the user interactions, the following commands can be executed: `EditTodo`, `ToggleTodo` and `RemoveTodo`.
-Because of the causality chain, the integration event `AppStateChanged` will be published with underlying changes.
+## Filter
 
-![Manage a todo item](TodoMVC-manage_todo_item.png)
+This bounded context manages the _filtering_ of the todo list.
 
-The Custom Element `UiMain` displays a checkbox which toggle the state of the items.
-When the state of the checkbox changes, the command `ToggleAllTodos` is executed.
-Because of the causality chain, the integration event `AppStateChanged` will be published with the updated items.
+![The modules of Filter](modules_filter.png)
 
-![Toggle items](TodoMVC-toggle_items.png)
+## App
+
+This bounded context manages the _application_ lifecycle.
+The main purpose of the Bounded Context is to produce and publish the application state.
+
+![The modules of App](modules_app.png)
+
+## User Interface
+
+This bounded context manages the user interactions.
+It is composed of only one module, `ui-elements`, which provide an implementation mainly based on Custom Elements.
+
+![The modules of App](modules_ui_elements.png)
+
+## Collaboration between Bounded Contexts
+
+### AddTodo
+
+The command AddTodo adds a new Todo to the todo list.
+The command is triggered by the User Interface then once the causality chain is done, the Integration Event TodosUpdated is published.
+Therefore, the UI can react.
+
+![The AddTodo flow](eventstorming_AddTodo.png)
+
+The flow is similar for the ChangeFilter command.
+
+![The ChangeFilter flow](eventstorming_ChangeFiler.png)

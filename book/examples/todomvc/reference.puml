@@ -1,0 +1,131 @@
+' configures the library
+!global $INCLUSION_MODE="local"
+!global $LIB_BASE_LOCATION="../../../.gdiag/plantuml-libs"
+' loads the library
+!include $LIB_BASE_LOCATION/bootstrap.puml
+' include eventstorming stuff
+
+include('eventstorming/bootstrap')
+include('eventstorming/Element/Aggregate')
+include('eventstorming/Element/Command')
+include('eventstorming/Element/Process')
+include('eventstorming/Element/DomainEvent')
+include('eventstorming/Element/IntegrationEvent')
+include('eventstorming/Element/Service')
+include('eventstorming/Element/Query')
+include('eventstorming/Element/Result')
+include('eventstorming/Element/UserInterface')
+include('eventstorming/Element/Comment')
+
+skinparam {
+  shadowing false
+  handwritten true
+  DefaultFontName Architects Daughter
+  DefaultFontColor #2e3440
+  DefaultFontSize 15
+  DefaultFontStyle normal
+  DefaultTextAlignment left
+
+  PackageFontColor #2e3440
+  PackageBorderColor #2e3440
+  PackageBorderThickness 1
+  PackageBackgroundColor transparent
+
+  ComponentFontColor #2e3440
+  ComponentBorderColor #2e3440
+  ComponentBorderThickness 1
+  ComponentBackgroundColor transparent
+}
+
+' todo
+
+!procedure AddTodo()
+  Command("AddTodo")
+!endprocedure
+
+!procedure EditTodo()
+  Command("EditTodo")
+!endprocedure
+
+!procedure ToggleTodo()
+  Command("ToggleTodo")
+!endprocedure
+
+!procedure ToggleAllTodos()
+  Command("ToggleAllTodos")
+!endprocedure
+
+!procedure RemoveTodo()
+  Command("RemoveTodo")
+!endprocedure
+
+!procedure RemoveCompletedTodos()
+  Command("RemoveCompletedTodos")
+!endprocedure
+
+!procedure TodosUpdated()
+  DomainEvent("TodosUpdated")
+!endprocedure
+
+!procedure ListTodos()
+  Query("ListTodos")
+!endprocedure
+
+!procedure TodoRepository()
+  Service("TodoRepository")
+!endprocedure
+
+!procedure TodoList()
+  Aggregate("TodoList")
+!endprocedure
+
+' filter
+
+!procedure ChangeFilter()
+  Command("ChangeFilter")
+!endprocedure
+
+!procedure FilterUpdated()
+  DomainEvent("FilterUpdated")
+!endprocedure
+
+!procedure GetCurrentFilter()
+  Query("GetCurrentFilter")
+!endprocedure
+
+!procedure FilterRepository()
+  Service("FilterRepository")
+!endprocedure
+
+' app
+
+!procedure StartApp()
+  Command("StartApp")
+!endprocedure
+
+!procedure AppContextUpdated()
+  IntegrationEvent("AppContextUpdated")
+!endprocedure
+
+!procedure FilterUpdatedListener()
+  Process("FilterUpdatedListener")
+!endprocedure
+
+!procedure TodosUpdatedListener()
+  Process("TodosUpdatedListener")
+!endprocedure
+
+!procedure GetCurrentAppState()
+  Query("GetCurrentAppState")
+!endprocedure
+
+!procedure AppContextFactory()
+  Service("AppContextFactory")
+!endprocedure
+
+' ui
+
+!procedure UiApp()
+  UserInterface("UiApp")
+!endprocedure
+

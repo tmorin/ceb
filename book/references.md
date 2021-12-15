@@ -8,6 +8,8 @@
 
 ## Articles
 
+- [Command Query Separation](https://www.martinfowler.com/bliki/CommandQuerySeparation.html)
+- [Command Query Responsibility Segregation](https://martinfowler.com/bliki/CQRS.html)
 - [Hexagonal architecture, by Alistair Cockburn](https://alistair.cockburn.us/hexagonal-architecture)
 
 ## Specifications
