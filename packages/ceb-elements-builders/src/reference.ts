@@ -13,7 +13,7 @@ import { Builder, CustomElementConstructor, ElementBuilder, HooksRegistration } 
  * By default, the selection is done into the Light DOM.
  * Nevertheless, the selection can be done into the Shadow DOM with {@link ReferenceBuilder.shadow}.
  *
- * By default the property type should be a specialization of `Element`.
+ * By default, the property type should be a specialization of `Element`.
  * When the option {@link ReferenceBuilder.array} is used, the property type must be an Array of `Element` specializations.
  *
  * Finally, the builder can be registered using the method {@link ElementBuilder.builder} of the main builder (i.e. {@link ElementBuilder}).

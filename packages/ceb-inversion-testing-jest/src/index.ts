@@ -96,7 +96,7 @@ export class JestTestSuiteExecutor extends AbstractTestSuiteExecutor<void> {
  * ```
  */
 export class JestTestSuiteExecutorBuilder extends AbstractTestSuiteExecutorBuilder<void> {
-  protected constructor(suite: TestSuite) {
+  private constructor(suite: TestSuite) {
     super(suite)
   }
 

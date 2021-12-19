@@ -1,6 +1,6 @@
-import {Callback, CallbackWithContainerBuilder, ContainerBuilderProvider} from "./common"
-import {TestSuite} from "./suite"
-import {ContainerBuilder} from "@tmorin/ceb-inversion-core"
+import { Callback, CallbackWithContainerBuilder, ContainerBuilderProvider } from "./common"
+import { TestSuite } from "./suite"
+import { ContainerBuilder } from "@tmorin/ceb-inversion-core"
 
 /**
  * An executor of test suite.
@@ -48,10 +48,25 @@ export abstract class AbstractTestSuiteExecutor<O = any> implements TestSuiteExe
  */
 export abstract class AbstractTestSuiteExecutorBuilder<O = any> {
   protected constructor(
+    /**
+     * @internal
+     */
     protected _suite: TestSuite,
+    /**
+     * @internal
+     */
     protected _provider?: ContainerBuilderProvider,
+    /**
+     * @internal
+     */
     protected _configurer?: CallbackWithContainerBuilder,
+    /**
+     * @internal
+     */
     protected _before?: Callback,
+    /**
+     * @internal
+     */
     protected _after?: Callback
   ) {}
 

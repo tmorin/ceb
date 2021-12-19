@@ -41,7 +41,7 @@ export interface FieldListener<E extends HTMLElement> {
  *
  * Because of the binding with an attribute, the type of the property has to be either a `string` or a `boolean`.
  * That means, the kind of the field can be _String_ or _Boolean_.
- * The default kind of a field is _String_, the switch to _Boolean_ has to be done explicitly with {@link FieldBuilder.boolean}.
+ * The default kind of field is _String_, the switch to _Boolean_ has to be done explicitly with {@link FieldBuilder.boolean}.
  *
  * By default, the name of the attribute is the the kebab case (`KebabCase_notation` => `kebab-case-notation`) of the property name.
  * However, the attribute name can be overridden with {@link FieldBuilder.attribute}.

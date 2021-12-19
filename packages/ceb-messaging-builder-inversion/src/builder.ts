@@ -20,6 +20,9 @@ export interface ContainerProvider {
 export class GatewayInversionBuilder<E extends HTMLElement> extends AbstractGatewayBuilder<E> {
   private static DEFAULT_CONTAINER: Container
 
+  /**
+   * @internal
+   */
   protected constructor(
     _propName = "gateway",
     private _key: RegistryKey = GatewaySymbol,

@@ -162,7 +162,6 @@ export class DefaultRegistry implements Registry {
   constructor(
     /**
      * A default set of entries.
-     * @private
      */
     private readonly entries = new Map<RegistryKey, Array<Entry<any>>>()
   ) {}

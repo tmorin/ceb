@@ -23,7 +23,7 @@ export class MessageBuilder<
   H extends MessageHeaders = MessageHeaders,
   M extends Message<B, H> = Message<B, H>
 > {
-  constructor(
+  private constructor(
     protected readonly _messageKind: MessageKind,
     protected _messageType: string = _messageKind,
     protected _messageId: string = `${_messageType}-${getNewNbr()}-${Date.now()}}`,

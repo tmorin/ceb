@@ -64,7 +64,7 @@ export interface TargetSelector<E extends HTMLElement> {
  *
  * The event delegation (c.f. jQuery) can be configured with {@link OnBuilder.delegate}.
  *
- * By default the CSS selectors are applied to the Light DOM.
+ * By default, the CSS selectors are applied to the Light DOM.
  * However, they can be applied into the Shadow DOM with {@link OnBuilder.shadow}.
  *
  * Finally, the builder can be registered using the method {@link ElementBuilder.builder} of the main builder (i.e. {@link ElementBuilder}).

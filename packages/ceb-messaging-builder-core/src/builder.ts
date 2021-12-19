@@ -27,6 +27,9 @@ export interface ElementSubscriptionListener<E extends HTMLElement = HTMLElement
  * @template M the type of the Message Event
  */
 export class GatewaySubscriptionBuilder<E extends HTMLElement, M extends Event> {
+  /**
+   * @internal
+   */
   constructor(
     private _gatewayBuilder: AbstractGatewayBuilder<E>,
     private _EventType?: MessageType,
@@ -118,11 +121,13 @@ const BUILDERS = new WeakMap<Element, Map<string, Gateway>>()
  */
 export abstract class AbstractGatewayBuilder<E extends HTMLElement> implements Builder<E> {
   /**
-   * @ignore
    * @internal
    */
   public _propName = "gateway"
 
+  /**
+   * @internal
+   */
   protected constructor(
     protected _gatewayProvider: GatewayProvider,
     _propName = "gateway",

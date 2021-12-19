@@ -6,7 +6,7 @@ import { Builder, CustomElementConstructor, ElementBuilder, HooksRegistration } 
  * The CSS selector which targets the embedded element is handled with {@link PropertyDelegationBuilder.to}.
  *
  * By default, the propagation selects an element in the Light DOM.
- * Nevertheless, the selection can done into the Shadow DOM with {@link PropertyDelegationBuilder.shadow}.
+ * Nevertheless, the selection can be done into the Shadow DOM with {@link PropertyDelegationBuilder.shadow}.
  *
  * By default, the accesses are delegated to the target's property which matches the same name.
  * However, the targeted property name can be changed with {@link PropertyDelegationBuilder.property}.

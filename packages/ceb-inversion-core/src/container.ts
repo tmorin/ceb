@@ -58,7 +58,7 @@ export class Container {
   private readonly modules: Array<Module>
 
   /**
-   * @protected
+   * @internal
    */
   constructor(configuration: Partial<ContainerConfiguration> = {}) {
     const name = configuration.name || `container-${toBase64(String(Date.now()))}`

@@ -1,15 +1,15 @@
-import {Suite} from "mocha"
+import { Suite } from "mocha"
 import {
-    AbstractTestSuiteExecutor,
-    AbstractTestSuiteExecutorBuilder,
-    Callback,
-    CallbackWithContainerBuilder,
-    ContainerBuilderProvider,
-    TestSuite,
-    TestSuiteBuilder,
-    TestSuiteExecutor,
+  AbstractTestSuiteExecutor,
+  AbstractTestSuiteExecutorBuilder,
+  Callback,
+  CallbackWithContainerBuilder,
+  ContainerBuilderProvider,
+  TestSuite,
+  TestSuiteBuilder,
+  TestSuiteExecutor,
 } from "@tmorin/ceb-inversion-testing-core"
-import {Container, ContainerBuilder} from "@tmorin/ceb-inversion-core"
+import { Container, ContainerBuilder } from "@tmorin/ceb-inversion-core"
 
 /**
  * An implementation of {@link AbstractTestSuiteExecutor} dedicated for Mocha.
@@ -96,7 +96,7 @@ export class MochaTestSuiteExecutor extends AbstractTestSuiteExecutor<Suite> {
  * ```
  */
 export class MochaTestSuiteExecutorBuilder extends AbstractTestSuiteExecutorBuilder<Suite> {
-  protected constructor(suite: TestSuite) {
+  private constructor(suite: TestSuite) {
     super(suite)
   }
 

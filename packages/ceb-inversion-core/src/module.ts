@@ -70,6 +70,9 @@ export interface ConfigurableModule {
 export abstract class AbstractModule implements Module, ConfigurableModule {
   private configuration?: ModuleConfiguration
 
+  /**
+   * The registry.
+   */
   get registry(): Registry {
     if (!this.configuration) {
       throw new Error("the module is not initialized because its configuration property is falsy")
@@ -129,14 +132,14 @@ export class OnlyConfigureModule extends AbstractModule {
   }
 
   /**
-   * @protected
+   * @internal
    */
   async configure(): Promise<void> {
     await this._configure.apply(this)
   }
 
   /**
-   * @protected
+   * @internal
    */
   async dispose(): Promise<void> {
     return super.dispose()
