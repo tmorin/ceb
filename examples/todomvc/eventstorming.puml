@@ -1,0 +1,45 @@
+@startuml eventstorming_AddTodo
+!include ./reference.puml
+Title("The AddTodo flow", "Eventstorming")
+package todo {
+  AddTodo()
+  TodoRepository()
+  TodosUpdated()
+}
+package app {
+  TodosUpdatedListener()
+  AppContextFactory()
+  AppContextUpdated()
+}
+component app_ui as "app-ui"
+AddTodo --> TodoRepository : 1. call
+AddTodo --> TodosUpdated : 2. publish
+TodosUpdated <.. TodosUpdatedListener : <<listen>>
+TodosUpdatedListener --> AppContextFactory : 1. call
+TodosUpdatedListener --> AppContextUpdated : 2. publish
+AppContextUpdated <.. app_ui : <<listen>>
+AddTodo <.. app_ui : <<trigger>>
+@enduml
+
+@startuml eventstorming_ChangeFiler
+!include ./reference.puml
+Title("The ChangeFilter flow", "Eventstorming")
+package filter {
+  ChangeFilter()
+  FilterRepository()
+  FilterUpdated()
+}
+package app {
+  FilterUpdatedListener()
+  AppContextFactory()
+  AppContextUpdated()
+}
+component app_ui as "app-ui"
+ChangeFilter --> FilterRepository : 1. call
+ChangeFilter --> FilterUpdated : 2. publish
+FilterUpdated <.. FilterUpdatedListener : <<listen>>
+FilterUpdatedListener --> AppContextFactory : 1. call
+FilterUpdatedListener --> AppContextUpdated : 2. publish
+AppContextUpdated <.. app_ui : <<listen>>
+ChangeFilter <.. app_ui : <<trigger>>
+@enduml

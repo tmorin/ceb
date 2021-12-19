@@ -1,0 +1,59 @@
+@startuml hexagonal_testing-model
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The testing model", "Hexagonal testing")
+left to right direction
+card ExecutorBuilder [
+ExecutorBuilder
+--methods--
+before( ... )
+provide( ... )
+configure( ... )
+after( ... )
+build( ... ) : Executor
+]
+card Executor [
+Executor
+--properties--
+suites
+--methods--
+execute()
+]
+card SuiteBuilder [
+SuiteBuilder
+--methods--
+scenario( ... )
+build( ... ) : Suite
+]
+card Suite [
+Suite
+--properties--
+name
+scenarios
+]
+card ScenarioBuilder [
+ScenarioBuilder
+--methods--
+configure( ... )
+before( ... )
+execute( ... )
+after( ... )
+build( ... ) : Scenario
+]
+card Scenario [
+Scenario
+--properties--
+name
+--methods--
+configure()
+before()
+execute()
+after()
+]
+ExecutorBuilder .r.> Executor
+Executor o--> "*" Suite
+SuiteBuilder .r.> Suite
+Suite o--> "*" Scenario
+ScenarioBuilder .r.> Scenario
+@enduml

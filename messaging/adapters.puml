@@ -1,0 +1,219 @@
+@startuml adapter-dom-command
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("Handling of Command messages", "The DOM adapter")
+include('eip-1/bootstrap')
+include('eip-1/MessagingSystems/MessageSingleGreen')
+include('eip-1/MessagingSystems/MessageSingleOrange')
+include('eip-1/MessagingEndpoints/MessagingGateway')
+include('eip-1/MessagingChannels/MessagingBridge')
+include('eip-1/MessagingSystems/MessageChannel')
+include('eip-1/MessagingEndpoints/Application')
+include('eip-1/MessageConstruction/CommandMessage')
+include('eip-1/MessageConstruction/DocumentMessage')
+include('eip-1/MessageConstruction/ResultMessage')
+
+Application("producer", "producer", "EventTarget")
+MessageChannel("dom_bus", "DOM message bus", "EventTarget")
+MessageSingleGreen("dom_command", "DOM command", "CustomEvent")
+MessageSingleOrange("dom_result", "DOM result", "CustomEvent")
+MessagingBridge("dom_bridge", "DOM bridge")
+CommandMessage("command", "command")
+ResultMessage("result", "result")
+MessagingGateway('gateway', 'gateway')
+
+producer -r-> dom_command
+dom_command -r-> dom_bus
+dom_bus --> dom_bridge
+dom_bridge --> command
+command --> gateway
+gateway -u-> result
+result -u-> dom_bridge
+dom_bridge -l-> dom_result
+dom_result -u-> producer
+@enduml
+
+@startuml adapter-dom-query
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("Handling of Query messages", "The DOM adapter")
+include('eip-1/bootstrap')
+include('eip-1/MessagingSystems/MessageSingleGreen')
+include('eip-1/MessagingSystems/MessageSingleOrange')
+include('eip-1/MessagingEndpoints/MessagingGateway')
+include('eip-1/MessagingChannels/MessagingBridge')
+include('eip-1/MessagingSystems/MessageChannel')
+include('eip-1/MessagingEndpoints/Application')
+include('eip-1/MessageConstruction/QueryMessage')
+include('eip-1/MessageConstruction/DocumentMessage')
+include('eip-1/MessageConstruction/ResultMessage')
+
+Application("producer", "producer", "EventTarget")
+MessageChannel("dom_bus", "DOM message bus", "EventTarget")
+MessageSingleGreen("dom_query", "DOM query", "CustomEvent")
+MessageSingleOrange("dom_result", "DOM result", "CustomEvent")
+MessagingBridge("dom_bridge", "DOM bridge")
+QueryMessage("query", "query")
+ResultMessage("result", "result")
+MessagingGateway('gateway', 'gateway')
+
+producer -r-> dom_query
+dom_query -r-> dom_bus
+dom_bus --> dom_bridge
+dom_bridge --> query
+query --> gateway
+gateway -u-> result
+result -u-> dom_bridge
+dom_bridge -l-> dom_result
+dom_result -u-> producer
+@enduml
+
+@startuml adapter-dom-event
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("Handling of Event messages", "The DOM adapter")
+include('eip-1/bootstrap')
+include('eip-1/MessagingSystems/MessageSingleGreen')
+include('eip-1/MessagingSystems/MessageSingleOrange')
+include('eip-1/MessagingEndpoints/MessagingGateway')
+include('eip-1/MessagingChannels/MessagingBridge')
+include('eip-1/MessagingSystems/MessageChannel')
+include('eip-1/MessagingEndpoints/Application')
+include('eip-1/MessageConstruction/EventMessage')
+include('eip-1/MessageConstruction/DocumentMessage')
+include('eip-1/MessageConstruction/ResultMessage')
+
+Application("publisher", "publisher")
+Application("subscriber", "subscriber")
+MessageChannel("dom_bus", "DOM message bus", "EventTarget")
+MessageSingleGreen("dom_event", "DOM event", "CustomEvent")
+MessagingBridge("dom_bridge", "DOM bridge")
+EventMessage("event", "event")
+MessagingGateway('gateway', 'gateway')
+
+publisher --> dom_event
+subscriber <-- dom_event
+dom_event <-r-> dom_bus
+dom_bus <--> dom_bridge
+dom_bridge <-l-> event
+event <-l-> gateway
+@enduml
+
+@startuml adapter-electron-renderer_to_main
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("From Renderer to Main", "The Electron adapter")
+include('eip-1/bootstrap')
+include('eip-1/MessagingSystems/MessageSingleGreen')
+include('eip-1/MessagingSystems/MessageSingleOrange')
+include('eip-1/MessagingEndpoints/MessagingGateway')
+include('eip-1/MessagingChannels/MessagingBridge')
+include('eip-1/MessagingSystems/MessageChannel')
+include('eip-1/MessagingEndpoints/Application')
+include('eip-1/MessageConstruction/CommandMessage')
+include('eip-1/MessageConstruction/DocumentMessage')
+include('eip-1/MessageConstruction/ResultMessage')
+MessageChannel(ipc, "IPC bus")
+package render_a as "Render Context A" {
+  MessagingGateway(renderer_electron_gateway_a, "Electron gateway", "proxy")
+  MessagingGateway(renderer_gateway_a, "gateway")
+  MessagingBridge(renderer_ipc_bridge_a, "bridge")
+  Application(renderer_a, "producer")
+  renderer_electron_gateway_a ~u~> renderer_gateway_a : <<call>>
+  renderer_a --> renderer_electron_gateway_a
+  renderer_electron_gateway_a --> renderer_ipc_bridge_a
+  renderer_ipc_bridge_a --> ipc
+}
+package render_b as "Render Context B" {
+  Application(renderer_b, "producer")
+  MessagingGateway(renderer_electron_gateway_b, "Electron gateway", "proxy")
+  MessagingGateway(renderer_gateway_b, "gateway")
+  MessagingBridge(renderer_ipc_bridge_b, "bridge")
+  renderer_electron_gateway_b ~u~> renderer_gateway_b : <<call>>
+  renderer_b --> renderer_electron_gateway_b
+  renderer_electron_gateway_b --> renderer_ipc_bridge_b
+  renderer_ipc_bridge_b --> ipc
+}
+package main as "Main Context" {
+  MessagingBridge(main_ipc_bridge_b, "bridge")
+  Application(main_b, "receiver")
+  MessagingGateway(main_electron_gateway_b, "Electron gateway", "proxy")
+  MessagingGateway(main_gateway_b, "gateway")
+  ipc --> main_ipc_bridge_b
+  main_ipc_bridge_b --> main_electron_gateway_b
+  main_electron_gateway_b ~u~> main_gateway_b : <<call>>
+  main_electron_gateway_b --> main_b
+}
+@enduml
+
+@startuml adapter-electron-main_to_renderer
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("From Main to Renderer", "The Electron adapter")
+include('eip-1/bootstrap')
+include('eip-1/MessagingSystems/MessageSingleGreen')
+include('eip-1/MessagingSystems/MessageSingleOrange')
+include('eip-1/MessagingEndpoints/MessagingGateway')
+include('eip-1/MessagingChannels/MessagingBridge')
+include('eip-1/MessagingSystems/MessageChannel')
+include('eip-1/MessagingEndpoints/Application')
+include('eip-1/MessageConstruction/CommandMessage')
+include('eip-1/MessageConstruction/DocumentMessage')
+include('eip-1/MessageConstruction/ResultMessage')
+MessageChannel(ipc, "IPC bus")
+package main as "Main Context" {
+  Application(producer, "producer")
+  MessagingGateway(main_electron_gateway, "Electron gateway", "proxy")
+  MessagingGateway(main_gateway, "gateway")
+  MessagingBridge(main_ipc_bridge, "bridge")
+  producer --> main_electron_gateway
+  main_electron_gateway --> main_ipc_bridge
+  main_electron_gateway ~u~> main_gateway : <<call>>
+  main_ipc_bridge --> ipc
+}
+package render_a as "Render Context A" {
+  MessagingBridge(renderer_ipc_bridge_a, "bridge")
+  MessagingGateway(renderer_gateway_a, "gateway")
+  MessagingGateway(renderer_electron_gateway_a, "Electron gateway", "proxy")
+  Application(renderer_a, "receiver")
+  ipc --> renderer_ipc_bridge_a
+  renderer_ipc_bridge_a --> renderer_electron_gateway_a
+  renderer_electron_gateway_a ~u~> renderer_gateway_a : <<call>>
+  renderer_electron_gateway_a --> renderer_a
+}
+package render_b as "Render Context B" {
+  MessagingBridge(renderer_ipc_bridge_b, "bridge")
+  MessagingGateway(renderer_electron_gateway_b, "Electron gateway", "proxy")
+  MessagingGateway(renderer_gateway_b, "gateway")
+  Application(renderer_b, "receiver")
+  ipc --> renderer_ipc_bridge_b
+  renderer_ipc_bridge_b --> renderer_electron_gateway_b
+  renderer_electron_gateway_b ~u~> renderer_gateway_b : <<call>>
+  renderer_electron_gateway_b --> renderer_b
+}
+@enduml
+
+@startuml adapter-purify
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The buses hierarchy", "The Purify adapter")
+card CommandBus
+card PurifyCommandBus
+card QueryBus
+card PurifyQueryBus
+card EventBus
+card PurifyGateway
+card GatewayObserver
+PurifyGateway o--> PurifyCommandBus
+PurifyCommandBus o--> CommandBus
+PurifyGateway o--> PurifyQueryBus
+PurifyQueryBus o--> QueryBus
+PurifyGateway o--> EventBus
+PurifyGateway o--> GatewayObserver
+@enduml

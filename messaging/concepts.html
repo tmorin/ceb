@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Concepts - &lt;ceb/&gt; ~ Custom Element Builder</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="The book presents the usage of the ceb library.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../index.html"><strong aria-hidden="true">1.</strong> Custom Element Builder</a></li><li class="chapter-item expanded "><a href="../packages.html"><strong aria-hidden="true">2.</strong> Packages</a></li><li class="chapter-item expanded "><a href="../inversion/index.html"><strong aria-hidden="true">3.</strong> Inversion</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inversion/hexagonal_architecture.html"><strong aria-hidden="true">3.1.</strong> Hexagonal Architecture</a></li><li class="chapter-item expanded "><a href="../inversion/ioc.html"><strong aria-hidden="true">3.2.</strong> IOC implementation</a></li><li class="chapter-item expanded "><a href="../inversion/hexagonal_testing.html"><strong aria-hidden="true">3.3.</strong> Hexagonal Testing</a></li></ol></li><li class="chapter-item expanded "><a href="../messaging/index.html"><strong aria-hidden="true">4.</strong> Messaging</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../messaging/concepts.html" class="active"><strong aria-hidden="true">4.1.</strong> Concepts</a></li><li class="chapter-item expanded "><a href="../messaging/messages.html"><strong aria-hidden="true">4.2.</strong> Messages</a></li><li class="chapter-item expanded "><a href="../messaging/gateway.html"><strong aria-hidden="true">4.3.</strong> Gateway</a></li><li class="chapter-item expanded "><a href="../messaging/inversion.html"><strong aria-hidden="true">4.4.</strong> Inversion integration</a></li><li class="chapter-item expanded "><a href="../messaging/implementation.html"><strong aria-hidden="true">4.5.</strong> Reference Implementation</a></li><li class="chapter-item expanded "><a href="../messaging/adapters.html"><strong aria-hidden="true">4.6.</strong> Adapters</a></li></ol></li><li class="chapter-item expanded "><a href="../elements/index.html"><strong aria-hidden="true">5.</strong> Elements</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../elements/ElementBuilder.html"><strong aria-hidden="true">5.1.</strong> ElementBuilder</a></li><li class="chapter-item expanded "><a href="../elements/AttributeBuilder.html"><strong aria-hidden="true">5.2.</strong> AttributeBuilder</a></li><li class="chapter-item expanded "><a href="../elements/FieldBuilder.html"><strong aria-hidden="true">5.3.</strong> FieldBuilder</a></li><li class="chapter-item expanded "><a href="../elements/OnBuilder.html"><strong aria-hidden="true">5.4.</strong> OnBuilder</a></li><li class="chapter-item expanded "><a href="../elements/ContentBuilder.html"><strong aria-hidden="true">5.5.</strong> ContentBuilder</a></li><li class="chapter-item expanded "><a href="../elements/TemplateBuilder.html"><strong aria-hidden="true">5.6.</strong> TemplateBuilder</a></li><li class="chapter-item expanded "><a href="../elements/ReferenceBuilder.html"><strong aria-hidden="true">5.7.</strong> ReferenceBuilder</a></li><li class="chapter-item expanded "><a href="../elements/AttributePropagationBuilder.html"><strong aria-hidden="true">5.8.</strong> AttributePropagationBuilder</a></li><li class="chapter-item expanded "><a href="../elements/PropertyDelegationBuilder.html"><strong aria-hidden="true">5.9.</strong> PropertyDelegationBuilder</a></li></ol></li><li class="chapter-item expanded "><a href="../templating/index.html"><strong aria-hidden="true">6.</strong> Templating</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../templating/grey_dom.html"><strong aria-hidden="true">6.1.</strong> Grey DOM</a></li><li class="chapter-item expanded "><a href="../templating/literal.html"><strong aria-hidden="true">6.2.</strong> Template literal</a></li></ol></li><li class="chapter-item expanded "><a href="../examples/index.html"><strong aria-hidden="true">7.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/todomvc/index.html"><strong aria-hidden="true">7.1.</strong> TodoMVC</a></li><li class="chapter-item expanded "><a href="../examples/ex-greeting.html"><strong aria-hidden="true">7.2.</strong> ex-greeting</a></li></ol></li><li class="chapter-item expanded "><a href="../references.html"><strong aria-hidden="true">8.</strong> References</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">&lt;ceb/&gt; ~ Custom Element Builder</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/tmorin/ceb/" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="concepts"><a class="header" href="#concepts">Concepts</a></h1>
+<p>All Event/Message Architectures rely on common concepts.</p>
+<h2 id="messages"><a class="header" href="#messages">Messages</a></h2>
+<p>A message is a structured piece of information which contains a <em>kind</em>, a set of <em>headers</em> and a <em>body</em>.</p>
+<p><code>&lt;ceb/&gt;</code> recognizes three main kinds of messages:</p>
+<ul>
+<li>A Command expresses the intent of the producer to change the state of the system.</li>
+<li>A Query expresses the intent of the producer to know the state of the system.</li>
+<li>An Event expresses that something has happened in the past.</li>
+</ul>
+<p>An additional one, the Result, is used to provide a feedback to the producer within a Request-Reply scenario.</p>
+<p><img src="concepts-messages.png" alt="The hierarchy of the messages" /></p>
+<h2 id="message-buses"><a class="header" href="#message-buses">Message Buses</a></h2>
+<p>A Message Bus is a component able to handle the sending and reception of messages.</p>
+<p>The described messages are transmitted in buses from their producers to eventual receivers.</p>
+<p><code>&lt;ceb/&gt;</code> recognizes three kind of buses:</p>
+<ul>
+<li>The Command Bus dedicated for the Command messages.</li>
+<li>The Query Bus dedicated for the Query messages.</li>
+<li>The Event Bus dedicated for the Event messages.</li>
+</ul>
+<p>The Command Bus and Query Bus embraces the Point-to-Point Channel characteristics.
+So that, Request-Reply scenario can be implemented, especially for the Query Bus channel where the purpose is get a Result from the query handler.</p>
+<p>On the other hand, the Event Bus relies on the Publish-Subscribe Channel characteristics.</p>
+<p><img src="concepts-bus-command.png" alt="The command bus" /></p>
+<p><img src="concepts-bus-query.png" alt="The query bus" /></p>
+<p><img src="concepts-bus-event.png" alt="The event bus" /></p>
+<h2 id="gateway"><a class="header" href="#gateway">Gateway</a></h2>
+<p>From a user point of view, a gateway is an entry point to produce and consume messages.
+It exposes the three message buses: the Command Bus, the Query Bus and the Event Bus.
+Additionally, an Observer is also available to track some messaging side cases like error handling.</p>
+<p><img src="concepts-gateway.png" alt="The gateway" /></p>
+<h2 id="command-and-query-separation"><a class="header" href="#command-and-query-separation">Command And Query Separation</a></h2>
+<p>The CQS design pattern emphases a strict separation of the APIs about read and write operations.
+At the code level, its implementation is the expressiveness of dedicated programming artifacts for each concern: wrote operations vs read operations.</p>
+<p><img src="concepts-cqs-base-level-code.png" alt="The base at the code level" /></p>
+<p>On an upper level, at the Bounded Context one, the CQS design pattern can be implemented leveraging on messaging systems.</p>
+<ol>
+<li>The Bounded Context's Facade creates and dispatches Commands and Queries to the Gateway.</li>
+<li>Then, the Gateway delegates to the right handler the execution of the action.</li>
+<li>Finally, the implementations of the handlers leverage on the model artifacts (Entity, Service ...) to fulfill the requests.</li>
+</ol>
+<p><img src="concepts-cqs-base-level-bounded-context.png" alt="The base at the bounded context level" /></p>
+<p>The logic of the command handler produces an output which is composed of two items:</p>
+<ul>
+<li>a result which will be sent back to the requester</li>
+<li>as well as an additional set of events which will be published on the event bus</li>
+</ul>
+<p><img src="concepts-cqs-command.png" alt="The command handling" /></p>
+<p>On the other side, the logic of the query handler produces a result which will be sent back to the requester</p>
+<p><img src="concepts-cqs-query.png" alt="The query handling" /></p>
+<h2 id="command-and-query-responsibility-segregation"><a class="header" href="#command-and-query-responsibility-segregation">Command And Query Responsibility Segregation</a></h2>
+<p>When CQS is applied at the software architecture level, an adaptation of the command handling and query handling can be done to strictly segregate the model for the commands and the model for the queries.
+There are many strategies to feed the query model based on the operations made by the command one.
+One of them is to leverage on the events published by the command handling part.
+The ways to feed the query model by events depends on the nature of the application.
+Some can just work with transient events, whereas others may require a more robust approach based on queues or streams of events potentially persisted.</p>
+<p><img src="concepts-cqrs-base-level-bounded-context.png" alt="From CQS to CQRS at the bounded context level" /></p>
+<p>Additionally, the usage of Events can lead to a model driven by the Event Sourcing approach where the produced Event are not just a side effect of the command handling but also its source of truth.</p>
+<h2 id="location-transparency"><a class="header" href="#location-transparency">Location Transparency</a></h2>
+<p>Location Transparency is the ability to share or get resources without the knowledge of their localizations.</p>
+<p>Because of the introduction of the messages and their underlying buses provided by the Gateway, the communication between Bounded Contexts is natively transparent.
+Therefore, only infrastructural components will have to be adapted to move a Bound Context from its original Monolith to a dedicated side Microlith.</p>
+<p><img src="concepts-location-transparency-monolith.png" alt="The original Monolith" /></p>
+<p><img src="concepts-location-transparency-microlith.png" alt="The introduction of a Microlith" /></p>
+<p>Additionally, scaling of Bounded Contexts can be done leveraging only on infrastructural components.</p>
+<p><img src="concepts-location-transparency-scaling.png" alt="The scaling of a Bounded Context" /></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../messaging/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../messaging/messages.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../messaging/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../messaging/messages.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

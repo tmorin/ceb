@@ -1,0 +1,307 @@
+@startuml concepts-messages
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("Hierarchy of the messages")
+card Message [
+  Message
+  --
+  kind
+  headers
+  body
+]
+card Action
+card Command
+card Query
+card Event
+card Result
+Message <|-- Action
+Message <|-- Result
+Action <|-- Command
+Action <|-- Query
+Message <|-- Event
+@enduml
+
+@startuml concepts-bus-command
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+include('eip-1/bootstrap')
+include('eip-1/MessageConstruction/CommandMessage')
+include('eip-1/MessageConstruction/EventMessage')
+include('eip-1/MessagingChannels/DatatypeChannel')
+include('eip-1/MessagingSystems/MessageChannel')
+include('eip-1/MessagingEndpoints/CompetingConsumers')
+include('eip-1/MessagingEndpoints/Application')
+include('eip-1/MessageConstruction/ResultMessage')
+hide empty member
+Title("The command bus")
+Application('producer', 'producer')
+CommandMessage('cmd', 'a command')
+EventMessage('evt', 'an event')
+DatatypeChannel('cmd_bus', 'command bus', 'DatatypeChannel')
+CompetingConsumers('handler', 'command handler', 'CompetingConsumers')
+DatatypeChannel('evt_bus', 'event bus', 'DatatypeChannel')
+MessageChannel('channel', 'result channel', 'MessageChannel')
+ResultMessage('result', 'a result')
+producer -> cmd
+cmd -> cmd_bus
+cmd_bus -> handler
+handler --> evt
+handler --> result
+channel <- result
+producer <- channel
+evt --> evt_bus
+@enduml
+
+@startuml concepts-bus-query
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+include('eip-1/bootstrap')
+include('eip-1/MessageConstruction/EventMessage')
+include('eip-1/MessagingChannels/DatatypeChannel')
+include('eip-1/MessagingSystems/MessageChannel')
+include('eip-1/MessagingEndpoints/CompetingConsumers')
+include('eip-1/MessagingEndpoints/Application')
+include('eip-1/MessageConstruction/QueryMessage')
+include('eip-1/MessageConstruction/ResultMessage')
+Title("The query bus")
+Application('producer', 'producer')
+QueryMessage('qry', 'a query')
+DatatypeChannel('queue', 'query bus', 'DatatypeChannel')
+CompetingConsumers('handler', 'query handler', 'CompetingConsumers')
+MessageChannel('channel', 'result channel', 'MessageChannel')
+ResultMessage('result', 'a result')
+producer -> qry
+qry -> queue
+queue -> handler
+handler --> result
+channel <- result
+producer <- channel
+@enduml
+
+@startuml concepts-bus-event
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+include('eip-1/bootstrap')
+include('eip-1/MessageConstruction/CommandMessage')
+include('eip-1/MessageConstruction/EventMessage')
+include('eip-1/MessagingChannels/DatatypeChannel')
+include('eip-1/MessagingSystems/MessageChannel')
+include('eip-1/MessagingEndpoints/CompetingConsumers')
+include('eip-1/MessagingEndpoints/Application')
+left to right direction
+Title("The event bus")
+Application('producer', 'producer')
+EventMessage('evt', 'an event')
+DatatypeChannel('evt_bus', 'event bus', 'DatatypeChannel')
+Application('consumer_a', 'consumer')
+Application('consumer_b', 'consumer')
+producer --> evt
+evt --> evt_bus
+evt_bus --> consumer_a
+evt_bus --> consumer_b
+@enduml
+
+@startuml concepts-gateway
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+include('eip-1/bootstrap')
+include('eip-1/MessagingEndpoints/Application')
+include('eip-1/MessagingEndpoints/MessagingGateway')
+include('eip-1/MessagingChannels/DatatypeChannel')
+include('eip-1/SystemManagement/ControlBus')
+left to right direction
+Title("The gateway")
+Application('application', 'application')
+MessagingGateway('gateway', 'gateway')
+DatatypeChannel('cmd_bus', 'command bus', 'DatatypeChannel')
+DatatypeChannel('qry_bus', 'query bus', 'DatatypeChannel')
+DatatypeChannel('evt_bus', 'event bus', 'DatatypeChannel')
+ControlBus('ctrl_bus', 'observer', 'ControlBus')
+application --> gateway
+gateway <--> cmd_bus
+gateway <--> evt_bus
+gateway <--> qry_bus
+gateway -> ctrl_bus
+@enduml
+
+@startuml concepts-cqs-base-level-code
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+skinparam wrapWidth 200
+Title("The base at the code level", "Command And Query Separation")
+card Entity [
+An entity
+]
+card InterfaceCommands [
+Interface of commands
+--
+Methods which change the state of a system but do not return a value.
+]
+card ContactQueries [
+Interface of queries
+--
+Methods which Return a result and do not change the observable state of the system.
+]
+InterfaceCommands .u.> Entity : mutate and\npersist
+ContactQueries .u.> Entity : fetch and\nfilter
+@enduml
+
+@startuml concepts-cqs-base-level-bounded-context
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The base at the bounded context level", "Command And Query Separation")
+package BoundedContext as "Bounded Context" {
+  card Facade as "Facade"
+  card Gateway as "Gateway"
+  card CommandHandlers as "Command Handlers"
+  card QueryHandlers as "Query Handlers"
+  card Model as "Model"
+  card Events as "Events"
+}
+Facade --> Gateway : send commands\nand messages
+Gateway --> CommandHandlers : execute
+Gateway --> QueryHandlers : execute
+CommandHandlers --> Model : leverage on
+QueryHandlers --> Model : leverage on
+CommandHandlers -r-> Events : produce
+Gateway --> Events : publish
+@enduml
+
+@startuml concepts-cqs-command
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The command handling", "Command And Query Separation")
+card CommandBus
+card CommandHandler [
+CommandHandler
+--
+handle(command) : output
+]
+card CommandHandlerOutput
+card EventBus
+card Command
+card Event
+card Result
+CommandBus -[hidden]-- EventBus
+CommandBus o-r-> CommandHandler : "  "
+CommandHandler .u.> Command : handle a\n**command**
+CommandHandler .d.> CommandHandlerOutput : produce\nan **output**
+CommandHandlerOutput " * " *-d-> Event
+CommandHandlerOutput *-d-> Result
+EventBus .r.> Event : publish
+Event -[hidden]r- Result
+@enduml
+
+@startuml concepts-cqs-query
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The query handling", "Command And Query Separation")
+card QueryBus
+card QueryHandler [
+QueryHandler
+--
+handle(query) : result
+]
+card Result
+card Query
+QueryBus o-r-> QueryHandler : "  "
+QueryHandler .u.> Query : handle a\n**query**
+QueryHandler .d.> Result : produce\na **result**
+@enduml
+
+@startuml concepts-cqrs-base-level-bounded-context
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("From CQS to CQRS at the bounded context level", "Command Query Responsibility Segregation")
+package BoundedContext as "Bounded Context" {
+  card Facade as "Facade"
+  card Gateway as "Gateway"
+  card CommandHandlers as "Command Handlers"
+  card QueryHandlers as "Query Handlers"
+  card CommandModel as "Command Model"
+  card QueryModel as "Query Model"
+  card Events as "Events"
+}
+Facade --> Gateway : send commands\nand messages
+Gateway --> CommandHandlers : execute
+Gateway --> QueryHandlers : execute
+CommandHandlers --> CommandModel : leverage on
+QueryHandlers --> QueryModel : leverage on
+CommandHandlers -r-> Events : produce
+Gateway --> Events : publish
+QueryModel ~u~> Events : fed by
+@enduml
+
+@startuml concepts-location-transparency-monolith
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The original Monolith", "Location Transparency")
+card Monolith {
+  card BoundedContextA as "Bounded\nContext A"
+  card BoundedContextB as "Bounded\nContext B"
+  card BoundedContextC as "Bounded\nContext C"
+  card BoundedContextD as "Bounded\nContext D"
+  card BoundedContextE as "Bounded\nContext E"
+  BoundedContextA -l- BoundedContextB
+  BoundedContextA -- BoundedContextC
+  BoundedContextA -r- BoundedContextE
+  BoundedContextB -- BoundedContextD
+}
+@enduml
+
+@startuml concepts-location-transparency-microlith
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The introduction of a Microlith", "Location Transparency")
+card MicrolithE as "Microlith E" {
+  card BoundedContextE as "Bounded\nContext E"
+}
+card Monolith as "Monolith" {
+  card BoundedContextA as "Bounded\nContext A"
+  card BoundedContextB as "Bounded\nContext B"
+  card BoundedContextD as "Bounded\nContext D"
+  card BoundedContextC as "Bounded\nContext C"
+  BoundedContextA -l- BoundedContextB
+  BoundedContextA -- BoundedContextC
+  BoundedContextA -r- BoundedContextE
+  BoundedContextB -- BoundedContextD
+}
+@enduml
+
+@startuml concepts-location-transparency-scaling
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The scaling of a Bounded Context", "Location Transparency")
+card MicrolithE as "Microlith E" {
+  card BoundedContextE as "Bounded\nContext E"
+}
+card MicrolithCa as "Microlith C" {
+  card BoundedContextCa as "Bounded\nContext C"
+}
+card MicrolithCb as "Microlith C" {
+  card BoundedContextCb as "Bounded\nContext C"
+}
+card Monolith as "Monolith" {
+  card BoundedContextA as "Bounded\nContext A"
+  card BoundedContextB as "Bounded\nContext B"
+  card BoundedContextD as "Bounded\nContext D"
+  BoundedContextA -l- BoundedContextB
+  BoundedContextA --- BoundedContextCa
+  BoundedContextA --- BoundedContextCb
+  BoundedContextA -r- BoundedContextE
+  BoundedContextB -- BoundedContextD
+}
+@enduml

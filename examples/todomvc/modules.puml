@@ -1,0 +1,78 @@
+@startuml bounded_contexts
+!include ../../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The Bounded Contexts")
+component UI as "User Interface"
+component Filter as "Filter"
+component App as "App"
+component Todo as "Todo"
+Filter <.r. App : <<use>>
+Todo <.l. App : <<use>>
+UI ..> Filter : <<use>>
+UI ..> App : <<use>>
+UI ..> Todo : <<use>>
+@enduml
+
+@startuml modules_filter
+!include ../../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The modules", "The Filter Bounded Context")
+component filter_api as "filter-api"
+component filter_core as "filter-core"
+component filter_e2e as "filter-e2e"
+component filter_infra_browser as "filter-infra-browser"
+filter_api <.. filter_core : <<implement>>
+filter_core <.r. filter_e2e : <<validate>>
+filter_core <.. filter_infra_browser : <<implement>>
+filter_e2e <.. filter_infra_browser : <<execute>>
+@enduml
+
+@startuml modules_todo
+!include ../../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The modules", "The Todo Bounded Context")
+component todo_api as "todo-api"
+component todo_core as "todo-core"
+component todo_e2e as "todo-e2e"
+component todo_infra_browser as "todo-infra-browser"
+todo_api <.. todo_core : <<implement>>
+todo_core <.r. todo_e2e : <<validate>>
+todo_core <.. todo_infra_browser : <<implement>>
+todo_e2e <.. todo_infra_browser : <<execute>>
+@enduml
+
+@startuml modules_app
+!include ../../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The modules", "The App Bounded Context")
+component todo_api as "todo-api"
+component filter_api as "filter-api"
+component app_api as "app-api"
+component app_core as "app-core"
+component app_e2e as "app-e2e"
+component app_infra_browser as "app-infra-browser"
+todo_api <.. app_api : <<use>>
+filter_api <.. app_api : <<use>>
+app_api <.. app_core : <<implement>>
+app_core <.r. app_e2e : <<validate>>
+app_e2e <.. app_infra_browser : <<execute>>
+app_core <.. app_infra_browser : <<implement>>
+@enduml
+
+@startuml modules_ui_elements
+!include ../../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The ui-elements modules", "The UI Bounded Context")
+component todo_api as "todo-api"
+component filter_api as "filter-api"
+component app_api as "app-api"
+component ui_elements as "ui-elements"
+todo_api <.. ui_elements : <<use>>
+filter_api <.. ui_elements : <<use>>
+app_api <.. ui_elements : <<use>>
+@enduml

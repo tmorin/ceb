@@ -1,0 +1,57 @@
+@startuml hexagonal-port_adapter
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("Port and adapter", "Hexagonal Architecture")
+left to right direction
+component model_a as "Model A"
+interface model_a_port as "Port"
+component adapter as "Adapter"
+model_a -- model_a_port
+model_a_port )--# adapter
+@enduml
+
+@startuml hexagonal-port_adapters
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("One Port, many adapters", "Hexagonal Architecture")
+left to right direction
+component model_a as "Model A"
+interface model_a_port as "Port"
+component model_a_fs_adapter as "File System\nImplementation"
+component model_a_mem_adapter as "In-Memory\nImplementation"
+model_a -- model_a_port
+model_a_port )--# model_a_fs_adapter
+model_a_port )--# model_a_mem_adapter
+@enduml
+
+@startuml hexagonal-model_relationships
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The model to model relationship", "Hexagonal Architecture")
+left to right direction
+component model_a as "Model A"
+interface model_a_facade as "Facade"
+component model_b as "Model B"
+model_a #-- model_a_facade
+model_a_facade )-- model_b
+@enduml
+
+@startuml hexagonal-model_modularity
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("Modularity of the model's Facade", "Hexagonal Architecture")
+left to right direction
+component model_a_api as "Model A API"
+interface model_a_facade as "Facade"
+component model_a_core as "Model A Core"
+component model_a_mocked as "Model A Mocked"
+component model_b as "Model B"
+model_a_api -- model_a_facade
+model_a_facade )--# model_a_core
+model_a_facade )--# model_a_mocked
+model_a_facade )-l- model_b
+@enduml
