@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.1](https://github.com/tmorin/ceb/compare/v7.0.0...v7.0.1) (2021-12-19)
+
+
+### Bug Fixes
+
+* NPM Workspaces expected by Typedoc doesn't work well with Lerna ([c283414](https://github.com/tmorin/ceb/commit/c283414cf776d997c3422d8a39028c80f33708ab))
+
+
+
+
+
 # [7.0.0](https://github.com/tmorin/ceb/compare/v6.1.0...v7.0.0) (2021-12-19)
 
 

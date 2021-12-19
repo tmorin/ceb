@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-inversion-testing-jest",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an implementation of the testing model for IOC containers based on Jest.",
   "keywords": [
