@@ -1,9 +1,6 @@
 {
   "name": "ceb",
   "private": true,
-  "workspaces": [
-    "./packages/*"
-  ],
   "engines": {
     "node": ">=16.0.0"
   },
@@ -16,7 +13,7 @@
     "doc:book": "mdbook clean && mdbook build",
     "doc:book:serve": "mdbook serve",
     "doc:book:watch": "mdbook watch",
-    "doc:typedoc": "typedoc",
+    "doc:typedoc": "typedoc --entryPointStrategy packages 'packages/*' .",
     "gdiag": "gdiag --wd book",
     "lerna": "lerna",
     "lint": "eslint .",
