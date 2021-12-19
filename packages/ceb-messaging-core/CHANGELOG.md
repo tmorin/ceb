@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/tmorin/ceb/compare/v6.1.0...v7.0.0) (2021-12-19)
+
+
+### Bug Fixes
+
+* action results must be always defined ([ac6f335](https://github.com/tmorin/ceb/commit/ac6f3352db2e91b226bdbda6849b5c21dd6759c8))
+
+
+### Features
+
+* **ceb-messaging-adapter-purify:** add support to inversion ([6e512af](https://github.com/tmorin/ceb/commit/6e512af0463f0d27b203f1a09f9fddc680d4b60a))
+* **ceb-messaging-core:** add an option to customize the registry key used to resolve the `Gateway` instance ([e5b937f](https://github.com/tmorin/ceb/commit/e5b937f249903566778a49cdad7c0ed82ed0c8be))
+* **ceb-messaging-core:** received messages should be observable ([f9d4205](https://github.com/tmorin/ceb/commit/f9d42056b281ddaeae59239199a4b7442ed73ffa))
+* **ceb-messaging-core:** simplify the bus interface ([6145e07](https://github.com/tmorin/ceb/commit/6145e07fddba77030984ab341944e4cc5e79c5c1))
+* **ceb-messaging-inversion:** `ceb-messaging-inversion` should not depend on Inversion ([cb52ef3](https://github.com/tmorin/ceb/commit/cb52ef3d3068a97cf83d17728c1d15e8e6924fd0))
+* **ceb-messaging:** provide a new implementation with a better integration of functional programming concerns ([f2963ed](https://github.com/tmorin/ceb/commit/f2963edc916eda4a0db1d1bd6e6bb534804a5271))
+* improve the ESM integration ([476a297](https://github.com/tmorin/ceb/commit/476a297575e2311ba599ca678784f71d34666afd))
+
+
+### BREAKING CHANGES
+
+* **ceb-messaging-inversion:** the package `ceb-messaging-inversion` is not more able to discover handlers and listener with Inversion, the feature has been migrated to `ceb-messaging-inversion`
+* **ceb-messaging:** the concepts still remain the same, but the new implementation break almost everything.
+
+
+
+
+
 # [6.0.0](https://github.com/tmorin/ceb/compare/v5.0.2...v6.0.0) (2021-11-18)
 
 

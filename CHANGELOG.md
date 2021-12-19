@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [7.0.0](https://github.com/tmorin/ceb/compare/v6.1.0...v7.0.0) (2021-12-19)
+
+
+### Bug Fixes
+
+* action results must be always defined ([ac6f335](https://github.com/tmorin/ceb/commit/ac6f3352db2e91b226bdbda6849b5c21dd6759c8))
+* enable skipLibCheck to handle conflict between jest and mocha :( ([263a504](https://github.com/tmorin/ceb/commit/263a5043babbd8d8c9b77f223cea1fc33d79cb02))
+* fix imports in examples ([429cb82](https://github.com/tmorin/ceb/commit/429cb8261626f443f590853a43b613bcdadce3a5))
+
+
+### Features
+
+* **book:** improve inversion part ([2ee2caa](https://github.com/tmorin/ceb/commit/2ee2caaef2ffae391073733b791f60000dc1e5f6))
+* **book:** review the book ([e3bd1e1](https://github.com/tmorin/ceb/commit/e3bd1e16da1b1f07c3a4a49be603a11bc434d72f))
+* **ceb-inversion-testing-jest:** Inversion Test Suite should be managed by Jest too ([da1384a](https://github.com/tmorin/ceb/commit/da1384af3818d4c1453d847fbc7c78401258dda6))
+* **ceb-messaging-adapter-dom:** add a new package to deal with messaging in DOM context ([0e60899](https://github.com/tmorin/ceb/commit/0e60899be2ddc5849a7b141b2e9d7bea149ab8c2))
+* **ceb-messaging-adapter-dom:** events should be forwarded from the Gateway to the DOM Event bus too ([6aa7d27](https://github.com/tmorin/ceb/commit/6aa7d27353f0d0920eed959e3e1c656758351bf6))
+* **ceb-messaging-adapter-purify:** add support to inversion ([6e512af](https://github.com/tmorin/ceb/commit/6e512af0463f0d27b203f1a09f9fddc680d4b60a))
+* **ceb-messaging-core:** add an option to customize the registry key used to resolve the `Gateway` instance ([e5b937f](https://github.com/tmorin/ceb/commit/e5b937f249903566778a49cdad7c0ed82ed0c8be))
+* **ceb-messaging-core:** received messages should be observable ([f9d4205](https://github.com/tmorin/ceb/commit/f9d42056b281ddaeae59239199a4b7442ed73ffa))
+* **ceb-messaging-core:** simplify the bus interface ([6145e07](https://github.com/tmorin/ceb/commit/6145e07fddba77030984ab341944e4cc5e79c5c1))
+* **ceb-messaging-dom:** remove the package ([179e34a](https://github.com/tmorin/ceb/commit/179e34a9711895a54fdc7941b089b41965f10f93))
+* **ceb-messaging-inversion:** `ceb-messaging-inversion` should not depend on Inversion ([cb52ef3](https://github.com/tmorin/ceb/commit/cb52ef3d3068a97cf83d17728c1d15e8e6924fd0))
+* **ceb-messaging-simple-inversion:** `ceb-messaging-simple` should not depend on Inversion ([8d0b70f](https://github.com/tmorin/ceb/commit/8d0b70f72f04d268a16a3ce7105da7e8ca8f4f1b))
+* **ceb-messaging:** provide a new implementation with a better integration of functional programming concerns ([f2963ed](https://github.com/tmorin/ceb/commit/f2963edc916eda4a0db1d1bd6e6bb534804a5271))
+* improve the ESM integration ([476a297](https://github.com/tmorin/ceb/commit/476a297575e2311ba599ca678784f71d34666afd))
+
+
+### BREAKING CHANGES
+
+* **ceb-messaging-inversion:** the package `ceb-messaging-inversion` is not more able to discover handlers and listener with Inversion, the feature has been migrated to `ceb-messaging-inversion`
+* **ceb-messaging-dom:** the package `ceb-messaging-dom` is removed and replaced by `ceb-messaging-adapter-dom`
+* **ceb-messaging:** the concepts still remain the same, but the new implementation break almost everything.
+
+
+
+
+
 # [6.1.0](https://github.com/tmorin/ceb/compare/v6.0.3...v6.1.0) (2021-11-19)
 
 

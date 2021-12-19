@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-simple-builder",
-  "version": "6.1.1-alpha.6",
+  "version": "7.0.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides a builder to interact with the Bus in Custom Elements.",
   "keywords": [
@@ -55,11 +55,11 @@
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "dependencies": {
-    "@tmorin/ceb-messaging-builder-core": "^6.1.1-alpha.6",
-    "@tmorin/ceb-messaging-simple": "^6.1.1-alpha.6"
+    "@tmorin/ceb-messaging-builder-core": "^7.0.0",
+    "@tmorin/ceb-messaging-simple": "^7.0.0"
   },
   "devDependencies": {
-    "@tmorin/ceb-elements-core": "^6.1.1-alpha.6",
-    "@tmorin/ceb-messaging-core": "^6.1.1-alpha.6"
+    "@tmorin/ceb-elements-core": "^7.0.0",
+    "@tmorin/ceb-messaging-core": "^7.0.0"
   }
 }

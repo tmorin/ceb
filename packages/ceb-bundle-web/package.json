@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-bundle-web",
-  "version": "6.1.1-alpha.6",
+  "version": "7.0.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It bundles the main features of the library related to the Custom Elements (v1) specification.",
   "keywords": [
@@ -54,9 +54,9 @@
     "build:umd": "webpack --config webpack.prd.js --config webpack.dev.js"
   },
   "dependencies": {
-    "@tmorin/ceb-elements-builders": "^6.1.1-alpha.6",
-    "@tmorin/ceb-elements-core": "^6.1.1-alpha.6",
-    "@tmorin/ceb-templating-builder": "^6.1.1-alpha.6",
-    "@tmorin/ceb-templating-literal": "^6.1.1-alpha.6"
+    "@tmorin/ceb-elements-builders": "^7.0.0",
+    "@tmorin/ceb-elements-core": "^7.0.0",
+    "@tmorin/ceb-templating-builder": "^7.0.0",
+    "@tmorin/ceb-templating-literal": "^7.0.0"
   }
 }
