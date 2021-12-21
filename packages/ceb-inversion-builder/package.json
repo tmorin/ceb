@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-inversion-builder",
-  "version": "7.0.0",
+  "version": "7.0.2",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides a builder to inject entries in Custom Elements.",
   "keywords": [
@@ -54,6 +54,6 @@
   },
   "dependencies": {
     "@tmorin/ceb-elements-core": "^7.0.0",
-    "@tmorin/ceb-inversion-core": "^7.0.0"
+    "@tmorin/ceb-inversion-core": "^7.0.2"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-simple-inversion",
-  "version": "7.0.0",
+  "version": "7.0.2",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an integration of the simple implementation with Inversion.",
   "keywords": [
@@ -55,8 +55,8 @@
     "test:watch": "npm test -- --watch --watch-files '**/*.ts'"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion-core": "^7.0.0",
-    "@tmorin/ceb-messaging-core": "^7.0.0",
-    "@tmorin/ceb-messaging-simple": "^7.0.0"
+    "@tmorin/ceb-inversion-core": "^7.0.2",
+    "@tmorin/ceb-messaging-core": "^7.0.2",
+    "@tmorin/ceb-messaging-simple": "^7.0.2"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-builder-core",
-  "version": "7.0.0",
+  "version": "7.0.2",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides the base implementation of a builder which interacts with a Bus.",
   "keywords": [
@@ -54,6 +54,6 @@
   },
   "dependencies": {
     "@tmorin/ceb-elements-core": "^7.0.0",
-    "@tmorin/ceb-messaging-core": "^7.0.0"
+    "@tmorin/ceb-messaging-core": "^7.0.2"
   }
 }

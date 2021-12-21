@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-inversion-testing-jest",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an implementation of the testing model for IOC containers based on Jest.",
   "keywords": [
@@ -55,8 +55,8 @@
     "test:watch": "npm jest -- --watch --watch-files '**/*.ts'"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion-core": "^7.0.0",
-    "@tmorin/ceb-inversion-testing-core": "^7.0.0"
+    "@tmorin/ceb-inversion-core": "^7.0.2",
+    "@tmorin/ceb-inversion-testing-core": "^7.0.2"
   },
   "devDependencies": {
     "jest": "^27.4.4",
