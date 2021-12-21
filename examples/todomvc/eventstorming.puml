@@ -11,14 +11,14 @@ package app {
   AppContextFactory()
   AppContextUpdated()
 }
-component app_ui as "app-ui"
+component user_interface as "user interface"
 AddTodo --> TodoRepository : 1. call
 AddTodo --> TodosUpdated : 2. publish
 TodosUpdated <.. TodosUpdatedListener : <<listen>>
 TodosUpdatedListener --> AppContextFactory : 1. call
 TodosUpdatedListener --> AppContextUpdated : 2. publish
-AppContextUpdated <.. app_ui : <<listen>>
-AddTodo <.. app_ui : <<trigger>>
+AppContextUpdated <.. user_interface : <<listen>>
+AddTodo <.. user_interface : <<trigger>>
 @enduml
 
 @startuml eventstorming_ChangeFiler
@@ -34,12 +34,12 @@ package app {
   AppContextFactory()
   AppContextUpdated()
 }
-component app_ui as "app-ui"
+component user_interface as "user interface"
 ChangeFilter --> FilterRepository : 1. call
 ChangeFilter --> FilterUpdated : 2. publish
 FilterUpdated <.. FilterUpdatedListener : <<listen>>
 FilterUpdatedListener --> AppContextFactory : 1. call
 FilterUpdatedListener --> AppContextUpdated : 2. publish
-AppContextUpdated <.. app_ui : <<listen>>
-ChangeFilter <.. app_ui : <<trigger>>
+AppContextUpdated <.. user_interface : <<listen>>
+ChangeFilter <.. user_interface : <<trigger>>
 @enduml

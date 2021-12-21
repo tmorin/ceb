@@ -179,9 +179,12 @@ They are mainly composed of message definitions (commands, events, queries and r
 The main purpose of the Bounded Context is to produce and publish the application state.</p>
 <p><img src="modules_app.png" alt="The modules of App" /></p>
 <h2 id="user-interface"><a class="header" href="#user-interface">User Interface</a></h2>
-<p>This bounded context manages the user interactions.
-It is composed of only one module, <code>ui-elements</code>, which provide an implementation mainly based on Custom Elements.</p>
-<p><img src="modules_ui_elements.png" alt="The modules of App" /></p>
+<p>This bounded context manages the user interactions.</p>
+<p>It is composed of two exclusive modules, <code>ui-elements</code> and <code>ui-frp</code>.</p>
+<p>The first one provides an implementation based on Custom Elements and leveraging on the <code>&lt;ceb/&gt;</code> library exclusively.</p>
+<p><img src="modules_ui_elements.png" alt="The ui-elements modules" /></p>
+<p>The second one provides a Functional Reactive Programing implementation which leverages on <code>RxJS</code> for the <em>functional domain</em> and <code>lit-html</code> for the rendering side.</p>
+<p><img src="modules_ui_frp.png" alt="The ui-frp modules" /></p>
 <h2 id="collaboration-between-bounded-contexts"><a class="header" href="#collaboration-between-bounded-contexts">Collaboration between Bounded Contexts</a></h2>
 <h3 id="addtodo"><a class="header" href="#addtodo">AddTodo</a></h3>
 <p>The command AddTodo adds a new Todo to the todo list.
