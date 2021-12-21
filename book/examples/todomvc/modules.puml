@@ -76,3 +76,17 @@ todo_api <.. ui_elements : <<use>>
 filter_api <.. ui_elements : <<use>>
 app_api <.. ui_elements : <<use>>
 @enduml
+
+@startuml modules_ui_frp
+!include ../../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("The ui-frp modules", "The UI Bounded Context")
+component todo_api as "todo-api"
+component filter_api as "filter-api"
+component app_api as "app-api"
+component ui_frp as "ui-frp"
+todo_api <.. ui_frp : <<use>>
+filter_api <.. ui_frp : <<use>>
+app_api <.. ui_frp : <<use>>
+@enduml

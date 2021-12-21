@@ -73,9 +73,16 @@ The main purpose of the Bounded Context is to produce and publish the applicatio
 ## User Interface
 
 This bounded context manages the user interactions.
-It is composed of only one module, `ui-elements`, which provide an implementation mainly based on Custom Elements.
 
-![The modules of App](modules_ui_elements.png)
+It is composed of two exclusive modules, `ui-elements` and `ui-frp`.
+
+The first one provides an implementation based on Custom Elements and leveraging on the `<ceb/>` library exclusively.
+
+![The ui-elements modules](modules_ui_elements.png)
+
+The second one provides a Functional Reactive Programing implementation which leverages on `RxJS` for the _functional domain_ and `lit-html` for the rendering side.
+
+![The ui-frp modules](modules_ui_frp.png)
 
 ## Collaboration between Bounded Contexts
 
