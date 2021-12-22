@@ -6,8 +6,8 @@
 [![api](https://img.shields.io/badge/-api-informational.svg)](https://tmorin.github.io/ceb/api/modules/_tmorin_ceb_messaging_simple.html)
 
 > The package is part of the `<ceb/>` library.
-> It provides a specialization of the core artifacts which leverages on a vanilla TypeScript/JavaScript environment.
-
+> It provides an implementation of the messaging model leveraging on a vanilla TypeScript/JavaScript environment.
+> 
 ## Install
 
 The NPM package is compliant [CommonJs](https://flaviocopes.com/commonjs) and [ES Module](https://flaviocopes.com/es-modules).

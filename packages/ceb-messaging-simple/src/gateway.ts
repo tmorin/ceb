@@ -65,7 +65,7 @@ export class SimpleGateway implements Gateway {
    * - events
    * - commands
    * - queries
-   * - observe
+   * - observer
    */
   async dispose() {
     await this.events.dispose()

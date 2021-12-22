@@ -1,17 +1,10 @@
 import { spy } from "sinon"
 import chai, { assert } from "chai"
 import chasAsPromised from "chai-as-promised"
-import {
-  Action,
-  Command,
-  CommandHandler,
-  Event,
-  GatewayEmitter,
-  MessageBuilder,
-  Result,
-} from "@tmorin/ceb-messaging-core"
-import { SimpleCommandBus } from "./command"
-import { SimpleEventBus } from "./event"
+import { Action, Command, Event, GatewayEmitter, MessageBuilder, Result } from "@tmorin/ceb-messaging-core"
+import { MoleculerEventBus } from "./event"
+import { MoleculerCommandBus } from "./command"
+import { ServiceBroker } from "moleculer"
 
 chai.use(chasAsPromised)
 
@@ -27,74 +20,44 @@ function createEventA(body: string): Event<string> {
   return MessageBuilder.event<string>("EventA").body(body).build()
 }
 
-describe("SimpleCommandBus", function () {
+describe("MoleculerCommandBus", function () {
+  const commandA = createCommandA("hello")
+  const broker = new ServiceBroker({ logger: false })
   let emitter: GatewayEmitter
-  let handlers: Map<string, CommandHandler<any>>
-  let eventBus: SimpleEventBus
-  let bus: SimpleCommandBus
+  let eventBus: MoleculerEventBus
+  let bus: MoleculerCommandBus
   beforeEach(async function () {
     emitter = new GatewayEmitter()
-    handlers = new Map()
-    eventBus = new SimpleEventBus(emitter)
-    bus = new SimpleCommandBus(eventBus, emitter, handlers)
+    eventBus = new MoleculerEventBus(emitter, broker)
+    bus = new MoleculerCommandBus(eventBus, emitter, broker)
   })
   afterEach(async function () {
     emitter.off()
-    await eventBus?.dispose()
-    await bus?.dispose()
-  })
-
-  describe("when handler not found", () => {
-    describe("#execute", () => {
-      it("should notify", function (done) {
-        const commandA = createCommandA("hello")
-        bus.observer.on("command_handler_not_found", () => {
-          done()
-        })
-        bus.execute(commandA).catch(spy())
-      })
-      it("should failed", async function () {
-        const commandA = createCommandA("hello")
-        await assert.isRejected(bus.execute(commandA), "handler not found for CommandA")
-      })
-    })
-    describe("#executeAndForget", () => {
-      it("should notify", function (done) {
-        const commandA = createCommandA("hello")
-        bus.observer.on("command_handler_not_found", () => {
-          done()
-        })
-        bus.executeAndForget(commandA)
-      })
-    })
+    await eventBus.dispose()
+    await bus.dispose()
+    await broker.stop()
   })
 
   describe("when sync handler failed", () => {
+    beforeEach(async () => {
+      bus.handle("CommandA", () => {
+        throw new Error("an error has been thrown")
+      })
+      return broker.start()
+    })
     describe("#execute", () => {
       it("should notify", function (done) {
-        const commandA = createCommandA("hello")
-        bus.handle("CommandA", () => {
-          throw new Error("an error has been thrown")
-        })
         bus.observer.on("command_handler_failed", () => {
           done()
         })
         bus.execute(commandA).catch(spy())
       })
       it("should failed", async function () {
-        const commandA = createCommandA("hello")
-        bus.handle("CommandA", () => {
-          throw new Error("an error has been thrown")
-        })
         await assert.isRejected(bus.execute(commandA), "an error has been thrown")
       })
     })
     describe("#executeAndForget", () => {
       it("should notify", function (done) {
-        const commandA = createCommandA("hello")
-        bus.handle("CommandA", () => {
-          throw new Error("an error has been thrown")
-        })
         bus.observer.on("command_handler_failed", () => {
           done()
         })
@@ -104,31 +67,25 @@ describe("SimpleCommandBus", function () {
   })
 
   describe("when async handler failed", () => {
+    beforeEach(async () => {
+      bus.handle("CommandA", async () => {
+        throw new Error("an error has been thrown")
+      })
+      return broker.start()
+    })
     describe("#execute", () => {
       it("should notify", function (done) {
-        const commandA = createCommandA("hello")
-        bus.handle("CommandA", async () => {
-          throw new Error("an error has been thrown")
-        })
         bus.observer.on("command_handler_failed", () => {
           done()
         })
         bus.execute(commandA).catch(spy())
       })
       it("should failed", async function () {
-        const commandA = createCommandA("hello")
-        bus.handle("CommandA", async () => {
-          throw new Error("an error has been thrown")
-        })
         await assert.isRejected(bus.execute(commandA), "an error has been thrown")
       })
     })
     describe("#executeAndForget", () => {
       it("should notify", function (done) {
-        const commandA = createCommandA("hello")
-        bus.handle("CommandA", async () => {
-          throw new Error("an error has been thrown")
-        })
         bus.observer.on("command_handler_failed", () => {
           done()
         })
@@ -138,11 +95,14 @@ describe("SimpleCommandBus", function () {
   })
 
   describe("when handler return nothing", () => {
+    beforeEach(async () => {
+      bus.handle("CommandA", spy())
+      return broker.start()
+    })
     describe("#execute", () => {
       it("should return EmptyResult", async function () {
-        const commandA = createCommandA("hello")
-        bus.handle("CommandA", spy())
         const resultA = await bus.execute(commandA)
+        broker.logger.info("resultA", resultA)
         assert.property(resultA, "kind", "result")
         assert.property(resultA.headers, "messageType", "empty")
       })
@@ -150,12 +110,14 @@ describe("SimpleCommandBus", function () {
   })
 
   describe("when handler return a result", () => {
+    beforeEach(async () => {
+      bus.handle<Command<string>, Result<string>>("CommandA", (command) => ({
+        result: createResultA(command, command.body),
+      }))
+      return broker.start()
+    })
     describe("#execute", () => {
       it("should return the result", async function () {
-        const commandA = createCommandA("hello")
-        bus.handle<Command<string>, Result<string>>("CommandA", (command) => ({
-          result: createResultA(command, command.body),
-        }))
         const resultA = await bus.execute(commandA)
         assert.property(resultA, "kind", "result")
         assert.property(resultA, "body", "hello")
@@ -165,26 +127,30 @@ describe("SimpleCommandBus", function () {
 
   describe("when handler return a result and events", () => {
     describe("#execute", () => {
-      it("should return the result", function (done) {
-        const commandA = createCommandA("hello")
-        eventBus.subscribe("EventA", () => {
-          done()
-        })
+      beforeEach(async () => {
         bus.handle<Command<string>, Result<string>, [Event]>("CommandA", () => ({
           events: [createEventA("hello")],
         }))
+        return broker.start()
+      })
+      it("should return the result", function (done) {
+        eventBus.subscribe("EventA", () => {
+          done()
+        })
         bus.execute(commandA).catch(spy())
       })
     })
     describe("#executeAndForget", () => {
-      it("should return the result", function (done) {
-        const commandA = createCommandA("hello")
-        eventBus.subscribe("EventA", () => {
-          done()
-        })
+      beforeEach(async () => {
         bus.handle<Command<string>, Result<string>, [Event]>("CommandA", () => ({
           events: [createEventA("hello")],
         }))
+        return broker.start()
+      })
+      it("should return the result", function (done) {
+        eventBus.subscribe("EventA", () => {
+          done()
+        })
         bus.executeAndForget(commandA)
       })
     })

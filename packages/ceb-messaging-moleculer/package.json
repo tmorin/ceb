@@ -1,8 +1,8 @@
 {
-  "name": "@tmorin/ceb-messaging-adapter-purify",
+  "name": "@tmorin/ceb-messaging-moleculer",
   "version": "7.0.2",
   "license": "MIT",
-  "description": "The package is part of the `<ceb/>` library. It provides an adapter of Gateways which integrates Purify types.",
+  "description": "The package is part of the `<ceb/>` library. It provides an implementation of the messaging model leveraging on Moleculer.",
   "keywords": [
     "custom-element-builder",
     "custom-elements-v1",
@@ -16,7 +16,7 @@
     "bus",
     "event-bus",
     "message-bus",
-    "purify"
+    "moleculer"
   ],
   "homepage": "https://tmorin.github.io/ceb",
   "bugs": {
@@ -56,15 +56,12 @@
     "test:watch": "npm test -- --watch --watch-files '**/*.ts'"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion-core": "^7.0.2",
     "@tmorin/ceb-messaging-core": "^7.0.2"
   },
   "peerDependencies": {
-    "purify-ts": "*"
+    "moleculer": "*"
   },
   "devDependencies": {
-    "@tmorin/ceb-messaging-simple": "^7.0.2",
-    "@tmorin/ceb-messaging-simple-inversion": "^7.0.2",
-    "purify-ts": "^1.1.0"
+    "moleculer": "^0.14.18"
   }
 }

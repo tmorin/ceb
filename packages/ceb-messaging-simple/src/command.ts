@@ -28,7 +28,7 @@ export class SimpleCommandBus implements CommandBus, Disposable {
     private readonly handlers = new Map<string, CommandHandler<any, any, any>>()
   ) {}
 
-  get observe(): ObservableCommandBus {
+  get observer(): ObservableCommandBus {
     return this.emitter
   }
 

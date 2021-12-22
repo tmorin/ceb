@@ -11,7 +11,7 @@
   - [Messages](messaging/messages.md)
   - [Gateway](messaging/gateway.md)
   - [Inversion integration](messaging/inversion.md)
-  - [Reference Implementation](messaging/implementation.md)
+  - [Implementations](messaging/implementations.md)
   - [Adapters](messaging/adapters.md)
 - [Elements](elements/README.md)
   - [ElementBuilder](elements/ElementBuilder.md)
