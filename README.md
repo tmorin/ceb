@@ -79,6 +79,7 @@ A built-in implementation of the Event/Message architecture:
 - [ceb-messaging-core](./packages/ceb-messaging-core)
 - [ceb-messaging-inversion](./packages/ceb-messaging-inversion)
 - [ceb-messaging-moleculer](./packages/ceb-messaging-moleculer)
+- [ceb-messaging-moleculer-inversion](./packages/ceb-messaging-moleculer-inversion)
 - [ceb-messaging-simple](./packages/ceb-messaging-simple)
 - [ceb-messaging-simple-builder](./packages/ceb-messaging-simple-builder)
 - [ceb-messaging-builder-core](./packages/ceb-messaging-builder-core)

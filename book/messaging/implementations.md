@@ -39,7 +39,7 @@ The constructor approach provides a fine grain control of the Gateway dependenci
 
 ### The Inversion Module
 
-The package provides an Inversion Module which can be used to create (optionally) and publish the SimpleGateway instance on the registry.
+The package provides an Inversion Module which can be used to create (optionally) and register it on the registry.
 
 Create a container with the default module behavior, i.e. the SimpleGateway will be created from scratch automatically:
 ```typescript
@@ -57,7 +57,7 @@ Create a container with a provided SimpleGateway instance:
 
 The [Moleculer] implementation leverages on the features provided by the microservices framework.
 
-## Management of Commands and Queries
+### Management of Commands and Queries
 
 There is one [Moleculer service] per command or query types.
 For instance, the command type `CommandA` will be managed by the service `CommandA`.
@@ -73,7 +73,7 @@ The action executes the query handler and return the result.
 For instance, the query type `QueryA` can be executed within the Moleculer world with the action `QueryA.execute`.
 The action accepts only one parameter: the query.
 
-## Management of Events
+### Management of Events
 
 The Events are managed by a single [Moleculer service]: `EventBus`.
 Each time an Event is published, the type of [Moleculer event] is `Event.MESSAGE_TYPE`.
@@ -82,6 +82,20 @@ For instance, when the Event `EventA` is published, the Moleculer event name is 
 By default, the implementation publish messaging using the _balanced_ mode.
 Because of the single Moleculer service `EventBus`, it means each Event will only be handled by only one service in the cluster.
 
+### The Inversion Module
+
+The package provides an Inversion Module which can be used to create the MoleculerGateway instance and register it on the registry.
+
+Create a container with the default module behavior, i.e. a ServiceBroker is expected in the registry:
+```typescript
+{{#include ../../packages/ceb-book-samples/src/messaging/moleculer-inversion-registrykey.ts}}
+```
+
+Create a container with a provided ServiceBroker instance.
+In that case, the provided ServiceBroker will be registered in the registry.
+```typescript
+{{#include ../../packages/ceb-book-samples/src/messaging/moleculer-inversion-instance.ts}}
+```
 
 [Moleculer]: https://moleculer.services
 [Moleculer service]: https://moleculer.services/docs/0.14/actions.html

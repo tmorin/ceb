@@ -9,7 +9,6 @@ import {
   SubscribeOptions,
 } from "@tmorin/ceb-messaging-core"
 import { Context, Service, ServiceBroker, ServiceEvent } from "moleculer"
-import { type } from "typedoc/dist/lib/output/themes/default/partials/type"
 
 /**
  * The map of the internal events for events handling.

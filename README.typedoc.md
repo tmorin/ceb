@@ -38,6 +38,7 @@ A built-in implementation of the Event/Message architecture:
 - [ceb-messaging-core](modules/_tmorin_ceb_messaging_core.html)
 - [ceb-messaging-inversion](modules/_tmorin_ceb_messaging_inversion.html)
 - [ceb-messaging-moleculer](modules/_tmorin_ceb_messaging_moleculer.html)
+- [ceb-messaging-moleculer-inversion](modules/_tmorin_ceb_messaging_moleculer_inversion.html)
 - [ceb-messaging-simple](modules/_tmorin_ceb_messaging_simple.html)
 - [ceb-messaging-simple-builder](modules/_tmorin_ceb_messaging_simple_builder.html)
 - [ceb-messaging-simple-inversion](modules/_tmorin_ceb_messaging_simple_inversion.html)

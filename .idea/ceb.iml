@@ -23,6 +23,7 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-core/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-inversion/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-moleculer/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-moleculer-inversion/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-simple-builder/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-simple/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/ceb-messaging-simple-inversion/dist" />

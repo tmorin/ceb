@@ -37,9 +37,12 @@
     "@tmorin/ceb-inversion-testing-mocha": "^7.0.2",
     "@tmorin/ceb-messaging-core": "^7.0.2",
     "@tmorin/ceb-messaging-inversion": "^7.0.2",
+    "@tmorin/ceb-messaging-moleculer": "^7.0.2",
+    "@tmorin/ceb-messaging-moleculer-inversion": "^7.0.2",
     "@tmorin/ceb-messaging-simple": "^7.0.2",
     "@tmorin/ceb-messaging-simple-inversion": "^7.0.2",
     "@tmorin/ceb-templating-builder": "^7.0.0",
-    "@tmorin/ceb-templating-literal": "^7.0.0"
+    "@tmorin/ceb-templating-literal": "^7.0.0",
+    "moleculer": "^0.14.18"
   }
 }
