@@ -17,7 +17,7 @@ export interface ContainerProvider {
  * @example Inject an entry resolving its key from the property name
  * ```typescript
  * import {ElementBuilder} from "@tmorin/ceb-elements-core"
- * import {ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion-core"
+ * import {ContainerBuilder, ModuleBuilder} from "@tmorin/ceb-inversion-core"
  * import {InversionBuilder, InversionBuilderModule} from "@tmorin/ceb-inversion-builder"
  *
  * // define the Custom Element
@@ -35,10 +35,12 @@ export interface ContainerProvider {
  * // build the container
  * ContainerBuilder.get()
  *   .module(new InversionBuilderModule())
- *   .module(OnlyConfigureModule.create(async function () {
- *     // register the "greeting" value
- *     this.registry.registerFactory<string>("greeting", () => "Hello, World!")
- *   })
+ *   .module(
+ *     ModuleBuilder.get().configure(() => registry {
+ *       // register the "greeting" value
+ *       registry.registerFactory<string>("greeting", () => "Hello, World!")
+ *     }).build()
+ *   )
  *   .initialize()
  *   .then(_ => document.body.appendChild(new TestElement()))
  * ```

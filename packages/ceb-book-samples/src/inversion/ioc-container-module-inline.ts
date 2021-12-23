@@ -1,19 +1,18 @@
-import {
-  ContainerBuilder,
-  OnlyConfigureModule,
-} from "@tmorin/ceb-inversion-core"
+import { ContainerBuilder, ModuleBuilder } from "@tmorin/ceb-inversion-core"
 
 ContainerBuilder.get()
   .module(
-    OnlyConfigureModule.create(async function () {
-      // register a name
-      this.registry.registerValue("name", "John Doe")
-      // register a factory
-      this.registry.registerFactory(
-        "greeting",
-        (registry) => `Hello, ${registry.resolve("name")}!`
-      )
-    })
+    ModuleBuilder.get()
+      .configure(function (registry) {
+        // register a name
+        registry.registerValue("name", "John Doe")
+        // register a factory
+        registry.registerFactory(
+          "greeting",
+          (registry) => `Hello, ${registry.resolve("name")}!`
+        )
+      })
+      .build()
   )
   .build()
   .initialize()

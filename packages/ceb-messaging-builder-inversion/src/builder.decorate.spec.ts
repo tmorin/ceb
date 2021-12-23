@@ -1,7 +1,7 @@
 import { assert } from "chai"
 import { ElementBuilder } from "@tmorin/ceb-elements-core"
 import { Gateway, GatewaySymbol } from "@tmorin/ceb-messaging-core"
-import { Container, ContainerBuilder, OnlyConfigureModule } from "@tmorin/ceb-inversion-core"
+import { Container, ContainerBuilder, ModuleBuilder } from "@tmorin/ceb-inversion-core"
 import { GatewayInversionBuilder } from "./builder"
 import { GatewayInversionBuilderModule } from "./module"
 import { SimpleGateway } from "@tmorin/ceb-messaging-simple"
@@ -36,9 +36,11 @@ describe("ceb-messaging-builder-inversion/builder/decorate", function () {
     spiedSubscribe = spy(gateway.events, "subscribe")
     container = await ContainerBuilder.get()
       .module(
-        OnlyConfigureModule.create(async function () {
-          this.registry.registerValue(GatewaySymbol, gateway)
-        })
+        ModuleBuilder.get()
+          .configure(function (registry) {
+            registry.registerValue(GatewaySymbol, gateway)
+          })
+          .build()
       )
       .module(new GatewayInversionBuilderModule())
       .build()

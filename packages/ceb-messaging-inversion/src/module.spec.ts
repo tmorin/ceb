@@ -1,13 +1,21 @@
 import chai, { assert } from "chai"
 import chasAsPromised from "chai-as-promised"
 import { spy } from "sinon"
-import { Container, ContainerBuilder, OnlyConfigureModule } from "@tmorin/ceb-inversion-core"
-import { Action, Command, Event, Gateway, GatewaySymbol, MessageBuilder, Result } from "@tmorin/ceb-messaging-core"
+import { Container, ContainerBuilder, ModuleBuilder } from "@tmorin/ceb-inversion-core"
+import {
+  Action,
+  Command,
+  Event,
+  Gateway,
+  GatewaySymbol,
+  MessageBuilder,
+  Query,
+  Result,
+} from "@tmorin/ceb-messaging-core"
 import { SimpleGateway } from "@tmorin/ceb-messaging-simple"
 import { DiscoverableEventListener, DiscoverableEventListenerSymbol } from "./event"
 import { DiscoverableCommandHandler, DiscoverableCommandHandlerSymbol } from "./command"
 import { MessagingModule } from "./module"
-import { Query } from "@tmorin/ceb-messaging-core/src"
 import { DiscoverableQueryHandler, DiscoverableQueryHandlerSymbol } from "./query"
 
 chai.use(chasAsPromised)
@@ -53,12 +61,14 @@ describe("ceb-messaging-inversion/MessagingModule", function () {
     container = await ContainerBuilder.get()
       .module(new MessagingModule())
       .module(
-        OnlyConfigureModule.create(async function () {
-          this.registry.registerValue(GatewaySymbol, SimpleGateway.create())
-          this.registry.registerValue(DiscoverableEventListenerSymbol, eventListener)
-          this.registry.registerValue(DiscoverableCommandHandlerSymbol, commandHandler)
-          this.registry.registerValue(DiscoverableQueryHandlerSymbol, queryHandler)
-        })
+        ModuleBuilder.get()
+          .configure(function (registry) {
+            registry.registerValue(GatewaySymbol, SimpleGateway.create())
+            registry.registerValue(DiscoverableEventListenerSymbol, eventListener)
+            registry.registerValue(DiscoverableCommandHandlerSymbol, commandHandler)
+            registry.registerValue(DiscoverableQueryHandlerSymbol, queryHandler)
+          })
+          .build()
       )
       .build()
       .initialize()

@@ -1,10 +1,10 @@
 import { assert } from "chai"
 import { ElementBuilder } from "@tmorin/ceb-elements-core"
 import { Gateway, GatewaySymbol } from "@tmorin/ceb-messaging-core"
-import { Container, ContainerBuilder, OnlyConfigureModule } from "@tmorin/ceb-inversion-core"
+import { Container, ContainerBuilder, ModuleBuilder } from "@tmorin/ceb-inversion-core"
+import { SimpleGateway } from "@tmorin/ceb-messaging-simple"
 import { GatewayInversionBuilder } from "./builder"
 import { GatewayInversionBuilderModule } from "./module"
-import { SimpleGateway } from "@tmorin/ceb-messaging-simple"
 
 describe("ceb-messaging-builder-inversion/builder", function () {
   let container: Container
@@ -26,10 +26,12 @@ describe("ceb-messaging-builder-inversion/builder", function () {
 
       container = await ContainerBuilder.get()
         .module(
-          OnlyConfigureModule.create(async function () {
-            this.registry.registerValue(GatewaySymbol, gateway)
-            this.registry.registerValue("gatewayAlternative", gateway)
-          })
+          ModuleBuilder.get()
+            .configure(function (registry) {
+              registry.registerValue(GatewaySymbol, gateway)
+              registry.registerValue("gatewayAlternative", gateway)
+            })
+            .build()
         )
         .module(new GatewayInversionBuilderModule())
         .build()
@@ -76,10 +78,12 @@ describe("ceb-messaging-builder-inversion/builder", function () {
     before(async function () {
       container = await ContainerBuilder.get()
         .module(
-          OnlyConfigureModule.create(async function () {
-            this.registry.registerValue(GatewaySymbol, gateway)
-            this.registry.registerValue("gatewayAlternative", gateway)
-          })
+          ModuleBuilder.get()
+            .configure(async function (registry) {
+              registry.registerValue(GatewaySymbol, gateway)
+              registry.registerValue("gatewayAlternative", gateway)
+            })
+            .build()
         )
         .build()
         .initialize()

@@ -1,4 +1,4 @@
-import { AbstractModule, ComponentSymbol, RegistryKey } from "@tmorin/ceb-inversion-core"
+import { AbstractModule, ComponentSymbol, Container, ContainerSymbol, RegistryKey } from "@tmorin/ceb-inversion-core"
 import {
   CommandBusSymbol,
   EmittableGateway,
@@ -144,12 +144,17 @@ export class MoleculerModule extends AbstractModule {
     )
     this.registry.registerFactory<MoleculerEventBus>(
       this.options.eventsRegistryKey,
-      (registry) =>
-        new MoleculerEventBus(
+      (registry) => {
+        const options: Partial<MoleculerEventBusOptions> = {
+          moleculerGroup: registry.resolve<Container>(ContainerSymbol).name,
+          ...this.options.eventBusOptions,
+        }
+        return new MoleculerEventBus(
           registry.resolve<GatewayEmitter>(this.options.emitterRegistryKey),
           registry.resolve<ServiceBroker>(this.options.brokerRegistryKey),
-          this.options.eventBusOptions
-        ),
+          options
+        )
+      },
       { singleton: true }
     )
     this.registry.registerFactory<MoleculerCommandBus>(

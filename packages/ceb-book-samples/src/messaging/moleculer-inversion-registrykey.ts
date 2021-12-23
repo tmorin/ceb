@@ -1,7 +1,4 @@
-import {
-  ContainerBuilder,
-  OnlyConfigureModule,
-} from "@tmorin/ceb-inversion-core"
+import { ContainerBuilder, ModuleBuilder } from "@tmorin/ceb-inversion-core"
 import {
   Gateway,
   GatewaySymbol,
@@ -16,12 +13,14 @@ import { ServiceBroker } from "moleculer"
 ContainerBuilder.get()
   // create a service broker
   .module(
-    OnlyConfigureModule.create(async function () {
-      this.registry.registerFactory<ServiceBroker>(
-        ServiceBrokerSymbol,
-        () => new ServiceBroker()
-      )
-    })
+    ModuleBuilder.get()
+      .configure(function (registry) {
+        registry.registerFactory<ServiceBroker>(
+          ServiceBrokerSymbol,
+          () => new ServiceBroker()
+        )
+      })
+      .build()
   )
   // register the module which build the Moleculer Gateway
   .module(new MoleculerModule())

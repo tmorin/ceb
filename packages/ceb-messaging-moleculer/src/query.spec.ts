@@ -1,11 +1,9 @@
 import chai, { assert } from "chai"
 import chasAsPromised from "chai-as-promised"
-import { Action, GatewayEmitter, MessageBuilder, Query, QueryHandler, Result } from "@tmorin/ceb-messaging-core"
+import { Action, GatewayEmitter, MessageBuilder, Query, Result } from "@tmorin/ceb-messaging-core"
 import { spy } from "sinon"
 import { MoleculerQueryBus } from "./query"
 import { ServiceBroker } from "moleculer"
-import { MoleculerEventBus } from "./event"
-import { MoleculerCommandBus } from "./command"
 
 chai.use(chasAsPromised)
 

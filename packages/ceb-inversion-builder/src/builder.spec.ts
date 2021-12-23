@@ -1,5 +1,5 @@
 import { assert } from "chai"
-import { Container, ContainerBuilder, OnlyConfigureModule } from "@tmorin/ceb-inversion-core"
+import { Container, ContainerBuilder, ModuleBuilder } from "@tmorin/ceb-inversion-core"
 import { ElementBuilder } from "@tmorin/ceb-elements-core"
 import { InversionBuilder } from "./builder"
 import { InversionBuilderModule } from "./module"
@@ -22,13 +22,15 @@ describe("inversion/builder", function () {
       container = await ContainerBuilder.get()
         .module(new InversionBuilderModule())
         .module(
-          OnlyConfigureModule.create(async function () {
-            this.registry.registerFactory<ServiceA>("ServiceA", () => new ServiceA())
-            this.registry.registerFactory<ServiceB>(
-              "ServiceB",
-              (registry) => new ServiceB(registry.resolve<ServiceA>("ServiceA"))
-            )
-          })
+          ModuleBuilder.get()
+            .configure(function (registry) {
+              registry.registerFactory<ServiceA>("ServiceA", () => new ServiceA())
+              registry.registerFactory<ServiceB>(
+                "ServiceB",
+                (registry) => new ServiceB(registry.resolve<ServiceA>("ServiceA"))
+              )
+            })
+            .build()
         )
         .build()
         .initialize()
@@ -66,13 +68,15 @@ describe("inversion/builder", function () {
     before(async () => {
       container = await ContainerBuilder.get()
         .module(
-          OnlyConfigureModule.create(async function () {
-            this.registry.registerFactory<ServiceA>("ServiceA", () => new ServiceA())
-            this.registry.registerFactory<ServiceB>(
-              "ServiceB",
-              (registry) => new ServiceB(registry.resolve<ServiceA>("ServiceA"))
-            )
-          })
+          ModuleBuilder.get()
+            .configure(function (registry) {
+              registry.registerFactory<ServiceA>("ServiceA", () => new ServiceA())
+              registry.registerFactory<ServiceB>(
+                "ServiceB",
+                (registry) => new ServiceB(registry.resolve<ServiceA>("ServiceA"))
+              )
+            })
+            .build()
         )
         .build()
         .initialize()

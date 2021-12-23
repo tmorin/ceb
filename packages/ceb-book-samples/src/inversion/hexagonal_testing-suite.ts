@@ -1,5 +1,5 @@
 import { assert } from "chai"
-import { OnlyConfigureModule } from "@tmorin/ceb-inversion-core"
+import { ModuleBuilder } from "@tmorin/ceb-inversion-core"
 import {
   TestScenarioBuilder,
   TestSuiteBuilder,
@@ -10,15 +10,17 @@ export const SuiteA = TestSuiteBuilder.get("ToEmphasize Port")
     TestScenarioBuilder.get("Greeting target is emphasized")
       .configure((containerBuilder) => {
         containerBuilder.module(
-          OnlyConfigureModule.create(async function () {
-            this.registry.registerFactory("Greeting", (registry) => {
-              // expect an adapter of the port "ToEmphasize"
-              const toEmphasize =
-                registry.resolve<(value: string) => string>("ToEmphasize")
-              // use the adapter to emphasize the target name
-              return `Hello, ${toEmphasize("john doe")}`
+          ModuleBuilder.get()
+            .configure(function (registry) {
+              registry.registerFactory("Greeting", (registry) => {
+                // expect an adapter of the port "ToEmphasize"
+                const toEmphasize =
+                  registry.resolve<(value: string) => string>("ToEmphasize")
+                // use the adapter to emphasize the target name
+                return `Hello, ${toEmphasize("john doe")}`
+              })
             })
-          })
+            .build()
         )
       })
       .execute((container) => {

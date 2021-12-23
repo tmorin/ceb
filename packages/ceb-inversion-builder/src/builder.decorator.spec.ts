@@ -1,5 +1,5 @@
 import { assert } from "chai"
-import { Container, ContainerBuilder, OnlyConfigureModule } from "@tmorin/ceb-inversion-core"
+import { Container, ContainerBuilder, ModuleBuilder } from "@tmorin/ceb-inversion-core"
 import { ElementBuilder } from "@tmorin/ceb-elements-core"
 import { InversionBuilder } from "./builder"
 import { InversionBuilderModule } from "./module"
@@ -27,16 +27,18 @@ describe("inversion/builder/decorator", function () {
     container = await ContainerBuilder.get()
       .module(new InversionBuilderModule())
       .module(
-        OnlyConfigureModule.create(async function () {
-          this.registry.registerFactory<ServiceA>("serviceA", () => new ServiceA())
-          this.registry.registerFactory<ServiceB>(
-            "serviceB",
-            (registry) => new ServiceB(registry.resolve<ServiceA>("serviceA"))
-          )
-          this.registry.registerFactory<ServiceB>(Symbol.for("serviceBWithSymbol"), (registry) =>
-            registry.resolve<ServiceB>("serviceB")
-          )
-        })
+        ModuleBuilder.get()
+          .configure(function (registry) {
+            registry.registerFactory<ServiceA>("serviceA", () => new ServiceA())
+            registry.registerFactory<ServiceB>(
+              "serviceB",
+              (registry) => new ServiceB(registry.resolve<ServiceA>("serviceA"))
+            )
+            registry.registerFactory<ServiceB>(Symbol.for("serviceBWithSymbol"), (registry) =>
+              registry.resolve<ServiceB>("serviceB")
+            )
+          })
+          .build()
       )
       .build()
       .initialize()

@@ -51,9 +51,9 @@ export interface ConfigurableModule {
  *
  * @example Implement and register a module
  * ```typescript
- * import inversion from "@tmorin/ceb-inversion-core"
+ * import {ContainerBuilder, AbstractModule} from "@tmorin/ceb-inversion-core"
  * // implement a module
- * class GreetingModule extends inversion.AbstractModule {
+ * class GreetingModule extends AbstractModule {
  *   constructor() {
  *     super()
  *   }
@@ -62,7 +62,7 @@ export interface ConfigurableModule {
  *   }
  * }
  * // register the module
- * const container = inversion.ContainerBuilder.get()
+ * const container = ContainerBuilder.get()
  *   .module(new GreetingModule())
  *   .build()
  * ```
@@ -100,48 +100,108 @@ export abstract class AbstractModule implements Module, ConfigurableModule {
   async dispose(): Promise<void> {}
 }
 
+class InlineModule extends AbstractModule {
+  private readonly _configure: (this: ConfigurableModule, registry: Registry) => any
+  private readonly _dispose: (this: ConfigurableModule, registry: Registry) => any
+
+  public constructor(
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    configureCb: (...args: Array<any>) => any = () => {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    disposeCb: (...args: Array<any>) => any = () => {}
+  ) {
+    super()
+    this._configure = configureCb.bind(this)
+    this._dispose = disposeCb.bind(this)
+  }
+
+  async configure(): Promise<void> {
+    await Promise.resolve((async () => this._configure(this.registry))())
+  }
+
+  async dispose(): Promise<void> {
+    await Promise.resolve((async () => this._dispose(this.registry))())
+  }
+}
+
 /**
  * An helper class to define module using an "inline" approach.
  *
  * @example register an inline module
  * ```typescript
- * import inversion from "@tmorin/ceb-inversion-core"
- * const container = inversion.ContainerBuilder.get()
- *   .module(inversion.OnlyConfigureModule.create(() => {
- *       this.registry.registerValue("greeting", "hello, World!")
+ * import {ContainerBuilder, OnlyConfigureModule} from "@tmorin/ceb-inversion-core"
+ * const container = ContainerBuilder.get()
+ *   .module(OnlyConfigureModule.create((registry) => {
+ *       registry.registerValue("greeting", "hello, World!")
  *   }))
  *   .build()
  * ```
+ * @deprecated replaced by {@link ModuleBuilder}
  */
-export class OnlyConfigureModule extends AbstractModule {
-  private constructor(private readonly _configure: (this: ConfigurableModule) => Promise<void>) {
-    super()
+export class OnlyConfigureModule extends InlineModule {
+  private constructor(cb: (...args: Array<any>) => any) {
+    super(cb)
   }
 
   /**
-   * Create a fresh module from a lambda.
+   * Create a fresh module from a callback where the registry is available within the context.
    *
    * The context (i.e. `this`) is an instance of {@link ConfigurableModule}.
-   * Therefore, `this.registry` is available.
+   * Therefore, the {@link Registry} is available with`this.registry`.
    *
-   * @param cb the lambda to configure the module
+   * @param cb the callback to configure the module
    * @return the fresh module
    */
-  static create(cb: (this: ConfigurableModule) => Promise<void>) {
+  static create(cb: (this: ConfigurableModule) => any): OnlyConfigureModule {
     return new OnlyConfigureModule(cb)
   }
+}
 
-  /**
-   * @internal
-   */
-  async configure(): Promise<void> {
-    await this._configure.apply(this)
+/**
+ * Create a module on the fly.
+ *
+ * @example register an inline module
+ * ```typescript
+ * import {ContainerBuilder, ModuleBuilder} from "@tmorin/ceb-inversion-core"
+ * const container = ContainerBuilder.get()
+ *   .module(ModuleBuilder.configure((registry) => {
+ *       registry.registerValue("greeting", "hello, World!")
+ *   }).build())
+ *   .build()
+ * ```
+ */
+export class ModuleBuilder {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private _configure: (this: ConfigurableModule, registry: Registry) => any = () => {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private _dispose: (this: ConfigurableModule, registry: Registry) => any = () => {}
+
+  static get(): ModuleBuilder {
+    return new ModuleBuilder()
   }
 
   /**
-   * @internal
+   * Provide the `configure` callback.
+   * @param cb the callback
    */
-  async dispose(): Promise<void> {
-    return super.dispose()
+  configure(cb: (registry: Registry) => any): this {
+    this._configure = cb
+    return this
+  }
+
+  /**
+   * Provide the `dispose` callback.
+   * @param cb the callback
+   */
+  dispose(cb: (registry: Registry) => any): this {
+    this._dispose = cb
+    return this
+  }
+
+  /**
+   * Build the module.
+   */
+  build(): Module {
+    return new InlineModule(this._configure, this._dispose)
   }
 }

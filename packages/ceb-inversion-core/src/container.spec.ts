@@ -2,7 +2,7 @@ import { assert } from "chai"
 import { SinonSpy, spy } from "sinon"
 import { Container, ContainerBuilder } from "./container"
 import { DefaultRegistry } from "./registry"
-import { OnlyConfigureModule } from "./module"
+import { ModuleBuilder } from "./module"
 import { ComponentSymbol } from "./component"
 
 describe("inversion/container", () => {
@@ -38,14 +38,18 @@ describe("inversion/container", () => {
     const spyDispose2: SinonSpy = mock2.dispose
     const container = await ContainerBuilder.get()
       .module(
-        OnlyConfigureModule.create(async function () {
-          this.registry.registerValue(ComponentSymbol, mock1)
-        })
+        ModuleBuilder.get()
+          .configure((registry) => {
+            registry.registerValue(ComponentSymbol, mock1)
+          })
+          .build()
       )
       .module(
-        OnlyConfigureModule.create(async function () {
-          this.registry.registerFactory(ComponentSymbol, () => mock2)
-        })
+        ModuleBuilder.get()
+          .configure((registry) => {
+            registry.registerFactory(ComponentSymbol, () => mock2)
+          })
+          .build()
       )
       .build()
       .initialize()
