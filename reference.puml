@@ -39,6 +39,10 @@ skinparam {
   RectangleBorderColor #2e3440
   RectangleBorderThickness 1
 
+  NodeFontColor #2e3440
+  NodeBorderColor #2e3440
+  NodeBorderThickness 1
+
   PackageFontName Architects Daughter
   PackageFontStyle normal
   PackageBorderColor #2e3440

@@ -1,0 +1,89 @@
+@startuml moleculer-balanced-monolith
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("Event Balancer and Monolith", "The Moleculer implementation")
+package node_a as "node 1" {
+  card component_a [
+    CommandA (Meleculer Service)
+    --
+    emit("EventBus.EventA", ...)
+  ]
+  card eventbus_a [
+    EventBus (Meleculer Service)
+    --listeners--
+    EventBus.EventA
+    EventBus.EventB
+  ]
+}
+package node_b as "node 2" {
+  card eventbus_b [
+    EventBus (Meleculer Service)
+    --listeners--
+    EventBus.EventA
+    EventBus.EventB
+  ]
+  card component_b [
+    CommandA (Meleculer Service)
+    --
+    emit("EventBus.EventA", ...)
+  ]
+}
+package node_c as "node 3" {
+  card eventbus_c [
+    EventBus (Meleculer Service)
+    --listeners--
+    EventBus.EventA
+    EventBus.EventB
+  ]
+  card component_c [
+    CommandA (Meleculer Service)
+    --
+    emit("EventBus.EventA", ...)
+  ]
+}
+component_a --> eventbus_b : send to only one EventBus
+node_a -[hidden]- node_b
+node_b -[hidden]- node_c
+@enduml
+
+@startuml moleculer-balanced-microlith
+!include ../reference.puml
+!global $LIB_BASE_LOCATION="../../.gdiag/plantuml-libs"
+!global $IMAGE_BASE_PATH="../../.gdiag/plantuml-libs/"
+Title("Event Balancer and Microliths", "The Moleculer implementation")
+rectangle context_a as "Bounded Context A" {
+  card eventbus_a [
+    EventBus (Meleculer Service)
+    group: Bounded Context A
+    --listeners--
+    EventBus.EventA
+  ]
+  card component_a [
+    CommandA (Meleculer Service)
+    --
+    emit("EventBus.EventA", ...)
+  ]
+}
+rectangle context_b_1 as "Bounded Context B" {
+  card eventbus_b_1 [
+    EventBus (Meleculer Service)
+    group: Bounded Context B
+    --listeners--
+    EventBus.EventA
+    EventBus.EventB
+  ]
+}
+rectangle context_b_2 as "Bounded Context B" {
+  card eventbus_b_2 [
+    EventBus (Meleculer Service)
+    group: Bounded Context B
+    --listeners--
+    EventBus.EventA
+    EventBus.EventB
+  ]
+}
+component_a --> eventbus_b_1 : send to only one EventBus for the Bounded Context B
+component_a -r-> eventbus_a : send to only one EventBus for the Bounded Context A
+eventbus_b_1 -[hidden]r- eventbus_b_2
+@enduml
