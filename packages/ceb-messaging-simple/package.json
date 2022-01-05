@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-simple",
-  "version": "7.0.2",
+  "version": "7.1.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an implementation of the messaging model leveraging on a vanilla TypeScript/JavaScript environment.",
   "keywords": [
@@ -55,6 +55,6 @@
     "test:watch": "npm test -- --watch --watch-files '**/*.ts'"
   },
   "dependencies": {
-    "@tmorin/ceb-messaging-core": "^7.0.2"
+    "@tmorin/ceb-messaging-core": "^7.1.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@tmorin/ceb-messaging-core",
-  "version": "7.0.2",
+  "version": "7.1.0",
   "license": "MIT",
   "description": "The package is part of the `<ceb/>` library. It provides an implementation of the main artifacts of an Event/Message architecture.",
   "keywords": [
@@ -55,6 +55,6 @@
     "test:watch": "npm test -- --watch --watch-files '**/*.ts'"
   },
   "dependencies": {
-    "@tmorin/ceb-inversion-core": "^7.0.2"
+    "@tmorin/ceb-inversion-core": "^7.1.0"
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "@tmorin/ceb-book-samples",
   "private": true,
-  "version": "7.0.2",
+  "version": "7.1.0",
   "license": "MIT",
   "homepage": "https://tmorin.github.io/ceb",
   "bugs": {
@@ -32,15 +32,15 @@
   "dependencies": {
     "@tmorin/ceb-elements-builders": "^7.0.2",
     "@tmorin/ceb-elements-core": "^7.0.0",
-    "@tmorin/ceb-inversion-core": "^7.0.2",
-    "@tmorin/ceb-inversion-testing-core": "^7.0.2",
-    "@tmorin/ceb-inversion-testing-mocha": "^7.0.2",
-    "@tmorin/ceb-messaging-core": "^7.0.2",
-    "@tmorin/ceb-messaging-inversion": "^7.0.2",
-    "@tmorin/ceb-messaging-moleculer": "^7.0.2",
-    "@tmorin/ceb-messaging-moleculer-inversion": "^7.0.2",
-    "@tmorin/ceb-messaging-simple": "^7.0.2",
-    "@tmorin/ceb-messaging-simple-inversion": "^7.0.2",
+    "@tmorin/ceb-inversion-core": "^7.1.0",
+    "@tmorin/ceb-inversion-testing-core": "^7.1.0",
+    "@tmorin/ceb-inversion-testing-mocha": "^7.1.0",
+    "@tmorin/ceb-messaging-core": "^7.1.0",
+    "@tmorin/ceb-messaging-inversion": "^7.1.0",
+    "@tmorin/ceb-messaging-moleculer": "^7.1.0",
+    "@tmorin/ceb-messaging-moleculer-inversion": "^7.1.0",
+    "@tmorin/ceb-messaging-simple": "^7.1.0",
+    "@tmorin/ceb-messaging-simple-inversion": "^7.1.0",
     "@tmorin/ceb-templating-builder": "^7.0.0",
     "@tmorin/ceb-templating-literal": "^7.0.0",
     "moleculer": "^0.14.18"
