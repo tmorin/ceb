@@ -12,9 +12,9 @@ export class QueryForwarder implements Component {
   constructor(readonly target: EventTarget = window, readonly gateway: Gateway) {}
 
   async configure(): Promise<void> {
-    this.domListener = async (event: Event) => {
+    this.domListener = (event: Event) => {
       if (event instanceof DomQuery) {
-        await this.gateway.queries
+        this.gateway.queries
           .execute(event.detail, {
             timeout: event.options.timeout,
           })

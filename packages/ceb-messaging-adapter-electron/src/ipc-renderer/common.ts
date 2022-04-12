@@ -51,16 +51,22 @@ export function createIpcListener<A extends Action = Action, R extends Result = 
   executeLocally: (action: A, options: Partial<ExecuteActionOptions>) => Promise<ActionResult<R>>,
   executeLocallyAndForget: (action: A) => any
 ): (event: IpcRendererEvent, ...args: any[]) => void {
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   return async (event: IpcRendererEvent, action: A, metadata: IpcMessageMetadata) => {
     if (metadata.waitForResult) {
-      try {
-        const result = await executeLocally(action, { timeout: metadata.timeout })
-        ipcRenderer.send(IPC_CHANNEL_COMMANDS, result, { correlationId: action.headers.messageId })
-      } catch (error: any) {
-        ipcRenderer.send(IPC_CHANNEL_COMMANDS, createErrorResult(action, error), {
-          correlationId: action.headers.messageId,
-        })
-      }
+      executeLocally(action, {
+        timeout: metadata.timeout,
+      })
+        .then((result) =>
+          ipcRenderer.send(IPC_CHANNEL_COMMANDS, result, {
+            correlationId: action.headers.messageId,
+          })
+        )
+        .catch((error) =>
+          ipcRenderer.send(IPC_CHANNEL_COMMANDS, createErrorResult(action, error), {
+            correlationId: action.headers.messageId,
+          })
+        )
     } else {
       executeLocallyAndForget(action)
     }

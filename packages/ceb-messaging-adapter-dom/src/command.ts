@@ -12,10 +12,10 @@ export class CommandForwarder implements Component {
   constructor(readonly target: EventTarget = window, readonly gateway: Gateway) {}
 
   async configure(): Promise<void> {
-    this.domListener = async (event: Event) => {
+    this.domListener = (event: Event) => {
       if (event instanceof DomCommand) {
         if (event.options.dispatchResult) {
-          await this.gateway.commands
+          this.gateway.commands
             .execute(event.detail, {
               timeout: event.options.timeout,
             })
