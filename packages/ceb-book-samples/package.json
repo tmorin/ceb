@@ -26,7 +26,7 @@
   "main": "dist/cjs/index.js",
   "module": "dist/mjs/index.js",
   "scripts": {
-    "test": "karma start --single-run --no-auto-watch --browsers FirefoxHeadless,ChromeHeadless",
+    "test": "karma start --single-run --no-auto-watch --browsers ChromeHeadless",
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "dependencies": {

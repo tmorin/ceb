@@ -51,7 +51,7 @@
     "build:fix": "../../scripts/fix-dist.js",
     "build:lib": "tsc -p tsconfig.build.json --module CommonJS --outDir dist/cjs --declaration --declarationDir dist/types",
     "build:module": "tsc -p tsconfig.build.json --module ESNext --outDir dist/mjs",
-    "test": "karma start --single-run --no-auto-watch --browsers FirefoxHeadless,ChromeHeadless",
+    "test": "karma start --single-run --no-auto-watch --browsers ChromeHeadless",
     "test:watch": "karma start --no-single-run --auto-watch --browsers Firefox"
   },
   "dependencies": {

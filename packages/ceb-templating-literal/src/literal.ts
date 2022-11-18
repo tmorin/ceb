@@ -144,7 +144,7 @@ export function html(strings: TemplateStringsArray, ...args: Array<any>): Templa
     openTag(name: string, attrs: Array<Attribute>, selfClosing: boolean) {
       const parameters = generateParameters(attrs, args)
       if (PROTECTED_TAGS.indexOf(name) > -1) {
-        Object.assign(parameters.options, {
+        Object.assign(parameters.options || {}, {
           slot: true,
         })
       }
