@@ -13,7 +13,7 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
           scope: '@tmorin'
-      - name: Udpate apt
+      - name: Update apt
         run: sudo apt-get update
       - name: Install apt dependencies
         run: sudo apt-get install -y xvfb firefox chromium-browser
