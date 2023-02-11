@@ -23,7 +23,7 @@
     "test:watch": "lerna run --stream test:watch"
   },
   "devDependencies": {
-    "@tmorin/plantuml-libs": "^6.4.0",
+    "@tmorin/plantuml-libs": "^10.1.0a",
     "@types/chai": "^4.2.22",
     "@types/chai-as-promised": "^7.1.4",
     "@types/mocha": "^10.0.0",
@@ -32,7 +32,7 @@
     "@typescript-eslint/parser": "^5.5.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
-    "electron": "^22.0.0",
+    "electron": "^23.0.0",
     "eslint": "^8.3.0",
     "eslint-plugin-node": "^11.1.0",
     "karma": "^6.3.9",

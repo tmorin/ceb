@@ -43,6 +43,6 @@
     "@tmorin/ceb-messaging-simple-inversion": "^7.1.0",
     "@tmorin/ceb-templating-builder": "^7.0.0",
     "@tmorin/ceb-templating-literal": "^7.0.0",
-    "moleculer": "^0.14.18"
+    "moleculer": "^0.14.28"
   }
 }

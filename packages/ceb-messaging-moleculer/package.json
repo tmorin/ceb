@@ -62,6 +62,6 @@
     "moleculer": "*"
   },
   "devDependencies": {
-    "moleculer": "^0.14.18"
+    "moleculer": "^0.14.28"
   }
 }
