@@ -1,0 +1,13 @@
+{
+    "out": "public/api",
+    "readme": "README.typedoc.md",
+    "entryPoints": [
+        "packages/*",
+        "."
+    ],
+    "exclude": [
+        "./packages/ceb-book-samples",
+        "./packages/ceb-bundle-web"
+    ],
+    "entryPointStrategy": "legacy-packages"
+}

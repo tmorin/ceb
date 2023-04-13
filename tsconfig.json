@@ -1,23 +1,19 @@
 {
-  "compilerOptions": {
-    "strict": true,
-    "module": "CommonJS",
-    "moduleResolution": "Node",
-    "target": "ES6",
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "lib": [
-      "ES6",
-      "DOM"
-    ]
-  },
-  "typedocOptions": {
-    "out": "public/api",
-    "readme": "README.typedoc.md"
-  },
-  "formatCodeOptions": {
-    "indentSize": 4,
-    "tabSize": 4
-  }
+    "compilerOptions": {
+        "strict": true,
+        "module": "CommonJS",
+        "moduleResolution": "Node",
+        "target": "ES6",
+        "experimentalDecorators": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "lib": [
+            "ES6",
+            "DOM"
+        ]
+    },
+    "formatCodeOptions": {
+        "indentSize": 4,
+        "tabSize": 4
+    }
 }

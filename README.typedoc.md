@@ -1,4 +1,4 @@
-# `<ceb/>` ~ custom-element-builder
+# ceb ~ custom-element-builder
 
 > `<ceb/>` was initially a library dedicated for the authoring of [Custom Elements (v0)] then [Custom Elements (v1)].
 > However, the library is now providing building blocks going beyond the topic of composable UI elements.
